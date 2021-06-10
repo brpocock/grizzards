@@ -1,0 +1,509 @@
+%
+% Grizzards printable manual
+%
+% This needs a lot of work yet.
+%
+% If you're a human, skip to "\mainmatter" to skip over the preamble.
+%
+\documentclass[10pt,twoside,openright]{memoir}
+\usepackage{geometry}
+\geometry{height=6in,width=4in}
+\usepackage[utf8]{inputenc}
+\usepackage{babel}
+\usepackage{tgtermes}
+\usepackage{hyperref}
+\usepackage[protrusion=true,expansion=true]{microtype}
+
+\checkandfixthelayout
+
+\title{Grizzards Player's Guide}
+\author{Bruce-Robert Pocock}
+
+%% TV Standard
+
+\ifdefined\TVNTSC
+  \newcommand\TV{NTSC}
+  \newcommand\REGION{US, Canada, Mexico, Japan}
+\else
+  \ifdefined\TVPAL
+    \newcommand\TV{PAL}
+    \newcommand\REGION{Europe (except France)}
+  \else
+    \ifdefined\TVSECAM
+      \newcommand\TV{SECAM}
+      \newcommand\REGION{France, Russia, Africa}
+    \else
+      \error{Must define a TV standard}
+    \fi
+  \fi
+\fi
+
+%% BEGIN TITLE
+
+\makeatletter
+\def\maketitle{%
+  \null
+  \thispagestyle{empty}%
+  \vfill
+  \begin{center}\leavevmode
+    \normalfont
+    {\LARGE\raggedleft \@author\par}%
+    \hrulefill\par
+    {\huge\raggedright \@title\par}%
+    \vskip 1cm
+  \end{center}%
+  \vfill
+  \null
+  \cleardoublepage
+  }
+\makeatother
+
+%%% BEGIN DOCUMENT
+
+\begin{document}
+
+\let\cleardoublepage\clearpage
+
+
+\maketitle
+
+\frontmatter
+
+\null\vfill
+
+\begin{flushleft}
+\textit{Grizzards}
+
+
+Copyright © 2020, Bruce-Robert Pocock
+
+This version is for systems in \REGION{} using the \TV{} television
+standard. For Atari 2600 or 7800 with AtariVox.
+
+
+
+
+\thedate
+
+\bigskip
+
+All rights reserved.
+
+\end{flushleft}
+\let\cleardoublepage\clearpage
+
+\mainmatter
+
+\chapter{Introduction}
+
+Long ago,  the world was  troubled by  monsters. The Three  Sages united
+their powers at the temples to protect the villages of Aclypt.
+
+The Sage Uron in the Temple of  the Sea protected the rivers, lakes, and
+beaches  from  sea monsters.  The  Sage  Eril  in  the Temple  of  Lands
+protected from  monsters on the ground.  The Sage Ybor in  the Temple of
+the Sky protected from flying monsters.
+
+For many  years this magic has  protected Aclypt. Your village  of Hapri
+has been safe and quiet your entire life.
+
+Recently, though, a traveler named  Ferris reached your village from the
+nearby town  of Albron. He  tells you that  Albron is being  attacked by
+monsters from the nearby forest  of Prulin. Your village's elder, Roton,
+has chosen you to go to Albron and help protect them.
+
+Your mission  is to  defend Albron,  and then  continue onward  into the
+greater  world to  the Temple  of Lands  to see  why its  power did  not
+protect Albron.
+
+\chapter{Setting Up}
+
+To play Grizzards, you will need:
+
+\begin{itemize}
+\item An Atari 2600 Video Computer System or Atari 7800 ProSystem
+\item A TV or video display
+\item A joystick controller
+\item An AtariVox device with (optional) speakers or headphones
+\item The Grizzards game cartridge
+\end{itemize}
+
+Set up your  Atari Video Computer System or ProSystem  with your TV or
+video  display.  Connect  a  joystick controller  to  the  \emph{left}
+controller  port,   and  the  AtariVox  device   to  the  \emph{right}
+controller port.  Make certain  that the  Power switch  is in  the Off
+position.
+
+Finally, insert the Grizzards game cartridge with the
+label facing up into the cartridge slot, and turn the Power On.
+
+\section{Controller Ports}
+
+Your joystick  connects to the  left controller port, and  your AtariVox
+device connects to the right controller port.
+
+If your AtariVox is missing, you'll see a red Sad Face screen.
+
+Always   turn  Off   the  Power   switch  before   adding  or   removing
+your AtariVox.
+
+This  game  saves  your  progress   to  the  AtariVox  while  you  play.
+Always return to the Title Screen  by pressing Game Reset before turning
+Off the Power to be sure your game record is not damaged.
+
+\section{Console Controls}
+
+\subsection{Color/B\&W Switch (Pause)}
+
+The Color/B\&W switch on the Atari  2600 Video Computer System, or the
+Pause button  on the Atari 7800  ProSystem, can be used  to pause your
+game. Push  the control into the  Color position to play,  or the B\&W
+position to pause the game.
+
+\subsection{Game Select}
+
+When viewing the Title Screen, you can use the Game Select switch to
+choose the Slot you wish to use.  See Getting Started on page
+\ref{Getting Started} for details.
+
+\subsection{Game Reset}
+
+When viewing  the Select  Slot screen,  press the  Game Reset  switch to
+begin playing the  game. While you are playing the  game, press the Game
+Reset switch to save your place and return to the Title Screen.
+
+\subsection{Difficulty Switches}
+
+In order to erase your game progress information, both Difficulty
+Switches must be moved to the A (Expert) position.
+
+To protect  against accidentally erasing  your game record, you  can set
+the right Difficulty Switch to the B (Novice) position.
+
+While  you  are playing,  the  Difficulty  Switches  have no  effect  on
+game play. 
+
+\chapter{Getting Started}\label{Getting Started}
+
+When you first turn on Grizzards, you'll see the Title
+Screen. To begin playing, press the Game Select switch.
+
+In  Grizzards,  your game  progress is  recorded on  your
+AtariVox  device. You  have  a choice  of 3  ``slots''  so that  three
+different players  can use  the same AtariVox  device to  record their
+progress.
+
+Press Game Select to choose one of the three slots, then press Game
+Reset.
+
+If you've started an adventure in a slot, you'll see that the word
+``RESUME'' appears on your screen. If that slot is empty, you'll
+instead see the word ``BEGIN.''
+
+\section{Resuming Your Progress}
+
+When you leave the game, either by pressing Game Reset or reaching a
+``GAME OVER,'' your progress will automatically be saved on your
+AtariVox. Your progress is also saved at certain points in the story.
+
+At first, when you resume the game, you'll return to your home village
+of Hapri. Throughout the game, however, you may encounter certain
+characters who will ``bless'' you. From that point on, your play will
+resume at the place where you were last blessed.
+
+\section{Starting Your Adventure Over}\label{Starting Your Adventure Over}
+
+When you choose a slot with no game record in it already, you'll begin
+a new adventure in your home village of Hapri.
+
+If you want to delete your adventure and start again in Hapri, it's a
+little bit tricky. This is to make sure you don't accidentally lose
+your progress!
+
+From the Title Screen, press Game Select. Then, press Game Select
+until the slot you want to erase is shown.
+
+Here's the tricky part. You'll need to:
+
+\begin{itemize}
+\item Make sure that both of the Difficulty Switches on your console
+  are set to the ``A'' or ``Expert'' position.
+\item With your joystick controller, pull down (toward you) on the
+  joystick and hold down the Fire button.
+\end{itemize}
+
+The screen will change from saying ``SELECT SLOT'' to saying ``ERASE
+SLOT.'' The text will also be red to catch your attention.
+
+If you're sure you want to erase your game data, then \emph{without}
+letting go of the Fire button, move the joystick up (toward the
+TV). You'll see that the slot changes from IN USE to VACANT
+immediately.
+
+Once your game record has been erased, there's no way to get it back,
+so think carefully before you erase it.
+
+\subsection{Protecting Your Game Record}
+
+If the Right  Difficulty Switch is in the B  (Novice) position, then you
+can't  erase a  game slot.  When you  connect your  AtariVox, check  the
+position of that switch.
+
+If your AtariVox is missing, you'll see a red Sad Face screen.
+
+Always   turn  Off   the  Power   switch  before   adding  or   removing
+your AtariVox.
+
+This game saves your progress to the AtariVox while you play.  Always
+return to the Title Screen by pressing Game Reset before turning Off
+the Power to be sure your game record is not damaged.
+
+
+\chapter{Interacting With the Game}
+
+Your adventure will take the form of three types of actions:
+
+\begin{enumerate}
+\item Moving around the game world on the Map Screen.
+\item Speaking with other characters in the game world on the
+  Conversation Screen.
+\item Fighting off monsters on the Battle Screen.
+\end{enumerate}
+
+\section{The Map Screen}
+
+The Map Screen is where you navigate the world of Aclypt. You'll
+encounter different types of terrain in different provinces of the
+world, but you'll get around in the same way.
+
+To walk around the world, press the joystick controller in the
+direction you'd like to travel.
+
+As you travel, you may encounter other characters, special items, and
+monsters. To interact with them, simply walk up to them until you
+touch.
+
+Monsters can be very sneaky. You may not always see monsters
+approaching.
+
+Certain obstacles in the game world may prevent you from going past
+them if you do not have the proper item.
+
+\section{The Conversation Screen}
+
+When you encounter other characters in the game world, they will often
+have something to say to you.
+
+You'll see the name of the character and a small portrait of what they
+look like. Their speech will come to you from your AtariVox speakers
+or headphones.
+
+If you want someone to repeat themself, press the joystick controller
+up (toward the TV).
+
+When you're  done speaking to  someone, their portrait will  remain on
+the screen for a short time to allow you to ask for a repeat.
+
+When you're through speaking to someone, you can press the Fire button
+to return to the Map Screen.
+
+Some people  may react differently to  you if you have  information to
+share with them, or an item that  they want. If someone asks you to do
+them a favor, make sure you return to them. There may be a reward!
+
+\subsection{Some Useful Friends}
+
+When you begin your adventure in Hapri, you should look for someone
+named Chenal. When you speak to him, he'll tell you: ``You should
+speak to my friend Alev in Albron. He is a mage who might teach you
+the spell Abara Dabra.''
+
+After you've spoken to Chenal, and have journeyed to Albron, seek out
+Alev. He'll be so delighted to hear from Chenal that he'll teach you
+the spell, but he won't explain what it does.
+
+If you return to Hapri, you can ask Chenal and he'll explain what
+Abraca Dabra will do.
+
+Another useful friend in Hapri is Seed. She will heal you of any
+injuries from your battles.
+
+\section{The Battle Screen}
+
+Once a peaceful kingdom, some parts of Aclypt are now riddled with
+dangerous monsters.
+
+You can approach a monster that you see on the Map Screen and start a
+battle with them by running into the monster. Even though you might
+only see one monster on the Map Screen, there may be more than one
+traveling together. You can avoid these battles by not touching the
+monster on the Map Screen.
+
+Sometimes, though, monsters may sneak up on you. You can encounter
+monsters in dangerous territories without ever having seen them. These
+battles cannot be avoided.
+
+In a normal battle, you'll see one or more monsters at the top of your
+screen, along with the name of the monster type.
+
+\subsection{On the Monsters' Turn}
+
+When it's the monsters' turn to attack, you'll see only the monsters
+on your screen.
+
+The monsters may attack you. If they succeed, you'll lose an amount of
+energy. Improving your shield will protect you from more attacks, and
+reduce the amount of damage the monsters do.
+
+If you run out of energy, your game is over. Don't worry, though ---
+you can still resume your adventure from the Title Screen.
+
+\subsection{On Your Turn}
+
+At the bottom of the Battle Screen are four icons, which you can use
+to pick your strategy.
+
+Press up on the joystick controller to use your bow \& arrows to shoot
+at the monsters. Press left to use your sword. Press right to use a
+magic spell (if you know any). Pull down on the joystick to try to run
+away.
+
+When you've chosen your strategy, press the Fire button to proceed.
+
+If you're using your sword, or bow \& arrows, you'll have to choose
+which monster you'll attack. Press the joystick to select a monster,
+then press the Fire button.
+
+If you're using a magic spell, you'll see your magic scroll. Press up
+and down on the joystick controller to choose the name of the magic
+spell you want to use, then press the Fire button to select it.
+
+If you hurt a monster, you'll see the amount of damage that you did on
+the   screen  briefly.   Once   a  monster   is   defeated,  it   will
+disappear. When all of the  monsters have been defeated, you'll return
+to the Map Screen.
+
+\section{Scoring}
+
+When you  defeat a monster, you'll  earn points. The number  of points
+you earn will increase as you defeat more difficult monsters.
+
+Your score begins at 000000 when you start your adventure.
+
+As your score  increases, lower level monsters will learn  to fear you
+and flee. You'll have less encounters with these monsters.
+
+\chapter{Game Over}
+
+If you fail in your mission, your game is over. However, you have
+another chance to continue.
+
+When you continue, it'll be just as if you'd never failed in the first
+place. However, you'll start over from a safe place. If you fail early
+in the game, you'll return to Hapri to continue your adventure. Later,
+you'll find that you can be blessed by certain characters in the
+game. You'll return to the last place you were Blessed if you fail.
+
+Just choose your game slot from the Title Screen to resume your
+adventure.
+
+\chapter{Troubleshooting}
+
+\section{Sad Face Screen}
+
+If you see the Sad Face screen, the game is trying to tell you that
+there is a problem.
+
+From here, you can press the Game Reset switch to return to the Title
+Screen. 
+
+\subsection{Red Sad Face Screen}
+
+The red sad  face screen means that your AtariVox  device was not found. 
+Turn off your Atari and connect an AtariVox to the right controller port. 
+You may plug in speakers or headphones to your AtariVox so that you can hear
+the game voices.
+
+\subsection{White Sad Face Screen}
+
+The white sad  face screen means that the game  has encountered an error and
+cannot continue.  Please contact
+\href{mailto:support@star-hope.org}{support@star-hope.org} for additional
+assistance.
+
+\subsection{Bar Code Information}
+
+The bottom half of the screen will show some bar coded information
+that describes the state of your Atari when the game stopped
+working. If you can take a clear photo of this bar code, it can
+sometimes help the programmers to diagnose the problem.
+
+\section{TV goes blank when saving}
+
+Make sure your AtariVox is connected. If your AtariVox is not
+connected when the game tries to save, you may see the TV picture
+remain blank while the game tries to record your progress. Just plug
+in the AtariVox to the right controller port and your game should be
+saved.
+
+The game saves at various times while you play, as well as when you
+press the Game Reset switch, so it's best to leave the AtariVox
+connected all the time. (Besides, you won't be able to hear what
+anyone says if you unplug it!)
+
+\section{No voices}
+
+Make sure that you have speakers plugged in to your AtariVox
+device. When the game first starts the title screen, after a brief
+pause, you'll hear the AtariVox announce the name of the game. If you
+don't, make sure that the AtariVox is connected and the speakers are
+connected, powered on, and turned up.
+
+\chapter{Technical Notes}
+
+The following notes are of interest to hackers only. You don't need to
+understand anything in this section to play Grizzards.
+
+\section{Game Record Slots}
+
+There are 3 logical game slots that you can choose from for the
+game. Each save game slot takes up 4 blocks (256 bytes) of storage
+space on your AtariVox memory card. The following blocks are used:
+
+\begin{enumeration}
+\item Slot 1 uses memory blocks $58-$5b (addresses $1600-$16ff)
+\item Slot 2 uses memory blocks $5c-$5f (addresses $1700-$17ff)
+\item Slot 3 uses memory blocks $60-$63 (addresses $1800-$18ff)
+\end{enumeration}
+
+TODO --- The memory footprint might be reduced in future.
+
+\subsection{Registration}
+
+TODO --- register these allocations with AtariAge (
+https://atariage.com/atarivox/atarivox\_mem\_list.html )
+
+Then the following will become true:
+
+The addresses used by the Save Game Slots are registered with
+AtariAge, so they won't conflict with any other games you might play.
+
+\subsection{Portability}
+
+The save game records are in the same format for all \emph{Grizzards} game
+cartridges, regardless of the region for which they were saved.  This means
+that you can save your progress on an NTSC type system and then continue
+playing on a PAL or SECAM system, or vice-versa.
+
+\subsection{Volatility}
+
+The save game format may change during development. Since this is an
+``alpha'' quality game, it's possible that the final release may not
+be able to read your saved game record.
+
+When the final game is released, you may need to start over by erasing
+your game record. See Starting Your Adventure Over on page
+\ref{Starting Your Adventure Over} for instructions on erasing your
+game record.
+
+\end{document}

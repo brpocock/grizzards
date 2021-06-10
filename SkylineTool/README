@@ -1,0 +1,40 @@
+Skyline-Tool does all the  programmatic stuff that's “complicated” about
+compiling  graphics,  maps,  music,  &c in  modern  formats  into  8-bit
+formats. I  originally used it  for a  Commodore 64 mini-game,  and then
+have heavily altered it (and not  always in very good coding style…) for
+Atari 2600. It's designed to potentially support a wide variety of 8-bit
+(and a  couple of 16-bit)  systems using  MOS-6500 family CPU's,  and is
+extremely dependant upon the Skyline assembly-language source code.
+
+To work with it in Slime …
+
+(a) Set up  Emacs, install Quicklisp, and install  Slime helpers through
+    Quicklisp. You'll probably need to use SBCL, although I don't *mean*
+    to make anything non-portable, but I'm not worried about portability
+    just yet.
+
+(b) In Slime REPL: ,cd  <Ret> ~/Projects/Skyline <Ret> (or wherever your
+    top-level checkout is)
+
+(c) (asdf:load-asd "src/tool/skyline-tool/skyline-tool.asd")
+
+(d) (ql:quickload :skyline)
+
+When Make runs Skyline-Tool, you'll see it echo the invocation passed to
+the top-level function, Skyline-Tool:Command. You can cut-and-paste that
+into Slime.
+
+eg:
+
+Skyline tool invoked: (Skyline-Tool:Command '("bin/skyline-tool"
+                                              "compile-music"
+                                              "obj/2600/music.tia.ntsc.s"
+                                              "music/skyline.playlist"))
+
+↓
+
+(Skyline-Tool:Command '("bin/skyline-tool"
+                        "compile-music"
+                        "obj/2600/music.tia.ntsc.s"
+                        "music/skyline.playlist"))
+

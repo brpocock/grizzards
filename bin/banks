@@ -1,0 +1,13 @@
+#!/usr/bin/perl -W
+# -*- cperl -*-
+
+my ($dir, $suffix) = @ARGV;
+
+$dir ||= '.';
+$suffix ||= 'bin';
+
+for (my $bank = 0; $bank < 8; ++$bank) {
+  printf "$dir/Bank%02x.$suffix " => $bank;
+}
+
+print "\n";

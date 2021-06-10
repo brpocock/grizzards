@@ -1,0 +1,135 @@
+#!/usr/bin/perl -W
+# -*- cperl -*-
+
+my ($infile, $dictfile, $outfile) = @ARGV;
+
+my %dict = ();
+
+my $errors = 0;
+
+open DICT, '<', $dictfile;
+
+{
+  my $header = <DICT>;
+  chomp $header;
+  if ($header ne '[words]') {
+    print STDERR "Dictionary file is not in SpeakJet .dic format\n";
+  }
+  my $line_number = 1;
+  while (my $line = <DICT>) {
+    chomp $line;
+    ++$line_number;
+    next if $line =~ /^\s*#/;
+    $line =~ /^(.*?)\s*=\s*(.*)/;
+    my ($word, $spelling) = ($1, $2);
+    if ($word and $spelling) {
+      my @tokens = split ' ' => $spelling;
+      my $phrase = '';
+      for my $token (@tokens) {
+	if ($token =~ /\\([A-Z][A-Za-z0-9]*)/) {
+	  if ($phrase) {
+	    $phrase .= ', ';
+	  }
+	  $phrase .= "SpeakJet_$1";
+	} elsif ($token =~ /\\([0-9]+)/) {
+	  if ($phrase) {
+	    $phrase .= ", ";
+	  }
+	  $phrase .= $1;
+	} else {
+	  print STDERR "$dictfile:$line_number:Input format error:Token $token\n";
+	  ++$errors;
+	}
+      }
+      $dict{ lc $word } = $phrase;
+      $source_line{ lc $word } = $line_number;
+    } else {
+      print STDERR "$dictfile:$line_number:Input format error\n";
+      ++$errors;
+    }
+  }
+}
+close DICT;
+
+if ($errors > 0) {
+  print STDERR "$dictfile:Not completely understood, $errors errors, aborting $infile\n\n";
+  exit 2;
+}
+
+$dict{' '} = 'SpeakJet_Pause1';
+
+print STDERR "$dictfile:Loaded " . (scalar keys %dict) . " words from dictionary\n";
+
+open INFILE, '<', $infile;
+open OUTFILE, '>', $outfile;
+
+print OUTFILE <<"END";
+;;; This is a generated file.
+;;;
+;;; SpeakJet (AtariVox) phrase file $outfile
+;;;
+;;; Generated @{[ `date +%Y-%m-%d` 
+]};;; from $infile with dictionary $dictfile
+;;;
+
+	.include "SpeakJet.s"
+
+END
+
+my $started = undef;
+
+while (my $line = <INFILE>) {
+  chomp $line;
+  if ($line =~ /^([A-Z][A-Za-z0-9]+):/) {
+    if ($started) {
+      print OUTFILE "\n\t.byte SpeakJet_EndOfPhrase\n";
+    } else {
+      $started = 't';
+    }
+    print OUTFILE "\n\nSpeech_$1:\n\t.byte SpeakJet_Reset";
+  } else {
+    my @words = split /(\s+|\.\s*|\,\s*|\-|[A-Za-z']+)|(\\[A-Z][A-Za-z0-9]+)|(\\[0-9]+)/ => $line;
+    for my $word (@words) {
+      next unless $word;
+      $word =~ s/^\s+/ /;
+      $word =~ s/(.)\s*$/$1/;
+      if ($word eq '-') {
+	print OUTFILE "\n\t;; -";
+      } elsif ($word =~ /^\\(.*)/) {
+	my $code = $1;
+	if ($code =~ /^[0-9]*$/) {
+	  print OUTFILE "\n\t.byte $code";
+	} else {
+	  print OUTFILE "\n\t.byte SpeakJet_$code";
+	}
+      } elsif (exists $dict{ lc $word }) {
+	print OUTFILE "\n\t;; $word";
+	print OUTFILE "\n\t.byte $dict{ lc $word }";
+      } else {
+	print OUTFILE "\n\t.error \"Missing word “$word”\"";
+	my $nearword = '';
+	for my $w (sort keys %dict) {
+	  if ((lc $w) lt (lc $word)) { $nearword = $w; }
+	}
+	my $nearline = $source_line{ $nearword };
+	print STDERR "$dictfile:$nearline:Missing “$word”\n";
+	++$errors;
+      }
+    }
+  }
+}
+
+print OUTFILE <<"END";
+
+	.byte SpeakJet_EndOfPhrase
+
+;;; End of SpeakJet file $outfile
+END
+
+close OUTFILE;
+close INFILE;
+
+print STDERR "$outfile:0:generated with $errors errors\n";
+
+exit ( $errors > 0 ? 1 : 0 );
+

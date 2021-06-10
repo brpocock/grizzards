@@ -1,0 +1,97 @@
+#!/usr/bin/perl -W
+# -*- cperl -*-
+
+unless (@ARGV > 0) {
+  print STDERR <<"USAGE";
+Usage:
+
+$0 some-file.labels.txt
+
+This utility takes a 64tass-formatted labels file (label = value) and
+outputs something that is "close enough" to a dasm-formatted symbol map
+file to be used with the Stella debugger.
+
+The target file name will be, in this example, "some-file.sym"
+
+Multiple label files can be supplied at a go, if desired.
+USAGE
+  exit -1;
+}
+
+while (my $label_file_name = shift @ARGV) {
+  eval {
+    my $sym_file_name = $label_file_name;
+    $sym_file_name =~ s/\.txt$//;
+    $sym_file_name =~ s/\.o\./\./;
+    $sym_file_name =~ s/\.[^\.]+?$//;
+    $sym_file_name .= '.sym';
+
+    if ($label_file_name eq $sym_file_name) {
+      die "Can't figure out how to make $label_file_name into a .sym name.
+Did you try to supply the wrong file as an input?
+Try renaming $label_file_name to something like:
+$label_file_name.labels.txt\n";
+    }
+
+    my $count = 0;
+    my $skipped = 0;
+
+    open my $label_file, '<', $label_file_name or die "can't read $label_file_name: $!";
+    open my $sym_file, '>', $sym_file_name or die "can't read $sym_file_name: $!";
+    while (my $line = <$label_file>) {
+      my ($label, $value) = split '=' => $line;
+
+      $label =~ s/\s+//g; $value=~ s/\s+//g;
+
+      my $kind = substr($value, 0, 1);
+      my $rest = substr($value, 1);
+
+      if ($kind =~ /[0-9]/) {
+        $value = 0 + $value;
+      } elsif ($kind eq '$') {
+        $value = oct ('0x' . $rest);
+      } elsif ($kind eq '%') {
+        $value = oct ('0b' . $rest);
+      } elsif ($kind eq '"') {
+        # warn "Skipping label $label; string contents";
+        ++$skipped;
+        next;
+      } elsif ($kind eq '(') {
+        ++$skipped;
+        next;
+      } elsif ($value eq 'false' or $value eq 'true') {
+        ++$skipped;
+        next;
+      } else {
+        warn "Omitting label $label; unknown value type: $value";
+        ++$skipped;
+        next;
+      }
+      if ($label =~/^[A-Z]/ and $value < 0xf000) {
+	  if (!($value >= 0x80 and $value <= 0xff)) {
+	      # warn "Omitting label $label; appears to be a constant, not a label";
+	      ++$skipped;
+	      next;
+	  }
+      }
+      printf $sym_file "%-21s %04x ???? ; %s" =>
+        $label, $value, $line;
+      ++$count;
+    }
+    close $sym_file;
+    close $label_file;
+
+    unless ($count > 0) {
+      unlink $sym_file_name;
+      die "No valid symbols read from $label_file_name (skipped $skipped)\n";
+    }
+
+    print "Read $label_file_name, wrote $count symbols, ",
+      ($skipped > 0 ? "skipped $skipped symbols, " : ""),
+      " done.\n";
+  };
+
+  if ($@) {
+    print STDERR "Error in $label_file_name\n$@\n"
+  }
+}
