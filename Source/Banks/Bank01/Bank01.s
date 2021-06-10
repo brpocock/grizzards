@@ -12,34 +12,7 @@ Chatters:
           .byte 14
 
 BeforeChatHook: .block
-          cpx #6
-          beq ChenalTest
-          cpx #9
-          beq ChianaTest
-          cpx #$0b
-          beq FerrisTest
 Return:   
-          rts
-
-ChenalTest:
-          lda SpellsKnown1
-          and #Spell_AbracaDabra
-          beq Return
-          ldx #7
-          rts
-
-ChianaTest:
-          lda ProvinceFlags
-          and #GameEvent_AlbronFreed
-          beq Return
-          ldx #8
-          rts
-
-FerrisTest:
-          lda ProvinceFlags
-          and #GameEvent_AlbronFreed
-          beq Return
-          ldx #$0c
           rts
 
           .bend
@@ -130,7 +103,7 @@ ChatActions:
           .byte 0               ; Ferris (Albron)
 
 ChatSpeech:
-          .include "HapriSpeech.s"
+          .include "Bank01Speech.s"
 
           .align $100
           .include "Font.s"
