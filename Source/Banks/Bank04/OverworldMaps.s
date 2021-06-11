@@ -14,7 +14,7 @@ MapFG:
           .colu COLGOLD, 0
 
 MapBG:
-          .colu COLBLUE
+          .colu COLBLUE, $f
           .colu COLGRAY, $d
           .colu COLGOLD, $f
 
@@ -32,7 +32,7 @@ MapLinks:
 ;;; Note that it can be reused, so the same basic layout, potentially
 ;;; in different colors, can appear in several places.
           MapRLE = (
-          Map_ClosedSouth,
+          Map_Maze1,
           Map_OpenSouth,
           Map_OpenSides
           )
@@ -61,16 +61,22 @@ MapSprites:
           .byte SpriteFixed     ; fixed position sprite
           .byte 0               ; sprite art index = person
           .byte 150, 35         ; x, y position
-          .byte SpriteChat      ; action
-          .byte 3               ; chat index 3 = Roton
-          ;;
+          .byte SpriteCombat      ; action
+          .byte 0
+          ;; 
           .byte 0               ; end of list
           ;; Room 1
           .byte SpriteFixed     ; fixed position sprite
           .byte 0               ; sprite art index = person
           .byte 150, 65         ; x, y position
           .byte SpriteChat      ; action
-          .byte 6               ; chat index 6
+          .byte 3               ; chat index 3 = Roton
+          ;;
+          .byte SpriteFixed     ; fixed position sprite
+          .byte 1               ; sprite art index = monster
+          .byte 150, 65         ; x, y position
+          .byte SpriteCombat   ; action
+          .byte 0               ; combat index
           ;;
           .byte 0               ; end of list
           ;; Room 2
@@ -98,6 +104,13 @@ Map_OpenSides:
           .byte 4,  %11110000, %11111111, %11111111
           .byte 67, %00000000, %00000000, %00000000
           .byte 4,  %11110000, %11111111, %11111111
+
+Map_Maze1:
+          .byte 4, %11110000, %11111111, %11110000
+          .byte 16, %00010000, %00000000, %00010000
+          .byte 36, %11110000, %11110000, %00000000
+          .byte 16, %00010000, %00000000, %00010000
+          .byte 4, %11110000, %11111111, %11111111
 
 ;;; Sprite art
 

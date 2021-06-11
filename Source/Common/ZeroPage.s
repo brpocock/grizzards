@@ -98,11 +98,12 @@ ArrowLevel:
 ShieldLevel:
           .byte ?
 
-;;; Spells known (16 bits = 16 possible spells)
-SpellsKnown:
-SpellsKnown1:
+;;; Grizzard currently with the player
+CurrentGrizzard:
           .byte ?
-SpellsKnown2:
+          
+;;; Moves known (8 bits = 8 possible moves)
+MovesKnown:
           .byte ?
 
 ;;;  Where was the player last Blessed?
@@ -359,19 +360,7 @@ DisplayedEnergy:
           .byte ?
 
 ;;; Which item on the radial menu did the player select?
-RadialMenuItem:
-          .byte ?
-
-;;; Which magic spell is currently selected?
-MagicSelected:
-          .byte ?
-
-;;; In which direction is the magic scroll, scrolling?
-MagicScroll:
-            .byte ?
-
-;;; What is the current scrolling position of the magic scroll?
-MagicPosition:
+MoveSelection:
           .byte ?
 
 ;;; Whose turn is it?

@@ -1,5 +1,8 @@
 ;;; Common logic at the end of every ROM bank.
 
+BitMask:
+          .byte 1, 2, 4, 8, $10, $20, $40, $80
+          
 EndBank:
 
           BankEndAddress = $ff20      ; keep this as high as possible

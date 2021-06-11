@@ -5,9 +5,6 @@ DoCombat:          .block
           lda EncounterMaxCount, x
           tay
 
-          lda #0
-          sta SpellsKnown1      ; FIXME remove this after testing
-
           lda EncounterHP, x
 
 -
@@ -16,7 +13,7 @@ DoCombat:          .block
           bne -
 
           lda #$ff              ; no selection
-          sta RadialMenuItem
+          sta MoveSelection
 
           lda SWCHA
           sta DebounceSWCHA
@@ -218,182 +215,79 @@ DrawBottomMonsters:
           dey
           bne -
 
-          ;; Up: Bow & Arrows
-DrawBowAndArrowIcon:
-          sta WSYNC
-          .SleepX 42
-          sta RESP0
-
-          lda RadialMenuItem
-          beq HighlightBowAndArrows
-          .ldacolu COLGRAY, 0
-          jmp DrawBowAndArrows
-
-HighlightBowAndArrows:
-          .ldacolu COLGOLD, $8
-
-DrawBowAndArrows:
-          sta COLUP0
-
-          ldx #8
--
-          sta WSYNC
-          sta WSYNC
-          lda BowAndArrowIcon - 1, x
-          sta GRP0
-          dex
-          bne -
-
-          lda # 0
-          sta GRP0
-          sta WSYNC
-          sta WSYNC
-
-          ;; Left: Sword; Right: Magic
-DrawSwordAndMagicIcons:
-          sta WSYNC
-          .SleepX 32
-          sta RESP0
-          .SleepX 16
-          sta RESP1
-
-          lda RadialMenuItem
-          cmp # 1
-          beq HighlightSword
-          .ldacolu COLGRAY, 0
-          jmp TestMagic
-
-HighlightSword:
-          .ldacolu COLBLUE, $8
-
-TestMagic:
-          sta COLUP0
-
-          lda SpellsKnown1
-          ora SpellsKnown2
-          tay
-          beq DrawSwordAndMagic
-          lda RadialMenuItem
-          cmp # 2
-          beq HighlightMagic
-          .ldacolu COLGRAY, 0
-          jmp DrawSwordAndMagic
-
-HighlightMagic:
-          .ldacolu COLYELLOW, $8
-
-DrawSwordAndMagic:
-          sta COLUP1
-
-          ldx #8
--
-          lda SwordIcon - 1, x
-          sta GRP0
-          tya
-          beq DoNotDrawMagic
-          lda MagicIcon - 1, x
-          sta GRP1
-          jmp +
-DoNotDrawMagic:
-          sta GRP1
-+
-          sta WSYNC
-          sta WSYNC
-          dex
-          bne -
-
-          lda # 0
-          sta GRP0
-          sta GRP1
-          sta WSYNC
-          sta WSYNC
-
-          ;; Down: Run away
-DrawRunAwayIcon:
-          sta WSYNC
-          .SleepX 42
-          sta RESP0
-
-          lda RadialMenuItem
-          cmp # 3
-          beq HighlightShoe
-          .ldacolu COLGRAY, 0
-          jmp DrawShoe
-
-HighlightShoe:
-          .ldacolu COLGREEN, $8
-
-DrawShoe:
-          sta COLUP0
-
-          ldx #8
--
-          sta WSYNC
-          sta WSYNC
-          lda RunIcon - 1, x
-          sta GRP0
-          dex
-          bne -
-
-          lda # 0
-          sta GRP0
-          sta WSYNC
-          sta WSYNC
 
 
-          ldx # KernelLines - 188
+
+          
+          
+
+          ldx # KernelLines - 188 + 60
 FillScreen:
           stx WSYNC
           dex
           bne FillScreen
 
 CheckStick:
+          ldx MoveSelection
+
           lda SWCHA
           cmp DebounceSWCHA
           beq StickDone
           sta DebounceSWCHA
           and #P0StickUp
           bne DoneStickUp
-          lda #0
-          sta RadialMenuItem
-          jmp StickDone
+          dex
+          bpl DoneStickUp
+          ldx #0
 
 DoneStickUp:
           lda SWCHA
           and #P0StickDown
           bne DoneStickDown
-          lda #3
-          sta RadialMenuItem
-          jmp StickDone
+          inx
+          cpx #8              ; max moves = 8
+          bne DoneStickDown
+          ldx #0
 
 DoneStickDown:
           lda SWCHA
           and #P0StickLeft
           bne DoneStickLeft
-          lda #1
-          sta RadialMenuItem
+          ldx #$ff
           jmp StickDone
 
 DoneStickLeft:
-          lda SWCHA
-          and #P0StickRight
-          bne DoneStickRight
-          lda #2
-          sta RadialMenuItem
+          ;; lda SWCHA
+          ;; and #P0StickRight
+          ;; bne DoneStickRight
 
 DoneStickRight:
-
 StickDone:
+          stx MoveSelection
+          cpx #$ff
+          beq SelectedFlee
+          ldy # COLGRAY
+          lda BitMask, x
+          and MovesKnown
+          beq +
+          ldy # COLRED
++
+          sty COLUP0
+          sty COLUP1
+
+          ;; draw move name
+
+SelectedFlee:       
+          
           lda INPT4
           and #$80
           bne NoFire
 
-          lda RadialMenuItem
-          beq SelectedBowAndArrow
-          cmp #1
-          beq SelectedSword
-          cmp #2
-          beq SelectedMagic
+          lda MoveSelection
+          cmp #$ff
+          beq SelectedRunAway
+          ;; TODO: Perform the selected move
+
 
 SelectedRunAway:
           ;; TODO ... odds of escaping, attacks of opportunity
@@ -410,7 +304,7 @@ SelectedBowAndArrow:
 SelectedSword:
           ;; TODO
 
-SelectedMagic:
+SelectedMoves:
           ;; TODO
 
 NoFire:   
@@ -440,40 +334,9 @@ Leave:
           jsr Overscan
           jmp Dispatch
 
-MagicLoop:
+MovesLoop:
           jsr VSync
           jsr VBlank
-
-          ;; update scrolling position if in motion
-
-          lda MagicScroll
-          beq MagicScrollDone
-          bmi MagicScrollUp
-
-MagicScrollDown:
-          ;; TODO Scroll from mid-screen to end,
-          ;; then increment MagicSelected,
-          ;; then scroll from beginning to mid-screen,
-          ;; then stop.
-
-MagicScrollUp:
-          ;; TODO Scroll from mid-screen to beginning,
-          ;; then decrement MagicSelected,
-          ;; then scroll from end to mid-screen,
-          ;; then stop.
-
-MagicScrollDone:
-          ;; TODO position sprite for scroll left corner
-
-          ;; TODO draw scroll top with shading
-
-          ;; TODO draw selected spell at correct vertical position
-
-          ;; TODO position sprite for scroll right corner
-
-          ;; TODO draw scroll bottom with shading
-
-          ;; TODO fill screen
 
           ldx # KernelLines
 FillScreen2:
@@ -483,25 +346,15 @@ FillScreen2:
 
           ;; TODO check for Reset
 
-          lda MagicScroll
-          bne MagicIsScrolling
 
-          ;; check for Fire
-          lda INPT4
-          and #$80
-          bne NoMagicFire
-
-          jsr Overscan
-          jmp Loop
-
-NoMagicFire:
+NoMovesFire:
           ;; TODO check for stick move
 
-MagicIsScrolling:
+MovesAreScrolling:
 
           jsr Overscan
 
-          jmp MagicLoop
+          jmp MovesLoop
 
           .bend
 

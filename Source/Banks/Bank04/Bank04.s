@@ -4,7 +4,7 @@
           .include "Map.s"
           .include "VSync.s"
 
-          .include "HapriMaps.s"
+          .include "OverworldMaps.s"
 
           .align $100
           .include "Font.s"
