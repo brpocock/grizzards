@@ -81,6 +81,9 @@ SetUpSprite:
           cmp #SpriteFixed
           beq AddFixedSprite
 
+          cmp #SpriteWander
+          beq AddWanderingSprite
+          
           ;; TODO other kinds of sprites
           brk
 
@@ -103,6 +106,16 @@ AddFixedSprite:
           inc SpriteCount
           iny                   ; .y = .x⁺¹ × 6   (start of next entry)
           ;; Go back looking for more sprites
+          inx
+          jmp SetUpSprite
+
+AddWanderingSprite:
+          ;; TODO Add wandering sprite
+
+          tya
+          clc
+          adc #6
+          tay
           jmp SetUpSprite
 
 SpritesDone:
@@ -123,6 +136,9 @@ Loop:
           sta pp5l
           lda MapRLEH, x
           sta pp5h
+
+          ldx SpriteCount
+          beq NoSprites
 
           lda #>SpriteArt
           sta pp1h
@@ -160,6 +176,13 @@ AnimationFrameReady:
 
           lda SpriteY, x
           sta P1LineCounter
+
+          jmp P1Ready
+
+NoSprites:
+          ;; TODO NoSprites
+
+P1Ready:
 
           stx WSYNC
 

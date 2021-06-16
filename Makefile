@@ -105,7 +105,7 @@ quickclean:
 	rm -rf Object Dist
 
 clean:
-	rm -fr Object Dist bin/buildapp bin/skyline-tool
+	rm -fr Object Dist Source/Generated bin/buildapp bin/skyline-tool
 
 bin/skyline-tool:	bin/buildapp \
 	$(shell ls SkylineTool/*.lisp SkylineTool/src/*.lisp SkylineTool/skyline-tool.asd)

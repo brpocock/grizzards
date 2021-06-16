@@ -26,7 +26,7 @@ DecodeScore:
           sta pp4h
           sta pp5h
 
-          lda Score
+          lda Score             ; rightmost digit
           and #$0f
           sta Temp
           rol a
@@ -74,8 +74,8 @@ DecodeScore:
           clc
           adc Temp
           sta pp1l
-
-          lda Score + 2
+          
+          lda Score + 2         ; leftmost digit
           and #$f0
           ror a
           ror a
@@ -141,8 +141,8 @@ P0HPos:
           cpx SpriteCount
           bmi FlickerOK
           ldx #0
-          stx SpriteFlicker
 FlickerOK:
+          stx SpriteFlicker
 
           lda SpriteX, x
           sec

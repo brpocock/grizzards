@@ -68,13 +68,13 @@ MapSprites:
           ;; Room 1
           .byte SpriteFixed     ; fixed position sprite
           .byte 0               ; sprite art index = person
-          .byte 150, 65         ; x, y position
+          .byte 75, 65         ; x, y position
           .byte SpriteChat      ; action
           .byte 3               ; chat index 3 = Roton
           ;;
           .byte SpriteFixed     ; fixed position sprite
           .byte 1               ; sprite art index = monster
-          .byte 150, 65         ; x, y position
+          .byte 100, 65         ; x, y position
           .byte SpriteCombat   ; action
           .byte 0               ; combat index
           ;;
@@ -106,11 +106,11 @@ Map_OpenSides:
           .byte 4,  %11110000, %11111111, %11111111
 
 Map_Maze1:
-          .byte 4, %11110000, %11111111, %11110000
-          .byte 16, %00010000, %00000000, %00010000
-          .byte 36, %11110000, %11110000, %00000000
-          .byte 16, %00010000, %00000000, %00010000
-          .byte 4, %11110000, %11111111, %11111111
+          .byte 4,  %11110000, %11111111, %11110000
+          .byte 16, %00000000, %00000000, %00010000
+          .byte 36, %11000000, %11110000, %00000000
+          .byte 16, %10000000, %00000000, %00010000
+          .byte 4,  %11110000, %11111111, %11111111
 
 ;;; Sprite art
 
@@ -147,9 +147,9 @@ MonsterSprite:
 
           .byte %11111111
           .byte %11111111
+          .byte %11111111
           .byte %01111110
           .byte %00111100
-          .byte %00000000
           .byte %00000000
           .byte %00000000
           .byte %00000000

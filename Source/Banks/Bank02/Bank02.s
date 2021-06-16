@@ -2,6 +2,4 @@
 
 	.include "StartBank.s"
 
-	.include "AlbronSpeech.s"
-
 	.include "EndBank.s"

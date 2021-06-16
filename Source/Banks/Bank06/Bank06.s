@@ -11,14 +11,14 @@
           .include "ShowText.s"
           .include "48Pixels.s"
 
-          .include "HapriCombat.s"
+          .include "Combat6.s"
           .include "CombatIcons.s"
 
           .align $100
 Monsters:
-          .include "HapriMonsters.s"
+          .include "Monsters6.s"
 MonsterColors:      
-          .include "HapriMonsterColors.s"
+          .include "MonsterColors6.s"
 
           .align $100
           .include "Font.s"
