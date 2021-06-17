@@ -103,8 +103,6 @@ BumpSprite:
           
           ldx SpriteFlicker
           lda SpriteAction, x
-          cmp #SpriteChat
-          beq ChatWithSprite
           cmp #SpriteDoor
           beq DoorWithSprite
           cmp #SpriteCombat
@@ -112,13 +110,6 @@ BumpSprite:
           and #$80
           beq PlayerMoveOK      ; No action
           jmp ProvinceChange
-
-ChatWithSprite:
-          lda SpriteParam, x
-          sta ChatBuddy
-          lda #ModeChat
-          sta GameMode
-          jmp FarReturn
 
 FightWithSprite:
           lda SpriteParam, x

@@ -2,7 +2,30 @@
 DoCombat:          .block
 
           ldx CurrentCombatEncounter
-          lda EncounterMaxCount, x
+          lda EncounterMonster, x
+
+          ldx #>Monsters
+          stx CurrentMonsterPointer + 1
+          
+          ;; × 16
+          ldx #4
+-
+          clc
+          asl
+          bcc +
+          inc CurrentMonsterPointer + 1
++
+          dex
+          bne -
+
+          sta CurrentMonsterPointer
+
+          ldy # 15              ; offset of ACC & count
+          lda (CurrentMonsterPointer), y
+          and #$0f
+
+          ;;  TODO choose a random number between 1 and this max count
+          
           tay
 
           lda EncounterHP, x
@@ -42,29 +65,24 @@ NotPaused:
 PausedOrNot:
           jsr Prepare48pxMobBlob
 
-          ldx CurrentCombatEncounter
-          lda EncounterMonster, x
-          rol a
-          rol a
-          rol a
-          sta CombatSpritePointer
-          lda #>Monsters
+          lda #>MonsterArt
           sta CombatSpritePointer + 1
 
-          lda EncounterMonster, x
-          ;; × 6
-          rol a
-          sta Temp
-          rol a
+          ldx # 12              ; offset of art index
+          lda Monsters, x
           clc
-          adc Temp
-          pha
-          tax
+          asl a
+          asl a
+          asl a
+          bcc +
+          inc CombatSpritePointer + 1
++
+          sta CombatSpritePointer
+          
           ldy # 0
 CopyName1:
-          lda MonsterName1, x
+          lda (CurrentMonsterPointer), y
           sta StringBuffer, y
-          inx
           iny
           cpy # 6
           bne CopyName1
@@ -72,15 +90,12 @@ CopyName1:
           jsr DecodeText
           jsr ShowText
 
-          pla
-          tax
-          ldy # 0
+          ldy # 6
 CopyName2:
-          lda MonsterName2, x
-          sta StringBuffer, y
-          inx
+          lda (CurrentMonsterPointer), y
+          sta StringBuffer - 6, y
           iny
-          cpy # 6
+          cpy # 12
           bne CopyName2
 
           jsr DecodeText
@@ -92,10 +107,8 @@ CopyName2:
           sta NUSIZ0
           sta NUSIZ1
 
-          ldx CurrentCombatEncounter
-          lda EncounterMonster, x
-          tax
-          lda MonsterColors, x
+          ldy # 14              ; offset of monster color
+          lda (CurrentMonsterPointer), y
           sta COLUP0
 
 PrepareTopMonsters:

@@ -33,7 +33,7 @@ ColdStart:
           ;; A real 2600 starts with .S = $fd
           ;; A 7800 (or some clones) don't
           ;; We  use this  for deciding  how to  handle the  Color/B&W /
-	  ;; Pause switch
+	;; Pause switch
           ;; (Stella should emulate that soon as well)
           cpx #$fd
           beq Cx2600Genuine
@@ -52,4 +52,4 @@ ResetStack:
           stx GameMode
           
           jmp Attract
-	  .bend
+	.bend

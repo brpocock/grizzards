@@ -1,17 +1,10 @@
-;;; V   V  OOO  I  CCC  EEEEE
-;;; V   V O   O I C   C E
-;;; V   V O   O I C     EEE
-;;;  V V  O   O I C   C E
-;;;   V    OOO  I  CCC  EEEEE
 ;;;
-;;;         of the
+;;; 
+;;; *** GRIZZARDS ***
+;;; 
 ;;;
-;;; EEEEE L     EEEEE M     M EEEEE N   N TTTTT  SSSS
-;;; E     L     E     MM   MM E     NN  N   T   S
-;;; EEE   L     EEE   M M M M EEE   N N N   T    SSS
-;;; E     L     E     M  M  M E     N  NN   T       S
-;;; EEEEE LLLLL EEEEE M     M EEEEE N   N   T   SSSS
-
+;;; Copyright © 2021, Bruce-Robert Pocock
+;;; 
 
           BANK = $00
 
@@ -20,9 +13,9 @@
           .endweak
 
 
-	  .include "StartBank.s"
-
-	  .include "ColdStart.s"
+	.include "StartBank.s"
+          
+	.include "ColdStart.s"
           .include "Attract.s"
           .include "SelectSlot.s"
 

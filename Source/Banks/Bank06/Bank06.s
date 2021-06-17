@@ -15,10 +15,10 @@
           .include "CombatIcons.s"
 
           .align $100
-Monsters:
           .include "Monsters6.s"
-MonsterColors:      
-          .include "MonsterColors6.s"
+          
+          .align $100
+          .include "MonsterArt6.s"
 
           .align $100
           .include "Font.s"

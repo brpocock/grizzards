@@ -1,5 +1,3 @@
-          ;; chat memory bank is common to all maps in this bank
-          RelatedChatBank = $01
 
           ;; How many maps are in these tables?
 MapCount:
@@ -69,8 +67,8 @@ MapSprites:
           .byte SpriteFixed     ; fixed position sprite
           .byte 0               ; sprite art index = person
           .byte 75, 65         ; x, y position
-          .byte SpriteChat      ; action
-          .byte 3               ; chat index 3 = Roton
+          .byte SpriteCombat      ; action
+          .byte 3
           ;;
           .byte SpriteFixed     ; fixed position sprite
           .byte 1               ; sprite art index = monster

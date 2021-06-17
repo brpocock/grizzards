@@ -1,23 +1,5 @@
-MonsterName1:
-          .MiniText "VORPAL"
-          .MiniText "R.O.  "
-
-MonsterName2:
-          .MiniText "BUNNY "
-          .MiniText "  U.S."
-
-Encounters:
-
 EncounterMonster:
-          .byte 0, 1
-
-EncounterMaxCount:
-          .byte 4, 6
+          .byte 0, 1, 2, 3
 
 EncounterHP:
-          .byte 6, 4
-
-EncounterStatusFX:
-          .byte 0, 0
-
-          
+          .byte 4, 5, 6, 7

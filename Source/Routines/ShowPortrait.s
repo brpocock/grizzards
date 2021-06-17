@@ -2,10 +2,10 @@ Faces:    .block
           jsr VSync
           jsr VBlank
 
-          lda ChatBG
+          lda # COLGREEN | $0
           sta COLUBK
 
-          lda ChatFG
+          lda # COLBLUE | $f
           sta COLUP0
           sta COLUP1
           
@@ -17,7 +17,7 @@ TopMargin:
           dex
           bne TopMargin
 
-          lda ChatBuddyFace
+          lda # 0 
           clc
           adc #>Portraits
           sta pp0h

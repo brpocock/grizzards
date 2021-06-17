@@ -28,9 +28,9 @@ SwitchMode:
           sta NextSound
 
           .if PUBLISHER
-          lda #ModePublisherPresents
+            lda #ModePublisherPresents
           .else
-          lda #ModeBRPPreamble
+            lda #ModeBRPPreamble
           .fi
           sta GameMode
 
@@ -57,11 +57,11 @@ Loop:
           cmp #ModeAttractStory
           beq StoryMode
           .if PUBLISHER
-          cmp #ModePublisherPresents
-          beq PublisherPresentsMode
+            cmp #ModePublisherPresents
+            beq PublisherPresentsMode
           .else
-          cmp #ModeBRPPreamble
-          beq BRPPreambleMode
+            cmp #ModeBRPPreamble
+            beq BRPPreambleMode
           .fi
           jmp Dispatch          ; how did we get here?
 
@@ -109,7 +109,7 @@ SkipAboveCopyright:
           jsr ShowText
           .SetUpTextConstant "RIGHT "
           jsr ShowText
-          .SetUpTextConstant " 2020 "
+          .SetUpTextConstant " 2021 "
           jsr ShowText
           .SetUpTextConstant "BRUCE-"
           jsr ShowText

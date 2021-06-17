@@ -28,13 +28,6 @@
           ModeCombatEnemy = $43
           ModeDeath = $44
 
-          ModeChat = $50
-
-;;; Portraits available for chat heads.
-          ChatPortraitMan = 0
-          ChatPortraitWoman = 1
-          ChatPortraitChild = 2
-          ;; there can be 6 portraits in bank 5
 
 ;;; Sounds in the library (index values)
           SoundDrone = 1
@@ -43,11 +36,6 @@
           SoundHappy = 4
           SoundBump = 5
 
-;;; AfterChat actions
-          AfterChatSetFlag = 1
-          AfterChatClearFlag = 2
-          AfterChatHeal = 3
-          AfterChatMoreChat = 4
 
 ;;; Status Effects for player or enemies 
           StatusSkipTurn = $01
@@ -63,7 +51,6 @@
           SpriteWander = $20
           
 ;;; Sprite actions
-          SpriteChat = $01
           SpriteDoor = $02
           SpriteCombat = $40
           SpriteProvinceDoor = $80

@@ -1,18 +1,30 @@
-Bunny:
-          .byte %11111111
-          .byte %01111110
-          .byte %01111110
-          .byte %00111100
-          .byte %01111110
-          .byte %01111110
-          .byte %01100110
-          .byte %00100100
-ROUS:
-          .byte %01111110
-          .byte %11111111
-          .byte %11100111
-          .byte %01111110
-          .byte %01111110
-          .byte %01111111
-          .byte %11111111
-          .byte %01111111
+Monsters: 
+          .MiniText "WICKED"
+          .MiniText "SLIME "
+
+          .byte 0               ; art
+          .byte COLGREEN | $8
+          .byte $11, $16         ; ATK, DEF, ACC, count
+          
+          .MiniText "HORRID"
+          .MiniText "SLIME "
+
+          .byte 0               ; art
+          .byte COLRED | $f
+          .byte $22, $66        ; ATK, DEF, ACC, count
+          
+
+          .MiniText "VORPAL"
+          .MiniText "BUNNY "
+
+          .byte 1
+          .byte COLGOLD | $4
+          .byte $22, $66
+          
+          .MiniText "R.O.  "
+          .MiniText "  U.S."
+
+          .byte 2
+          .byte COLGOLD | $0
+          .byte $31, $33
+          

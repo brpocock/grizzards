@@ -1,6 +1,6 @@
 ;;; -*- asm -*-
 ;;;
-;;; Copyright © 2016,2017,2020 Bruce-Robert Pocock (brpocock@star-hope.org)
+;;; Copyright © 2016,2017,2020,2021 Bruce-Robert Pocock (brpocock@star-hope.org)
 ;;;
 ;;; Most rights reserved. (See COPYING for details.)
 ;;;
@@ -29,7 +29,7 @@ Loop:
 	ldy LineCounter
 	lda (PixelPointers + 0), y
 	sta GRP0
-        .Sleep 5 + (BANK == 0 ? 0 : 1)
+          .Sleep 5 + (BANK == 0 ? 0 : 1)
 	lda (PixelPointers + 2), y
 	sta GRP1
 	lda (PixelPointers + 4), y

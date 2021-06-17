@@ -46,8 +46,6 @@ ReadGlobalLoop:
           sta PlayerX
           lda BlessedY
           sta PlayerY
-          lda BlessedChatBank
-          sta CurrentChatBank
           lda BlessedCombatBank
           sta CurrentCombatBank
 

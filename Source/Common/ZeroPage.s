@@ -40,9 +40,6 @@ CurrentMap:
 ;;; When in combat mode, in which bank are the current enemies found?
 CurrentCombatBank:
           .byte ?
-;;; When in chat mode, in which bank is the current buddy found?
-CurrentChatBank:
-          .byte ?
 
 ;;; 
 ;;; Game play/progress indicators -- global
@@ -109,8 +106,6 @@ MovesKnown:
 ;;;  Where was the player last Blessed?
 ;;; (Game Over restart position)
 BlessedBank:
-          .byte ?
-BlessedChatBank:
           .byte ?
 BlessedCombatBank:
           .byte ?
@@ -288,42 +283,6 @@ AttractStoryPanel:
 
 
 ;;; 
-;;; Chat mode scratchpad
-
-            * = Scratchpad
-
-;;; To whom are we speaking? Influences colors, portrait, and name.
-ChatBuddy:
-          .byte ?
-
-;;; Which portrait should be shown?
-ChatBuddyFace:
-          .byte ?
-
-;;; What is the foreground color of the portrait and name?
-ChatFG:
-          .byte ?
-;;; What is the screen's background color?
-ChatBG:
-          .byte ?
-
-;;; Once chat completes, what action should be taken?
-AfterChatAction:
-          .byte ?
-;;; The AfterChatAction may take a parameter
-AfterChatParam:
-          .byte ?
-
-;;; The beginning phoneme of the utterance, so we can repeat it on
-;;; stick up
-ChatBegan:
-          .word ?
-
-;;; Debounce the fire button
-DebounceFire:
-          .byte ?
-          
-;;; 
 ;;; Start Game phase
 
           * = Scratchpad
@@ -340,6 +299,9 @@ StartGameWipeBlock:
 
 ;;; What type (index) of enemy are we battling?
 CurrentCombatEncounter:
+          .byte ?
+
+CurrentMonsterPointer:
           .byte ?
 
 ;;; Pointer to the enemy's sprite graphics

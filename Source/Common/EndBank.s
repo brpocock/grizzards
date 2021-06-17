@@ -5,7 +5,7 @@ BitMask:
           
 EndBank:
 
-          BankEndAddress = $ff20      ; keep this as high as possible
+          BankEndAddress = $ff30      ; keep this as high as possible
           ;; The magic number  above: you can just raise it  to, say,
           ;; $ff70,  and then  the assembler  will bitch  at you  about its
           ;; being too high, and tell you  what to lower it to. Careful,
@@ -74,16 +74,6 @@ GoCombat:
           sta BankSwitch0, x
           jmp DoCombat
 
-;;; Go to the current chat memory bank, and jump to DoChat.
-;;; In non-chat banks, jump to Dispatch.
-          .weak
-          DoChat = Dispatch
-          .endweak
-GoChat:
-          ldx CurrentChatBank
-          sta BankSwitch0, x
-          jmp DoChat
-
 ;;; Perform a far call to a memory bank with a specific local
 ;;; service routine to perform; eg, this is how we handle sounds
 ;;; and will be handling the VSync routines in the 2M version.
@@ -127,9 +117,7 @@ Dispatch:
           beq GoSelectSlot
           cmp #$30
           beq GoMap
-          cmp #$40
-          beq GoCombat
-          jmp GoChat
+          jmp GoCombat
 
 ;;; End of wired memory
 WiredEnd:

@@ -61,15 +61,8 @@ DoneWiping:
 
 SignatureTime:
           ;; Set up actual game vars for a new game
-          lda #ModeChat
+          lda #ModeMap
           sta GameMode
-
-          lda #0
-          sta ChatBuddy
-
-          lda #1
-          sta CurrentChatBank
-          sta BlessedChatBank
 
           lda #6
           sta CurrentCombatBank
