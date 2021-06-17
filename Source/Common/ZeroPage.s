@@ -302,7 +302,7 @@ CurrentCombatEncounter:
           .byte ?
 
 CurrentMonsterPointer:
-          .byte ?
+          .word ?
 
 ;;; Pointer to the enemy's sprite graphics
 CombatSpritePointer:

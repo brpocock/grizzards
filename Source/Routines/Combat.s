@@ -4,6 +4,7 @@ DoCombat:          .block
           ldx CurrentCombatEncounter
           lda EncounterMonster, x
 
+          ;;  Set up the monster pointer
           ldx #>Monsters
           stx CurrentMonsterPointer + 1
           
@@ -25,6 +26,8 @@ DoCombat:          .block
           and #$0f
 
           ;;  TODO choose a random number between 1 and this max count
+
+          lda # 1
           
           tay
 
