@@ -37,7 +37,7 @@ $label_file_name.labels.txt\n";
     my $skipped = 0;
 
     open my $label_file, '<', $label_file_name or die "can't read $label_file_name: $!";
-    open my $sym_file, '>', $sym_file_name or die "can't read $sym_file_name: $!";
+    open my $sym_file, '>', $sym_file_name or die "can't write $sym_file_name: $!";
     while (my $line = <$label_file>) {
       my ($label, $value) = split '=' => $line;
 
