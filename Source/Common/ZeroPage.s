@@ -19,6 +19,9 @@ ZeroPage:
 Temp:
           .byte ?
 
+Pointer:
+          .word ?
+          
 ;;; 
 ;;; Main "Traffic Cop" Switching
 ;;;
@@ -75,28 +78,22 @@ AlarmCode:
 Score:
           .byte ?, ?, ?
 
-;;; How much Energy (HP) can the player have?
-MaxEnergy:
+;;; How much Energy (HP) can the player's Grizzard have?
+MaxHP:
           .byte ?
-;;; How much Energy does the player actually have?
-CurrentEnergy:
-          .byte ?
-;;; Is the player affected by a Status Effect from combat?
-StatusFX:
-          .byte ?
-
-;;; The level of skill with the sword (effectiveness)
-SwordLevel:
-          .byte ?
-;;; The level of skill with arrows (effectiveness)
-ArrowLevel:
-          .byte ?
-;;; The level of skill with shield (defense effectiveness)
-ShieldLevel:
+;;; How much Energy does the Grizzard actually have?
+CurrentHP:
           .byte ?
 
 ;;; Grizzard currently with the player
 CurrentGrizzard:
+          .byte ?
+
+GrizzardAttack:
+          .byte ?
+GrizzardDefense:
+          .byte ?
+GrizzardAccuracy:
           .byte ?
           
 ;;; Moves known (8 bits = 8 possible moves)
@@ -303,10 +300,20 @@ CurrentCombatEncounter:
 
 CurrentMonsterPointer:
           .word ?
-
+          
 ;;; Pointer to the enemy's sprite graphics
 CombatSpritePointer:
           .word ?
+
+CurrentAttack:
+          .byte ?
+CurrentDefense:
+          .byte ?
+CurrentAccuracy:
+          .byte ?
+;;; Is the Grizzard affected by a Status Effect from combat?
+StatusFX:
+          .byte ?
 
 ;;; HP for each enemy (up to six)
 EnemyHP:
@@ -316,9 +323,9 @@ EnemyHP:
 EnemyStatusFX:
           .byte ?, ?, ?, ?, ?, ?
 
-;;; Player's energy as displayed
-;;; (animates towards the direction of CurrentEnergy)
-DisplayedEnergy:
+;;; Player's Grizzard's energy as displayed
+;;; (animates towards the direction of CurrentHP)
+DisplayedHP:
           .byte ?
 
 ;;; Which item on the radial menu did the player select?

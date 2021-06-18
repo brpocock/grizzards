@@ -64,27 +64,34 @@ SignatureTime:
           lda #ModeMap
           sta GameMode
 
-          lda #6
+          lda # 6
           sta CurrentCombatBank
           sta BlessedCombatBank
 
-          lda #4
+          lda # 4
           sta CurrentMapBank
           sta BlessedBank
 
-          lda #0
+          lda # 0
           sta CurrentMap
           sta BlessedMap
 
-          lda #80
+          lda # 80              ; Player start position
           sta BlessedX
           sta PlayerX
-          lda #25
+          lda # 25
           sta BlessedY
           sta PlayerY
 
-          lda #10
-          sta MaxEnergy
+          lda # 1
+          sta CurrentGrizzard   ; giving them a free Grizzard for now, TODO
+          sta GrizzardAttack
+          sta GrizzardDefense
+          sta GrizzardAccuracy
+          
+          lda # 10
+          sta MaxHP
+          sta CurrentHP
 
 WaitForScreenEnd:
           lda INTIM

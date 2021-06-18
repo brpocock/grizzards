@@ -1,6 +1,13 @@
 ;;; Common combat routines called from multiple banks
 DoCombat:          .block
 
+          lda GrizzardAttack
+          sta CurrentAttack
+          lda GrizzardDefense
+          sta CurrentDefense
+          lda GrizzardAccuracy
+          sta CurrentAccuracy
+
           ldx CurrentCombatEncounter
           lda EncounterMonster, x
 
@@ -12,7 +19,7 @@ DoCombat:          .block
           ldx #4
 -
           clc
-          asl
+          asl a
           bcc +
           inc CurrentMonsterPointer + 1
 +
@@ -26,13 +33,20 @@ DoCombat:          .block
           and #$0f
 
           ;;  TODO choose a random number between 1 and this max count
-
           lda # 1
           
           tay
 
-          lda EncounterHP, x
+          ;; Zero HP for 5 monsters (we have at least 1), then …
+          lda # 0
+          ldx # 5
+-
+          sta EnemyHP + 1, x
+          dex
+          bne -
 
+          ;; … actually set the HP for monsters present (per .y)
+          lda EncounterHP, x
 -
           sta EnemyHP, y
           dey
@@ -41,6 +55,8 @@ DoCombat:          .block
           lda #$ff              ; no selection
           sta MoveSelection
 
+          ;; ignore current switch position until it changes,
+          ;; so we aren't reacting to map movement
           lda SWCHA
           sta DebounceSWCHA
 
@@ -68,6 +84,8 @@ NotPaused:
 PausedOrNot:
           jsr Prepare48pxMobBlob
 
+PrepareMonsterArt:  
+          
           lda #>MonsterArt
           sta CombatSpritePointer + 1
 
@@ -81,35 +99,32 @@ PausedOrNot:
           inc CombatSpritePointer + 1
 +
           sta CombatSpritePointer
+
+ShowMonsterName:    
+
+          lda CurrentMonsterPointer
+          sta Pointer
+          lda CurrentMonsterPointer + 1
+          sta Pointer + 1
+          jsr ShowPointerText
+
+          lda Pointer
+          clc
+          adc # 6
+          bcc +
+          inc Pointer + 1
++
+          sta Pointer
+          jsr ShowPointerText
           
-          ldy # 0
-CopyName1:
-          lda (CurrentMonsterPointer), y
-          sta StringBuffer, y
-          iny
-          cpy # 6
-          bne CopyName1
-
-          jsr DecodeText
-          jsr ShowText
-
-          ldy # 6
-CopyName2:
-          lda (CurrentMonsterPointer), y
-          sta StringBuffer - 6, y
-          iny
-          cpy # 12
-          bne CopyName2
-
-          jsr DecodeText
-          jsr ShowText
-
+PrepareToDrawMonsters:        
+          
           lda #0
           sta VDELP0
           sta VDELP1
           sta NUSIZ0
           sta NUSIZ1
-
+          
           ldy # 14              ; offset of monster color
           lda (CurrentMonsterPointer), y
           sta COLUP0
@@ -129,15 +144,10 @@ PrepareTopMonsters:
           ora #$04
 +
           tax
+          beq NoTopMonsters
           lda SpritePresence, x
           sta NUSIZ0
           lda SpritePosition, x
-
-          ldy #20
--
-          sty WSYNC
-          dey
-          bne -
 
 PositionTopMonsters:
           sta HMCLR
@@ -157,18 +167,30 @@ Monster1Pos:
           sta HMP0
 
           sta WSYNC
-          .Sleep 71
+          .SleepX 71
           sta HMOVE
 
 DrawTopMonsters:
-          ldx #7
+          ldy #7
 -
-          lda CombatSpritePointer, x
+          lda (CombatSpritePointer), y
           sta GRP0
           sta WSYNC
           sta WSYNC
-          dex
+          dey
           bpl -
+          sty GRP0
+
+          jmp PrepareBottomMonsters
+
+NoTopMonsters:
+          lda # 0
+          sta GRP0
+          ldy # 14
+-
+          sta WSYNC
+          dey
+          bne -
 
 PrepareBottomMonsters:
           lda # 0
@@ -185,22 +207,19 @@ PrepareBottomMonsters:
           ora #$04
 +
           tax
+          beq NoBottomMonsters
           lda SpritePresence, x
           sta NUSIZ0
           lda SpritePosition, x
-
-          ldy #25
--
-          dey
-          bne -
-
+          
 PositionBottomMonsters:
+          sta WSYNC
           sta HMCLR
 
           sec
           sta WSYNC
 Monster2Pos:
-          sbc #15
+          sbc # 15
           bcs Monster2Pos
           sta RESP0
 
@@ -212,32 +231,122 @@ Monster2Pos:
           sta HMP0
 
           sta WSYNC
-          .Sleep 71
+          .SleepX 71
           sta HMOVE
 
 DrawBottomMonsters:
-          ldx #7
+          ldy #7
 -
-          lda CombatSpritePointer, x
+          lda (CombatSpritePointer), y
           sta GRP0
           sta WSYNC
           sta WSYNC
-          dex
+          dey
           bpl -
+          sty GRP0
+          jmp DelayAfterMonsters
 
-          ldy #25
--          
-          sty WSYNC
+NoBottomMonsters:
+          lda # 0
+          sta GRP0
+          ldy # 14
+-
+          sta WSYNC
           dey
           bne -
 
+DelayAfterMonsters: 
+          ldx # 10
+-          
+          stx WSYNC
+          dex
+          bne -
 
+DrawGrizzardName:
+          jsr Prepare48pxMobBlob
 
+          .ldacolu COLBLUE, $f
+          sta COLUP0
+          sta COLUP1
+          .ldacolu COLINDIGO, $0
+          sta COLUBK
 
+          lda # >GrizzardNames
+          sta Pointer + 1
+          lda # 0 ;;; CurrentGrizzard 
+          clc
+          asl a                 ; × 2
+          sta Temp
+          asl a                 ; × 4
+          adc Temp             ; × 6
+          bcc +
+          inc Pointer + 1
++
+          sta Pointer
+
+          jsr ShowPointerText
+
+DrawGrizzard:
+          lda #0
+          sta VDELP0
+          sta VDELP1
+          sta NUSIZ0
+          sta NUSIZ1
+
+          .ldacolu COLGREEN | $f
+          sta COLUP0
+          sta COLUP1
           
-          
+          ldy # 8
+-
+          lda GrizzardImages - 1, y
+          sta GRP0
+          lda GrizzardImages + 7, y
+          sta GRP1
+          sta WSYNC
+          sta WSYNC
+          dey
+          bne -
 
-          ldx # KernelLines - 188 + 60
+          sty GRP0
+          sty GRP1
+
+          jsr Prepare48pxMobBlob
+
+          ldy # 10
+-
+          sta WSYNC
+          dey
+          bne -
+          
+          lda MoveSelection
+          lda # >MovesTable
+          sta Pointer + 1
+          clc
+          ldx #4
+-
+          asl a
+          bcc +
+          inc Pointer + 1
++
+          sta Pointer
+
+          jsr ShowPointerText
+
+          lda Pointer
+          clc
+          adc # 6
+          bcc +
+          inc Pointer + 1
++
+          sta Pointer
+
+          jsr ShowPointerText
+          
+          .ldacolu COLGRAY | $0
+          sta COLUBK
+
+          ldx # KernelLines - 188
 FillScreen:
           stx WSYNC
           dex
@@ -313,12 +422,6 @@ SelectedRunAway:
           lda #ModeMap
           sta GameMode
           jmp Dispatch
-
-SelectedBowAndArrow:
-          ;; TODO
-
-SelectedSword:
-          ;; TODO
 
 SelectedMoves:
           ;; TODO
@@ -400,6 +503,7 @@ ScoreDone:
           .bend
 
 SpritePresence:
+          .byte 0                ; 0 0 0
           .byte NUSIZNorm        ; 0 0 1
           .byte NUSIZNorm        ; 0 1 0
           .byte NUSIZ2CopiesMed  ; 0 1 1
@@ -409,6 +513,7 @@ SpritePresence:
           .byte NUSIZ3CopiesMed  ; 1 1 1
 
 SpritePosition:
+          .byte 0               ; 0 0 0
           .byte $a0             ; 0 0 1
           .byte $80             ; 0 1 0
           .byte $a0             ; 0 1 1
@@ -416,3 +521,17 @@ SpritePosition:
           .byte $60             ; 1 0 1
           .byte $60             ; 1 1 0
           .byte $60             ; 1 1 1
+
+ShowPointerText:
+          ldy # 0
+-
+          lda (Pointer), y
+          sta StringBuffer, y
+          iny
+          cpy # 6
+          bne -
+
+          jsr DecodeText
+          jsr ShowText
+
+          rts

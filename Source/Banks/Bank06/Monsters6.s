@@ -3,7 +3,7 @@ Monsters:
           .MiniText "SLIME "
 
           .byte 0               ; art
-          .byte COLGREEN | $8
+          .byte COLGREEN | $f
           .byte $11, $16         ; ATK, DEF, ACC, count
           
           .MiniText "HORRID"

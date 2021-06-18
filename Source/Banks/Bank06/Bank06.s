@@ -12,7 +12,8 @@
           .include "48Pixels.s"
 
           .include "Combat6.s"
-          .include "CombatIcons.s"
+          .include "GrizzardNames.s"
+          .include "GrizzardImages.s"
 
           .align $100
           .include "Monsters6.s"
