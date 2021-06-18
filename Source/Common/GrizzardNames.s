@@ -1,6 +1,6 @@
 GrizzardNames:
-          .MiniText "GRIZ00"
-          .MiniText "GRIZ01"
-          .MiniText "GRIZ02"
-          .MiniText "GRIZ03"
+          .MiniText "DIRTEX"
+          .MiniText "AQUAX "
+          .MiniText "AIREX "
+          .MiniText "FIREX "
 

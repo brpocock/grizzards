@@ -42,12 +42,12 @@ SetUpFortyEight:	.macro Graphics
 
 MiniText:	.macro String
 	.enc "minifont"
-	.byte \String[0] * 5
-	.byte \String[1] * 5
-	.byte \String[2] * 5
-	.byte \String[3] * 5
-	.byte \String[4] * 5
-	.byte \String[5] * 5
+	.byte \String[0]
+	.byte \String[1]
+	.byte \String[2]
+	.byte \String[3]
+	.byte \String[4]
+	.byte \String[5]
 	.enc "none"
 	.endm
 

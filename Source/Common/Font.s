@@ -1,3 +1,5 @@
+;;; -*- fundamental -*-
+
 ;;; The text font is an 8 × 15px font stored at 8 × 5px resolution,
 ;;; inverted.
 
@@ -172,7 +174,7 @@ P:
 	.byte %1100110
 	.byte %1111100
 Q:        
-	.byte %11111100
+	.byte %00111111
 	.byte %01111010
 	.byte %01100110
 	.byte %01100110

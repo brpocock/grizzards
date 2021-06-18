@@ -281,21 +281,12 @@ DrawGrizzard:
           ldy #ServiceDrawGrizzard
           jsr FarCall
           
-;;          jsr Prepare48pxMobBlob
-
           ldy # 10
 -
           sta WSYNC
           dey
           bne -
-
-          ldx #TextBank
-          ldy #ServiceShowMove
-          jsr FarCall
           
-          .ldacolu COLGRAY | $0
-          sta COLUBK
-
           ldx # KernelLines - 188
 FillScreen:
           stx WSYNC
@@ -313,7 +304,7 @@ CheckStick:
           bne DoneStickUp
           dex
           bpl DoneStickUp
-          ldx #0
+          ldx #8
 
 DoneStickUp:
           lda SWCHA
@@ -328,7 +319,7 @@ DoneStickDown:
           lda SWCHA
           and #P0StickLeft
           bne DoneStickLeft
-          ldx #$ff
+          ldx # 0
           jmp StickDone
 
 DoneStickLeft:
@@ -339,26 +330,44 @@ DoneStickLeft:
 DoneStickRight:
 StickDone:
           stx MoveSelection
-
-          lda INPT4
-          and #$80
-          bne NoFire
           
           cpx # 0
           beq SelectedRunAway
-          ldy # COLGRAY
+          ldy # COLGRAY | 0
+          dex
           lda BitMask, x
           and MovesKnown
           beq +
-          ldy # COLRED
+          ldy # COLRED | $4
 +
           sty COLUP0
           sty COLUP1
 
-          ;; TODO: Perform the selected move
+          ldx #TextBank
+          ldy #ServiceShowMove
+          jsr FarCall
+
+
+          lda INPT4
+          and #$80
+          bne NoFire
+          ;; TODO: check button, maybe perform the selected move
 
 
 SelectedRunAway:
+
+          lda # COLTURQUOISE | $f
+          sta COLUP0
+          sta COLUP1
+          
+          ldx #TextBank
+          ldy #ServiceShowMove
+          jsr FarCall
+
+          lda INPT4
+          and #$80
+          bne NoFire
+
           ;; TODO ... odds of escaping, attacks of opportunity
           lda #SoundHappy
           sta NextSound
