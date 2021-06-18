@@ -3,9 +3,12 @@ ShowMove:
           lda # >MovesTable
           sta Pointer + 1
           clc
-          ldx #4
--
           asl a
+          asl a
+          sta Pointer
+          asl a
+          adc Pointer
+          adc # <MovesTable
           bcc +
           inc Pointer + 1
 +

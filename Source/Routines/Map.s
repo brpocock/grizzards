@@ -395,14 +395,15 @@ NoReset:
 
 SkipSwitches:
 
-          lda #ModeMap
-          cmp GameMode
+          lda GameMode
+          cmp #ModeMap
           bne Leave
           jsr Overscan
           jmp Loop
 
 Leave:
-          jsr Overscan
-          jmp Loop
+          cmp #ModeCombat
+          beq GoCombat
+          brk
 
           .bend

@@ -52,7 +52,7 @@ DoCombat:          .block
           dey
           bne -
 
-          lda #$ff              ; no selection
+          lda # 0              ; flee
           sta MoveSelection
 
           ;; ignore current switch position until it changes,
@@ -339,8 +339,13 @@ DoneStickLeft:
 DoneStickRight:
 StickDone:
           stx MoveSelection
-          cpx #$ff
-          beq SelectedFlee
+
+          lda INPT4
+          and #$80
+          bne NoFire
+          
+          cpx # 0
+          beq SelectedRunAway
           ldy # COLGRAY
           lda BitMask, x
           and MovesKnown
@@ -350,17 +355,6 @@ StickDone:
           sty COLUP0
           sty COLUP1
 
-          ;; draw move name
-
-SelectedFlee:       
-          
-          lda INPT4
-          and #$80
-          bne NoFire
-
-          lda MoveSelection
-          cmp #$ff
-          beq SelectedRunAway
           ;; TODO: Perform the selected move
 
 

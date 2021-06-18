@@ -34,6 +34,7 @@ DecodeAndShowText:
           
           .include "GrizzardNames.s"
           .include "GrizzardImages.s"
+          .include "MovesTable.s"
           
 StatsText:
           .MiniText "ATK 00"
