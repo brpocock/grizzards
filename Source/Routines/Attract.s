@@ -104,17 +104,17 @@ SkipAboveCopyright:
           dex
           bne SkipAboveCopyright
 
-          .SetUpTextConstant " COPY "
+          .LoadString " COPY "
           jsr ShowText
-          .SetUpTextConstant "RIGHT "
+          .LoadString "RIGHT "
           jsr ShowText
-          .SetUpTextConstant " 2021 "
+          .LoadString " 2021 "
           jsr ShowText
-          .SetUpTextConstant "BRUCE-"
+          .LoadString "BRUCE-"
           jsr ShowText
-          .SetUpTextConstant "ROBERT"
+          .LoadString "ROBERT"
           jsr ShowText
-          .SetUpTextConstant "POCOCK"
+          .LoadString "POCOCK"
           jsr ShowText
 
           ldx #50

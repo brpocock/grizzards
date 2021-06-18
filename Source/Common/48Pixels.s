@@ -52,7 +52,7 @@ MiniText:	.macro String
 	.endm
 
 	
-SetUpTextConstant:	.macro String
+LoadString:	.macro String
 	.enc "minifont"
 	lda #\String[0]
 	sta StringBuffer + 0

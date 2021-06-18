@@ -5,11 +5,7 @@
 	  .include "StartBank.s"
 
           .include "VSync.s"
-          .include "Prepare48pxMobBlob.s"
           .include "48Pixels.s"
-          .align $100
-          .include "Font.s"
-          .include "ShowText.s"
 
 DoLocal:
           cpy #0

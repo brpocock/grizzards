@@ -15,7 +15,7 @@ SelectSlot:        .block
           sta COLUP1
           .ldacolu COLGOLD, $0
           sta COLUBK
-          .SetUpTextConstant "ERASE "
+          .LoadString "ERASE "
           jmp StartPicture
 
 NoErase:
@@ -28,7 +28,7 @@ NoErase:
           .ldacolu COLGREEN
           sta COLUP0
           sta COLUP1
-          .SetUpTextConstant "SELECT"
+          .LoadString "SELECT"
 
 StartPicture:
 
@@ -38,14 +38,12 @@ FillTop:
           dex
           bne FillTop
 
-          jsr Prepare48pxMobBlob
-
 Slot:
           ldx #ServiceDecodeAndShowText
           ldy #TextBank
           jsr FarCall
 
-          .SetUpTextConstant " SLOT "
+          .LoadString " SLOT "
           ldx #ServiceDecodeAndShowText
           ldy #TextBank
           jsr FarCall
@@ -74,22 +72,22 @@ DoNotDestroy:
           cmp #ModeSelectSlot
           bne ShowClear
 
-          .SetUpTextConstant "BEGIN "
+          .LoadString "BEGIN "
           jmp FillToSlot
 
 ShowClear:
-          .SetUpTextConstant "VACANT"
+          .LoadString "VACANT"
           jmp FillToSlot
 
 ShowResume:
           lda GameMode
           cmp #ModeSelectSlot
           bne ShowActive
-          .SetUpTextConstant "RESUME"
+          .LoadString "RESUME"
           jmp FillToSlot
 
 ShowActive:
-          .SetUpTextConstant "IN USE"
+          .LoadString "IN USE"
 
 FillToSlot:
           sta WSYNC
@@ -101,7 +99,7 @@ ShowSaveSlot:
           ldy #TextBank
           jsr FarCall
 
-          .SetUpTextConstant "SLOT 1"
+          .LoadString "SLOT 1"
 
           ;; Ensure a new scanline whichever branch is taken
           .Sleep 15

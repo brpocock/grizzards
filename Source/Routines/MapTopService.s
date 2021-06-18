@@ -3,8 +3,6 @@ TopOfScreenService: .block
           jsr VSync
           jsr VBlank
 
-          jsr Prepare48pxMobBlob
-
           .ldacolu COLGRAY, $f
           sta COLUP0
           sta COLUP1
@@ -13,18 +11,10 @@ TopOfScreenService: .block
 
           lda Pause
           beq DecodeScore
-          .SetUpTextConstant "PAUSED"
+          .LoadString "PAUSED"
           jmp ScoreDone
           
 DecodeScore:
-
-          lda #>Font
-          sta pp0h
-          sta pp1h
-          sta pp2h
-          sta pp3h
-          sta pp4h
-          sta pp5h
 
           lda Score             ; rightmost digit
           and #$0f
@@ -33,7 +23,7 @@ DecodeScore:
           rol a
           clc
           adc Temp
-          sta pp5l
+          sta StringBuffer + 5
 
           lda Score
           and #$f0
@@ -44,7 +34,7 @@ DecodeScore:
           ror a
           clc
           adc Temp
-          sta pp4l
+          sta StringBuffer + 4
 
           lda Score + 1
           and #$0f
@@ -53,7 +43,7 @@ DecodeScore:
           rol a
           clc
           adc Temp
-          sta pp3l
+          sta StringBuffer + 3
 
           lda Score + 1
           and #$f0
@@ -64,7 +54,7 @@ DecodeScore:
           ror a
           clc
           adc Temp
-          sta pp2l
+          sta StringBuffer + 2
 
           lda Score + 2
           and #$0f
@@ -73,8 +63,8 @@ DecodeScore:
           rol a
           clc
           adc Temp
-          sta pp1l
-          
+          sta StringBuffer + 1
+
           lda Score + 2         ; leftmost digit
           and #$f0
           ror a
@@ -84,10 +74,12 @@ DecodeScore:
           ror a
           clc
           adc Temp
-          sta pp0l
+          sta StringBuffer + 0
 
 ScoreDone:          
-          jsr ShowText
+          ldy #ServiceDecodeAndShowText
+          ldx #TextBank
+          jsr FarCall
 
           lda #CTRLPFREF | CTRLPFBALLSZ4 | CTRLPFPFP
           sta CTRLPF
