@@ -31,6 +31,7 @@
              (intern "*COMMUNICATION-STYLE*" swank)
              (intern "*DONT-CLOSE*" swank) nil)))
 
+#+mcclim
 (defun edit-myself-in-climacs (file)
   (climacs:edit-file file
                      :process-name "Editing Skyline-Tool"))
@@ -42,13 +43,13 @@ To invoke command-line entry points, use (c VERB PARAMS)")
   (let ((*package* (find-package :skyline-tool)))
     (prepl:repl)))
 
+#+mcclim
 (defun start-listener ()
   (clim-listener:run-listener :new-process t
                               :process-name "Skyline Tool"
                               :package :Skyline-Tool))
 
 (defun x11-p ()
-  (return-from x11-p nil) ;; CLIM bugs for now, don't use
   (when-let (display (sb-posix:getenv "DISPLAY"))
     (find #\: display)))
 
@@ -62,21 +63,24 @@ To invoke command-line entry points, use (c VERB PARAMS)")
 
 (defun prompt-function (prompt)
   (lambda ()
-    (if (x11-p)
+    (if #+mcclim (x11-p) #-mcclim nil
+        #+mcclim
         (clim-simple-interactor:run-in-simple-interactor
          (lambda () (prompt prompt)))
+        #-mcclim nil
         (prompt prompt))))
 
 (defun dialog (title message &rest args)
-  (if (x11-p)
-      (clim-simple-interactor:run-in-simple-interactor
-       (lambda ()
-         (apply #'format *query-io* message args)
-         (clim:with-text-size (*query-io* :small)
-           (format *query-io* "~2%~20t(Press Return)"))
-         (force-output *query-io*)
-         (read-char))
-       :process-name title)
+  (if #+mcclim (x11-p) #-mcclim nil
+      #+mcclim (clim-simple-interactor:run-in-simple-interactor
+                (lambda ()
+                  (apply #'format *query-io* message args)
+                  (clim:with-text-size (*query-io* :small)
+                    (format *query-io* "~2%~20t(Press Return)"))
+                  (force-output *query-io*)
+                  (read-char))
+                :process-name title)
+      #-mcclim nil
       (progn
         (format t "~&~% ★ ~a ★~%" title)
         (apply #'format t message args)
@@ -85,8 +89,9 @@ To invoke command-line entry points, use (c VERB PARAMS)")
 
 (defmacro with-happy-restarts (&body body)
   `(tagbody do-over
-      (let ((*debugger-hook* (if (x11-p)
-                                 #'clim-debugger:debugger
+      (let ((*debugger-hook* (if #+mcclim (x11-p) #-mcclim nil
+                                 #+mcclim #'clim-debugger:debugger
+                                 #-mcclim nil
                                  *debugger-hook*)))
         (restart-case
             (unwind-protect
@@ -115,24 +120,28 @@ To invoke command-line entry points, use (c VERB PARAMS)")
             :report "Edit a file in Tiled"
             :interactive-function (prompt-function "Edit which file in Tiled?")
             (uiop:run-program (list "tiled" file)))
-          (start-repl ()
-            :report "Open a read-eval-print-loop listener"
-            (if (x11-p)
-                (clim-listener:run-listener :process-name "Skyline Tool REPL"
-                                            :package :skyline-tool)
-                (start-prepl))
-            (go do-over))
+          #+mcclim (start-repl ()
+                     :report "Open a read-eval-print-loop listener"
+                     (if (x11-p)
+                         (clim-listener:run-listener :process-name "Skyline Tool REPL"
+                                                     :package :skyline-tool)
+                         (start-prepl))
+                     (go do-over))
+          #-mcclim (start-repl ()
+                     :report "Open a read-eval-print-loop listener"
+                     (start-prepl)
+                     (go do-over))
           (debug-in-emacs ()
             :report "Debug this in a running GNU Emacs"
             (debug-myself-in-emacs)
             (go do-over))
-          (edit-in-climacs (file)
-            :report "Edit in Climacs"
-            :interactive-function (prompt-function "Edit which file in Climacs?")
-            (edit-myself-in-climacs file)
-            (format t "Climacs now open … ~
+          #+mcclim (edit-in-climacs (file)
+                     :report "Edit in Climacs"
+                     :interactive-function (prompt-function "Edit which file in Climacs?")
+                     (edit-myself-in-climacs file)
+                     (format t "Climacs now open … ~
 recompile when you've corrected the error. (C-c C-k) and restart.")
-            (go do-over))
+                     (go do-over))
           (recompile-skyline-tool ()
             :report "Recompile system Skyline-Tool (and retry)"
             (format t "
@@ -204,21 +213,23 @@ documentation also.
           argv)
   (let ((sb-impl::*default-external-format* :utf-8))
     (with-happy-restarts
-      (unless (< 1 (length argv))
-        (start-prepl))
+        (unless (< 1 (length argv))
+          (start-prepl))
       (destructuring-bind (self verb &rest invocation) argv
         (if-let (fun (getf *invocation* (make-keyword (string-upcase verb))))
           (flet ((runner ()
                    (apply fun (remove-if (curry #'string= self)
                                          invocation))
                    (fresh-line)))
-            (if (x11-p)
+            (if #+mcclim (x11-p) #-mcclim nil
+                #+mcclim
                 (clim-simple-interactor:run-in-simple-interactor
                  #'runner
                  :process-name
                  (format nil "Skyline-Tool: running ~:(~a~)~{ ~a~}"
                          (substitute #\Space #\- verb)
-                         invocation))
+                         invocation)) 
+                #-mcclim nil
                 (funcall #'runner)))
           (error "Command not recognized: “~a” (try “help”)" verb))
         (fresh-line)))))
@@ -226,4 +237,4 @@ documentation also.
 (defun c (&rest args)
   (funcall #'command (cons "c" args)))
 
-(assert (fboundp 'clim-debugger:debugger))
+#+mcclim (assert (fboundp 'clim-debugger:debugger))

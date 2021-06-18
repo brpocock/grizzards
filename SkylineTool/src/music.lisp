@@ -211,8 +211,8 @@ Gathered text:~{~% • ~a~}"
       (multiple-value-bind (numbers comments)
           (midi-to-sound-binary output-coding
                                 *machine*
-                                (read-midi (concatenate 'string "music/"
-                                                        midi-file-name)))
+                                (read-midi midi-file-name))
+        (format *trace-output* "~& - Generated ~:d values…" (first (array-dimensions numbers)))
         (when (plusp (first (array-dimensions numbers)))
           (setf (gethash symbol-name catalog) numbers
                 (gethash symbol-name comments-catalog) comments))))))
@@ -362,9 +362,9 @@ $~2,'0x~^, $~2,'0x~^,   $~2,'0x~^, $~2,'0x~}~2%"
         (assembler-label-name
          (second assignment))))
 
-(defun default-playlist-pathname (playlist-name)
-  (make-pathname :directory '(:relative "music")
-                 :name playlist-name
+(defun default-playlist-pathname (file-name playlist-name)
+  (make-pathname :defaults playlist-name
+                 :name file-name
                  :type "playlist"))
 
 (defun max-of-cars (assignments)
@@ -406,44 +406,40 @@ Music:~:*
                                                 comments-catalog)
   (with-input-from-file (playlist-file playlist-file-name)
     (loop for line = (read-line playlist-file nil)
-       while line
-       do (import-music-for-playlist output-coding line
-                                     catalog comments-catalog)))
+          while line
+          do (import-music-for-playlist output-coding line
+                                        catalog comments-catalog)))
   (format *trace-output* "~&End of playlist; collected ~r song~:p~
 ~:*~[~:; in “~a” coding~]."
           (hash-table-count catalog) output-coding))
 
-(defun compile-music (source-out-name &optional in-file-name)
-  (destructuring-bind (obj machine-type$ object-file-name)
-      (split-string source-out-name :separator "/") 
-    (assert (equal obj "Object"))
-    (destructuring-bind (playlist-name area-name output-coding$ s)
-        (split-string object-file-name :separator ".")
-      (declare (ignore area-name)) 
-      (assert (equal s "s"))
-      (let ((*machine* (parse-integer machine-type$))
-            (output-coding (make-keyword (string-upcase output-coding$)))
-            (playlist-file-name (or in-file-name
-                                    (default-playlist-pathname playlist-name)))
-            (catalog (make-hash-table))
-            (comments-catalog (make-hash-table)))
-        (import-songs-from-playlist-to-catalog 
-         :playlist-file-name playlist-file-name
-         :output-coding output-coding
-         :catalog catalog
-         :comments-catalog comments-catalog)
-        (let ((assignments (assign-repertoire-to-banks
-                            (build-repertoire-from-raw-catalog catalog)))) 
-          (dotimes (bank (max-of-cars assignments))
-            (with-output-to-file (source-file
-                                  (numbered-bank-filename
-                                   source-out-name bank) 
-                                  :if-exists :supersede)
-              (write-music-bank-header assignments source-file) 
-              (loop for (song-bank title . notes) in assignments
-                 when (= bank song-bank) 
-                 do (write-song-data-to-file title notes source-file))))))))
+(defun compile-song (source-out-name in-file-name &optional machine-type$)
+  (let ((*machine* (if machine-type$ (parse-integer machine-type$) 2600)))
+    ))
 
+(defun compile-music (source-out-name in-file-name &optional machine-type$)
+  (let ((*machine* (if machine-type$ (parse-integer machine-type$) 2600))
+        (output-coding :NTSC)
+        (playlist-file-name in-file-name)
+        (catalog (make-hash-table))
+        (comments-catalog (make-hash-table)))
+    (format *trace-output* "~&Writing music from playlist ~a…" in-file-name)
+    (import-songs-from-playlist-to-catalog 
+     :playlist-file-name playlist-file-name
+     :output-coding output-coding
+     :catalog catalog
+     :comments-catalog comments-catalog)
+    (with-output-to-file (source-out source-out-name :if-exists :overwrite)
+      (format *trace-output* "~&Writing ~a…" source-out-name)
+      (format source-out ";;; Music compiled from playlist ~a;
+;;; do not bother editing (generated file will be overwritten)" 
+              in-file-name)
+      (loop for symbol being the hash-keys of catalog
+            for notes = (gethash symbol catalog)
+            do (write-song-data-to-file (string symbol) notes source-out)))
+    (format *trace-output* "~&… done.~%")
+    (finish-output))
+  
   (defgeneric midi-to-sound-binary (output-coding machine-type midi-file-name)
     (:method (output-coding machine-type midi-file-name)
       (warn "No handler for output coding ~a (machine ~a); skipping ~a" 

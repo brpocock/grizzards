@@ -35,6 +35,7 @@
                                                       :wait t)))))
 
 (defun install-os-package (package-name &key libp develp)
+  (return-from install-os-package nil)
   (destructuring-bind ((installer &rest args) nomenclature successes)
       (cond
         ((probe-file "/usr/bin/pkcon") '(("/usr/bin/pkcon" "install") :either (0 7)))
@@ -184,7 +185,8 @@ Checking for Quicklisp first…")
 (format t "~& … and some optional debugging libs …")
 (ignore-errors
   (map nil (intern "QUICKLOAD" (find-package :quicklisp))
-       '(:prepl :clim-clx :mcclim :clouseau :climacs :quicklisp-slime-helper :prepl)))
+       '(:prepl ;:clim-clx :mcclim :clouseau :climacs 
+         :quicklisp-slime-helper :prepl)))
 
 (format t "~& Compiling Buildapp…")
 

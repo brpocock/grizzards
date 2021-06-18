@@ -37,15 +37,15 @@ place? Visit https://beta.quicklisp.com/ for installation instructions.~%"
                                 (or *compile-file-pathname*
                                     *load-pathname*)))
 
-(format t "Quickloading Skyline-Tool System … ")
-(finish-output)
-(funcall (intern "QUICKLOAD" (find-package :quicklisp)) :cl-plumbing)
-(funcall (intern "QUICKLOAD" (find-package :quicklisp)) :clim)
-(load (merge-pathnames (make-pathname :directory (list :relative)
-				      :name "clim-simple-interactor" :type "lisp")
-		       (or *compile-file-pathname*
-			   *load-pathname*)))
-(funcall (intern "QUICKLOAD" (find-package :quicklisp)) :skyline-tool)
-(format t "… done with Quickload.~2%")
+;;(format t "Quickloading Skyline-Tool System … ")
+;;(finish-output)
+;; (funcall (intern "QUICKLOAD" (find-package :quicklisp)) :cl-plumbing)
+;; (funcall (intern "QUICKLOAD" (find-package :quicklisp)) :clim)
+;;(load (merge-pathnames (make-pathname :directory (list :relative)
+;;				      :name "clim-simple-interactor" :type "lisp")
+;;		       (or *compile-file-pathname*
+;;			   *load-pathname*)))
+;;(funcall (intern "QUICKLOAD" (find-package :quicklisp)) :skyline-tool)
+;;(format t "… done with Quickload.~2%")
 (finish-output)
 

@@ -783,22 +783,23 @@ value ~D for tile-cell ~D is too far down for an image with width ~D" (tile-cell
 (defgeneric dispatch-png% (machine png-file target-dir
                            png height width α palette-pixels))
 
+#+mcclim
 (defmethod dispatch-png% :before (machine png-file target-dir
                                   png height width α palette-pixels)
   (when (clim:extended-output-stream-p *trace-output*)
     (clim:formatting-table (*trace-output*)
-      (clim:formatting-row (*trace-output*)
-        (clim:formatting-cell (*trace-output*)
-          (clim:with-text-face (*trace-output* :bold)
-            (princ "PNG file: " *trace-output*))
-          (clim:present png-file 'pathname :stream *trace-output*)))
-      (clim:formatting-row (*trace-output*)
-        (clim:formatting-cell (*trace-output*)
-          (clim:draw-pattern*
-           *trace-output*
-           (clim:make-pattern-from-bitmap-file png-file
-                                               :format :png)
-           0 0))))))
+                           (clim:formatting-row (*trace-output*)
+                                                (clim:formatting-cell (*trace-output*)
+                                                                      (clim:with-text-face (*trace-output* :bold)
+                                                                        (princ "PNG file: " *trace-output*))
+                                                                      (clim:present png-file 'pathname :stream *trace-output*)))
+                           (clim:formatting-row (*trace-output*)
+                                                (clim:formatting-cell (*trace-output*)
+                                                                      (clim:draw-pattern*
+                                                                       *trace-output*
+                                                                       (clim:make-pattern-from-bitmap-file png-file
+                                                                                                           :format :png)
+                                                                       0 0))))))
 
 (defun monochrome-image-p (palette-pixels)
   (let ((answer (> 3 (print (length (image-colours palette-pixels))))))

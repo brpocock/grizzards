@@ -14,12 +14,12 @@
                :bordeaux-threads
                :cl-6502
                :cl-ppcre 
-               :clim-listener
-               :clim-debugger
-               :climacs
-               :clouseau
+               ;; :clim-listener
+               ;; :clim-debugger
+               ;; :climacs
+               ;; :clouseau
                :cserial-port
-               :mcclim
+               ;; :mcclim
                :midi
                :parse-number
                :png-read
