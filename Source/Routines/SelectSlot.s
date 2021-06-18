@@ -39,13 +39,13 @@ FillTop:
           bne FillTop
 
 Slot:
-          ldx #ServiceDecodeAndShowText
-          ldy #TextBank
+          ldy #ServiceDecodeAndShowText
+          ldx #TextBank
           jsr FarCall
 
           .LoadString " SLOT "
-          ldx #ServiceDecodeAndShowText
-          ldy #TextBank
+          ldy #ServiceDecodeAndShowText
+          ldx #TextBank
           jsr FarCall
 
           lda # ( (76 * 75) / 64 )
@@ -95,8 +95,8 @@ FillToSlot:
           bne FillToSlot
 
 ShowSaveSlot:
-          ldx #ServiceDecodeAndShowText
-          ldy #TextBank
+          ldy #ServiceDecodeAndShowText
+          ldx #TextBank
           jsr FarCall
 
           .LoadString "SLOT 1"
@@ -110,8 +110,8 @@ ShowSaveSlot:
           sta StringBuffer + 5
           
 ShowSlot:
-          ldx #ServiceDecodeAndShowText
-          ldy #TextBank
+          ldy #ServiceDecodeAndShowText
+          ldx #TextBank
           jsr FarCall
 
           ldx #25

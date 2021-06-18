@@ -9,6 +9,10 @@ DecodeText:	.block
 
 	.for i := 0, i < 6, i += 1
 	lda StringBuffer + i
+          clc
+          asl a
+          asl a
+          adc StringBuffer + i
 	sta PixelPointers + i * 2
 	.next
 

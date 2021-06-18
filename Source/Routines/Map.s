@@ -403,6 +403,6 @@ SkipSwitches:
 
 Leave:
           jsr Overscan
-          jmp DoMap
+          jmp Loop
 
           .bend

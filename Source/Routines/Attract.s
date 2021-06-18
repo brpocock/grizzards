@@ -87,8 +87,6 @@ BRPPreambleMode:
           cmp #3
           bmi StillPresenting
 
-          lda #0
-          sta ClockSeconds
           lda #ModeAttractTitle
           sta GameMode
 
@@ -185,6 +183,13 @@ FillAttractBottom:
           sta WSYNC
           dex
           bne FillAttractBottom
+
+          lda ClockSeconds
+          cmp #30
+          bne DoneAttractKernel
+
+          lda #ModeAttractCopyright
+          sta GameMode
           jmp DoneAttractKernel
 
 SingleGraphicAttract:
@@ -204,7 +209,6 @@ SkipAboveGraphic:
           jsr PlaySpeech
           
 SkipBelowGraphic:
-          sta WSYNC
           lda INTIM
           bne SkipBelowGraphic
 
