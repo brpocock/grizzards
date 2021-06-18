@@ -12,9 +12,9 @@
           PUBLISHER = false
           .endweak
 
-
 	.include "StartBank.s"
-          
+
+DoLocal:  
 	.include "ColdStart.s"
           .include "Attract.s"
           .include "SelectSlot.s"
@@ -22,7 +22,6 @@
           .include "48Pixels.s"
           .include "Prepare48pxMobBlob.s"
           .include "ShowPicture.s"
-          .include "ShowText.s"
           .include "StartNewGame.s"
           .include "VSync.s"
           .include "AtariVox-EEPROM-Driver.s"
@@ -36,7 +35,7 @@ SaveAndQuit:
           jsr SaveToSlot
           lda #0
           sta GameMode
-          jmp Dispatch
+          jmp ColdStart
 
           .include "TitleSpeech.s"
 
@@ -52,7 +51,5 @@ SaveAndQuit:
           .else
             .include "BRPCredit.s"
           .endif
-          .align $100
-          .include "Font.s"
 
           .include "EndBank.s"

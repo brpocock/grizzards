@@ -7,6 +7,7 @@
           .include "PlaySpeech.s"
           .include "Prepare48pxMobBlob.s"
 
+DoLocal:  
           rts
 
           .align $100

@@ -48,43 +48,31 @@ Wired:
 GoColdStart:
           BankJump ColdStart, ColdStartBank
 
-;;; Jump to the SelectSlot routine. (Is this needed?)
-GoSelectSlot:
-          BankJump SelectSlot, ColdStartBank
 
 ;;; Go to the current map memory bank, and jump to DoMap.
 ;;; If we're not in a map memory bank after the bank switch,
 ;;; then we must not be in map mode (hopefully), so jump
 ;;; back to Dispatch.
-          .weak
-          DoMap = Dispatch
-          .endweak
 GoMap:
           ldx CurrentMapBank
           sta BankSwitch0, x
-          jmp DoMap
+          jmp DoLocal
 
 ;;; Go to the current combat memory bank, and jump to DoCombat.
 ;;; In non-combat banks, jump to Dispatch.
-          .weak
-          DoCombat = Dispatch
-          .endweak
 GoCombat:
           ldx CurrentCombatBank
           sta BankSwitch0, x
-          jmp DoCombat
+          jmp DoLocal
 
 ;;; Perform a far call to a memory bank with a specific local
 ;;; service routine to perform; eg, this is how we handle sounds
 ;;; and will be handling the VSync routines in the 2M version.
-          .weak
-          DoLocal = Dispatch
-          .endweak
 FarCall:
           lda #BANK
           pha
           sta BankSwitch0, x
-          jmp DoLocal
+          jsr DoLocal
 
 ;;; Return from a FarCall. In fact, jump to any address in any
 ;;; memory bank by stuffing the stack.
@@ -102,22 +90,6 @@ Break:
 ;;; Save and Quit
 GoSaveAndQuit:
           BankJump SaveAndQuit, ColdStartBank
-
-;;; The main "traffic cop" dispatch routine. Whenever a "kernel" is done
-;;; doing its own thing, it can set GameMode and jump here to have a new
-;;; kernel initialized to handle the next phase of the game.
-Dispatch:
-          lda GameMode
-          and #$f0
-
-          beq GoColdStart
-          cmp #$10
-          beq GoColdStart
-          cmp #$20
-          beq GoSelectSlot
-          cmp #$30
-          beq GoMap
-          jmp GoCombat
 
 ;;; End of wired memory
 WiredEnd:

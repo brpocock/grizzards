@@ -61,7 +61,7 @@
           ;; TODO allocate the appropriate number of pages with AtariAge
           ;;
           ;; https://atariage.com/atarivox/atarivox_mem_list.html
-          SaveGameSlotPrefix = $1600
+          SaveGameSlotPrefix = $1700
           
           ;; Must be exactly 5 bytes for the driver routines to work
           .enc "ascii"
@@ -72,7 +72,16 @@
 ;;; Special Memory Banks
 
           ColdStartBank = $00
-          FacesBank = $05
           FailureBank = $05
           SFXBank = $07
           MapServicesBank = $03
+          TextBank = $02
+
+;;; Text bank provides multiple services, selected with .y
+
+          ServiceDecodeAndShowText = $01
+          ServiceShowText = $02
+          ServiceShowGrizzardName = $03
+          ServiceShowGrizzardStats = $04
+          ServiceDrawGrizzard = $05
+          ServiceShowMove = $06

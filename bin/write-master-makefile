@@ -44,6 +44,7 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
 \tcat \$^ > \$\@\n\n";
 
   for my $bank (@banks) {
+    my %seen = ();
 
     my @files = ();
     {
@@ -63,7 +64,8 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
 	next unless -f $path;
 	next if $seen{ $path };
 	++$seen{ $path };
-	my $file = ( split '\\/' => $path )[ -1 ];
+
+    	my $file = ( split '\\/' => $path )[ -1 ];
 	my ($base, $ext) = split '\\.' => $file;
 	if ('txt' eq $ext) {
           next if $rules{ $path };
@@ -85,7 +87,7 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
 	  push @files => $path;
 	  open my $text, '<', $path;
 	  while (my $line = <$text>) {
-	    if ($line =~ /.include "(.+)"/) {
+	    if ($line =~ /\.include "(.+)"/) {
 	      my $dep = $1;
 	      push @todo => "Source/Banks/Bank$bank/$dep";
 	      push @todo => "Source/Common/$dep";

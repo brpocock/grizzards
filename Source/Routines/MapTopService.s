@@ -160,6 +160,6 @@ P1HPos:
           sta HMP1
 
 TheEnd:   
-          jmp FarReturn
+          rts
 
           .bend

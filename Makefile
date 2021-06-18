@@ -114,6 +114,7 @@ bin/skyline-tool:	bin/buildapp \
 libraries already compiled. On subsequent runs, though, it'll be much quicker." >&2
 	bin/buildapp --output bin/skyline-tool \
 		--load SkylineTool/setup.lisp \
+		--load-system skyline-tool \
 		--entry skyline-tool::command
 
 bin/buildapp:

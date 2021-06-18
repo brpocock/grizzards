@@ -10,7 +10,6 @@
 
 DoLocal:
           .include "PlaySFX.s"
-          jmp FarReturn
 
           .include "SoundEffects.s"
           

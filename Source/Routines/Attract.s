@@ -63,7 +63,6 @@ Loop:
             cmp #ModeBRPPreamble
             beq BRPPreambleMode
           .fi
-          jmp Dispatch          ; how did we get here?
 
 StoryMode:
           ;; TODO lots more needs to happen here
@@ -240,6 +239,11 @@ LeaveAttract:
 
           lda #ModeSelectSlot
           sta GameMode
-          jmp Dispatch
+          jmp SelectSlot
 
+ShowText:
+          ldx #ServiceDecodeAndShowText
+          ldy #TextBank
+          jmp FarCall
+          
           .bend

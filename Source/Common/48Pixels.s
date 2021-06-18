@@ -53,27 +53,19 @@ MiniText:	.macro String
 
 	
 SetUpTextConstant:	.macro String
-	lda #>Font
-	sta pp0h
-	sta pp1h
-	sta pp2h
-	sta pp3h
-	sta pp4h
-	sta pp5h
-
 	.enc "minifont"
-	lda #<(\String[0] * Font.Height) 
-	sta pp0l
-	lda #<(\String[1] * Font.Height)
-	sta pp1l
-	lda #<(\String[2] * Font.Height)
-	sta pp2l
-	lda #<(\String[3] * Font.Height)
-	sta pp3l
-	lda #<(\String[4] * Font.Height)
-	sta pp4l
-	lda #<(\String[5] * Font.Height)
-	sta pp5l
+	lda #\String[0]
+	sta StringBuffer + 0
+	lda #\String[1]
+          sta StringBuffer + 1
+	lda #\String[2]
+	sta StringBuffer + 2
+	lda #\String[3]
+          sta StringBuffer + 3
+	lda #\String[4]
+	sta StringBuffer + 4
+	lda #\String[5]
+          sta StringBuffer + 5
 	.enc "none"
 	
 	.endm	

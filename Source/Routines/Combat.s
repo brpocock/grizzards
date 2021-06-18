@@ -82,7 +82,7 @@ NotPaused:
           sta COLUP1
 
 PausedOrNot:
-          jsr Prepare48pxMobBlob
+          ;; jsr Prepare48pxMobBlob
 
 PrepareMonsterArt:  
           
@@ -106,6 +106,7 @@ ShowMonsterName:
           sta Pointer
           lda CurrentMonsterPointer + 1
           sta Pointer + 1
+
           jsr ShowPointerText
 
           lda Pointer
@@ -115,6 +116,7 @@ ShowMonsterName:
           inc Pointer + 1
 +
           sta Pointer
+
           jsr ShowPointerText
           
 PrepareToDrawMonsters:        
@@ -263,7 +265,6 @@ DelayAfterMonsters:
           bne -
 
 DrawGrizzardName:
-          jsr Prepare48pxMobBlob
 
           .ldacolu COLBLUE, $f
           sta COLUP0
@@ -271,77 +272,26 @@ DrawGrizzardName:
           .ldacolu COLINDIGO, $0
           sta COLUBK
 
-          lda # >GrizzardNames
-          sta Pointer + 1
-          lda # 0 ;;; CurrentGrizzard 
-          clc
-          asl a                 ; × 2
-          sta Temp
-          asl a                 ; × 4
-          adc Temp             ; × 6
-          bcc +
-          inc Pointer + 1
-+
-          sta Pointer
-
-          jsr ShowPointerText
+          ldx #TextBank
+          ldy #ServiceShowGrizzardName
+          jsr FarCall
 
 DrawGrizzard:
-          lda #0
-          sta VDELP0
-          sta VDELP1
-          sta NUSIZ0
-          sta NUSIZ1
-
-          .ldacolu COLGREEN | $f
-          sta COLUP0
-          sta COLUP1
+          ldx #TextBank
+          ldy #ServiceDrawGrizzard
+          jsr FarCall
           
-          ldy # 8
--
-          lda GrizzardImages - 1, y
-          sta GRP0
-          lda GrizzardImages + 7, y
-          sta GRP1
-          sta WSYNC
-          sta WSYNC
-          dey
-          bne -
-
-          sty GRP0
-          sty GRP1
-
-          jsr Prepare48pxMobBlob
+;;          jsr Prepare48pxMobBlob
 
           ldy # 10
 -
           sta WSYNC
           dey
           bne -
-          
-          lda MoveSelection
-          lda # >MovesTable
-          sta Pointer + 1
-          clc
-          ldx #4
--
-          asl a
-          bcc +
-          inc Pointer + 1
-+
-          sta Pointer
 
-          jsr ShowPointerText
-
-          lda Pointer
-          clc
-          adc # 6
-          bcc +
-          inc Pointer + 1
-+
-          sta Pointer
-
-          jsr ShowPointerText
+          ldx #TextBank
+          ldy #ServiceShowMove
+          jsr FarCall
           
           .ldacolu COLGRAY | $0
           sta COLUBK
@@ -421,7 +371,7 @@ SelectedRunAway:
 
           lda #ModeMap
           sta GameMode
-          jmp Dispatch
+          jmp GoMap
 
 SelectedMoves:
           ;; TODO
@@ -451,7 +401,7 @@ SkipSwitches:
 
 Leave:
           jsr Overscan
-          jmp Dispatch
+          jmp DoCombat
 
 MovesLoop:
           jsr VSync
@@ -531,7 +481,8 @@ ShowPointerText:
           cpy # 6
           bne -
 
-          jsr DecodeText
-          jsr ShowText
+          ldx #TextBank
+          ldy #ServiceDecodeAndShowText
+          jmp FarCall
 
-          rts
+          

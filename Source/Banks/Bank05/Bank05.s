@@ -13,7 +13,7 @@
           .include "ShowText.s"
 
 DoLocal:
-          jmp FarReturn
+          rts
           
           .align $100
           .include "Font.s"

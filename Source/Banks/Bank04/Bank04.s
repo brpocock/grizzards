@@ -1,13 +1,12 @@
 	  BANK = $04
 
           .include "StartBank.s"
+
+DoLocal:  
           .include "Map.s"
           .include "VSync.s"
 
           .include "OverworldMaps.s"
-
-          .align $100
-          .include "Font.s"
 
           .include "PlayerSprites.s"
           .include "EndBank.s"

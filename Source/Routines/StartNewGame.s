@@ -105,7 +105,7 @@ WaitForScreenEnd:
           beq Loop
 
           jsr SaveToSlot
-          jmp Dispatch
+          jmp GoMap
 
 Loop:
           jmp StartGameScreenLoop

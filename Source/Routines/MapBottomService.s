@@ -116,7 +116,7 @@ FightWithSprite:
           sta CurrentCombatEncounter
           lda #ModeCombat
           sta GameMode
-          jmp FarReturn
+          rts
 
 DoorWithSprite:
           lda SpriteParam, x
@@ -130,7 +130,7 @@ PlayerMoveOK:
 
 DonePlayerMove:
           ldy #$00
-          jmp FarReturn
+          rts
 
 ProvinceChange:
           lda SpriteAction, x
@@ -150,7 +150,7 @@ ProvinceChange:
           sta CurrentMapBank
           jsr Overscan
           ldy #$ff
-          jmp FarReturn
+          rts
 
 BumpWall:
           sta CXCLR

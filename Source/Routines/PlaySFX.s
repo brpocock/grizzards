@@ -139,5 +139,5 @@ EndOfSound:
           sta NoteTimer
 
 TheEnd:
-
+          rts
           .bend

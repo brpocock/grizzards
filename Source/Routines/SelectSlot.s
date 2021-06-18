@@ -41,10 +41,14 @@ FillTop:
           jsr Prepare48pxMobBlob
 
 Slot:
-          jsr ShowText
+          ldx #ServiceDecodeAndShowText
+          ldy #TextBank
+          jsr FarCall
 
           .SetUpTextConstant " SLOT "
-          jsr ShowText
+          ldx #ServiceDecodeAndShowText
+          ldy #TextBank
+          jsr FarCall
 
           lda # ( (76 * 75) / 64 )
           sta TIM64T
@@ -93,29 +97,24 @@ FillToSlot:
           bne FillToSlot
 
 ShowSaveSlot:
-          jsr ShowText
+          ldx #ServiceDecodeAndShowText
+          ldy #TextBank
+          jsr FarCall
 
           .SetUpTextConstant "SLOT 1"
 
           ;; Ensure a new scanline whichever branch is taken
           .Sleep 15
 
-          lda SaveGameSlot
-          beq ShowSlot
-          and #2
-          beq ShowSlot2
-
-          lda # < (Font + 5 * 3)
-          sta pp5l
-          jmp ShowSlot
-
-ShowSlot2:
-          lda # < (Font + 5 * 2)
-          sta pp5l
-          ;; fall through to ShowSlot
-
+          ldx SaveGameSlot
+          inx
+          txa
+          sta StringBuffer + 5
+          
 ShowSlot:
-          jsr ShowText
+          ldx #ServiceDecodeAndShowText
+          ldy #TextBank
+          jsr FarCall
 
           ldx #25
 FillBottom:
@@ -221,7 +220,6 @@ SlotOK:
           jmp StartNewGame
 
 LoadGame:
-          jsr LoadSaveSlot
-          jmp Dispatch
+          jmp LoadSaveSlot
 
           .bend
