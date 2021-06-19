@@ -3,7 +3,7 @@ ShowGrizzardName:
 
           lda # >GrizzardNames
           sta Pointer + 1
-          lda CurrentGrizzard 
+          lda CurrentGrizzard
           clc
           asl a                 ; × 2
           sta Temp
