@@ -5,19 +5,11 @@
           ;; 
           
           .include "StartBank.s"
-          .include "48Pixels.s"
           .include "VSync.s"
-          .include "Prepare48pxMobBlob.s"
-          .include "DecodeText.s"
-          .include "ShowPicture.s"
-          .include "ShowText.s"
 
 DoLocal:
           rts
           
-          .align $100
-          .include "Font.s"
-
 ;;; Also failure mode
 
           .include "Failure.s"
