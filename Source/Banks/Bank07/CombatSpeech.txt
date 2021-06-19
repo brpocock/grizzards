@@ -4,6 +4,9 @@ The monster
 UsesMove:
 uses move
 
+On:
+on
+
 AndMisses:
 and misses
 
@@ -15,4 +18,7 @@ is injured
 
 IsDestroyed:
 is destroyed
+
+StatusFXSleep:
+goes to sleep
 
