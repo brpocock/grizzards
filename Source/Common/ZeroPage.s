@@ -335,6 +335,11 @@ MoveSelection:
 WhoseTurn:
           .byte ?
 
+;;; When presenting the move being executed or its results,
+;;; what part are we currently displaying/speaking?
+MoveAnnouncement:
+          .byte ?
+
 ;;; 
 ;;; Scratchpad for Map mode
 

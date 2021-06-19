@@ -4,6 +4,9 @@
 
 DoLocal:  
           .include "Combat.s"
+          .include "CombatMainScreen.s"
+          .include "GrizzardStatsScreen.s"
+          .include "CombatAnnouncementScreen.s"
           
           .include "VSync.s"
 
