@@ -292,6 +292,7 @@ StickDone:
           bne NoFire
           ;; TODO: check button, maybe perform the selected move
 
+          jmp CombatAnnouncementScreen
 
 SelectedRunAway:
 

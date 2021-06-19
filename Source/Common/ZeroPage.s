@@ -335,10 +335,15 @@ MoveSelection:
 WhoseTurn:
           .byte ?
 
+;;; Target of the move, if it's the player's turn
+MoveTarget:
+          .byte ?
+
 ;;; When presenting the move being executed or its results,
 ;;; what part are we currently displaying/speaking?
 MoveAnnouncement:
           .byte ?
+
 
 ;;; 
 ;;; Scratchpad for Map mode
