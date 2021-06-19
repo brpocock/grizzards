@@ -43,9 +43,11 @@ Loop:
           jsr VSync
           jsr VBlank
 
-          .rept 4
+          ldx #4
+-
           sta WSYNC
-          .next
+          dex
+          bne -
 
           jsr Prepare48pxMobBlob
 

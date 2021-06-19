@@ -1,5 +1,17 @@
 ShowGrizzardStats:
+          .ldacolu COLBLUE, $f
+          sta COLUBK
+          .ldacolu COLINDIGO, 0
+          sta COLUP0
+          sta COLUP1
+          
           jsr ShowGrizzardName
+
+          jsr DrawGrizzard
+          
+          .ldacolu COLINDIGO, 0
+          sta COLUP0
+          sta COLUP1
 
           lda #> StatsText
           sta Pointer +1

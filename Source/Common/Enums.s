@@ -27,6 +27,7 @@
           ModeCombatPlayer = $42
           ModeCombatEnemy = $43
           ModeDeath = $44
+          ModeGrizzardStats = $45
 
 
 ;;; Sounds in the library (index values)

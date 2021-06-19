@@ -6,27 +6,28 @@ AppendDecimalAndPrint:
 
 BINBCD8:
           sed
+          lda Temp
           
-          ldx #8
+          ldx # 8
 CNVBIT:                         
           asl Temp
-          lda StringBuffer + 6
-          adc StringBuffer + 6
-          sta StringBuffer + 6
+          lda StringBuffer + 5
+          adc StringBuffer + 5
+          sta StringBuffer + 5
           dex
           bne CNVBIT
           
           cld
 
-          lda StringBuffer + 6
+          lda StringBuffer + 5
           and #$f0
           lsr a
           lsr a
           lsr a
           lsr a
-          sta StringBuffer + 5
-          lda StringBuffer + 6
+          sta StringBuffer + 4
+          lda StringBuffer + 5
           and #$0f
-          sta StringBuffer + 6
+          sta StringBuffer + 5
 
           jmp DecodeAndShowText

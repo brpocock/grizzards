@@ -392,7 +392,13 @@ CheckSwitches:
           jmp GoSaveAndQuit
 
 NoReset:
-
+          lda DebounceSWCHB
+          and #SWCHBSelect
+          bne NoSelect
+          lda #ModeGrizzardStats
+          sta GameMode
+          
+NoSelect: 
           lda DebounceSWCHB
           and #SWCHBColor
           eor #SWCHBColor
@@ -400,11 +406,15 @@ NoReset:
 
 SkipSwitches:
           jsr Overscan
+
+          lda GameMode
+          cmp #ModeCombat
+          bne Leave
           jmp Loop
 
 Leave:
-          jsr Overscan
-          jmp DoCombat
+          cmp #ModeGrizzardStats
+          jmp GrizzardStatsScreen
 
 MovesLoop:
           jsr VSync
@@ -428,6 +438,50 @@ MovesAreScrolling:
 
           jmp MovesLoop
 
+GrizzardStatsScreen:
+          jsr VSync
+          jsr VBlank
+
+          ldx #4
+-
+          sta WSYNC
+          dex
+          bne -
+
+          ldy #ServiceShowGrizzardStats
+          ldx #TextBank
+          jsr FarCall
+          .ldacolu COLINDIGO, 0
+          sta COLUP0
+          sta COLUP1
+
+
+          ldx # 20
+-
+          stx WSYNC
+          dex
+          bne -
+
+          ldx # KernelLines - 180
+-
+          stx WSYNC
+          dex
+          bne -
+
+          jsr Overscan
+
+          lda SWCHB
+          cmp DebounceSWCHB
+          beq SwitchesDone
+          sta DebounceSWCHB
+          and #SWCHBSelect
+          beq SwitchesDone
+
+          jmp Loop
+
+SwitchesDone:
+          jmp GrizzardStatsScreen
+          
           .bend
 
 
@@ -453,6 +507,7 @@ NCarScore0:
 ScoreDone:
           cld
           rts
+
           .bend
 
 SpritePresence:
@@ -487,5 +542,4 @@ ShowPointerText:
           ldx #TextBank
           ldy #ServiceDecodeAndShowText
           jmp FarCall
-
           
