@@ -416,27 +416,6 @@ Leave:
           cmp #ModeGrizzardStats
           jmp GrizzardStatsScreen
 
-MovesLoop:
-          jsr VSync
-          jsr VBlank
-
-          ldx # KernelLines
-FillScreen2:
-          stx WSYNC
-          dex
-          bne FillScreen2
-
-          ;; TODO check for Reset
-
-
-NoMovesFire:
-          ;; TODO check for stick move
-
-MovesAreScrolling:
-
-          jsr Overscan
-
-          jmp MovesLoop
 
 GrizzardStatsScreen:
           jsr VSync
