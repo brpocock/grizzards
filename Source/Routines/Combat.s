@@ -472,15 +472,22 @@ GrizzardStatsScreen:
 
           lda SWCHB
           cmp DebounceSWCHB
-          beq SwitchesDone
+          beq Bouncey1
           sta DebounceSWCHB
+          and #SWCHBReset
+          bne +
+          jmp GoSaveAndQuit
++
           and #SWCHBSelect
-          beq SwitchesDone
-
-          jmp Loop
-
-SwitchesDone:
+          beq StatsDone
+          
+Bouncey1:
           jmp GrizzardStatsScreen
+
+StatsDone:
+          lda #ModeCombat
+          sta GameMode
+          jmp Loop
           
           .bend
 

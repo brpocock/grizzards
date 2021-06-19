@@ -49,6 +49,6 @@ ReadGlobalLoop:
           lda BlessedCombatBank
           sta CurrentCombatBank
 
-          rts
+          jmp GoMap
 
           .bend
