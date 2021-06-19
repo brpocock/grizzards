@@ -96,11 +96,15 @@ StillPresenting:
 
 CopyrightMode:
 
-          ldx #50
+          ldx # 20
 SkipAboveCopyright:
           stx WSYNC
           dex
           bne SkipAboveCopyright
+
+          .ldacolu COLTURQUOISE | $e
+          sta COLUP0
+          sta COLUP1
 
           .LoadString " COPY "
           jsr ShowText
@@ -115,7 +119,7 @@ SkipAboveCopyright:
           .LoadString "POCOCK"
           jsr ShowText
 
-          ldx #50
+          ldx # 20
 SkipBelowCopyright:
           stx WSYNC
           dex
@@ -246,8 +250,8 @@ LeaveAttract:
           jmp SelectSlot
 
 ShowText:
-          ldx #ServiceDecodeAndShowText
-          ldy #TextBank
+          ldy #ServiceDecodeAndShowText
+          ldx #TextBank
           jmp FarCall
           
           .bend
