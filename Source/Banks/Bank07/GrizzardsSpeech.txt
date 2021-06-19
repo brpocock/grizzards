@@ -1,14 +1,14 @@
 Grizzard0:
-Grizzard
+Dirt x
 
 Grizzard1:
-Grizzard
+Aquax
 
 Grizzard2:
-Grizzard
+Air x
 
 Grizzard3:
-Grizzard
+Firex
 
 Grizzard4:
 Grizzard
