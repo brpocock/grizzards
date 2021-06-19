@@ -22,6 +22,14 @@ Temp:
 Pointer:
           .word ?
           
+;;; String Buffer for text displays of composed text,
+;;; e.g. chat names or monster names.
+;;;
+;;; XXX This can probably be factored out and save some
+;;; work by eliminating DecodeText calls as well
+StringBuffer:
+          .byte ?, ?, ?, ?, ?, ?
+
 ;;; 
 ;;; Main "Traffic Cop" Switching
 ;;;
@@ -117,13 +125,10 @@ BlessedY:
 GameEventFlags:
           .byte ?, ?, ?, ?
 
-KilledBossFlags:
-          .byte ?
-
 EndGlobalGameData:
 
-          .if EndGlobalGameData - GlobalGameData > 64
-          .error "Global data exceeds 63 bytes (length is ", EndGlobalGameData - GlobalGameData + 1, " bytes)"
+          .if EndGlobalGameData - GlobalGameData > 59
+          .error "Global data exceeds 59 bytes (length is ", EndGlobalGameData - GlobalGameData + 1, " bytes)"
           .fi
 
 ;;; 
@@ -188,14 +193,6 @@ pp4l:	.byte ?
 pp4h:	.byte ?
 pp5l:	.byte ?
 pp5h:	.byte ?
-
-;;; String Buffer for text displays of composed text,
-;;; e.g. chat names or monster names.
-;;;
-;;; XXX This can probably be factored out and save some
-;;; work by eliminating DecodeText calls as well
-StringBuffer:
-          .byte ?, ?, ?, ?, ?, ?
 
           
 ;;; 
