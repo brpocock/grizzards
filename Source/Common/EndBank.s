@@ -5,7 +5,7 @@ BitMask:
           
 EndBank:
 
-          BankEndAddress = $ff30      ; keep this as high as possible
+          BankEndAddress = $ff41      ; keep this as high as possible
           ;; The magic number  above: you can just raise it  to, say,
           ;; $ff70,  and then  the assembler  will bitch  at you  about its
           ;; being too high, and tell you  what to lower it to. Careful,
