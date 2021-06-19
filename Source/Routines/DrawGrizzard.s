@@ -5,9 +5,23 @@ DrawGrizzard:
           sta NUSIZ0
           sta NUSIZ1
 
-          .ldacolu COLGREEN | $f
+          ldx CurrentGrizzard
+          lda GrizzardColor, x
           sta COLUP0
           sta COLUP1
+
+          lda # >GrizzardImages
+          sta Pointer + 1
+          lda GrizzardPictureSelect, x
+          clc
+          asl a
+          asl a
+          asl a
+          adc # <GrizzardImages
+          bcc +
+          inc Pointer + 1
++
+          sta Pointer
           
           ldy # 8
 -
