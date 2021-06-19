@@ -311,8 +311,8 @@ DoneStickUp:
           and #P0StickDown
           bne DoneStickDown
           inx
-          cpx #8              ; max moves = 8
-          bne DoneStickDown
+          cpx #9              ; max moves = 8
+          bmi DoneStickDown
           ldx #0
 
 DoneStickDown:
