@@ -1,0 +1,191 @@
+RunAway:
+Run Away
+
+Move01:
+Move One
+
+Move02:
+Move Two
+
+Move03:
+Move Three
+
+Move04:
+A Move
+
+Move05:
+A Move
+
+Move06:
+A Move
+
+Move07:
+A Move
+
+Move08:
+A Move
+
+Move09:
+A Move
+
+Move10:
+A Move
+
+Move11:
+A Move
+
+Move12:
+A Move
+
+Move13:
+A Move
+
+Move14:
+A Move
+
+Move15:
+A Move
+
+Move16:
+A Move
+
+Move17:
+A Move
+
+Move18:
+A Move
+
+Move19:
+A Move
+
+Move20:
+A Move
+
+Move21:
+A Move
+
+Move22:
+A Move
+
+Move23:
+A Move
+
+Move24:
+A Move
+
+Move25:
+A Move
+
+Move26:
+A Move
+
+Move27:
+A Move
+
+Move28:
+A Move
+
+Move29:
+A Move
+
+Move30:
+A Move
+
+Move31:
+A Move
+
+Move32:
+A Move
+
+Move33:
+A Move
+
+Move34:
+A Move
+
+Move35:
+A Move
+
+Move36:
+A Move
+
+Move37:
+A Move
+
+Move38:
+A Move
+
+Move39:
+A Move
+
+Move40:
+A Move
+
+Move41:
+A Move
+
+Move42:
+A Move
+
+Move43:
+A Move
+
+Move44:
+A Move
+
+Move45:
+A Move
+
+Move46:
+A Move
+
+Move47:
+A Move
+
+Move48:
+A Move
+
+Move49:
+A Move
+
+Move50:
+A Move
+
+Move51:
+A Move
+
+Move52:
+A Move
+
+Move53:
+A Move
+
+Move54:
+A Move
+
+Move55:
+A Move
+
+Move56:
+A Move
+
+Move57:
+A Move
+
+Move58:
+A Move
+
+Move59:
+A Move
+
+Move60:
+A Move
+
+Move61:
+A Move
+
+Move62:
+A Move
+
+Move63:
+A Move

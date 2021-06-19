@@ -1,0 +1,18 @@
+Monster:
+The monster
+
+UsesMove:
+uses move
+
+AndMisses:
+and misses
+
+AndHits:
+and hits
+
+IsInjured:
+is injured
+
+IsDestroyed:
+is destroyed
+
