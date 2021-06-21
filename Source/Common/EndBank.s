@@ -62,8 +62,13 @@ GoMap:
 ;;; Go to the current combat memory bank, and jump to DoCombat.
 ;;; In non-combat banks, jump to Dispatch.
 GoCombat:
-          ldx CurrentCombatBank
-          sta BankSwitch0, x
+          lda CurrentCombatEncounter
+          and #$80
+          beq CombatBank6
+          sta BankSwitch5
+          jmp DoLocal
+CombatBank6:        
+          sta BankSwitch6
           jmp DoLocal
 
 ;;; Perform a far call to a memory bank with a specific local

@@ -80,8 +80,14 @@
           SaveKeyBank = $00
           FailureBank = $02
           SFXBank = $07
-          MapServicesBank = $03
+          MapServicesBank = $01
           TextBank = $02
+
+          Province0MapBank = $04
+          Province1MapBank = $03
+
+          Province0CombatBank = $06
+          Province1CombatBank = $05
 
 ;;; Text bank provides multiple services, selected with .y
 
@@ -97,6 +103,7 @@
 
           ServiceTopOfScreen = $00
           ServiceBottomOfScreen = $01
+          ServiceFireworks = $02
 
 ;;; Also the cold start / save game bank
 

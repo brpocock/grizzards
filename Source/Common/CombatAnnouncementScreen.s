@@ -198,6 +198,20 @@ WonBattle:
           lda BitMask, x
           ora GameEventFlags, y
           sta GameEventFlags, y
+
+          lda #11              ; FIXME score based on difficulty
+          sed
+          clc
+          adc Score
+          bcc +
+          inc Score + 1
++
+          lda #2
+          clc
+          adc Score + 1
+          bcc +
+          inc Score + 2
++          
           
           lda #ModeMap
           sta GameMode

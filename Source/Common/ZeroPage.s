@@ -42,23 +42,21 @@ GameMode:
 Pause:
           .byte ?
 
-;;; What map is the player currently on?
-CurrentMapBank:
-          .byte ?
-CurrentMap:
-          .byte ?
-
-;;; When in combat mode, in which bank are the current enemies found?
-CurrentCombatBank:
-          .byte ?
-
 ;;; 
 ;;; Game play/progress indicators -- global
 
 ;;; This data is saved to the first block of the save game file.
 ;;; It must never be more than 64 bytes (not that there's a great risk of that)
+;;; In fact, it must be less than ( 64 - 4 × ProvincesCount )
+;;; Currently ProvincesCount = 2 so it must be < 56 bytes
 
 GlobalGameData:
+
+;;; What map is the player currently on?
+CurrentMapBank:
+          .byte ?
+CurrentMap:
+          .byte ?
 
 ;;; Global Timer (updated in VSYNC)
 ;;; This timer resets to zero when an alarm is set,
@@ -73,16 +71,44 @@ ClockSeconds:
 ClockFrame:
           .byte ?
 
+;;; It's an Atari game, of course we have a score.
+Score:
+          .byte ?, ?, ?
+
+;;;  Where was the player last known to be safe?
+BlessedX:
+          .byte ?
+BlessedY:
+          .byte ?
+
+          ;; Game event flags must be followed by CurrentProvince flags immediately
+GameEventFlags:
+          .byte ?, ?, ?, ?
+
+EndGlobalGameData:
+
+          .if EndGlobalGameData - GlobalGameData > 59
+          .error "Global data exceeds 59 bytes (length is ", EndGlobalGameData - GlobalGameData + 1, " bytes)"
+          .fi
+
+;;; 
+;;; Game play/progress indicators -- local to one province
+;;; (paged in/out as player changes provinces)
+ProvinceFlags:
+          .byte ?, ?, ?, ?      ; Assumed to be 4 bytes in save/load routines
+
+CurrentProvince:
+          .byte ?
+
+;;; 
+;;; Raw input cooking and partial movement accumulators
+
 ;;; An alarm can be set for various in-game special events.
 ;;; This happens in real time.
 AlarmMinutes:
           .byte ?
 AlarmSeconds:
           .byte ?
-
-;;; It's an Atari game, of course we have a score.
-Score:
-          .byte ?, ?, ?
 
 ;;; How much Energy (HP) can the player's Grizzard have?
 MaxHP:
@@ -105,34 +131,6 @@ GrizzardAccuracy:
 ;;; Moves known (8 bits = 8 possible moves)
 MovesKnown:
           .byte ?
-
-;;;  Where was the player last known to be safe?
-BlessedX:
-          .byte ?
-BlessedY:
-          .byte ?
-
-          ;; Game event flags must be followed by CurrentProvince flags immediately
-GameEventFlags:
-          .byte ?, ?, ?, ?
-
-EndGlobalGameData:
-
-          .if EndGlobalGameData - GlobalGameData > 59
-          .error "Global data exceeds 59 bytes (length is ", EndGlobalGameData - GlobalGameData + 1, " bytes)"
-          .fi
-
-;;; 
-;;; Game play/progress indicators -- local to one province
-;;; (paged in/out as player changes provinces)
-ProvinceFlags:
-          .byte ?, ?, ?, ?
-
-CurrentProvince:
-          .byte ?
-
-;;; 
-;;; Raw input cooking and partial movement accumulators
 
 DebounceSWCHA:
           .byte ?

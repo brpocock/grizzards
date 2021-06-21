@@ -3,6 +3,9 @@ GrizzardStation:    .block
           ldy #ServiceSaveToSlot
           ldx #SaveKeyBank
           jsr FarCall
+
+          ldx MaxHP
+          stx CurrentHP
           
 Loop:     
           jsr VSync

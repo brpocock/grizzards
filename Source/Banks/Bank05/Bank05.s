@@ -1,8 +1,6 @@
           BANK = $05
 
-          ;;
-          ;; CHAT Services (common routines and graphics)
-          ;; 
+          ;; Combat for encounters $80 … $ff
           
           .include "StartBank.s"
           .include "VSync.s"

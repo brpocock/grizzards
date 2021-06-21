@@ -1,14 +1,24 @@
           BANK = $01
 
-          .include "StartBank.s"
+          ;; Map Services Bank
 
-DoLocal:  
-          .include "Map.s"
+	.include "StartBank.s"
+
           .include "VSync.s"
+          .include "48Pixels.s"
+          .include "Prepare48pxMobBlob.s"
 
-          .include "MapsPart2.s"
+DoLocal:
+          cpy #ServiceTopOfScreen
+          beq TopOfScreenService
+          cpy #ServiceBottomOfScreen
+	beq BottomOfScreenService
+          cpy #ServiceFireworks
+          beq WinnerFireworks
+          brk
 
-          .include "PlayerSprites.s"
-          .include "MapSprites.s"
+          .include "MapTopService.s"
+          .include "MapBottomService.s"
+          .include "WinnerFireworks.s"
 
-          .include "EndBank.s"
+	.include "EndBank.s"

@@ -30,6 +30,7 @@ ReadGlobalLoop:
           bne ReadGlobalLoop
 
           ;; TODO load province data for CurrentProvince
+          .align $80, $ea
 
           ;; Make sure debounced switch doesn't return us to the title screen immediately
           lda SWCHB

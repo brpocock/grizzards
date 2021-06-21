@@ -64,8 +64,6 @@ SignatureTime:
           lda #ModeMap
           sta GameMode
 
-          lda # 6
-          sta CurrentCombatBank
           lda # 4
           sta CurrentMapBank
           lda # 0
