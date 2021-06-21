@@ -79,9 +79,9 @@ MapSprites:
           .byte 0               ; end of list
           ;; Room 2
           .byte SpriteFixed
-          .byte 1               ; sprite art index = monster
+          .byte 2               ; sprite art index = station
           .byte 150, 65         ; x, y
-          .byte SpriteCombat
+          .byte SpriteGrizzardStation
           .byte 0               ; combat index
           .byte 0               ; end of list
 
@@ -151,6 +151,25 @@ MonsterSprite:
           .byte %00000000
           .byte %00000000
           .byte %00000000
+
+GrizzardStationSprite:
+          .byte %11111111
+          .byte %11111111
+          .byte %11111111
+          .byte %11111111
+          .byte %01000010
+          .byte %11111111
+          .byte %10000001
+          .byte %11111111
+
+          .byte %11111111
+          .byte %11111111
+          .byte %11111111
+          .byte %11111111
+          .byte %01000010
+          .byte %11111111
+          .byte %11111111
+          .byte %11111111
 
 SpriteColor:
           .colu COLRED, 8
