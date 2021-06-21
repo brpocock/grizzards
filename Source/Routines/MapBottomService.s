@@ -107,6 +107,8 @@ BumpSprite:
           beq DoorWithSprite
           cmp #SpriteCombat
           beq FightWithSprite
+          cmp #SpriteGrizzardStation
+          beq EnterStation
           and #$80
           beq PlayerMoveOK      ; No action
           jmp ProvinceChange
@@ -132,6 +134,11 @@ DonePlayerMove:
           ldy #$00
           rts
 
+EnterStation:       
+          lda #ModeGrizzardStation
+          sta GameMode
+          rts
+          
 ProvinceChange:
           lda SpriteAction, x
           and #$70

@@ -174,4 +174,5 @@ GrizzardStationSprite:
 SpriteColor:
           .colu COLRED, 8
           .colu COLGREEN, 8
+          .colu COLINDIGO, $f
 

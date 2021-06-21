@@ -405,6 +405,14 @@ SkipSwitches:
 Leave:
           cmp #ModeCombat
           beq GoCombat
+          cmp #ModeGrizzardStation
+          beq EnterGrizzardStation
           brk
 
+EnterGrizzardStation:
+          ldy #ServiceGrizzardStation
+          ldx #TextBank
+          jsr FarCall
+          jmp DoMap
+          
           .bend
