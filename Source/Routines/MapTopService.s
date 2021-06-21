@@ -3,6 +3,8 @@ TopOfScreenService: .block
           jsr VSync
           jsr VBlank
 
+          jsr Prepare48pxMobBlob
+          
           .ldacolu COLGRAY, $f
           sta COLUP0
           sta COLUP1

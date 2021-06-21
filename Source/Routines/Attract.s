@@ -19,12 +19,7 @@ ZeroRAM:
 
           sty GameMode
 
-SwitchMode:
-
-          ldy GameMode
-          bne NotColdStart
-
-          lda #1
+          lda # 1
           sta NextSound
 
           .if PUBLISHER
@@ -34,11 +29,9 @@ SwitchMode:
           .fi
           sta GameMode
 
-          jmp Loop
-
-NotColdStart:
-          ;; TODO?
-
+          lda # 4
+          jsr SetNextAlarm
+          
 Loop:
           jsr VSync
           jsr VBlank
@@ -65,7 +58,7 @@ Loop:
             cmp #ModeBRPPreamble
             beq BRPPreambleMode
           .fi
-
+          
 StoryMode:
           ;; TODO lots more needs to happen here
           brk
@@ -86,14 +79,20 @@ BRPPreambleMode:
           sta COLUP1
 
           lda ClockSeconds
-          cmp #3
+          cmp AlarmSeconds
           bmi StillPresenting
 
+          lda ClockMinutes
+          cmp AlarmMinutes
+          bmi StillPresenting
+
+          lda # 30
+          jsr SetNextAlarm
+          
           lda #ModeAttractTitle
           sta GameMode
 
 StillPresenting:
-
           jmp SingleGraphicAttract
 
 CopyrightMode:
@@ -127,6 +126,18 @@ SkipBelowCopyright:
           dex
           bne SkipBelowCopyright
 
+          lda ClockSeconds
+          cmp AlarmSeconds
+          bmi StillCopyright
+
+          lda ClockMinutes
+          cmp AlarmMinutes
+          bmi StillCopyright
+
+          lda #ModeAttractTitle
+          sta GameMode
+
+StillCopyright:               
           jmp DoneAttractKernel
 
 TitleMode:
@@ -134,8 +145,12 @@ TitleMode:
           bne DoneTitleSpeech
 
           lda ClockSeconds
-          cmp #5
-          bmi DoneTitleSpeech
+          cmp AlarmSeconds
+          bmi StillPresenting
+
+          lda ClockMinutes
+          cmp AlarmMinutes
+          bmi StillPresenting
 
           lda #<Speech_TitleIntro
           sta CurrentUtterance
@@ -145,7 +160,7 @@ TitleMode:
 
 DoneTitleSpeech:
 
-          lda #COLINDIGO
+          .ldacolu COLINDIGO, $f
           sta COLUP0
           sta COLUP1
 
@@ -160,7 +175,7 @@ FillAttractMid1:
           dex
           bne FillAttractMid1
 
-          lda #COLPURPLE
+          .ldacolu COLPURPLE, $f
           sta COLUP0
           sta COLUP1
 
@@ -175,7 +190,7 @@ FillAttractMid2:
           dex
           bne FillAttractMid2
 
-          lda #COLBLUE
+          .ldacolu COLBLUE, $f
           sta COLUP0
           sta COLUP1
 
@@ -191,8 +206,15 @@ FillAttractBottom:
           bne FillAttractBottom
 
           lda ClockSeconds
-          cmp #30
-          bne DoneAttractKernel
+          cmp AlarmSeconds
+          bmi DoneAttractKernel
+
+          lda ClockMinutes
+          cmp AlarmMinutes
+          bmi DoneAttractKernel
+
+          lda # 4
+          jsr SetNextAlarm
 
           lda #ModeAttractCopyright
           sta GameMode
@@ -255,5 +277,21 @@ ShowText:
           ldy #ServiceDecodeAndShowText
           ldx #TextBank
           jmp FarCall
-          
+
+SetNextAlarm:
+          tax
+          lda ClockMinutes
+          sta AlarmMinutes
+          txa
+          clc
+          adc ClockSeconds
+          cmp # 60
+          bmi +
+          sec
+          sbc # 60
+          inc AlarmMinutes
++
+          sta AlarmSeconds
+          rts
+                    
           .bend

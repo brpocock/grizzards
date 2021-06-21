@@ -1,6 +1,7 @@
           BANK = $06
 
           .include "StartBank.s"
+          .include "Prepare48pxMobBlob.s"
 
 DoLocal:  
           .include "Combat.s"

@@ -10,9 +10,6 @@
 DoLocal:
           rts
           
-;;; Also failure mode
-
-          .include "Failure.s"
           
 
           .include "EndBank.s"

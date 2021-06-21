@@ -10,12 +10,11 @@ DrawGrizzard:
           sta COLUP0
           sta COLUP1
 
-          ;; TODO center Grizzard image
-          ;; sta WSYNC
-          ;; sta HMCLR
-          ;; .SleepX 37
-          ;; sta RESP0
-          ;; sta RESP1
+          sta WSYNC
+          sta HMCLR
+          .SleepX 38
+          sta RESP0
+          sta RESP1
 
           lda # >GrizzardImages
           sta Pointer + 1

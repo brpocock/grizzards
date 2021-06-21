@@ -6,6 +6,7 @@
 
           .include "VSync.s"
           .include "48Pixels.s"
+          .include "Prepare48pxMobBlob.s"
 
 DoLocal:
           cpy #0

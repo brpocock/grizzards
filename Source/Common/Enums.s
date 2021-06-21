@@ -73,7 +73,7 @@
 ;;; Special Memory Banks
 
           ColdStartBank = $00
-          FailureBank = $05
+          FailureBank = $02
           SFXBank = $07
           MapServicesBank = $03
           TextBank = $02

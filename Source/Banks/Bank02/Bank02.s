@@ -20,7 +20,9 @@ DoLocal:
 DecodeAndShowText:
           jsr DecodeText
           jmp ShowText
-          
+
+
+          .include "VSync.s"
           .include "48Pixels.s"
           .include "Prepare48pxMobBlob.s"
           .include "DecodeText.s"
@@ -31,6 +33,8 @@ DecodeAndShowText:
           .include "CopyPointerText.s"
           .include "ShowGrizzardName.s"
           .include "ShowGrizzardStats.s"
+
+          .include "Failure.s"
           
           .include "GrizzardNames.s"
           .include "GrizzardImages.s"

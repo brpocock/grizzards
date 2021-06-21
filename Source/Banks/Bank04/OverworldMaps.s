@@ -57,7 +57,7 @@ MapSides: .byte $80, $00, $40
 MapSprites:
           ;; Room 0
           .byte SpriteFixed     ; fixed position sprite
-          .byte 0               ; sprite art index = person
+          .byte 1               ; sprite art index = person
           .byte 150, 35         ; x, y position
           .byte SpriteCombat      ; action
           .byte 0

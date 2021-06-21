@@ -34,15 +34,7 @@ DrawSubject:
           lda WhoseTurn
           beq PlayerSubject
 
-          ;; FIXME monster name
-          .LoadString "THE   "
-          ldy #ServiceDecodeAndShowText
-          ldx #TextBank
-          jsr FarCall
-          .LoadString "MONSTR"
-          ldy #ServiceDecodeAndShowText
-          ldx #TextBank
-          jsr FarCall
+          jsr ShowMonsterName
           jmp SubjectDone
 
 PlayerSubject:
@@ -94,15 +86,7 @@ DrawObject:
 
 
 MonsterTargetObject:
-          ;; FIXME monster name
-          .LoadString "  THE "
-          ldy #ServiceDecodeAndShowText
-          ldx #TextBank
-          jsr FarCall
-          .LoadString "MONSTR"
-          ldy #ServiceDecodeAndShowText
-          ldx #TextBank
-          jsr FarCall
+          jsr ShowMonsterName
           jmp ObjectDone
 
 PlayerObject:
@@ -145,8 +129,30 @@ FillScreen:
           cmp #4
           bne AlarmDone
 
-          ;; TODO set up effects of Move
-          
+ExecuteMove:
+          lda WhoseTurn
+          beq ExecutePlayerMove
+
+ExecuteMonsterMove:
+          ;; TODO execute monster move
+          inc WhoseTurn
+
+          jmp CombatMainScreen
+
+ExecutePlayerMove:
+          lda # 1
+          sta WhoseTurn
+
+          ;; TODO really execute player move
+          ldx MoveTarget
+          lda EnemyHP, x
+          sec
+          sbc # 2               ; FIXME HP subtract
+          bcs +
+          lda # 0
++
+          sta EnemyHP, x
+
           jmp CombatMainScreen
 
 AlarmDone:  
@@ -159,7 +165,7 @@ SetNextAlarm:
           lda ClockMinutes
           sta AlarmMinutes
           lda ClockSeconds
-          adc # 5
+          adc # 3
           cmp # 60
           bmi +
           sec
@@ -169,3 +175,21 @@ SetNextAlarm:
           sta AlarmSeconds
 
           rts
+ShowMonsterName:
+                    lda CurrentMonsterPointer
+          sta Pointer
+          lda CurrentMonsterPointer + 1
+          sta Pointer + 1
+
+          jsr ShowPointerText
+
+          lda Pointer
+          clc
+          adc # 6
+          bcc +
+          inc Pointer + 1
++
+          sta Pointer
+
+          jmp ShowPointerText
+

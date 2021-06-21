@@ -3,6 +3,8 @@ Loop:
           jsr VSync
           jsr VBlank
 
+          jsr Prepare48pxMobBlob
+          
           lda Pause
           beq NotPaused
 
@@ -208,7 +210,7 @@ DrawGrizzardName:
           .ldacolu COLBLUE, $f
           sta COLUP0
           sta COLUP1
-          .ldacolu COLINDIGO, $0
+          .ldacolu COLINDIGO, $8
           sta COLUBK
 
           ldx #TextBank
@@ -269,7 +271,10 @@ DoneStickLeft:
 DoneStickRight:
 StickDone:
           stx MoveSelection
-          
+
+          jsr Prepare48pxMobBlob
+
+          ldx MoveSelection
           cpx # 0
           beq SelectedRunAway
           ldy # COLGRAY | 0

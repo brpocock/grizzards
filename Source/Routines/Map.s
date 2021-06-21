@@ -14,9 +14,9 @@ NewRoom:
           ;; Got to figure out the sprites
           ;; Start at the head of the sprite list
           lda #<MapSprites
-          sta pp2l
+          sta Pointer
           lda #>MapSprites
-          sta pp2h
+          sta Pointer + 1
 
           ldy #0
 FindSprites:
@@ -27,17 +27,17 @@ FindSprites:
 
           ;; Skipping over a room means searching for the end of the list
 SkipRoom:
-          lda (pp2l), y         ; .y = 0
+          lda (Pointer), y         ; .y = 0
           ;; End of list? Then one room down, .x more to go
           beq SkipRoomDone
           ;; Not end of list, so we have to skip 6 bytes
-          lda pp2l
+          lda Pointer
           clc
           adc #6
           bcc +
-          inc pp2h
+          inc Pointer + 1
 +
-          sta pp2l
+          sta Pointer
           ;; Then keep going, look for end of the room's list
           jmp SkipRoom
 
@@ -47,24 +47,24 @@ SkipRoomDone:
           ;; Are we done? Then the next entry is this room
           beq FoundSprites
           ;; Not done yet — skip a/more room[s]
-          lda pp2l
+          lda Pointer
           clc
           adc # 1
           bcc +
-          inc pp2h
+          inc Pointer + 1
 +
-          sta pp2l
+          sta Pointer
           jmp SkipRoom
 
-          ;; OK, we found "our" sprite list head at pp2l + 1
+          ;; OK, we found "our" sprite list head at (Pointer) + 1
 FoundSprites:
-          lda pp2l
+          lda Pointer
           clc
           adc #1
           bcc +
-          inc pp2h
+          inc Pointer + 1
 +
-          sta pp2l
+          sta Pointer
 
 DoneFinding:
           ;; Start with 0 sprites
@@ -74,7 +74,7 @@ DoneFinding:
 
 SetUpSprite:
           ;; .y wraps, from 0 to max 25 when all 4 sprites are used
-          lda (pp2l), y         ; .y = .x × 6 + 0
+          lda (Pointer), y         ; .y = .x × 6 + 0
           ;; End of sprite list?
           beq SpritesDone
 
@@ -89,19 +89,19 @@ SetUpSprite:
 
 AddFixedSprite:
           iny
-          lda (pp2l), y         ; .y = .x × 6 + 1
+          lda (Pointer), y         ; .y = .x × 6 + 1
           sta SpriteIndex, x
           iny
-          lda (pp2l), y         ; .y = .x × 6 + 2
+          lda (Pointer), y         ; .y = .x × 6 + 2
           sta SpriteX, x
           iny
-          lda (pp2l), y         ; .y = .x × 6 + 3
+          lda (Pointer), y         ; .y = .x × 6 + 3
           sta SpriteY, x
           iny
-          lda (pp2l), y         ; .y = .x × 6 + 4
+          lda (Pointer), y         ; .y = .x × 6 + 4
           sta SpriteAction, x
           iny
-          lda (pp2l), y         ; .y = .x × 6 + 5
+          lda (Pointer), y         ; .y = .x × 6 + 5
           sta SpriteParam, x
           inc SpriteCount
           iny                   ; .y = .x⁺¹ × 6   (start of next entry)
@@ -140,6 +140,7 @@ Loop:
           ldx SpriteCount
           beq NoSprites
 
+          ldx SpriteFlicker
           lda #>SpriteArt
           sta pp1h
           clc

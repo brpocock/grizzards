@@ -20,11 +20,9 @@ ShowText:  .block
         ;; 
         ;; You'll need to set up everything else beforehand.
 
-          jsr Prepare48pxMobBlob
-
 	.option allow_branch_across_page = false
 	
-        sta WSYNC
+          sta WSYNC
 	ldy #4
 	sty LineCounter
 	.SleepX 56

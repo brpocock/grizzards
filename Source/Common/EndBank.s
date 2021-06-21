@@ -82,7 +82,7 @@ FarReturn:
           sta BankSwitch0, x
           rts
 
-;;; BRK vector jumps to the routine Failure in Bank 0
+;;; BRK vector jumps to the routine Failure
 ;;; (the Sad Face routine)
 Break:
           BankJump Failure, FailureBank

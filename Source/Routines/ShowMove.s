@@ -15,6 +15,7 @@ ShowMove:
 +
           sta Pointer
 
+
           jsr CopyPointerText
           jsr DecodeText
           jsr ShowText
