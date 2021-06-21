@@ -86,3 +86,4 @@
           ServiceShowGrizzardStats = $04
           ServiceDrawGrizzard = $05
           ServiceShowMove = $06
+          ServiceGrizzardStation = $07

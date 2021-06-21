@@ -41,7 +41,11 @@ VSync: .block
           bne NoTime
           lda #0
           sta ClockMinutes
+          clc
           inc ClockFourHours
+          bcc NoTime
+          lda #$ff
+          sta ClockFourHours
 
 NoTime: 
           

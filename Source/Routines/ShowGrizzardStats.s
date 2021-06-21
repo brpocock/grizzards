@@ -1,4 +1,4 @@
-ShowGrizzardStats:
+ShowGrizzardStats:  .block
           .ldacolu COLBLUE, $f
           sta COLUBK
           .ldacolu COLINDIGO, 0
@@ -6,7 +6,6 @@ ShowGrizzardStats:
           sta COLUP1
           
           jsr ShowGrizzardName
-
           jsr DrawGrizzard
 
           jsr Prepare48pxMobBlob
@@ -49,3 +48,5 @@ ShowGrizzardStats:
           sta Pointer
           lda MaxHP
           jmp AppendDecimalAndPrint
+
+          .bend
