@@ -1,7 +1,5 @@
 CombatAnnouncementScreen:     .block
 
-          lda # ModeCombat
-          sta AlarmCode
           lda # 0
           sta MoveAnnouncement
           jsr SetNextAlarm

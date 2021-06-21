@@ -36,6 +36,12 @@ VSync: .block
           lda #0
           sta ClockSeconds
           inc ClockMinutes
+          lda ClockMinutes
+          cmp #240
+          bne NoTime
+          lda #0
+          sta ClockMinutes
+          inc ClockFourHours
 
 NoTime: 
           

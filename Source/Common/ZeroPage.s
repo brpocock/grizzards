@@ -64,6 +64,8 @@ GlobalGameData:
 ;;; This timer resets to zero when an alarm is set,
 ;;; but the Frame counter is used for some animation purposes.
 ;;; (The number of frames does in fact vary with 60Hz/50Hz locales)
+ClockFourHours:
+          .byte ?
 ClockMinutes:
           .byte ?
 ClockSeconds:
@@ -73,13 +75,9 @@ ClockFrame:
 
 ;;; An alarm can be set for various in-game special events.
 ;;; This happens in real time.
-;;; When the Clock reaches the Alarm time, the special
-;;; event pointed to by AlarmCode will occur.
 AlarmMinutes:
           .byte ?
 AlarmSeconds:
-          .byte ?
-AlarmCode:
           .byte ?
 
 ;;; It's an Atari game, of course we have a score.
