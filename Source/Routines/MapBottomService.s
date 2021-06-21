@@ -17,10 +17,6 @@ FillScreen:
 
 MovementLogic:
 
-          lda ClockFrame
-          and # 1
-          beq CheckPlayerMove
-
           lda BumpCooldown
           beq HandleStick
           dec BumpCooldown
@@ -31,7 +27,7 @@ HandleStick:
           sta DeltaY
 
           lda Pause
-          bne DonePlayerMove
+          bne CheckPlayerMove
 
           lda SWCHA
           and #P0StickUp
@@ -80,7 +76,7 @@ DoneStickRight:
           adc DeltaY
           sta PlayerY
 
-          jmp DonePlayerMove
+          jmp CheckPlayerMove
 
           ;; Collision Handling
 CheckPlayerMove:
@@ -107,13 +103,14 @@ BumpSprite:
           beq DoorWithSprite
           cmp #SpriteCombat
           beq FightWithSprite
-          cmp #SpriteGrizzardStation
-          beq EnterStation
+          cmp #SpriteGrizzardDepot
+          beq EnterDepot
           and #$80
           beq PlayerMoveOK      ; No action
           jmp ProvinceChange
 
 FightWithSprite:
+          ldx SpriteFlicker     ; ? Seems unnecessary 
           lda SpriteParam, x
           sta CurrentCombatEncounter
           lda #ModeCombat
@@ -138,8 +135,8 @@ DonePlayerMove:
           ldy #$00
           rts
 
-EnterStation:
-          lda #ModeGrizzardStation
+EnterDepot:
+          lda #ModeGrizzardDepot
           sta GameMode
           rts
           

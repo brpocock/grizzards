@@ -81,7 +81,7 @@ MapSprites:
           .byte SpriteFixed
           .byte 2               ; sprite art index = station
           .byte 150, 65         ; x, y
-          .byte SpriteGrizzardStation
+          .byte SpriteGrizzardDepot
           .byte 0               ; combat index
           .byte 0               ; end of list
 

@@ -30,7 +30,7 @@
           ModeDeath = $44
           ModeGrizzardStats = $45
 
-          ModeGrizzardStation = $50
+          ModeGrizzardDepot = $50
 
 
 ;;; Sounds in the library (index values)
@@ -56,7 +56,7 @@
           
 ;;; Sprite actions
           SpriteDoor = $02
-          SpriteGrizzardStation = $04
+          SpriteGrizzardDepot = $04
           SpriteCombat = $40
           SpriteProvinceDoor = $80
 
@@ -97,7 +97,7 @@
           ServiceShowGrizzardStats = $04
           ServiceDrawGrizzard = $05
           ServiceShowMove = $06
-          ServiceGrizzardStation = $07
+          ServiceGrizzardDepot = $07
 
 ;;; Map services bank, same
 

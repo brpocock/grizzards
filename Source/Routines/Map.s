@@ -3,12 +3,17 @@ DoMap:    .block
           ScreenLeftEdge = 48
           ScreenRightEdge = 200
 
-          lda # 30
+          lda # 60
           sta BumpCooldown
 
           lda # 0
           sta DeltaX
           sta DeltaY
+
+          lda BlessedX
+          sta PlayerX
+          lda BlessedY
+          sta PlayerY
 
 NewRoom:
           ;; Got to figure out the sprites
@@ -128,7 +133,7 @@ BadMap:
 
 Loop:
           ldx #MapServicesBank
-          ldy #0
+          ldy #ServiceTopOfScreen
           jsr FarCall
 
           ldx CurrentMap
@@ -314,7 +319,7 @@ P1Done:
           dec LineCounter
           bne DrawMap
 
-          ldy #$ff
+          ldy #ServiceBottomOfScreen
           ldx #MapServicesBank
           jsr FarCall
 
@@ -337,25 +342,25 @@ P1Done:
 
 GoScreenUp:
           lda #74
-          sta PlayerY
+          sta BlessedY
           ldy #0
           jmp GoScreen
 
 GoScreenDown:
           lda #9
-          sta PlayerY
+          sta BlessedY
           ldy #1
           jmp GoScreen
 
 GoScreenLeft:
           lda #ScreenRightEdge - 1
-          sta PlayerX
+          sta BlessedX
           ldy #2
           jmp GoScreen
 
 GoScreenRight:
           lda #ScreenLeftEdge + 1
-          sta PlayerX
+          sta BlessedX
           ldy #3
 GoScreen:
           lda #>MapLinks
@@ -406,12 +411,12 @@ SkipSwitches:
 Leave:
           cmp #ModeCombat
           beq GoCombat
-          cmp #ModeGrizzardStation
-          beq EnterGrizzardStation
+          cmp #ModeGrizzardDepot
+          beq EnterGrizzardDepot
           brk
 
-EnterGrizzardStation:
-          ldy #ServiceGrizzardStation
+EnterGrizzardDepot:
+          ldy #ServiceGrizzardDepot
           ldx #TextBank
           jsr FarCall
           jmp DoMap

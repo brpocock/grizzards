@@ -42,7 +42,7 @@ MonsterSprite:
           .byte %00000000
           .byte %00000000
 
-GrizzardStationSprite:
+GrizzardDepotSprite:
           .byte %11111111
           .byte %11111111
           .byte %11111111

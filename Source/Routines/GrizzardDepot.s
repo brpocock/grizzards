@@ -1,4 +1,4 @@
-GrizzardStation:    .block
+GrizzardDepot:    .block
 
           ldy #ServiceSaveToSlot
           ldx #SaveKeyBank
@@ -24,9 +24,9 @@ Loop:
           bne -
 
           jsr Prepare48pxMobBlob
-          lda #>StationText
+          lda #>DepotText
           sta Pointer + 1
-          lda #<StationText
+          lda #<DepotText
           sta Pointer
           jsr ShowPointerText
 

@@ -15,8 +15,8 @@ DoLocal:
           beq DrawGrizzard
           cpy #ServiceShowMove
           beq ShowMove
-          cpy #ServiceGrizzardStation
-          beq GrizzardStation
+          cpy #ServiceGrizzardDepot
+          beq GrizzardDepot
           brk
 
 DecodeAndShowText:
@@ -36,7 +36,7 @@ DecodeAndShowText:
           .include "ShowGrizzardName.s"
           .include "ShowGrizzardStats.s"
 
-          .include "GrizzardStation.s"
+          .include "GrizzardDepot.s"
           
           .include "Failure.s"
           
@@ -51,7 +51,7 @@ StatsText:
           .MiniText "HP  00"
           .MiniText "MAX 00"
 
-StationText:
+DepotText:
           .MiniText "DEPOT "
 PlayTimeText:       
           .MiniText "PLAYED"

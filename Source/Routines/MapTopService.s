@@ -130,6 +130,7 @@ P0HPos:
           ldx SpriteCount
           beq TheEnd
 
+          stx CXCLR
           ldx SpriteFlicker
           inx
           cpx SpriteCount
@@ -153,7 +154,7 @@ P1HPos:
           asl a
           sta HMP1
 
-TheEnd:   
+TheEnd:
           rts
 
           .bend
