@@ -22,12 +22,15 @@
           ModeStartGame = $24
 
           ModeMap = $30
+
           ModeCombat = $40
           ModeCombatIntro = $41
           ModeCombatPlayer = $42
           ModeCombatEnemy = $43
           ModeDeath = $44
           ModeGrizzardStats = $45
+
+          ModeGrizzardStation = $50
 
 
 ;;; Sounds in the library (index values)
@@ -74,6 +77,7 @@
 ;;; Special Memory Banks
 
           ColdStartBank = $00
+          SaveKeyBank = $00
           FailureBank = $02
           SFXBank = $07
           MapServicesBank = $03
@@ -88,3 +92,13 @@
           ServiceDrawGrizzard = $05
           ServiceShowMove = $06
           ServiceGrizzardStation = $07
+
+;;; Map services bank, same
+
+          ServiceTopOfScreen = $00
+          ServiceBottomOfScreen = $01
+
+;;; Also the cold start / save game bank
+
+          ServiceColdStart = $00
+          ServiceSaveToSlot = $01

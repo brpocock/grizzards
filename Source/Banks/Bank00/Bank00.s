@@ -14,11 +14,18 @@
 
 	.include "StartBank.s"
 
-DoLocal:  
+DoLocal:
+          cpy #ServiceColdStart
+          beq ColdStart
+          cpy #ServiceSaveToSlot
+          beq SaveToSlot
+          brk
+
 	.include "ColdStart.s"
+          .include "SaveToSlot.s"
+
           .include "Attract.s"
           .include "SelectSlot.s"
-
           .include "48Pixels.s"
           .include "Prepare48pxMobBlob.s"
           .include "ShowPicture.s"
@@ -28,7 +35,6 @@ DoLocal:
           .include "CheckSaveSlot.s"
           .include "LoadSaveSlot.s"
           .include "EraseSlotSignature.s"
-          .include "SaveToSlot.s"
           .include "PlaySpeech.s"
 
 SaveAndQuit:

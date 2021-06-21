@@ -106,14 +106,7 @@ GrizzardAccuracy:
 MovesKnown:
           .byte ?
 
-;;;  Where was the player last Blessed?
-;;; (Game Over restart position)
-BlessedBank:
-          .byte ?
-BlessedCombatBank:
-          .byte ?
-BlessedMap:
-          .byte ?
+;;;  Where was the player last known to be safe?
 BlessedX:
           .byte ?
 BlessedY:
@@ -132,11 +125,11 @@ EndGlobalGameData:
 ;;; 
 ;;; Game play/progress indicators -- local to one province
 ;;; (paged in/out as player changes provinces)
-CurrentProvince:
-          .byte ?
-
 ProvinceFlags:
           .byte ?, ?, ?, ?
+
+CurrentProvince:
+          .byte ?
 
 ;;; 
 ;;; Raw input cooking and partial movement accumulators
@@ -300,12 +293,6 @@ CurrentMonsterPointer:
 CombatSpritePointer:
           .word ?
 
-CurrentAttack:
-          .byte ?
-CurrentDefense:
-          .byte ?
-CurrentAccuracy:
-          .byte ?
 ;;; Is the Grizzard affected by a Status Effect from combat?
 StatusFX:
           .byte ?

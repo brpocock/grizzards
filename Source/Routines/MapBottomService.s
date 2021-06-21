@@ -123,18 +123,22 @@ FightWithSprite:
 DoorWithSprite:
           lda SpriteParam, x
           sta CurrentMap
-          ;; fall through
+          jmp DonePlayerMove
 
 PlayerMoveOK:
           lda #0
           sta DeltaX
           sta DeltaY
+          lda PlayerX
+          sta BlessedX
+          lda PlayerY
+          sta BlessedY
 
 DonePlayerMove:
           ldy #$00
           rts
 
-EnterStation:       
+EnterStation:
           lda #ModeGrizzardStation
           sta GameMode
           rts
@@ -162,41 +166,10 @@ ProvinceChange:
 BumpWall:
           sta CXCLR
 
-          lda DeltaX
-          beq XBounceDone
-          bpl BounceLeft
-BounceRight:
-          lda PlayerX
-          clc
-          adc # 3
+          lda BlessedX
           sta PlayerX
-          jmp XBounceDone
-
-BounceLeft:
-          lda PlayerX
-          sec
-          sbc # 3
-          sta PlayerX
-
-XBounceDone:
-          lda DeltaY
-          beq YBounceDone
-          bpl BounceUp
-
-BounceDown:
-          lda PlayerY
-          clc
-          adc # 2
+          lda BlessedY
           sta PlayerY
-          jmp YBounceDone
-
-BounceUp:
-          lda PlayerY
-          sec
-          sbc # 2
-          sta PlayerY
-
-YBounceDone:
           lda #SoundBump
           sta NextSound
 

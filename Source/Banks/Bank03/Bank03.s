@@ -9,7 +9,7 @@
           .include "Prepare48pxMobBlob.s"
 
 DoLocal:
-          cpy #0
+          cpy #ServiceTopOfScreen
           beq TopOfScreenService
           jmp BottomOfScreenService
 
@@ -18,6 +18,7 @@ DoLocal:
           .include "MapBottomService.s"
 
 ProvinceBanks:
-          .byte $04             ; Only one province in demo
+          .byte $04             ; first province = bank 4
+          .byte $01             ; second province = bank 1
 
 	  .include "EndBank.s"

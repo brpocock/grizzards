@@ -46,6 +46,7 @@ Wired:
 
 ;;; Cold-start the system.
 GoColdStart:
+          ldy # ServiceColdStart
           BankJump ColdStart, ColdStartBank
 
 

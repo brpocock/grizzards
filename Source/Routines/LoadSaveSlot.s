@@ -38,16 +38,10 @@ ReadGlobalLoop:
           ;; Return to place last blessed
           lda #ModeMap
           sta GameMode
-          lda BlessedBank
-          sta CurrentMapBank
-          lda BlessedMap
-          sta CurrentMap
           lda BlessedX
           sta PlayerX
           lda BlessedY
           sta PlayerY
-          lda BlessedCombatBank
-          sta CurrentCombatBank
 
           jmp GoMap
 

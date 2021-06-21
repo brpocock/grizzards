@@ -88,7 +88,6 @@ BRPPreambleMode:
 
           lda # 30
           jsr SetNextAlarm
-          
           lda #ModeAttractTitle
           sta GameMode
 
@@ -134,6 +133,8 @@ SkipBelowCopyright:
           cmp AlarmMinutes
           bmi StillCopyright
 
+          lda # 30
+          jsr SetNextAlarm
           lda #ModeAttractTitle
           sta GameMode
 
@@ -215,7 +216,6 @@ FillAttractBottom:
 
           lda # 4
           jsr SetNextAlarm
-
           lda #ModeAttractCopyright
           sta GameMode
           jmp DoneAttractKernel

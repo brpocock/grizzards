@@ -9,4 +9,6 @@ DoLocal:
           .include "OverworldMaps.s"
 
           .include "PlayerSprites.s"
+          .include "MapSprites.s"
+          
           .include "EndBank.s"

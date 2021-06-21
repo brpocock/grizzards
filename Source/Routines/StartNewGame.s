@@ -66,15 +66,10 @@ SignatureTime:
 
           lda # 6
           sta CurrentCombatBank
-          sta BlessedCombatBank
-
           lda # 4
           sta CurrentMapBank
-          sta BlessedBank
-
           lda # 0
           sta CurrentMap
-          sta BlessedMap
 
           lda # 80              ; Player start position
           sta BlessedX
@@ -88,6 +83,7 @@ SignatureTime:
           sta GrizzardAttack
           sta GrizzardDefense
           sta GrizzardAccuracy
+          sta MovesKnown
           
           lda # 10
           sta MaxHP

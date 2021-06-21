@@ -18,21 +18,21 @@ ShowGrizzardStats:  .block
           sta Pointer +1
           lda #< StatsText
           sta Pointer
-          lda CurrentAttack
+          lda GrizzardAttack
           jsr AppendDecimalAndPrint
 
           lda #> StatsText + 6
           sta Pointer +1
           lda #< StatsText + 6
           sta Pointer
-          lda CurrentDefense
+          lda GrizzardDefense
           jsr AppendDecimalAndPrint
 
           lda #> StatsText + 12
           sta Pointer +1
           lda #< StatsText + 12
           sta Pointer
-          lda CurrentAccuracy
+          lda GrizzardAccuracy
           jsr AppendDecimalAndPrint
 
           lda #> StatsText + 18

@@ -1,13 +1,6 @@
 ;;; Common combat routines called from multiple banks
 DoCombat:          .block
 
-          lda GrizzardAttack
-          sta CurrentAttack
-          lda GrizzardDefense
-          sta CurrentDefense
-          lda GrizzardAccuracy
-          sta CurrentAccuracy
-
           ldx CurrentCombatEncounter
           lda EncounterMonster, x
 

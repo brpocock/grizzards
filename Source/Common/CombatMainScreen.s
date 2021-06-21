@@ -234,6 +234,34 @@ FillScreen:
           dex
           bne FillScreen
 
+          lda WhoseTurn
+          beq CheckStick
+
+          lda ClockSeconds
+          cmp AlarmSeconds
+          bne +
+
+          lda ClockMinutes
+          cmp AlarmMinutes
+          beq DoMonsterMove
+
++
+          ldx # KernelLines - 180
+-
+          stx WSYNC
+          dex
+          bne -
+          jmp CheckSwitches
+          
+DoMonsterMove:      
+
+          ;;  TODO choose a move for the monsters
+          lda #1
+          sta MoveSelection
+          jmp CombatAnnouncementScreen
+
+          .align $100, $ea        ; leave room for monster "AI"
+
 CheckStick:
           ldx MoveSelection
 
@@ -291,12 +319,21 @@ StickDone:
           ldy #ServiceShowMove
           jsr FarCall
 
-
           lda INPT4
           and #$80
           bne NoFire
-          ;; TODO: check button, maybe perform the selected move
 
+          ;; Is the move known?
+          ldx MoveSelection
+          dex
+          lda BitMask, x
+          and MovesKnown
+          bne DoUseMove
+
+          lda #SoundBump
+          sta NextSound
+
+DoUseMove:
           jmp CombatAnnouncementScreen
 
 SelectedRunAway:
@@ -324,7 +361,7 @@ SelectedRunAway:
 SelectedMoves:
           ;; TODO
 
-NoFire:   
+NoFire:
 
 CheckSwitches:
 

@@ -167,7 +167,7 @@ Loop:
           sta pp1l
 
 AnimationFrameReady:
-
+          ldx SpriteFlicker
           lda SpriteIndex, x
           tax
           lda SpriteColor, x
@@ -175,6 +175,7 @@ AnimationFrameReady:
 
           sta WSYNC
 
+          ldx SpriteFlicker
           lda SpriteY, x
           sta P1LineCounter
 

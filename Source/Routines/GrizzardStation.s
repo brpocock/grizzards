@@ -1,5 +1,9 @@
 GrizzardStation:    .block
 
+          ldy #ServiceSaveToSlot
+          ldx #SaveKeyBank
+          jsr FarCall
+          
 Loop:     
           jsr VSync
           jsr VBlank
@@ -51,10 +55,13 @@ Loop:
           cmp #$ff
           bne +
 
-          lda # 34              ; MiniFont for X char
+          lda # 22              ; M
           sta StringBuffer + 1
+          lda # 10              ; A
           sta StringBuffer + 2
+          lda # 23              ; N
           sta StringBuffer + 3
+          lda # 34              ; Y
           sta StringBuffer + 4
           jmp HTDdone
 
@@ -70,13 +77,13 @@ Loop:
           lda ClockMinutes
           ;; ÷ 60 is too slow so we cheat, since the output is 0..3
           cmp #180
-          bmi -
+          bmi +
           inc DeltaX
--
++
           cmp #120
-          bmi -
+          bmi +
           inc DeltaX
--
++
           cmp #60
           bmi HTD
           inc DeltaX
@@ -151,13 +158,34 @@ HTDdone:
           sta Pointer
           jsr ShowPointerText
 
-          ldx # KernelLines - 64
+          ldx # KernelLines - 80
 -
           stx WSYNC
           dex
           bne - 
-          
-          
+
+          lda SWCHA
+          ;; TODO handle stick
+
+          lda SWCHB
+          cmp DebounceSWCHB
+          beq SwitchesDone
+          sta DebounceSWCHB
+          and #SWCHBReset
+          bne NoReset
+          jmp GoSaveAndQuit
+NoReset:
+          lda DebounceSWCHB
+          and #SWCHBSelect
+          bne SwitchesDone
+SelectDown:
+
+SwitchesDone:
+          lda INPT4
+          and #$80
+          beq +
+          rts
++          
           jmp Loop
 
 ShowPointerText:

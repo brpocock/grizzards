@@ -2,12 +2,15 @@ CombatAnnouncementScreen:     .block
 
           lda # 0
           sta MoveAnnouncement
+          lda #2
           jsr SetNextAlarm
 
 Loop:     
           jsr VSync
           jsr VBlank
 
+          jsr Prepare48pxMobBlob
+          
           .ldacolu COLGREEN, 0
           sta COLUBK
 
@@ -33,13 +36,25 @@ DrawSubject:
           beq PlayerSubject
 
           jsr ShowMonsterName
+          lda #40               ; blank space
+          sta StringBuffer + 0
+          sta StringBuffer + 1
+          sta StringBuffer + 2
+          sta StringBuffer + 4
+          sta StringBuffer + 5
+          lda WhoseTurn
+          sta StringBuffer + 3
+          ldx #TextBank
+          ldy #ServiceDecodeAndShowText
+          jsr FarCall
+          
           jmp SubjectDone
 
 PlayerSubject:
           ldy #ServiceShowGrizzardName
           ldx #TextBank
           jsr FarCall
-          ldx # 18
+          ldx # 32
 SkipSubjectX:       
           stx WSYNC
           dex
@@ -80,8 +95,7 @@ VerbDone:
 
 DrawObject:
           lda WhoseTurn
-          beq MonsterTargetObject
-
+          bne PlayerObject
 
 MonsterTargetObject:
           jsr ShowMonsterName
@@ -121,6 +135,7 @@ FillScreen:
           bne AlarmDone
 
           inc MoveAnnouncement
+          lda #2
           jsr SetNextAlarm
 
           lda MoveAnnouncement
@@ -133,13 +148,26 @@ ExecuteMove:
 
 ExecuteMonsterMove:
           ;; TODO execute monster move
-          inc WhoseTurn
 
+NextTurn: 
+          inc WhoseTurn
+          ldx WhoseTurn
+          dex
+          cpx #6
+          bne +
+          ldx #0
+          stx WhoseTurn
+          jmp BackToMain
++
+          lda EnemyHP, x
+          beq NextTurn
+
+          lda #3
+          jsr SetNextAlarm
+BackToMain:         
           jmp CombatMainScreen
 
 ExecutePlayerMove:
-          lda # 1
-          sta WhoseTurn
 
           ;; TODO really execute player move
           ldx MoveTarget
@@ -151,7 +179,28 @@ ExecutePlayerMove:
 +
           sta EnemyHP, x
 
-          jmp CombatMainScreen
+CheckForWin:
+          ldx #5
+-
+          lda EnemyHP, x
+          bne NextTurn
+          dex
+          bne -
+
+WonBattle:
+          lda CurrentCombatEncounter
+          ror a
+          ror a
+          ror a
+          and #$07
+          tay
+          ldx CurrentCombatEncounter
+          lda BitMask, x
+          ora GameEventFlags, y
+          sta GameEventFlags, y
+          
+          lda #ModeMap
+          sta GameMode
 
 AlarmDone:  
           
@@ -160,10 +209,11 @@ AlarmDone:
           .bend
 
 SetNextAlarm:
+          tax
           lda ClockMinutes
           sta AlarmMinutes
-          lda ClockSeconds
-          adc # 3
+          txa
+          adc ClockSeconds
           cmp # 60
           bmi +
           sec
@@ -174,7 +224,7 @@ SetNextAlarm:
 
           rts
 ShowMonsterName:
-                    lda CurrentMonsterPointer
+          lda CurrentMonsterPointer
           sta Pointer
           lda CurrentMonsterPointer + 1
           sta Pointer + 1

@@ -52,7 +52,7 @@ StatsText:
           .MiniText "MAX 00"
 
 StationText:
-          .MiniText "STATION"
+          .MiniText "DEPOT "
 PlayTimeText:       
           .MiniText "PLAYED"
 PlayHoursText:      
