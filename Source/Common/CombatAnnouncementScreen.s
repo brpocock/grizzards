@@ -163,21 +163,109 @@ BackToMain:
 ExecutePlayerMove:
 
           ldx MoveSelection
+          lda MoveTargets, x
+          beq PlayerHits
+          
+          ;; Determine whether the move is a Hit or Miss first
+          jsr Random
+          ldx GrizzardAcuity
+          and #$0f
+          bne +
+          dex                   ; critical fail
++
+          cmp #$0f
+          bne +
+          inx                   ; critical success
++
+          lda StatusFX
+          and #StatusAcuityDown
+          bne +
+          txa
+          ror a
+          tax
++
+          lda StatusFX
+          and #StatusAcuityUp
+          bne +
+          txa
+          asl a
+          tax
++          
+          stx Temp
+
+          ldy #15               ; ATK/DEF byte
+          lda (CurrentMonsterPointer), y
+          and #$0f              ; DEF level
+          tay
+          lda LevelTable, y
+
+          cmp Temp
+          bmi CheckForWin
+
+PlayerHits:
+          
+          ldx MoveSelection
           lda MoveEffects, x
           beq PlayerFXDone
 
 PlayerFXDone:
-          
-          ;; TODO really execute player move
-          ldx MoveTarget
-          lda EnemyHP, x
+          ldx MoveSelection
+          lda MoveTargets, x
+          beq PlayerTargetsSelf
+          cmp #1
+          beq PlayerTargetsOne
+PlayerTargetsAOE:
+          lda MoveEffects, x
+          and #MoveEffectsToEnemy
+          sta Temp
+          ldx # 6
+-
+          lda EnemyStatusFX - 1, x
+          ora Temp
+          sta EnemyStatusFX - 1, x
+          dex
+          bne -
+
+          lda MoveDeltaHP, x
+
+          sta Temp
+          ldx # 6
+-
+          lda EnemyHP - 1, x
           sec
-          sbc # 2               ; FIXME HP subtract
-          bcs +
+          sbc Temp
+          bpl +
           lda # 0
 +
-          sta EnemyHP, x
+	sta EnemyHP - 1, x
+          dex
+          bne -
 
+          jmp PlayerMoveDone
+
+PlayerTargetsOne:
+          
+
+PlayerBoostHP:
+          ;; .a has the MoveDeltaHP value
+          eor #$ff
+          clc
+          adc CurrentHP
+          cmp MaxHP
+          bpl +
+          lda MaxHP
++
+          sta CurrentHP
+
+          jmp PlayerMoveDone
+
+PlayerMoveDone:
+          ldx MoveSelection
+          lda MoveEffects, x
+          and #MoveEffectsToSelf
+          ora StatusFX
+          sta StatusFX
+        
 CheckForWin:
           ldx #5
 -
@@ -284,3 +372,8 @@ ObjectAOE:
           
           .bend
 
+LevelTable:
+          ;; monsters have levels 0…$b for each of their stats
+          ;; this table maps those to actual values
+          .byte 1, 2, 5, 10,  15, 25, 35, 50
+          .byte 60, 70, 80, 90, 99, 99, 99, 99

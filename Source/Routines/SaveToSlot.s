@@ -89,7 +89,7 @@ SendGrizzardAddress:
           jsr i2cTxByte
           lda GrizzardDefense
           jsr i2cTxByte
-          lda GrizzardAccuracy
+          lda GrizzardAcuity
           jsr i2cTxByte
           lda MovesKnown
           jsr i2cTxByte

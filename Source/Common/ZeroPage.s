@@ -125,7 +125,7 @@ GrizzardAttack:
           .byte ?
 GrizzardDefense:
           .byte ?
-GrizzardAccuracy:
+GrizzardAcuity:
           .byte ?
           
 ;;; Moves known (8 bits = 8 possible moves)

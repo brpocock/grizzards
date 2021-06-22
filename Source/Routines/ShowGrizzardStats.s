@@ -32,7 +32,7 @@ ShowGrizzardStats:  .block
           sta Pointer +1
           lda #< StatsText + 12
           sta Pointer
-          lda GrizzardAccuracy
+          lda GrizzardAcuity
           jsr AppendDecimalAndPrint
 
           lda #> StatsText + 18

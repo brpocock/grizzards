@@ -42,12 +42,16 @@
 
 
 ;;; Status Effects for player or enemies 
-          StatusSkipTurn = $01
-          StatusSleeping = $02
-          StatusFlying = $04
-          StatusUndersea = $08
-          StatusOnFire = $10
-          StatusFrozen = $20
+          StatusSleep = $01
+          StatusAcuityDown = $02
+          StatusAttackDown = $04
+          StatusDefendDown = $08
+          StatusAcuityUp = $20
+          StatusAttackUp = $40
+          StatusDefendUp = $80
+
+          MoveEffectsToEnemy = $1f
+          MoveEffectsToSelf = $e0
 
 ;;; Sprite types
           RandomEncounter = $80 ; likelihood of encounter = lower 7 bits

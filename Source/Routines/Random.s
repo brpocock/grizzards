@@ -15,7 +15,7 @@ Random:
           asl
           ror Rand + 1
           bcc +
-          eor #$DB
+          eor #$db
 +
           asl
           ror Rand + 1

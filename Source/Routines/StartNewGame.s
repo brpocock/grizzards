@@ -80,7 +80,7 @@ SignatureTime:
           sta CurrentGrizzard   ; giving them a free Grizzard for now, TODO
           sta GrizzardAttack
           sta GrizzardDefense
-          sta GrizzardAccuracy
+          sta GrizzardAcuity
           sta MovesKnown
           
           lda # 10
