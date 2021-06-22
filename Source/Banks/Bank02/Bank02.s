@@ -47,7 +47,7 @@ DecodeAndShowText:
 StatsText:
           .MiniText "ATK 00"
           .MiniText "DEF 00"
-          .MiniText "ACC 00"
+          .MiniText "ACU 00"
           .MiniText "HP  00"
           .MiniText "MAX 00"
 

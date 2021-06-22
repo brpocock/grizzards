@@ -23,6 +23,12 @@ DoCombat:          .block
 
           sta CurrentMonsterPointer
 
+          ldy # 14              ; offset of ATK & DEF
+          lda (CurrentMonsterPointer), y
+          and #$0f
+          lda LevelTable, y
+          sta Temp
+          
           ldy # 15              ; offset of ACC & count
           lda (CurrentMonsterPointer), y
           and #$0f
@@ -36,18 +42,18 @@ DoCombat:          .block
           lda # 0
           ldx # 5
 -
-          sta EnemyHP + 1, x
+          sta EnemyHP, x
           dex
           bne -
 
           ;; … actually set the HP for monsters present (per .y)
-          lda EncounterHP, x
--
-          sta EnemyHP, y
+          lda Temp
+-  
+          sta EnemyHP - 1, y
           dey
           bne -
 
-          lda # 0              ; flee
+          lda # 0              ; RUN AWAY
           sta MoveSelection
 
           ;; ignore current switch position until it changes,

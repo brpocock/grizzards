@@ -39,6 +39,8 @@
           SoundDeleted = 3
           SoundHappy = 4
           SoundBump = 5
+          SoundHit = SoundBump
+          SoundMiss = SoundDeleted
 
 
 ;;; Status Effects for player or enemies 

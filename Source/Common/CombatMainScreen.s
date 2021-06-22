@@ -379,6 +379,7 @@ FillScreen:
           
 DoMonsterMove:      
 
+          
           ;;  TODO choose a move for the monsters
           lda #1
           sta MoveSelection

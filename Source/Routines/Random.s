@@ -12,12 +12,12 @@ SeedRandom:
           
 Random:
           lda Rand
-          asl
+          asl a
           ror Rand + 1
           bcc +
           eor #$db
 +
-          asl
+          asl a
           ror Rand + 1
           bcc +
           eor #$db

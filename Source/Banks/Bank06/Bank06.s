@@ -10,6 +10,8 @@ DoLocal:
           .include "CombatMainScreen.s"
           .include "GrizzardStatsScreen.s"
           .include "CombatAnnouncementScreen.s"
+          .align $200, $ea      ; filler TODO
+          .include "ExecuteCombatMove.s"
           
           .include "VSync.s"
           .include "Random.s"
