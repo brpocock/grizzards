@@ -5,6 +5,7 @@
 DoLocal:  
           .include "Map.s"
           .include "VSync.s"
+          .include "Random.s"
 
           .include "MapsPart2.s"
 

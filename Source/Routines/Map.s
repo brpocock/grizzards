@@ -3,7 +3,9 @@ DoMap:    .block
           ScreenLeftEdge = 48
           ScreenRightEdge = 200
 
-          lda # 60
+          jsr Random
+          and #$4f
+          ora #$20
           sta BumpCooldown
 
           lda # 0
