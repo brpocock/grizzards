@@ -299,14 +299,60 @@ DrawGrizzard:
           ldx #TextBank
           ldy #ServiceDrawGrizzard
           jsr FarCall
-          
-          ldy # 10
+
+DrawHealthBar:      
+          ldx CurrentHP
+          cpx MaxHP
+          beq AtMaxHP
+          cpx #4
+          bmi AtMinHP
+          .ldacolu COLYELLOW, $f
+          sta COLUPF
+          jmp DrawHealthPF
+
+AtMaxHP:
+          .ldacolu COLSPRINGGREEN, $f
+          sta COLUPF
+          jmp DrawHealthPF
+
+AtMinHP:
+          .ldacolu COLRED, $f
+          sta COLUPF
+
+DrawHealthPF:
+          cpx #8
+          bpl FullCenter
+          lda HealthyPF2, x
+          sta PF2
+          jmp DoneHealth
+
+FullCenter:
+          lda #$ff
+          sta PF2
+          cpx #16
+          bpl FullMid
+          lda HealthyPF1, x
+          sta PF1
+          jmp DoneHealth
+
+FullMid:
+          lda #$ff
+          sta PF1
+          ;; TODO …
+          nop
+          nop
+          nop
+          nop
+          sta PF0
+
+DoneHealth:
+          ldx #4
 -
           sta WSYNC
-          dey
+          dex
           bne -
           
-          ldx # KernelLines - 188
+          ldx # KernelLines - 190
 FillScreen:
           stx WSYNC
           dex
