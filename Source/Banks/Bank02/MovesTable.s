@@ -115,14 +115,14 @@ MovesTable:
           .MiniText "STEAL "
           .MiniText "  LIFE"
 
-          .MiniText " MOVE "
-          .MiniText "  36  "
+          .MiniText "MUDDLE"
+          .MiniText "  MIND"
 
-          .MiniText " MOVE "
-          .MiniText "  37  "
+          .MiniText "GREAT "
+          .MiniText "MUDDLE"
 
-          .MiniText " MOVE "
-          .MiniText "  38  "
+          .MiniText "SCARE "
+          .MiniText "  AWAY"
 
           .MiniText " MOVE "
           .MiniText "  39  "
