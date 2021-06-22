@@ -70,13 +70,13 @@ SpritePresence:
 
 SpritePosition:
           .byte 0               ; 0 0 0
-          .byte $a0             ; 0 0 1
-          .byte $80             ; 0 1 0
-          .byte $a0             ; 0 1 1
-          .byte $60             ; 1 0 0
-          .byte $60             ; 1 0 1
-          .byte $60             ; 1 1 0
-          .byte $60             ; 1 1 1
+          .byte $70             ; 0 0 1
+          .byte $50             ; 0 1 0
+          .byte $50             ; 0 1 1
+          .byte $30             ; 1 0 0
+          .byte $30             ; 1 0 1
+          .byte $30             ; 1 1 0
+          .byte $30             ; 1 1 1
 
 ShowPointerText:
           ldy # 0

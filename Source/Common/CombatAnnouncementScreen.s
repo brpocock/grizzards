@@ -36,17 +36,6 @@ DrawSubject:
           beq PlayerSubject
 
           jsr ShowMonsterName
-          lda #40               ; blank space
-          sta StringBuffer + 0
-          sta StringBuffer + 1
-          sta StringBuffer + 2
-          sta StringBuffer + 4
-          sta StringBuffer + 5
-          lda WhoseTurn
-          sta StringBuffer + 3
-          ldx #TextBank
-          ldy #ServiceDecodeAndShowText
-          jsr FarCall
           
           jmp SubjectDone
 
@@ -77,6 +66,7 @@ DrawVerb:
           ldy #ServiceShowMove
           ldx #TextBank
           jsr FarCall
+          jmp VerbDone
 
 SkipVerb:
           ldx # 34
@@ -92,6 +82,9 @@ VerbDone:
           lda MoveAnnouncement
           cmp # 3
           bmi SkipObject
+          lda MoveTarget
+          cmp #$ff
+          beq SkipObject
 
 DrawObject:
           lda WhoseTurn
@@ -220,8 +213,6 @@ AlarmDone:
           
           jmp Loop
 
-          .bend
-
 SetNextAlarm:
           tax
           lda ClockMinutes
@@ -237,6 +228,7 @@ SetNextAlarm:
           sta AlarmSeconds
 
           rts
+
 ShowMonsterName:
           lda CurrentMonsterPointer
           sta Pointer
@@ -253,5 +245,22 @@ ShowMonsterName:
 +
           sta Pointer
 
-          jmp ShowPointerText
+          jsr ShowPointerText
+          
+          lda #40               ; blank space
+          sta StringBuffer + 0
+          sta StringBuffer + 1
+          sta StringBuffer + 2
+          sta StringBuffer + 4
+          sta StringBuffer + 5
+          lda WhoseTurn
+          bne +
+          lda MoveTarget
++
+          sta StringBuffer + 3
+          ldx #TextBank
+          ldy #ServiceDecodeAndShowText
+          jmp FarCall
+
+          .bend
 

@@ -1,4 +1,7 @@
 CombatMainScreen:   .block
+
+          lda # 1
+          sta MoveTarget
 Loop:
           jsr VSync
           jsr VBlank
@@ -23,7 +26,6 @@ NotPaused:
           sta COLUP1
 
 PausedOrNot:
-          ;; jsr Prepare48pxMobBlob
 
 PrepareMonsterArt:  
           
@@ -33,7 +35,6 @@ PrepareMonsterArt:
           ldx # 12              ; offset of art index
           lda Monsters, x
           clc
-          asl a
           asl a
           asl a
           bcc +
@@ -71,6 +72,47 @@ PrepareToDrawMonsters:
           ldy # 14              ; offset of monster color
           lda (CurrentMonsterPointer), y
           sta COLUP0
+
+          ldx MoveTarget
+          lda EnemyHP, x
+          beq +
+          .ldacolu COLYELLOW, $f
+          jmp SetCursorColor
++
+          .ldacolu COLGRAY, 0
+SetCursorColor:       
+          sta COLUP1
+
+          ldx MoveTarget
+          beq PrepareTopMonsters
+          dex
+          cpx #3
+          bpl PrepareTopMonsters
+
+PositionTopCursor:
+          lda SpritePosition, x
+          sta HMCLR
+
+          sec
+          sta WSYNC
+TopCursorPos:
+          sbc #15
+          bcs TopCursorPos
+          sta RESP1
+
+          eor #$07
+          asl a
+          asl a
+          asl a
+          asl a
+          sta HMP1
+
+          sta WSYNC
+          .SleepX 71
+          sta HMOVE
+
+          lda #$ff
+          sta GRP1
 
 PrepareTopMonsters:
           lda # 0
@@ -124,7 +166,7 @@ DrawTopMonsters:
           bpl -
           sty GRP0
 
-          jmp PrepareBottomMonsters
+          jmp PrepareBottomCursor
 
 NoTopMonsters:
           lda # 0
@@ -134,6 +176,45 @@ NoTopMonsters:
           sta WSYNC
           dey
           bne -
+
+PrepareBottomCursor:
+          lda # 0
+          sta GRP1
+          
+          ldx MoveTarget
+          dex
+          cpx #3
+          bpl PrepareBottomMonsters
+
+          txa
+          sec
+          sbc #4
+          tax
+
+          lda SpritePosition,x
+PostionBottomCursor:
+          sta HMCLR
+
+          sec
+          sta WSYNC
+BottomCursorPos:
+          sbc #15
+          bcs BottomCursorPos
+          sta RESP1
+
+          eor #$07
+          asl a
+          asl a
+          asl a
+          asl a
+          sta HMP1
+
+          sta WSYNC
+          .SleepX 71
+          sta HMOVE
+
+          lda #$ff
+          sta GRP1
 
 PrepareBottomMonsters:
           lda # 0
@@ -198,7 +279,10 @@ NoBottomMonsters:
           dey
           bne -
 
-DelayAfterMonsters: 
+DelayAfterMonsters:
+          lda # 0
+          sta GRP1
+          
           ldx # 10
 -          
           stx WSYNC
@@ -285,20 +369,28 @@ DoneStickUp:
           ldx #0
 
 DoneStickDown:
+          stx MoveSelection
+
+StickLeftRight:
+          ldx MoveTarget
           lda SWCHA
           and #P0StickLeft
           bne DoneStickLeft
-          ldx # 0
-          jmp StickDone
-
+          dex
+          bpl DoneStickLeft
+          ldx #6
 DoneStickLeft:
-          ;; lda SWCHA
-          ;; and #P0StickRight
-          ;; bne DoneStickRight
-
+          lda SWCHA
+          and #P0StickRight
+          bne DoneStickRight
+          inx
+          cpx #6
+          bne DoneStickRight
+          ldx #0
 DoneStickRight:
+          stx MoveTarget
+
 StickDone:
-          stx MoveSelection
 
           jsr Prepare48pxMobBlob
 
