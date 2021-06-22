@@ -74,7 +74,7 @@ $label_file_name.labels.txt\n";
 	      next;
 	  }
           }
-      if ($label =~ /SpeakJet_/) {
+      if ($line =~ /SpeakJet_/) {
         ++$skipped;
         next;
       }
