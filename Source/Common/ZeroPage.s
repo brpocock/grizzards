@@ -240,6 +240,10 @@ CurrentSound:
 SoundTimer:
           .byte ?
 
+;;; Random number generator workspace
+Rand:
+          .word ?
+
 ;;; 
 ;;; Transient work space for one game mode
 ;;;
@@ -263,7 +267,6 @@ AttractHasSpoken:
 
 AttractStoryPanel:
           .byte ?
-
 
 ;;; 
 ;;; Start Game phase

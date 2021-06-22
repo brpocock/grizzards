@@ -12,7 +12,7 @@ DoLocal:
           .include "CombatAnnouncementScreen.s"
           
           .include "VSync.s"
-
+          .include "Random.s"
           .include "48Pixels.s"
           .include "Combat6.s"
           .include "CombatSpriteTables.s"
