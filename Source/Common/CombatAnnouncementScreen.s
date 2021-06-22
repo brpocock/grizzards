@@ -162,6 +162,12 @@ BackToMain:
 
 ExecutePlayerMove:
 
+          ldx MoveSelection
+          lda MoveEffects, x
+          beq PlayerFXDone
+
+PlayerFXDone:
+          
           ;; TODO really execute player move
           ldx MoveTarget
           lda EnemyHP, x
@@ -256,12 +262,25 @@ ShowMonsterName:
           sta StringBuffer + 5
           lda WhoseTurn
           bne +
+          ldx MoveSelection
+          lda MoveTargets, x
+          cmp #1
+          bne ObjectAOE
           lda MoveTarget
+
 +
           sta StringBuffer + 3
           ldx #TextBank
           ldy #ServiceDecodeAndShowText
           jmp FarCall
+ObjectAOE:
 
+          ldx #20
+-          
+          stx WSYNC
+          dex
+          bne -
+          rts
+          
           .bend
 
