@@ -6,7 +6,7 @@
           .include "Prepare48pxMobBlob.s"
 
 DoLocal:  
-          .include "Combat.s"
+          .include "CombatSetup.s"
           .include "CombatMainScreen.s"
           .include "GrizzardStatsScreen.s"
           .include "CombatAnnouncementScreen.s"
@@ -15,6 +15,8 @@ DoLocal:
 
           .include "48Pixels.s"
           .include "Combat6.s"
+          .include "CombatSpriteTables.s"
+          .include "MoveEffects.s"
 
           .align $100
           .include "Monsters6.s"

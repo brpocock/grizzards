@@ -2,110 +2,118 @@ MovesTable:
           .MiniText " RUN  "
           .MiniText " AWAY "
 
+          .MiniText "KICK  "
+          .MiniText "  DIRT"
+
+          .MiniText "SPLISH"
+          .MiniText "SPLASH"
+
+          .MiniText "MILD  "
+          .MiniText " SHOCK"
+
+          .MiniText "HOT   "
+          .MiniText " SPARK"
+
+          .MiniText "BURY  "
+          .MiniText "  DEEP"
+
+          .MiniText "DIRTY "
+          .MiniText "  FOOT"
+
+          .MiniText "LOAMY "
+          .MiniText "  FEAR"
+
+          ;; 8
+          
+          .MiniText "DUSTY "
+          .MiniText "  EYES"
+
+          .MiniText "RAISE "
+          .MiniText "  HOPE"
+
+          .MiniText "SURE  "
+          .MiniText "SPLASH"
+
+          .MiniText "QUICK "
+          .MiniText "  FOOT"
+
+          .MiniText "GREAT "
+          .MiniText "  MOJO"
+
+          .MiniText "STEAL "
+          .MiniText "   AIM"
+
+          .MiniText "STEAL "
+          .MiniText "ATTACK"
+
+          .MiniText "STEAL "
+          .MiniText "DEFEND"
+
+          ;; 16
+
+          .MiniText "STEAL "
+          .MiniText "  TURN"
+
+          .MiniText "FIRE  "
+          .MiniText " START"
+
+          .MiniText "BURNT "
+          .MiniText " EDGES"
+
+          .MiniText "ROGUE "
+          .MiniText " FLARE"
+
+          .MiniText "DOUBLE"
+          .MiniText "FLARES"
+
+          .MiniText "TAIL  "
+          .MiniText "  WHIP"
+
+          .MiniText "TAIL  "
+          .MiniText "  LASH"
+
+          .MiniText " BITE "
+          .MiniText "      "
+
+          ;; 24
+
+          .MiniText "POISON"
+          .MiniText "  BITE"
+
+          .MiniText "CRUEL "
+          .MiniText "  STAB"
+
+          .MiniText "BLIND "
+          .MiniText "  BLOB"
+
+          .MiniText "SLIMY "
+          .MiniText " TRICK"
+
+          .MiniText "GUARD "
+          .MiniText "  DOWN"
+
           .MiniText "FIRST "
-          .MiniText " MOVE "
+          .MiniText "   AID"
 
-          .MiniText "SECOND"
-          .MiniText " MOVE "
+          .MiniText "SIMPLE"
+          .MiniText "  CURE"
 
-          .MiniText "THIRD "
-          .MiniText " MOVE "
+          .MiniText "COMMON"
+          .MiniText "  CURE"
 
-          .MiniText "FOURTH"
-          .MiniText " MOVE "
+          ;; 32
+          
+          .MiniText "GREAT "
+          .MiniText "  CURE"
 
-          .MiniText "FIFTH "
-          .MiniText " MOVE "
+          .MiniText "HEAL  "
+          .MiniText " WOUND"
 
-          .MiniText "SIXTH "
-          .MiniText " MOVE "
+          .MiniText "LIFE  "
+          .MiniText "RETURN"
 
-          .MiniText "  7TH "
-          .MiniText " MOVE "
-
-          .MiniText "  8TH "
-          .MiniText " MOVE "
-
-          .MiniText "NINTH "
-          .MiniText " MOVE "
-
-          .MiniText "TENTH "
-          .MiniText " MOVE "
-
-          .MiniText " MOVE "
-          .MiniText "  11  "
-
-          .MiniText " MOVE "
-          .MiniText "  12  "
-
-          .MiniText " MOVE "
-          .MiniText "  13  "
-
-          .MiniText " MOVE "
-          .MiniText "  14  "
-
-          .MiniText " MOVE "
-          .MiniText "  15  "
-
-          .MiniText " MOVE "
-          .MiniText "  16  "
-
-          .MiniText " MOVE "
-          .MiniText "  17  "
-
-          .MiniText " MOVE "
-          .MiniText "  18  "
-
-          .MiniText " MOVE "
-          .MiniText "  19  "
-
-          .MiniText " MOVE "
-          .MiniText "  20  "
-
-          .MiniText " MOVE "
-          .MiniText "  21  "
-
-          .MiniText " MOVE "
-          .MiniText "  22  "
-
-          .MiniText " MOVE "
-          .MiniText "  23  "
-
-          .MiniText " MOVE "
-          .MiniText "  24  "
-
-          .MiniText " MOVE "
-          .MiniText "  25  "
-
-          .MiniText " MOVE "
-          .MiniText "  26  "
-
-          .MiniText " MOVE "
-          .MiniText "  27  "
-
-          .MiniText " MOVE "
-          .MiniText "  28  "
-
-          .MiniText " MOVE "
-          .MiniText "  29  "
-
-          .MiniText " MOVE "
-          .MiniText "  30  "
-
-          .MiniText " MOVE "
-          .MiniText "  31  "
-
-          .MiniText " MOVE "
-          .MiniText "  32  "
-
-          .MiniText " MOVE "
-          .MiniText "  33  "
-
-          .MiniText " MOVE "
-          .MiniText "  34  "
-
-          .MiniText " MOVE "
-          .MiniText "  35  "
+          .MiniText "STEAL "
+          .MiniText "  LIFE"
 
           .MiniText " MOVE "
           .MiniText "  36  "
@@ -119,6 +127,8 @@ MovesTable:
           .MiniText " MOVE "
           .MiniText "  39  "
 
+          ;; 40
+          
           .MiniText " MOVE "
           .MiniText "  40  "
 
@@ -143,6 +153,8 @@ MovesTable:
           .MiniText " MOVE "
           .MiniText "  47  "
 
+          ;; 48
+          
           .MiniText " MOVE "
           .MiniText "  48  "
 
@@ -167,6 +179,8 @@ MovesTable:
           .MiniText " MOVE "
           .MiniText "  55  "
 
+          ;; 56
+          
           .MiniText " MOVE "
           .MiniText "  56  "
 
@@ -190,3 +204,5 @@ MovesTable:
 
           .MiniText " MOVE "
           .MiniText "  63  "
+
+          ;; ↑ 63

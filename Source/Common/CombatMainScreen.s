@@ -1,7 +1,5 @@
 CombatMainScreen:   .block
 
-          lda # 1
-          sta MoveTarget
 Loop:
           jsr VSync
           jsr VBlank
@@ -74,6 +72,8 @@ PrepareToDrawMonsters:
           sta COLUP0
 
           ldx MoveTarget
+          beq PrepareTopMonsters
+          dex
           lda EnemyHP, x
           beq +
           .ldacolu COLYELLOW, $f
@@ -83,10 +83,10 @@ PrepareToDrawMonsters:
 SetCursorColor:       
           sta COLUP1
 
+PrepareCursor2:
           ldx MoveTarget
-          beq PrepareTopMonsters
           dex
-          cpx #3
+          cpx #2
           bpl PrepareTopMonsters
 
 PositionTopCursor:
@@ -106,10 +106,6 @@ TopCursorPos:
           asl a
           asl a
           sta HMP1
-
-          sta WSYNC
-          .SleepX 71
-          sta HMOVE
 
           lda #$ff
           sta GRP1
@@ -135,8 +131,6 @@ PrepareTopMonsters:
           lda SpritePosition, x
 
 PositionTopMonsters:
-          sta HMCLR
-
           sec
           sta WSYNC
 Monster1Pos:
@@ -372,6 +366,22 @@ DoneStickDown:
           stx MoveSelection
 
 StickLeftRight:
+          ldx MoveSelection
+          lda MoveTargets, x
+          cmp #1
+          beq ChooseTarget
+          cmp #0
+          beq SelfTarget
+          ldx #$ff
+          stx MoveTarget
+          jmp StickDone
+
+SelfTarget:
+          ldx # 0
+          stx MoveTarget
+          jmp StickDone
+
+ChooseTarget:       
           ldx MoveTarget
           lda SWCHA
           and #P0StickLeft
@@ -386,7 +396,7 @@ DoneStickLeft:
           inx
           cpx #6
           bne DoneStickRight
-          ldx #0
+          ldx #1
 DoneStickRight:
           stx MoveTarget
 

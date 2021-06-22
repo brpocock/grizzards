@@ -208,6 +208,7 @@ WonBattle:
           
           lda #ModeMap
           sta GameMode
+          jmp GoMap
 
 AlarmDone:  
           
