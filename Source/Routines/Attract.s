@@ -62,17 +62,23 @@ Loop:
 StoryMode:
           ;; TODO lots more needs to happen here
           brk
-
+          
           .if PUBLISHER
 PublisherPresentsMode:
           .SetUpFortyEight PublisherCredit
-          ldy #PublisherCredit.Height
-          .ldacolu COLBLUE | $f
+          lda #CTRLPFREF
+          sta CTRLPF
+          .ldacolu COLGRAY, $f
+          sta COLUPF
+          lda #$c0
+          sta PF2
+          ldy #PublisherCredit.Height 
+          .ldacolu COLBLUE, $f
           .else
 BRPPreambleMode:
           .SetUpFortyEight BRPCredit
-          ldy BRPCredit.Height
-          .ldacolu COLSPRINGGREEN | $f
+          ldy BRPCredit.Height 
+          .ldacolu COLINDIGO, $f
           .fi
 
           sta COLUP0
@@ -90,7 +96,7 @@ BRPPreambleMode:
           jsr SetNextAlarm
           lda #ModeAttractTitle
           sta GameMode
-
+          
 StillPresenting:
           jmp SingleGraphicAttract
 
@@ -147,11 +153,11 @@ TitleMode:
 
           lda ClockSeconds
           cmp AlarmSeconds
-          bmi StillPresenting
+          bmi DoneTitleSpeech
 
           lda ClockMinutes
           cmp AlarmMinutes
-          bmi StillPresenting
+          bmi DoneTitleSpeech
 
           lda #<Speech_TitleIntro
           sta CurrentUtterance
@@ -176,31 +182,34 @@ FillAttractMid1:
           dex
           bne FillAttractMid1
 
-          .ldacolu COLPURPLE, $f
+          .ldacolu COLSPRINGGREEN, $f
           sta COLUP0
           sta COLUP1
 
+          lda ClockFrame
+          and # 8
+          beq DrawTitle3
+          
           .SetUpFortyEight Title2
           ldy #Title2.Height
           sty LineCounter
           jsr ShowPicture
 
-          ldx #15
-FillAttractMid2:
-          sta WSYNC
-          dex
-          bne FillAttractMid2
+          jmp PrepareFillAttractBottom
 
-          .ldacolu COLBLUE, $f
-          sta COLUP0
-          sta COLUP1
-
+DrawTitle3:         
+          
           .SetUpFortyEight Title3
           ldy #Title3.Height
           sty LineCounter
           jsr ShowPicture
 
-          ldx #15
+          ldy # 0
+          sty PF2
+
+PrepareFillAttractBottom:     
+          
+          ldx # KernelLines - Title1.Height - Title2.Height - 30
 FillAttractBottom:
           sta WSYNC
           dex

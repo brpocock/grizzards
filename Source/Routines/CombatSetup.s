@@ -21,6 +21,11 @@ DoCombat:          .block
           dex
           bne -
 
+          clc
+          adc #<Monsters
+          bcc +
+          inc CurrentMonsterPointer + 1
++
           sta CurrentMonsterPointer
 
           ldy # 14              ; offset of ATK & DEF
@@ -32,9 +37,14 @@ DoCombat:          .block
           ldy # 15              ; offset of ACC & count
           lda (CurrentMonsterPointer), y
           and #$0f
+          sta Temp
+          dec Temp
 
-          ;;  TODO choose a random number between 1 and this max count
-          lda # 1
+PickNumMonsters:    
+          jsr Random
+          and #$07
+          cmp Temp
+          bpl PickNumMonsters
           
           tay
 
@@ -61,6 +71,25 @@ DoCombat:          .block
           lda SWCHA
           sta DebounceSWCHA
 
+PrepareMonsterArt:  
+          
+          lda #>MonsterArt
+          sta CombatSpritePointer + 1
+
+          ldx # 12              ; offset of art index
+          lda Monsters, x
+          clc
+          asl a
+          asl a
+          bcc +
+          inc CombatSpritePointer + 1
++
+          adc #<MonsterArt
+          bcc +
+          inc CombatSpritePointer + 1
++
+          sta CombatSpritePointer
+          
           jmp CombatMainScreen
 
           .bend

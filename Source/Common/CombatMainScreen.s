@@ -25,21 +25,6 @@ NotPaused:
 
 PausedOrNot:
 
-PrepareMonsterArt:  
-          
-          lda #>MonsterArt
-          sta CombatSpritePointer + 1
-
-          ldx # 12              ; offset of art index
-          lda Monsters, x
-          clc
-          asl a
-          asl a
-          bcc +
-          inc CombatSpritePointer + 1
-+
-          sta CombatSpritePointer
-
 ShowMonsterName:    
 
           lda CurrentMonsterPointer
@@ -379,13 +364,20 @@ FillScreen:
           
 DoMonsterMove:      
 
+          jsr Random
+          and #$03
+          sta Temp
+
+          lda EncounterMonster
+          asl a
+          asl a                 ; at most 200
+          adc Temp
+
+          tay
+          lda MonsterMoves, y
           
-          ;;  TODO choose a move for the monsters
-          lda #1
           sta MoveSelection
           jmp CombatAnnouncementScreen
-
-          .align $100, $ea        ; leave room for monster "AI"
 
 CheckStick:
           ldx MoveSelection
@@ -470,7 +462,7 @@ StickDone:
 
           lda INPT4
           and #$80
-          bne NoFire
+          bne CheckSwitches
 
           ;; Is the move known?
           ldx MoveSelection
@@ -481,6 +473,8 @@ StickDone:
 
           lda #SoundBump
           sta NextSound
+
+          jmp CheckSwitches
 
 DoUseMove:
           jmp CombatAnnouncementScreen
@@ -497,20 +491,14 @@ SelectedRunAway:
 
           lda INPT4
           and #$80
-          bne NoFire
+          bne CheckSwitches
 
-          ;; TODO ... odds of escaping, attacks of opportunity
           lda #SoundHappy
           sta NextSound
 
           lda #ModeMap
           sta GameMode
           jmp GoMap
-
-SelectedMoves:
-          ;; TODO
-
-NoFire:
 
 CheckSwitches:
 

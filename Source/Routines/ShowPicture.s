@@ -23,7 +23,7 @@ ShowPicture:  .block
 
 	.option allow_branch_across_page = false
 	
-        sta WSYNC
+          sta WSYNC
 	.SleepX 61
 Loop:
 	ldy LineCounter
