@@ -3,14 +3,14 @@ ShowMove:
           beq MoveRunAway
           dey
           
-          lda #<GrizzardMoves
-          sta Pointer
+          lda #>GrizzardMoves
+          sta Pointer + 1
           
           lda CurrentGrizzard
           asl a
           asl a
           asl a
-          adc #>GrizzardMoves
+          adc #<GrizzardMoves
           bcc +
           inc Pointer + 1
 +
@@ -20,9 +20,10 @@ ShowMove:
 
 MoveRunAway:        
           
-          lda # >MovesTable
+          lda #>MovesTable
           sta Pointer + 1
           tya                   ; move number
+          and #$3f         ; there are only 64 moves
           clc
 
           asl a
@@ -30,12 +31,15 @@ MoveRunAway:
           sta Pointer
           asl a                 ; × 8
           adc Pointer           ; × 12
-          adc # <MovesTable
+          bcc +
+          inc Pointer + 1
++
+          clc
+          adc #<MovesTable
           bcc +
           inc Pointer + 1
 +
           sta Pointer
-
 
           jsr CopyPointerText
           jsr DecodeText
