@@ -23,11 +23,11 @@
 
 \ifdefined\TVNTSC
   \newcommand\TV{NTSC}
-  \newcommand\REGION{US, Canada, Mexico, Japan}
+  \newcommand\REGION{US, Canada, Mexico, Brazil, and Japan}
 \else
   \ifdefined\TVPAL
     \newcommand\TV{PAL}
-    \newcommand\REGION{Europe (except France)}
+    \newcommand\REGION{UK and Europe (except France)}
   \else
     \ifdefined\TVSECAM
       \newcommand\TV{SECAM}
@@ -78,7 +78,7 @@
 Copyright © 2020, Bruce-Robert Pocock
 
 This version is for systems in \REGION{} using the \TV{} television
-standard. For Atari 2600 or 7800 with AtariVox or SaveKey.
+standard. For Atari 2600 or 7800 with AtariVox or MemCard.
 
 
 
@@ -118,13 +118,13 @@ To play Grizzards, you will need:
 \item A TV or video display
 \item A joystick controller
 \item  An AtariVox  device with  (optional) speakers  or headphones,  or
-  a SaveKey device.
+  a MemCard device.
 \item The Grizzards game cartridge
 \end{itemize}
 
 Set up  your Atari Video  Computer System or  ProSystem with your  TV or
 video  display.  Connect  a   joystick  controller  to  the  \emph{left}
-controller  port,   and  the  AtariVox   (or  SaveKey)  device   to  the
+controller  port,   and  the  AtariVox   (or  MemCard)  device   to  the
 \emph{right} controller port.  Make certain that the Power  switch is in
 the Off position.
 
@@ -134,15 +134,15 @@ label facing up into the cartridge slot, and turn the Power On.
 \section{Controller Ports}
 
 Your joystick  connects to the  left controller port, and  your AtariVox
-(or SaveKey) device connects to the right controller port.
+(or MemCard) device connects to the right controller port.
 
-If  your  AtariVox  (or  SaveKey)  is missing,  you'll  see  a  red  Sad
+If  your  AtariVox  (or  MemCard)  is missing,  you'll  see  a  red  Sad
 Face screen.
 
 Always   turn  Off   the  Power   switch  before   adding  or   removing
-your AtariVox or SaveKey.
+your AtariVox or MemCard.
 
-This game  saves your progress  to the  AtariVox (or SaveKey)  while you
+This game  saves your progress  to the  AtariVox (or MemCard)  while you
 play. Always  return to the Title  Screen by pressing Game  Reset before
 turning Off the Power to be sure your game record is not damaged.
 
@@ -214,40 +214,45 @@ The  Game  Select  switch  is  used from  the  title  screen  to  choose
 a slot\footnote{Technical Note: The Slot  number chosen here is relative
   to  the three  save game  slots used  by the  Grizzards game  program.
   Each save  game slot actually  occupies 4  blocks on your  AtariVox or
-  SaveKey device.} in  which to save your progress on  your AtariVox (or
-SaveKey). When  you have  selected a  slot, the  Game Reset  switch will
+  MemCard device.} in  which to save your progress on  your AtariVox (or
+MemCard). When  you have  selected a  slot, the  Game Reset  switch will
 start the game.
 
 While you're playing the game, the Game Select switch can be used to see the
 statistics of your current Grizzard companion, and the Game Reset switch can
 be used to leave the game and return to the title screen, saving your
-current progress to your AtariVox (or SaveKey).
+current progress to your AtariVox (or MemCard).
 
-The Color/B&W switch (on an Atari 7800: Pause button) can be used to pause
+The Color/B\&W switch (on an Atari 7800: Pause button) can be used to pause
 game play. The screen will show ``PAUSED'' and you will not be able to
 continue playing until you toggle the switch to the Color position.
 
-This game does not make use of the Difficulty Switches.
+This game does not make use  of the Difficulty Switches, except that you
+cannot  delete a  game in  progress unless  they both  are in  the ``A''
+(Advanced or Expert) position. To  protect your game from being deleted,
+set either  one of  the Difficulty  Switches to  the ``B''  (Beginner or
+Novice) position.
 
 
 \section{Roaming The World}
 
-The World Map screen shows your current score (initially 000000) at the top
-of the screen.  Below this, you'll see the current area in which you are
-traveling.  Guide yourself using the joystick controller.
+The World Map screen shows your  current score (initially 000000) at the
+top of the screen. Below this, you'll  see the current area in which you
+are traveling. Guide yourself using the joystick controller.
 
 *** image
 
-Throughout the world you may encounter monsters. Sometimes these monsters
-may sneak up on you and attack! Other times you'll see them waiting for you
-and can avoid them --- or walk up to them when you're ready to face them.
+Throughout  the  world  you  may  encounter  monsters.  Sometimes  these
+monsters may  sneak up on  you and attack!  Other times you'll  see them
+waiting for you  and can avoid them  --- or walk up to  them when you're
+ready to face them.
 
-You may also encounter Grizzards in the world that you can convince to join
-your party. When you first begin, you'll only be able to choose one
+You may also  encounter Grizzards in the world that  you can convince to
+join your party. When you first begin, you'll only be able to choose one
 Grizzard. Later, you'll have the option to swap Grizzards in your party,
-with up to 30 total Grizzards saved in your AtariVox (or SaveKey) device.
-Each Grizzard may have its own moves and skill scores. To review the
-statistics of your current Grizzard companion, press Game Select.
+with  up to  30  total Grizzards  saved in  your  AtariVox (or  MemCard)
+device. Each Grizzard may have its own moves and skill scores. To review
+the statistics of your current Grizzard companion, press Game Select.
 
 To swap which Grizzard you're using, or to heal your current Grizzard
 partner, you'll need to find a Grizzard Depot like this: ***
@@ -601,14 +606,15 @@ understand anything in this section to play Grizzards.
 
 \section{Game Record Slots}
 
-There are 3 logical game slots that you can choose from for the
-game. Each save game slot takes up 4 blocks (256 bytes) of storage
-space on your AtariVox memory card. The following blocks are used:
+There are 3  logical game slots that  you can choose from  for the game.
+Each save game  slot takes up 4  blocks (256 bytes) of  storage space on
+your AtariVox memory card,  for a total of 12 blocks  for all three save
+game slots. The following blocks are used:
 
 \begin{enumeration}
-\item Slot 1 uses memory blocks $5c-$5f (addresses $1700-$16ff)
-\item Slot 2 uses memory blocks $60-$63 (addresses $1800-$17ff)
-\item Slot 3 uses memory blocks $64-$67 (addresses $1900-$18ff)
+\item Slot 1 uses memory blocks \$5c-\$5f (addresses \$1700-\$17ff)
+\item Slot 2 uses memory blocks \$60-\$63 (addresses \$1800-\$18ff)
+\item Slot 3 uses memory blocks \$64-\$67 (addresses \$1900-\$19ff)
 \end{enumeration}
 
 \subsection{Registration}
