@@ -24,6 +24,7 @@ DoLocal:
 	.include "ColdStart.s"
           .include "SaveToSlot.s"
 
+          .include "Random.s"
           .include "Attract.s"
           .include "SelectSlot.s"
           .include "48Pixels.s"

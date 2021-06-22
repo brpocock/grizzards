@@ -1,4 +1,6 @@
 CheckSaveSlot: .block
+          jsr SeedRandom
+          
 	jsr i2cStartWrite
 	bcc CheckSignature
 	jmp EEPROMFail

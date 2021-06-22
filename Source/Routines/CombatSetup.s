@@ -1,6 +1,8 @@
 ;;; Common combat routines called from multiple banks
 DoCombat:          .block
 
+          jsr SeedRandom
+          
           ldx CurrentCombatEncounter
           lda EncounterMonster, x
 

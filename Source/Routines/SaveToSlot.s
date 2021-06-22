@@ -101,6 +101,10 @@ SendGrizzardAddress:
           rts
 
 SaveRetry:
-          .SleepX 50
+          jsr Random
+          tax
+-
+          dex
+          bne -
           jmp SaveToSlot
 	.bend
