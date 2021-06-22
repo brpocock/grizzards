@@ -1,7 +1,28 @@
-ShowMove: 
+ShowMove:
+          ldy MoveSelection
+          beq MoveRunAway
+          dey
+          
+          lda #<GrizzardMoves
+          sta Pointer
+          
+          lda CurrentGrizzard
+          asl a
+          asl a
+          asl a
+          adc #>GrizzardMoves
+          bcc +
+          inc Pointer + 1
++
+          sta Pointer
+          lda (Pointer), y
+          tay
+
+MoveRunAway:        
+          
           lda # >MovesTable
           sta Pointer + 1
-          lda MoveSelection
+          tya                   ; move number
           clc
 
           asl a
