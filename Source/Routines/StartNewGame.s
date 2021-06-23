@@ -64,8 +64,8 @@ SignatureTime:
           lda #ModeMap
           sta GameMode
 
-          lda # 4
-          sta CurrentMapBank
+          lda # 0
+          sta CurrentProvince
           lda # 0
           sta CurrentMap
 

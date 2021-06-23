@@ -53,8 +53,6 @@ Pause:
 GlobalGameData:
 
 ;;; What map is the player currently on?
-CurrentMapBank:
-          .byte ?
 CurrentMap:
           .byte ?
 

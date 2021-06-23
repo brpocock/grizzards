@@ -29,6 +29,7 @@ NewRoom:
 FindSprites:
           ;; Get the map index
           ldx CurrentMap
+          
           ;; If it was zero, our work here is done.
           beq DoneFinding
 

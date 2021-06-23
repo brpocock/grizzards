@@ -52,6 +52,9 @@ WriteProvinceData:
           jsr i2cStopWrite
 
 WriteGrizzardData:
+          jsr i2cStartWrite
+          bcs SaveRetry
+          
           jsr SetGrizzardAddress
           
           lda GrizzardAttack
@@ -75,6 +78,8 @@ SaveRetry:
 -
           dex
           bne -
+
+          brk
           jmp SaveToSlot
 	.bend
 

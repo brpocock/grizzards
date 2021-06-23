@@ -153,14 +153,6 @@ ProvinceChange:
           and #$0f
           lda #0                ; FIXME
           sta CurrentMap
-          ldx CurrentProvince
-          beq InProvince0
-          lda #Province1MapBank
-          jmp +
-InProvince0:
-          lda #Province0MapBank
-+           
-          sta CurrentMapBank
           jsr Overscan
           ldy #$ff
           rts

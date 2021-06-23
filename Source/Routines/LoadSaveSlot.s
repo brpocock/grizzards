@@ -59,6 +59,8 @@ ReadProvinceData:
           jsr i2cStopRead
 
 ReadGrizzardData:
+          jsr i2cStartWrite
+
           jsr SetGrizzardAddress
 
           jsr i2cStartRead

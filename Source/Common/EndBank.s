@@ -5,7 +5,7 @@ BitMask:
           
 EndBank:
 
-          BankEndAddress = $ff41      ; keep this as high as possible
+          BankEndAddress = $ff38      ; keep this as high as possible
           ;; The magic number  above: you can just raise it  to, say,
           ;; $ff70,  and then  the assembler  will bitch  at you  about its
           ;; being too high, and tell you  what to lower it to. Careful,
@@ -55,8 +55,13 @@ GoColdStart:
 ;;; then we must not be in map mode (hopefully), so jump
 ;;; back to Dispatch.
 GoMap:
-          ldx CurrentMapBank
-          sta BankSwitch0, x
+          lda CurrentProvince
+          and #$02
+          beq +
+          sta BankSwitch0 + Province01MapBank
+          jmp DoLocal
++
+          sta BankSwitch0 + Province23MapBank
           jmp DoLocal
 
 ;;; Go to the current combat memory bank, and jump to DoCombat.
@@ -64,11 +69,11 @@ GoMap:
 GoCombat:
           lda CurrentCombatEncounter
           and #$80
-          beq CombatBank6
-          sta BankSwitch5
+          beq +
+          sta BankSwitch0 + CombatBank0To127
           jmp DoLocal
-CombatBank6:        
-          sta BankSwitch6
++        
+          sta BankSwitch0 + CombatBank128To255
           jmp DoLocal
 
 ;;; Perform a far call to a memory bank with a specific local

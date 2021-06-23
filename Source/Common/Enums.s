@@ -90,11 +90,13 @@
           MapServicesBank = $01
           TextBank = $02
 
-          Province0MapBank = $04
-          Province1MapBank = $03
+          NumProvinces = 4
+          
+          Province01MapBank = $03
+          Province23MapBank = $04
 
-          Province0CombatBank = $06
-          Province1CombatBank = $05
+          CombatBank0To127 = $05
+          CombatBank128To255 = $06
 
 ;;; Text bank provides multiple services, selected with .y
 
