@@ -13,6 +13,8 @@ DoLocal:
           .align $200, $ea      ; filler TODO
           .include "ExecuteCombatMove.s"
           
+          .include "ShowMonsterName.s"
+          
           .include "VSync.s"
           .include "Random.s"
           .include "48Pixels.s"

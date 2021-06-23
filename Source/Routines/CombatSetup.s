@@ -6,7 +6,7 @@ DoCombat:          .block
           ldx CurrentCombatEncounter
           lda EncounterMonster, x
 
-          ;;  Set up the monster pointer
+SetUpMonsterPointer:          
           ldx #>Monsters
           stx CurrentMonsterPointer + 1
           
@@ -28,6 +28,7 @@ DoCombat:          .block
 +
           sta CurrentMonsterPointer
 
+SetUpMonsterHP:     
           ldy # 14              ; offset of ATK & DEF
           lda (CurrentMonsterPointer), y
           and #$0f
@@ -52,44 +53,42 @@ PickNumMonsters:
           lda # 0
           ldx # 5
 -
-          sta EnemyHP, x
+          sta MonsterHP, x
           dex
           bne -
 
           ;; … actually set the HP for monsters present (per .y)
           lda Temp
 -  
-          sta EnemyHP - 1, y
+          sta MonsterHP - 1, y
           dey
           bne -
 
-          lda # 0              ; RUN AWAY
-          sta MoveSelection
-
-          ;; ignore current switch position until it changes,
-          ;; so we aren't reacting to map movement
-          lda SWCHA
-          sta DebounceSWCHA
-
-PrepareMonsterArt:
+SetUpMonsterArt:
           ldy # 12              ; art index
           lda (CurrentMonsterPointer), y
           sta CurrentMonsterArt
                     
+SetUpOtherCombatVars:         
+          lda # 0
+          sta MoveSelection     ; RUN AWAY
+          sta WhoseTurn         ; Player's turn
+          sta MoveTarget        ; no target selected
+          sta MoveAnnouncement
+          sta DisplayedHP
+          ldx #6
+-
+          sta EnemyStatusFX - 1, x
+          dex
+          bne -
+
+          ;; ignore current stick position until it changes,
+          ;; so we aren't reacting to map movement
+          lda SWCHA
+          sta DebounceSWCHA
+
           jmp CombatMainScreen
 
           .bend
 
-ShowPointerText:
-          ldy # 0
--
-          lda (Pointer), y
-          sta StringBuffer, y
-          iny
-          cpy # 6
-          bne -
-
-          ldx #TextBank
-          ldy #ServiceDecodeAndShowText
-          jmp FarCall
           

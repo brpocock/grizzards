@@ -36,6 +36,7 @@ DoLocal:
           .include "CheckSaveSlot.s"
           .include "LoadSaveSlot.s"
           .include "EraseSlotSignature.s"
+          .include "SetGrizzardAddress.s"
           .include "PlaySpeech.s"
 
 SaveAndQuit:

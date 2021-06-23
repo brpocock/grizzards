@@ -82,12 +82,12 @@ MonsterBoostHP:
           eor #$ff
           clc
           ldx WhoseTurn
-          adc EnemyHP - 1, x
+          adc MonsterHP - 1, x
           cmp # 99
           bpl +
           lda # 99
 +
-          sta EnemyHP - 1, x
+          sta MonsterHP - 1, x
 
           ;; fall through to NextTurn
           
@@ -101,7 +101,7 @@ NextTurn:
           stx WhoseTurn
           jmp BackToMain
 +
-          lda EnemyHP, x
+          lda MonsterHP, x
           beq NextTurn
 
           lda #3
@@ -183,13 +183,13 @@ PlayerTargetsAOE:
           sta Temp
           ldx # 6
 -
-          lda EnemyHP - 1, x
+          lda MonsterHP - 1, x
           sec
           sbc Temp
           bpl +
           lda # 0
 +
-	sta EnemyHP - 1, x
+	sta MonsterHP - 1, x
           dex
           bne -
 
@@ -210,13 +210,13 @@ PlayerTargetsOne:
 
           sta Temp
           ldx MoveTarget
-          lda EnemyHP - 1, x
+          lda MonsterHP - 1, x
           sec
           sbc Temp
           bpl +
           lda # 0
 +
-	sta EnemyHP - 1, x
+	sta MonsterHP - 1, x
 
           jmp PlayerMoveDone
           
@@ -246,7 +246,7 @@ PlayerMoveDone:
 CheckForWin:
           ldx #5
 -
-          lda EnemyHP, x
+          lda MonsterHP, x
           bne NextTurn
           dex
           bne -

@@ -32,7 +32,7 @@ PrepareToDrawMonsters:
           ldx MoveTarget
           beq PrepareTopMonsters
           dex
-          lda EnemyHP, x
+          lda MonsterHP, x
           beq +
           .ldacolu COLYELLOW, $f
           jmp SetCursorColor
@@ -70,15 +70,15 @@ TopCursorPos:
 
 PrepareTopMonsters:
           lda # 0
-          ldx EnemyHP + 0
+          ldx MonsterHP + 0
           beq +
           ora #$01
 +
-          ldx EnemyHP + 1
+          ldx MonsterHP + 1
           beq +
           ora #$02
 +
-          ldx EnemyHP + 2
+          ldx MonsterHP + 2
           beq +
           ora #$04
 +
@@ -170,15 +170,15 @@ BottomCursorPos:
 
 PrepareBottomMonsters:
           lda # 0
-          ldx EnemyHP + 3
+          ldx MonsterHP + 3
           beq +
           ora #$01
 +
-          ldx EnemyHP + 4
+          ldx MonsterHP + 4
           beq +
           ora #$02
 +
-          ldx EnemyHP + 5
+          ldx MonsterHP + 5
           beq +
           ora #$04
 +

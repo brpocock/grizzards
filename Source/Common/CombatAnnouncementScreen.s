@@ -35,7 +35,7 @@ DrawSubject:
           lda WhoseTurn
           beq PlayerSubject
 
-          jsr ShowMonsterName
+          jsr ShowMonsterNameAndNumber
           
           jmp SubjectDone
 
@@ -91,7 +91,7 @@ DrawObject:
           bne PlayerObject
 
 MonsterTargetObject:
-          jsr ShowMonsterName
+          jsr ShowMonsterNameAndNumber
           jmp ObjectDone
 
 PlayerObject:
@@ -159,23 +159,8 @@ SetNextAlarm:
 
           rts
 
-ShowMonsterName:
-          lda CurrentMonsterPointer
-          sta Pointer
-          lda CurrentMonsterPointer + 1
-          sta Pointer + 1
-
-          jsr ShowPointerText
-
-          lda Pointer
-          clc
-          adc # 6
-          bcc +
-          inc Pointer + 1
-+
-          sta Pointer
-
-          jsr ShowPointerText
+ShowMonsterNameAndNumber:
+          jsr ShowMonsterName
           
           lda #40               ; blank space
           sta StringBuffer + 0
@@ -196,6 +181,7 @@ ShowMonsterName:
           ldx #TextBank
           ldy #ServiceDecodeAndShowText
           jmp FarCall
+
 ObjectAOE:
 
           ldx #20

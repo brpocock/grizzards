@@ -81,7 +81,18 @@ BlessedX:
 BlessedY:
           .byte ?
 
-          ;; Game event flags must be followed by CurrentProvince flags immediately
+;;; How much Energy does the Grizzard actually have?
+CurrentHP:
+          .byte ?
+
+;;; Grizzard currently with the player
+CurrentGrizzard:
+          .byte ?
+
+CurrentProvince:
+          .byte ?
+
+;;; Game event flags must be followed by CurrentProvince flags immediately
 GameEventFlags:
           .byte ?, ?, ?, ?
 
@@ -97,9 +108,6 @@ EndGlobalGameData:
 ProvinceFlags:
           .byte ?, ?, ?, ?      ; Assumed to be 4 bytes in save/load routines
 
-CurrentProvince:
-          .byte ?
-
 ;;; 
 ;;; Raw input cooking and partial movement accumulators
 
@@ -113,14 +121,6 @@ AlarmSeconds:
 ;;; How much Energy (HP) can the player's Grizzard have?
 MaxHP:
           .byte ?
-;;; How much Energy does the Grizzard actually have?
-CurrentHP:
-          .byte ?
-
-;;; Grizzard currently with the player
-CurrentGrizzard:
-          .byte ?
-
 GrizzardAttack:
           .byte ?
 GrizzardDefense:
@@ -303,7 +303,7 @@ StatusFX:
           .byte ?
 
 ;;; HP for each enemy (up to six)
-EnemyHP:
+MonsterHP:
           .byte ?, ?, ?, ?, ?, ?
 
 ;;; Status effects for each enemy

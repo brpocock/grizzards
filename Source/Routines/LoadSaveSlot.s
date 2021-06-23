@@ -29,9 +29,53 @@ ReadGlobalLoop:
           cpx # EndGlobalGameData - GlobalGameData + 1
           bne ReadGlobalLoop
 
-          ;; TODO load province data for CurrentProvince
-          .align $80, $ea
+          jsr i2cStopRead
 
+ReadProvinceData:
+          jsr i2cStartWrite
+
+          lda #>SaveGameSlotPrefix
+          clc
+          adc SaveGameSlot
+          jsr i2cTxByte
+          lda CurrentProvince
+          asl a
+          asl a
+          adc # EndGlobalGameData - GlobalGameData + 1
+          jsr i2cTxByte
+          
+          jsr i2cStopWrite
+          jsr i2cStartRead
+
+          jsr i2cRxByte
+          lda ProvinceFlags + 0
+          jsr i2cRxByte
+          lda ProvinceFlags + 1
+          jsr i2cRxByte
+          lda ProvinceFlags + 2
+          jsr i2cRxByte
+          lda ProvinceFlags + 3
+
+          jsr i2cStopRead
+
+ReadGrizzardData:
+          jsr SetGrizzardAddress
+
+          jsr i2cStartRead
+
+          jsr i2cRxByte
+          sta GrizzardAttack
+          jsr i2cRxByte
+          sta GrizzardDefense
+          jsr i2cRxByte
+          sta GrizzardAcuity
+          jsr i2cRxByte
+          sta MovesKnown
+          jsr i2cRxByte
+          sta MaxHP
+
+          jsr i2cStopRead
+          
           ;; Make sure debounced switch doesn't return us to the title screen immediately
           lda SWCHB
           sta DebounceSWCHB

@@ -187,7 +187,7 @@ FillAttractMid1:
           sta COLUP1
 
           lda ClockFrame
-          and # 8
+          and # $20
           beq DrawTitle3
           
           .SetUpFortyEight Title2
