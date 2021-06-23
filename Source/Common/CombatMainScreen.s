@@ -110,6 +110,11 @@ DoneHealth:
           sta WSYNC
           dex
           bne -
+
+          lda # 0
+          sta PF0
+          sta PF1
+          sta PF2
           
           ldx # KernelLines - 190
 FillScreen:
