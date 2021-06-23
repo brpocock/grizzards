@@ -115,6 +115,7 @@
         COLSEAFOAM = COLGREEN
         COLCYAN = $a
         COLTURQUOISE = COLCYAN
+        COLTEAL = COLCYAN
         COLYELLOW = $c
         COLORANGE = COLYELLOW
         COLGOLD = COLYELLOW
@@ -173,7 +174,11 @@ ldacolu .macro co, lu=$7
 	      lda #COLBLACK
 	    .fi
           .else
-            lda # \co
+            .if \lu == 0
+              lda COLBLACK
+            .else
+              lda \co
+            .fi
           .fi
 
 ;;; NTSC, PAL
@@ -214,7 +219,7 @@ ldacolu .macro co, lu=$7
         VBlankGroundINPT0123 = $80
 
         REFLECTED = $08       ; for REFP0
-	
+
         INSTAT = TIMINT
         INSTATUnderflowSinceRead = $40
         INSTATUnderflowSinceWrite = $80
