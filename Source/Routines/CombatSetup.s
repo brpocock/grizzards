@@ -71,25 +71,11 @@ PickNumMonsters:
           lda SWCHA
           sta DebounceSWCHA
 
-PrepareMonsterArt:  
-          
-          lda #>MonsterArt
-          sta CombatSpritePointer + 1
-
-          ldx # 12              ; offset of art index
-          lda Monsters, x
-          clc
-          asl a
-          asl a
-          bcc +
-          inc CombatSpritePointer + 1
-+
-          adc #<MonsterArt
-          bcc +
-          inc CombatSpritePointer + 1
-+
-          sta CombatSpritePointer
-          
+PrepareMonsterArt:
+          ldy # 12              ; art index
+          lda (CurrentMonsterPointer), y
+          sta CurrentMonsterArt
+                    
           jmp CombatMainScreen
 
           .bend

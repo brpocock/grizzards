@@ -108,11 +108,12 @@
 
 ;;; Map services bank, same
 
-          ServiceTopOfScreen = $00
-          ServiceBottomOfScreen = $01
-          ServiceFireworks = $02
+          ServiceTopOfScreen = $08
+          ServiceBottomOfScreen = $09
+          ServiceFireworks = $0a
+          ServiceDrawMonsterGroup = $0b
 
 ;;; Also the cold start / save game bank
 
           ServiceColdStart = $00
-          ServiceSaveToSlot = $01
+          ServiceSaveToSlot = $10

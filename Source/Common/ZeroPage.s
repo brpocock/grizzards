@@ -289,6 +289,10 @@ CurrentCombatEncounter:
 
 CurrentMonsterPointer:
           .word ?
+
+;;; Index of monster's art, used to communicate between ROM banks
+CurrentMonsterArt:
+          .byte ?
           
 ;;; Pointer to the enemy's sprite graphics
 CombatSpritePointer:

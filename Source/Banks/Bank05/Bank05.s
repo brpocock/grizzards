@@ -15,12 +15,10 @@ DoLocal:
           .include "VSync.s"
           .include "Random.s"
           .include "48Pixels.s"
-          .include "CombatSpriteTables.s"
           .include "MoveEffects.s"
 
           .include "Combat5.s"
           .include "Monsters5.s"
-          .include "MonsterArt5.s"
           .include "MonsterMoves5.s"
 
           .include "EndBank.s"
