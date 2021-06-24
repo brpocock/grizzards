@@ -21,19 +21,19 @@ ReallyLoadIt:
 
 DiscardSignature:
           jsr i2cRxByte
-          cmp #"g"
+          cmp #SaveGameSignature[0]
           bne LoadFailed
           jsr i2cRxByte
-          cmp #"r"
+          cmp #SaveGameSignature[1]
           bne LoadFailed
           jsr i2cRxByte
-          cmp #"i"
+          cmp #SaveGameSignature[2]
           bne LoadFailed
           jsr i2cRxByte
-          cmp #"z"
+          cmp #SaveGameSignature[3]
           bne LoadFailed
           jsr i2cRxByte
-          cmp #"0"
+          cmp #SaveGameSignature[4]
           bne LoadFailed
 
           ldx # 0
