@@ -24,9 +24,6 @@
           ModeMap = $30
 
           ModeCombat = $40
-          ModeCombatIntro = $41
-          ModeCombatPlayer = $42
-          ModeCombatEnemy = $43
           ModeDeath = $44
           ModeGrizzardStats = $45
 
