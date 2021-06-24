@@ -168,12 +168,17 @@ turning Off the Power to be sure your game record is not damaged.
 
 \section{Console Controls}
 
+\ifdefined\TVSECAM
+\else
+
 \subsection{Color/B\&W Switch (Pause)}
 
 The Color/B\&W  switch on the Atari  2600 Video Computer System  (or the
 Pause button  on the  Atari 7800  ProSystem) can be  used to  pause your
 game. Push  the control  into the  Color position to  play, or  the B\&W
 position to pause the game.
+
+\endif
 
 \subsection{Game Select}
 
@@ -249,9 +254,14 @@ Grizzard companion, and the Game Reset switch can be used to leave the game
 and return to the title screen, saving your current progress to your
 AtariVox (or MemCard or SaveKey).
 
+\ifdefined\TVSECAM
+\else
+
 The Color/B\&W switch (on an Atari 7800: Pause button) can be used to pause
-game play. The screen will show ``PAUSED'' and you will not be able to
+game play. The screen will show ``PAUSED,'' and you will not be able to
 continue playing until you toggle the switch to the Color position.
+
+\endif
 
 This game does not make use  of the Difficulty Switches, except that you
 cannot  delete a  game in  progress unless  they both  are in  the ``A''
@@ -364,7 +374,7 @@ After the battle, your Grizzard's statistics will return to normal.
 
 If  you Grizzard  loses hit  points, the  bar below  your Grizzard  will
 reduce in  length. When your Grizzard  is nearly out of  hit points, the
-bar will change to a pulsating red color to draw attention to that fact.
+bar will change to a red color to draw attention to that fact.
 
 If your  Grizzard's statistics are  affected by  a move, you'll  see the
 Statistics  display for  your  Grizzard. (You'll  also  hear the  change
