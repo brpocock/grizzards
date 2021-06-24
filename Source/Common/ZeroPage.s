@@ -387,6 +387,16 @@ Sprite2Y:
 Sprite3Y:
           .byte ?
 
+SpriteMotion:
+Sprite0Motion:
+          .byte ?
+Sprite1Motion:
+          .byte ?
+Sprite2Motion:
+          .byte ?
+Sprite3Motion:
+          .byte ?
+
 SpriteAction:
 Sprite0Action:
           .byte ?
