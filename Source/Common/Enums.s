@@ -29,6 +29,8 @@
 
           ModeGrizzardDepot = $50
 
+          ModeNewGrizzard = $60
+
 
 ;;; Sounds in the library (index values)
           SoundDrone = 1
