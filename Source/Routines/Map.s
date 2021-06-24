@@ -92,8 +92,26 @@ SetUpSprite:
           cmp #SpriteWander
           beq AddWanderingSprite
           
-          ;; TODO other kinds of sprites
-          brk
+AddRandomEncounter:
+          iny
+          lda (Pointer), y
+          sta SpriteIndex, x
+          iny
+          lda (Pointer), y
+          sta SpriteX, x
+          iny
+          lda (Pointer), y
+          ora #$80              ; ensure position off screen
+          sta SpriteY, x
+          iny
+          lda (Pointer), y
+          sta SpriteAction, x
+          lda # SpriteRandomEncounter
+          sta SpriteMotion, x
+          inc SpriteCount
+          iny
+          inx
+          jmp SetUpSprite
 
 AddFixedSprite:
           iny

@@ -56,12 +56,13 @@
           MoveEffectsToSelf = $e0
 
 ;;; Sprite types
-          RandomEncounter = $80 ; likelihood of encounter = lower 7 bits
+          RandomEncounter = $80
           SpriteFixed = $40
           SpriteWander = $20
 
           SpriteMoveNone = $00
           SpriteMoveIdle = $01
+          SpriteRandomEncounter = $02
           SpriteMoveLeft = $10
           SpriteMoveRight = $20
           SpriteMoveUp = $40

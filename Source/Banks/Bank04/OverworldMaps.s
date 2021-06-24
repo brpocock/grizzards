@@ -1,7 +1,7 @@
 
           ;; How many maps are in these tables?
 MapCount:
-          .byte 3
+          .byte 4
 
 ;;; Foreground and background colors
 ;;; Remember SECAM and don't make these too similar
@@ -10,10 +10,12 @@ MapFG:
           .colu COLINDIGO, 0
           .colu COLGRAY, 2
           .colu COLGOLD, 0
+          .colu COLGOLD, 0
 
 MapBG:
           .colu COLBLUE, $f
           .colu COLGRAY, $d
+          .colu COLGOLD, $f
           .colu COLGOLD, $f
 
 ;;; Links up, down, left, right are map indices in this bank
@@ -89,8 +91,9 @@ MapSprites:
           .byte 0               ; end of list
           ;; Room 3
           .byte SpriteWander
+          .byte 3               ; Grizzard
           .byte 150, 65
-          .byte SpriteCombat
+          .byte SpriteGrizzard
           .byte 2
           .byte 0               ; end of Room 3
 
