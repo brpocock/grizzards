@@ -111,6 +111,8 @@ AddFixedSprite:
           iny
           lda (Pointer), y         ; .y = .x × 6 + 5
           sta SpriteParam, x
+          lda # 0
+          sta SpriteMotion, x
           inc SpriteCount
           iny                   ; .y = .x⁺¹ × 6   (start of next entry)
           ;; Go back looking for more sprites
@@ -118,12 +120,28 @@ AddFixedSprite:
           jmp SetUpSprite
 
 AddWanderingSprite:
-          ;; TODO Add wandering sprite
-
-          tya
-          clc
-          adc #6
-          tay
+          ;; TODO: merge this with the fixed sprite code
+          iny
+          lda (Pointer), y         ; .y = .x × 6 + 1
+          sta SpriteIndex, x
+          iny
+          lda (Pointer), y         ; .y = .x × 6 + 2
+          sta SpriteX, x
+          iny
+          lda (Pointer), y         ; .y = .x × 6 + 3
+          sta SpriteY, x
+          iny
+          lda (Pointer), y         ; .y = .x × 6 + 4
+          sta SpriteAction, x
+          iny
+          lda (Pointer), y         ; .y = .x × 6 + 5
+          sta SpriteParam, x
+          lda # 1
+          sta SpriteMotion, x
+          inc SpriteCount
+          iny                   ; .y = .x⁺¹ × 6   (start of next entry)
+          ;; Go back looking for more sprites
+          inx
           jmp SetUpSprite
 
 SpritesDone:
