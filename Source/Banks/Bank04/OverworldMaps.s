@@ -18,20 +18,23 @@ MapBG:
 
 ;;; Links up, down, left, right are map indices in this bank
 MapLinks:
-          ;; Room 0
+          ;; Room 0, starting room
           .byte 1, $ff, $ff, 2
-          ;; Room 1
+          ;; Room 1, north of starting room
           .byte $ff, 0, $ff, $ff
-          ;; Room 2
-          .byte $ff, $ff, 0, $ff
+          ;; Room 2, east with Grizzard Station
+          .byte $ff, $ff, 0, 3
+          ;; Room 3, 2 steps east with moving sprite
+          .byte $ff, $ff, 2, $ff
 
 ;;; RLE Map data for each screen.
 
 ;;; Note that it can be reused, so the same basic layout, potentially
 ;;; in different colors, can appear in several places.
           MapRLE = (
-          Map_Maze1,
+          Map_ClosedSouth,
           Map_OpenSouth,
+          Map_OpenSides,
           Map_OpenSides
           )
 
@@ -42,7 +45,7 @@ MapRLEH:  .byte >MapRLE
 ;;;
 ;;; This lets the exits be asymmetrical, even though the playfield is in
 ;;; reflected mode
-MapSides: .byte $80, $00, $40
+MapSides: .byte $80, $00, $00, $40
 
 ;;; The Sprites Lists
 ;;;
@@ -84,6 +87,12 @@ MapSprites:
           .byte SpriteGrizzardDepot
           .byte 0               ; combat index
           .byte 0               ; end of list
+          ;; Room 3
+          .byte SpriteWander
+          .byte 150, 65
+          .byte SpriteCombat
+          .byte 2
+          .byte 0               ; end of Room 3
 
 ;;; RLE data for each screen layout
 ;;;

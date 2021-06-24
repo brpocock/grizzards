@@ -59,6 +59,13 @@
           RandomEncounter = $80 ; likelihood of encounter = lower 7 bits
           SpriteFixed = $40
           SpriteWander = $20
+
+          SpriteMoveNone = $00
+          SpriteMoveIdle = $01
+          SpriteMoveLeft = $10
+          SpriteMoveRight = $20
+          SpriteMoveUp = $40
+          SpriteMoveDown = $80
           
 ;;; Sprite actions
           SpriteDoor = $02

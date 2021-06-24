@@ -17,6 +17,43 @@ FillScreen:
 
 MovementLogic:
 
+          ldx SpriteCount
+MoveSprites:
+          lda SpriteMotion, x
+          beq SpriteMoveDone
+
+SpriteXMove:        
+          cmp #SpriteMoveIdle
+          beq SpriteMoveNext
+          lda SpriteMotion, x
+          and #SpriteMoveLeft
+          bne +
+          dec SpriteX, x
++
+          lda SpriteMotion, x
+          and #SpriteMoveRight
+          bne +
+          inc SpriteX, x
++
+          lda SpriteMotion, x
+          and #SpriteMoveUp
+          bne +
+          dec SpriteY, x
++
+          lda SpriteMotion, x
+          and #SpriteMoveDown
+          bne +
+          inc SpriteY, x
++
+          
+SpriteMoveNext:
+          ;; FIXME handle bumps and screen margins
+          ;; TODO possibly change movement direction randomly
+          
+SpriteMoveDone:
+          dex
+          bne MoveSprites
+
           lda BumpCooldown
           beq HandleStick
           dec BumpCooldown
@@ -76,7 +113,8 @@ DoneStickRight:
           adc DeltaY
           sta PlayerY
 
-          jmp CheckPlayerMove
+          ;; fall through …
+          ;; jmp CheckPlayerMove
 
           ;; Collision Handling
 CheckPlayerMove:
@@ -88,7 +126,7 @@ CheckPlayerMove:
 
 NoBumpWall:
           lda CXPPMM
-          and #$80
+          and #$80              ; hit other sprite
           beq PlayerMoveOK
 
 BumpSprite:
@@ -105,6 +143,8 @@ BumpSprite:
           beq FightWithSprite
           cmp #SpriteGrizzardDepot
           beq EnterDepot
+          cmp #SpriteGrizzard
+          beq GetNewGrizzard
           and #$80
           beq PlayerMoveOK      ; No action
           jmp ProvinceChange
@@ -122,6 +162,11 @@ DoorWithSprite:
           sta CurrentMap
           jmp DonePlayerMove
 
+GetNewGrizzard:
+          lda #ModeNewGrizzard
+          sta GameMode
+          rts
+          
 PlayerMoveOK:
           lda #0
           sta DeltaX

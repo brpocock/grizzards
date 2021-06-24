@@ -364,24 +364,28 @@ P1Done:
 GoScreenUp:
           lda #74
           sta BlessedY
+          sta PlayerY
           ldy #0
           jmp GoScreen
 
 GoScreenDown:
           lda #9
           sta BlessedY
+          sta PlayerY
           ldy #1
           jmp GoScreen
 
 GoScreenLeft:
           lda #ScreenRightEdge - 1
           sta BlessedX
+          sta PlayerX
           ldy #2
           jmp GoScreen
 
 GoScreenRight:
           lda #ScreenLeftEdge + 1
           sta BlessedX
+          sta PlayerX
           ldy #3
 GoScreen:
           lda #>MapLinks
