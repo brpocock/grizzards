@@ -64,6 +64,7 @@
 ;;; Sprite actions
           SpriteDoor = $02
           SpriteGrizzardDepot = $04
+          SpriteGrizzard = $08
           SpriteCombat = $40
           SpriteProvinceDoor = $80
 
