@@ -181,12 +181,16 @@ NoReset:
           lda DebounceSWCHB
           and #SWCHBSelect
           bne SwitchesDone
-SelectDown:
+          lda #ModeGrizzardStats
+          sta GameMode
+          rts
 
 SwitchesDone:
           lda INPT4
           and #$80
           bne +
+          lda #ModeMap
+          sta GameMode
           rts
 +          
           jmp Loop

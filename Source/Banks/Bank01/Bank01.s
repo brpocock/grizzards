@@ -23,6 +23,8 @@ DoLocal:
           .include "MapBottomService.s"
           .include "DrawMonsterGroup.s"
           .include "WinnerFireworks.s"
+          .include "Random.s"
+          
           .include "MonsterArt.s"
           .include "CombatSpriteTables.s"
 

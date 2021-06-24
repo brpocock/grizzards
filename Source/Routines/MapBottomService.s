@@ -139,7 +139,7 @@ EnterDepot:
           lda #ModeGrizzardDepot
           sta GameMode
           rts
-          
+
 ProvinceChange:
           lda SpriteAction, x
           and #$70
@@ -161,9 +161,43 @@ BumpWall:
           sta CXCLR
 
           lda BlessedX
+          cmp PlayerX
+          beq +
           sta PlayerX
+          jmp BumpY
++
+          lda DeltaX
+          bne ShoveX
+          jsr Random
+          and # 1
+          bne ShoveX
+          lda #-1
+ShoveX:
+          sta DeltaX
+          clc
+          adc PlayerX
+          sta PlayerX
+
+BumpY:    
           lda BlessedY
+          cmp PlayerY
+          beq +
           sta PlayerY
+          jmp DoneBump
++
+          lda DeltaY
+          bne ShoveY
+          jsr Random
+          and # 1
+          bne ShoveY
+          lda #-1
+ShoveY:
+          sta DeltaY
+          clc
+          adc PlayerY
+          sta PlayerY
+
+DoneBump:           
           lda #SoundBump
           sta NextSound
 
