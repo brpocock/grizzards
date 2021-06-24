@@ -260,8 +260,8 @@ WonBattle:
           tay
           ldx CurrentCombatEncounter
           lda BitMask, x
-          ora GameEventFlags, y
-          sta GameEventFlags, y
+          ora ProvinceFlags, y
+          sta ProvinceFlags, y
 
           ldy # 14              ; ATK/DEF
           lda (CurrentMonsterPointer), y

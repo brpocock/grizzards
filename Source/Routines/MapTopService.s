@@ -125,8 +125,6 @@ P0HPos:
           lda Facing
           sta REFP0
 
-          ;; sta WSYNC
-
           ldx SpriteCount
           beq TheEnd
 

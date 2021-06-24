@@ -39,10 +39,8 @@ DoLocal:
           .include "SetGrizzardAddress.s"
           .include "PlaySpeech.s"
 
-SaveAndQuit:
-          jsr SaveToSlot
-          lda #0
-          sta GameMode
+Quit:
+          ldy #ServiceColdStart
           jmp ColdStart
 
           .include "TitleSpeech.s"

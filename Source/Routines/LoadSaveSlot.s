@@ -5,6 +5,10 @@ LoadSaveSlot: .block
           jmp SelectSlot
 
 ReallyLoadIt:
+          ;; OK, loading is much more straightforward than saving.
+          ;; When saving, we have to write entire blocks at a time.
+          ;; When loading, we can jump around and pick the values
+          ;; that interest us directly.
           jsr i2cStartWrite
           lda SaveGameSlot
           clc
@@ -15,23 +19,37 @@ ReallyLoadIt:
           jsr i2cStopWrite
           jsr i2cStartRead
 
-          ldx #5
 DiscardSignature:
           jsr i2cRxByte
-          dex
-          bne DiscardSignature
+          cmp #"g"
+          bne LoadFailed
+          jsr i2cRxByte
+          cmp #"r"
+          bne LoadFailed
+          jsr i2cRxByte
+          cmp #"i"
+          bne LoadFailed
+          jsr i2cRxByte
+          cmp #"z"
+          bne LoadFailed
+          jsr i2cRxByte
+          cmp #"0"
+          bne LoadFailed
 
           ldx # 0
 ReadGlobalLoop:
+          ;; Read the global game data straight into core
           jsr i2cRxByte
           sta GlobalGameData, x
           inx
-          cpx # EndGlobalGameData - GlobalGameData + 1
+          cpx # GlobalGameDataLength
           bne ReadGlobalLoop
 
           jsr i2cStopRead
 
 ReadProvinceData:
+          ;; Province data are 8 bytes blocks starting at $20
+          ;; in the master block.
           jsr i2cStartWrite
 
           lda #>SaveGameSlotPrefix
@@ -41,28 +59,82 @@ ReadProvinceData:
           lda CurrentProvince
           asl a
           asl a
-          adc # EndGlobalGameData - GlobalGameData + 1
+          asl a                 ; × 8
+          adc # $20
           jsr i2cTxByte
           
           jsr i2cStopWrite
           jsr i2cStartRead
 
+          ldx # 0
+-
           jsr i2cRxByte
-          lda ProvinceFlags + 0
-          jsr i2cRxByte
-          lda ProvinceFlags + 1
-          jsr i2cRxByte
-          lda ProvinceFlags + 2
-          jsr i2cRxByte
-          lda ProvinceFlags + 3
+          sta ProvinceFlags, x
+          inx
+          cpx # 8
+          bne -
 
           jsr i2cStopRead
 
 ReadGrizzardData:
+          ;; Grizzard data is weirder storage layout.
+          ;; We save 12 grizzards at 5 bytes each in each of
+          ;; the 3 blocks following the master block. That
+          ;; leaves 6 in the final block and half of it is blank.
+
+          lda #>SaveGameSlotPrefix
+          clc
+          adc SaveGameSlot
+          sta Pointer + 1
+          
+          ;; First, figure out which block the current Grizzard
+          ;; can be found in.
+          lda CurrentGrizzard
+          cmp # 12
+          bmi InBlock0
+          cmp # 24
+          bmi InBlock1
+          sec
+          sbc # 24
+          tax
+          lda # 2
+          jmp ReadyToReadGrizzard
+
+InBlock0:
+          tax
+          lda # 0
+          jmp ReadyToReadGrizzard
+
+InBlock1:
+          sec
+          sbc # 12
+          tax
+          lda # 1
+          ;; fall through
+
+ReadyToReadGrizzard:
+          asl a
+          asl a
+          asl a
+          asl a
+          asl a
+          asl a                 ; × $40 (64)
+          sta Pointer           ; start of the block we want
+          txa                   ; index within the block
+          sta Temp
+          asl a
+          asl a                 ; × 4
+          clc
+          adc Temp              ; × 5
+          adc Pointer           ; actual start address
+          sta Pointer
+
+          ;; Finally we know our offset, let's read it.
           jsr i2cStartWrite
-
-          jsr SetGrizzardAddress
-
+          lda Pointer + 1
+          jsr i2cTxByte
+          lda Pointer
+          jsr i2cTxByte
           jsr i2cStartRead
 
           jsr i2cRxByte
@@ -75,6 +147,7 @@ ReadGrizzardData:
           sta MovesKnown
           jsr i2cRxByte
           sta MaxHP
+          sta CurrentHP
 
           jsr i2cStopRead
           
@@ -92,4 +165,9 @@ ReadGrizzardData:
 
           jmp GoMap
 
+LoadFailed:
+          lda #SoundMiss
+          sta NextSound
+          jmp SelectSlot
+          
           .bend

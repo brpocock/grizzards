@@ -5,26 +5,26 @@ EEPROMFail:
 	brk
 
 EraseSlotSignature: .block
-       jsr i2cStartWrite
-       bcs EEPROMFail
+          jsr i2cStartWrite
+          bcs EEPROMFail
 	lda #>SaveGameSlotPrefix
 	clc
 	adc SaveGameSlot
-       jsr i2cTxByte
-       lda #<SaveGameSlotPrefix
-       jsr i2cTxByte
+          jsr i2cTxByte
+          lda #<SaveGameSlotPrefix
+          jsr i2cTxByte
        
-       ldx # 0
+          ldx # 0
 WriteSignatureLoop:
-       lda # 0
-       jsr i2cTxByte
-       inx
-       cpx # 5
-       bne WriteSignatureLoop
+          lda # 0
+          jsr i2cTxByte
+          inx
+          cpx # 5
+          bne WriteSignatureLoop
 
-       jsr i2cStopWrite
+          jsr i2cStopWrite
        
-       rts
+          rts
 
-       .bend
+          .bend
 

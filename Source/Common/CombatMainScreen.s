@@ -287,7 +287,7 @@ CheckSwitches:
           sta DebounceSWCHB
           and #SWCHBReset
           bne NoReset
-          jmp GoSaveAndQuit
+          jmp GoQuit
 
 NoReset:
           lda DebounceSWCHB

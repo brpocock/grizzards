@@ -99,8 +99,8 @@ Break:
           BankJump Failure, FailureBank
 
 ;;; Save and Quit
-GoSaveAndQuit:
-          BankJump SaveAndQuit, ColdStartBank
+GoQuit:
+          BankJump Quit, ColdStartBank
 
 ;;; End of wired memory
 WiredEnd:

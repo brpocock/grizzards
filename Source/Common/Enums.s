@@ -90,8 +90,6 @@
           MapServicesBank = $01
           TextBank = $02
 
-          NumProvinces = 4
-          
           Province01MapBank = $03
           Province23MapBank = $04
 

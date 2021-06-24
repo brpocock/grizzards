@@ -38,7 +38,7 @@ LetsStart:
 
           ldx #SaveWritesPerScreen
 WipeBlock:
-          lda #0
+          lda # 0
           jsr i2cTxByte
           dex
           bne WipeBlock
@@ -84,7 +84,7 @@ SignatureTime:
 
           lda #$0f              ; learn 4 moves to start TODO
           sta MovesKnown
-          
+
           lda # 10
           sta MaxHP
           sta CurrentHP

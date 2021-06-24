@@ -1,4 +1,9 @@
 GrizzardStatsScreen: .block
+
+          lda SWCHB
+          sta DebounceSWCHB
+
+Loop:     
           jsr VSync
           jsr VBlank
 
@@ -36,43 +41,17 @@ GrizzardStatsScreen: .block
           sta DebounceSWCHB
           and #SWCHBReset
           bne +
-          jmp GoSaveAndQuit
+          jmp GoQuit
 +
           and #SWCHBSelect
           beq StatsDone
           
 Bouncey1:
-          jmp GrizzardStatsScreen
+          jmp Loop
 
 StatsDone:
           lda #ModeCombat
           sta GameMode
           jmp CombatMainScreen
           
-          .bend
-
-
-AddToScore: .block            ; Add .a (BCD) to score
-          sed
-          clc
-          adc Score
-          bcc NCarScore0
-          sta Score
-          lda Score + 1
-          clc
-          adc # 1
-          bcc NCarScore1
-          sta Score + 1
-          inc Score + 2
-          jmp ScoreDone
-
-NCarScore1:
-          sta Score + 1
-          jmp ScoreDone
-NCarScore0:
-          sta Score
-ScoreDone:
-          cld
-          rts
-
           .bend

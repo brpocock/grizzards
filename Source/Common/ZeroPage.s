@@ -21,14 +21,6 @@ Temp:
 
 Pointer:
           .word ?
-          
-;;; String Buffer for text displays of composed text,
-;;; e.g. chat names or monster names.
-;;;
-;;; XXX This can probably be factored out and save some
-;;; work by eliminating DecodeText calls as well
-StringBuffer:
-          .byte ?, ?, ?, ?, ?, ?
 
 ;;; 
 ;;; Main "Traffic Cop" Switching
@@ -90,31 +82,21 @@ CurrentGrizzard:
 CurrentProvince:
           .byte ?
 
-;;; Game event flags must be followed by CurrentProvince flags immediately
-GameEventFlags:
-          .byte ?, ?, ?, ?
-
 EndGlobalGameData:
 
-          .if EndGlobalGameData - GlobalGameData > 59
-          .error "Global data exceeds 59 bytes (length is ", EndGlobalGameData - GlobalGameData + 1, " bytes)"
+          GlobalGameDataLength = EndGlobalGameData - GlobalGameData + 1
+          
+          .if GlobalGameDataLength > 27
+          .error "Global data exceeds 27 bytes (length is ", GlobalGameDataLength, " bytes)"
           .fi
 
 ;;; 
 ;;; Game play/progress indicators -- local to one province
 ;;; (paged in/out as player changes provinces)
 ProvinceFlags:
-          .byte ?, ?, ?, ?      ; Assumed to be 4 bytes in save/load routines
+          .byte ?, ?, ?, ?, ?, ?, ?, ?
 
 ;;; 
-;;; Raw input cooking and partial movement accumulators
-
-;;; An alarm can be set for various in-game special events.
-;;; This happens in real time.
-AlarmMinutes:
-          .byte ?
-AlarmSeconds:
-          .byte ?
 
 ;;; How much Energy (HP) can the player's Grizzard have?
 MaxHP:
@@ -129,7 +111,27 @@ GrizzardAcuity:
 ;;; Moves known (8 bits = 8 possible moves)
 MovesKnown:
           .byte ?
+          
+          SwapStart = *
 
+          .if SwapStart > $b8
+          .error "SwapStart must be before $b8, found to be ", SwapStart
+          .endif
+
+          SwapGrizzardBlock = SwapStart + $40
+          
+;;; An alarm can be set for various in-game special events.
+;;; This happens in real time.
+AlarmMinutes:
+          .byte ?
+AlarmSeconds:
+          .byte ?
+
+;;; String Buffer for text displays of composed text,
+;;; e.g.  monster names.
+StringBuffer:
+          .byte ?, ?, ?, ?, ?, ?
+          
 DebounceSWCHA:
           .byte ?
 DebounceSWCHB:
@@ -145,7 +147,6 @@ PlayerX:
           .byte ?
 PlayerY:
           .byte ?
-
 
 ;;; 
 ;;; Variables used in drawing
@@ -180,13 +181,6 @@ pp4l:	.byte ?
 pp4h:	.byte ?
 pp5l:	.byte ?
 pp5h:	.byte ?
-
-          
-;;; 
-;;; Player facing
-
-Facing:
-          .byte ?
 
 ;;; 
 ;;; SpeakJet
@@ -274,7 +268,7 @@ AttractStoryPanel:
 ;;; Which memory block is being wiped right now?
 ;;; We need to blank global + all provincial data
 StartGameWipeBlock:
-          .byte ?
+          .word ?
 
 ;;; 
 ;;; Combat mode scratchpad
@@ -332,6 +326,7 @@ MoveTarget:
 MoveAnnouncement:
           .byte ?
 
+          CombatEnd = *
 
 ;;; 
 ;;; Scratchpad for Map mode
@@ -415,15 +410,22 @@ Sprite3Param:
 BumpCooldown:
           .byte ?
 
+Facing:
+          .byte ?
+          
+          MapEnd = *
+          
 ;;; 
 ;;; Verify that we don't run over
 
+          LastRAM = CombatEnd > MapEnd ? CombatEnd : MapEnd
+          
           ;; There must be at least $10 stack space (to be paranoid)
-          .if * > $f0
+          .if LastRAM > $f0
           .error "Zero page ran right into stack space at ", *
-          .if * > $ff
+          .if LastRAM > $ff
           .error "Zero page overcommitted entirely at ", *
           .fi
           .fi
 
-          .warn "End of zero-page variables at ", *, " leaves ", $100 - *, " bytes for stack"
+          .warn "End of zero-page variables at ", LastRAM, " leaves ", $100 - LastRAM + 1, " bytes for stack"

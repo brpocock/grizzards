@@ -176,7 +176,7 @@ HTDdone:
           sta DebounceSWCHB
           and #SWCHBReset
           bne NoReset
-          jmp GoSaveAndQuit
+          jmp GoQuit
 NoReset:
           lda DebounceSWCHB
           and #SWCHBSelect
@@ -186,7 +186,7 @@ SelectDown:
 SwitchesDone:
           lda INPT4
           and #$80
-          beq +
+          bne +
           rts
 +          
           jmp Loop
