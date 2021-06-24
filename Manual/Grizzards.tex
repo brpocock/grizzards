@@ -5,7 +5,7 @@
 %
 % If you're a human, skip to "\mainmatter" to skip over the preamble.
 %
-\documentclass[10pt,twoside,openright]{memoir}
+\documentclass[12pt,twoside]{memoir}
 \usepackage{geometry}
 \geometry{height=6in,width=4in}
 \usepackage[utf8]{inputenc}
@@ -13,6 +13,7 @@
 \usepackage{tgtermes}
 \usepackage{hyperref}
 \usepackage[protrusion=true,expansion=true]{microtype}
+\fontfamily{pnc}
 
 \checkandfixthelayout
 
@@ -62,7 +63,7 @@
 
 \begin{document}
 
-\let\cleardoublepage\clearpage
+%%%\let\cleardoublepage\clearpage
 
 
 \maketitle
@@ -72,16 +73,21 @@
 \null\vfill
 
 \begin{flushleft}
-\textit{Grizzards}
+This is the \textit{Grizzards} Player's Manual
 
+Copyright \copyright{} 2021, Bruce-Robert Pocock
 
-Copyright © 2020, Bruce-Robert Pocock
+\bigskip
 
 This version is for systems in \REGION{} using the \TV{} television
-standard. For Atari 2600 or 7800 with AtariVox or MemCard.
+standard. For Atari 2600 or 7800 system with AtariVox or MemCard.
 
+\bigskip
 
+This videogame software was not created, published, or licensed by Atari
+or its successors.
 
+\bigskip
 
 \thedate
 
@@ -89,32 +95,41 @@ standard. For Atari 2600 or 7800 with AtariVox or MemCard.
 
 All rights reserved.
 
+\bigskip
+
+This is a DRAFT document.
+
 \end{flushleft}
 \let\cleardoublepage\clearpage
 
 \mainmatter
 
-\chapter{Introduction}
+\chapter{Introduction}\label{Introduction}
 
-The land of Syrex is a dangerous place. Fierce monsters roam the countryside.
-But luckily for you, you're a Grizzard handler!
+The  land of  Syrex  is  a dangerous  place.  Fierce  monsters roam  the
+countryside. But luckily for you, you're a Grizzard handler!
 
-Train your Grizzard to use a variety of moves to take on the monsters.
-Discover new kinds of Grizzards with new capabilities. Can you conquer all
-the monsters of Syrex?
+Train your Grizzard to  use a variety of moves to  take on the monsters.
+Discover new kinds  of Grizzards with new capabilities.  Can you conquer
+all the monsters of Syrex?
 
-In the Grizzards videogame, you'll roam the land looking for monsters.
-Monsters may surprise you as you travel, or you may see them coming. When
-faced with terrifying beasts, you'll direct your Grizzard to use its moves
-to defend you or attack the monsters.
+In the Grizzards  videogame, you'll roam the land  looking for monsters.
+Monsters may  surprise you as  you travel, or  you may see  them coming.
+When faced  with terrifying beasts,  you'll direct your Grizzard  to use
+its moves to defend you or attack the monsters.
+
+\cleardoublepage
+
+\tableofcontents
 
 
-\chapter{Setting Up}
+\chapter{Setting Up}\label{Setting Up}
 
 To play Grizzards, you will need:
 
 \begin{itemize}
-\item An Atari 2600 Video Computer System or Atari 7800 ProSystem
+\item An Atari 2600 Video  Computer System, Sears Video Computer System,
+  AtariJr game system, or Atari 7800 ProSystem
 \item A TV or video display
 \item A joystick controller
 \item  An AtariVox  device with  (optional) speakers  or headphones,  or
@@ -128,8 +143,8 @@ controller  port,   and  the  AtariVox   (or  MemCard)  device   to  the
 \emph{right} controller port.  Make certain that the Power  switch is in
 the Off position.
 
-Finally, insert the Grizzards game cartridge with the
-label facing up into the cartridge slot, and turn the Power On.
+Finally, insert the Grizzards game  cartridge (with the label facing up)
+into the cartridge slot, and turn the Power On.
 
 \section{Controller Ports}
 
@@ -139,9 +154,6 @@ Your joystick  connects to the  left controller port, and  your AtariVox
 If  your  AtariVox  (or  MemCard)  is missing,  you'll  see  a  red  Sad
 Face screen.
 
-Always   turn  Off   the  Power   switch  before   adding  or   removing
-your AtariVox or MemCard.
-
 This game  saves your progress  to the  AtariVox (or MemCard)  while you
 play. Always  return to the Title  Screen by pressing Game  Reset before
 turning Off the Power to be sure your game record is not damaged.
@@ -150,57 +162,62 @@ turning Off the Power to be sure your game record is not damaged.
 
 \subsection{Color/B\&W Switch (Pause)}
 
-The Color/B\&W switch on the Atari  2600 Video Computer System, or the
-Pause button  on the Atari 7800  ProSystem, can be used  to pause your
-game. Push  the control into the  Color position to play,  or the B\&W
+The Color/B\&W  switch on the Atari  2600 Video Computer System  (or the
+Pause button  on the  Atari 7800  ProSystem) can be  used to  pause your
+game. Push  the control  into the  Color position to  play, or  the B\&W
 position to pause the game.
 
 \subsection{Game Select}
 
-When viewing the Title Screen, you can use the Game Select switch to
-choose the Slot you wish to use.  See Getting Started on page
+When viewing  the Title Screen,  you can use  the Game Select  switch to
+choose  the  Slot  you  wish  to   use.  See  Getting  Started  on  page
 \ref{Getting Started} for details.
+
+While you are  playing the game, you  can use the Game  Select switch to
+review   your  Grizzard's   statistics   from  the   Combat  screen   or
+a Grizzard Depot.
 
 \subsection{Game Reset}
 
 When viewing  the Select  Slot screen,  press the  Game Reset  switch to
-begin playing the  game. While you are playing the  game, press the Game
-Reset switch to save your place and return to the Title Screen.
+begin playing the game.
+
+While you are  playing the game, press the Game  Reset switch to abandon
+your progress and return to the Title Screen.
 
 \subsection{Difficulty Switches}
 
-In order to erase your game progress information, both Difficulty
+In  order  to erase  your  game  progress information,  both  Difficulty
 Switches must be moved to the A (Expert) position.
 
 To protect  against accidentally erasing  your game record, you  can set
-the right Difficulty Switch to the B (Novice) position.
+either one of the Difficulty Switches to the B (Novice) position.
 
 While  you  are playing,  the  Difficulty  Switches  have no  effect  on
-game play. 
+game play.
 
-\chapter{How To Begin}
+\chapter{How To Begin}\label{How To Begin}
 
-Once your Atari system is set up and everything is connected, turn on the
-Power switch. You'll see a brief introduction and title screen appear. If
-you have an AtariVox device, you'll also hear the title spoken.
+Once your  Atari system is set  up and everything is  connected, turn on
+the  Power switch.  You'll see  a  brief introduction  and title  screen
+appear.  If  you   have  an  AtariVox  device,  you'll   also  hear  the
+title spoken.
 
-Press the Game Select switch to choose a memory slot for your game. There
-are 3 memory slots possible. Press Game Select to rotate through them. If
-someone has already begun to play Grizzards in a certain slot, your screen
-will show ``RESUME.'' If a slot is empty, you'll see ``BEGIN'' instead.
+Press the  Game Select  switch to  choose a memory  slot for  your game.
+There are 3  memory slots possible. Press Game Select  to rotate through
+them. If someone has already begun  to play Grizzards in a certain slot,
+your  screen will  show  ``RESUME.''  If a  slot  is  empty, you'll  see
+``BEGIN'' instead.
 
 When you have selected the slot you want to begin (or resume), press the
 Game Reset switch to start.
 
 \section{Choosing a Starter Grizzard}
 
-When you begin the game, you can roam the game world. You'll see that there
-are four directions in which you can set out. In each direction is a
-Grizzard companion that you can choose to join your party. You can only have
-one Grizzard companion, so choose carefully. 
-
-*** explain starter Grizzards a bit.
-
+When you begin  the game, you can  roam the game world.  You'll see that
+there are four directions in which you can set out. In each direction is
+a Grizzard  companion that you  can choose to  join your party.  You can
+only have one Grizzard companion at a time, so choose carefully.
 
 \chapter{How To Play}
 
@@ -218,10 +235,11 @@ a slot\footnote{Technical Note: The Slot  number chosen here is relative
 MemCard). When  you have  selected a  slot, the  Game Reset  switch will
 start the game.
 
-While you're playing the game, the Game Select switch can be used to see the
-statistics of your current Grizzard companion, and the Game Reset switch can
-be used to leave the game and return to the title screen, saving your
-current progress to your AtariVox (or MemCard).
+While you're playing the game, the Game Select switch can be used (from the
+Combat screen or at a Grizzard Depot) to see the statistics of your current
+Grizzard companion, and the Game Reset switch can be used to leave the game
+and return to the title screen, saving your current progress to your
+AtariVox (or MemCard).
 
 The Color/B\&W switch (on an Atari 7800: Pause button) can be used to pause
 game play. The screen will show ``PAUSED'' and you will not be able to
@@ -263,87 +281,86 @@ then use the joystick to choose a different Grizzard to travel with you.
 
 \section{Battling Monsters}
 
-Monsters plague the world of Syrex. If you're caught by monsters without a
-Grizzard partner, they're sure to eat you alive! Luckily your Grizzard
-partner will defend you from them, and monsters will attack it before you.
+Monsters plague the world of Syrex. If you're caught by monsters without
+a Grizzard partner, they're sure to eat you alive! Luckily your Grizzard
+partner  will  defend  you  from  them,  and  monsters  will  attack  it
+before you.
 
-When you encounter monsters, you'll see the Combat display, which looks like
-this: ***
+When you encounter monsters, you'll  see the Combat display, which looks
+like this: ***
 
-The name of the monsters that you're facing is displayed. Monsters may
+The name of  the monsters that you're facing is  displayed. Monsters may
 travel in groups, so you may see more than one monster facing you.
 
-You'll also see the name of your Grizzard companion and its portrait below.
-The long bar represents the health of your Grizzard. If it is reduced to
-zero, your adventure will be over.
+You'll also  see the name  of your  Grizzard companion and  its portrait
+below. The  long bar represents  the health of  your Grizzard. If  it is
+reduced to zero, your adventure will be over.
 
-Using the joystick controller, you can choose from among the moves that your
-Grizzard knows how to perform. Press up and down to select a move, or press
-left to attempt to flee from the monsters. When you see the selection you
-want, press the Fire button.
+Using the joystick controller, you can  choose from among the moves that
+your Grizzard knows how to perform. Press  up and down to select a move,
+or press  left to attempt  to flee from the  monsters. When you  see the
+selection you want, press the Fire button.
 
-Most moves are targetted against a single monster.  When you use one of
-these moves, if you are facing multiple monsters, use the Joystick
+Most moves are  targetted against a single monster. When  you use one of
+these  moves, if  you are  facing  multiple monsters,  use the  Joystick
 controller to choose which monster to target with the move and press the
 Fire button.
 
 To review the statistics of your Grizzard, press Game Select.
 
-You will see a special display when your Grizzard, or a monster, is
+You will  see a  special display  when your Grizzard,  or a  monster, is
 executing a move: ***
 
-The creature using that move's name will appear first, then the name of the
-move, then the creature being targeted. If you have speakers or headphones
-on your AtariVox, you'll also hear the move announced.
+The creature using that move's name  will appear first, then the name of
+the move,  then the  creature being  targeted. If  you have  speakers or
+headphones on your AtariVox, you'll also hear the move announced.
 
 It's possible for a move to miss its target. If that happens, you'll see
 MISSED appear briefly (and hear it announced on your AtariVox).
 
-After a move has been executed, the creature targeted by that move may be
-injured (lose hit points) or have its statistics changed. Changes to
-statistics are temporary and last only the duration of one battle. After the
-battle, your Grizzard's statistics will return to normal.
+After a move  has been executed, the creature targeted  by that move may
+be injured (lose hit points) or  have its statistics changed. Changes to
+statistics  are temporary  and last  only  the duration  of one  battle.
+After the battle, your Grizzard's statistics will return to normal.
 
-If you Grizzard loses hit points, the bar below your Grizzard will reduce in
-length. When your Grizzard is nearly out of hit points, the bar will change
-to a pulsating red color to draw attention to that fact.
+If  you Grizzard  loses hit  points, the  bar below  your Grizzard  will
+reduce in  length. When your Grizzard  is nearly out of  hit points, the
+bar will change to a pulsating red color to draw attention to that fact.
 
-If your Grizzard's statistics are affected by a move, you'll see the
-Statistics display for your Grizzard. (You'll also hear the change announced
-on your AtariVox.) Press the Fire button to continue.
+If your  Grizzard's statistics are  affected by  a move, you'll  see the
+Statistics  display for  your  Grizzard. (You'll  also  hear the  change
+announced on your AtariVox.) Press the Fire button to continue.
 
-If your Grizzard is defeated, the monsters will surely eat you alive. Your
-adventure will end there, and you'll return to the title screen. Don't
-worry, though; you can continue from your previous location by resuming your
-game's saved progress. Just press Game Select to choose the same game slot
-and Game Reset to resume and try again.
+If your  Grizzard is defeated, the  monsters will surely eat  you alive.
+Your adventure  will end there, and  you'll return to the  title screen.
+Don't worry,  though; you  can continue from  your previous  location by
+resuming your  game's saved progress.  Just press Game Select  to choose
+the same game slot and Game Reset to resume and try again.
 
 If you defeat all of the monsters, victory is yours! Your score will
 increase, and you'll return to the World Map screen victorious.
 
 
 
+\section{Grizzard Depots}\label{Grizzard Depots}
 
-
-\section{Grizzard Depots}
-
-A Grizzard Depot is a place where you can heal your Grizzard's wounds and
-swap between Grizzard characters in your party to choose your current
-companion.
+A Grizzard  Depot is a place  where you can heal  your Grizzard's wounds
+and  swap between  Grizzard  characters  in your  party  to choose  your
+current companion.
 
 When you encounter a Grizzard Depot, you'll see this screen: ***
 
-Your Grizzard will immediately be healed completely; you don't need to do
-anything else if that's what you meant to do.
+Your Grizzard will  immediately be healed completely; you  don't need to
+do anything else if that's what you meant to do.
 
 The name  of your  current Grizzard companion  appears here,  along with
 their  portrait,  and  the  total  number of  hours  which  you've  been
 playing Grizzards.
 
-To swap between Grizzards in your party, press the joystick up and down. If
-you have additional Grizzards in your party, they'll switch places to became
-your companion immediately. There are 30 distinct Grizzard companions in
-the game. Can you discover all of them?
+To swap between Grizzards in your party, press the joystick up and down.
+If you have additional Grizzards in your party, they'll switch places to
+became  your  companion  immediately.  There are  30  distinct  Grizzard
+companions in the game. Can you discover all of them?
 
 You  can press  Game  Select switch  to review  the  statistics of  your
 selected companion.
@@ -351,45 +368,40 @@ selected companion.
 To leave the Grizzard Station, press the Fire button.
 
 
-\section{Winning the Campaign}
+\section{Winning the Campaign}\label{Winning the Campaign}
 
-If you defeat all of the main monsters in the game, you'll see a fireworks
-show to let you know that you've completed the campaign. Your ``final''
-score will appear above the fireworks display.
+If  you  defeat  all of  the  main  monsters  in  the game,  you'll  see
+a fireworks  show to let  you know  that you've completed  the campaign.
+Your ``final'' score will appear above the fireworks display.
 
-After this reward, you'll return to the Title Screen. You can resume play
-from your save game slot if you'd like, and continue to battle sneaky
-monsters that attack you in some areas.
+After this  reward, you'll return  to the  Title Screen. You  can resume
+play from  your save  game slot  if you'd like,  and continue  to battle
+sneaky monsters that attack you in some areas.
 
 
 
 \chapter{Getting Started}\label{Getting Started}
 
-When you first turn on Grizzards, you'll see the Title
-Screen. To begin playing, press the Game Select switch.
+When you first turn on Grizzards,  you'll see the Title Screen. To begin
+playing, press the Game Select switch.
 
-In  Grizzards,  your game  progress is  recorded on  your
-AtariVox  device. You  have  a choice  of 3  ``slots''  so that  three
-different players  can use  the same AtariVox  device to  record their
-progress.
+In Grizzards,  your game progress  is recorded on your  AtariVox device.
+You have a choice of 3 ``slots'' so that three different players can use
+the same AtariVox device to record their progress.
 
-Press Game Select to choose one of the three slots, then press Game
-Reset.
+Press  Game  Select  to  choose  one of  the  three  slots,  then  press
+Game Reset.
 
-If you've started an adventure in a slot, you'll see that the word
-``RESUME'' appears on your screen. If that slot is empty, you'll
-instead see the word ``BEGIN.''
+If  you've started  an adventure  in a  slot, you'll  see that  the word
+``RESUME'' appears on your screen. If that slot is empty, you'll instead
+see the word ``BEGIN.''
 
 \section{Resuming Your Progress}
 
-When you leave the game, either by pressing Game Reset or reaching a
-``GAME OVER,'' your progress will automatically be saved on your
-AtariVox. Your progress is also saved at certain points in the story.
-
-At first, when you resume the game, you'll return to your home village
-of Hapri. Throughout the game, however, you may encounter certain
-characters who will ``bless'' you. From that point on, your play will
-resume at the place where you were last blessed.
+Your progress  can be saved  by visiting a  Grizzard Depot in  the game.
+When you resume playing later, you'll  return to the last Grizzard Depot
+that you  visited. If you haven't  yet visited a Grizzard  Depot, you'll
+return to the original starting point of the game.
 
 \section{Starting Your Adventure Over}\label{Starting Your Adventure Over}
 
@@ -435,9 +447,9 @@ If your AtariVox is missing, you'll see a red Sad Face screen.
 Always   turn  Off   the  Power   switch  before   adding  or   removing
 your AtariVox.
 
-This game saves your progress to the AtariVox while you play.  Always
-return to the Title Screen by pressing Game Reset before turning Off
-the Power to be sure your game record is not damaged.
+This  game  saves  your  progress   to  the  AtariVox  while  you  play.
+Always return to the Title Screen  by pressing Game Reset before turning
+Off the Power to be sure your game record is not damaged.
 
 \chapter{Interacting With the Game}
 
@@ -450,28 +462,27 @@ Your adventure will take the form of two main types of actions:
 
 \section{The Map Screen}
 
-The Map Screen is where you navigate the world of Aclypt. You'll
-encounter different types of terrain in different provinces of the
-world, but you'll get around in the same way.
+The Map Screen is where you navigate the world.  You'll encounter different
+types of terrain in different provinces of the world, but you'll get around
+in the same way.
 
-To walk around the world, press the joystick controller in the
-direction you'd like to travel.
+To walk around the world, press the joystick controller in the direction
+you'd like to travel.
 
-As you travel, you may encounter other characters, special items, and
-monsters. To interact with them, simply walk up to them until you
-touch.
+As you travel, you may encounter monsters, Grizzards, or Grizzard Depots. To
+interact with them, simply walk into them.
 
-Monsters can be very sneaky. You may not always see monsters
-approaching.
+A monster, or group of monsters, look like this: ***
 
-Certain obstacles in the game world may prevent you from going past
-them if you do not have the proper item.
+A wild Grizzard looks like this: ***
 
+A Grizzard Depot looks like this: ***
+
+Monsters   can    be   very   sneaky.    You   may   not    always   see
+monsters approaching. As you travel, sneaky monsters may attack and draw
+you into combat unexpectedly.
 
 \section{The Combat Screen}
-
-Once a peaceful kingdom, some parts of Aclypt are now riddled with
-dangerous monsters.
 
 You can approach a monster that you see on the Map Screen and start a
 battle with them by running into the monster. Even though you might
@@ -479,49 +490,77 @@ only see one monster on the Map Screen, there may be more than one
 traveling together. You can avoid these battles by not touching the
 monster on the Map Screen.
 
-Sometimes, though, monsters may sneak up on you. You can encounter
-monsters in dangerous territories without ever having seen them. These
-battles cannot be avoided.
+Sometimes,  though, monsters  may sneak  up  on you.  You can  encounter
+monsters  in  dangerous  territories  without  ever  having  seen  them.
+These battles cannot be avoided.
 
-In a normal battle, you'll see one or more monsters at the top of your
-screen, along with the name of the monster type.
+In a battle, you'll see one or  more monsters at the top of your screen,
+along with the name of the monster type. Below this, you'll see the name
+of your Grizzard  companion and its health bar. The  longer this bar is,
+the more health your Grizzard companion has.
 
 \subsection{On the Monsters' Turn}
 
 When it's the monsters' turn to attack, you'll see only the monsters
 on your screen.
 
-The monsters may attack you. If they succeed, you'll lose an amount of
-energy. Improving your shield will protect you from more attacks, and
-reduce the amount of damage the monsters do.
+The monsters may  attack your Grizzard. If they succeed,  it will reduce
+the health of your Grizzard.
 
-If you run out of energy, your game is over. Don't worry, though ---
-you can still resume your adventure from the Title Screen.
+If  your  Grizzard  is  defeated,  the monsters  will  surely  eat  you.
+Your  adventure  will  end,  and  you'll return  to  the  Title  screen.
+Don't worry,  though; your  progress will  be saved  still, and  you can
+resume at the last Grizzard Depot that you had visited.
 
 \subsection{On Your Turn}
 
-At the bottom of the Battle Screen are four icons, which you can use
-to pick your strategy.
+When it's your turn, you'll see the name of a Move that your Grizzard may be
+able to perform at the bottom of the screen. If your Grizzard knows how to
+perform this Move, it will appear in color. If your Grizzard does not know
+how to perform this Move, it will appear in black.
 
-Press up on the joystick controller to use your bow \& arrows to shoot
-at the monsters. Press left to use your sword. Press right to use a
-magic spell (if you know any). Pull down on the joystick to try to run
-away.
+Select a Move by pressing the joystick up and down (forward and back).
 
-When you've chosen your strategy, press the Fire button to proceed.
+Most Moves will target one of the monsters attacking you. When there are
+multiple monsters, you must choose which one to counter-attack. Select the
+target by pressing the joystick left and right.
 
-If you're using your sword, or bow \& arrows, you'll have to choose
-which monster you'll attack. Press the joystick to select a monster,
-then press the Fire button.
+When you've selected your Move and target, press the Fire button.
 
-If you're using a magic spell, you'll see your magic scroll. Press up
-and down on the joystick controller to choose the name of the magic
-spell you want to use, then press the Fire button to select it.
+\subsection{Statistics}
 
-If you hurt a monster, you'll see the amount of damage that you did on
-the   screen  briefly.   Once   a  monster   is   defeated,  it   will
-disappear. When all of the  monsters have been defeated, you'll return
-to the Map Screen.
+You can also press the Select switch to review your Grizzard's statistics.
+Each Grizzard companion has a few details:
+
+\begin{description}
+  
+\item[ATK] is the Grizzard's \emph{attack} rating. This is the amount of
+  damage  that  your  Grizzard  can  do  when  it  successfully  attacks
+  a monster. Some Moves cause more damage than others, though.
+  
+\item[DEF] is  the Grizzard's \emph{defend}  rating. This is  how likely
+  your Grizzard is to avoid being hurt by a monster's Move.
+
+\item[ACU] is  the Grizzard's \emph{acuity}  rating. This is  how likely
+  your Grizzard is to successfully perform a Move.
+  
+\item[HP] is the  Grizzard's \emph{hit points} or  health. When monsters
+  hit your Grizzard, this value will  decrease. If it reaches zero, your
+  game is over.
+
+\item[MAX] is  the Grizzard's  \emph{maximum hit points}.  Your Grizzard
+  can gain more hit points up to this amount.
+  
+\end{itemize}
+
+Each of these statistics can be raised up to a maximum of 99 points.
+
+Your  Grizzard may also be subject to  one or more
+Status Effects.  These will  alter your Grizzard's  status temporarily
+(only for the duration of one  battle). These effects are displayed at
+the bottom of the screen. If there  are more than one Status Effect in
+effect at the same time, only one  will be displayed; wait a moment to
+see the others appear.
 
 \section{Scoring}
 
@@ -538,14 +577,67 @@ and flee. You'll have less encounters with these monsters.
 If you fail in your mission, your game is over. However, you have
 another chance to continue.
 
-When you continue, it'll be just as if you'd never failed in the first
-place. However, you'll start over from a safe place. If you fail early
-in the game, you'll return to Hapri to continue your adventure. Later,
-you'll find that you can be blessed by certain characters in the
-game. You'll return to the last place you were Blessed if you fail.
+When you continue, it'll  be just as if you'd never  failed in the first
+place. However, you'll start over from  the last Grizzard Depot that you
+had visited. If you fail before visiting a Grizzard Depot, you'll return
+to the original starting point.
 
 Just choose your game slot from the Title Screen to resume your
 adventure.
+
+\chapter{Grizzards}
+
+There are  30 Grizzards in  the game world,  each with their  own unique
+starting attributes and sets of Moves.
+
+Each Grizzard is able  to learn up to 8 different  moves, in addition to
+the universal move RUN AWAY. It's up to you to discover which Moves each
+Grizzard  is able  to  learn. See  Moves on  page  \ref{Moves} for  more
+information about the Moves that Grizzards and monsters can use.
+
+Here  is a  list of  some of  the Grizzards  that you  can encounter  in
+the game.
+
+\subsubsection{Dirtex}
+
+Dirtex is  an Earth-type Grizzard.  It can  learn moves that  reduce the
+effectiveness of enemy monsters, as well as doing damage directly.
+
+\subsubsection{Aquax}
+
+Aquax is a Water-type Grizzard. It can learn ***
+
+\subsubsection{***}
+
+\chapter{Moves}\label{Moves}
+
+There are  many different Moves that  Grizzards and monsters can  use in
+the  game.  Some Moves  are  used  to  reduce  the enemy's  hit  points.
+If a Grizzard (or monster) runs out of hit points, they are defeated.
+
+If all  monsters in a  group are defeated, they  are gone from  the game
+for good. If your Grizzard is defeated, your game is over.
+
+\subsection{Run Away}
+
+This is a special Move that you can use to escape from combat and return
+to the map screen.
+
+Your  Grizzard will  not be  healed if  you run  away (unless  you visit
+a  Grizzard Depot);  however, the  monsters  that you  were facing  will
+be healed.
+
+\subsection{Move Effects}
+
+Each  Move  can have  a  variety  of effects  on  your  Grizzard or  the
+enemy monsters. In addition to  causing damage (reducing the enemy's hit
+points), a Move  can also be used to heal  from damage (increasing one's
+own hit points).
+
+A Move  can also  reduce an  enemy's statistics,  or increase  one's own
+statistics. These are  called Status Effects, and they  persist for some
+time after  they are applied. If  any Status Effects are  affecting your
+Grizzard, they'll appear at the bottom of the statistics screen.
 
 \chapter{Troubleshooting}
 
@@ -586,23 +678,41 @@ remain blank while the game tries to record your progress. Just plug
 in the AtariVox to the right controller port and your game should be
 saved.
 
-The game saves at various times while you play, as well as when you
-press the Game Reset switch, so it's best to leave the AtariVox
-connected all the time. (Besides, you won't be able to hear what
-anyone says if you unplug it!)
+The game saves when  you visit a Grizzard Depot, or  when a new Grizzard
+joins your party,  so it's best to leave the  AtariVox connected all the
+time.  (Besides, you  won't be  able  to hear  what anyone  says if  you
+unplug it!)
 
 \section{No voices}
 
-Make sure that you have speakers plugged in to your AtariVox
-device. When the game first starts the title screen, after a brief
-pause, you'll hear the AtariVox announce the name of the game. If you
-don't, make sure that the AtariVox is connected and the speakers are
+Make sure  that you have  speakers plugged  in to your  AtariVox device.
+When the game first starts the title screen, after a brief pause, you'll
+hear the AtariVox announce the name of the game. If you don't, make sure
+that  the AtariVox  is connected  and the  speakers (or  headphones) are
 connected, powered on, and turned up.
 
 \chapter{Technical Notes}
 
 The following notes are of interest to hackers only. You don't need to
 understand anything in this section to play Grizzards.
+
+\section{Development Tools}
+
+The  Grizzards source  code  and development  tools  are available  from
+\href{https://Star-Hope.org/Grizzards/}{https://Star-Hope.org/Grizzards/},
+the Grizzards web site.
+
+Development of Grizzards made use of:
+
+\begin{itemize}
+\item Fedora Linux operating system
+\item 64tass assembler
+\item Steel Bank Common Lisp
+\item GNU Make
+\item The GNU Image Manipulation Program (Gimp)
+\item GNU Emacs
+\item The \TeX{} typesetting system (for this manual)
+\end{itemize}
 
 \section{Game Record Slots}
 
@@ -644,5 +754,24 @@ When the final game is released, you may need to start over by erasing
 your game record. See Starting Your Adventure Over on page
 \ref{Starting Your Adventure Over} for instructions on erasing your
 game record.
+
+\chapter{Credits}
+
+The Grizzards  videogame software, including its  audiovisual components
+and this  manual, are copyright \copyright{}  2021, Bruce-Robert Pocock.
+All Rights are Reserved except as granted under license.
+
+\begin{itemize}
+  
+\item Bruce-Robert Pocock \hdots Programming, Manual, and Artwork
+  
+\end{itemize}
+
+The Grizzards videogame software was published by ***publisher.
+
+\subsection{License}
+
+You are hereby granted permission to make use of the Grizzards videogame
+software for \emph{non-commercial personal use}.
 
 \end{document}
