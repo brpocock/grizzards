@@ -86,16 +86,14 @@
 
           ColdStartBank = $00
           SaveKeyBank = $00
-          FailureBank = $02
-          SFXBank = $07
           MapServicesBank = $01
           TextBank = $02
-
+          FailureBank = $02
           Province01MapBank = $03
           Province23MapBank = $04
-
           CombatBank0To127 = $05
           CombatBank128To255 = $06
+          SFXBank = $07
 
 ;;; Text bank provides multiple services, selected with .y
 
