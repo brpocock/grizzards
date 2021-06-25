@@ -125,3 +125,9 @@
 
           ServiceColdStart = $00
           ServiceSaveToSlot = $10
+
+;;; Maximum number of Grizzards allowed
+;;; The save/load routines should handle up to 36
+
+          NumGrizzards = 30
+

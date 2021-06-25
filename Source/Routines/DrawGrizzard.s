@@ -35,7 +35,7 @@ DrawGrizzard:
 -
           lda GrizzardImages - 1, y
           sta GRP0
-          lda GrizzardImages + 7, y
+          lda GrizzardImages + NumGrizzards * 8 - 1, y
           sta GRP1
           sta WSYNC
           sta WSYNC
