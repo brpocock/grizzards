@@ -70,12 +70,8 @@ ScoreDone:
 
           ldx CurrentMap
 
-          .if TV == SECAM
-          .ldacolu COLGOLD, $8
-          .else
           .ldacolu COLGOLD, $8
           ora BumpCooldown
-          .fi
           
           sta COLUP0
 
