@@ -44,6 +44,7 @@ DecodeAndShowText:
           
           .include "GrizzardNames.s"
           .include "GrizzardImages.s"
+          .include "GrizzardArt.s"
           .include "GrizzardMoves.s"
           .include "MovesTable.s"
           
