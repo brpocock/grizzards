@@ -40,7 +40,7 @@
           SoundBump = 5
           SoundHit = SoundBump
           SoundMiss = SoundDeleted
-
+          SoundError = 6
 
 ;;; Status Effects for player or enemies 
           StatusSleep = $01

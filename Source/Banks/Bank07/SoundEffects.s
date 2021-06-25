@@ -1,5 +1,8 @@
+;;; SoundEffects.s
+;;; Copyright © 2021 Bruce-Robert Pocock
+
           ;; Don't forget to update the Enums.s table as well
-          SoundIndex = (Drone, Chirp, Deleted, Happy, Bump)
+          SoundIndex = (Drone, Chirp, Deleted, Happy, Bump, ErrorSound)
 
           SoundCount = len(SoundIndex)
 
@@ -27,3 +30,12 @@ Happy:
 
 Bump:
           .byte $81, $8f, 5
+
+ErrorSound:
+          .byte $81, $0f, 10
+          .byte $81, $20, 10
+          .byte $81, $0f, 10
+          .byte $81, $20, 10
+          .byte $81, $0f, 10
+          .byte $81, $a0, 10
+
