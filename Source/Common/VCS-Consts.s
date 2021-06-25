@@ -57,8 +57,12 @@
         ;; Console
         SWCHBReset = $01
         SWCHBSelect = $02
-	SWCHBGenuine2600 = $04
-        SWCHBColor = $08
+          SWCHBGenuine2600 = $04
+          .if TV == SECAM
+            ;; no SWCHBColor option
+          .else
+            SWCHBColor = $08
+          .endif
         SWCHBP0Advanced = $40
         SWCHBP1Advanced = $80
 
