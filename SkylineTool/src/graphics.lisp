@@ -513,7 +513,7 @@ Shape:~{~{~a~}~2%~}
 	Height = ~d
 	Width = 8
 Shape:~{~a~}
-CoLu:~{~%	.byte $~2,'0x~}
+CoLu:~{~%	;.byte $~2,'0x~}
 	.bend
 "
                 (pathname-name png-file)
