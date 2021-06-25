@@ -336,7 +336,10 @@ HealthyPF1:
           .byte %00011111
           .byte %00111111
           .byte %01111111
-
-
           
           .bend
+
+BitMask:
+          ;; also used by ExecuteCombatMove
+          .byte 1, 2, 4, 8, $10, $20, $40, $80
+          
