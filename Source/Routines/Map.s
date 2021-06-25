@@ -438,10 +438,12 @@ CheckSwitches:
 
 NoReset:
 
+          .if TV != SECAM
           lda DebounceSWCHB
           and #SWCHBColor
           eor #SWCHBColor
           sta Pause
+          .endif
 
 SkipSwitches:
 

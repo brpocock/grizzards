@@ -296,11 +296,13 @@ NoReset:
           lda #ModeGrizzardStats
           sta GameMode
           
-NoSelect: 
+NoSelect:
+          .if TV != SECAM
           lda DebounceSWCHB
           and #SWCHBColor
           eor #SWCHBColor
           sta Pause
+          .endif
 
 SkipSwitches:
           jsr Overscan

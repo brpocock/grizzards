@@ -26,7 +26,11 @@ ColdStart:
           
           ;; only set inputs on the bits that we can actually read
           ;; AKA the “Combat flags trick”
+          .if TV == SECAM
+          lda # $ff - (SWCHBReset | SWCHBSelect | SWCHBP0Advanced | SWCHBP1Advanced)
+          .else
           lda # $ff - (SWCHBReset | SWCHBSelect | SWCHBColor | SWCHBP0Advanced | SWCHBP1Advanced)
+          .endif
           sta SWBCNT
 
           ;; From ↑ we have the boot-time value of .S in .X
