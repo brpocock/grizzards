@@ -1,3 +1,5 @@
+;;; Grizzards Source/Routines/DrawMonsterGroup.s
+;;; Copyright © 2021 Bruce-Robert Pocock
 DrawMonsterGroup:
 
 GetMonsterPointer:

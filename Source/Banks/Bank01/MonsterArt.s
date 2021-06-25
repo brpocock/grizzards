@@ -1,4 +1,6 @@
-;; -*- fundamental -*-
+;;; -*- fundamental -*-
+;;; Grizzards Source/Banks/Bank01/MonsterArt.s
+;;; Copyright © 2021 Bruce-Robert Pocock
 
 MonsterArt:
 

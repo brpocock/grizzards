@@ -1,3 +1,5 @@
+;;; Grizzards Source/Routines/MapBottomService.s
+;;; Copyright © 2021 Bruce-Robert Pocock
 BottomOfScreenService: .block
           lda #0
           sta COLUBK

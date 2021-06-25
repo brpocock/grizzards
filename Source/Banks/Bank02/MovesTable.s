@@ -1,3 +1,5 @@
+;;; Grizzards Source/Banks/Bank02/MovesTable.s
+;;; Copyright © 2021 Bruce-Robert Pocock
 MovesTable:
           .MiniText " RUN  "
           .MiniText " AWAY "

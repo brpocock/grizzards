@@ -1,3 +1,5 @@
+;;; Grizzards Source/Common/MoveEffects.s
+;;; Copyright © 2021 Bruce-Robert Pocock
 MoveEffects:
           ;; 0
           .byte 0

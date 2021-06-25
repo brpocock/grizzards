@@ -1,3 +1,5 @@
+;;; Grizzards Source/Banks/Bank04/OverworldMaps.s
+;;; Copyright © 2021 Bruce-Robert Pocock
 
           ;; How many maps are in these tables?
 MapCount:

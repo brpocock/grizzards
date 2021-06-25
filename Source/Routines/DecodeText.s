@@ -1,3 +1,5 @@
+;;; Grizzards Source/Routines/DecodeText.s
+;;; Copyright © 2021 Bruce-Robert Pocock
 DecodeText:	.block
 	lda #>Font
 	sta pp0h

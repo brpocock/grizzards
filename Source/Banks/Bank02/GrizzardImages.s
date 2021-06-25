@@ -1,4 +1,6 @@
 ;;; -*- fundamental -*-
+;;; Grizzards Source/Banks/Bank02/GrizzardImages.s
+;;; Copyright © 2021 Bruce-Robert Pocock
 
 GrizzardPictureSelect:
 

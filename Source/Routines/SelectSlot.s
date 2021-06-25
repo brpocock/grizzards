@@ -1,3 +1,5 @@
+;;; Grizzards Source/Routines/SelectSlot.s
+;;; Copyright © 2021 Bruce-Robert Pocock
 SelectSlot:        .block
           ;;
           ;; Select a save game slot

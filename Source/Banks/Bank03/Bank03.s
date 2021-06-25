@@ -1,3 +1,5 @@
+;;; Grizzards Source/Banks/Bank03/Bank03.s
+;;; Copyright © 2021 Bruce-Robert Pocock
 	BANK = $03
 
           .include "StartBank.s"

@@ -1,3 +1,5 @@
+;;; Grizzards Source/Banks/Bank03/MapsPart2.s
+;;; Copyright © 2021 Bruce-Robert Pocock
 
           ;; How many maps are in these tables?
 MapCount:

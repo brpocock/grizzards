@@ -1,3 +1,5 @@
+;;; Grizzards Source/Common/ExecuteCombatMove.s
+;;; Copyright © 2021 Bruce-Robert Pocock
 ExecuteCombatMove:  .block
           lda WhoseTurn
           beq ExecutePlayerMove

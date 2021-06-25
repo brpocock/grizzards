@@ -1,3 +1,5 @@
+;;; Grizzards Source/Routines/Map.s
+;;; Copyright © 2021 Bruce-Robert Pocock
 DoMap:    .block
 
           ScreenLeftEdge = 48

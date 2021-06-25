@@ -1,3 +1,5 @@
+;;; Grizzards Source/Routines/ShowMove.s
+;;; Copyright © 2021 Bruce-Robert Pocock
 ShowMove:
           ldy MoveSelection
           beq MoveRunAway

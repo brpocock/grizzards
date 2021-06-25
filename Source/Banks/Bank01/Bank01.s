@@ -1,3 +1,5 @@
+;;; Grizzards Source/Banks/Bank01/Bank01.s
+;;; Copyright © 2021 Bruce-Robert Pocock
           BANK = $01
 
           ;; Map Services Bank

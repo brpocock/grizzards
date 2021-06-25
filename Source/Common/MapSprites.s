@@ -1,4 +1,6 @@
 ;;; -*- fundamental -*-
+;;; Grizzards Source/Common/MapSprites.s
+;;; Copyright © 2021 Bruce-Robert Pocock
 
           ;;; Sprite art for maps modes
 

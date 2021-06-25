@@ -1,3 +1,5 @@
+;;; Grizzards Source/Banks/Bank02/GrizzardNames.s
+;;; Copyright © 2021 Bruce-Robert Pocock
 GrizzardNames:
           .MiniText "DIRTEX"
           .MiniText "AQUAX "

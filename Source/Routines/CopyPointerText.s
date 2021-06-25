@@ -1,3 +1,5 @@
+;;; Grizzards Source/Routines/CopyPointerText.s
+;;; Copyright © 2021 Bruce-Robert Pocock
 CopyPointerText:
           ldy # 0
 -

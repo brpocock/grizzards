@@ -1,3 +1,5 @@
+;;; Grizzards Source/Routines/FindNthZeroTerminated.s
+;;; Copyright © 2021 Bruce-Robert Pocock
 FindNthZeroTerminated:        .block
 
           ;; Finds the nth (xth) zero-terminated string starting after Pointer.

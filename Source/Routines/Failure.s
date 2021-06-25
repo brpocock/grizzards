@@ -1,3 +1,5 @@
+;;; Grizzards Source/Routines/Failure.s
+;;; Copyright © 2021 Bruce-Robert Pocock
 Failure:	.block
 
           jsr VSync

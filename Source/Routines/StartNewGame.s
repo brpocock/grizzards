@@ -1,3 +1,5 @@
+;;; Grizzards Source/Routines/StartNewGame.s
+;;; Copyright © 2021 Bruce-Robert Pocock
 StartNewGame:          .block
 
           lda #0

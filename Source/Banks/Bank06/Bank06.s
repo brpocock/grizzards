@@ -1,3 +1,5 @@
+;;; Grizzards Source/Banks/Bank06/Bank06.s
+;;; Copyright © 2021 Bruce-Robert Pocock
           BANK = $06
 
           ;; Combat for encounters $00 … $7f

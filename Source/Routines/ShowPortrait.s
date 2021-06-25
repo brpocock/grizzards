@@ -1,3 +1,5 @@
+;;; Grizzards Source/Routines/ShowPortrait.s
+;;; Copyright © 2021 Bruce-Robert Pocock
 Faces:    .block
           jsr VSync
           jsr VBlank

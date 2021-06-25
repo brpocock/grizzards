@@ -1,3 +1,5 @@
+;;; Grizzards Source/Common/CombatAnnouncementScreen.s
+;;; Copyright © 2021 Bruce-Robert Pocock
 CombatAnnouncementScreen:     .block
 
           lda # 0

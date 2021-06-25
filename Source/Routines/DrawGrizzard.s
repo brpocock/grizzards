@@ -1,3 +1,5 @@
+;;; Grizzards Source/Routines/DrawGrizzard.s
+;;; Copyright © 2021 Bruce-Robert Pocock
 DrawGrizzard:
           lda #0
           sta VDELP0

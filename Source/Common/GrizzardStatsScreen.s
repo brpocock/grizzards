@@ -1,3 +1,5 @@
+;;; Grizzards Source/Common/GrizzardStatsScreen.s
+;;; Copyright © 2021 Bruce-Robert Pocock
 GrizzardStatsScreen: .block
 
           lda SWCHB

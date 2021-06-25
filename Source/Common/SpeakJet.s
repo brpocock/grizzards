@@ -1,3 +1,5 @@
+;;; Grizzards Source/Common/SpeakJet.s
+;;; Copyright © 2021 Bruce-Robert Pocock
 ;;; SpeakJet symbols
 
 	;; Pauses and control codes

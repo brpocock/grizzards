@@ -1,3 +1,5 @@
+;;; Grizzards Source/Banks/Bank06/Monsters6.s
+;;; Copyright © 2021 Bruce-Robert Pocock
 Monsters: 
           .MiniText "WICKED"
           .MiniText "SLIME "

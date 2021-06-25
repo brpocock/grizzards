@@ -1,3 +1,5 @@
+;;; Grizzards Source/Banks/Bank02/GrizzardMoves.s
+;;; Copyright © 2021 Bruce-Robert Pocock
 GrizzardMoves:
           ;; 0
           .byte 1, 5, 6, 7, 8, 21, 23, 29

@@ -1,3 +1,5 @@
+;;; Grizzards Source/Routines/PlaySFX.s
+;;; Copyright © 2021 Bruce-Robert Pocock
 PlaySFX: .block
 
           lda CurrentSound + 1

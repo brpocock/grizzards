@@ -1,3 +1,5 @@
+;;; Grizzards Source/Routines/EraseSlotSignature.s
+;;; Copyright © 2021 Bruce-Robert Pocock
 EEPROMFail:
 	jsr i2cStopWrite
           lda #ModeNoAtariVox

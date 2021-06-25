@@ -1,3 +1,5 @@
+;;; Grizzards Source/Common/CombatMainScreen.s
+;;; Copyright © 2021 Bruce-Robert Pocock
 CombatMainScreen:   .block
 
 Loop:

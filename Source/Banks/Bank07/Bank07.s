@@ -1,3 +1,5 @@
+;;; Grizzards Source/Banks/Bank07/Bank07.s
+;;; Copyright © 2021 Bruce-Robert Pocock
           BANK = $07
 
           ;;

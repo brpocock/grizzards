@@ -1,3 +1,5 @@
+;;; Grizzards Source/Common/Math.s
+;;; Copyright © 2021 Bruce-Robert Pocock
 ;;; 
 
 ;;; Common 16-bit handlers

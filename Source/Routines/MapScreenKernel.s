@@ -1,3 +1,5 @@
+;;; Grizzards Source/Routines/MapScreenKernel.s
+;;; Copyright © 2021 Bruce-Robert Pocock
 ;;;
 ;;; Kernel for map screens
 ;;;

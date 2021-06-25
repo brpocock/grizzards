@@ -1,3 +1,5 @@
+;;; Grizzards Source/Routines/Attract.s
+;;; Copyright © 2021 Bruce-Robert Pocock
 Attract:	.block
 
           ;;

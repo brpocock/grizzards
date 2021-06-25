@@ -1,3 +1,5 @@
+;;; Grizzards Source/Routines/CheckSaveSlot.s
+;;; Copyright © 2021 Bruce-Robert Pocock
 CheckSaveSlot: .block
           jsr SeedRandom
           

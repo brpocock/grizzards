@@ -1,3 +1,5 @@
+;;; Grizzards Source/Routines/Random.s
+;;; Copyright © 2021 Bruce-Robert Pocock
 SeedRandom:
           lda Rand
           eor ClockFrame

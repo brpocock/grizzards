@@ -1,3 +1,5 @@
+;;; Grizzards Source/Common/PlayerSprites.s
+;;; Copyright © 2021 Bruce-Robert Pocock
 PlayerWalk1:
           .byte %11000011
           .byte %11000011
