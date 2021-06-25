@@ -122,7 +122,7 @@ MovesKnown:
 
           .if SwapStart > $b8
           .error "SwapStart must be before $b8, found to be ", SwapStart
-          .endif
+          .fi
 
           SwapGrizzardBlock = SwapStart + $40
           

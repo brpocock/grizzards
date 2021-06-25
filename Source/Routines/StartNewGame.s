@@ -15,7 +15,7 @@ SkipForPAL:
           stx WSYNC
           dex
           bne SkipForPAL
-          .endif
+          .fi
 
           lda # ( 76 * ( 192 - 1 ) ) / 64 - 2
           sta TIM64T

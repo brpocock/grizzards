@@ -304,7 +304,7 @@ NoSelect:
           and #SWCHBColor
           eor #SWCHBColor
           sta Pause
-          .endif
+          .fi
 
 SkipSwitches:
           jsr Overscan

@@ -56,6 +56,6 @@ Quit:
             .include "PublisherCredit.s"
           .else
             .include "BRPCredit.s"
-          .endif
+          .fi
 
           .include "EndBank.s"

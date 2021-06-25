@@ -445,7 +445,7 @@ NoReset:
           and #SWCHBColor
           eor #SWCHBColor
           sta Pause
-          .endif
+          .fi
 
 SkipSwitches:
 

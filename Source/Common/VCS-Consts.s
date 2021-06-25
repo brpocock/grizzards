@@ -62,7 +62,7 @@
             ;; no SWCHBColor option
           .else
             SWCHBColor = $08
-          .endif
+          .fi
         SWCHBP0Advanced = $40
         SWCHBP1Advanced = $80
 

@@ -32,7 +32,7 @@ ColdStart:
           lda # $ff - (SWCHBReset | SWCHBSelect | SWCHBP0Advanced | SWCHBP1Advanced)
           .else
           lda # $ff - (SWCHBReset | SWCHBSelect | SWCHBColor | SWCHBP0Advanced | SWCHBP1Advanced)
-          .endif
+          .fi
           sta SWBCNT
 
           ;; From ↑ we have the boot-time value of .S in .X
