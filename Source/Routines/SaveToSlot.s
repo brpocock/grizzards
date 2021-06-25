@@ -130,11 +130,14 @@ ReadGrizzardBlock:
 
           ;; Set the read address into Pointer, we'll re-use it again
           ;; when we're getting ready to write.
+
           jsr i2cStartWrite
           lda SaveGameSlot
           clc
           adc #>SaveGameSlotPrefix
           sta Pointer + 1
+          jsr i2cTxByte
+          
           lda SwapGrizzardBlock
           asl a
           asl a
@@ -144,14 +147,10 @@ ReadGrizzardBlock:
           asl a                 ; × $40 (64)
           adc #<SaveGameSlotPrefix + $40
           sta Pointer
-
           ;; Send the address and start reading
-          lda Pointer + 1
-          jsr i2cTxByte
-          lda Pointer
           jsr i2cTxByte
           jsr i2cStopWrite
-          jsr i2cStartRead
+          jsr i2cStartRead    
 
           ;; Read the entire block into RAM
           ldx # 0
