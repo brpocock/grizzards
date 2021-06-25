@@ -51,9 +51,6 @@ GoColdStart:
 
 
 ;;; Go to the current map memory bank, and jump to DoMap.
-;;; If we're not in a map memory bank after the bank switch,
-;;; then we must not be in map mode (hopefully), so jump
-;;; back to Dispatch.
 GoMap:
           lda CurrentProvince
           and #$02
@@ -65,7 +62,6 @@ GoMap:
           jmp DoLocal
 
 ;;; Go to the current combat memory bank, and jump to DoCombat.
-;;; In non-combat banks, jump to Dispatch.
 GoCombat:
           lda CurrentCombatEncounter
           and #$80
