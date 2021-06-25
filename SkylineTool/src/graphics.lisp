@@ -463,7 +463,7 @@ PNG image in an unsuitable format:
     (with-output-to-file (source-file out-file-name
                                       :if-exists :supersede)
       (multiple-value-bind (shape colors) (tia-48px-interpret image-pixels)
-        (format source-file ";;; -*- asm -*-
+        (format source-file ";;; -*- fundamental -*-
 ;;; Compiled sprite data from ~a
 ;;; Edit the original (probably Source/Art/~:*~a.png), editing this file is futile.
 
@@ -484,6 +484,13 @@ Shape:~{~{~a~}~2%~}
                 colors))
       (format *trace-output* "~% Done writing to ~A" out-file-name))))
 
+(defun reverse-7-or-8 (shape)
+  (let* ((height (length shape))
+         (group-height (if (zerop (mod height 7)) 7 8)))
+    (loop for group from 0 below height by group-height
+          append (loop for line from (1- group-height) downto 0
+                       collecting (elt shape (+ group line))))))
+
 (defun compile-tia-player (png-file out-dir 
                            height width image-pixels)
   (let ((out-file-name (merge-pathnames
@@ -493,10 +500,11 @@ Shape:~{~{~a~}~2%~}
                         out-dir)))
     (format *trace-output* "~% Ripping TIA Player graphics from ~D×~D image"
             width height)
+    (finish-output *trace-output*)
     (with-output-to-file (source-file out-file-name
                                       :if-exists :supersede)
       (multiple-value-bind (shape colors) (tia-player-interpret image-pixels)
-        (format source-file ";;; -*- asm -*-
+        (format source-file ";;; -*- fundamental -*-
 ;;; Compiled sprite data from ~a
 ;;; Edit the original (probably art/sprites/~:*~a.xcf),
 ;;; editing this file is futile.
@@ -511,7 +519,7 @@ CoLu:~{~%	.byte $~2,'0x~}
                 (pathname-name png-file)
                 (assembler-label-name (pathname-base-name png-file))
                 height
-                (mapcar #'byte-and-art shape)
+                (mapcar #'byte-and-art (reverse-7-or-8 shape))
                 colors))
       (format *trace-output* "~% Done writing to ~A" out-file-name))))
 
@@ -546,7 +554,7 @@ got ~:D MOB~:P"
         (when (< 1 (length index))
           (warn "MOBs not stacked vertically won't work yet. ~
 Proceed with caution."))
-        (format binary-file ";;; -*- asm -*-
+        (format binary-file ";;; -*- fundamental -*-
 ;;; Compiled sprite data from ~a
 ;;; Edit the original (probably art/sprites/~:*~a.xcf),
 ;;; editing this file is futile.
@@ -727,10 +735,24 @@ of the given width."
           i (* 16 i) (tile-cell-vic2-y (* 4 i) 16)))
 
 (loop for width in '(16 32 64 128)
-   do (dotimes (i #xff)
-        (assert (> (/ 16384 width) (tile-cell-vic2-y i width))
-                nil "The TILE-CELL-VIC2-Y function must return a valid value;
+      do (dotimes (i #xff)
+           (assert (> (/ 16384 width) (tile-cell-vic2-y i width))
+                   nil "The TILE-CELL-VIC2-Y function must return a valid value;
 value ~D for tile-cell ~D is too far down for an image with width ~D" (tile-cell-vic2-y i width) i width)))
+
+(defun compile-atari-8×8 (png-file target-dir height width)
+  (let ((out-file (merge-pathnames
+                   (make-pathname :name
+                                  (pathname-name png-file)
+                                  :type "s")
+                   target-dir)))
+    (with-output-to-file (src-file out-file :if-exists :supersede)
+      (format src-file ";;; This is a generated file. Editing is futile.~2%")
+      (loop for x1 from 0 below width by 8
+            for y1 from 0 below height by 8
+            for i from 0
+            do (loop for y0 from 7 downto 0
+                     do (format src-file "~t.byte %~0,8b" 0))))))
 
 (defun compile-tileset-64 (png-file out-dir height width image-nybbles)
   (declare (ignore height))
@@ -742,24 +764,24 @@ value ~D for tile-cell ~D is too far down for an image with width ~D" (tile-cell
                    out-dir)))
     (with-output-to-file (src-file out-file :if-exists :supersede)
       (let ((colour (loop for cell from 0 to #xff
-                       for x-cell = (tile-cell-vic2-x cell width)
-                       for y-cell = (tile-cell-vic2-y cell width)
-                       for tile-data = (extract-region image-nybbles x-cell y-cell (+ 7 x-cell) (+ 7 y-cell))
-                       do (format src-file "~{~a~}"
-                                  (map 'list #'bytes-and-art (tile->bits tile-data)))
-                       collect (tile->colour tile-data))))
-
+                          for x-cell = (tile-cell-vic2-x cell width)
+                          for y-cell = (tile-cell-vic2-y cell width)
+                          for tile-data = (extract-region image-nybbles x-cell y-cell (+ 7 x-cell) (+ 7 y-cell))
+                          do (format src-file "~{~a~}"
+                                     (map 'list #'bytes-and-art (tile->bits tile-data)))
+                          collect (tile->colour tile-data))))
+        
         (format *error-output* "~% Tileset with multiple colours found")
         (loop for cell in colour
-           for i from 0 upto #xff
-           do (cond
-                ((null cell) (princ #\NUL src-file))
-                ((null (cdr cell)) (princ (code-char (car cell)) src-file))
-                (t (princ (code-char (car cell)) src-file)
-                   (warn "Tile ~D (~:*$~2,'0X) cell at (~:D×~:D) uses colours: ~{~D, ~D~}; using ~D"
-                         (floor i 4) (floor i 4)
-                         (tile-cell-vic2-x i width) (tile-cell-vic2-y i width)
-                         cell (car cell)))))
+              for i from 0 upto #xff
+              do (cond
+                   ((null cell) (princ #\NUL src-file))
+                   ((null (cdr cell)) (princ (code-char (car cell)) src-file))
+                   (t (princ (code-char (car cell)) src-file)
+                      (warn "Tile ~D (~:*$~2,'0X) cell at (~:D×~:D) uses colours: ~{~D, ~D~}; using ~D"
+                            (floor i 4) (floor i 4)
+                            (tile-cell-vic2-x i width) (tile-cell-vic2-y i width)
+                            cell (car cell)))))
         (format *error-output* "~% Wrote binary tileset data to ~A." out-file)))))
 
 (defun compile-tileset (png-file out-dir height width image-nybbles)
@@ -816,7 +838,7 @@ value ~D for tile-cell ~D is too far down for an image with width ~D" (tile-cell
             (monochrome-image-p palette-pixels))
        (format *trace-output* "~% Image ~A seems to be a font" png-file)
        (compile-font-8×8 png-file target-dir height width palette-pixels))
-
+      
       ((and (= width 48))
        (format *trace-output* "~% Image ~a seems to be a 48px ~
  “high-resolution” bitmap"
@@ -829,13 +851,19 @@ value ~D for tile-cell ~D is too far down for an image with width ~D" (tile-cell
             monochrome-lines-p)
        (format *trace-output* "~% Image ~A seems to be a tileset" png-file)
        (compile-tileset png-file target-dir height width palette-pixels))
-
+      
       ((and (zerop (mod width 8))
-            (zerop (mod height 7)))
+            (or (zerop (mod height 7))
+                (zerop (mod height 8))))
        (format *trace-output* "~% Image ~A seems to be sprite (player) data"
                png-file)
        (compile-tia-player png-file target-dir height width palette-pixels))
-
+      
+      ((and (zerop (mod width 8))
+            (zerop (mod height 8)))
+       (format *trace-output* "~% Image ~A seems to be Atari 8×8 tiles" png-file)
+       (compile-atari-8×8 png-file target-dir height width))
+      
       (t (error "Don't know how to deal with image with dimensions ~
 ~:D×~:D pixels ~:[with~;without~] monochrome lines"
                 width height monochrome-lines-p)))))
@@ -849,18 +877,18 @@ value ~D for tile-cell ~D is too far down for an image with width ~D" (tile-cell
           (monochrome-image-p palette-pixels))
      (format *trace-output* "~% Image ~A seems to be a font" png-file)
      (compile-font-8×8 png-file target-dir height width palette-pixels))
-
+    
     ((and (zerop (mod height 16))
           (zerop (mod width 16))
           (>= 64 (* (/ height 16) (/ width 16))))
      (format *trace-output* "~% Image ~A seems to be a tileset" png-file)
      (compile-tileset png-file target-dir height width palette-pixels))
-
+    
     ((and (zerop (mod height 21))
           (zerop (mod width 24)))
      (format *trace-output* "~% Image ~A seems to be sprite MOB data" png-file)
      (compile-mob png-file target-dir height width palette-pixels))
-
+    
     (t (error "Don't know how to deal with image with dimensions ~:D×~:D pixels"
               width height))))
 
