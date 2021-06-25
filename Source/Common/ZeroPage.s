@@ -361,65 +361,23 @@ P1LineCounter:
             .byte ?
 
 SpriteIndex:
-Sprite0Index:
-          .byte ?
-Sprite1Index:
-          .byte ?
-Sprite2Index:
-          .byte ?
-Sprite3Index:
-          .byte ?
+          .byte ?, ?, ?, ?
 
 ;;; X,Y position of virtual sprites
 SpriteX:
-Sprite0x:
-          .byte ?
-Sprite1X:
-          .byte ?
-Sprite2X:
-          .byte ?
-Sprite3X:
-          .byte ?
+          .byte ?, ?, ?, ?
 
 SpriteY:
-Sprite0Y:
-          .byte ?
-Sprite1Y:
-          .byte ?
-Sprite2Y:
-          .byte ?
-Sprite3Y:
-          .byte ?
+          .byte ?, ?, ?, ?
 
 SpriteMotion:
-Sprite0Motion:
-          .byte ?
-Sprite1Motion:
-          .byte ?
-Sprite2Motion:
-          .byte ?
-Sprite3Motion:
-          .byte ?
-
+          .byte ?, ?, ?, ?
+          
 SpriteAction:
-Sprite0Action:
-          .byte ?
-Sprite1Action:
-          .byte ?
-Sprite2Action:
-          .byte ?
-Sprite3Action:
-          .byte ?
+          .byte ?, ?, ?, ?
 
 SpriteParam:
-Sprite0Param:
-          .byte ?
-Sprite1Param:
-          .byte ?
-Sprite2Param:
-          .byte ?
-Sprite3Param:
-          .byte ?
+          .byte ?, ?, ?, ?
 
 BumpCooldown:
           .byte ?
