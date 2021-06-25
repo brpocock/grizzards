@@ -62,7 +62,7 @@ ReadProvinceData:
           asl a                 ; × 8
           adc # $20
           jsr i2cTxByte
-          
+
           jsr i2cStopWrite
           jsr i2cStartRead
 
@@ -86,30 +86,30 @@ ReadGrizzardData:
           clc
           adc SaveGameSlot
           sta Pointer + 1
-          
+
           ;; First, figure out which block the current Grizzard
           ;; can be found in.
           lda CurrentGrizzard
           cmp # 12
-          bmi InBlock0
-          cmp # 24
           bmi InBlock1
+          cmp # 24
+          bmi InBlock2
           sec
           sbc # 24
           tax
-          lda # 2
-          jmp ReadyToReadGrizzard
-
-InBlock0:
-          tax
-          lda # 0
+          lda # 3
           jmp ReadyToReadGrizzard
 
 InBlock1:
+          tax
+          lda # 1
+          jmp ReadyToReadGrizzard
+
+InBlock2:
           sec
           sbc # 12
           tax
-          lda # 1
+          lda # 2
           ;; fall through
 
 ReadyToReadGrizzard:
@@ -126,7 +126,8 @@ ReadyToReadGrizzard:
           asl a                 ; × 4
           clc
           adc Temp              ; × 5
-          adc Pointer           ; actual start address
+
+          adc Pointer
           sta Pointer
 
           ;; Finally we know our offset, let's read it.
@@ -135,9 +136,12 @@ ReadyToReadGrizzard:
           jsr i2cTxByte
           lda Pointer
           jsr i2cTxByte
+          jsr i2cStopWrite
           jsr i2cStartRead
 
           jsr i2cRxByte
+          cmp #$ff              ; WtF?
+          beq LoadFailed
           sta GrizzardAttack
           jsr i2cRxByte
           sta GrizzardDefense
