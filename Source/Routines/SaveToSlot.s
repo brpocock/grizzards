@@ -128,6 +128,12 @@ ReadGrizzardBlock:
           ;; Read the current block of Grizzard data into the swap
           ;; RAM area. This demolishes literally half of memory.
 
+          ;; FIXME. For reasons I don't know, this loads $ff ff ff …
+          ;; even though the memory block is initialized to $00 00 00 …
+          ;;
+          ;; I suspect I have a bug in the way I'm calling the i2c code,
+          ;; because it works correctly in the LoadSaveSlot routine.
+
           ;; Set the read address into Pointer, we'll re-use it again
           ;; when we're getting ready to write.
 
@@ -147,8 +153,8 @@ ReadGrizzardBlock:
           asl a                 ; × $40 (64)
           adc #<SaveGameSlotPrefix + $40
           sta Pointer
-          ;; Send the address and start reading
           jsr i2cTxByte
+
           jsr i2cStopWrite
           jsr i2cStartRead    
 
