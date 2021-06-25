@@ -74,12 +74,12 @@ PublisherPresentsMode:
           sta COLUPF
           lda #$c0
           sta PF2
-          ldy #PublisherCredit.Height 
+          ldy # PublisherCredit.Height
           .ldacolu COLBLUE, $f
           .else
 BRPPreambleMode:
           .SetUpFortyEight BRPCredit
-          ldy BRPCredit.Height 
+          ldy # BRPCredit.Height
           .ldacolu COLINDIGO, $f
           .fi
 
@@ -127,7 +127,7 @@ SkipAboveCopyright:
           .LoadString "POCOCK"
           jsr ShowText
 
-          ldx # KernelLines - 152
+          ldx # KernelLines - 142
 SkipBelowCopyright:
           stx WSYNC
           dex
