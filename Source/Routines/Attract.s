@@ -199,8 +199,8 @@ FillAttractMid1:
 
           jmp PrepareFillAttractBottom
 
-DrawTitle3:         
-          
+DrawTitle3:
+
           .SetUpFortyEight Title3
           ldy #Title3.Height
           sty LineCounter
@@ -209,8 +209,8 @@ DrawTitle3:
           ldy # 0
           sty PF2
 
-PrepareFillAttractBottom:     
-          
+PrepareFillAttractBottom:
+
           ldx # KernelLines - Title1.Height - Title2.Height - 57
 FillAttractBottom:
           sta WSYNC
