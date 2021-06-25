@@ -82,6 +82,10 @@ CurrentGrizzard:
 CurrentProvince:
           .byte ?
 
+          ;; Reserve one byte in the save file in case I forgot something
+GlobalZeroPad:
+          .byte ?
+
 EndGlobalGameData:
 
           GlobalGameDataLength = EndGlobalGameData - GlobalGameData + 1
