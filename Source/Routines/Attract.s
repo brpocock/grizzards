@@ -242,29 +242,15 @@ SkipAboveGraphic:
           sty LineCounter
           jsr ShowPicture
 
-          lda # ( (KernelLines - 112) * 76 ) / 64
-          sta TIM64T
-
-          jsr PlaySpeech
-          
+          ldx # KernelLines - 100
 SkipBelowGraphic:
-          lda INTIM
+          stx WSYNC
+          dex
           bne SkipBelowGraphic
 
           ;; fall through
 
 DoneAttractKernel:
-
-          .if KernelLines > 192
-          lda #0
-          ldx #KernelLines - 192
-FillAttractScreen:
-          sta WSYNC
-          dex
-          bne FillAttractScreen
-          .fi
-
-          jsr Overscan
 
           lda SWCHB
           cmp DebounceSWCHB
