@@ -77,8 +77,12 @@ GoCombat:
           jmp DoLocal
 
 ;;; Perform a far call to a memory bank with a specific local
-;;; service routine to perform; eg, this is how we handle sounds
-;;; and will be handling the VSync routines in the 2M version.
+;;; service routine to perform; eg, this is how we handle sounds,
+;;; text displays, and the common map header and footer code;
+;;; anything that does not need data from the local ROM bank.
+;;; Note that the total time for jump includes dispatching the
+;;; particular service routine that was selected, so this can be
+;;; somewhat slow.
 FarCall:
           lda #BANK
           pha
