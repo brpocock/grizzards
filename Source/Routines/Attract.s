@@ -104,7 +104,7 @@ StillPresenting:
 
 CopyrightMode:
 
-          ldx # 20
+          ldx # 29
 SkipAboveCopyright:
           stx WSYNC
           dex
@@ -127,7 +127,7 @@ SkipAboveCopyright:
           .LoadString "POCOCK"
           jsr ShowText
 
-          ldx # 20
+          ldx # KernelLines - 152
 SkipBelowCopyright:
           stx WSYNC
           dex
@@ -178,7 +178,7 @@ DoneTitleSpeech:
           sty LineCounter
           jsr ShowPicture
 
-          ldx #15
+          ldx # 40
 FillAttractMid1:
           sta WSYNC
           dex
@@ -211,7 +211,7 @@ DrawTitle3:
 
 PrepareFillAttractBottom:     
           
-          ldx # KernelLines - Title1.Height - Title2.Height - 30
+          ldx # KernelLines - Title1.Height - Title2.Height - 57
 FillAttractBottom:
           sta WSYNC
           dex
@@ -233,7 +233,7 @@ FillAttractBottom:
 
 SingleGraphicAttract:
 
-          ldx #70
+          ldx # 70
 SkipAboveGraphic:
           stx WSYNC
           dex
