@@ -511,14 +511,14 @@ Shape:~{~{~a~}~2%~}
 
 ~a:	.block
 	Height = ~d
-	Width = 8
+	Width = ~d
 Shape:~{~a~}
 CoLu:~{~%	;.byte $~2,'0x~}
 	.bend
 "
                 (pathname-name png-file)
                 (assembler-label-name (pathname-base-name png-file))
-                height
+                height width
                 (mapcar #'byte-and-art (reverse-7-or-8 shape))
                 colors))
       (format *trace-output* "~% Done writing to ~A" out-file-name))))
