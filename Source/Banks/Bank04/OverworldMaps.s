@@ -102,7 +102,7 @@ MapSprites:
           .byte 3               ; Grizzard
           .byte 150, 65
           .byte SpriteGrizzard
-          .byte 2
+          .byte 2               ; Catch Grizzard 2
           .byte 0               ; end of Room 3
 
 ;;; RLE data for each screen layout

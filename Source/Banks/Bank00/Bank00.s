@@ -37,6 +37,7 @@ DoLocal:
           .include "LoadSaveSlot.s"
           .include "EraseSlotSignature.s"
           .include "SetGrizzardAddress.s"
+          .include "SaveGrizzard.s"
           .include "PlaySpeech.s"
           .include "PreambleAttracts.s"
           .include "AttractCopyright.s"
