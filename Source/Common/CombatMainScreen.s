@@ -300,6 +300,7 @@ NoReset:
           
 NoSelect:
           .if TV != SECAM
+          ;; TODO — 7800 Pause button support
           lda DebounceSWCHB
           and #SWCHBColor
           eor #SWCHBColor
@@ -342,5 +343,5 @@ HealthyPF1:
           .bend
 
 BitMask:
-          ;; also used by ExecuteCombatMove
+          ;; also used by ExecuteCombatMove, so it's outside the block.
           .byte 1, 2, 4, 8, $10, $20, $40, $80

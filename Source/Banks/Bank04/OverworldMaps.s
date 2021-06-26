@@ -83,6 +83,12 @@ MapSprites:
           .byte SpriteCombat   ; action
           .byte 0               ; combat index
           ;;
+          .byte SpriteFixed     ; fixed position sprite
+          .byte 1               ; sprite art index = monster
+          .byte 100, 25         ; x, y position
+          .byte SpriteCombat   ; action
+          .byte 1               ; combat index
+          ;;
           .byte 0               ; end of list
           ;; Room 2
           .byte SpriteFixed
