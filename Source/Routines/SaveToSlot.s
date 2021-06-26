@@ -17,7 +17,6 @@ WriteMasterBlock:
 	adc SaveGameSlot
 	jsr i2cTxByte
 
-
           .if (SaveGameSlotPrefix & $ff) != 0
           .error "Save routines assume that SaveGameSlotPrefix is aligned to $100"
           .fi
@@ -57,8 +56,20 @@ WritePadAfterGlobal:
 
           jsr i2cStopWrite
 
+          ;; Wait for acknowledge bit
+-
+          jsr i2cStartWrite
+          bcs -
+          jsr i2cStopWrite
+
 WriteCurrentProvince:
           jsr SaveProvinceData
+
+          ;; Wait for acknowledge bit
+-
+          jsr i2cStartWrite
+          bcs -
+          jsr i2cStopWrite
 
 WriteCurrentGrizzard:
           jmp SaveGrizzard      ; tail call
