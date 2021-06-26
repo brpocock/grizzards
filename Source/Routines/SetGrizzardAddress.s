@@ -27,12 +27,12 @@ SetGrizzardAddress: .block
           sbc # 24
           tax
           lda # 3
-          jmp ReadyToReadGrizzard
+          jmp ReadyToSendAddress
 
 InBlock1:
           tax
           lda # 1
-          jmp ReadyToReadGrizzard
+          jmp ReadyToSendAddress
 
 InBlock2:
           sec
@@ -40,7 +40,7 @@ InBlock2:
           tax
           lda # 2
           ;; fall through
-ReadyToReadGrizzard:
+ReadyToSendAddress:
           asl a
           asl a
           asl a
