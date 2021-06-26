@@ -46,6 +46,7 @@ SetUpMonsterHP:
 PickNumMonsters:    
           jsr Random
           and #$07
+          beq PickNumMonsters
           cmp Temp
           bpl PickNumMonsters
           
