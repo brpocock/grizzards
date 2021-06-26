@@ -68,8 +68,14 @@ SignatureTime:
 
           lda # 0
           sta CurrentProvince
-          lda # 0
           sta CurrentMap
+          sta Score
+          sta Score + 1
+          sta Score + 2
+          sta ClockFrame
+          sta ClockSeconds
+          sta ClockMinutes
+          sta ClockFourHours
 
           lda # 80              ; Player start position
           sta BlessedX
