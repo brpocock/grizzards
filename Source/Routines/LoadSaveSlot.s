@@ -85,22 +85,19 @@ ReadGrizzardData:
           jsr i2cStopWrite
           jsr i2cStartRead
 
+          ldx # 0
+-
           jsr i2cRxByte
-          cmp #$ff              ; WtF?
-          beq LoadFailed
-          sta GrizzardAttack
-          jsr i2cRxByte
-          sta GrizzardDefense
-          jsr i2cRxByte
-          sta GrizzardAcuity
-          jsr i2cRxByte
-          sta MovesKnown
-          jsr i2cRxByte
-          sta MaxHP
+          sta MaxHP, x
+          inx
+          cpx # 5
+          bne -
+          
+          jsr i2cStopRead
+
+          lda MaxHP
           sta CurrentHP
 
-          jsr i2cStopRead
-          
           ;; Make sure debounced switch doesn't return us to the title screen immediately
           lda SWCHB
           sta DebounceSWCHB

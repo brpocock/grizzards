@@ -10,6 +10,8 @@ SetGrizzardAddress: .block
           ;; the 3 blocks following the master block. That
           ;; leaves 6 in the final block and half of it is blank.
 
+          ;; The four 64 byte blocks together make one page,
+          ;; so the high byte of the address is the same for all.
           lda #>SaveGameSlotPrefix
           clc
           adc SaveGameSlot
@@ -24,7 +26,7 @@ SetGrizzardAddress: .block
           cmp # 24
           bmi InBlock2
 
-          ;; must be in Block 3
+          ;; must be in Block 3 if it's 24-29.
           sec
           sbc # 24
           tax
@@ -42,24 +44,21 @@ InBlock2:
           tax
           lda # 2
           ;; fall through
+
 ReadyToSendAddress:
           ;; .A = block (1, 2, 3)
           ;; .X = index (to be × 5) within that block
-          asl a
-          asl a
-          asl a
-          asl a
-          asl a
+          .rept 6
           asl a                 ; × $40 (64)
+          .next
           sta Pointer           ; start of the block we want
           txa                   ; index within the block
           sta Temp
           asl a
           asl a                 ; × 4
           clc
-          adc Temp              ; × 5
-
-          adc Pointer
+          adc Temp              ; × 5 (never carries)
+          adc Pointer           ; never carries
           sta Pointer
 
           ;; Finally we know our offset, let's send  it.
@@ -67,7 +66,6 @@ ReadyToSendAddress:
           lda Pointer + 1
           jsr i2cTxByte
           lda Pointer
-          jsr i2cTxByte
-
+          jmp i2cTxByte         ; tail call
 
           .bend

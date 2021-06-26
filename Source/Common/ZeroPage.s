@@ -100,7 +100,7 @@ EndGlobalGameData:
 ;;; Game play/progress indicators -- local to one province
 ;;; (paged in/out as player changes provinces)
 ProvinceFlags:
-          .byte ?, ?, ?, ?, ?, ?, ?, ?
+          .byte ?, ?, ?, ?,   ?, ?, ?, ?
 
 ;;; 
 
