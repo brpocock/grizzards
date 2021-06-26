@@ -82,15 +82,15 @@ Loop:
           lda ClockMinutes
           ;; ÷ 60 is too slow so we cheat, since the output is 0..3
           cmp # 180
-          bmi +
+          bcc +
           inc DeltaX
 +
           cmp # 120
-          bmi +
+          bcc +
           inc DeltaX
 +
           cmp # 60
-          bmi HTD
+          bcc HTD
           inc DeltaX
 
 HTD:
