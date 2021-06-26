@@ -49,67 +49,9 @@ ReadGlobalLoop:
 
           jsr i2cStopRead
 
-ReadProvinceData:
-          ;; Province data are 8 bytes blocks starting at $20
-          ;; in the master block.
-          jsr i2cStartWrite
+          jsr LoadProvinceData
 
-          lda #>SaveGameSlotPrefix
-          clc
-          adc SaveGameSlot
-          jsr i2cTxByte
-          lda CurrentProvince
-          asl a
-          asl a
-          asl a                 ; × 8
-          adc # $20
-          jsr i2cTxByte
-
-          jsr i2cStopWrite
-          jsr i2cStartRead
-
-          ldx # 0
--
-          jsr i2cRxByte
-          sta ProvinceFlags, x
-          inx
-          cpx # 8
-          bne -
-
-          jsr i2cStopRead
-
-ReadGrizzardData:
-          lda CurrentGrizzard
-          jsr SetGrizzardAddress
-
-          jsr i2cStopWrite
-          jsr i2cStartRead
-
-          ldx # 0
--
-          jsr i2cRxByte
-          sta MaxHP, x
-          inx
-          cpx # 5
-          bne -
-          
-          jsr i2cStopRead
-
-          lda MaxHP
-          sta CurrentHP
-
-          ;; Make sure debounced switch doesn't return us to the title screen immediately
-          lda SWCHB
-          sta DebounceSWCHB
-
-          ;; Return to place last blessed
-          lda #ModeMap
-          sta GameMode
-          lda BlessedX
-          sta PlayerX
-          lda BlessedY
-          sta PlayerY
-
+          jsr LoadGrizzardData
           jmp GoMap
 
 LoadFailed:
