@@ -318,7 +318,7 @@ SkipSwitches:
 Leave:
           cmp #ModeGrizzardStats
           jmp GrizzardStatsScreen
-
+          brk
 
 HealthyPF2:
           .byte %00000000
