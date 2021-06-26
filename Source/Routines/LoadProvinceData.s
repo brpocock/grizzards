@@ -10,11 +10,12 @@ LoadProvinceData:   .block
           clc
           adc SaveGameSlot
           jsr i2cTxByte
+
           lda CurrentProvince
           asl a
           asl a
           asl a                 ; × 8
-          adc # $20
+          ora # $20
           jsr i2cTxByte
 
           jsr i2cStopWrite
