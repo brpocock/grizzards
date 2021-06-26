@@ -3,7 +3,7 @@
 
 SaveProvinceData:   .block
 
-          PositionProvinceData:
+PositionProvinceData:
           jsr i2cStartWrite
           
 	lda #>SaveGameSlotPrefix

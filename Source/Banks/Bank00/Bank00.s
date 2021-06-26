@@ -35,6 +35,7 @@ DoLocal:
           .include "AtariVox-EEPROM-Driver.s"
           .include "CheckSaveSlot.s"
           .include "LoadSaveSlot.s"
+          .include "SaveProvinceData.s"
           .include "EraseSlotSignature.s"
           .include "SetGrizzardAddress.s"
           .include "SaveGrizzard.s"

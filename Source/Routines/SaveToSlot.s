@@ -57,33 +57,10 @@ WritePadAfterGlobal:
 
           jsr i2cStopWrite
 
-PositionProvinceData:
-          jsr i2cStartWrite
-          
-	lda #>SaveGameSlotPrefix
-	clc
-	adc SaveGameSlot
-	jsr i2cTxByte
+WriteCurrentProvince:
+          jsr SaveProvinceData
 
-          lda CurrentProvince
-          asl a
-          asl a
-          asl a                 ; ×8
-          ora # $20
-          jsr i2cTxByte
-
-WriteProvinceData:
-          ldx # 0
--
-          lda ProvinceFlags, x
-          lda # $ed             ; FIXME for testing only
-          jsr i2cTxByte
-          inx
-          cpx # 8             ; 4 provinces × 8 bytes of flags each
-          bne -
-
-          jsr i2cStopWrite
-
+WriteCurrentGrizzard:
           jmp SaveGrizzard      ; tail call
 
 
