@@ -163,7 +163,7 @@ HTDdone:
           sta Pointer
           jsr ShowPointerText
 
-          ldx # KernelLines - 107
+          ldx # KernelLines - 138
 -
           stx WSYNC
           dex
@@ -193,8 +193,10 @@ SwitchesDone:
           bne +
           lda #ModeMap
           sta GameMode
+          jsr Overscan
           rts
-+          
++
+          jsr Overscan
           jmp Loop
 
 ShowPointerText:
