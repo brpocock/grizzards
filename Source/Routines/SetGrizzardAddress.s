@@ -23,6 +23,8 @@ SetGrizzardAddress: .block
           bmi InBlock1
           cmp # 24
           bmi InBlock2
+
+          ;; must be in Block 3
           sec
           sbc # 24
           tax
@@ -41,6 +43,8 @@ InBlock2:
           lda # 2
           ;; fall through
 ReadyToSendAddress:
+          ;; .A = block (1, 2, 3)
+          ;; .X = index (to be × 5) within that block
           asl a
           asl a
           asl a
