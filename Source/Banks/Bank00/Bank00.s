@@ -38,6 +38,8 @@ DoLocal:
           .include "EraseSlotSignature.s"
           .include "SetGrizzardAddress.s"
           .include "PlaySpeech.s"
+          .include "PreambleAttracts.s"
+          .include "AttractCopyright.s"
 
 Quit:
           ldy #ServiceColdStart

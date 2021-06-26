@@ -1,6 +1,6 @@
 ;;; Grizzards Source/Routines/Attract.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
-Attract:	.block
+Attract:
 
           ;;
           ;; Title screen and attract sequence
@@ -63,91 +63,7 @@ Loop:
           
 StoryMode:
           ;; TODO lots more needs to happen here
-          brk
-          
-          .if PUBLISHER
-PublisherPresentsMode:
-          .SetUpFortyEight PublisherCredit
-          lda #CTRLPFREF
-          sta CTRLPF
-          .ldacolu COLGRAY, $f
-          sta COLUPF
-          lda #$c0
-          sta PF2
-          ldy # PublisherCredit.Height
-          .ldacolu COLBLUE, $f
-          .else
-BRPPreambleMode:
-          .SetUpFortyEight BRPCredit
-          ldy # BRPCredit.Height
-          .ldacolu COLINDIGO, $f
-          .fi
-
-          sta COLUP0
-          sta COLUP1
-
-          lda ClockSeconds
-          cmp AlarmSeconds
-          bmi StillPresenting
-
-          lda ClockMinutes
-          cmp AlarmMinutes
-          bmi StillPresenting
-
-          lda # 30
-          jsr SetNextAlarm
-          lda #ModeAttractTitle
-          sta GameMode
-          
-StillPresenting:
-          jmp SingleGraphicAttract
-
-CopyrightMode:
-
-          ldx # 29
-SkipAboveCopyright:
-          stx WSYNC
-          dex
-          bne SkipAboveCopyright
-
-          .ldacolu COLTURQUOISE | $e
-          sta COLUP0
-          sta COLUP1
-
-          .LoadString " COPY "
-          jsr ShowText
-          .LoadString "RIGHT "
-          jsr ShowText
-          .LoadString " 2021 "
-          jsr ShowText
-          .LoadString "BRUCE-"
-          jsr ShowText
-          .LoadString "ROBERT"
-          jsr ShowText
-          .LoadString "POCOCK"
-          jsr ShowText
-
-          ldx # KernelLines - 142
-SkipBelowCopyright:
-          stx WSYNC
-          dex
-          bne SkipBelowCopyright
-
-          lda ClockSeconds
-          cmp AlarmSeconds
-          bmi StillCopyright
-
-          lda ClockMinutes
-          cmp AlarmMinutes
-          bmi StillCopyright
-
-          lda # 30
-          jsr SetNextAlarm
-          lda #ModeAttractTitle
-          sta GameMode
-
-StillCopyright:               
-          jmp DoneAttractKernel
+          brk          
 
 TitleMode:
           lda AttractHasSpoken
@@ -211,7 +127,7 @@ DrawTitle3:
 
 PrepareFillAttractBottom:
 
-          ldx # KernelLines - Title1.Height - Title2.Height - 57
+          ldx # KernelLines - Title1.Height - Title2.Height - 27
 FillAttractBottom:
           sta WSYNC
           dex
@@ -229,26 +145,7 @@ FillAttractBottom:
           jsr SetNextAlarm
           lda #ModeAttractCopyright
           sta GameMode
-          jmp DoneAttractKernel
-
-SingleGraphicAttract:
-
-          ldx # 70
-SkipAboveGraphic:
-          stx WSYNC
-          dex
-          bne SkipAboveGraphic
-
-          sty LineCounter
-          jsr ShowPicture
-
-          ldx # KernelLines - 100
-SkipBelowGraphic:
-          stx WSYNC
-          dex
-          bne SkipBelowGraphic
-
-          ;; fall through
+          ;; jmp DoneAttractKernel ; fall through
 
 DoneAttractKernel:
 
@@ -269,6 +166,7 @@ LeaveAttract:
           lda #ModeSelectSlot
           sta GameMode
           jmp SelectSlot
+ 
 
 ShowText:
           ldy #ServiceDecodeAndShowText
@@ -291,4 +189,3 @@ SetNextAlarm:
           sta AlarmSeconds
           rts
                     
-          .bend
