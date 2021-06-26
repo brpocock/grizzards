@@ -167,6 +167,7 @@ AddWanderingSprite:
 SpritesDone:
 
           sta CXCLR
+          jsr Overscan
           jmp Loop
 
 BadMap:
@@ -231,19 +232,12 @@ NoSprites:
           ;; TODO NoSprites
 
 P1Ready:
-
-          stx WSYNC
-
           lda PlayerY
           sta P0LineCounter
-
-          stx WSYNC
 
           lda #0
           sta PF1
           sta PF2
-
-          sta WSYNC
 
           lda ClockFrame
           and #$10
@@ -254,7 +248,6 @@ P1Ready:
           lda #>PlayerWalk1
           sta pp0h
 
-          sta WSYNC
           ldx CurrentMap
 
           cpx MapCount
@@ -267,7 +260,7 @@ P1Ready:
           ldy #1
           sty RunLength
 
-          ldy #75               ; 75 × 2 lines = 150 lines total
+          ldy #72               ; 72 × 2 lines = 144 lines total
           sty LineCounter
 
           ldx CurrentMap
@@ -303,6 +296,8 @@ DoneBall:
           stx WSYNC
           sta HMOVE
 
+          stx WSYNC             ; needed to get 262 lines precisely
+          
           lda MapBG, x
           sta COLUBK
 DrawMap:
@@ -314,6 +309,7 @@ DrawMap:
           sta RunLength
           iny
           lda (pp5l), y
+          sta WSYNC
           sta PF0
           iny
           lda (pp5l), y
@@ -356,7 +352,6 @@ NoP1:
           sta GRP1
 P1Done:
           sta WSYNC
-
           dec LineCounter
           bne DrawMap
 
@@ -425,7 +420,6 @@ GoScreen:
           sta DeltaX
           sta DeltaY
 
-          jsr Overscan
           jmp NewRoom
 
 CheckSwitches:

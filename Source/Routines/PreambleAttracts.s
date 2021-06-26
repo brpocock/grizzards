@@ -49,7 +49,7 @@ SkipAboveGraphic:
           sty LineCounter
           jsr ShowPicture
 
-          ldx # KernelLines - 95
+          ldx # KernelLines - 125
 SkipBelowGraphic:
           stx WSYNC
           dex

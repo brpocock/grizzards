@@ -79,8 +79,6 @@ ScoreDone:
 
           sta HMCLR
 
-          sta WSYNC
-
           lda PlayerX
           sec
           sta WSYNC

@@ -17,7 +17,6 @@ Prepare48pxMobBlob: .block
 
           ;; Sets P0₀ position to 55px, P1₀ to 63px
 
-          .option allow_branch_across_page = false
           lda #0
           sta REFP0
           sta REFP1
@@ -26,6 +25,11 @@ Prepare48pxMobBlob: .block
           lda #NUSIZ3CopiesClose
           sta NUSIZ0
           sta NUSIZ1
+          lda #1
+          sta VDELP0
+          sta VDELP1
+
+          .option allow_branch_across_page = false
 
           sta WSYNC           ; Critical timing from here …
           sta HMCLR 
@@ -40,10 +44,6 @@ Prepare48pxMobBlob: .block
           sta HMOVE		; Cycle 74 HMOVE
 
           .option allow_branch_across_page = true
-
-          lda #1
-          sta VDELP0
-          sta VDELP1
 
           rts
 

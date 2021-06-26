@@ -116,19 +116,11 @@ ShowSlot:
           ldx #TextBank
           jsr FarCall
 
-          ldx #25
-FillBottom:
-          dex
-          sta WSYNC
-          bne FillBottom
-
-          .if KernelLines > 192
-          ldx #KernelLines - 192
+          ldx #KernelLines - 172
 FillScreen:
           sta WSYNC
           dex
           bne FillScreen
-          .fi
 
           jsr Overscan
 

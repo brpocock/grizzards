@@ -156,6 +156,8 @@ DoneAttractKernel:
           and #SWCHBSelect
           beq LeaveAttract
 SkipSwitches:
+
+          jsr Overscan
           jmp Loop
 
 LeaveAttract:
@@ -166,7 +168,6 @@ LeaveAttract:
           lda #ModeSelectSlot
           sta GameMode
           jmp SelectSlot
- 
 
 ShowText:
           ldy #ServiceDecodeAndShowText
@@ -188,4 +189,4 @@ SetNextAlarm:
 +
           sta AlarmSeconds
           rts
-                    
+
