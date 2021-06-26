@@ -3,6 +3,8 @@
 SetGrizzardAddress: .block
           ;; Call with Grizzard ID in .A
 
+          tax    ; stash it for a second
+          
           ;; Grizzard data is weirder storage layout.
           ;; We save 12 grizzards at 5 bytes each in each of
           ;; the 3 blocks following the master block. That
@@ -13,9 +15,10 @@ SetGrizzardAddress: .block
           adc SaveGameSlot
           sta Pointer + 1
 
+          txa                   ; get back Grizzard ID
+
           ;; First, figure out which block the current Grizzard
           ;; can be found in.
-          lda CurrentGrizzard
           cmp # 12
           bmi InBlock1
           cmp # 24
