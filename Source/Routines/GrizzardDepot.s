@@ -163,7 +163,7 @@ HTDdone:
           sta Pointer
           jsr ShowPointerText
 
-          ldx # KernelLines - 80
+          ldx # KernelLines - 107
 -
           stx WSYNC
           dex
