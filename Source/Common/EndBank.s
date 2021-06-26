@@ -46,7 +46,6 @@ GoColdStart:
           ldy # ServiceColdStart
           BankJump ColdStart, ColdStartBank
 
-
 ;;; Go to the current map memory bank, and jump to DoMap.
 GoMap:
           lda CurrentProvince

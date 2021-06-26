@@ -25,9 +25,11 @@ DoLocal:
           .include "MapBottomService.s"
           .include "DrawMonsterGroup.s"
           .include "WinnerFireworks.s"
+          .include "NewGrizzard.s"
           .include "Random.s"
           
           .include "MonsterArt.s"
           .include "CombatSpriteTables.s"
+          .include "GrizzardStartingStats.s"
 
 	.include "EndBank.s"

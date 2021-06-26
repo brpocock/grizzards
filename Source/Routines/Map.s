@@ -455,11 +455,21 @@ Leave:
           beq GoCombat
           cmp #ModeGrizzardDepot
           beq EnterGrizzardDepot
+          cmp #ModeNewGrizzard
+          beq GetNewGrizzard
           brk
 
 EnterGrizzardDepot:
           ldy #ServiceGrizzardDepot
           ldx #TextBank
+          jsr FarCall
+          jmp DoMap
+
+GetNewGrizzard:
+          ldx SpriteFlicker
+          lda SpriteParam, x
+          ldy #ServiceNewGrizzard
+          ldx #MapServicesBank
           jsr FarCall
           jmp DoMap
           

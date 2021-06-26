@@ -120,11 +120,14 @@
           ServiceBottomOfScreen = $09
           ServiceFireworks = $0a
           ServiceDrawMonsterGroup = $0b
+          ServiceNewGrizzard = $0c
 
 ;;; Also the cold start / save game bank
 
           ServiceColdStart = $00
           ServiceSaveToSlot = $10
+          ServiceSaveGrizzard = $11
+          ServicePeekGrizzard = $12
 
 ;;; Maximum number of Grizzards allowed
 ;;; The save/load routines should handle up to 36
