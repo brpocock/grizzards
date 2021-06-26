@@ -92,5 +92,3 @@ SetUpOtherCombatVars:
           jmp CombatMainScreen
 
           .bend
-
-          

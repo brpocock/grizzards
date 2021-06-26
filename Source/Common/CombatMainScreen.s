@@ -344,4 +344,3 @@ HealthyPF1:
 BitMask:
           ;; also used by ExecuteCombatMove
           .byte 1, 2, 4, 8, $10, $20, $40, $80
-          

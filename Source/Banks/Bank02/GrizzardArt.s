@@ -44,4 +44,3 @@ GrizzardColor:
           .byte COLINDIGO | $f
           .byte COLINDIGO | $f
           .byte COLINDIGO | $f
-

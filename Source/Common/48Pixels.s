@@ -73,4 +73,3 @@ LoadString:	.macro String
 	.endm	
 
 	.enc "none"
-	

@@ -351,4 +351,3 @@ Monsters:
 	.byte 2
 	.byte COLBLUE | $8
 	.byte $00, $03
-          

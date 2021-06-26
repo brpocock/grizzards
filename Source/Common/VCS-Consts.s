@@ -251,4 +251,3 @@ ldacolu .macro co, lu=$7
 
         HBlankCycles = 40
         VisibleLineCycles = 36
-          

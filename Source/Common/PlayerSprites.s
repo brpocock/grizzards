@@ -19,4 +19,3 @@ PlayerWalk2:
           .byte %00111100
           .byte %00011000
           .byte %00011000
-

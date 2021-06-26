@@ -130,4 +130,3 @@
 ;;; The save/load routines should handle up to 36
 
           NumGrizzards = 30
-

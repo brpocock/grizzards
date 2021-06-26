@@ -38,4 +38,3 @@ ErrorSound:
           .byte $81, $20, 10
           .byte $81, $0f, 10
           .byte $81, $a0, 10
-

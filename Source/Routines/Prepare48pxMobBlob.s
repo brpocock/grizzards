@@ -48,4 +48,3 @@ Prepare48pxMobBlob: .block
           rts
 
           .bend
-
