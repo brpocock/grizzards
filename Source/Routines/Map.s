@@ -156,7 +156,7 @@ AddWanderingSprite:
           iny
           lda (Pointer), y         ; .y = .x × 6 + 5
           sta SpriteParam, x
-          lda # 1
+          lda # SpriteMoveIdle
           sta SpriteMotion, x
           inc SpriteCount
           iny                   ; .y = .x⁺¹ × 6   (start of next entry)

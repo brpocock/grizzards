@@ -50,10 +50,32 @@ SpriteXMove:
           
 SpriteMoveNext:
           ;; FIXME handle bumps and screen margins
-          ;; TODO possibly change movement direction randomly
+
+          ;; Possibly change movement randomly
+          jsr Random
+          and #$07
+          bne SpriteMoveDone
+
+          jsr Random
+          and #$01
+          beq RandomlyMove
+
+          lda SpriteMoveIdle
+          sta SpriteMotion, x
+          jmp SpriteMoveDone
+
+RandomlyMove:       
+          
+          jsr Random
+          and #$0e
+          tay
+          lda BitMask, y
+          sta SpriteMotion, x
+          ;; fall through
           
 SpriteMoveDone:
           dex
+          cpx #$ff              ; wait for it to wrap around below 0
           bne MoveSprites
 
           lda BumpCooldown
@@ -251,3 +273,6 @@ DoneBump:
           rts
           
           .bend
+
+BitMask:
+          .byte $01, $02, $04, $08, $10, $20, $40, $80
