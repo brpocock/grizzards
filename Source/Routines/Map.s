@@ -203,7 +203,7 @@ Loop:
           sta pp1l
           lda ClockFrame
           and #$10
-          bne AnimationFrameReady
+          bne AnimationFrame0
 
           lda pp1l
           clc
@@ -212,6 +212,11 @@ Loop:
           inc pp1h
 +
           sta pp1l
+
+          jmp AnimationFrameReady
+
+AnimationFrame0:
+          sta WSYNC             ; stablize line count
 
 AnimationFrameReady:
           ldx SpriteFlicker
