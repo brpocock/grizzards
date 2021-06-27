@@ -67,9 +67,8 @@ SpriteMoveNext:
 RandomlyMove:       
           
           jsr Random
-          and #$0e
-          tay
-          lda BitMask, y
+          and #$f0              ; random movement may be up+down or something stupid like that
+          beq RandomlyMove
           sta SpriteMotion, x
           ;; fall through
           
