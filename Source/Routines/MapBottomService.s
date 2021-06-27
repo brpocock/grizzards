@@ -18,7 +18,49 @@ FillScreen:
           bne FillScreen
 
 MovementLogic:
+          lda ClockFrame
+          and # $04
+          beq DoSpriteMotion
 
+CheckSpriteCollision:
+          lda CXP1FB
+          and #$c0              ; hit playfield or ball
+          beq MovementLogicDone
+
+          ;; Who did we just draw?
+          ldx SpriteFlicker
+          lda SpriteMotion, x
+          and #SpriteMoveLeft
+          bne SpriteCxRight
+          lda SpriteMotion, x
+          and # SpriteMoveUp | SpriteMoveDown
+          ora #SpriteMoveRight
+          sta SpriteMotion, x
+          jmp SpriteCxUpDown
+
+SpriteCxRight:
+          lda SpriteMotion, x
+          and # SpriteMoveUp | SpriteMoveDown
+          ora #SpriteMoveLeft
+          sta SpriteMotion, x
+SpriteCxUpDown:
+          lda SpriteMotion, x
+          and #SpriteMoveUp
+          bne SpriteCxDown
+          lda SpriteMotion, x
+          and # SpriteMoveLeft | SpriteMoveRight
+          ora #SpriteMoveDown
+          sta SpriteMotion, x
+          jmp MovementLogicDone
+
+SpriteCxDown:
+          lda SpriteMotion, x
+          and # SpriteMoveLeft | SpriteMoveRight
+          ora #SpriteMoveDown
+          sta SpriteMotion, x
+          jmp MovementLogicDone
+
+DoSpriteMotion:
           ldx SpriteCount
 MoveSprites:
           lda SpriteMotion, x
@@ -49,8 +91,6 @@ SpriteXMove:
 +
           
 SpriteMoveNext:
-          ;; FIXME handle bumps and screen margins
-
           ;; Possibly change movement randomly
           jsr Random
           and #$07
@@ -77,6 +117,7 @@ SpriteMoveDone:
           cpx #$ff              ; wait for it to wrap around below 0
           bne MoveSprites
 
+MovementLogicDone:
           lda BumpCooldown
           beq HandleStick
           dec BumpCooldown
