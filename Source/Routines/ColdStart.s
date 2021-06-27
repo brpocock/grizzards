@@ -40,7 +40,7 @@ ColdStart:
           ;; A 7800 (or some clones) don't
           ;; We  use this  for deciding  how to  handle the  Color/B&W /
 	;; Pause switch
-          ;; (Stella should emulate that soon as well)
+          ;; (Stella emulates that as well)
           cpx #$fd
           beq Cx2600Genuine
           lda # 0
