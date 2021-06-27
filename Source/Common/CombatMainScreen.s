@@ -304,6 +304,12 @@ NoSelect:
           lda DebounceSWCHB
           and #SWCHBColor
           eor #SWCHBColor
+          lda DebounceSWCHB
+          and #SWCHBGenuine2600
+          bne +
+          lda Pause
+          eor #$ff
++
           sta Pause
           .fi
 
