@@ -118,14 +118,6 @@ GrizzardAcuity:
 MovesKnown:
           .byte ?
           
-          SwapStart = *
-
-          .if SwapStart > $b8
-          .error "SwapStart must be before $b8, found to be ", SwapStart
-          .fi
-
-          SwapGrizzardBlock = SwapStart + $40
-          
 ;;; An alarm can be set for various in-game special events.
 ;;; This happens in real time.
 AlarmMinutes:
