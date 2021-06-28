@@ -2,7 +2,7 @@
 
 EndBank:
 
-          BankEndAddress = $ff38      ; keep this as high as possible
+          BankEndAddress = $ff33      ; keep this as high as possible
           ;; The magic number  above: you can just raise it  to, say,
           ;; $ff70,  and then  the assembler  will bitch  at you  about its
           ;; being too high, and tell you  what to lower it to. Careful,
@@ -48,6 +48,8 @@ GoColdStart:
 
 ;;; Go to the current map memory bank, and jump to DoMap.
 GoMap:
+          ldx #$ff              ; smash the stack
+          txs
           lda CurrentProvince
           and #$02
           beq +
@@ -59,6 +61,8 @@ GoMap:
 
 ;;; Go to the current combat memory bank, and jump to DoCombat.
 GoCombat:
+          ldx #$ff              ; smash the stack
+          txs
           lda CurrentCombatEncounter
           and #$80
           beq +
