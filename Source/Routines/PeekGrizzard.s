@@ -3,10 +3,11 @@
 
 PeekGrizzard:       .block
 
-          ;; Call with Grizzard index in .A
+          ;; Call with Grizzard index in Temp
           ;; Return with Carry Set if found
           ;; Return with Carry Clear it not
 
+          lda Temp
           jsr SetGrizzardAddress ; takes input in .A as well
           jsr i2cStopWrite
           jsr i2cStartRead

@@ -19,6 +19,8 @@ DoLocal:
           beq WinnerFireworks
           cpy #ServiceDrawMonsterGroup
           beq DrawMonsterGroup
+          cpy #ServiceNewGrizzard
+          beq NewGrizzard
           brk
 
           .include "MapTopService.s"

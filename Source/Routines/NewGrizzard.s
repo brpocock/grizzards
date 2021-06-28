@@ -2,9 +2,9 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
 NewGrizzard:        .block
-          ;; Call with new Grizzard ID in .A
-
-          pha                   ; save for later also
+          ;; Call with new Grizzard in Temp
+          lda Temp
+          pha
 
           ldy #ServicePeekGrizzard
           ldx #SaveKeyBank

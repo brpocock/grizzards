@@ -473,6 +473,7 @@ EnterGrizzardDepot:
 GetNewGrizzard:
           ldx SpriteFlicker
           lda SpriteParam, x
+          sta Temp
           ldy #ServiceNewGrizzard
           ldx #MapServicesBank
           jsr FarCall
