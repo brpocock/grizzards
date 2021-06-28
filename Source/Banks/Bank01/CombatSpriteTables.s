@@ -13,11 +13,11 @@ SpritePresence:
           .byte NUSIZ3CopiesMed  ; 1 1 1
 
 SpritePosition:
-          .byte 0               ; 0 0 0
-          .byte $70             ; 0 0 1
-          .byte $50             ; 0 1 0
-          .byte $50             ; 0 1 1
-          .byte $30             ; 1 0 0
-          .byte $30             ; 1 0 1
-          .byte $30             ; 1 1 0
-          .byte $30             ; 1 1 1
+          .byte $02             ; 0 0 0
+          .byte $05             ; 0 0 1
+          .byte $04             ; 0 1 0
+          .byte $04             ; 0 1 1
+          .byte $03             ; 1 0 0
+          .byte $03             ; 1 0 1
+          .byte $03             ; 1 1 0
+          .byte $03             ; 1 1 1

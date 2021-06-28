@@ -36,7 +36,7 @@ PrepareToDrawMonsters:
           dex
           lda MonsterHP, x
           beq +
-          .ldacolu COLYELLOW, $f
+          .ldacolu COLGRAY, $f
           jmp SetCursorColor
 +
           .ldacolu COLGRAY, 0
@@ -51,20 +51,17 @@ PrepareCursor2:
 
 PositionTopCursor:
           lda SpritePosition, x
+          and #$0f
+          tay
           sta HMCLR
 
-          sec
           sta WSYNC
 TopCursorPos:
-          sbc #15
-          bcs TopCursorPos
+          dey
+          bne TopCursorPos
           sta RESP1
 
-          eor #$07
-          asl a
-          asl a
-          asl a
-          asl a
+          lda SpritePosition, x
           sta HMP1
 
           lda #$ff
@@ -86,23 +83,24 @@ PrepareTopMonsters:
 +
           tax
           beq NoTopMonsters
+          sta WSYNC
           lda SpritePresence, x
           sta NUSIZ0
+          nop
+          nop
+          nop
           lda SpritePosition, x
+          and #$0f
+          tay
 
 PositionTopMonsters:
-          sec
-          sta WSYNC
+          sta HMCLR
 Monster1Pos:
-          sbc #15
-          bcs Monster1Pos
+          dey
+          bne Monster1Pos
           sta RESP0
 
-          eor #$07
-          asl a
-          asl a
-          asl a
-          asl a
+          lda SpritePosition, x
           sta HMP0
 
           sta WSYNC
@@ -145,22 +143,19 @@ PrepareBottomCursor:
           sbc #4
           tax
 
-          lda SpritePosition,x
+          lda SpritePosition, x
 PostionBottomCursor:
+          and #$0f
+          tay
           sta HMCLR
 
-          sec
           sta WSYNC
 BottomCursorPos:
-          sbc #15
-          bcs BottomCursorPos
+          dey
+          bne BottomCursorPos
           sta RESP1
 
-          eor #$07
-          asl a
-          asl a
-          asl a
-          asl a
+          lda SpritePosition, x
           sta HMP1
 
           sta WSYNC
@@ -186,26 +181,24 @@ PrepareBottomMonsters:
 +
           tax
           beq NoBottomMonsters
+          sta WSYNC
           lda SpritePresence, x
           sta NUSIZ0
+          nop
+          nop
+          nop
           lda SpritePosition, x
+          and #$0f
+          tay
           
 PositionBottomMonsters:
-          sta WSYNC
           sta HMCLR
-
-          sec
-          sta WSYNC
 Monster2Pos:
-          sbc # 15
-          bcs Monster2Pos
+          dey
+          bne Monster2Pos
           sta RESP0
 
-          eor #$07
-          asl a
-          asl a
-          asl a
-          asl a
+          lda SpritePosition, x
           sta HMP0
 
           sta WSYNC
