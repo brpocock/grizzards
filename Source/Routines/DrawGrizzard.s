@@ -4,6 +4,7 @@ DrawGrizzard:
           lda #0
           sta VDELP0
           sta VDELP1
+          lda #NUSIZDouble
           sta NUSIZ0
           sta NUSIZ1
 
@@ -14,8 +15,9 @@ DrawGrizzard:
 
           sta WSYNC
           sta HMCLR
-          .SleepX 38
+          .SleepX 36
           sta RESP0
+          nop
           sta RESP1
 
           lda # >GrizzardImages
