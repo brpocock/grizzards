@@ -300,11 +300,6 @@ MonsterHP:
 EnemyStatusFX:
           .byte ?, ?, ?, ?, ?, ?
 
-;;; Player's Grizzard's energy as displayed
-;;; (animates towards the direction of CurrentHP)
-DisplayedHP:
-          .byte ?
-
 ;;; Which item on the radial menu did the player select?
 MoveSelection:
           .byte ?
