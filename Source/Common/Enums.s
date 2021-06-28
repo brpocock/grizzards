@@ -121,6 +121,7 @@
           ServiceFireworks = $0a
           ServiceDrawMonsterGroup = $0b
           ServiceNewGrizzard = $0c
+          ServiceDeath = $0d
 
 ;;; Also the cold start / save game bank
 

@@ -21,6 +21,8 @@ DoLocal:
           beq DrawMonsterGroup
           cpy #ServiceNewGrizzard
           beq NewGrizzard
+          cpy #ServiceDeath
+          beq Death
           brk
 
           .include "MapTopService.s"
