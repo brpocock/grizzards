@@ -319,6 +319,14 @@ MoveTarget:
 MoveAnnouncement:
           .byte ?
 
+;;; The move's outcome
+MoveHitMiss:
+          .byte ?
+
+;;; The move's new status effects
+MoveStatusFX:
+          .byte ?
+
           CombatEnd = *
 
 ;;; 
