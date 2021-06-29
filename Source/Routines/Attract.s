@@ -77,7 +77,10 @@ TitleMode:
           cmp AlarmMinutes
           bmi DoneTitleSpeech
 
+          lda # 0
+          sta CurrentUtterance + 1
           lda # Speech_TitleIntro
+          sta CurrentUtterance
           sta AttractHasSpoken
 
 DoneTitleSpeech:

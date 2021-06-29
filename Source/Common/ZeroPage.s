@@ -184,6 +184,7 @@ pp5h:	.byte ?
 ;;; SpeakJet
 
 ;;; Pointer to the next phoneme to be spoken, or $0000
+;;; When commanding new speech, set to utterance ID with $00 high byte
 CurrentUtterance:
           .word ?
 
