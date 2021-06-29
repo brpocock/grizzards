@@ -55,7 +55,7 @@ ExecuteMonsterMove:
           lda #SoundMiss
           sta NextSound
 
-          jmp NextTurn
+          rts
 
 MonsterHits:
           lda #SoundHit
@@ -78,7 +78,7 @@ MonsterHits:
 +
           sta CurrentHP
 
-          jmp NextTurn
+          rts
 
 MonsterBoostHP:
           eor #$ff
@@ -137,7 +137,7 @@ ExecutePlayerMove:
           lda #SoundMiss
           sta NextSound
 
-          jmp CheckForWin
+          rts
 
 PlayerHits:
           lda #SoundHit
@@ -226,7 +226,8 @@ PlayerMoveDone:
           and #MoveEffectsToSelf
           ora StatusFX
           sta StatusFX
-        
+
+          rts
 
           .bend
 
