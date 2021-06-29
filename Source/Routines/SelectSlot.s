@@ -5,6 +5,12 @@ SelectSlot:        .block
           ;; Select a save game slot
           ;;
 
+          lda #Phrase_SelectSlot
+          sta CurrentUtterance
+          lda # 0
+          sta CurrentUtterance + 1
+          
+Loop:     
           jsr VSync
           jsr VBlank
 
@@ -157,7 +163,7 @@ SkipSwitches:
 
           lda #ModeEraseSlot
           sta GameMode
-          jmp SelectSlot
+          jmp Loop
 
 EliminationMode:
           ;; Release button to exit Elimination Mode
@@ -169,7 +175,7 @@ EliminationMode:
           lda SWCHA
           and #P0StickUp
           beq EraseSlotNow
-          jmp SelectSlot
+          jmp Loop
 
 EraseSlotNow:
           lda #SoundDeleted
@@ -177,13 +183,13 @@ EraseSlotNow:
 
           lda #ModeErasing
           sta GameMode
-          jmp SelectSlot
+          jmp Loop
 
 ThisIsNotAStickUp:
           lda #ModeSelectSlot
           sta GameMode
 
-          jmp SelectSlot
+          jmp Loop
 
 SwitchSelectSlot:
           lda #SoundChirp
@@ -196,7 +202,7 @@ SwitchSelectSlot:
           lda #0
           sta SaveGameSlot
 GoBack:
-          jmp SelectSlot
+          jmp Loop
 
 SlotOK:
 
