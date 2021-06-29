@@ -31,7 +31,7 @@ DoLocal:
           .include "WinnerFireworks.s"
           .include "NewGrizzard.s"
           .include "Random.s"
-          
+          .include "Death.s"
           .include "MonsterArt.s"
           .include "CombatSpriteTables.s"
           .include "GrizzardStartingStats.s"
