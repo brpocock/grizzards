@@ -323,6 +323,10 @@ MoveAnnouncement:
 MoveHitMiss:
           .byte ?
 
+;;; The move's change in hit points
+MoveHP:
+          .byte ?
+          
 ;;; The move's new status effects
 MoveStatusFX:
           .byte ?
