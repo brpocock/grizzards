@@ -79,7 +79,7 @@ TitleMode:
 
           lda # 0
           sta CurrentUtterance + 1
-          lda # Speech_TitleIntro
+          lda # Phrase_TitleIntro
           sta CurrentUtterance
           sta AttractHasSpoken
 

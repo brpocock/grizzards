@@ -29,6 +29,9 @@ AS2600=64tass ${ASFLAGS} --m6502
 Source/Generated/Common/SpeakJetIDs.s:	$(shell ls -1 Source/Banks/Bank07/*Speech.txt)
 	bin/make-speakjet-enums
 
+Source/Generated/Bank07/SpeakJetIndex.s:	$(shell ls -1 Source/Banks/Bank07/*Speech.txt)
+	bin/make-speakjet-enums
+
 ';
 
 my %rules = ();
@@ -95,6 +98,8 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
 	      push @todo => "Source/Banks/Bank$bank/$dep";
 	      push @todo => "Source/Common/$dep";
 	      push @todo => "Source/Routines/$dep";
+                push @todo => "Source/Generated/Common/$dep";
+                push @todo => "Source/Generated/Banks/Bank$bank/$dep";
 	    }
 	  }
 	  close $text;

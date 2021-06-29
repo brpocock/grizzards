@@ -15,13 +15,12 @@ DoLocal:
 
           .include "SoundEffects.s"
 
-MovesSpeech:        
+          .include "SpeakJetIndex.s"
+          ;; Speech index uses a wildcard on this directory
+          ;; All files must be included or the index will break
           .include "MovesSpeech.s"
-GrizzardsSpeech:    
           .include "GrizzardsSpeech.s"
-CombatSpeech:
           .include "CombatSpeech.s"
-TitleSpeech:
           .include "TitleSpeech.s"
 
           .include "EndBank.s"

@@ -2,9 +2,10 @@
 
 opendir BANK7, "Source/Banks/Bank07" or die;
 
-`mkdir -p Source/Generated/Common/`;
+`mkdir -p Source/Generated/Common/ Source/Generated/Bank07`;
 
 open COMMON, '>', 'Source/Generated/Common/SpeakJetIDs.s' or die;
+open INDEX, '>', 'Source/Generated/Bank07/SpeakJetIndex.s' or die;
 
 print COMMON <<END;
 ;;; Source/Generated/Common/SpeakJetIDs.s
@@ -15,6 +16,14 @@ print COMMON <<END;
 
 END
 
+print INDEX ';;; Source/Generated/Bank07/SpeakJetIndex.s
+;;; generated from all Speech includes files
+;;;
+;;; This matches SpeakJetIDs.s in order but
+;;; maps to actual addresses
+
+SpeechIndex = ($0000';
+
 $n = 1; # because $00 means "no speech"
 
 while (my $dirent = readdir BANK7) {
@@ -24,11 +33,24 @@ while (my $dirent = readdir BANK7) {
   while (my $line = <INFILE>) {
     next unless $line =~ /^\s*([A-Za-z0-9_]+):/;
 
-    printf COMMON "\n\tSpeech_%s := \$%02x", $1, $n++;
+    my $label = $1;
+    printf COMMON "\n\tPhrase_%s := \$%02x", $label, $n++;
+    print INDEX ", Speech_$label";
   };
 };
 
 print COMMON "\n\n;;; End of SpeakJet enums\n";
+print INDEX ")
 
+SpeechIndexH:
+	.byte >SpeechIndex
+SpeechIndexL:
+	.byte <SpeechIndex
+
+	SpeechCount = len(SpeechIndex)
+
+;;; End of SpeakJet index\n";
+
+close INDEX;
 close COMMON;
 closedir BANK7;

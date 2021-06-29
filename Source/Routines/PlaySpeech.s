@@ -9,7 +9,21 @@ PlaySpeech: .block
           SerialReady = $02
 
           lda CurrentUtterance + 1
+          bne ContinueSpeaking
+
+          ldx CurrentUtterance
           beq TheEnd
+
+          ;; New utterance ID is in the "mailbox"
+          ;; Find it in the index.
+          lda SpeechIndexH, x
+          sta CurrentUtterance + 1
+          lda SpeechIndexL, x
+          sta CurrentUtterance
+
+          ;; Fall through to begin this new utterance
+
+ContinueSpeaking:
 
           ;; check for expected buffer overflow
           inc SpeakJetCooldown
