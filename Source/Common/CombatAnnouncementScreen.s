@@ -143,6 +143,7 @@ CombatMoveDone:
 
           lda WhoseTurn
           bne CheckForLoss
+
 CheckForWin:
           ldx #5
 -
