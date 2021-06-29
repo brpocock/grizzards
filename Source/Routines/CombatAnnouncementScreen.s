@@ -53,7 +53,7 @@ SkipSubjectX:
           beq SubjectDone
 
 SkipSubject:
-          ldx # 34
+          ldx # 55
           jmp SkipSubjectX
           
 SubjectDone:
@@ -71,7 +71,7 @@ DrawVerb:
           jmp VerbDone
 
 SkipVerb:
-          ldx # 34
+          ldx # 42
 -
           stx WSYNC
           dex
@@ -84,6 +84,7 @@ VerbDone:
           lda MoveAnnouncement
           cmp # 3
           bmi SkipObject
+
           lda MoveTarget
           cmp #$ff
           beq SkipObject
@@ -100,22 +101,76 @@ PlayerObject:
           ldy #ServiceShowGrizzardName
           ldx #TextBank
           jsr FarCall
-          ldx # 18
-SkipObjectX:       
+          ldx # 32
+SkipObjectX:
           stx WSYNC
           dex
           bne SkipObjectX
           beq ObjectDone
 
 SkipObject:
-          ldx # 34
+          ldx # 60
           jmp SkipObjectX
           
 ObjectDone:
 
 ;;; Done printing the main text
           
-          ldx # KernelLines - 128
+
+          lda MoveAnnouncement
+          cmp # 4
+          bmi SkipHitPoints
+
+          lda MoveHitMiss
+          beq DrawHitPoints
+
+          lda # 17              ; 'H'
+          sta StringBuffer + 0
+          lda # 25              ; 'P'
+          sta StringBuffer + 1
+          lda # 40              ; blank
+          sta StringBuffer + 2
+          ldx # 39              ; '-'
+          lda MoveHP
+          bpl DrawMinusHP
+
+DrawIncreasedHP:
+          ldx # 40              ; blank
+DrawMinusHP:
+          stx StringBuffer + 3
+
+DrawHitPoints:      
+          and #$7f
+          sta Temp
+          ldy #ServiceAppendDecimalAndPrint
+          ldx #TextBank
+          jsr FarCall
+          jmp AfterHitPoints
+
+SkipHitPoints:
+
+          ldx # 35
+-
+          stx WSYNC
+          dex
+          bne -
+
+AfterHitPoints:
+          lda MoveAnnouncement
+          cmp # 5
+          bmi SkipStatusFX
+
+SkipStatusFX:
+
+          ldx # 35
+-
+          stx WSYNC
+          dex
+          bne -
+
+AfterStatusFX:
+
+          ldx # KernelLines - 190
 FillScreen:
           stx WSYNC
           dex
@@ -128,13 +183,12 @@ FillScreen:
           lda ClockMinutes
           cmp AlarmMinutes
           bne AlarmDone
-
           inc MoveAnnouncement
           lda #2
           jsr SetNextAlarm
 
           lda MoveAnnouncement
-          cmp #4
+          cmp #6
           beq CombatMoveDone
 AlarmDone:
           jmp Loop
