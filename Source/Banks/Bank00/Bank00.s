@@ -13,6 +13,7 @@
           .endweak
 
 	.include "StartBank.s"
+          .include "SpeakJetIDs.s"
 
 DoLocal:
           cpy #ServiceColdStart
@@ -41,15 +42,12 @@ DoLocal:
           .include "EraseSlotSignature.s"
           .include "SetGrizzardAddress.s"
           .include "SaveGrizzard.s"
-          .include "PlaySpeech.s"
           .include "PreambleAttracts.s"
           .include "AttractCopyright.s"
 
 Quit:
           ldy #ServiceColdStart
           jmp ColdStart
-
-          .include "TitleSpeech.s"
 
           .align $100
           .include "Title1.s"

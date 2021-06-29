@@ -21,5 +21,7 @@ GrizzardsSpeech:
           .include "GrizzardsSpeech.s"
 CombatSpeech:
           .include "CombatSpeech.s"
+TitleSpeech:
+          .include "TitleSpeech.s"
 
           .include "EndBank.s"

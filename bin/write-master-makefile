@@ -19,12 +19,15 @@ DATE=$(shell date +%d)
 JULIAN=$(shell date +%j)
 BUILD=$(shell date +%y.%j)
 ASFLAGS=--nostart --long-branch --case-sensitive \
-	--ascii -I Source/Common -I Source/Routines \
+	--ascii -I Source/Common -I Source/Routines -I Source/Generated/Common \
 	-D YEARNOW=${YEAR} -D MONTHNOW=${MONTH} \
 	-D DATENOW=${DATE} -D JULIANDATENOW=${JULIAN} \
 	-D BUILD=${BUILD} \
 	-Wall -Wno-shadow -Wno-leading-zeros
 AS2600=64tass ${ASFLAGS} --m6502
+
+Source/Generated/Common/SpeakJetIDs.s:	$(shell ls -1 Source/Banks/Bank07/*Speech.txt)
+	bin/make-speakjet-enums
 
 ';
 
