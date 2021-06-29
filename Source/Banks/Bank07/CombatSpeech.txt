@@ -8,7 +8,7 @@ On:
 on
 
 AndMisses:
-and misses
+but they failed
 
 AndHits:
 and hits
@@ -22,3 +22,20 @@ is destroyed
 StatusFXSleep:
 goes to sleep
 
+StatusFXMuddle:
+is muddled
+
+StatusFXAttack:
+attack
+
+StatusFXDefend:
+defend
+
+StatusFXAcuity:
+acuity
+
+StatusFXRaise:
+is raised
+
+StatusFXLower:
+is lowered
