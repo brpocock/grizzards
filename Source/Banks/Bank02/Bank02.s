@@ -19,12 +19,17 @@ DoLocal:
           beq ShowMove
           cpy #ServiceGrizzardDepot
           beq GrizzardDepot
+          cpy #ServiceAppendDecimalAndPrint
+          beq AppendDecimalAndPrintThunk
           brk
 
 DecodeAndShowText:
           jsr DecodeText
           jmp ShowText
 
+AppendDecimalAndPrintThunk:
+          lda Temp
+          jmp AppendDecimalAndPrint
 
           .include "VSync.s"
           .include "48Pixels.s"

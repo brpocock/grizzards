@@ -113,6 +113,7 @@
           ServiceDrawGrizzard = $05
           ServiceShowMove = $06
           ServiceGrizzardDepot = $07
+          ServiceAppendDecimalAndPrint = $0e
 
 ;;; Map services bank, same
 
