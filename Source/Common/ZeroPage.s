@@ -201,10 +201,6 @@ SaveGameSlot:
 ;;; 
 ;;; Music and Sound FX
 
-;;; In which bank do we find the music currently playing?
-CurrentMusicBank:
-          .byte ?
-
 ;;; Pointer to the next note of music to be played
 CurrentMusic:
           .word ?
