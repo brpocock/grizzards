@@ -32,7 +32,6 @@ PausedOrNot:
           ldy #ServiceDrawMonsterGroup
           ldx #MapServicesBank
           jsr FarCall
-          
 
 DelayAfterMonsters:
           lda # 0

@@ -117,13 +117,14 @@ DrawTopMonsters:
           dey
           bpl -
           sty GRP0
+          sty WSYNC
 
           jmp PrepareBottomCursor
 
 NoTopMonsters:
           lda # 0
           sta GRP0
-          ldy # 14
+          ldy # 18
 -
           sta WSYNC
           dey
@@ -215,12 +216,14 @@ DrawBottomMonsters:
           dey
           bpl -
           sty GRP0
+          sta WSYNC
+          sta WSYNC
           rts
 
 NoBottomMonsters:
           lda # 0
           sta GRP0
-          ldy # 14
+          ldy # 20
 -
           sta WSYNC
           dey
