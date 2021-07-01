@@ -78,9 +78,9 @@ TitleMode:
           bmi DoneTitleSpeech
 
           lda # 0
-          sta CurrentUtterance + 1
+          sta CurrentUtterance + 1 ; command new phrase
           lda # Phrase_TitleIntro
-          sta CurrentUtterance
+          sta CurrentUtterance  ; this is the new phrase
           sta AttractHasSpoken
 
 DoneTitleSpeech:
