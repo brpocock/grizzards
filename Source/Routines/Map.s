@@ -216,9 +216,10 @@ Loop:
           jmp AnimationFrameReady
 
 AnimationFrame0:
-          sta WSYNC             ; stablize line count
 
 AnimationFrameReady:
+          sta WSYNC             ; stablize line count
+
           ldx SpriteFlicker
           lda SpriteIndex, x
           tax
@@ -301,8 +302,6 @@ DoneBall:
           stx WSYNC
           sta HMOVE
 
-          stx WSYNC             ; needed to get 262 lines precisely
-          
           lda MapBG, x
           sta COLUBK
 DrawMap:
