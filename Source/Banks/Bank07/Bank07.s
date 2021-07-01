@@ -9,6 +9,9 @@
           .include "StartBank.s"
 
 DoLocal:
+          jsr PlaySFX
+          jsr PlaySpeech
+          rts
 
           .include "PlaySFX.s"
           .include "PlaySpeech.s"
