@@ -6,12 +6,14 @@
           
           .include "StartBank.s"
           .include "Prepare48pxMobBlob.s"
+          .include "SpeakJetIDs.s"
 
 DoLocal:  
           .include "CombatSetup.s"
           .include "CombatMainScreen.s"
           .include "GrizzardStatsScreen.s"
           .include "CombatAnnouncementScreen.s"
+          .include "CombatOutcomeScreen.s"
           .align $200, $ea      ; filler TODO
           .include "ExecuteCombatMove.s"
           

@@ -5,10 +5,10 @@ SelectSlot:        .block
           ;; Select a save game slot
           ;;
 
-          lda #Phrase_SelectSlot
-          sta CurrentUtterance
-          lda # 0
+          lda # >Phrase_SelectSlot
           sta CurrentUtterance + 1
+          lda # <Phrase_SelectSlot
+          sta CurrentUtterance
           
 Loop:     
           jsr VSync

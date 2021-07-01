@@ -62,6 +62,8 @@ Monsters:
 	.byte COLBLUE | $8
 	.byte $00, $03
 
+;;; 10
+
 	.MiniText "METAL "
 	.MiniText " MOUSE"
 	.byte 8

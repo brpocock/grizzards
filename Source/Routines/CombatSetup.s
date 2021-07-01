@@ -30,6 +30,29 @@ SetUpMonsterPointer:
 +
           sta CurrentMonsterPointer
 
+AnnounceMonsterSpeech:
+          .switch BANK
+          .case 5
+          lda # >Phrase_Monster5_0
+          sta CurrentUtterance + 1
+          lda # <Phrase_Monster5_0
+
+          .case 6
+          lda # >Phrase_Monster6_0
+          sta CurrentUtterance + 1
+          lda # <Phrase_Monster6_0
+
+          .default
+          .error "What bank am I in?"
+          .endswitch
+          ldx CurrentCombatEncounter
+          clc
+          adc EncounterMonster, x
+          bcc +
+          inc CurrentUtterance + 1
++
+          sta CurrentUtterance
+          
 SetUpMonsterHP:     
           ldy # 14              ; offset of ATK & DEF
           lda (CurrentMonsterPointer), y
@@ -88,6 +111,12 @@ SetUpOtherCombatVars:
           ;; so we aren't reacting to map movement
           lda SWCHA
           sta DebounceSWCHA
+
+          ldx # KernelLines
+-
+          stx WSYNC
+          dex
+          bne -
 
           jmp CombatMainScreen
 

@@ -77,10 +77,10 @@ TitleMode:
           cmp AlarmMinutes
           bmi DoneTitleSpeech
 
-          lda # 0
-          sta CurrentUtterance + 1 ; command new phrase
-          lda # Phrase_TitleIntro
-          sta CurrentUtterance  ; this is the new phrase
+          lda # >Phrase_TitleIntro
+          sta CurrentUtterance + 1
+          lda # <Phrase_TitleIntro
+          sta CurrentUtterance
           sta AttractHasSpoken
 
 DoneTitleSpeech:

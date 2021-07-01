@@ -9,19 +9,37 @@ PlaySpeech: .block
           SerialReady = $02
 
           lda CurrentUtterance + 1
-          bne ContinueSpeaking
+          bmi ContinueSpeaking
 
-          ldx CurrentUtterance
+          lda CurrentUtterance
           beq TheEnd
 
           ;; New utterance ID is in the "mailbox"
           ;; Find it in the index.
-          lda SpeechIndexH, x
-          sta CurrentUtterance + 1
-          lda SpeechIndexL, x
+
+          lda CurrentUtterance + 1
+          adc #>SpeechIndexH
+          sta Pointer + 1
+          lda CurrentUtterance
+          adc #<SpeechIndexH
+          sta Pointer
+          lda (Pointer), y
+          sta Temp
+
+          lda CurrentUtterance + 1
+          adc #>SpeechIndexL
+          sta Pointer + 1
+          lda CurrentUtterance
+          adc #<SpeechIndexL
+          sta Pointer
+          lda (Pointer), y
           sta CurrentUtterance
 
-          ;; Fall through to begin this new utterance
+          lda Temp
+          sta CurrentUtterance + 1
+
+          ;; New utterance will start on the next frame
+          jmp TheEnd
 
 ContinueSpeaking:
 

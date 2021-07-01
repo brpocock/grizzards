@@ -1,0 +1,149 @@
+Monster6_0:
+Wicked Slime
+
+Monster6_1:
+Horrid Slime
+
+Monster6_2:
+Vorpal Bunny
+
+Monster6_3:
+Rodent of Unusual Size
+
+Monster6_4:
+Lectro Sheep
+
+Monster6_5:
+Viking Turtle
+
+Monster6_6:
+Crazy Fox
+
+Monster6_7:
+Water Kitty
+
+Monster6_8:
+Flame Dog o
+
+Monster6_9:
+Fuzzy Bear
+
+Monster6_10:
+Metal Mouse
+
+Monster6_11:
+Fire Panda
+
+Monster6_12:
+Leg e Mutant
+
+Monster6_13:
+Sky Mutant
+
+Monster6_14:
+Will O Wisp
+
+Monster6_15:
+Butterfly
+
+Monster6_16:
+Scary Rat
+
+Monster6_17:
+Monster
+
+Monster6_18:
+Monster
+
+Monster6_19:
+Monster
+
+Monster6_20:
+Monster
+
+Monster6_21:
+Monster
+
+Monster6_22:
+Monster
+
+Monster6_23:
+Monster
+
+Monster6_24:
+Monster
+
+Monster6_25:
+Monster
+
+Monster6_26:
+Monster
+
+Monster6_27:
+Monster
+
+Monster6_28:
+Monster
+
+Monster6_29:
+Monster
+
+Monster6_30:
+Monster
+
+Monster6_31:
+Monster
+
+Monster6_32:
+Monster
+
+Monster6_33:
+Monster
+
+Monster6_34:
+Monster
+
+Monster6_35:
+Monster
+
+Monster6_36:
+Monster
+
+Monster6_37:
+Monster
+
+Monster6_38:
+Monster
+
+Monster6_39:
+Monster
+
+Monster6_40:
+Monster
+
+Monster6_41:
+Monster
+
+Monster6_42:
+Monster
+
+Monster6_43:
+Monster
+
+Monster6_44:
+Monster
+
+Monster6_45:
+Monster
+
+Monster6_46:
+Monster
+
+Monster6_47:
+Monster
+
+Monster6_48:
+Monster
+
+Monster6_49:
+Monster

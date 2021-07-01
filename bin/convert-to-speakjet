@@ -81,7 +81,7 @@ my $started = undef;
 
 while (my $line = <INFILE>) {
   chomp $line;
-  if ($line =~ /^([A-Z][A-Za-z0-9]+):/) {
+  if ($line =~ /^([A-Z][A-Za-z0-9_]+):/) {
     if ($started) {
       print OUTFILE "\n\t.byte SpeakJet_EndOfPhrase\n";
     } else {
