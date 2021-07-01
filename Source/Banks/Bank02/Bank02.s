@@ -29,7 +29,7 @@ DecodeAndShowText:
 
 AppendDecimalAndPrintThunk:
           lda Temp
-          jmp AppendDecimalAndPrint
+          jmp BINBCD8
 
           .include "VSync.s"
           .include "48Pixels.s"
