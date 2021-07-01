@@ -25,5 +25,6 @@ DoLocal:
           .include "GrizzardsSpeech.s"
           .include "CombatSpeech.s"
           .include "TitleSpeech.s"
+          .include "NumbersSpeech.s"
 
           .include "EndBank.s"
