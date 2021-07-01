@@ -7,10 +7,88 @@ CombatAnnouncementScreen:     .block
           lda #2
           jsr SetNextAlarm
 
-Loop:     
           jsr VSync
           jsr VBlank
 
+          lda # ( 76 * KernelLines ) / 64 - 1
+          sta TIM64T
+
+          lda WhoseTurn
+          beq SayPlayerSubject
+
+          jsr SayMonster
+
+          lda #>Phrase_Zero
+          sta CurrentUtterance + 1
+          lda #<Phrase_Zero
+          clc
+          adc WhoseTurn
+          bcc +
+          inc CurrentUtterance + 1
++
+	sta CurrentUtterance
+          jsr WaitForSpeech
+
+          jmp SayUsesMove
+
+SayPlayerSubject:
+          jsr SayPlayerGrizzard
+          ;; fall through
+
+SayUsesMove:
+          lda #>Phrase_UsesMove
+          sta CurrentUtterance + 1
+          lda #<Phrase_UsesMove
+          sta CurrentUtterance
+          jsr WaitForSpeech
+
+          lda #>Phrase_Move01
+          sta CurrentUtterance + 1
+          lda #<Phrase_Move01
+          clc
+          adc MoveSelection
+          bcc +
+          inc CurrentUtterance + 1
++
+          sta CurrentUtterance
+          jsr WaitForSpeech
+
+          lda #>Phrase_On
+          sta CurrentUtterance + 1
+          lda #<Phrase_On
+          sta CurrentUtterance
+          jsr WaitForSpeech
+          
+          lda WhoseTurn
+          bne MonsterObject
+
+          jsr SayPlayerGrizzard
+          jmp Loop00
+          
+MonsterObject:
+          jsr SayMonster
+
+          lda MoveTarget
+          beq JumpToLoop00
+          
+          lda #>Phrase_Zero
+          sta CurrentUtterance + 1
+          lda #<Phrase_Zero
+          clc
+          adc MoveTarget
+          bcc +
+          inc CurrentUtterance + 1
++
+	sta CurrentUtterance
+          jsr WaitForSpeech
+          
+JumpToLoop00:
+          jmp Loop00
+
+Loop:     
+          jsr VSync
+          jsr VBlank
+Loop00:
           jsr Prepare48pxMobBlob
           
           .ldacolu COLGREEN, 0
@@ -191,3 +269,53 @@ ObjectAOE:
           dex
           bne -
           rts
+
+          .switch BANK
+          .case 5
+          MonsterPhrase := Phrase_Monster5_0
+          .case 6
+          MonsterPhrase := Phrase_Monster6_0
+          .default
+          .error "What bank am I in?"
+          .endswitch
+
+SayMonster:
+          lda #>MonsterPhrase
+          sta CurrentUtterance + 1
+          lda #<MonsterPhrase
+          ldx CurrentCombatEncounter
+          clc
+          adc EncounterMonster, x
+          bcc +
+          inc CurrentUtterance + 1
++
+          sta CurrentUtterance
+          ;; fall through
+
+WaitForSpeech:
+          
+-
+          sta WSYNC
+          lda TIMINT
+          bpl -
+
+          jsr Overscan
+          jsr VSync
+          jsr VBlank
+          lda # ( 76 * KernelLines ) / 64 - 1
+          sta TIM64T
+
+          rts
+
+SayPlayerGrizzard:
+          lda #>Phrase_Grizzard0
+          sta CurrentUtterance + 1
+          lda #<Phrase_Grizzard0
+          clc
+          adc CurrentGrizzard
+          bcc +
+          inc CurrentUtterance + 1
++
+          sta CurrentUtterance
+
+          jmp WaitForSpeech
