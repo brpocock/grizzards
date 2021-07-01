@@ -9,7 +9,8 @@ PlaySpeech: .block
           SerialReady = $02
 
           lda CurrentUtterance + 1
-          bmi ContinueSpeaking
+          and #$f0
+          bne ContinueSpeaking
 
           lda CurrentUtterance
           beq TheEnd

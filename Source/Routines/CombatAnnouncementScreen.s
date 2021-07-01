@@ -4,14 +4,13 @@ CombatAnnouncementScreen:     .block
 
           lda # 0
           sta MoveAnnouncement
-          lda #2
-          jsr SetNextAlarm
+
+          lda SWCHA
+          and #$02              ; Serial Ready bit
+          beq JumpToLoop00      ; not ready for speech
 
           jsr VSync
           jsr VBlank
-
-          lda # ( 76 * KernelLines ) / 64 - 1
-          sta TIM64T
 
           lda WhoseTurn
           beq SayPlayerSubject
@@ -83,6 +82,9 @@ MonsterObject:
           jsr WaitForSpeech
           
 JumpToLoop00:
+          lda #2
+          jsr SetNextAlarm
+
           jmp Loop00
 
 Loop:     
@@ -293,17 +295,21 @@ SayMonster:
           ;; fall through
 
 WaitForSpeech:
-          
+
+          ldx #KernelLines - 3
 -
-          sta WSYNC
-          lda TIMINT
-          bpl -
+          stx WSYNC
+          dex
+          bne -
 
           jsr Overscan
           jsr VSync
           jsr VBlank
-          lda # ( 76 * KernelLines ) / 64 - 1
-          sta TIM64T
+
+          lda CurrentUtterance
+          bne WaitForSpeech
+          lda CurrentUtterance + 1
+          bne WaitForSpeech
 
           rts
 
