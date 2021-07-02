@@ -176,4 +176,4 @@ sound:    .macro volume, control, frequency, duration, end
           .error "Unsupported frame rate: ", FramesPerSecond
           .endswitch
           .endm
-                    
+

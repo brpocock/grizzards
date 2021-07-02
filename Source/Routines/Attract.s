@@ -21,7 +21,7 @@ ZeroRAM:
 
           sty GameMode
 
-          lda # SoundHappy
+          lda # SoundSweepUp
           sta NextSound
 
           .if PUBLISHER

@@ -2,7 +2,7 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
           ;; Don't forget to update the Enums.s table as well
-          SoundIndex = (Drone, Chirp, Deleted, Happy, Bump, ErrorSound)
+          SoundIndex = (Drone, Chirp, Deleted, Happy, Bump, ErrorSound, SweepUp)
 
           SoundCount = len(SoundIndex)
 
@@ -40,3 +40,12 @@ ErrorSound:
           .sound $8, $1, $20, 10, 0
           .sound $8, $1, $0f, 10, 0
           .sound $8, $1, $20, 10, 1
+
+SweepUp:
+          .sound $8, $1, $0c, 4, 0
+          .sound $8, $1, $0a, 4, 0
+          .sound $8, $1, $08, 4, 0
+          .sound $8, $1, $06, 4, 0
+          .sound $8, $1, $04, 4, 0
+          .sound $8, $1, $02, 4, 1
+

@@ -168,6 +168,8 @@ CheckStick:
           sta DebounceSWCHA
           and #P0StickUp
           bne DoneStickUp
+          lda #SoundChirp
+          sta NextSound
           dex
           bpl DoneStickUp
           ldx #8
@@ -176,6 +178,8 @@ DoneStickUp:
           lda SWCHA
           and #P0StickDown
           bne DoneStickDown
+          lda #SoundChirp
+          sta NextSound
           inx
           cpx #9              ; max moves = 8
           bmi DoneStickDown
