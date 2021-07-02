@@ -69,9 +69,9 @@ TitleMode:
           lda AttractHasSpoken
           bne DoneTitleSpeech
 
-          lda # >Phrase_TitleIntro
+          lda #>Phrase_TitleIntro
           sta CurrentUtterance + 1
-          lda # <Phrase_TitleIntro
+          lda #<Phrase_TitleIntro
           sta CurrentUtterance
           sta AttractHasSpoken
 

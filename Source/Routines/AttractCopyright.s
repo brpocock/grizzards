@@ -3,6 +3,18 @@
 
 CopyrightMode:
 
+          lda AttractHasSpoken
+          cmp #<Phrase_CopyrightIntro
+          beq DoneCopyrightSpeech
+
+          lda #>Phrase_TitleCopyright
+          sta CurrentUtterance + 1
+          lda #<Phrase_TitleCopyright
+          sta CurrentUtterance
+          sta AttractHasSpoken
+
+DoneCopyrightSpeech:
+
           ldx # 29
 SkipAboveCopyright:
           stx WSYNC
