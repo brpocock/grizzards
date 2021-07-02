@@ -8,4 +8,4 @@ SelectSlot:
 Select a save game slot.
 
 EraseSlot:
-Erase a save game slot.
+Erased a save game slot.

@@ -5,9 +5,9 @@ SelectSlot:        .block
           ;; Select a save game slot
           ;;
 
-          lda # >Phrase_SelectSlot
+          lda #>Phrase_SelectSlot
           sta CurrentUtterance + 1
-          lda # <Phrase_SelectSlot
+          lda #<Phrase_SelectSlot
           sta CurrentUtterance
           
 Loop:     
@@ -180,6 +180,11 @@ EliminationMode:
 EraseSlotNow:
           lda #SoundDeleted
           sta NextSound
+
+          lda #>Phrase_EraseSlot
+          sta CurrentUtterance + 1
+          lda #<Phrase_EraseSlot
+          sta CurrentUtterance
 
           lda #ModeErasing
           sta GameMode
