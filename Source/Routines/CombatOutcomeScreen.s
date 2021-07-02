@@ -24,18 +24,16 @@ Loop:
           sta StringBuffer + 1
           lda # 40              ; blank
           sta StringBuffer + 2
-          ldx # 39              ; '-'
+          sta StringBuffer + 3
           lda MoveHP
-          bpl DrawMinusHP
+          bmi DrawHitPoints
 
-DrawIncreasedHP:
-          ldx # 40              ; blank
-DrawMinusHP:
+          ldx # 39              ; '-'
           stx StringBuffer + 3
-
-DrawHitPoints:      
           and #$7f
           sta Temp
+
+DrawHitPoints:      
           ldy #ServiceAppendDecimalAndPrint
           ldx #TextBank
           jsr FarCall

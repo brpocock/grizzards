@@ -119,7 +119,7 @@ DrawTitle3:
 
 PrepareFillAttractBottom:
 
-          ldx # KernelLines - Title1.Height - Title2.Height - 27
+          ldx # KernelLines - Title1.Height - Title2.Height - 58
 FillAttractBottom:
           sta WSYNC
           dex
@@ -154,6 +154,8 @@ SkipSwitches:
 LeaveAttract:
           lda #SoundChirp
           sta NextSound
+
+          jsr Overscan
 
           lda #ModeSelectSlot
           sta GameMode

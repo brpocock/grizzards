@@ -38,7 +38,7 @@ SkipAboveCopyright:
           .LoadString "POCOCK"
           jsr ShowText
 
-          ldx # KernelLines - 100 - 22
+          ldx # KernelLines - 153
 SkipBelowCopyright:
           stx WSYNC
           dex
