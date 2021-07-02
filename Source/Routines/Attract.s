@@ -21,7 +21,7 @@ ZeroRAM:
 
           sty GameMode
 
-          lda # 1
+          lda # SoundHappy
           sta NextSound
 
           .if PUBLISHER
@@ -63,11 +63,12 @@ Loop:
           
 StoryMode:
           ;; TODO lots more needs to happen here
-          brk          
+          brk
 
 TitleMode:
           lda AttractHasSpoken
-          bne DoneTitleSpeech
+          cmp #<Phrase_TitleIntro
+          beq DoneTitleSpeech
 
           lda #>Phrase_TitleIntro
           sta CurrentUtterance + 1
@@ -99,7 +100,7 @@ FillAttractMid1:
           lda ClockFrame
           and # $20
           beq DrawTitle3
-          
+
           .SetUpFortyEight Title2
           ldy #Title2.Height
           sty LineCounter
@@ -108,7 +109,6 @@ FillAttractMid1:
           jmp PrepareFillAttractBottom
 
 DrawTitle3:
-
           .SetUpFortyEight Title3
           ldy #Title3.Height
           sty LineCounter
@@ -140,7 +140,6 @@ FillAttractBottom:
           ;; jmp DoneAttractKernel ; fall through
 
 DoneAttractKernel:
-
           lda SWCHB
           cmp DebounceSWCHB
           beq SkipSwitches
@@ -153,7 +152,6 @@ SkipSwitches:
           jmp Loop
 
 LeaveAttract:
-
           lda #SoundChirp
           sta NextSound
 
