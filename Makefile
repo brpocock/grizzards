@@ -32,6 +32,15 @@ harmony:	Dist/Grizzards.NTSC.a26 \
 	  echo "Patch Makefile for your $$(uname -s) OS" ; \
 	fi
 
+uno:	Dist/Grizzards.NTSC.a26 \
+		Dist/Grizzards.PAL.a26 \
+		Dist/Grizzards.SECAM.a26
+	if [ $$(uname -s) = 'Linux' ] ; then \
+	  cp Dist/*.a26 /run/media/${USER}/TBA_2600/ ; \
+	else \
+	  echo "Patch Makefile for your $$(uname -s) OS" ; \
+	fi
+
 Dist/Grizzards.zip: \
 	Dist/Grizzards.NTSC.a26 \
 	Dist/Grizzards.NTSC.pdf \
