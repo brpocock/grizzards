@@ -33,7 +33,7 @@ ZeroRAM:
 
           lda # 4
           jsr SetNextAlarm
-          
+
 Loop:
           jsr VSync
           jsr VBlank
@@ -68,14 +68,6 @@ StoryMode:
 TitleMode:
           lda AttractHasSpoken
           bne DoneTitleSpeech
-
-          lda ClockSeconds
-          cmp AlarmSeconds
-          bmi DoneTitleSpeech
-
-          lda ClockMinutes
-          cmp AlarmMinutes
-          bmi DoneTitleSpeech
 
           lda # >Phrase_TitleIntro
           sta CurrentUtterance + 1
