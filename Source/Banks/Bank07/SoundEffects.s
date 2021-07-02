@@ -13,28 +13,30 @@ SoundIndexL:        .byte <SoundIndex
           ;; First byte: AUDV0 << 4 | AUDC0
           ;; Second byte: AUDF0 | $80 for end of sequence
           ;; Third byte: duration in frames
-          
+          ;; The .sound macro takes duration in jiffies and converts to
+          ;; frames for PAL/SECAM
+
 Drone:
-          .byte $81, $8f, 60
+          .sound $8, $1, $f, 60, 1
 
 Chirp:
-          .byte $f4, $8f, 40
+          .sound $f, $4, $f, 40, 1
           
 Deleted:
-          .byte $f8, $1f, 20
-          .byte $f1, $88, 10
+          .sound $f, $8, $1f, 20, 0
+          .sound $f, $1, $8, 10, 1
           
 Happy:
-          .byte $f4, $10, 20
-          .byte $f5, $8f, 20
+          .sound $f, $4, $10, 20, 0
+          .sound $f, $5, $f, 20, 1
 
 Bump:
-          .byte $81, $8f, 5
+          .sound $8, $1, $f, 5, 1
 
 ErrorSound:
-          .byte $81, $0f, 10
-          .byte $81, $20, 10
-          .byte $81, $0f, 10
-          .byte $81, $20, 10
-          .byte $81, $0f, 10
-          .byte $81, $a0, 10
+          .sound $8, $1, $0f, 10, 0
+          .sound $8, $1, $20, 10, 0
+          .sound $8, $1, $0f, 10, 0
+          .sound $8, $1, $20, 10, 0
+          .sound $8, $1, $0f, 10, 0
+          .sound $8, $1, $20, 10, 1
