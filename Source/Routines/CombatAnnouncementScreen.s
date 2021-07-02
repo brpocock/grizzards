@@ -59,7 +59,7 @@ SayUsesMove:
           jsr WaitForSpeech
           
           lda WhoseTurn
-          bne MonsterObject
+          beq MonsterObject
 
           jsr SayPlayerGrizzard
           jmp Loop00
