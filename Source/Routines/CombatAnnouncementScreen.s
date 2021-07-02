@@ -5,12 +5,12 @@ CombatAnnouncementScreen:     .block
           lda # 0
           sta MoveAnnouncement
 
+          jsr VSync
+          jsr VBlank
+
           lda SWCHA
           and #$02              ; Serial Ready bit
           beq JumpToLoop00      ; not ready for speech
-
-          jsr VSync
-          jsr VBlank
 
           lda WhoseTurn
           beq SayPlayerSubject
