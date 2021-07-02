@@ -4,7 +4,7 @@
 CopyrightMode:
 
           lda AttractHasSpoken
-          cmp #<Phrase_CopyrightIntro
+          cmp #<Phrase_TitleCopyright
           beq DoneCopyrightSpeech
 
           lda #>Phrase_TitleCopyright
