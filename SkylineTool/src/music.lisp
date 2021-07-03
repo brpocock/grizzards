@@ -232,13 +232,14 @@ skipping MIDI music with ~:d note~:p"
         (output (make-list (length notes) :initial-element nil)))
     (loop for note in notes
           for i from 0
+          for time from 0
           do (destructuring-bind (note/rest . info) note
                (ecase note/rest
-                 (:rest (setf (elt notes i) `#(,info 0 0 0)))
-                 (:wait (let ((prior (cdr (elt notes (1- i)))))
-                          (setf (elt output i) `#(,info nil  ,(getf prior :freq) ,volume)
-                                (elt output (1- i)) `#(nil nil nil nil))))
-                 (:note (setf (elt output i) `#(,(getf info :duration) nil  ,(getf info :freq) ,volume))))))
+                 (:rest (setf (elt output i) `#(,info nil 0 0)))
+                 (:wait (setf (elt output i) `#(,info nil ,(aref (elt output (1- i)) 2) ,(aref (elt output (1- i)) 3))
+                              (elt output (1- i)) `#(nil nil nil nil)))
+                 (:note (setf (elt output i) `#(,(- (getf info :time) time) nil  ,(getf info :freq) ,volume)
+                              time (getf info :time))))))
     output))
 
 (defmethod midi-to-sound-binary ((output-coding (eql :ntsc))
@@ -603,16 +604,20 @@ Music:~:*
                    (with-slots ((key midi::key) (time midi::time)
                                 (velocity midi::velocity))
                        chunk
-                     (when (plusp velocity)
-                       (prog1
-                           (list
-                            (let ((lag (- time prior-time)))
-                              (when (plusp lag)
-                                (cons :wait lag)))
-                            (cons :note
-                                  (list :key key
-                                        :freq (freq<-midi-key key))))
-                         (setf prior-time time)))))
+                     (if (plusp velocity)
+                         (prog1
+                             (list
+                              (let ((lag (- time prior-time)))
+                                (when (plusp lag)
+                                  (cons :wait lag)))
+                              (cons :note
+                                    (list :key key
+                                          :freq (freq<-midi-key key)
+                                          :time time)))
+                           (setf prior-time time))
+                         #+ (or) (prog1
+                                     (list (cons :rest (- time prior-time)))
+                                   (setf prior-time time)))))
                   (midi:key-signature-message nil)
                   (midi:reset-all-controllers-message nil)
                   (midi:program-change-message nil)
