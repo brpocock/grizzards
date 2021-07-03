@@ -25,6 +25,10 @@ Loop:
           lda # 40              ; blank
           sta StringBuffer + 2
           sta StringBuffer + 3
+
+          lda # 0
+          sta StringBuffer + 5
+
           lda MoveHP
           bmi DrawHitPoints
 
