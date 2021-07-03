@@ -217,6 +217,7 @@ FillScreen:
           cmp #4
           beq CombatMoveDone
 AlarmDone:
+          jsr Overscan
           jmp Loop
 
 CombatMoveDone:

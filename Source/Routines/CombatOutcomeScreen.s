@@ -2,7 +2,7 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
 CombatOutcomeScreen:          .block
-        
+
 Loop:
           jsr VSync
           jsr VBlank
@@ -26,9 +26,6 @@ Loop:
           sta StringBuffer + 2
           sta StringBuffer + 3
 
-          lda # 0
-          sta StringBuffer + 5
-
           lda MoveHP
           bmi DrawHitPoints
 
@@ -37,7 +34,7 @@ Loop:
           and #$7f
           sta Temp
 
-DrawHitPoints:      
+DrawHitPoints:
           ldy #ServiceAppendDecimalAndPrint
           ldx #TextBank
           jsr FarCall
@@ -56,6 +53,8 @@ AfterHitPoints:
           cmp # 5
           bmi SkipStatusFX
 
+DrawStatusFX:
+          
 SkipStatusFX:
 
           ldx # 35
@@ -72,11 +71,26 @@ FillScreen:
           dex
           bne FillScreen
 
-          jsr Overscan
-          
-          jmp Loop
-          
+          lda ClockSeconds
+          cmp AlarmSeconds
+          bne AlarmDone
 
+          lda ClockMinutes
+          cmp AlarmMinutes
+          bne AlarmDone
+          inc MoveAnnouncement
+          lda #2
+          jsr SetNextAlarm
+
+          lda MoveAnnouncement
+          cmp # 6
+          beq CombatOutcomeDone
+AlarmDone:
+
+          jsr Overscan
+          jmp Loop
+
+CombatOutcomeDone:
           lda WhoseTurn
           bne CheckForLoss
 
@@ -174,9 +188,6 @@ NextTurn:
           lda #3
           jsr SetNextAlarm
 BackToMain:         
-          jmp CombatMainScreen
-
-
-          
+          jmp CombatMainScreen          
 
           .bend
