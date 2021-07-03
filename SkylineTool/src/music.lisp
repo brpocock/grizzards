@@ -236,8 +236,9 @@ skipping MIDI music with ~:d note~:p"
           do (destructuring-bind (note/rest . info) note
                (ecase note/rest
                  (:rest (setf (elt output i) `#(,info nil 0 0)))
-                 (:wait (setf (elt output i) `#(,info nil ,(aref (elt output (1- i)) 2) ,(aref (elt output (1- i)) 3))
-                              (elt output (1- i)) `#(nil nil nil nil)))
+                 (:wait (if (and (plusp i) (vectorp (elt output (1- i))))
+                            (setf (elt output i) `#(,info nil ,(aref (elt output (1- i)) 2) ,(aref (elt output (1- i)) 3))
+                                  (elt output (1- i)) `#(nil nil nil nil))))
                  (:note (setf (elt output i) `#(,(- (getf info :time) time) nil  ,(getf info :freq) ,volume)
                               time (getf info :time))))))
     output))
