@@ -113,36 +113,51 @@ skipping MIDI music with ~:d note~:p"
   (let ((array (make-array (list (length list) 4)
                            :element-type 'number)))
     (loop for note in (reverse list)
-       for i from 0
-       do (setf (aref array i 0) (floor (or (elt note 0) 1)) ; duration
-                (aref array i 1) (floor (elt note 1))        ;control
-                (aref array i 2) (best-tia-note-for (elt note 2)) ;frequency
-                (aref array i 3) (floor (elt note 3)))) ; volume
+          for i from 0
+          do (setf (aref array i 0) (floor (or (elt note 0) 1)) ; duration
+                   (aref array i 1) (floor (elt note 1))        ;control
+                   (aref array i 2) (best-tia-note-for (elt note 2)) ;frequency
+                   (aref array i 3) (floor (elt note 3)))) ; volume
     array))
 
 (defun midi-translate-element (element)
-  (let ((waveform 1) (volume 5))
+  (let ((waveform 1) (volume #x8))
     (if (consp (car element))
         (mapcar #'midi-translate-element element)
         (destructuring-bind (note/rest . info) element
           (ecase note/rest
-            ((:rest :wait) `#(,info 0 0 0))
+            (:rest `#(,info 0 0 0))
+            (:wait (error "WAIT is not handled properly"))
             (:note `#(,(getf info :duration) ,waveform
                       ,(getf info :freq) ,volume)))))))
 
+(defun midi-translate-notes (notes)
+  (let ((waveform 1) (volume 5)
+        (output (make-list (length notes) :initial-element nil)))
+    (loop for note in notes
+          for i from 0
+          do (destructuring-bind (note/rest . info) note
+               (ecase note/rest
+                 (:rest (setf (elt notes i) `#(,info 0 0 0)))
+                 (:wait (let ((prior (cdr (elt notes (1- i)))))
+                          (setf (elt output i) `#(,info ,waveform ,(getf prior :freq) ,volume)
+                                (elt output (1- i)) `#(nil nil nil nil))))
+                 (:note (setf (elt output i) `#(,(getf info :duration) ,waveform ,(getf info :freq) ,volume))))))
+    output))
+
 (defmethod midi-to-sound-binary ((output-coding (eql :ntsc))
-                                 machine-type midi-notes)
-  (array<-tia-notes-list
-   (flatten (mapcar #'midi-translate-element midi-notes))))
+                                 (machine-type (eql 2600)) midi-notes)
+  (array<-tia-notes-list (remove-if (lambda (note) (null (aref note 0)))
+                                    (midi-translate-notes (car midi-notes)))))
 
 (defun collect-midi-texts (midi)
   (loop for track in (midi:midifile-tracks midi)
-     for track-number from 0
-     appending (loop for chunk in track
-                  when (typep chunk 'midi::text-message)
-                  collect (format nil "~& ~d. ~:(~a~) “~a”"
-                                  track-number (type-of chunk)
-                                  (slot-value chunk 'midi::text)))))
+        for track-number from 0
+        appending (loop for chunk in track
+                        when (typep chunk 'midi::text-message)
+                          collect (format nil "~& ~d. ~:(~a~) “~a”"
+                                          track-number (type-of chunk)
+                                          (slot-value chunk 'midi::text)))))
 
 (defun midi-track-notes-count (track)
   (count-if (lambda (chunk)
@@ -349,13 +364,26 @@ Gathered text:~{~% • ~a~}"
        (return assignments)))
 
 (defun write-song-data-to-file (title notes source-file)
-  (format source-file "~%;;;~|~%~a:~2%
-~{~%     .byte $~2,'0x~^, $~2,'0x~^,   $~2,'0x~^, $~2,'0x~^, ~
-$~2,'0x~^, $~2,'0x~^,   $~2,'0x~^, $~2,'0x~}~2%" 
-          (assembler-label-name title)
-          (loop for i below (array-dimension notes 0)
-             appending (list (aref notes i 1)
-                             (aref notes i 0)))))
+  (format source-file "~%;;;~|~%~a:~2%" (assembler-label-name title))
+  (loop for i below (array-dimension notes 0)
+        do (let ((duration (floor (/ (aref notes i 0) 40)))
+                 (control (aref notes i 1))
+                 (frequency (aref notes i 2))
+                 (volume (aref notes i 3)))
+             #+ (or)
+             (when (> duration #xff)
+               (error "Note with duration ~d > #xff frames (4¼s)" duration))
+             (unless (zerop duration)
+               (format source-file "~%	.sound $~x, $~x, $~2,'0x, ~3d, ~d"
+                       volume
+                       control
+                       frequency
+                       (min duration #xff)                   
+                       (if (= i (1- (array-dimension notes 0))) ; last note
+                           1
+                           0))
+               (finish-output source-file))))
+  (format source-file "~2%;;; end of ~a" (assembler-label-name title)))
 
 (defun assigned-song-bank-and-title (assignment)
   (list (car assignment)
@@ -413,25 +441,34 @@ Music:~:*
 ~:*~[~:; in “~a” coding~]."
           (hash-table-count catalog) output-coding))
 
-(defun compile-song (source-out-name in-file-name &optional machine-type$)
-  (let ((*machine* (if machine-type$ (parse-integer machine-type$) 2600)))
-    ))
+(defun import-song-to-catalog (&key 
+                                 song-file-name 
+                                 output-coding
+                                 catalog
+                                 comments-catalog)
+  (import-music-for-playlist output-coding 
+                             (format nil
+                                     "Song_~a=~a" 
+                                     (pathname-name song-file-name) song-file-name)
+                             catalog comments-catalog)
+  (format *trace-output* "~&Collected ~r song~:p~
+~:*~[~:; in “~a” coding~]."
+          (hash-table-count catalog) output-coding))
 
 (defun compile-music (source-out-name in-file-name &optional machine-type$)
   (let ((*machine* (if machine-type$ (parse-integer machine-type$) 2600))
         (output-coding :NTSC)
-        (playlist-file-name in-file-name)
         (catalog (make-hash-table))
         (comments-catalog (make-hash-table)))
     (format *trace-output* "~&Writing music from playlist ~a…" in-file-name)
-    (import-songs-from-playlist-to-catalog 
-     :playlist-file-name playlist-file-name
+    (import-song-to-catalog 
+     :song-file-name in-file-name
      :output-coding output-coding
      :catalog catalog
      :comments-catalog comments-catalog)
-    (with-output-to-file (source-out source-out-name :if-exists :overwrite)
+    (with-output-to-file (source-out source-out-name :if-exists :supersede :if-does-not-exist :create)
       (format *trace-output* "~&Writing ~a…" source-out-name)
-      (format source-out ";;; Music compiled from playlist ~a;
+      (format source-out ";;; Music compiled from ~a;
 ;;; do not bother editing (generated file will be overwritten)" 
               in-file-name)
       (loop for symbol being the hash-keys of catalog
@@ -451,32 +488,40 @@ Music:~:*
   (remove-if 
    #'null
    (loop for chunk in track
-      with time-signature-num = 4
-      with time-signature-den = 4
-      ;; with tempo = 120
-      ;; with sec/quarter-note =
-      with prior-time = 0
-      append (typecase chunk
-               (midi::text-message nil)
-               (midi::time-signature-message
-                (setf time-signature-num (midi::message-numerator chunk)
-                      time-signature-den (expt 2
-                                               (midi::message-denominator chunk)))
-                nil)
-               (midi::tempo-message nil)
-               (midi::control-change-message nil)
-               (midi::note-on-message
-                (with-slots ((key midi::key) (time midi::time)) chunk
-                  (prog1
-                      (list
-                       (let ((lag (- time prior-time)))
-                         (when (plusp lag)
-                           (cons :wait lag)))
-                       (cons :note
-                             (list :key key
-                                   :freq (freq<-midi-key key))))
-                    (setf prior-time time))))
-               (t (format t "~&Ignored (unsupported) chunk ~s" chunk))))))
+         with time-signature-num = 4
+         with time-signature-den = 4
+         ;; with tempo = 120
+         ;; with sec/quarter-note =
+         with prior-time = 0
+         append (typecase chunk
+                  (midi::text-message nil)
+                  (midi::time-signature-message
+                   (setf time-signature-num (midi::message-numerator chunk)
+                         time-signature-den (expt 2
+                                                  (midi::message-denominator chunk)))
+                   nil)
+                  (midi::tempo-message nil)
+                  (midi::control-change-message nil)
+                  (midi::note-on-message
+                   #+ (or) (format *trace-output* "~&~s" chunk)
+                   (with-slots ((key midi::key) (time midi::time)
+                                (velocity midi::velocity))
+                       chunk
+                     (when (plusp velocity)
+                       (prog1
+                           (list
+                            (let ((lag (- time prior-time)))
+                              (when (plusp lag)
+                                (cons :wait lag)))
+                            (cons :note
+                                  (list :key key
+                                        :freq (freq<-midi-key key))))
+                         (setf prior-time time)))))
+                  (midi:key-signature-message nil)
+                  (midi:reset-all-controllers-message nil)
+                  (midi:program-change-message nil)
+                  (midi::midi-port-message nil)
+                  (t (format t "~&Ignored (unsupported) chunk ~s" chunk))))))
 
 (defun key<-midi-key (key)
   (multiple-value-bind (octave-ish note-in-octave) (floor key 12)
