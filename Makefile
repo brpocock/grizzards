@@ -56,7 +56,7 @@ doc:	Dist/Grizzards.NTSC.pdf
 
 .PRECIOUS: %.s %.png %.a26 %.txt
 
-SOURCES=$(shell find Source -name \*.s -o -name \*.txt -o -name \*.png)
+SOURCES=$(shell find Source -name \*.s -o -name \*.txt -o -name \*.png -o -name \*.midi -a -not -name .\#\*)
 
 Dist/Grizzards.NTSC.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
 	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.NTSC.a26
