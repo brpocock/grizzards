@@ -155,8 +155,11 @@ DoMonsterMove:
 
           tay
           lda MonsterMoves, y
-          
           sta MoveSelection
+
+          lda #SoundDrone
+          sta NextSound
+
           jmp CombatAnnouncementScreen
 
 CheckStick:
@@ -261,6 +264,9 @@ StickDone:
           jmp CheckSwitches
 
 DoUseMove:
+          lda #SoundChirp
+          sta NextSound
+
           jmp CombatAnnouncementScreen
 
 SelectedRunAway:
