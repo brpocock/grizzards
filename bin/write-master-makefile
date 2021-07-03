@@ -57,55 +57,63 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
       my @todo = ( "Source/Banks/Bank$bank/Bank$bank.s" );
 
       {
-	opendir my $src, "Source/Banks/Bank$bank/";
-	while (my $file = readdir $src) {
-	  next unless $file =~ /\.(s|txt|png)$/;
-	  push @todo => "Source/Banks/Bank$bank/$file";
-	}
-	closedir $src;
+        opendir my $src, "Source/Banks/Bank$bank/";
+        while (my $file = readdir $src) {
+          next unless $file =~ /\.(s|txt|png|midi)$/;
+          push @todo => "Source/Banks/Bank$bank/$file";
+        }
+        closedir $src;
       }
 
       while (@todo) {
-	my $path = shift @todo;
-	next unless -f $path;
-	next if $seen{ $path };
-	++$seen{ $path };
+        my $path = shift @todo;
+        next unless -f $path;
+        next if $seen{ $path };
+        ++$seen{ $path };
 
-    	my $file = ( split '\\/' => $path )[ -1 ];
-	my ($base, $ext) = split '\\.' => $file;
-	if ('txt' eq $ext) {
+        my $file = ( split '\\/' => $path )[ -1 ];
+        my ($base, $ext) = split '\\.' => $file;
+        if ('txt' eq $ext) {
           next if $rules{ $path };
           ++ $rules{ $path };
-	  print "Source/Generated/Bank$bank/$base.s:\tSource/Banks/Bank$bank/$base.txt \\
+          print "Source/Generated/Bank$bank/$base.s:\tSource/Banks/Bank$bank/$base.txt \\
 \t\tSource/Common/SpeakJet.dic bin/convert-to-speakjet
 \tmkdir -p Source/Generated/Bank$bank
 \tbin/convert-to-speakjet \$< Source/Common/SpeakJet.dic \$\@\n\n";
-	  push @files => "Source/Generated/Bank$bank/$base.s";
-	} elsif ('png' eq $ext) {
+          push @files => "Source/Generated/Bank$bank/$base.s";
+        } elsif ('midi' eq $ext) {
           next if $rules{ $path };
           ++ $rules{ $path };
-	  print "Source/Generated/Bank$bank/$base.s:\tSource/Banks/Bank$bank/$base.png \\
+          print "Source/Generated/Bank$bank/$base.s:\tSource/Banks/Bank$bank/$base.midi\\
+\t\tbin/skyline-tool
+\tmkdir -p Source/Generated/Bank$bank
+\tbin/skyline-tool compile-music \$\@ \$<\n\n";
+          push @files => "Source/Generated/Bank$bank/$base.s";
+        } elsif ('png' eq $ext) {
+          next if $rules{ $path };
+          ++ $rules{ $path };
+          print "Source/Generated/Bank$bank/$base.s:\tSource/Banks/Bank$bank/$base.png \\
 \t\tbin/skyline-tool
 \tmkdir -p Source/Generated/Bank$bank
 \tbin/skyline-tool compile-art \$\@ \$<\n\n";
-	  push @files => "Source/Generated/Bank$bank/$base.s";
-	} elsif ('s' eq $ext) {
-	  push @files => $path;
-	  open my $text, '<', $path;
-	  while (my $line = <$text>) {
-	    if ($line =~ /\.include "(.+)"/) {
-	      my $dep = $1;
-	      push @todo => "Source/Banks/Bank$bank/$dep";
-	      push @todo => "Source/Common/$dep";
-	      push @todo => "Source/Routines/$dep";
-                push @todo => "Source/Generated/Common/$dep";
-                push @todo => "Source/Generated/Banks/Bank$bank/$dep";
-	    }
-	  }
-	  close $text;
-	} else {
-	  die "Unhandled extension $ext";
-	}
+          push @files => "Source/Generated/Bank$bank/$base.s";
+        } elsif ('s' eq $ext) {
+          push @files => $path;
+          open my $text, '<', $path;
+          while (my $line = <$text>) {
+            if ($line =~ /\.include "(.+)"/) {
+              my $dep = $1;
+              push @todo => "Source/Banks/Bank$bank/$dep";
+              push @todo => "Source/Common/$dep";
+              push @todo => "Source/Routines/$dep";
+              push @todo => "Source/Generated/Common/$dep";
+              push @todo => "Source/Generated/Banks/Bank$bank/$dep";
+            }
+          }
+          close $text;
+        } else {
+          die "Unhandled extension $ext";
+        }
       }
     }
 
