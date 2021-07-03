@@ -10,14 +10,26 @@ PlaySFX: .block
 
           lda CurrentMusic + 1
           bne PlayMusic
+          
+LoopMusic:
+          lda GameMode
+          cmp #ModeAttractTitle
+          beq LoopTitleMusic
 
-          sta AUDF0             ; .a = 0
-          sta AUDC0
-          sta AUDV0
+          lda # 0
           sta AUDF1
           sta AUDC1
           sta AUDV1
           sta NoteTimer
+          
+          jmp TheEnd
+
+LoopTitleMusic:     
+          lda #>SongTheme
+          sta CurrentMusic + 1
+          lda #<SongTheme
+          sta CurrentMusic
+          jmp TheEnd
 
 GoBack:
           jmp TheEnd
@@ -37,26 +49,12 @@ PlayNewSoundReally:
           lda #0
           sta NextSound
 
-          jmp PlayNextNote
+          jmp PlayNextSFXNote
 PlayMusic:
           dec NoteTimer
           bne TheEnd
 
           ldy #0
-          lda (CurrentMusic), y
-          tax
-          and #$0f
-          sta AUDC0
-          txa
-          and #$f0
-          clc
-          ror a
-          ror a
-          ror a
-          ror a
-          sta AUDV0
-
-          iny
           lda (CurrentMusic), y
           tax
           and #$0f
@@ -73,31 +71,32 @@ PlayMusic:
           iny
 
           lda (CurrentMusic), y
+          sta AUDF1
+
+          iny
+
+          lda (CurrentMusic), y
           sta NoteTimer
 
-          beq LoopMusic
+          dey
+          lda (CurrentMusic), y
+          bmi LoopMusic
 
-          lda #5
+          lda # 3
           clc
           adc CurrentMusic
           bcc +
           inc CurrentMusic + 1
 +
           sta CurrentMusic
-          jmp TheEnd
 
-LoopMusic:
-          lda CurrentSongStart
-          sta CurrentMusic
-          lda CurrentSongStart + 1
-          sta CurrentMusic
           jmp TheEnd
 
 PlaySound:
-          dec NoteTimer
+          dec SFXNoteTimer
           bne TheEnd
 
-PlayNextNote:
+PlayNextSFXNote:
           ldy #0
           lda (CurrentSound), y
           tax
@@ -118,7 +117,7 @@ PlayNextNote:
           iny
 
           lda (CurrentSound), y
-          sta NoteTimer
+          sta SFXNoteTimer
 
           dey
           lda (CurrentSound), y
@@ -138,6 +137,9 @@ EndOfSound:
 
           lda #0
           sta CurrentSound + 1
+          sta AUDC0
+          sta AUDF0
+          sta AUDV0
           sta NoteTimer
 
 TheEnd:

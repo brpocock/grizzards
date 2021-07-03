@@ -13,11 +13,11 @@
      (299.4 	297.1)
      (262 	 	260)
      (232.9 	231.1)
-     (	 	209.6 	208)
-     ( 	190.5 	189.1)
-     ( 	174.7 	173.3)
-     ( 	161.2 	160)
-     ( 	149.7 	148.6)
+     (209.6 	208)
+     (190.5 	189.1)
+     (174.7 	173.3)
+     (161.2 	160)
+     (149.7 	148.6)
      (139.7 	138.7)
      (131 	 	130)
      (123.3 	122.4)
@@ -36,7 +36,7 @@
      (69.9 	 	69.3)
      (67.6 	 	67.1)
      (65.5 	 	65))
-
+    
     (2  ;; Waveform 2 = lower-frequency buzz/rumble
      (     67.6 	 	67.1)
      (      33.8 	 	33.5)
@@ -71,28 +71,120 @@
      (      2.2 	  	 	  	  	  	2.2)
      (      2.1 	  	 	  		  	2.1)
      )
-
+    
     (;; Waveform 3 = Flangy “UFO”
-
-
+     (     67.6 	 	67.1)
+     (      33.8 	 	33.5)
+     (      22.5 	 	22.4)
+     (      16.9 	 	16.8)
+     (      13.5 	 	  	  	13.4)
+     (      11.3 	 	  	  	  	11.2)
+     (      9.7 	 	  	  	  	9.6)
+     (      8.5 	 	  	  	  	8.4)
+     (      7.5 	 	  	  	  	7.5)
+     (      6.8 	 	  	  	  	6.7)
+     (      6.1 	 	  	  	  	6.1)
+     (      5.6 	 	  	  	  	5.6)
+     (      5.2 	 	  	  	  	5.2)
+     (      4.8 	 	  	  	  	4.8)
+     (      4.5 	 	  	  	  	4.5)
+     (      4.2 	 	  	  	  	4.2)
+     (      4 	   	  	  	  	4)
+     (      3.8 	   	  	  	  	3.7)
+     (      3.6 	   	  	  	  	3.5)
+     (      3.4 	   	  	  	  	3.4)
+     (      3.2 	   	  	  	  	3.2)
+     (      3.1 	   	  	  	  	3)
+     (      3 	         	  	  	  	2.9)
+     (      2.8 	  	 	  	  	  	2.8)
+     (      2.7 	  	 	  	  	  	2.7)
+     (      2.6 	  	 	  	  	  	2.6)
+     (      2.5 	  	 	  	  	  	2.5)
+     (      2.4 	  	 	  	  	  	2.4)
+     (      2.3 	  	 	  	  	  	2.3)
+     (      2.3 	  	 	  	  	  	2.2)
+     (      2.2 	  	 	  	  	  	2.2)
+     (      2.1 	  	 	  		  	2.1)f
      )
-
+    
     (;; Waveform 4 = Pure tone
+     (7860 7800)
+     (5240 5200)
+     (3930 3900)
+     (3144 3120)
+     (2620 2600)
+     (2245.7 2228.6)
+     (1965 1950)
+     (1746.7 1733.3)
+     (1572 1560)
+     (1429.1 1418.2)
+     (1310 1300)
+     (1209.2 1200)
+     (1122.9 1114.3)
+     (1048 1040)
+     (982.5 975)
+     (924.7 917.6)
+     (873.3 866.7)
+     (827.4 821.1)
+     (786 780)
+     (748.6 742.9)
+     (714.5 709.1)
+     (683.5 678.3)
+     (655 650)
+     (628.8 624)
+     (604.6 600)
+     (582.2 577.8)
+     (561.4 557.1)
+     (542.1 537.9)
+     (507.1 503.2)
+     (491.3 487.5)
      )
-
+    (;; Waveform 5 = Pure tone
+     (7860 7800)
+     (5240 5200)
+     (3930 3900)
+     (3144 3120)
+     (2620 2600)
+     (2245.7 2228.6)
+     (1965 1950)
+     (1746.7 1733.3)
+     (1572 1560)
+     (1429.1 1418.2)
+     (1310 1300)
+     (1209.2 1200)
+     (1122.9 1114.3)
+     (1048 1040)
+     (982.5 975)
+     (924.7 917.6)
+     (873.3 866.7)
+     (827.4 821.1)
+     (786 780)
+     (748.6 742.9)
+     (714.5 709.1)
+     (683.5 678.3)
+     (655 650)
+     (628.8 624)
+     (604.6 600)
+     (582.2 577.8)
+     (561.4 557.1)
+     (542.1 537.9)
+     (507.1 503.2)
+     (491.3 487.5)
+     )
+    
     (;; Waveform 6 = Somewhere between Pure & Buzzy
      )
-
+    
     (;; Waveform 12 = lower-pitch pure tones
      )
-
+    
     (;; Waveform 14 = low-pitch electronic tones
      )
-
+    
     (;; Waveform 15 = low-pitch electronic tones
-
+     
      ))
-
+  
   "NTSC and PAL/SECAM sound values for each frequency code")
 
 (defgeneric midi-to-sound-binary (output-coding machine-type midi-file-name)
@@ -105,18 +197,22 @@ skipping MIDI music with ~:d note~:p"
 (defun best-tia-note-for (freq &optional (voice 1))
   (let ((notes (mapcar #'first       ; #'second for PAL
                        (cdr (elt +atari-voices+ voice)))))
-    (position (first (sort (copy-list notes) #'<
-                           :key (curry #'frequency-distance freq)))
-              notes :test #'=)))
+    (when-let (freq (position (first (sort (copy-list notes) #'<
+                                           :key (curry #'frequency-distance freq)))
+                              notes :test #'=))
+      (list voice freq))))
 
 (defun array<-tia-notes-list (list)
   (let ((array (make-array (list (length list) 4)
                            :element-type 'number)))
     (loop for note in (reverse list)
           for i from 0
+          for (control freq) = (or (best-tia-note-for (elt note 2) 1)
+                                   (best-tia-note-for (elt note 2) 2)
+                                   (best-tia-note-for (elt note 2) 4))
           do (setf (aref array i 0) (floor (or (elt note 0) 1)) ; duration
-                   (aref array i 1) (floor (elt note 1))        ;control
-                   (aref array i 2) (best-tia-note-for (elt note 2)) ;frequency
+                   (aref array i 1) control        ;control
+                   (aref array i 2) freq ;frequency
                    (aref array i 3) (floor (elt note 3)))) ; volume
     array))
 
@@ -132,7 +228,7 @@ skipping MIDI music with ~:d note~:p"
                       ,(getf info :freq) ,volume)))))))
 
 (defun midi-translate-notes (notes)
-  (let ((waveform 1) (volume 5)
+  (let ((volume #x8)
         (output (make-list (length notes) :initial-element nil)))
     (loop for note in notes
           for i from 0
@@ -140,9 +236,9 @@ skipping MIDI music with ~:d note~:p"
                (ecase note/rest
                  (:rest (setf (elt notes i) `#(,info 0 0 0)))
                  (:wait (let ((prior (cdr (elt notes (1- i)))))
-                          (setf (elt output i) `#(,info ,waveform ,(getf prior :freq) ,volume)
+                          (setf (elt output i) `#(,info nil  ,(getf prior :freq) ,volume)
                                 (elt output (1- i)) `#(nil nil nil nil))))
-                 (:note (setf (elt output i) `#(,(getf info :duration) ,waveform ,(getf info :freq) ,volume))))))
+                 (:note (setf (elt output i) `#(,(getf info :duration) nil  ,(getf info :freq) ,volume))))))
     output))
 
 (defmethod midi-to-sound-binary ((output-coding (eql :ntsc))
@@ -366,7 +462,7 @@ Gathered text:~{~% • ~a~}"
 (defun write-song-data-to-file (title notes source-file)
   (format source-file "~%;;;~|~%~a:~2%" (assembler-label-name title))
   (loop for i below (array-dimension notes 0)
-        do (let ((duration (floor (/ (aref notes i 0) 40)))
+        do (let ((duration (floor (/ (aref notes i 0) 20)))
                  (control (aref notes i 1))
                  (frequency (aref notes i 2))
                  (volume (aref notes i 3)))
@@ -503,7 +599,7 @@ Music:~:*
                   (midi::tempo-message nil)
                   (midi::control-change-message nil)
                   (midi::note-on-message
-                   #+ (or) (format *trace-output* "~&~s" chunk)
+                   #+(or) (format *trace-output* "~&~s" chunk)
                    (with-slots ((key midi::key) (time midi::time)
                                 (velocity midi::velocity))
                        chunk

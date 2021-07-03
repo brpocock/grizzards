@@ -205,13 +205,12 @@ SaveGameSlot:
 CurrentMusic:
           .word ?
 
-;;; Pointer to the start of the current song, if it's a loop,
-;;; or $0000 if not.
-CurrentSongStart:
-          .word ?
-
 ;;; Timer until the current music note is done
 NoteTimer:
+          .byte ?
+
+;;; Timer until the current sound effects note is done
+SFXNoteTimer:
           .byte ?
 
 ;;; When the current sound finishes, play this one next
