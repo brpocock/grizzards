@@ -29,8 +29,8 @@ DecodeAndShowText:
 
 AppendDecimalAndPrintThunk:
           lda # 0
+          sta StringBuffer + 4
           sta StringBuffer + 5
-          sta StringBuffer + 6
 
           lda Temp
           jmp BINBCD8
