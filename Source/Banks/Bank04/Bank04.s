@@ -14,4 +14,7 @@ DoLocal:
           .include "PlayerSprites.s"
           .include "MapSprites.s"
           
+          .include "Province0.s"
+          .include "Province1.s"
+
           .include "EndBank.s"
