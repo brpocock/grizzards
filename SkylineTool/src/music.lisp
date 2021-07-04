@@ -204,35 +204,42 @@ skipping MIDI music with ~:d note~:p"
                               notes :test #'=))
       (list voice freq))))
 
+(defun null-if-zero-note (n)
+  (if (or (null n) (zerop (lastcar n))) nil n))
+
 (defun array<-tia-notes-list (list)
-  (let ((array (make-array (list (length list) 4)
-                           :element-type 'number)))
+  (let ((array (make-array (list (length list) 5))))
     (loop for note in (reverse list)
           for i from 0
-          for (control freq) = (or (best-tia-note-for (elt note 2) 1)
-                                   (best-tia-note-for (elt note 2) 2)
-                                   (best-tia-note-for (elt note 2) 4))
-          do (setf (aref array i 0) (floor (or (elt note 0) 1)) ; duration
+          for (control freq) = (or (null-if-zero-note (best-tia-note-for (elt note 2) 1))
+                                   (null-if-zero-note (best-tia-note-for (elt note 2) 2))
+                                   (null-if-zero-note (best-tia-note-for (elt note 2) 4))
+                                   (list 0 0))
+          do (setf (aref array i 0) (floor (min (elt note 0) 1)) ; duration
                    (aref array i 1) control        ;control
                    (aref array i 2) freq ;frequency
-                   (aref array i 3) (floor (elt note 3)))) ; volume
+                   (aref array i 3) (floor (elt note 3))  ; volume
+                   (aref array i 4) (elt note 4))) ;comment
     array))
 
 (defun midi-translate-notes (notes)
-  (let ((volume #x8)
+  (let ((volume 8)
         (output (list)))
     (loop for note in notes
           for i from 0
           do (destructuring-bind (note/rest . info) note
                (ecase note/rest
                  (:note 
-                  (let ((lag (getf info :lag)))
-                    (when (plusp lag)
-                      (appendf output (list `#(0 nil 0 ,lag)))))
-                  (appendf output (list `#(0 nil ,(getf info :freq) ,volume))))
-                 (:wait (when (plusp i)
-                          (setf (aref (elt output (1- i)) 0) info))))))
-    output))
+                  (push (make-array 5 :initial-contents (list (getf info :duration)
+                                                              0
+                                                              (freq<-midi-key (getf info :key))
+                                                              volume
+                                                              (nth-value 2 (key<-midi-key (getf info :key)))))
+                        output))
+                 (:rest (make-array 5 :initial-contents (list (getf info :duration)
+                                                              0 0 0 "rest")))
+                 (:text (make-array 5 :initial-contents (list nil nil nil nil info))))))
+    (reverse output)))
 
 (defmethod midi-to-sound-binary ((output-coding (eql :ntsc))
                                  (machine-type (eql 2600)) midi-notes)
@@ -315,7 +322,7 @@ Gathered text:~{~% • ~a~}"
           (midi-to-sound-binary output-coding
                                 *machine*
                                 (read-midi midi-file-name))
-        (format *trace-output* "~& - Generated ~:d values…" (first (array-dimensions numbers)))
+        (format *trace-output* "~& - Generated ~:d sound values…" (first (array-dimensions numbers)))
         (when (plusp (first (array-dimensions numbers)))
           (setf (gethash symbol-name catalog) numbers
                 (gethash symbol-name comments-catalog) comments))))))
@@ -450,27 +457,28 @@ Gathered text:~{~% • ~a~}"
     finally
        (return assignments)))
 
-(defconstant +midi-duration-divisor+ 10)
+(defconstant +midi-duration-divisor+ 1)
 
 (defun write-song-data-to-file (title notes source-file)
-  (format source-file "~%;;;~|~%~a:~2%" (assembler-label-name title))
+  (format source-file "~%;;;~|~%~a:" (assembler-label-name title))
   (loop for i below (array-dimension notes 0)
-        do (let ((duration (floor (/ (aref notes i 0) +midi-duration-divisor+)))
+        do (let ((duration (aref notes i 0))
                  (control (aref notes i 1))
                  (frequency (aref notes i 2))
-                 (volume (aref notes i 3)))
-             #+ (or)
-             (when (> duration #xff)
-               (error "Note with duration ~d > #xff frames (4¼s)" duration))
+                 (volume (aref notes i 3))
+                 (comment (aref notes i 4)))
              (unless (zerop duration)
-               (format source-file "~%	.sound $~x, $~x, $~2,'0x, ~3d, ~d"
+               (princ "." *trace-output*)
+               (finish-output *trace-output*)
+               (format source-file "~%	.sound $~x, $~x, $~2,'0x, ~3d, ~d	; ~a"
                        volume
                        control
                        frequency
-                       (min duration #xff)                   
+                       (round (min (max 1 (/ duration +midi-duration-divisor+)) #xff))                
                        (if (= i (1- (array-dimension notes 0))) ; last note
                            1
-                           0))
+                           0)
+                       comment)
                (finish-output source-file))))
   (format source-file "~2%;;; end of ~a" (assembler-label-name title)))
 
@@ -574,42 +582,49 @@ Music:~:*
 
 (defun midi-track-decode (track parts/quarter)
   (declare (ignore parts/quarter))
-  (remove-if 
-   #'null
-   (loop for chunk in track
-         with time-signature-num = 4
-         with time-signature-den = 4
-         ;; with tempo = 120
-         ;; with sec/quarter-note =
-         with prior-time = 0
-         collect (typecase chunk
-                   (midi::text-message (format *trace-output* "~&; ~a"
-                                               (remove-if (lambda (char) (zerop (char-code char)))
-                                                          (slot-value chunk 'midi::text)))
-                    nil)
-                   (midi::time-signature-message
-                    (setf time-signature-num (midi::message-numerator chunk)
-                          time-signature-den (expt 2 (midi::message-denominator chunk)))
-                    nil)
-                   (midi::tempo-message nil)
-                   (midi::control-change-message nil)
-                   (midi::note-on-message
-                    #+(or) (format *trace-output* "~&~s" chunk)
-                    (with-slots ((key midi::key) (time midi::time)
-                                 (velocity midi::velocity))
-                        chunk
-                      (let ((lag (- time prior-time)))
-                        (prog1 (if (plusp velocity)
-                                   (list :note :key key
-                                               :freq (freq<-midi-key key)
-                                               :lag lag)
-                                   (cons :wait lag))
-                          (setf prior-time time)))))
-                   (midi:key-signature-message nil)
-                   (midi:reset-all-controllers-message nil)
-                   (midi:program-change-message nil)
-                   (midi::midi-port-message nil)
-                   (t (format t "~&Ignored (unsupported) chunk ~s" chunk))))))
+  (let ((current-time 0)
+        (current-note/rest (list :rest))
+        (output (list)))
+    (flet ((start-note/rest (info)
+             (setf current-note/rest info))
+           (end-note/rest (time)
+             (push (append current-note/rest (list :duration (- time current-time)))
+                   output)
+             (setf current-time time))) 
+      (loop for chunk in track
+            with time-signature-num = 4
+            with time-signature-den = 4
+            ;; with tempo = 120
+            ;; with sec/quarter-note =
+            do (typecase chunk
+                 (midi::text-message 
+                  (push (list :text
+                              (remove-if (lambda (char) (zerop (char-code char)))
+                                         (slot-value chunk 'midi::text)))
+                        output)
+                  nil)
+                 (midi::time-signature-message
+                  (setf time-signature-num (midi::message-numerator chunk)
+                        time-signature-den (expt 2 (midi::message-denominator chunk)))
+                  nil)
+                 (midi::tempo-message nil)
+                 (midi::control-change-message nil)
+                 (midi::note-on-message
+                  (format *trace-output* "~&~s" chunk)
+                  (with-slots ((key midi::key) (time midi::time)
+                               (velocity midi::velocity))
+                      chunk
+                    (end-note/rest time)
+                    (if (plusp velocity)
+                        (start-note/rest (list :note :key key))
+                        (start-note/rest (list :rest)))))
+                 (midi:key-signature-message nil)
+                 (midi:reset-all-controllers-message nil)
+                 (midi:program-change-message nil)
+                 (midi::midi-port-message nil)
+                 (t (format t "~&Ignored (unsupported) chunk ~s" chunk)))
+            finally (end-note/rest current-time))
+      (reverse output))))
 
 (defun key<-midi-key (key)
   (multiple-value-bind (octave-ish note-in-octave) (floor key 12)
