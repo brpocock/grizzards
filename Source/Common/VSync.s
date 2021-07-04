@@ -75,6 +75,60 @@ Overscan: .block
 
           ldx #SFXBank
           jsr FarCall
+
+          .switch BANK
+          .case 4
+
+          lda CurrentMusic + 1
+          bne FillOverscan
+
+          lda CurrentProvince
+          beq SingProvince0Song
+
+          lda #>SongProvince1
+          sta CurrentMusic + 1
+          lda #<SongProvince1
+          sta CurrentMusic
+
+          jmp FillOverscan
+
+SingProvince0Song:
+          lda #>SongProvince0
+          sta CurrentMusic + 1
+          lda #<SongProvince0
+          sta CurrentMusic
+
+          .case 3
+
+          lda CurrentMusic + 1
+          bne FillOverscan
+
+          lda CurrentProvince
+          cmp #3
+          beq SingProvince3Song
+
+          lda #>SongProvince2
+          sta CurrentMusic + 1
+          lda #<SongProvince2
+          sta CurrentMusic
+
+          jmp FillOverscan
+
+SingProvince3Song:  
+          lda #>SongProvince3
+          sta CurrentMusic + 1
+          lda #<SongProvince3
+          sta CurrentMusic
+
+          .default
+
+          lda # 0
+          sta AUDF1
+          sta AUDC1
+          sta AUDV1
+          sta NoteTimer
+
+          .endswitch
           
 FillOverscan:
           sta WSYNC

@@ -13,21 +13,12 @@ PlaySFX: .block
           
 LoopMusic:
           lda GameMode
-          cmp #ModeAttractTitle
-          beq LoopTitleMusic
-
           cmp #ModeMap
-          beq LoopMapMusic
+          beq MusicInBank
 
-          lda # 0
-          sta AUDF1
-          sta AUDC1
-          sta AUDV1
-          sta NoteTimer
-          
-          jmp TheEnd
+          cmp #ModeAttractTitle
+          bne NoMusic
 
-LoopTitleMusic:     
           lda #>SongTheme
           sta CurrentMusic + 1
           lda #<SongTheme
@@ -35,14 +26,18 @@ LoopTitleMusic:
 
           jmp TheEnd
 
-LoopMapMusic:
-          ;; lda CurrentProvince
-          ;; tax
-          ;; lda ProvinceMusicH, x
-          ;; sta CurrentMusic + 1
-          ;; lda ProvinceMusicL, x
-          ;; sta CurrentMusic
+MusicInBank:
+          lda # 0
+          sta CurrentMusic + 1
 
+NoMusic:
+
+          lda # 0
+          sta AUDF1
+          sta AUDC1
+          sta AUDV1
+          sta NoteTimer
+          
           jmp TheEnd
 
 PlayNewSound:
