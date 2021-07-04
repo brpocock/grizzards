@@ -482,7 +482,7 @@ Gathered text:~{~% • ~a~}"
                  (comment (aref notes i 4)))
              (princ "." *trace-output*)
              (finish-output *trace-output*)
-             (if (or (null duration) (zerop duration))
+             (if (or (null duration) (< duration +midi-duration-divisor+))
                  (format source-file "~%	;; ~a" comment)
                  (format source-file "~%	.sound $~x, $~x, $~2,'0x, ~3d, ~d	; ~a"
                          volume
@@ -608,9 +608,7 @@ Music:~:*
                #+ (or)  (format *trace-output* "	end ~a at ~d (duration ~d)" current-note/rest time (- time current-time))
                (push (append current-note/rest (list :duration (- time current-time)))
                      output)
-               (if (eql :note (car current-note/rest))
-                   (setf current-note/rest (list :rest))
-                   (setf current-note/rest nil))
+               (setf current-note/rest nil)
                (setf current-time time)))
       (loop for chunk in track
             with time-signature-num = 4
