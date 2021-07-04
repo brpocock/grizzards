@@ -31,15 +31,4 @@ DoLocal:
 
           .include "Theme.s"
 
-          ProvinceMusic = (SongProvince0, SongProvince1, SongProvince2, SongProvince3)
-ProvinceMusicH:
-          .byte >ProvinceMusic
-ProvinceMusicL:
-          .byte <ProvinceMusic
-
-          .include "Province0.s"
-          .include "Province1.s"
-          .include "Province2.s"
-          .include "Province3.s"
-
           .include "EndBank.s"
