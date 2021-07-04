@@ -36,12 +36,12 @@ LoopTitleMusic:
           jmp TheEnd
 
 LoopMapMusic:
-          lda CurrentProvince
-          tax
-          lda ProvinceMusicH, x
-          sta CurrentMusic + 1
-          lda ProvinceMusicL, x
-          sta CurrentMusic
+          ;; lda CurrentProvince
+          ;; tax
+          ;; lda ProvinceMusicH, x
+          ;; sta CurrentMusic + 1
+          ;; lda ProvinceMusicL, x
+          ;; sta CurrentMusic
 
           jmp TheEnd
 
