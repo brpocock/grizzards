@@ -16,6 +16,9 @@ LoopMusic:
           cmp #ModeAttractTitle
           beq LoopTitleMusic
 
+          cmp #ModeMap
+          beq LoopMapMusic
+
           lda # 0
           sta AUDF1
           sta AUDC1
@@ -29,9 +32,17 @@ LoopTitleMusic:
           sta CurrentMusic + 1
           lda #<SongTheme
           sta CurrentMusic
+
           jmp TheEnd
 
-GoBack:
+LoopMapMusic:
+          lda CurrentProvince
+          tax
+          lda ProvinceMusicH, x
+          sta CurrentMusic + 1
+          lda ProvinceMusicL, x
+          sta CurrentMusic
+
           jmp TheEnd
 
 PlayNewSound:
