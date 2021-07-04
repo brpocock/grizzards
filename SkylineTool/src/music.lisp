@@ -483,7 +483,9 @@ Gathered text:~{~% • ~a~}"
              (princ "." *trace-output*)
              (finish-output *trace-output*)
              (if (or (null duration) (< duration +midi-duration-divisor+))
-                 (format source-file "~%	;; ~a" comment)
+                 (if (= i (1- (array-dimension notes 0)))
+                     (format source-file "~%	.sound 0, 0, 0, 0, 1	; ~a" comment)
+                     (format source-file "~%	;; ~a" comment))
                  (format source-file "~%	.sound $~x, $~x, $~2,'0x, ~3d, ~d	; ~a"
                          volume
                          control
