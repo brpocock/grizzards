@@ -196,8 +196,16 @@ skipping MIDI music with ~:d note~:p"
           output-coding machine-type (length midi-notes))
     (make-array '(0 4))))
 
-(defun best-tia-note-for (freq &optional (voice 1))
-  (let ((notes (mapcar #'first       ; #'second for PAL
+(defun best-tia-ntsc-note-for (freq &optional (voice 1))
+  (let ((notes (mapcar #'first
+                       (cdr (elt +atari-voices+ voice)))))
+    (when-let (freq (position (first (sort (copy-list notes) #'<
+                                           :key (curry #'frequency-distance freq)))
+                              notes :test #'=))
+      (list voice freq))))
+
+(defun best-tia-pal-note-for (freq &optional (voice 1))
+  (let ((notes (mapcar #'second
                        (cdr (elt +atari-voices+ voice)))))
     (when-let (freq (position (first (sort (copy-list notes) #'<
                                            :key (curry #'frequency-distance freq)))
@@ -209,16 +217,20 @@ skipping MIDI music with ~:d note~:p"
 
 (defun array<-tia-notes-list (list)
   (let ((array (make-array (list (length list) 5))))
-    (loop for note in (reverse list)
+    (loop for note in list
           for i from 0
-          for (control freq) = (or (null-if-zero-note (best-tia-note-for (elt note 2) 1))
-                                   (null-if-zero-note (best-tia-note-for (elt note 2) 2))
-                                   (null-if-zero-note (best-tia-note-for (elt note 2) 4))
-                                   (list 0 0))
-          do (setf (aref array i 0) (floor (min (elt note 0) 1)) ; duration
+          for (control freq) = (if-let (note (elt note 2))
+                                 (or (null-if-zero-note (best-tia-ntsc-note-for note 1))
+                                     (null-if-zero-note (best-tia-ntsc-note-for note 2))
+                                     (null-if-zero-note (best-tia-ntsc-note-for note 4))
+                                     (list 0 0))
+                                 (list nil nil))
+          do (setf (aref array i 0) (when (elt note 0)
+                                      (floor (max (/ (elt note 0) +midi-duration-divisor+) 1))) ; duration
                    (aref array i 1) control        ;control
                    (aref array i 2) freq ;frequency
-                   (aref array i 3) (floor (elt note 3))  ; volume
+                   (aref array i 3) (when (elt note 3)
+                                      (floor (elt note 3)))  ; volume
                    (aref array i 4) (elt note 4))) ;comment
     array))
 
@@ -236,9 +248,10 @@ skipping MIDI music with ~:d note~:p"
                                                               volume
                                                               (nth-value 2 (key<-midi-key (getf info :key)))))
                         output))
-                 (:rest (make-array 5 :initial-contents (list (getf info :duration)
-                                                              0 0 0 "rest")))
-                 (:text (make-array 5 :initial-contents (list nil nil nil nil info))))))
+                 (:rest (push (make-array 5 :initial-contents (list (getf info :duration) 0 0 0 "rest"))
+                              output))
+                 (:text (push (make-array 5 :initial-contents (list nil nil nil nil info))
+                              output)))))
     (reverse output)))
 
 (defmethod midi-to-sound-binary ((output-coding (eql :ntsc))
@@ -457,7 +470,7 @@ Gathered text:~{~% • ~a~}"
     finally
        (return assignments)))
 
-(defconstant +midi-duration-divisor+ 1)
+(defconstant +midi-duration-divisor+ 4)
 
 (defun write-song-data-to-file (title notes source-file)
   (format source-file "~%;;;~|~%~a:" (assembler-label-name title))
@@ -467,19 +480,20 @@ Gathered text:~{~% • ~a~}"
                  (frequency (aref notes i 2))
                  (volume (aref notes i 3))
                  (comment (aref notes i 4)))
-             (unless (zerop duration)
-               (princ "." *trace-output*)
-               (finish-output *trace-output*)
-               (format source-file "~%	.sound $~x, $~x, $~2,'0x, ~3d, ~d	; ~a"
-                       volume
-                       control
-                       frequency
-                       (round (min (max 1 (/ duration +midi-duration-divisor+)) #xff))                
-                       (if (= i (1- (array-dimension notes 0))) ; last note
-                           1
-                           0)
-                       comment)
-               (finish-output source-file))))
+             (princ "." *trace-output*)
+             (finish-output *trace-output*)
+             (if (or (null duration) (zerop duration))
+                 (format source-file "~%	;; ~a" comment)
+                 (format source-file "~%	.sound $~x, $~x, $~2,'0x, ~3d, ~d	; ~a"
+                         volume
+                         control
+                         frequency
+                         (round (min (max 1 (/ duration +midi-duration-divisor+)) #xff))                
+                         (if (= i (1- (array-dimension notes 0))) ; last note
+                             1
+                             0)
+                         comment))
+             (finish-output source-file)))
   (format source-file "~2%;;; end of ~a" (assembler-label-name title)))
 
 (defun assigned-song-bank-and-title (assignment)
@@ -585,12 +599,19 @@ Music:~:*
   (let ((current-time 0)
         (current-note/rest (list :rest))
         (output (list)))
-    (flet ((start-note/rest (info)
-             (setf current-note/rest info))
-           (end-note/rest (time)
-             (push (append current-note/rest (list :duration (- time current-time)))
-                   output)
-             (setf current-time time))) 
+    (labels ((start-note/rest (info)
+               #+ (or)  (format *trace-output* "	start ~a" info)
+               (when current-note/rest
+                 (end-note/rest (getf (cdr info) :time)))
+               (setf current-note/rest info))
+             (end-note/rest (time)
+               #+ (or)  (format *trace-output* "	end ~a at ~d (duration ~d)" current-note/rest time (- time current-time))
+               (push (append current-note/rest (list :duration (- time current-time)))
+                     output)
+               (if (eql :note (car current-note/rest))
+                   (setf current-note/rest (list :rest))
+                   (setf current-note/rest nil))
+               (setf current-time time)))
       (loop for chunk in track
             with time-signature-num = 4
             with time-signature-den = 4
@@ -610,14 +631,13 @@ Music:~:*
                  (midi::tempo-message nil)
                  (midi::control-change-message nil)
                  (midi::note-on-message
-                  (format *trace-output* "~&~s" chunk)
+                  #+ (or) (format *trace-output* "~&~s" chunk)
                   (with-slots ((key midi::key) (time midi::time)
                                (velocity midi::velocity))
                       chunk
-                    (end-note/rest time)
                     (if (plusp velocity)
-                        (start-note/rest (list :note :key key))
-                        (start-note/rest (list :rest)))))
+                        (start-note/rest (list :note :time time :key key))
+                        (start-note/rest (list :rest :time time)))))
                  (midi:key-signature-message nil)
                  (midi:reset-all-controllers-message nil)
                  (midi:program-change-message nil)
