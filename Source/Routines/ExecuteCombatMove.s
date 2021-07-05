@@ -10,18 +10,9 @@ ExecuteMonsterMove:
           beq MonsterHits
 
           ;; Determine whether the move is a Hit or Miss first
-          ldy #15               ; ACU/HP byte
-          lda (CurrentMonsterPointer), y
-          and #$f0
-          ror a
-          ror a
-          ror a
-          ror a
+          jsr Random            ; roll to hit
           tax
-          lda LevelTable, x
-          tax                   ; Acuity of monster
-          
-          jsr Random
+          jsr Random            ; 2° roll for critical success/failure
           and #$0f
           bne +
           dex                   ; critical fail
@@ -29,21 +20,6 @@ ExecuteMonsterMove:
           cmp #$0f
           bne +
           inx                   ; critical success
-+
-          ldy WhoseTurn
-          lda EnemyStatusFX - 1, y
-          and #StatusAcuityDown
-          bne +
-          txa
-          ror a
-          tax
-+
-          lda EnemyStatusFX - 1, y
-          and #StatusAcuityUp
-          bne +
-          txa
-          asl a
-          tax
 +
           stx Temp
 
@@ -99,7 +75,8 @@ ExecutePlayerMove:
           beq PlayerHits
           
           ;; Determine whether the move is a Hit or Miss first
-          ldx GrizzardAcuity
+          jsr Random
+          tax
           jsr Random
           and #$0f
           bne +
@@ -109,20 +86,6 @@ ExecutePlayerMove:
           bne +
           inx                   ; critical success
 +
-          lda StatusFX
-          and #StatusAcuityDown
-          bne +
-          txa
-          ror a
-          tax
-+
-          lda StatusFX
-          and #StatusAcuityUp
-          bne +
-          txa
-          asl a
-          tax
-+          
           stx Temp
 
           ldy #14               ; ATK/DEF byte

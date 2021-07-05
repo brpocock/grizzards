@@ -47,11 +47,9 @@
 
 ;;; Status Effects for player or enemies 
           StatusSleep = $01
-          StatusAcuityDown = $02
           StatusAttackDown = $04
           StatusDefendDown = $08
           StatusMuddle = $10
-          StatusAcuityUp = $20
           StatusAttackUp = $40
           StatusDefendUp = $80
 

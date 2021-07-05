@@ -34,21 +34,20 @@ ShowGrizzardStats:  .block
           sta Pointer +1
           lda #< StatsText + 12
           sta Pointer
-          lda GrizzardAcuity
+          lda CurrentHP
           jsr AppendDecimalAndPrint
 
           lda #> StatsText + 18
           sta Pointer +1
           lda #< StatsText + 18
           sta Pointer
-          lda CurrentHP
-          jsr AppendDecimalAndPrint
-
-          lda #> StatsText + 24
-          sta Pointer +1
-          lda #< StatsText + 24
-          sta Pointer
           lda MaxHP
           jmp AppendDecimalAndPrint
+
+          ldx # 16
+-
+          stx WSYNC
+          dex
+          bne -
 
           .bend

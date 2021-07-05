@@ -111,7 +111,7 @@ GrizzardAttack:
           .byte ?
 GrizzardDefense:
           .byte ?
-GrizzardAcuity:
+;;; Filler byte, previously used for Grizzard Acuity
           .byte ?
           
 ;;; Moves known (8 bits = 8 possible moves)

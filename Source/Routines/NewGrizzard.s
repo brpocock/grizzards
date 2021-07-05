@@ -46,7 +46,7 @@ CatchEm:
           sta GrizzardDefense
           iny
           lda GrizzardStartingStats, y
-          sta GrizzardAcuity
+          sta GrizzardDefense + 1
           iny
           lda GrizzardStartingStats, y
           sta MovesKnown

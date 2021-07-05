@@ -60,9 +60,9 @@ SetUpMonsterHP:
           lda LevelTable, y
           sta Temp
           
-          ldy # 15              ; offset of ACC & count
+          ldy # 15              ; offset of count
           lda (CurrentMonsterPointer), y
-          and #$0f
+          and #$07
           sta Temp
           dec Temp
 

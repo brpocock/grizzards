@@ -88,7 +88,7 @@ SignatureTime:
           sta CurrentGrizzard   ; giving them a free Grizzard for now, TODO
           sta GrizzardAttack
           sta GrizzardDefense
-          sta GrizzardAcuity
+          sta GrizzardDefense + 1 ; unused for now
 
           lda #$0f              ; learn 4 moves to start TODO
           sta MovesKnown

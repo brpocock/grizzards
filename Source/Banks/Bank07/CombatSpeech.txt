@@ -31,9 +31,6 @@ attack
 StatusFXDefend:
 defend
 
-StatusFXAcuity:
-acuity
-
 StatusFXRaise:
 is raised
 
