@@ -215,15 +215,22 @@ skipping MIDI music with ~:d note~:p"
 (defun null-if-zero-note (n)
   (if (or (null n) (zerop (lastcar n))) nil n))
 
-(defun array<-tia-notes-list (list)
+(defun array<-tia-notes-list (list output-coding)
   (let ((array (make-array (list (length list) 5))))
     (loop for note in list
           for i from 0
           for (control freq) = (if-let (note (elt note 2))
-                                 (or (null-if-zero-note (best-tia-ntsc-note-for note 1))
-                                     (null-if-zero-note (best-tia-ntsc-note-for note 2))
-                                     (null-if-zero-note (best-tia-ntsc-note-for note 4))
-                                     (list 0 0))
+                                 (ecase output-coding
+                                   (:ntsc
+                                    (or (null-if-zero-note (best-tia-ntsc-note-for note 1))
+                                        (null-if-zero-note (best-tia-ntsc-note-for note 2))
+                                        (null-if-zero-note (best-tia-ntsc-note-for note 4))
+                                        (list 0 0)))
+                                   (:pal
+                                    (or (null-if-zero-note (best-tia-pal-note-for note 1))
+                                        (null-if-zero-note (best-tia-pal-note-for note 2))
+                                        (null-if-zero-note (best-tia-pal-note-for note 4))
+                                        (list 0 0))))
                                  (list nil nil))
           do (setf (aref array i 0) (when (elt note 0)
                                       (floor (max (/ (elt note 0) +midi-duration-divisor+) 1))) ; duration
@@ -256,7 +263,11 @@ skipping MIDI music with ~:d note~:p"
 
 (defmethod midi-to-sound-binary ((output-coding (eql :ntsc))
                                  (machine-type (eql 2600)) midi-notes)
-  (array<-tia-notes-list (midi-translate-notes (car midi-notes))))
+  (array<-tia-notes-list (midi-translate-notes (car midi-notes)) output-coding))
+
+(defmethod midi-to-sound-binary ((output-coding (eql :pal))
+                                 (machine-type (eql 2600)) midi-notes)
+  (array<-tia-notes-list (midi-translate-notes (car midi-notes)) output-coding))
 
 (defun collect-midi-texts (midi)
   (loop for track in (midi:midifile-tracks midi)
@@ -570,23 +581,29 @@ Music:~:*
 
 (defun compile-music (source-out-name in-file-name &optional machine-type$)
   (let ((*machine* (if machine-type$ (parse-integer machine-type$) 2600))
-        (output-coding :NTSC)
         (catalog (make-hash-table))
         (comments-catalog (make-hash-table)))
     (format *trace-output* "~&Writing music from playlist ~a…" in-file-name)
-    (import-song-to-catalog 
-     :song-file-name in-file-name
-     :output-coding output-coding
-     :catalog catalog
-     :comments-catalog comments-catalog)
     (with-output-to-file (source-out source-out-name :if-exists :supersede :if-does-not-exist :create)
       (format *trace-output* "~&Writing ~a…" source-out-name)
       (format source-out ";;; Music compiled from ~a;
 ;;; do not bother editing (generated file will be overwritten)" 
-              in-file-name)
-      (loop for symbol being the hash-keys of catalog
-            for notes = (gethash symbol catalog)
-            do (write-song-data-to-file (string symbol) notes source-out)))
+              in-file-name) 
+      (dolist (output-coding '(:NTSC :PAL))
+        (format *trace-output* "Music encoded for ~a TV standard…" output-coding)
+        (when (eql :NTSC output-coding)
+          (format source-out "~%	.if TV == NTSC~2%"))
+        (when (eql :PAL output-coding)
+          (format source-out "~%	.else ; PAL or SECAM"))
+        (import-song-to-catalog
+         :song-file-name in-file-name
+         :output-coding output-coding
+         :catalog catalog
+         :comments-catalog comments-catalog)
+        (loop for symbol being the hash-keys of catalog
+              for notes = (gethash symbol catalog)
+              do (write-song-data-to-file (string symbol) notes source-out)))
+      (format source-out "~2%	.fi~%"))
     (format *trace-output* "~&… done.~%")
     (finish-output))
   
