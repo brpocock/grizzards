@@ -8,6 +8,8 @@ DoLocal:
           .include "Map.s"
           .include "VSync.s"
           .include "Random.s"
+          .include "PlayMusic.s"
+          rts
 
           .include "MapsPart2.s"
 

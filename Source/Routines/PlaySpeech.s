@@ -58,7 +58,7 @@ NotOverheated:
           ;; check buffer-full status
           lda SWCHA
           and #SerialReady
-          beq VoiceDone      ; not ready
+          beq TheEnd      ; not ready
 
           ;; get next speech byte
           ldy # 0
@@ -87,7 +87,7 @@ SerialSendBit:
 
           ;; 10 bits sent? (1 start bit, 8 data bits, 1 stop bit)
           cpy # 9             ; 2 14
-          beq VoiceDone       ; 2 16
+          beq TheEnd       ; 2 16
           iny                 ; 2 18
 
           ;; waste some cycles
@@ -101,9 +101,6 @@ SerialDelayLoop:
 
           ;; and loop (branch always taken)
           bpl SerialSendBit    ; 3 62 cycles for loop
-
-VoiceDone:
-          rts
 
 DoneSpeaking:
           lda #0

@@ -6,39 +6,7 @@ PlaySFX: .block
           bne PlaySound
 
           lda NextSound
-          bne PlayNewSound
-
-          lda CurrentMusic + 1
-          bne PlayMusic
-          
-LoopMusic:
-          lda GameMode
-          cmp #ModeMap
-          beq MusicInBank
-
-          cmp #ModeAttractTitle
-          bne NoMusic
-
-          lda #>SongTheme
-          sta CurrentMusic + 1
-          lda #<SongTheme
-          sta CurrentMusic
-
-          jmp TheEnd
-
-MusicInBank:
-          lda # 0
-          sta CurrentMusic + 1
-
-NoMusic:
-
-          lda # 0
-          sta AUDF1
-          sta AUDC1
-          sta AUDV1
-          sta NoteTimer
-          
-          jmp TheEnd
+          beq DoMusic
 
 PlayNewSound:
           cmp #SoundCount + 1
@@ -56,51 +24,10 @@ PlayNewSoundReally:
           sta NextSound
 
           jmp PlayNextSFXNote
-PlayMusic:
-          dec NoteTimer
-          bne TheEnd
-
-          ldy #0
-          lda (CurrentMusic), y
-          tax
-          and #$0f
-          sta AUDC1
-          txa
-          and #$f0
-          clc
-          ror a
-          ror a
-          ror a
-          ror a
-          sta AUDV1
-
-          iny
-
-          lda (CurrentMusic), y
-          sta AUDF1
-
-          iny
-
-          lda (CurrentMusic), y
-          sta NoteTimer
-
-          dey
-          lda (CurrentMusic), y
-          bmi LoopMusic
-
-          lda # 3
-          clc
-          adc CurrentMusic
-          bcc +
-          inc CurrentMusic + 1
-+
-          sta CurrentMusic
-
-          jmp TheEnd
 
 PlaySound:
           dec SFXNoteTimer
-          bne TheEnd
+          bne DoMusic
 
 PlayNextSFXNote:
           ldy #0
@@ -137,7 +64,7 @@ PlayNextSFXNote:
 +
           sta CurrentSound
 
-          jmp TheEnd
+          jmp DoMusic
 
 EndOfSound:
 
@@ -148,6 +75,6 @@ EndOfSound:
           sta AUDV0
           sta NoteTimer
 
-TheEnd:
-          rts
+          ;; fall through to DoMusic
+
           .bend
