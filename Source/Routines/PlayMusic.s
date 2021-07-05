@@ -7,14 +7,12 @@ DoMusic:
           
 LoopMusic:
           lda GameMode
-          cmp #ModeMap
-          beq MusicInBank
-
-          cmp #ModeAttractTitle
-          bne NoMusic
 
           .switch BANK
           .case 7
+
+          cmp #ModeAttractTitle
+          bne NoMusic
 
           lda #>SongTheme
           sta CurrentMusic + 1
@@ -112,11 +110,6 @@ ReallyPlayMusic:
           sta CurrentMusic
 
           jmp TheEnd
-
-MusicInBank:
-          lda # 0
-          sta CurrentMusic + 1
-          sta CurrentMusic
 
 NoMusic:
 
