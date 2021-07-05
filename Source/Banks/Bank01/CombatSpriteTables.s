@@ -14,10 +14,19 @@ SpritePresence:
 
 SpritePosition:
           .byte $02             ; 0 0 0
-          .byte $05             ; 0 0 1
-          .byte $04             ; 0 1 0
-          .byte $04             ; 0 1 1
+          .byte $e7             ; 0 0 1
+          .byte $f5             ; 0 1 0
+          .byte $f5             ; 0 1 1
           .byte $03             ; 1 0 0
           .byte $03             ; 1 0 1
           .byte $03             ; 1 1 0
           .byte $03             ; 1 1 1
+
+
+CursorPosition:
+          .byte $03             ; x - -
+          .byte $25             ; - x -
+          .byte $47             ; - - x
+          .byte $03             ; x - -
+          .byte $25             ; - x -
+          .byte $47             ; - - x
