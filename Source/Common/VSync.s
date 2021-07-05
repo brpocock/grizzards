@@ -77,17 +77,15 @@ Overscan: .block
           jsr FarCall
 
           .switch BANK
-          .case 0
-          ;; no op
-          .case 3               ; --------------------
+          .case 3
 
           jsr DoMusic
 
-          .case 4               ; --------------------
+          .case 4
 
           jsr DoMusic
 
-          .default              ; --------------------
+          .default
 
           ;; no op
 
