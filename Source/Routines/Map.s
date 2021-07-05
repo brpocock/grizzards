@@ -13,6 +13,7 @@ DoMap:    .block
           lda # 0
           sta DeltaX
           sta DeltaY
+          sta CurrentMusic + 1
 
           lda BlessedX
           sta PlayerX
