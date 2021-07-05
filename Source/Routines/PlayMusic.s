@@ -68,6 +68,12 @@ PlayMusic:
           dec NoteTimer
           bne TheEnd
 
+          ;; make the notes slightly more staccatto
+          lda # 0
+          sta AUDF1
+          sta AUDC1
+          sta AUDV1
+
 ReallyPlayMusic:
           ldy #0
           lda (CurrentMusic), y
