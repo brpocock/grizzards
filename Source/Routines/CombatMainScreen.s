@@ -29,6 +29,10 @@ PausedOrNot:
 
           jsr ShowMonsterName
 
+          ldy # 14              ; offset of monster color
+          lda (CurrentMonsterPointer), y
+          sta COLUP0
+          
           ldy #ServiceDrawMonsterGroup
           ldx #MapServicesBank
           jsr FarCall

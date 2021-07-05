@@ -27,10 +27,6 @@ PrepareToDrawMonsters:
           sta NUSIZ0
           sta NUSIZ1
           
-          ldy # 14              ; offset of monster color
-          lda (CurrentMonsterPointer), y
-          sta COLUP0
-
           ldx MoveTarget
           beq PrepareTopMonsters
           dex
