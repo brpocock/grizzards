@@ -1,5 +1,5 @@
 VBlank: .block
-          ldx # ( 76 * VBlankLikes ) / 64 - 1
+          ldx # ( 76 * VBlankLines ) / 64 - 1
           sta TIM64T
 
 FillVBlank:
