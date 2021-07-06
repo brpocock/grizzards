@@ -177,9 +177,9 @@ ldacolu .macro co, lu=$7
 	    .fi
           .else
             .if \lu == 0
-              lda COLBLACK
+              lda #COLBLACK
             .else
-              lda \co
+              lda #\co
             .fi
           .fi
 
