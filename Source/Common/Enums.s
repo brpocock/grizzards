@@ -134,3 +134,10 @@
 ;;; The save/load routines should handle up to 36
 
           NumGrizzards = 30
+
+;;; Screen boundaries for popping to the next screen
+
+          ScreenLeftEdge = 48
+          ScreenRightEdge = 200
+          ScreenTopEdge = 8
+          ScreenBottomEdge = 75
