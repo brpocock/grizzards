@@ -6,12 +6,6 @@
 
 DoLocal:  
           .include "Map.s"
-          .include "VSync.s"
-          .include "VBlank.s"
-          .include "Overscan.s"
-          .include "Random.s"
-          .include "PlayMusic.s"
-          rts
 
           .include "MapsPart2.s"
 
@@ -21,4 +15,10 @@ DoLocal:
           .include "Province2.s"
           .include "Province3.s"
 
+          .include "VSync.s"
+          .include "VBlank.s"
+          .include "Overscan.s"
+          .include "Random.s"
+          .include "PlayMusic.s"
+          rts
           .include "EndBank.s"

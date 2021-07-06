@@ -6,6 +6,9 @@
 
 	.include "StartBank.s"
 
+DoVBlankWork:
+          .include "MapOverscan.s"
+
           .include "VSync.s"
           .include "VBlank.s"
           .include "Overscan.s"
