@@ -7,6 +7,8 @@
 DoLocal:  
           .include "Map.s"
           .include "VSync.s"
+          .include "VBlank.s"
+          .include "Overscan.s"
           .include "Random.s"
           .include "PlayMusic.s"
           rts

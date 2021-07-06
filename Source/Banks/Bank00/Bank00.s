@@ -33,6 +33,8 @@ DoLocal:
           .include "ShowPicture.s"
           .include "StartNewGame.s"
           .include "VSync.s"
+          .include "VBlank.s"
+          .include "Overscan.s"
           .include "AtariVox-EEPROM-Driver.s"
           .include "CheckSaveSlot.s"
           .include "LoadSaveSlot.s"
