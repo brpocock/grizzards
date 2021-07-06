@@ -1,3 +1,6 @@
+;;; Grizzards Source/Common/VBlank.s
+;;; Copyright © 2021 Bruce-Robert Pocock
+
 VBlank: .block
           lda # ( 76 * VBlankLines ) / 64 - 1
           sta TIM64T
