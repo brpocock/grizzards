@@ -5,55 +5,15 @@ MapVBlank:        .block
 
           lda GameMode
           cmp #ModeMap
-          beq MovementLogic
-
-          rts
+          bne UserInputStart
           
 MovementLogic:
           lda ClockFrame
           and # $04
-          beq DoSpriteMotion
+          bne CheckSpriteCollision
 
-CheckSpriteCollision:
-          lda CXP1FB
-          and #$c0              ; hit playfield or ball
-          beq MovementLogicDone
-
-          ;; Who did we just draw?
-          ldx SpriteFlicker
-          lda SpriteMotion, x
-          and #SpriteMoveLeft
-          bne SpriteCxRight
-          lda SpriteMotion, x
-          and # SpriteMoveUp | SpriteMoveDown
-          ora #SpriteMoveRight
-          sta SpriteMotion, x
-          jmp SpriteCxUpDown
-
-SpriteCxRight:
-          lda SpriteMotion, x
-          and # SpriteMoveUp | SpriteMoveDown
-          ora #SpriteMoveLeft
-          sta SpriteMotion, x
-SpriteCxUpDown:
-          lda SpriteMotion, x
-          and #SpriteMoveUp
-          bne SpriteCxDown
-          lda SpriteMotion, x
-          and # SpriteMoveLeft | SpriteMoveRight
-          ora #SpriteMoveDown
-          sta SpriteMotion, x
+;;; 
           
-          jmp MovementLogicDone
-
-SpriteCxDown:
-          lda SpriteMotion, x
-          and # SpriteMoveLeft | SpriteMoveRight
-          ora #SpriteMoveDown
-          sta SpriteMotion, x
-
-          jmp MovementLogicDone
-
 DoSpriteMotion:
           ldx SpriteCount
 MoveSprites:
@@ -105,20 +65,99 @@ RandomlyMove:
           beq RandomlyMove
           sta SpriteMotion, x
           ;; fall through
-          
+
 SpriteMoveDone:
+
+          lda SpriteX, x
+          cmp #ScreenLeftEdge
+          bcs LeftOK
+          lda SpriteMotion, x
+          and # $ff ^ SpriteMoveLeft
+          ora #SpriteMoveIdle
+          sta SpriteMotion, x
+          lda #ScreenLeftEdge + 1
+          sta SpriteX, x
+LeftOK:
+          cmp #ScreenRightEdge
+          bcc RightOK
+          lda SpriteMotion, x
+          and # $ff ^ SpriteMoveRight
+          ora #SpriteMoveIdle
+          sta SpriteMotion, x
+          lda #ScreenRightEdge - 1
+          sta SpriteX, x
+RightOK:
+          lda SpriteY, x
+          cmp #ScreenTopEdge
+          bcs TopOK
+          lda SpriteMotion, x
+          and # $ff ^ SpriteMoveUp
+          ora #SpriteMoveIdle
+          sta SpriteMotion, x
+          lda #ScreenTopEdge + 1
+          sta SpriteY, x
+TopOK:
+          cmp #ScreenBottomEdge
+          bcc BottomOK
+          lda SpriteMotion, x
+          and # $ff ^ SpriteMoveDown
+          ora #SpriteMoveIdle
+          sta SpriteMotion, x
+          lda #ScreenBottomEdge - 1
+          sta SpriteY, x
+BottomOK:
+
           dex
           cpx #$ff              ; wait for it to wrap around below 0
           bne MoveSprites
 
-MovementLogicDone:
+;;; 
 
+CheckSpriteCollision:
+          lda CXP1FB
+          and #$c0              ; hit playfield or ball
+          beq MovementLogicDone
+
+          ;; Who did we just draw?
+          ldx SpriteFlicker
+          lda SpriteMotion, x
+          and #SpriteMoveLeft
+          bne SpriteCxRight
+          lda SpriteMotion, x
+          and # SpriteMoveUp | SpriteMoveDown
+          ora #SpriteMoveRight
+          sta SpriteMotion, x
+          jmp SpriteCxUpDown
+
+SpriteCxRight:
+          lda SpriteMotion, x
+          and # SpriteMoveUp | SpriteMoveDown
+          ora #SpriteMoveLeft
+          sta SpriteMotion, x
+SpriteCxUpDown:
+          lda SpriteMotion, x
+          and #SpriteMoveUp
+          bne SpriteCxDown
+          lda SpriteMotion, x
+          and # SpriteMoveLeft | SpriteMoveRight
+          ora #SpriteMoveDown
+          sta SpriteMotion, x
+          
+          jmp MovementLogicDone
+
+SpriteCxDown:
+          lda SpriteMotion, x
+          and # SpriteMoveLeft | SpriteMoveRight
+          ora #SpriteMoveDown
+          sta SpriteMotion, x
+
+MovementLogicDone:
 
 ;;; 
 
-
-
-                    lda BumpCooldown
+UserInputStart: 
+          
+          lda BumpCooldown
           beq HandleStick
           dec BumpCooldown
 

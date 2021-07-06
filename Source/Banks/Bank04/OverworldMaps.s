@@ -71,19 +71,19 @@ MapSprites:
           ;; 
           .byte 0               ; end of list
           ;; Room 1
-          .byte SpriteFixed     ; fixed position sprite
+          .byte SpriteWander
           .byte 0               ; sprite art index = person
           .byte 75, 65         ; x, y position
           .byte SpriteCombat      ; action
           .byte 3
           ;;
-          .byte SpriteFixed     ; fixed position sprite
+          .byte SpriteWander
           .byte 1               ; sprite art index = monster
           .byte 100, 65         ; x, y position
           .byte SpriteCombat   ; action
           .byte 0               ; combat index
           ;;
-          .byte SpriteFixed     ; fixed position sprite
+          .byte SpriteWander
           .byte 1               ; sprite art index = monster
           .byte 100, 25         ; x, y position
           .byte SpriteCombat   ; action
