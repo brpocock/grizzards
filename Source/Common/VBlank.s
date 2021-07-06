@@ -1,12 +1,13 @@
 VBlank: .block
-          ldx # ( 76 * VBlankLines ) / 64 - 1
+          lda # ( 76 * VBlankLines ) / 64 - 1
           sta TIM64T
+          sta WSYNC
 
 FillVBlank:
-          sta WSYNC
           lda TIMINT
           bpl FillVBlank
 
+          stx WSYNC
           ldx # 0
           stx VBLANK
           rts
