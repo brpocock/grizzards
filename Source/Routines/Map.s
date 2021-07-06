@@ -456,6 +456,8 @@ SkipSwitches:
           jmp Loop
 
 Leave:
+          lda # 0
+          sta CurrentMusic + 1
           cmp #ModeCombat
           beq GoCombat
           cmp #ModeGrizzardDepot
