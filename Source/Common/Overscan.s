@@ -1,3 +1,6 @@
+;;; Grizzards Source/Common/Overscan.s
+;;; Copyright © 2021 Bruce-Robert Pocock
+
 Overscan: .block
           lda # ( 76 * OverscanLines ) / 64 - 1
           sta TIM64T
