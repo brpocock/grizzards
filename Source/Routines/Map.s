@@ -379,14 +379,14 @@ P1Done:
           jmp CheckSwitches
 
 GoScreenUp:
-          lda #74
+          lda #ScreenBottomEdge - 1
           sta BlessedY
           sta PlayerY
           ldy #0
           jmp GoScreen
 
 GoScreenDown:
-          lda #9
+          lda #ScreenTopEdge + 1
           sta BlessedY
           sta PlayerY
           ldy #1
