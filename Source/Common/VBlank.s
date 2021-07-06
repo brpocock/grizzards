@@ -3,6 +3,14 @@ VBlank: .block
           sta TIM64T
           sta WSYNC
 
+          .weak
+          DoVBlankWork := 0
+          .endweak
+
+          .if DoVBlankWork != 0
+          jsr DoVBlankWork
+          .fi
+
 FillVBlank:
           lda TIMINT
           bpl FillVBlank
