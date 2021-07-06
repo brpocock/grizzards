@@ -25,8 +25,8 @@ SpritePosition:
 
 CursorPosition:
           .byte $03             ; x - -
-          .byte $25             ; - x -
-          .byte $47             ; - - x
+          .byte $15             ; - x -
+          .byte $07             ; - - x
           .byte $03             ; x - -
-          .byte $25             ; - x -
-          .byte $47             ; - - x
+          .byte $15             ; - x -
+          .byte $07             ; - - x
