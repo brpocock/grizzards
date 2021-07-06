@@ -26,6 +26,7 @@ DecodeScore:
 
           lda Score
           and #$f0
+          clc
           ror a
           ror a
           ror a
