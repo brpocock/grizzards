@@ -439,12 +439,20 @@ CheckSwitches:
 
 NoReset:
 
-          .if TV != SECAM
+          .if TV == SECAM
+
+          lda DebounceSWCHB
+          and #SWCHBP0Advanced
+          sta Pause
+
+          .else
+
           ;; TODO — 7800 Pause button support
           lda DebounceSWCHB
           and #SWCHBColor
           eor #SWCHBColor
           sta Pause
+
           .fi
 
 SkipSwitches:
