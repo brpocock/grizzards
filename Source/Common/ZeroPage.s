@@ -136,6 +136,12 @@ DebounceSWCHB:
           .byte ?
 DebounceINPT4:
           .byte ?
+NewSWCHA:
+          .byte ?
+NewSWCHB:
+          .byte ?
+NewINPT4:
+          .byte ?
 DeltaX:
           .byte ?
 DeltaY:
