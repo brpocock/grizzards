@@ -2,9 +2,6 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 DoMap:    .block
 
-          ScreenLeftEdge = 48
-          ScreenRightEdge = 200
-
           jsr Random
           and #$4f
           ora #$20
@@ -368,9 +365,9 @@ P1Done:
           beq NewRoom
 
           lda PlayerY
-          cmp #8
+          cmp #ScreenTopEdge
           bmi GoScreenUp
-          cmp #75
+          cmp #ScreenBottomEdge
           bpl GoScreenDown
 
           lda PlayerX
