@@ -1,6 +1,6 @@
 ;;; Grizzards Source/Banks/Bank04/MapRLE.s
-;;; Copyright © 2021 Bruce-Robert Pocock
 ;;; -*- fundamental -*-
+;;; Copyright © 2021 Bruce-Robert Pocock
 
 ;;; RLE data for each screen layout
 ;;;
@@ -101,9 +101,11 @@ Map_Narrow:
 
 Map_Bulge:
           .byte 14, %11110000, %11111111, %00001111
-          .byte 10, %11110000, %11111111, %00000011
+          .byte 5,  %11110000, %11111111, %00000111
+          .byte 5,  %11110000, %11111111, %00000011
           .byte 26, %11110000, %11111111, %00000000
-          .byte 10, %11110000, %11111111, %00000011
+          .byte 5,  %11110000, %11111111, %00000011
+          .byte 5,  %11110000, %11111111, %00000111
           .byte 14, %11110000, %11111111, %00001111
 
 Map_NorthGlobe:
