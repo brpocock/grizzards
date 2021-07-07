@@ -63,15 +63,14 @@ MapFG:
           .colu COLORANGE, 1
           
 MapBG:
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
+          .colu COLSPRINGGREEN, $f
+          .colu COLSPRINGGREEN, $f
+          .colu COLSPRINGGREEN, $f
+          .colu COLSPRINGGREEN, $f
+          .colu COLSPRINGGREEN, $f
+          .colu COLSPRINGGREEN, $f
+          .colu COLSPRINGGREEN, $f
+          .colu COLSPRINGGREEN, $f
           .colu COLGRAY, $f
           .colu COLGRAY, $f
           ;; 10
@@ -85,39 +84,36 @@ MapBG:
           .colu COLGRAY, $f
           .colu COLGRAY, $f
           .colu COLGRAY, $f
-          .colu COLGRAY, $f
           ;; 20
           .colu COLGRAY, $f
+          .colu COLBLUE, $f
+          .colu COLBLUE, $f
+          .colu COLBLUE, $f
           .colu COLGRAY, $f
           .colu COLGRAY, $f
           .colu COLGRAY, $f
           .colu COLGRAY, $f
           .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
+          .colu COLGOLD, $f
           ;; 30
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
+          .colu COLGOLD, $f
+          .colu COLGOLD, $f
+          .colu COLGOLD, $f
+          .colu COLGOLD, $f
+          .colu COLGOLD, $f
+          .colu COLGOLD, $f
+          .colu COLGOLD, $f
+          .colu COLGOLD, $f
+          .colu COLGOLD, $f
+          .colu COLGOLD, $f
           ;; 40
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
+          .colu COLGOLD, $f
+          .colu COLGOLD, $f
+          .colu COLGOLD, $f
+          .colu COLGOLD, $f
+          .colu COLGOLD, $f
+          .colu COLGOLD, $f
+          .colu COLGOLD, $f
           
 ;;; Links up, down, left, right are map indices in this bank
 MapLinks:
@@ -151,7 +147,7 @@ MapLinks:
           .byte 18, 26, 22, 21
           .byte 21, $ff, $ff, $ff
           ;; 25
-          .byte $ff, $ff, 28, 25
+          .byte $ff, $ff, 28, 26
           .byte 23, 32, 25, 27
           .byte $ff, $ff, 26, 28
           .byte $ff, $ff, 27, 25
