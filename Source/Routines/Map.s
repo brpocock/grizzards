@@ -304,6 +304,14 @@ DoneBall:
 
           lda MapBG, x
           sta COLUBK
+          cmp MapFG, x
+          bne DrawMap
+          ;; This is a hack mostly for SECAM
+          ;; If I accidentally set FG = BK color, because
+          ;; COLU values are based on the larger NTSC palette
+          adc # 1
+          sta COLUBK
+
 DrawMap:
           dec RunLength
           bne NoMapChange
