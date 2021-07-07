@@ -448,3 +448,5 @@ MapSprites:
 
 	;;Room 46
 	.byte 0
+
+          .fill 256
