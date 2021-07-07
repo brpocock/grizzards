@@ -117,7 +117,7 @@ MapBG:
           .colu COLGRAY, $f
           .colu COLGRAY, $f
           .colu COLGRAY, $f
-
+          .colu COLGRAY, $f
           
 ;;; Links up, down, left, right are map indices in this bank
 MapLinks:
