@@ -279,7 +279,7 @@ P1Ready:
 
 LeftBall:
           sta WSYNC
-          .SleepX 20
+          .SleepX 12
           sta RESBL
           lda # 0
           sta HMBL
@@ -287,7 +287,7 @@ LeftBall:
 
 RightBall:
           sta WSYNC
-          .SleepX 70
+          .SleepX 69
           sta RESBL
           lda # 0
           sta HMBL
