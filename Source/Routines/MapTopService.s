@@ -62,7 +62,7 @@ ScoreDone:
           ldx #TextBank
           jsr FarCall
 
-          lda #CTRLPFREF | CTRLPFBALLSZ4 | CTRLPFPFP
+          lda #CTRLPFREF | CTRLPFBALLSZ8 | CTRLPFPFP
           sta CTRLPF
 
           lda #0
