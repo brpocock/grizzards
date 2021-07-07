@@ -10,57 +10,57 @@ MapCount:
 
 MapFG:
           ;; 0
-          .colu COLINDIGO, 0
-          .colu COLGREEN, 0
-          .colu COLGREEN, 0
-          .colu COLGREEN, 0
-          .colu COLTEAL, 0
-          .colu COLCYAN, 0
-          .colu COLCYAN, 0
-          .colu COLGREEN, 0
-          .colu COLGREEN, 0
-          .colu COLCYAN, 0
+          .colu COLINDIGO, 1
+          .colu COLGREEN, 1
+          .colu COLGREEN, 1
+          .colu COLGREEN, 1
+          .colu COLTEAL, 1
+          .colu COLCYAN, 1
+          .colu COLCYAN, 1
+          .colu COLGREEN, 1
+          .colu COLGREEN, 1
+          .colu COLCYAN, 1
           ;; 10
-          .colu COLTURQUOISE, 0
-          .colu COLGREEN, 0
-          .colu COLTEAL, 0
-          .colu COLCYAN, 0
-          .colu COLCYAN, 0
-          .colu COLTURQUOISE, 0
-          .colu COLTURQUOISE, 0
-          .colu COLTURQUOISE, 0
-          .colu COLTURQUOISE, 0
-          .colu COLBLUE, 0
+          .colu COLTURQUOISE, 1
+          .colu COLGREEN, 1
+          .colu COLTEAL, 1
+          .colu COLCYAN, 1
+          .colu COLCYAN, 1
+          .colu COLTURQUOISE, 1
+          .colu COLTURQUOISE, 1
+          .colu COLTURQUOISE, 1
+          .colu COLTURQUOISE, 1
+          .colu COLBLUE, 1
           ;; 20
-          .colu COLBLUE, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLBLUE, 0
-          .colu COLPURPLE, 0
-          .colu COLPURPLE, 0
-          .colu COLPURPLE, 0
-          .colu COLPURPLE, 0
-          .colu COLPURPLE, 0
-          .colu COLMAGENTA, 0
+          .colu COLBLUE, 1
+          .colu COLINDIGO, 1
+          .colu COLINDIGO, 1
+          .colu COLBLUE, 1
+          .colu COLPURPLE, 1
+          .colu COLPURPLE, 1
+          .colu COLPURPLE, 1
+          .colu COLPURPLE, 1
+          .colu COLPURPLE, 1
+          .colu COLMAGENTA, 1
           ;; 30
-          .colu COLMAGENTA, 0
-          .colu COLMAGENTA, 0
-          .colu COLMAGENTA, 0
-          .colu COLMAGENTA, 0
-          .colu COLRED, 0
-          .colu COLRED, 0
-          .colu COLRED, 0
-          .colu COLORANGE, 0
-          .colu COLORANGE, 0
-          .colu COLORANGE, 0
+          .colu COLMAGENTA, 1
+          .colu COLMAGENTA, 1
+          .colu COLMAGENTA, 1
+          .colu COLMAGENTA, 1
+          .colu COLRED, 1
+          .colu COLRED, 1
+          .colu COLRED, 1
+          .colu COLORANGE, 1
+          .colu COLORANGE, 1
+          .colu COLORANGE, 1
           ;; 40
-          .colu COLMAGENTA, 0
-          .colu COLRED, 0
-          .colu COLORANGE, 0
-          .colu COLRED, 0
-          .colu COLRED, 0
-          .colu COLORANGE, 0
-          .colu COLORANGE, 0
+          .colu COLMAGENTA, 1
+          .colu COLRED, 1
+          .colu COLORANGE, 1
+          .colu COLRED, 1
+          .colu COLRED, 1
+          .colu COLORANGE, 1
+          .colu COLORANGE, 1
           
 MapBG:
           .colu COLGRAY, $f
