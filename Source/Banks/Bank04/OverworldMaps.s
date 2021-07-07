@@ -3,7 +3,7 @@
 
           ;; How many maps are in these tables?
 MapCount:
-          .byte 46
+          .byte 47
 
 ;;; Foreground and background colors
 ;;; Remember SECAM and don't make these too similar
