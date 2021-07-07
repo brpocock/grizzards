@@ -9,54 +9,58 @@ MapCount:
 ;;; Remember SECAM and don't make these too similar
 
 MapFG:
+          ;; 0
           .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
+          .colu COLGREEN, 0
+          .colu COLGREEN, 0
+          .colu COLGREEN, 0
+          .colu COLTEAL, 0
+          .colu COLCYAN, 0
+          .colu COLCYAN, 0
+          .colu COLGREEN, 0
+          .colu COLGREEN, 0
+          .colu COLCYAN, 0
+          ;; 10
+          .colu COLTURQUOISE, 0
+          .colu COLGREEN, 0
+          .colu COLTEAL, 0
+          .colu COLCYAN, 0
+          .colu COLCYAN, 0
+          .colu COLTURQUOISE, 0
+          .colu COLTURQUOISE, 0
+          .colu COLTURQUOISE, 0
+          .colu COLTURQUOISE, 0
+          .colu COLBLUE, 0
           ;; 20
+          .colu COLBLUE, 0
           .colu COLINDIGO, 0
           .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
+          .colu COLBLUE, 0
+          .colu COLPURPLE, 0
+          .colu COLPURPLE, 0
+          .colu COLPURPLE, 0
+          .colu COLPURPLE, 0
+          .colu COLPURPLE, 0
+          .colu COLMAGENTA, 0
+          ;; 30
+          .colu COLMAGENTA, 0
+          .colu COLMAGENTA, 0
+          .colu COLMAGENTA, 0
+          .colu COLMAGENTA, 0
+          .colu COLRED, 0
+          .colu COLRED, 0
+          .colu COLRED, 0
+          .colu COLORANGE, 0
+          .colu COLORANGE, 0
+          .colu COLORANGE, 0
           ;; 40
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
-          .colu COLINDIGO, 0
+          .colu COLMAGENTA, 0
+          .colu COLRED, 0
+          .colu COLORANGE, 0
+          .colu COLRED, 0
+          .colu COLRED, 0
+          .colu COLORANGE, 0
+          .colu COLORANGE, 0
           
 MapBG:
           .colu COLGRAY, $f
