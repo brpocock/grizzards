@@ -167,7 +167,7 @@ MapLinks:
           .byte 33, 39, 35, 41
           .byte 34, $ff, 46, 38
           .byte 35, $ff, 37, 39
-          .byte 36, $ff, 38, 41
+          .byte 36, $ff, 38, 42
           ;; 40
           .byte $ff, 41, 33, $ff
           .byte 40, 42, 36, $ff
@@ -333,6 +333,12 @@ MapSprites:
           .byte 0
 
           ;; Room 7
+          .byte SpriteFixed
+          .byte 1
+          .byte $7c, $2a
+          .byte SpriteCombat
+          .byte 2
+
           .byte 0
 
           ;; Room 8
