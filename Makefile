@@ -114,10 +114,32 @@ Dist/Grizzards.SECAM.sym:	\
 	$(shell bin/banks Object SECAM.sym)
 	cat $^ > $@
 
-stella:	Dist/Grizzards.NTSC.a26 Dist/Grizzards.NTSC.sym
+Dist/Grizzards.NTSC.pro:	Source/Grizzards.pro
+	sed $^ -e s/@@TV@@/NTSC/g > $@
+
+Dist/Grizzards.PAL.pro:	Source/Grizzards.pro
+	sed $^ -e s/@@TV@@/PAL/g > $@
+
+Dist/Grizzards.SECAM.pro:	Source/Grizzards.pro
+	sed $^ -e s/@@TV@@/SECAM/g > $@
+
+stella:	Dist/Grizzards.NTSC.a26 Dist/Grizzards.NTSC.sym Dist/Grizzards.NTSC.pro
 	stella -tv.filter 3 -grabmouse 0 -bs F4 \
 		-lc Joystick -rc AtariVox \
 		-format NTSC -pp Yes \
+		-debug $<
+
+stella-pal:	Dist/Grizzards.PAL.a26 Dist/Grizzards.PAL.sym Dist/Grizzards.PAL.pro
+	stella -tv.filter 3 -grabmouse 0 -bs F4 \
+		-lc Joystick -rc AtariVox \
+		-format PAL -pp Yes \
+		-debug $<
+
+
+stella-secam:	Dist/Grizzards.SECAM.a26 Dist/Grizzards.SECAM.sym Dist/Grizzards.SECAM.pro
+	stella -tv.filter 3 -grabmouse 0 -bs F4 \
+		-lc Joystick -rc AtariVox \
+		-format SECAM -pp Yes \
 		-debug $<
 
 quickclean:
