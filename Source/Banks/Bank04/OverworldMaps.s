@@ -257,7 +257,7 @@ MapSides:
           .byte 0, 0, 0, 0, 0
           .byte 0, $40, 0, 0, $80
           ;; 20
-          .byte $80, 0, 0, 0, 0
+          .byte 0, 0, 0, 0, 0
           .byte 0, 0, 0, 0, $80
           ;; 30
           .byte 0, 0, 0, 0, 0
@@ -310,7 +310,7 @@ MapSprites:
           ;; Room 2
           .byte SpriteFixed
           .byte 2               ; sprite art index = station
-          .byte 150, 65         ; x, y
+          .byte $7d, $31         ; x, y
           .byte SpriteGrizzardDepot
           .byte 0               ; combat index
           .byte 0               ; end of list
