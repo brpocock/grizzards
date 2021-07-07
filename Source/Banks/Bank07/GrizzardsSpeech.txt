@@ -1,23 +1,23 @@
 Grizzard0:
-Dirt X
+Dirt-X
 
 Grizzard1:
 Aquax
 
 Grizzard2:
-Air x
+Air-x
 
 Grizzard3:
-Flame X
+Flame-X
 
 Grizzard4:
-Soil E
+Soil-E
 
 Grizzard5:
-Wet Nass
+Wet-Nass
 
 Grizzard6:
-Win do
+Win-do
 
 Grizzard7:
 Firend
@@ -41,10 +41,10 @@ Grizzard13:
 Tyrant
 
 Grizzard14:
-Do font
+Do-font
 
 Grizzard15:
-The ref
+The-ref
 
 Grizzard16:
 Corn-net
@@ -68,10 +68,10 @@ Grizzard22:
 O-she-ax
 
 Grizzard23:
-Flight X
+Flight-X
 
 Grizzard24:
-Flare X
+Flare-X
 
 Grizzard25:
 Uptrix
