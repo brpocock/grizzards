@@ -16,6 +16,8 @@ MovementLogic:
           
 DoSpriteMotion:
           ldx SpriteCount
+          beq UserInputStart
+
 MoveSprites:
           lda SpriteMotion, x
           beq SpriteMoveDone

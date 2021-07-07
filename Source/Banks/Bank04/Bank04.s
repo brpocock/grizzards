@@ -8,6 +8,7 @@ DoLocal:
           .include "Map.s"
 
           .include "OverworldMaps.s"
+          .include "MapRLE.s"
 
           .include "PlayerSprites.s"
           .include "MapSprites.s"

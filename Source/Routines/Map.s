@@ -233,7 +233,8 @@ AnimationFrameReady:
           jmp P1Ready
 
 NoSprites:
-          ;; TODO NoSprites
+          lda #$ff
+          sta P1LineCounter
 
 P1Ready:
           lda PlayerY
