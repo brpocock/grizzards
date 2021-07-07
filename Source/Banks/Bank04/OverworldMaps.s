@@ -234,7 +234,7 @@ MapLinks:
           ;; 40
           Map_FullTop,
           Map_Clear,
-          Map_Clear,
+          Map_BottomLine,
           Map_Clear,
           Map_Clear,
           ;; 45
@@ -252,7 +252,7 @@ MapRLEH:  .byte >MapRLE
 ;;; $80 = left, $40 = right ball.
 MapSides:
           .byte 0, $80, 0, 0, 0
-          .byte 0, $40, 0, $80, 0, 0
+          .byte 0, $40, 0, $80, 0
           ;; 10
           .byte 0, 0, 0, 0, 0
           .byte 0, $40, 0, 0, $80
