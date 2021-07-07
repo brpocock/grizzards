@@ -1,5 +1,5 @@
 Grizzard0:
-Dirt x
+Dirt X
 
 Grizzard1:
 Aquax
@@ -8,82 +8,82 @@ Grizzard2:
 Air x
 
 Grizzard3:
-Firex
+Flame X
 
 Grizzard4:
-Grizzard
+Soil E
 
 Grizzard5:
-Grizzard
+Wet Nass
 
 Grizzard6:
-Grizzard
+Win do
 
 Grizzard7:
-Grizzard
+Firend
 
 Grizzard8:
-Grizzard
+Lander
 
 Grizzard9:
-Grizzard
+Sailor
 
 Grizzard10:
-Grizzard
+Flier
 
 Grizzard11:
-Grizzard
+Burner
 
 Grizzard12:
-Grizzard
+Iguana
 
 Grizzard13:
-Grizzard
+Tyrant
 
 Grizzard14:
-Grizzard
+Do font
 
 Grizzard15:
-Grizzard
+The ref
 
 Grizzard16:
-Grizzard
+Corn-net
 
 Grizzard17:
-Grizzard
+Ambren
 
 Grizzard18:
-Grizzard
+Noctis
 
 Grizzard19:
-Grizzard
+Core-lynn
 
 Grizzard20:
-Grizzard
+Wah-Pow
 
 Grizzard21:
-Grizzard
+Zen-dex
 
 Grizzard22:
-Grizzard
+O-she-ax
 
 Grizzard23:
-Grizzard
+Flight X
 
 Grizzard24:
-Grizzard
+Flare X
 
 Grizzard25:
-Grizzard
+Uptrix
 
 Grizzard26:
-Grizzard
+Altrix
 
 Grizzard27:
-Grizzard
+Ectrix
 
 Grizzard28:
-Grizzard
+Ortrix
 
 Grizzard29:
-Grizzard
+Megax
