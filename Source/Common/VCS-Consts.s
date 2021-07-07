@@ -196,9 +196,9 @@ ldacolu .macro co, lu=$7
           CTRLPFSCORE = $02
           CTRLPFPFP = $04
           CTRLPFBALLSZ1 = $00
-          CTRLPFBALLSZ2 = $08
-          CTRLPFBALLSZ4 = $10
-          CTRLPFBALLSZ8 = $18
+          CTRLPFBALLSZ2 = $10
+          CTRLPFBALLSZ4 = $20
+          CTRLPFBALLSZ8 = $30
 
           NUSIZMISSILE1 = $00
           NUSIZMISSILE2 = $08
