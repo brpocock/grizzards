@@ -195,10 +195,19 @@ MapRLEH:  .byte >MapRLE
 ;;; $80 = left, $40 = right ball.
 MapSides:
           .byte 0, $80, 0, 0, 0
+          .if DEMO = 1
+          .byte 0, $40, $80, $80, 0 ; block off area to left of screen 8
+          .else
           .byte 0, $40, 0, $80, 0
+          .fi
           ;; 10
           .byte 0, 0, 0, 0, 0
+          .if DEMO = 1
+          ; block off area to right of screen 15 and left of 17
+          .byte $40, $40, $c0, 0, $80 
+          .else
           .byte 0, $40, $40, 0, $80
+          .fi
           ;; 20
           .byte 0, 0, 0, 0, 0
           .byte 0, 0, 0, 0, $80
@@ -226,6 +235,8 @@ MapSprites:
           .byte $7d, $42         ; x, y position
           .byte SpriteDoor, 1   ; action
 
+          .if DEMO != 1         ; hide doors 2,3,4 from demo
+
           .byte $ff
           .byte SpriteFixed
           .byte $b5, $26
@@ -240,6 +251,8 @@ MapSprites:
           .byte SpriteFixed
           .byte $7d, $0f
           .byte SpriteProvinceDoor | $30, 0
+
+          .fi
           
           .byte 0               ; end of list
 
