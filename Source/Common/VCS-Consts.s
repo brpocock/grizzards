@@ -192,7 +192,7 @@ ldacolu .macro co, lu=$7
            
 ;;;
 
-colors    .macro co1, co2
+colors:   .macro co1, co2
           .switch TV
 
 ;;; SECAM
@@ -215,8 +215,8 @@ colors    .macro co1, co2
 ;;; NTSC, PAL
           .default
 
-          .byte \co1 << 4 | \co2
-          
+          .byte \co1 | \co2 >> 4
+
           .endswitch            ; TV
 .endm
 
