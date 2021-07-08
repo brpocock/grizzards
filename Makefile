@@ -114,14 +114,17 @@ Dist/Grizzards.SECAM.sym:	\
 	$(shell bin/banks Object SECAM.sym)
 	cat $^ > $@
 
-Dist/Grizzards.NTSC.pro:	Source/Grizzards.pro
-	sed $^ -e s/@@TV@@/NTSC/g > $@
+Dist/Grizzards.NTSC.pro:	Source/Grizzards.pro Dist/Grizzards.NTSC.a26
+	sed $^ -e s/@@TV@@/NTSC/g \
+		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.NTSC.a26 | cut -d\  -f1)/g > $@
 
-Dist/Grizzards.PAL.pro:	Source/Grizzards.pro
-	sed $^ -e s/@@TV@@/PAL/g > $@
+Dist/Grizzards.PAL.pro:	Source/Grizzards.pro Dist/Grizzards.PAL.a26
+	sed $^ -e s/@@TV@@/PAL/g \
+		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.PAL.a26 | cut -d\  -f1)/g > $@
 
-Dist/Grizzards.SECAM.pro:	Source/Grizzards.pro
-	sed $^ -e s/@@TV@@/SECAM/g > $@
+Dist/Grizzards.SECAM.pro:	Source/Grizzards.pro Dist/Grizzards.SECAM.a26
+	sed $^ -e s/@@TV@@/SECAM/g \
+		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.SECAM.a26 | cut -d\  -f1)/g > $@
 
 stella:	Dist/Grizzards.NTSC.a26 Dist/Grizzards.NTSC.sym Dist/Grizzards.NTSC.pro
 	stella -tv.filter 3 -grabmouse 0 -bs F4 \
