@@ -8,113 +8,60 @@ MapCount:
 ;;; Foreground and background colors
 ;;; Remember SECAM and don't make these too similar
 
-MapFG:
+MapColors:
           ;; 0
-          .colu COLINDIGO, 1
-          .colu COLGREEN, 1
-          .colu COLGREEN, 1
-          .colu COLGREEN, 1
-          .colu COLTEAL, 1
-          .colu COLCYAN, 1
-          .colu COLCYAN, 1
-          .colu COLGREEN, 1
-          .colu COLGREEN, 1
-          .colu COLCYAN, 1
+          .colors COLINDIGO, COLSPRINGGREEN
+          .colors COLGREEN, COLSPRINGGREEN
+          .colors COLGREEN, COLSPRINGGREEN
+          .colors COLGREEN, COLSPRINGGREEN
+          .colors COLTEAL, COLSPRINGGREEN
+          .colors COLCYAN, COLSPRINGGREEN
+          .colors COLCYAN, COLSPRINGGREEN
+          .colors COLGREEN, COLGRAY
+          .colors COLGREEN, COLGRAY
+          .colors COLCYAN, COLGRAY
           ;; 10
-          .colu COLTURQUOISE, 1
-          .colu COLGREEN, 1
-          .colu COLTEAL, 1
-          .colu COLCYAN, 1
-          .colu COLCYAN, 1
-          .colu COLTURQUOISE, 1
-          .colu COLTURQUOISE, 1
-          .colu COLTURQUOISE, 1
-          .colu COLTURQUOISE, 1
-          .colu COLBLUE, 1
+          .colors COLTURQUOISE, COLGRAY
+          .colors COLGREEN, COLGRAY
+          .colors COLTEAL, COLGRAY
+          .colors COLCYAN, COLGRAY
+          .colors COLCYAN, COLGRAY
+          .colors COLTURQUOISE, COLGRAY
+          .colors COLTURQUOISE, COLGRAY
+          .colors COLTURQUOISE, COLGRAY
+          .colors COLTURQUOISE, COLGRAY
+          .colors COLBLUE, COLGRAY
           ;; 20
-          .colu COLBLUE, 1
-          .colu COLINDIGO, 1
-          .colu COLINDIGO, 1
-          .colu COLBLUE, 1
-          .colu COLPURPLE, 1
-          .colu COLPURPLE, 1
-          .colu COLPURPLE, 1
-          .colu COLPURPLE, 1
-          .colu COLPURPLE, 1
-          .colu COLMAGENTA, 1
+          .colors COLBLUE, COLGRAY
+          .colors COLINDIGO, COLBLUE
+          .colors COLINDIGO, COLBLUE
+          .colors COLBLUE, COLBLUE
+          .colors COLPURPLE, COLGRAY
+          .colors COLPURPLE, COLGRAY
+          .colors COLPURPLE, COLGRAY
+          .colors COLPURPLE, COLGRAY
+          .colors COLPURPLE, COLGRAY
+          .colors COLMAGENTA, COLGOLD
           ;; 30
-          .colu COLMAGENTA, 1
-          .colu COLMAGENTA, 1
-          .colu COLMAGENTA, 1
-          .colu COLMAGENTA, 1
-          .colu COLRED, 1
-          .colu COLRED, 1
-          .colu COLRED, 1
-          .colu COLORANGE, 1
-          .colu COLORANGE, 1
-          .colu COLORANGE, 1
+          .colors COLMAGENTA, COLGOLD
+          .colors COLMAGENTA, COLGOLD
+          .colors COLMAGENTA, COLGOLD
+          .colors COLMAGENTA, COLGOLD
+          .colors COLRED, COLGOLD
+          .colors COLRED, COLGOLD
+          .colors COLRED, COLGOLD
+          .colors COLORANGE, COLGOLD
+          .colors COLORANGE, COLGOLD
+          .colors COLORANGE, COLGOLD
           ;; 40
-          .colu COLMAGENTA, 1
-          .colu COLRED, 1
-          .colu COLORANGE, 1
-          .colu COLRED, 1
-          .colu COLRED, 1
-          .colu COLORANGE, 1
-          .colu COLORANGE, 1
-          
-MapBG:
-          .colu COLSPRINGGREEN, $f
-          .colu COLSPRINGGREEN, $f
-          .colu COLSPRINGGREEN, $f
-          .colu COLSPRINGGREEN, $f
-          .colu COLSPRINGGREEN, $f
-          .colu COLSPRINGGREEN, $f
-          .colu COLSPRINGGREEN, $f
-          .colu COLSPRINGGREEN, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          ;; 10
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          ;; 20
-          .colu COLGRAY, $f
-          .colu COLBLUE, $f
-          .colu COLBLUE, $f
-          .colu COLBLUE, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGRAY, $f
-          .colu COLGOLD, $f
-          ;; 30
-          .colu COLGOLD, $f
-          .colu COLGOLD, $f
-          .colu COLGOLD, $f
-          .colu COLGOLD, $f
-          .colu COLGOLD, $f
-          .colu COLGOLD, $f
-          .colu COLGOLD, $f
-          .colu COLGOLD, $f
-          .colu COLGOLD, $f
-          .colu COLGOLD, $f
-          ;; 40
-          .colu COLGOLD, $f
-          .colu COLGOLD, $f
-          .colu COLGOLD, $f
-          .colu COLGOLD, $f
-          .colu COLGOLD, $f
-          .colu COLGOLD, $f
-          .colu COLGOLD, $f
-          
+          .colors COLMAGENTA, COLGOLD
+          .colors COLRED, COLGOLD
+          .colors COLORANGE, COLGOLD
+          .colors COLRED, COLGOLD
+          .colors COLRED, COLGOLD
+          .colors COLORANGE, COLGOLD
+          .colors COLORANGE, COLGOLD
+
 ;;; Links up, down, left, right are map indices in this bank
 MapLinks:
           .byte 0, 3, 0, 0      ; TODO links N, W, E

@@ -279,7 +279,16 @@ P1Ready:
           cpx MapCount
           bpl BadMap
 
-          lda MapFG, x
+          lda MapColors, x
+          and #$f0
+          .if TV == SECAM
+          ror a
+          ror a
+          ror a
+          ror a
+          .else
+          ora #$01
+          .fi
           sta COLUPF
 
           ;; Force a load of the next (first) run of map data
@@ -324,6 +333,14 @@ DoneBall:
           sta HMOVE
 
           lda MapBG, x
+          and #$0f
+          .if TV != SECAM
+          asl a
+          asl a
+          asl a
+          asl a
+          ora #$0f
+          .fi
           sta COLUBK
           cmp MapFG, x
           bne DrawMap
