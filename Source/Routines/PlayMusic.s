@@ -21,36 +21,13 @@ LoopMusic:
 
           .case 3
 
-          lda CurrentProvince
-          cmp #3
-          beq SingProvince3Song
-
-          lda #>SongProvince2
-          sta CurrentMusic + 1
-          lda #<SongProvince2
-          sta CurrentMusic
-          
-          jmp ReallyPlayMusic
-
-SingProvince3Song:  
-          lda #>SongProvince3
-          sta CurrentMusic + 1
-          lda #<SongProvince3
-          sta CurrentMusic
-
-          .case 4
-
-          lda CurrentProvince
-          beq SingProvince0Song
-
           lda #>SongProvince1
           sta CurrentMusic + 1
           lda #<SongProvince1
           sta CurrentMusic
-          
-          jmp ReallyPlayMusic
 
-SingProvince0Song:
+          .case 4
+
           lda #>SongProvince0
           sta CurrentMusic + 1
           lda #<SongProvince0

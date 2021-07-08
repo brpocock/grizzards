@@ -14,7 +14,6 @@ DoLocal:
           .include "MapSprites.s"
           
           .include "Province0.s"
-          .include "Province1.s"
 
           .include "VSync.s"
           .include "VBlank.s"

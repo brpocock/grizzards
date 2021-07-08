@@ -309,9 +309,8 @@ P1Ready:
 
 LeftBall:
           sta WSYNC
-          .SleepX 12
           sta RESBL
-          lda # 0
+          lda # $20
           sta HMBL
           jmp DoneBall
 
