@@ -19,3 +19,6 @@
 	* = $f000
 	.offs -$f000
 
+          .weak
+          DEMO = 0
+          .endweak
