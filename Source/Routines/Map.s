@@ -85,14 +85,34 @@ SetUpSprite:
           lda (Pointer), y         ; .y = .x × 6 + 0
           ;; End of sprite list?
           beq SpritesDone
+          iny
           sta SpriteIndex, x
           cmp #$ff
-          beq SpriteAlwaysPresent
+          beq SpritePresent
 
-          ;; TODO: Determine if this sprite should be seen or not
+          tay
+          and #$38
+          ror a
+          ror a
+          ror a
+          tax
+          tya
+          and #$07
+          tay
 
-SpriteAlwaysPresent:
+          lda ProvinceFlags, x
+          and BitMask, y
+          beq SpritePresent
+
+SpriteAbsent:
           iny
+          iny
+          iny
+          iny
+          iny
+          jmp SetUpSprite
+
+SpritePresent:
           lda (Pointer), y
           cmp #SpriteFixed
           beq AddFixedSprite
