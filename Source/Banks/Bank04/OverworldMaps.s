@@ -64,7 +64,7 @@ MapColors:
 
 ;;; Links up, down, left, right are map indices in this bank
 MapLinks:
-          .byte 0, 3, 0, 0      ; TODO links N, W, E
+          .byte $ff, $ff, $ff, $ff
           .byte $ff, 7, $ff, 2
           .byte $ff, $ff, 1, 3
           .byte $ff, $ff, 2, 4
