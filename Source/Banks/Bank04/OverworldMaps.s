@@ -275,18 +275,14 @@ MapSprites:
           .byte 0               ; end of list
 
           ;; Room 2
-          .byte $ff
-          .byte SpriteFixed
-          .byte $7d, $31         ; x, y
-          .byte SpriteGrizzardDepot, 0
 
           .byte 0
           
           ;; Room 3
           .byte $ff
-          .byte SpriteWander
-          .byte 150, 65
-          .byte SpriteGrizzard, 2
+          .byte SpriteFixed
+          .byte $7d, $31         ; x, y
+          .byte SpriteGrizzardDepot, 0
 
           .byte 0
           
