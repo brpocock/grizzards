@@ -192,6 +192,37 @@ ldacolu .macro co, lu=$7
            
 ;;;
 
+colors    .macro co1, co2
+          .switch TV
+
+;;; SECAM
+          .case SECAM
+
+          .if \co1 == COLGRAY
+            .if \co2 == COLGRAY
+              .byte COLWHITE << 4 | COLBLACK
+            .else
+              .byte COLWHITE << 4 | \co2
+            .fi
+          .else
+            .if \co2 == COLGRAY
+              .byte \co1 << 4 | COLBLACK
+            .else
+              .byte \co1 << 4 | \co2
+            .fi
+          .fi
+
+;;; NTSC, PAL
+          .default
+
+          .byte \co1 << 4 | \co2
+          
+          .endswitch            ; TV
+.endm
+
+          
+;;; 
+          
           CTRLPFREF = $01
           CTRLPFSCORE = $02
           CTRLPFPFP = $04
@@ -251,3 +282,4 @@ ldacolu .macro co, lu=$7
 
           HBlankCycles = 40
           VisibleLineCycles = 36
+
