@@ -120,7 +120,7 @@ MapLinks:
           .byte 0, 3, 0, 0      ; TODO links N, W, E
           .byte $ff, 7, $ff, 2
           .byte $ff, $ff, 1, 3
-          .byte 0, $ff, 2, 4
+          .byte $ff, $ff, 2, 4
           .byte $ff, $ff, 3, 5
           ;; 5
           .byte $ff, 9, 4, 6
