@@ -96,8 +96,8 @@
           MapServicesBank = $01
           TextBank = $02
           FailureBank = $02
-          Province01MapBank = $03
-          Province23MapBank = $04
+          Province0MapBank = $03
+          Province1MapBank = $04
           CombatBank0To127 = $05
           CombatBank128To255 = $06
           SFXBank = $07

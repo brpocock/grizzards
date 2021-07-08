@@ -51,12 +51,11 @@ GoMap:
           ldx #$ff              ; smash the stack
           txs
           lda CurrentProvince
-          and #$02
           beq +
-          sta BankSwitch0 + Province01MapBank
+          sta BankSwitch0 + Province0MapBank
           jmp DoLocal
 +
-          sta BankSwitch0 + Province23MapBank
+          sta BankSwitch0 + Province1MapBank
           jmp DoLocal
 
 ;;; Go to the current combat memory bank, and jump to DoCombat.
