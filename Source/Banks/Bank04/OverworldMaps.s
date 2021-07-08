@@ -183,7 +183,7 @@ MapLinks:
           Map_Closed,
           Map_Arc,
           Map_EWPassage,
-          Map_Up3Way,
+          Map_EWFat,
           Map_Wiggle,
           ;; 5
           Map_Arc,
