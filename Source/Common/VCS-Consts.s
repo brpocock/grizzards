@@ -199,23 +199,19 @@ colors:   .macro co1, co2
           .case SECAM
 
           .if \co1 == COLGRAY
-            .if \co2 == COLGRAY
-              .byte COLWHITE << 4 | COLBLACK
-            .else
-              .byte COLWHITE << 4 | \co2
-            .fi
+            .byte (COLWHITE << 4) | COLBLACK
           .else
-            .if \co2 == COLGRAY
-              .byte \co1 << 4 | COLBLACK
-            .else
-              .byte \co1 << 4 | \co2
-            .fi
+            .byte (\co1 << 4) | COLBLACK
           .fi
 
 ;;; NTSC, PAL
           .default
 
-          .byte \co1 | \co2 >> 4
+          .if \co1 == \co2
+            .byte \co1 | ((\co2 - $10) >> 4)
+          .else
+            .byte \co1 | (\co2 >> 4)
+          .fi
 
           .endswitch            ; TV
 .endm

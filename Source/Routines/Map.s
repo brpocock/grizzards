@@ -332,7 +332,7 @@ DoneBall:
           stx WSYNC
           sta HMOVE
 
-          lda MapBG, x
+          lda MapColors, x
           and #$0f
           .if TV != SECAM
           asl a
@@ -341,13 +341,6 @@ DoneBall:
           asl a
           ora #$0f
           .fi
-          sta COLUBK
-          cmp MapFG, x
-          bne DrawMap
-          ;; This is a hack mostly for SECAM
-          ;; If I accidentally set FG = BK color, because
-          ;; COLU values are based on the larger NTSC palette
-          adc # 1
           sta COLUBK
 
 DrawMap:

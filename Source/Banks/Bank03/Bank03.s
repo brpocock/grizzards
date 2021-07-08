@@ -8,6 +8,7 @@ DoLocal:
           .include "Map.s"
 
           .include "MapsPart2.s"
+          .include "Maps3RLE.s"
 
           .include "PlayerSprites.s"
           .include "MapSprites.s"
