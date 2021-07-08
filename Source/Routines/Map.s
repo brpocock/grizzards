@@ -24,6 +24,8 @@ NewRoom:
           sta Pointer
           lda #>MapSprites
           sta Pointer + 1
+          lda #ModeMap
+          sta GameMode
 
           ldy #0
 FindSprites:
@@ -510,6 +512,8 @@ Leave:
           beq EnterGrizzardDepot
           cmp #ModeNewGrizzard
           beq GetNewGrizzard
+          cmp #ModeMapNewRoom
+          beq NewRoom
           brk
 
 EnterGrizzardDepot:

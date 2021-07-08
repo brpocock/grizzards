@@ -24,6 +24,7 @@
           ModeStartGame = $24
 
           ModeMap = $30
+          ModeMapNewRoom = $31
 
           ModeCombat = $40
           ModeDeath = $44

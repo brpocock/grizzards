@@ -233,7 +233,7 @@ MapSprites:
           .byte $ff              ; not removeable
           .byte SpriteFixed     ; fixed position sprite
           .byte $7d, $42         ; x, y position
-          .byte SpriteDoor, 1   ; action
+          .byte SpriteDoor, 3   ; action
 
           .if DEMO != 1         ; hide doors 2,3,4 from demo
 

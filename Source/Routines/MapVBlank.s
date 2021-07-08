@@ -267,13 +267,16 @@ FightWithSprite:
 DoorWithSprite:
           lda SpriteParam, x
           sta CurrentMap
-          jmp DonePlayerMove
+          ldy #ModeMapNewRoom
+          sty GameMode
+          jsr Overscan
+          rts
 
 GetNewGrizzard:
           lda #ModeNewGrizzard
           sta GameMode
           rts
-          
+
 PlayerMoveOK:
           lda #0
           sta DeltaX
@@ -304,7 +307,8 @@ ProvinceChange:
           lda SpriteParam, x
           sta CurrentMap
           jsr Overscan
-          ldy #$ff
+          ldy #ModeMapNewRoom
+          sty GameMode
           rts
 
 BumpWall:
