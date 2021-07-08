@@ -1,10 +1,12 @@
 default:	game doc
 
-all:	dist
+all:	dist demo
 
 publish:	dist
 	scp Dist/Grizzards.zip Dist/Grizzards.Source.tar.gz \
 		star-hope.org:star-hope.org/games/Grizzards/
+
+demo:	Dist/Grizzards.Demo.zip
 
 dist:	Dist/Grizzards.zip Dist/Grizzards.Source.tar.gz
 
@@ -50,6 +52,15 @@ Dist/Grizzards.zip: \
 	Dist/Grizzards.SECAM.pdf
 	zip $@ $^
 
+Dist/Grizzards.Demo.zip: \
+	Dist/Grizzards.Demo.NTSC.a26 \
+	Dist/Grizzards.Demo.NTSC.pdf \
+	Dist/Grizzards.Demo.PAL.a26 \
+	Dist/Grizzards.Demo.PAL.pdf \
+	Dist/Grizzards.Demo.SECAM.a26 \
+	Dist/Grizzards.Demo.SECAM.pdf
+	zip $@ $^
+
 game:	Dist/Grizzards.NTSC.a26
 
 doc:	Dist/Grizzards.NTSC.pdf
@@ -61,11 +72,20 @@ SOURCES=$(shell find Source -name \*.s -o -name \*.txt -o -name \*.png -o -name 
 Dist/Grizzards.NTSC.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
 	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.NTSC.a26
 
+Dist/Grizzards.Demo.NTSC.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
+	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.Demo.NTSC.a26
+
 Dist/Grizzards.PAL.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
 	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.PAL.a26
 
+Dist/Grizzards.Demo.PAL.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
+	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.Demo.PAL.a26
+
 Dist/Grizzards.SECAM.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
 	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.SECAM.a26
+
+Dist/Grizzards.Demo.SECAM.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
+	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.Demo.SECAM.a26
 
 Source/Generated/Makefile:	bin/write-master-makefile ${SOURCES}
 	mkdir -p Source/Generated
@@ -92,6 +112,27 @@ Dist/Grizzards.SECAM.pdf: Object/Grizzards.tex
 	-cd Object ; xelatex -interaction=batchmode "\def\TVSECAM{}\input{Grizzards}"
 	mkdir -p Dist
 	mv Object/Grizzards.pdf Dist/Grizzards.SECAM.pdf
+
+Dist/Grizzards.Demo.NTSC.pdf: Object/Grizzards.tex
+	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{Demo}\def\TVNTSC{}\input{Grizzards}"
+	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{Demo}\def\TVNTSC{}\input{Grizzards}"
+	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{Demo}\def\TVNTSC{}\input{Grizzards}"
+	mkdir -p Dist
+	mv Object/Grizzards.pdf Dist/Grizzards.Demo.NTSC.pdf
+
+Dist/Grizzards.Demo.PAL.pdf: Object/Grizzards.tex
+	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{Demo}\def\TVPAL{}\input{Grizzards}"
+	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{Demo}\def\TVPAL{}\input{Grizzards}"
+	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{Demo}\def\TVPAL{}\input{Grizzards}"
+	mkdir -p Dist
+	mv Object/Grizzards.pdf Dist/Grizzards.Demo.PAL.pdf
+
+Dist/Grizzards.Demo.SECAM.pdf: Object/Grizzards.tex
+	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{Demo}\def\TVSECAM{}\input{Grizzards}"
+	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{Demo}\def\TVSECAM{}\input{Grizzards}"
+	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{Demo}\def\TVSECAM{}\input{Grizzards}"
+	mkdir -p Dist
+	mv Object/Grizzards.pdf Dist/Grizzards.Demo.SECAM.pdf
 
 Object/Grizzards.tex: Manual/Grizzards.tex
 	mkdir -p Object

@@ -49,6 +49,16 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
 \tmkdir -p Dist
 \tcat \$^ > \$\@\n\n";
 
+  print "Dist/Grizzards.Demo.$tv.a26:\t";
+
+  for my $bank (@banks) {
+    print "\\\n\tObject/DemoBank$bank.$tv.o ";
+  }
+
+  print "
+\tmkdir -p Dist
+\tcat \$^ > \$\@\n\n";
+
   for my $bank (@banks) {
     my %seen = ();
 
@@ -125,5 +135,14 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
 \tmkdir -p Object
 \t\${AS2600} -DTV=$tv -I Source/Generated/Bank$bank -l \$\@.labels.txt -L \$\@.list.txt \$< -o \$\@\n
 \tbin/label2sym \$\@.labels.txt\n\n";
-  }
+
+      print "Object/DemoBank$bank.$tv.o:\t";
+    for my $file (@files) {
+      print "\\\n\t$file";
+    }
+    print "
+\tmkdir -p Object
+\t\${AS2600} -DTV=$tv -DDEMO=1 -I Source/Generated/Bank$bank -l \$\@.labels.txt -L \$\@.list.txt \$< -o \$\@\n
+\tbin/label2sym \$\@.labels.txt\n\n";
+}
 }
