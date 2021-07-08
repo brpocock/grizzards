@@ -35,6 +35,10 @@ FindSprites:
           ;; If it was zero, our work here is done.
           beq DoneFinding
 
+          ;; Crash early if the map ID is out of range for this province (bank)
+          cpx MapCount
+          bpl BadMap
+
           ;; Skipping over a room means searching for the end of the list
 SkipRoom:
           lda (Pointer), y         ; .y = 0
@@ -277,10 +281,6 @@ P1Ready:
           sta pp0h
 
           ldx CurrentMap
-
-          cpx MapCount
-          bpl BadMap
-
           lda MapColors, x
           and #$f0
           .if TV == SECAM

@@ -21,7 +21,7 @@ SkipAboveCopyright:
           dex
           bne SkipAboveCopyright
 
-          .ldacolu COLTURQUOISE | $e
+          .ldacolu COLTURQUOISE, $e
           sta COLUP0
           sta COLUP1
 
@@ -54,8 +54,16 @@ SkipBelowCopyright:
 
           lda # 30
           jsr SetNextAlarm
-          lda #ModeAttractTitle
+          lda #ModeAttractStory
           sta GameMode
 
-StillCopyright:               
+          lda INPT4
+          cmp DebounceINPT4
+          beq StillCopyright
+          sta DebounceINPT4
+          bpl StillCopyright
+          ;;lda #ModeCreditSecret
+          ;;sta GameMode
+
+StillCopyright:
           jmp DoneAttractKernel         

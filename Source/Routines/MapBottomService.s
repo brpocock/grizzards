@@ -11,7 +11,11 @@ BottomOfScreenService: .block
           sta ENABL
           sta WSYNC
 
-          ldx #KernelLines - 185
+          .if KernelLines > 209
+          ldx #KernelLines - 209 ; PAL/SECAM with score at top
+          .else
+          ldx #KernelLines - 187 ; NTSC with no score
+          .fi
 FillScreen:
           stx WSYNC
           dex

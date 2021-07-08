@@ -8,4 +8,7 @@ SelectSlot:
 Select a save game slot.
 
 EraseSlot:
-Erased a save game slot.
+Erase a save game slot.
+
+Credits:
+With love to Zephyr Salz.

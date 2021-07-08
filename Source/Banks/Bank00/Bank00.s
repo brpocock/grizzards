@@ -46,6 +46,8 @@ DoLocal:
           .include "SaveGrizzard.s"
           .include "PreambleAttracts.s"
           .include "AttractCopyright.s"
+          .include "AttractStory.s"
+          .include "Credits.s"
 
 Quit:
           ldy #ServiceColdStart

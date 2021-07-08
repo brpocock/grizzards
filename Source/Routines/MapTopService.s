@@ -5,6 +5,8 @@ TopOfScreenService: .block
           jsr VSync
           jsr VBlank
 
+          .if KernelLines > 209
+
           jsr Prepare48pxMobBlob
           
           .ldacolu COLGRAY, $f
@@ -61,6 +63,10 @@ ScoreDone:
           ldy #ServiceDecodeAndShowText
           ldx #TextBank
           jsr FarCall
+
+AfterScore:
+
+          .fi                   ; end score for PAL/SECAM only
 
           lda #CTRLPFREF | CTRLPFBALLSZ8 | CTRLPFPFP
           sta CTRLPF

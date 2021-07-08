@@ -9,14 +9,15 @@
 ;;; minor modes allow the game mode to track its own sub-states.
           
           ModeColdStart = $00
-          
+
           ModeAttract = $10
           ModeAttractTitle = $11
           ModeAttractCopyright = $12
           ModeAttractStory = $13
+          ModeCreditSecret = $14
           ModeBRPPreamble = $1e
           ModePublisherPresents = $1f
-          
+
           ModeSelectSlot = $20
           ModeEraseSlot = $21
           ModeErasing = $22

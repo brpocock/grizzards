@@ -1,7 +1,7 @@
 ;;; Grizzards Source/Routines/Attract.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
 Attract:
-
+          
           ;;
           ;; Title screen and attract sequence
           ;;
@@ -53,6 +53,8 @@ Loop:
           beq CopyrightMode
           cmp #ModeAttractStory
           beq StoryMode
+          cmp #ModeCreditSecret
+          beq Credits
           .if PUBLISHER
             cmp #ModePublisherPresents
             beq PublisherPresentsMode
@@ -62,8 +64,7 @@ Loop:
           .fi
           
 StoryMode:
-          ;; TODO lots more needs to happen here
-          brk
+          jmp AttractStory
 
 TitleMode:
           lda AttractHasSpoken
