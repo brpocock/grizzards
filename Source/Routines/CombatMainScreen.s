@@ -361,6 +361,3 @@ HealthyPF1:
           
           .bend
 
-BitMask:
-          ;; also used by ExecuteCombatMove, so it's outside the block.
-          .byte 1, 2, 4, 8, $10, $20, $40, $80

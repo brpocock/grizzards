@@ -119,10 +119,15 @@ WiredEnd:
           * = $ff80
           .offs -$f000
 
-          .fill ($fff7 - $ff80 + 1), 0        ; 7800 crypto key (designed to fail)
+BitMask:
+          .byte $01, $02, $04, $08, $10, $20, $40, $80
+          
+          .fill ($fff7 - * + 1), 0        ; 7800 crypto key (designed to fail)
 
-          * = $fff8
+          * = $fff4
           .offs -$f000
+
+          .text "brp", 0
 
 ;;; The KnownZeroInEveryBank allows pointer to point to a fixed zero,
 ;;; which has proven to be useful on occassion.
@@ -145,6 +150,10 @@ KnownZeroInEveryBank:
 
 ;;; 6502 special vectors
 ;;;
+          * = NMIVEC
+          .offs -$f000
+          .word GoColdStart
+
           * = RESVEC             ; CPU reset and BRK (IRQ) vectors (no NMI)
           .offs -$f000
           .word GoColdStart
