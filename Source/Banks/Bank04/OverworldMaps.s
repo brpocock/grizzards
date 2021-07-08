@@ -120,7 +120,7 @@ MapLinks:
           .byte 0, 3, 0, 0      ; TODO links N, W, E
           .byte $ff, 7, $ff, 2
           .byte $ff, $ff, 1, 3
-          .byte 0, $ff, 2, 4
+          .byte $ff, $ff, 2, 4
           .byte $ff, $ff, 3, 5
           ;; 5
           .byte $ff, 9, 4, 6
@@ -180,10 +180,10 @@ MapLinks:
 ;;; in different colors, can appear in several places.
           MapRLE = (
           ;; 0
-          Map_FourWay,
+          Map_Closed,
           Map_Arc,
           Map_EWPassage,
-          Map_Up3Way,
+          Map_EWFat,
           Map_Wiggle,
           ;; 5
           Map_Arc,
@@ -251,7 +251,7 @@ MapSides:
           .byte 0, $40, 0, $80, 0
           ;; 10
           .byte 0, 0, 0, 0, 0
-          .byte 0, $40, 0, 0, $80
+          .byte 0, $40, $40, 0, $80
           ;; 20
           .byte 0, 0, 0, 0, 0
           .byte 0, 0, 0, 0, $80
@@ -274,50 +274,61 @@ MapSides:
 ;;; visible on the screen.
 MapSprites:
           ;; Room 0
+          .byte $ff              ; not removeable
           .byte SpriteFixed     ; fixed position sprite
-          .byte 1               ; sprite art index = person
-          .byte 150, 35         ; x, y position
-          .byte SpriteCombat      ; action
-          .byte 0
-          ;; 
-          .byte 0               ; end of list
-          
-          ;; Room 1
-          .byte SpriteWander
-          .byte 0               ; sprite art index = person
-          .byte 75, 65         ; x, y position
-          .byte SpriteCombat      ; action
-          .byte 3
-          ;;
-          .byte SpriteWander
-          .byte 1               ; sprite art index = monster
-          .byte 100, 65         ; x, y position
-          .byte SpriteCombat   ; action
-          .byte 0               ; combat index
-          ;;
-          .byte SpriteWander
-          .byte 1               ; sprite art index = monster
-          .byte 100, 25         ; x, y position
-          .byte SpriteCombat   ; action
-          .byte 1               ; combat index
-          ;;
-          .byte 0               ; end of list
-          
-          ;; Room 2
+          .byte $7d, $42         ; x, y position
+          .byte SpriteDoor, 1   ; action
+
+          .byte $ff
           .byte SpriteFixed
-          .byte 2               ; sprite art index = station
-          .byte $7d, $31         ; x, y
-          .byte SpriteGrizzardDepot
-          .byte 0               ; combat index
+          .byte $b5, $26
+          .byte SpriteProvinceDoor | $10, 0
+
+          .byte $ff
+          .byte SpriteFixed
+          .byte $43, $26
+          .byte SpriteProvinceDoor | $20, 0
+
+          .byte $ff
+          .byte SpriteFixed
+          .byte $7d, $0f
+          .byte SpriteProvinceDoor | $30, 0
+          
           .byte 0               ; end of list
+
+          ;; Room 1
+          .byte $ff
+          .byte SpriteWander
+          .byte 75, 65         ; x, y position
+          .byte SpriteCombat, 3
+
+          .byte $ff
+          .byte SpriteWander
+          .byte 100, 65         ; x, y position
+          .byte SpriteCombat, 0
+
+          .byte $ff
+          .byte SpriteWander
+          .byte 100, 25         ; x, y position
+          .byte SpriteCombat, 1
+
+          .byte 0               ; end of list
+
+          ;; Room 2
+          .byte $ff
+          .byte SpriteFixed
+          .byte $7d, $31         ; x, y
+          .byte SpriteGrizzardDepot, 0
+
+          .byte 0
           
           ;; Room 3
+          .byte $ff
           .byte SpriteWander
-          .byte 3               ; Grizzard
           .byte 150, 65
-          .byte SpriteGrizzard
-          .byte 2               ; Catch Grizzard 2
-          .byte 0               ; end of Room 3
+          .byte SpriteGrizzard, 2
+
+          .byte 0
           
           ;; Room 4
           .byte 0
@@ -329,11 +340,10 @@ MapSprites:
           .byte 0
 
           ;; Room 7
+          .byte $ff
           .byte SpriteFixed
-          .byte 1
           .byte $7c, $2a
-          .byte SpriteCombat
-          .byte 2
+          .byte SpriteCombat, 2
 
           .byte 0
 
@@ -455,4 +465,4 @@ MapSprites:
 	;;Room 46
 	.byte 0
 
-          .fill 256
+          .fill 200

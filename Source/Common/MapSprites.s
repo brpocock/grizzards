@@ -6,25 +6,6 @@
 
 SpriteArt:
 
-PersonSprite:
-          .byte %00110011
-          .byte %00110011
-          .byte %00111111
-          .byte %00111111
-          .byte %11111111
-          .byte %00001100
-          .byte %00011110
-          .byte %00001100
-
-          .byte %01100110
-          .byte %01100110
-          .byte %00111111
-          .byte %11111111
-          .byte %00111111
-          .byte %00001100
-          .byte %00011110
-          .byte %00001100
-
 MonsterSprite:
           .byte %11111111
           .byte %11111111
@@ -82,9 +63,27 @@ GrizzardSprite:
           .byte %00001111
           .byte %00000110
 
+DoorSprite:
+          .byte %11111111
+          .byte %10000001
+          .byte %10000001
+          .byte %10000001
+          .byte %10000101
+          .byte %10000001
+          .byte %11111111
+          .byte %00000000
+
+          .byte %11111111
+          .byte %10001111
+          .byte %10000001
+          .byte %10000001
+          .byte %10000001
+          .byte %10000101
+          .byte %11110001
+          .byte %00001111
 
 SpriteColor:
-          .colu COLRED, 8
           .colu COLGREEN, 8
-          .colu COLINDIGO, $f
+          .colu COLPURPLE, 8
           .colu COLSPRINGGREEN, 8
+          .colu COLGOLD, 4

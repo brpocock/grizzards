@@ -70,12 +70,11 @@
           SpriteMoveDown = $80
           
 ;;; Sprite actions
-          SpriteDoor = $02
-          SpriteGrizzardDepot = $04
-          SpriteGrizzard = $08
-          SpriteCombat = $40
-          SpriteProvinceDoor = $80
-
+          SpriteCombat = $00
+          SpriteGrizzardDepot = $01
+          SpriteGrizzard = $02
+          SpriteDoor = $03
+          SpriteProvinceDoor = $07
 
           ;; Save game slot address.
           ;; Must be aligned to 64 bytes

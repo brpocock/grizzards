@@ -85,7 +85,35 @@ SetUpSprite:
           lda (Pointer), y         ; .y = .x × 6 + 0
           ;; End of sprite list?
           beq SpritesDone
+          iny
+          sta SpriteIndex, x
+          cmp #$ff
+          beq SpritePresent
 
+          tay
+          and #$38
+          ror a
+          ror a
+          ror a
+          tax
+          tya
+          and #$07
+          tay
+
+          lda ProvinceFlags, x
+          and BitMask, y
+          beq SpritePresent
+
+SpriteAbsent:
+          iny
+          iny
+          iny
+          iny
+          iny
+          jmp SetUpSprite
+
+SpritePresent:
+          lda (Pointer), y
           cmp #SpriteFixed
           beq AddFixedSprite
 
@@ -93,9 +121,6 @@ SetUpSprite:
           beq AddWanderingSprite
           
 AddRandomEncounter:
-          iny
-          lda (Pointer), y
-          sta SpriteIndex, x
           iny
           lda (Pointer), y
           sta SpriteX, x
@@ -114,9 +139,6 @@ AddRandomEncounter:
           jmp SetUpSprite
 
 AddFixedSprite:
-          iny
-          lda (Pointer), y         ; .y = .x × 6 + 1
-          sta SpriteIndex, x
           iny
           lda (Pointer), y         ; .y = .x × 6 + 2
           sta SpriteX, x
@@ -139,9 +161,6 @@ AddFixedSprite:
 
 AddWanderingSprite:
           ;; TODO: merge this with the fixed sprite code
-          iny
-          lda (Pointer), y         ; .y = .x × 6 + 1
-          sta SpriteIndex, x
           iny
           lda (Pointer), y         ; .y = .x × 6 + 2
           sta SpriteX, x
@@ -189,11 +208,12 @@ Loop:
           lda #>SpriteArt
           sta pp1h
           clc
-          lda SpriteIndex, x
-          rol a
-          rol a
-          rol a
-          rol a
+          lda SpriteAction, x
+          and #$03
+          asl a
+          asl a
+          asl a
+          asl a
           adc #<SpriteArt
           bcc +
           inc pp1h
@@ -219,7 +239,8 @@ AnimationFrameReady:
           sta WSYNC             ; stablize line count
 
           ldx SpriteFlicker
-          lda SpriteIndex, x
+          lda SpriteAction, x
+          and #$03
           tax
           lda SpriteColor, x
           sta COLUP1

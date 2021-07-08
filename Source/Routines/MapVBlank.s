@@ -18,6 +18,8 @@ DoSpriteMotion:
           ldx SpriteCount
           beq UserInputStart
 
+          dex
+
 MoveSprites:
           lda SpriteMotion, x
           beq SpriteMoveDone
@@ -250,7 +252,7 @@ BumpSprite:
           beq EnterDepot
           cmp #SpriteGrizzard
           beq GetNewGrizzard
-          and #$80
+          and #SpriteProvinceDoor
           beq PlayerMoveOK      ; No action
           jmp ProvinceChange
 
@@ -299,9 +301,7 @@ ProvinceChange:
           ror a
           ror a
           sta CurrentProvince
-          lda SpriteAction, x
-          and #$0f
-          lda #0                ; FIXME
+          lda SpriteParam, x
           sta CurrentMap
           jsr Overscan
           ldy #$ff
