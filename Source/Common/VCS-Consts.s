@@ -71,20 +71,20 @@
           .case NTSC
           COLGREY = 0
           COLYELLOW = $10
-          COLORANGE = $20
-          COLRED = $30
-          COLMAGENTA = $40
-          COLPURPLE = $50
-          COLINDIGO = $60
-          COLBLUE = $70
-          COLTURQUOISE = $80
-          COLCYAN = $90
-          COLTEAL = $a0
-          COLSEAFOAM = $b0
-          COLGREEN = $c0
-          COLSPRINGGREEN = $d0
-          COLGOLD = $e0
-          COLRUST = $f0
+          COLBROWN = $20
+          COLORANGE = $30
+          COLRED = $40
+          COLMAGENTA = $50
+          COLPURPLE = $60
+          COLINDIGO = $70
+          COLBLUE = $80
+          COLTURQUOISE = $90
+          COLCYAN = $a0
+          COLTEAL = $b0
+          COLSEAFOAM = $c0
+          COLGREEN = $d0
+          COLSPRINGGREEN = $e0
+          COLGOLD = $f0
           
           .case PAL
           COLGREY = 0
