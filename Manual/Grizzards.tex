@@ -5,7 +5,7 @@
 %
 % If you're a human, skip to "\mainmatter" to skip over the preamble.
 %
-\documentclass[12pt,twoside,openright,book]{memoir}
+\documentclass[12pt,book]{memoir}
 
 % \setstocksize{9in}{6in}
 % \settrimmedsize{\stockheight}{\dimexpr 6in-15mm}{*}
@@ -24,7 +24,7 @@
 
 \checkandfixthelayout
 
-\title{Grizzards Player's Guide}
+\title{Grizzards \ifdef\DEMO Demo \fi Player's Guide}
 \author{Bruce-Robert Pocock}
 
 %% TV Standard
@@ -80,7 +80,7 @@
 \null\vfill
 
 \begin{flushleft}
-This is the \textit{Grizzards} Player's Manual
+This is the \textit{Grizzards} \ifdef\DEMO Demo \fi Player's Guide
 
 Copyright \copyright{} 2021, Bruce-Robert Pocock
 
@@ -119,7 +119,7 @@ be different.
 
 \mainmatter
 
-\chapter{Introduction}\label{Introduction}
+\chapter*{Introduction}\label{Introduction}
 
 The  land of  Syrex  is  a dangerous  place.  Fierce  monsters roam  the
 countryside. But luckily for you, you're a Grizzard handler!
