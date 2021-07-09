@@ -70,7 +70,7 @@ Loop:
           sta StringBuffer + 4
           jmp HTDdone
 
-+          
++
           clc
           asl a
           rol Temp
@@ -82,15 +82,15 @@ Loop:
           lda ClockMinutes
           ;; ÷ 60 is too slow so we cheat, since the output is 0..3
           cmp # 180
-          bcc +
+          blt +
           inc DeltaX
 +
           cmp # 120
-          bcc +
+          blt +
           inc DeltaX
 +
           cmp # 60
-          bcc HTD
+          blt HTD
           inc DeltaX
 
 HTD:

@@ -22,9 +22,9 @@ SetGrizzardAddress: .block
           ;; First, figure out which block the current Grizzard
           ;; can be found in.
           cmp # 12
-          bcc InBlock1
+          blt InBlock1
           cmp # 24
-          bcc InBlock2
+          blt InBlock2
 
           ;; must be in Block 3 if it's 24-29.
           sec

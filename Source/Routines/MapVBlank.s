@@ -71,7 +71,7 @@ ChasePlayer:
           lda SpriteX, x
           cmp PlayerX
           beq ChaseUpDown
-          bcs ChaseRight
+          bge ChaseRight
           lda #SpriteMoveLeft
           sta SpriteMotion, x
           jmp SpriteMoveDone
@@ -84,7 +84,7 @@ ChaseRight:
 ChaseUpDown:
           lda SpriteY, x
           cmp PlayerY
-          bcs ChaseDown
+          bge ChaseDown
           lda #SpriteMoveUp
           sta SpriteMotion, x
           jmp SpriteMoveDone
@@ -105,7 +105,7 @@ SpriteMoveDone:
 
           lda SpriteX, x
           cmp #ScreenLeftEdge
-          bcs LeftOK
+          bge LeftOK
           lda SpriteMotion, x
           and # $ff ^ SpriteMoveLeft
           ora #SpriteMoveIdle
@@ -114,7 +114,7 @@ SpriteMoveDone:
           sta SpriteX, x
 LeftOK:
           cmp #ScreenRightEdge
-          bcc RightOK
+          blt RightOK
           lda SpriteMotion, x
           and # $ff ^ SpriteMoveRight
           ora #SpriteMoveIdle
@@ -124,7 +124,7 @@ LeftOK:
 RightOK:
           lda SpriteY, x
           cmp #ScreenTopEdge
-          bcs TopOK
+          bge TopOK
           lda SpriteMotion, x
           and # $ff ^ SpriteMoveUp
           ora #SpriteMoveIdle
@@ -133,7 +133,7 @@ RightOK:
           sta SpriteY, x
 TopOK:
           cmp #ScreenBottomEdge
-          bcc BottomOK
+          blt BottomOK
           lda SpriteMotion, x
           and # $ff ^ SpriteMoveDown
           ora #SpriteMoveIdle
