@@ -283,14 +283,19 @@ P1Ready:
           ldx CurrentMap
           lda MapColors, x
           and #$f0
-          .if TV == SECAM
+          .switch TV
+          .case SECAM
           ror a
           ror a
           ror a
           ror a
-          .else
-          ora #$01
-          .fi
+          .case NTSC
+          ora #$02              ; dim
+          .case PAL
+          ora #$04              ; not quite as dim on PAL
+          .default
+          .error "What kind of TV standard are we working with here?"
+          .endswitch
           sta COLUPF
 
           ;; Force a load of the next (first) run of map data
@@ -447,6 +452,10 @@ GoScreenRight:
           sta PlayerX
           ldy #3
 GoScreen:
+          lda #0
+          sta DeltaX
+          sta DeltaY
+
           lda #>MapLinks
           sta pp3h
           clc
@@ -459,12 +468,18 @@ GoScreen:
 +
           sta pp3l
           lda (pp3l), y
+          cmp #$ff
+          beq ScreenBounce
           sta CurrentMap
-          lda #0
-          sta DeltaX
-          sta DeltaY
 
           jmp NewRoom
+
+ScreenBounce:
+          ;; stuff the player into the middle of the screen
+          lda #$7a
+          sta PlayerX
+          lda #$21
+          sta PlayerY
 
 CheckSwitches:
 
