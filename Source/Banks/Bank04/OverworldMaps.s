@@ -41,26 +41,26 @@ MapColors:
           .colors COLPURPLE, COLGRAY
           .colors COLPURPLE, COLGRAY
           .colors COLPURPLE, COLGRAY
-          .colors COLMAGENTA, COLGOLD
+          .colors COLMAGENTA, COLBROWN
           ;; 30
-          .colors COLMAGENTA, COLGOLD
-          .colors COLMAGENTA, COLGOLD
-          .colors COLMAGENTA, COLGOLD
-          .colors COLMAGENTA, COLGOLD
-          .colors COLRED, COLGOLD
-          .colors COLRED, COLGOLD
-          .colors COLRED, COLGOLD
-          .colors COLORANGE, COLGOLD
-          .colors COLORANGE, COLGOLD
-          .colors COLORANGE, COLGOLD
+          .colors COLMAGENTA, COLBROWN
+          .colors COLMAGENTA, COLBROWN
+          .colors COLMAGENTA, COLBROWN
+          .colors COLMAGENTA, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLORANGE, COLBROWN
+          .colors COLORANGE, COLBROWN
+          .colors COLORANGE, COLBROWN
           ;; 40
-          .colors COLMAGENTA, COLGOLD
-          .colors COLRED, COLGOLD
-          .colors COLORANGE, COLGOLD
-          .colors COLRED, COLGOLD
-          .colors COLRED, COLGOLD
-          .colors COLORANGE, COLGOLD
-          .colors COLORANGE, COLGOLD
+          .colors COLMAGENTA, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLORANGE, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLORANGE, COLBROWN
+          .colors COLORANGE, COLBROWN
 
 ;;; Links up, down, left, right are map indices in this bank
 MapLinks:
