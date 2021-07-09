@@ -134,7 +134,7 @@ FillScreen:
           cmp DebounceSWCHB
           beq SkipSwitches
           sta DebounceSWCHB
-          and #SWCHBReset
+          bit #SWCHBReset
           beq SlotOK
 
           lda DebounceSWCHB

@@ -240,7 +240,7 @@ StickDone:
           ldy # COLGRAY | 0
           dex
           lda BitMask, x
-          and MovesKnown
+          bit MovesKnown
           beq +
           ldy # COLRED | $4
 +

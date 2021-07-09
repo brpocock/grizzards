@@ -107,15 +107,13 @@ SetUpSprite:
           tay
 
           lda ProvinceFlags, x
-          and BitMask, y
+          bit BitMask, y
           beq SpritePresent
 
 SpriteAbsent:
+          .rept 5
           iny
-          iny
-          iny
-          iny
-          iny
+          .next
           jmp SetUpSprite
 
 SpritePresent:
