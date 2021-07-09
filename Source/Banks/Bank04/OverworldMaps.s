@@ -338,6 +338,11 @@ MapSprites:
 	.byte 0
 
 	;;Room 19
+          .byte $ff
+          .byte SpriteFixed
+          .byte $3b, $28         ; x, y
+          .byte SpriteGrizzardDepot, 0
+
 	.byte 0
 
 	;;Room 20
