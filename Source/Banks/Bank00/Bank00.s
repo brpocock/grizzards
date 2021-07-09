@@ -64,6 +64,7 @@ Quit:
             .include "PublisherName.s"
           .else
             .include "BRPCredit.s"
+            .fill 66            ; leave space for publisher name
           .fi
 
           .include "EndBank.s"
