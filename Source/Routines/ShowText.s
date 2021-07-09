@@ -11,9 +11,6 @@
 ;;; and:
 ;;;      https://www.biglist.com/lists/stella/archives/199804/msg00198.html
 
-
-          .align $80, $ea
-
 ShowText:  .block
         ;; This  version  is  for  straight-up  displaying  some  bitmap  data.
         ;; It needs a table  of pointers to the bitmap data,  and it pushes one

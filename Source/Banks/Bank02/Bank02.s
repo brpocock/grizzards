@@ -35,8 +35,7 @@ AppendDecimalAndPrintThunk:
           lda Temp
           jmp BINBCD8
 
-
-
+          .include "ShowText.s"
           .include "VSync.s"
           .include "VBlank.s"
           .include "Overscan.s"
@@ -44,7 +43,6 @@ AppendDecimalAndPrintThunk:
           .include "Prepare48pxMobBlob.s"
           .include "DecodeText.s"
           .include "ShowMove.s"
-          .include "ShowText.s"
           .include "DrawGrizzard.s"
           .include "AppendDecimalAndPrint.s"
           .include "CopyPointerText.s"
