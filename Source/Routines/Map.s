@@ -18,6 +18,22 @@ DoMap:    .block
           sta PlayerY
 
 NewRoom:
+
+          ldy #ServiceTopOfScreen
+          ldx #MapServicesBank
+          jsr FarCall
+
+          ldx # KernelLines - 181
+-
+          dex
+          stx WSYNC
+          bne -
+
+          ;; Set a timer for 215 × 64 = 13,760 cycles
+          ;; That's 13,760 ÷ 76 = 181 scan lines
+          ldx # 215
+          sta TIM64T
+
           ;; Got to figure out the sprites
           ;; Start at the head of the sprite list
           lda #<MapSprites
@@ -187,8 +203,20 @@ AddWanderingSprite:
 
 SpritesDone:
 
+          ;; Wait for TIMINT to finish after our variable-duration
+          ;; walking of the sprite lists
+-
+          lda INTIM
+          sta WSYNC
+          bne -
+
           sta CXCLR
+
+          ldx #MapServicesBank
+          ldy #ServiceBottomOfScreen
+          jsr FarCall
           jsr Overscan
+
           jmp Loop
 
 BadMap:
