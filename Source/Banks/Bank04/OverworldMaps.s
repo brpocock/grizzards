@@ -84,7 +84,7 @@ MapLinks:
           ;; 15
           .byte 10, 16, 14, $ff  ; TODO link E
           .byte 15, $ff, $ff, $ff
-          .byte 14, $ff, 18, 16
+          .byte 14, $ff, 18, $ff
           .byte $ff, 23, 19, 17
           .byte $ff, $ff, 20, 18
           ;; 20
@@ -125,6 +125,13 @@ MapLinks:
 
 ;;; Note that it can be reused, so the same basic layout, potentially
 ;;; in different colors, can appear in several places.
+
+          .if DEMO = 1
+          ROOM17MAP = Map_SouthGlobe      ; no exits to east/west in demo
+          .else
+          ROOM17MAP = Map_Bow
+          .fi
+          
           MapRLE = (
           ;; 0
           Map_Closed,
@@ -147,7 +154,7 @@ MapLinks:
           ;; 15
           Map_FourWay,
           Map_SouthGlobe,
-          Map_Bow,
+          ROOM17MAP,
           Map_Arc,
           Map_EWPassage,
           ;; 20
@@ -203,8 +210,8 @@ MapSides:
           ;; 10
           .byte 0, 0, 0, 0, 0
           .if DEMO = 1
-          ; block off area to right of screen 15 and left of 17
-          .byte $40, $40, $c0, 0, $80 
+          ;; block off area to right of screen 15
+          .byte $40, $40, $40, 0, $80 
           .else
           .byte 0, $40, $40, 0, $80
           .fi
