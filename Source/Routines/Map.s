@@ -107,7 +107,7 @@ SetUpSprite:
           tay
 
           lda ProvinceFlags, x
-          bit BitMask, y
+          and BitMask, y
           beq SpritePresent
 
 SpriteAbsent:
