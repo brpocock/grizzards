@@ -114,23 +114,23 @@ Dist/Grizzards.SECAM.pdf: Object/Grizzards.tex
 	mv Object/Grizzards.pdf Dist/Grizzards.SECAM.pdf
 
 Dist/Grizzards.Demo.NTSC.pdf: Object/Grizzards.tex
-	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{Demo}\def\TVNTSC{}\input{Grizzards}"
-	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{Demo}\def\TVNTSC{}\input{Grizzards}"
-	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{Demo}\def\TVNTSC{}\input{Grizzards}"
+	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{}\def\TVNTSC{}\input{Grizzards}"
+	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{}\def\TVNTSC{}\input{Grizzards}"
+	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{}\def\TVNTSC{}\input{Grizzards}"
 	mkdir -p Dist
 	mv Object/Grizzards.pdf Dist/Grizzards.Demo.NTSC.pdf
 
 Dist/Grizzards.Demo.PAL.pdf: Object/Grizzards.tex
-	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{Demo}\def\TVPAL{}\input{Grizzards}"
-	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{Demo}\def\TVPAL{}\input{Grizzards}"
-	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{Demo}\def\TVPAL{}\input{Grizzards}"
+	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{}\def\TVPAL{}\input{Grizzards}"
+	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{}\def\TVPAL{}\input{Grizzards}"
+	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{}\def\TVPAL{}\input{Grizzards}"
 	mkdir -p Dist
 	mv Object/Grizzards.pdf Dist/Grizzards.Demo.PAL.pdf
 
 Dist/Grizzards.Demo.SECAM.pdf: Object/Grizzards.tex
-	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{Demo}\def\TVSECAM{}\input{Grizzards}"
-	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{Demo}\def\TVSECAM{}\input{Grizzards}"
-	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{Demo}\def\TVSECAM{}\input{Grizzards}"
+	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{}\def\TVSECAM{}\input{Grizzards}"
+	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{}\def\TVSECAM{}\input{Grizzards}"
+	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{}\def\TVSECAM{}\input{Grizzards}"
 	mkdir -p Dist
 	mv Object/Grizzards.pdf Dist/Grizzards.Demo.SECAM.pdf
 
