@@ -194,6 +194,8 @@ SpritesDone:
 BadMap:
           brk
 
+;;; 
+
 Loop:
           ldx #MapServicesBank
           ldy #ServiceTopOfScreen
@@ -214,10 +216,9 @@ Loop:
           clc
           lda SpriteAction, x
           and #$03
+          .rept 4
           asl a
-          asl a
-          asl a
-          asl a
+          .next
           adc #<SpriteArt
           bcc +
           inc pp1h
@@ -238,9 +239,9 @@ Loop:
           jmp AnimationFrameReady
 
 AnimationFrame0:
+          sta WSYNC             ; stabilize frame count
 
 AnimationFrameReady:
-          sta WSYNC             ; stablize line count
 
           ldx SpriteFlicker
           lda SpriteAction, x
@@ -297,10 +298,28 @@ P1Ready:
           sta COLUPF
 
           ;; Force a load of the next (first) run of map data
-          ldy #1
-          sty RunLength
+          ldy # 0
+          lda (pp5l), y
+          sta RunLength
+          iny
+          lda (pp5l), y
+          sta pp4l
+          iny
+          lda (pp5l), y
+          sta pp4h
+          iny
+          lda (pp5l), y
+          sta pp3l
 
-          ldy #72               ; 72 × 2 lines = 144 lines total
+          clc
+          lda pp5l
+          adc # 4
+          bcc +
+          inc pp5h
++
+          sta pp5l
+
+          ldy # 72              ; 72 × 2 lines = 144 lines total
           sty LineCounter
 
           ldx CurrentMap
@@ -317,7 +336,7 @@ LeftBall:
           sta RESBL
           lda # $20
           sta HMBL
-          jmp DoneBall
+          bne DoneBall          ; always taken
 
 RightBall:
           sta WSYNC
@@ -325,7 +344,7 @@ RightBall:
           sta RESBL
           lda # 0
           sta HMBL
-          jmp DoneBall
+          beq DoneBall          ; always taken
 
 NoBalls:
           lda # 0
@@ -339,31 +358,41 @@ DoneBall:
           lda MapColors, x
           and #$0f
           .if TV != SECAM
+          .rept 4
           asl a
-          asl a
-          asl a
-          asl a
-          ora #$0f
+          .next
+          ora #$0e
           .fi
+
+          sta WSYNC
           sta COLUBK
+          lda pp4l
+          sta PF0
+          lda pp4h
+          sta PF1
+          lda pp3l
+          sta PF2
 
 DrawMap:
           dec RunLength
           bne NoMapChange
 
-          ldy #0
+          ldy # 1
+          ;; skip run length until the PF regs are written
+          ;; or we'll be too late and update halfway into the line
           lda (pp5l), y
-          sta RunLength
+          tax
           iny
           lda (pp5l), y
+          iny
           sta WSYNC
-          sta PF0
-          iny
-          lda (pp5l), y
+          stx PF0
           sta PF1
-          iny
           lda (pp5l), y
           sta PF2
+          ldy # 0
+          lda (pp5l), y
+          sta RunLength
           clc
           lda pp5l
           adc #4
@@ -386,7 +415,6 @@ NoP0:
           lda #0
           sta GRP0
 P0Done:
-
           lda #7
           dcp P1LineCounter
           bcc NoP1
@@ -398,16 +426,15 @@ NoP1:
           lda #0
           sta GRP1
 P1Done:
-          sta WSYNC
           dec LineCounter
+          sta WSYNC
           bne DrawMap
+
+          sta WSYNC
 
           ldy #ServiceBottomOfScreen
           ldx #MapServicesBank
           jsr FarCall
-
-          cpy #$ff
-          beq NewRoom
 
           lda PlayerY
           cmp #ScreenTopEdge
@@ -421,51 +448,52 @@ P1Done:
           cmp #ScreenRightEdge
           beq GoScreenRight
 
-          jmp CheckSwitches
+          bne CheckSwitches     ; always taken
 
 GoScreenUp:
           lda #ScreenBottomEdge - 1
           sta BlessedY
           sta PlayerY
           ldy #0
-          jmp GoScreen
+          beq GoScreen          ; always taken
 
 GoScreenDown:
           lda #ScreenTopEdge + 1
           sta BlessedY
           sta PlayerY
           ldy #1
-          jmp GoScreen
+          bne GoScreen          ; always taken
 
 GoScreenLeft:
           lda #ScreenRightEdge - 1
           sta BlessedX
           sta PlayerX
           ldy #2
-          jmp GoScreen
+          bne GoScreen          ; always taken
 
 GoScreenRight:
           lda #ScreenLeftEdge + 1
           sta BlessedX
           sta PlayerX
           ldy #3
+
 GoScreen:
           lda #0
           sta DeltaX
           sta DeltaY
 
           lda #>MapLinks
-          sta pp3h
+          sta Pointer + 1
           clc
           lda CurrentMap
           rol a
           rol a
           adc #<MapLinks
           bcc +
-          inc pp3h
+          inc Pointer + 1
 +
-          sta pp3l
-          lda (pp3l), y
+          sta Pointer
+          lda (Pointer), y
           cmp #$ff
           beq ScreenBounce
           sta CurrentMap
