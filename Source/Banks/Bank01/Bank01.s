@@ -26,6 +26,8 @@ DoLocal:
           beq DrawMonsterGroup
           cpy #ServiceNewGrizzard
           beq NewGrizzard
+          cpy #ServiceNewGame
+          beq StartNewGame
           cpy #ServiceDeath
           beq Death
           brk
@@ -40,5 +42,8 @@ DoLocal:
           .include "MonsterArt.s"
           .include "CombatSpriteTables.s"
           .include "GrizzardStartingStats.s"
+          .include "StartNewGame.s"
+          
+          .include "AtariVox-EEPROM-Driver.s"
 
 	.include "EndBank.s"

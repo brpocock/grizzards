@@ -7,11 +7,9 @@ PublisherPresentsMode:
           lda #CTRLPFREF
           sta CTRLPF
           .ldacolu COLGRAY, $f
-          sta COLUPF
-          lda #$c0
-          sta PF2
+          sta COLUBK
           ldy # PublisherCredit.Height
-          .ldacolu COLBLUE, $f
+          .ldacolu COLTURQUOISE, $8
           .else
 BRPPreambleMode:
           .SetUpFortyEight BRPCredit
@@ -49,7 +47,21 @@ SkipAboveGraphic:
           sty LineCounter
           jsr ShowPicture
 
+          .if PUBLISHER
+
+          .SetUpFortyEight PublisherName
+          ldy #PublisherName.Height
+          sty LineCounter
+          jsr ShowPicture
+
+          ldx # KernelLines - (125 + PublisherName.Height)
+
+          .else
+
           ldx # KernelLines - 125
+
+          .fi
+
 SkipBelowGraphic:
           stx WSYNC
           dex

@@ -220,7 +220,7 @@ SlotOK:
 
           lda #ModeStartGame
           sta GameMode
-          jmp StartNewGame
+          jsr FarCall           ; does not return
 
 LoadGame:
           jmp LoadSaveSlot

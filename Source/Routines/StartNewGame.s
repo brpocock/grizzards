@@ -2,6 +2,9 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 StartNewGame:          .block
 
+          ldx #$ff              ; destroy stack. We are here to stay.
+          txs
+          
           lda #0
           sta StartGameWipeBlock
 
@@ -26,7 +29,10 @@ SkipForPAL:
 
           jsr i2cStartWrite
           bcc LetsStart
-          jmp EEPROMFail
+          jsr i2cStopWrite
+          lda #ModeNoAtariVox
+          sta GameMode
+          brk
 
 LetsStart:
           lda SaveGameSlot
@@ -108,7 +114,6 @@ WaitForScreenEnd:
           cmp #ModeStartGame
           beq Loop
 
-          jsr SaveToSlot
           jmp GoMap
 
 Loop:

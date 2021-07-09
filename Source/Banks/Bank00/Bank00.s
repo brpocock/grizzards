@@ -9,7 +9,7 @@
           BANK = $00
 
           .weak
-          PUBLISHER = false
+          PUBLISHER = true
           .endweak
 
 	.include "StartBank.s"
@@ -31,7 +31,6 @@ DoLocal:
           .include "48Pixels.s"
           .include "Prepare48pxMobBlob.s"
           .include "ShowPicture.s"
-          .include "StartNewGame.s"
           .include "VSync.s"
           .include "VBlank.s"
           .include "Overscan.s"
@@ -62,6 +61,7 @@ Quit:
           .align $100
           .if PUBLISHER
             .include "PublisherCredit.s"
+            .include "PublisherName.s"
           .else
             .include "BRPCredit.s"
           .fi
