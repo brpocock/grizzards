@@ -50,15 +50,15 @@ AppendDecimalAndPrintThunk:
           .include "ShowGrizzardStats.s"
 
           .include "GrizzardDepot.s"
-          
+
           .include "Failure.s"
-          
+
           .include "GrizzardNames.s"
           .include "GrizzardImages.s"
           .include "GrizzardArt.s"
           .include "GrizzardMoves.s"
           .include "MovesTable.s"
-          
+
 StatsText:
           .MiniText "ATK 00"
           .MiniText "DEF 00"
@@ -67,13 +67,12 @@ StatsText:
 
 DepotText:
           .MiniText "DEPOT "
-PlayTimeText:       
+PlayTimeText:
           .MiniText "PLAYED"
-PlayHoursText:      
+PlayHoursText:
           .MiniText "HOURS "
-          
+
           .align $100
           .include "Font.s"
 
-          
 	.include "EndBank.s"
