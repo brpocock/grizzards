@@ -275,6 +275,10 @@ MapSprites:
           .byte 0               ; end of list
 
           ;; Room 2
+          .byte $ff
+          .byte SpriteWander
+          .byte 100, 65         ; x, y position
+          .byte SpriteCombat, 0
 
           .byte 0
           
