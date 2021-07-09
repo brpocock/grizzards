@@ -278,4 +278,3 @@ colors:   .macro co1, co2
 
           HBlankCycles = 40
           VisibleLineCycles = 36
-

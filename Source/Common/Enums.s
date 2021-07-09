@@ -70,7 +70,7 @@
           SpriteMoveRight = $20
           SpriteMoveUp = $40
           SpriteMoveDown = $80
-          
+
 ;;; Sprite actions
           SpriteCombat = $00
           SpriteGrizzardDepot = $01

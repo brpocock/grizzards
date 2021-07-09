@@ -51,19 +51,50 @@ SpriteXMove:
 SpriteMoveNext:
           ;; Possibly change movement randomly
           jsr Random
+          tay
           and #$07
           bne SpriteMoveDone
 
-          jsr Random
-          and #$01
+          tya
+          and #$10
+          beq ChasePlayer
+
+          tya
+          and #$20
           beq RandomlyMove
 
           lda SpriteMoveIdle
           sta SpriteMotion, x
           jmp SpriteMoveDone
 
-RandomlyMove:       
-          
+ChasePlayer:
+          lda SpriteX, x
+          cmp PlayerX
+          beq ChaseUpDown
+          bcc ChaseRight
+          lda #SpriteMoveLeft
+          sta SpriteMotion, x
+          jmp SpriteMoveDone
+
+ChaseRight:
+          lda #SpriteMoveRight
+          sta SpriteMotion, x
+          jmp SpriteMoveDone
+
+ChaseUpDown:
+          lda SpriteY, x
+          cmp PlayerY
+          bcs ChaseDown
+          lda #SpriteMoveUp
+          sta SpriteMotion, x
+          jmp SpriteMoveDone
+
+ChaseDown:
+          lda #SpriteMoveDown
+          sta SpriteMotion, x
+          jmp SpriteMoveDone
+
+RandomlyMove:
           jsr Random
           and #$f0              ; random movement may be up+down or something stupid like that
           beq RandomlyMove
@@ -120,17 +151,20 @@ BottomOK:
 CheckSpriteCollision:
           lda CXP1FB
           and #$c0              ; hit playfield or ball
-          beq MovementLogicDone
+          bne MovementLogicDone
 
           ;; Who did we just draw?
           ldx SpriteFlicker
           lda SpriteMotion, x
           and #SpriteMoveLeft
           bne SpriteCxRight
+
+SpriteCxLeft:
           lda SpriteMotion, x
           and # SpriteMoveUp | SpriteMoveDown
           ora #SpriteMoveRight
           sta SpriteMotion, x
+          inc SpriteX, x
           jmp SpriteCxUpDown
 
 SpriteCxRight:
@@ -138,15 +172,19 @@ SpriteCxRight:
           and # SpriteMoveUp | SpriteMoveDown
           ora #SpriteMoveLeft
           sta SpriteMotion, x
+          dec SpriteX, x
+
 SpriteCxUpDown:
           lda SpriteMotion, x
           and #SpriteMoveUp
           bne SpriteCxDown
+
+SpriteCxUp:
           lda SpriteMotion, x
           and # SpriteMoveLeft | SpriteMoveRight
           ora #SpriteMoveDown
           sta SpriteMotion, x
-          
+          inc SpriteY, x
           jmp MovementLogicDone
 
 SpriteCxDown:
@@ -154,6 +192,7 @@ SpriteCxDown:
           and # SpriteMoveLeft | SpriteMoveRight
           ora #SpriteMoveDown
           sta SpriteMotion, x
+          dec SpriteY, x
 
 MovementLogicDone:
 
