@@ -103,7 +103,7 @@
           ;; not actually available on PAL:
           COLYELLOW = COLGOLD
           COLSEAFOAM = COLSPRINGGREEN
-          COLRUST = COLORANGE
+          COLBROWN = COLORANGE
 
           .case SECAM
           COLBLACK = 0
@@ -111,6 +111,7 @@
           COLINDIGO = COLBLUE
           COLRED = 4
           COLPURPLE = COLRED
+          COLBROWN = COLRED
           COLMAGENTA = 6
           COLGREEN = 8
           COLSPRINGGREEN = COLGREEN
