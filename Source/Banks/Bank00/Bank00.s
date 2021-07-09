@@ -9,7 +9,7 @@
           BANK = $00
 
           .weak
-          PUBLISHER = true
+          PUBLISHER = false
           .endweak
 
 	.include "StartBank.s"
