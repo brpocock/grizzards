@@ -71,7 +71,7 @@ ChasePlayer:
           lda SpriteX, x
           cmp PlayerX
           beq ChaseUpDown
-          bcc ChaseRight
+          bcs ChaseRight
           lda #SpriteMoveLeft
           sta SpriteMotion, x
           jmp SpriteMoveDone
@@ -151,7 +151,7 @@ BottomOK:
 CheckSpriteCollision:
           lda CXP1FB
           and #$c0              ; hit playfield or ball
-          bne MovementLogicDone
+          beq MovementLogicDone
 
           ;; Who did we just draw?
           ldx SpriteFlicker
