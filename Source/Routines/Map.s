@@ -401,9 +401,11 @@ DoneBall:
           lda pp3l
           sta PF2
 
+;;; 
+
 DrawMap:
           dec RunLength
-          bne NoMapChange
+          bne DrawLine
 
           ldy # 1
           ;; skip run length until the PF regs are written
@@ -413,7 +415,6 @@ DrawMap:
           iny
           lda (pp5l), y
           iny
-          sta WSYNC
           stx PF0
           sta PF1
           lda (pp5l), y
@@ -429,9 +430,9 @@ DrawMap:
 +
           sta pp5l
           ldy LineCounter
-NoMapChange:
-          sta WSYNC
 
+DrawLine:
+          sta WSYNC
           lda #7
           dcp P0LineCounter
           bcc NoP0
@@ -457,6 +458,8 @@ P1Done:
           dec LineCounter
           sta WSYNC
           bne DrawMap
+
+;;; 
 
           sta WSYNC
 
