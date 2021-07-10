@@ -11,7 +11,11 @@ BottomOfScreenService: .block
           sta ENABL
           sta WSYNC
 
+          .if TV == NTSC
           ldx #KernelLines - 183
+          .else
+          ldx #KernelLines - 219
+          .fi
 FillScreen:
           stx WSYNC
           dex

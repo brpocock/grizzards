@@ -455,8 +455,17 @@ NoP1:
           lda #0
           sta GRP1
 P1Done:
+          .if TV != NTSC
+          lda #$01
+          bit LineCounter
+          beq +
+          sta WSYNC
++
+          .fi
+
           dec LineCounter
           sta WSYNC
+
           bne DrawMap
 
 ;;; 
