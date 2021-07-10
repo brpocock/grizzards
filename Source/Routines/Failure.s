@@ -4,6 +4,13 @@ Failure:	.block
 
           jsr VSync
 
+          lda # 0
+          sta GRP0
+          sta GRP1
+          sta ENAM0
+          sta ENAM1
+          sta ENABL
+
           lda GameMode
           cmp #ModeNoAtariVox
           bne WhiteSadFace
