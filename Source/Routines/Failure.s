@@ -79,10 +79,8 @@ FillScreen:
           dex
           bne FillScreen
 
-          lda SWCHB
-          cmp DebounceSWCHB
+          lda NewSWCHB
           beq SkipSwitches
-          sta DebounceSWCHB
           and #SWCHBReset
           beq Reset
 SkipSwitches:	
