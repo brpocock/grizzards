@@ -8,6 +8,8 @@ DoMap:    .block
           sta BumpCooldown
 
           lda # 0
+          sta SpriteFlicker
+          sta SpriteCount
           sta DeltaX
           sta DeltaY
           sta CurrentMusic + 1
@@ -208,7 +210,7 @@ SpritesDone:
 -
           lda INTIM
           sta WSYNC
-          bne -
+          bpl -
 
           sta CXCLR
 
@@ -549,10 +551,8 @@ ScreenBounce:
 
 CheckSwitches:
 
-          lda SWCHB
-          cmp DebounceSWCHB
+          lda NewSWCHB
           beq SkipSwitches
-          sta DebounceSWCHB
           and #SWCHBReset
           bne NoReset
           jmp GoQuit

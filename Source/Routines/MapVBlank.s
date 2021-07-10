@@ -5,7 +5,9 @@ MapVBlank:        .block
 
           lda GameMode
           cmp #ModeMap
-          bne UserInputStart
+          beq MovementLogic
+
+          rts
           
 MovementLogic:
           lda ClockFrame
@@ -17,6 +19,9 @@ MovementLogic:
 DoSpriteMotion:
           ldx SpriteCount
           beq UserInputStart
+          cpx # 5
+-                               ;hang
+          bge -
 
           dex
 
@@ -396,6 +401,4 @@ DoneBump:
 
           rts
 
-          
-          
           .bend

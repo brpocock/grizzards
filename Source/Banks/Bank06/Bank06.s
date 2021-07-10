@@ -7,7 +7,8 @@
           .include "StartBank.s"
           .include "Prepare48pxMobBlob.s"
           .include "SpeakJetIDs.s"
-
+DoVBlankWork:
+          .include "CombatVBlank.s"
 DoLocal:  
           .include "CombatSetup.s"
           .include "CombatMainScreen.s"

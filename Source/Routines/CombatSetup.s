@@ -3,6 +3,12 @@
 ;;; Common combat routines called from multiple banks
 DoCombat:          .block
 
+          jsr VSync
+          jsr VBlank
+
+          ldx # 215             ; 181 scan lines
+          sta TIM64T
+
           jsr SeedRandom
           
           ldx CurrentCombatEncounter
@@ -107,11 +113,17 @@ SetUpOtherCombatVars:
           dex
           bne -
 
-          ldx # KernelLines
+-
+          lda INTIM
+          bpl -
+
+          ldx # KernelLines - 181
 -
           stx WSYNC
           dex
           bne -
+
+          jsr Overscan
 
           jmp CombatMainScreen
 

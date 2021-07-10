@@ -12,7 +12,7 @@ BottomOfScreenService: .block
           sta WSYNC
 
           .if TV == NTSC
-          ldx #KernelLines - 183
+          ldx #KernelLines - 184
           .else
           ldx #KernelLines - 219
           .fi

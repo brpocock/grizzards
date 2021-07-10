@@ -28,6 +28,8 @@
           ModeMapNewRoom = $31
 
           ModeCombat = $40
+          ModeCombatAnnouncement = $41
+          ModeCombatOutcome = $43
           ModeDeath = $44
           ModeGrizzardStats = $45
 
