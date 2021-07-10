@@ -13,15 +13,14 @@ SpritePresence:
           .byte NUSIZ3CopiesMed  ; 1 1 1
 
 SpritePosition:
-          .byte $02             ; 0 0 0
+          .byte $03             ; 0 0 0
           .byte $e7             ; 0 0 1
-          .byte $f5             ; 0 1 0
-          .byte $f5             ; 0 1 1
+          .byte $15             ; 0 1 0
+          .byte $15             ; 0 1 1
           .byte $03             ; 1 0 0
           .byte $03             ; 1 0 1
           .byte $03             ; 1 1 0
           .byte $03             ; 1 1 1
-
 
 CursorPosition:
           .byte $03             ; x - -
