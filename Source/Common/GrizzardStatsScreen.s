@@ -61,6 +61,7 @@ Bouncey1:
           lda # 0
           sta NewSWCHB
 
+          lda GameMode
           cmp #ModeCombat
           bne +
           jmp CombatMainScreen
