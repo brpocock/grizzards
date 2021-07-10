@@ -179,6 +179,7 @@ SelectedRunAway:
           jsr FarCall
 
           lda NewINPT4
+          beq ScreenDone
           and #$80
           bne ScreenDone
 
