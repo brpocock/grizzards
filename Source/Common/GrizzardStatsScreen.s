@@ -58,14 +58,13 @@ Bouncey1:
           cmp #ModeGrizzardStats
           beq Loop
 
-          lda # 0
-          sta NewSWCHB
+          ldy # 0
+          sty NewSWCHB
 
-          lda GameMode
           cmp #ModeCombat
           bne +
           jmp CombatMainScreen
 +
-          brk
 
+          brk
           .bend
