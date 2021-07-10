@@ -147,6 +147,7 @@ FillScreen:
           jsr FarCall
 
           lda NewINPT4
+          beq ScreenDone
           and #$80
           bne ScreenDone
 
@@ -201,7 +202,11 @@ ScreenDone:
 
 Leave:
           cmp #ModeGrizzardStats
+          bne +
+          lda #ModeCombat
+          sta DeltaY
           jmp GrizzardStatsScreen
++
           cmp #ModeCombatAnnouncement
           jmp CombatAnnouncementScreen
           brk

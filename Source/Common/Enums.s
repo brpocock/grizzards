@@ -31,12 +31,12 @@
           ModeCombatAnnouncement = $41
           ModeCombatOutcome = $43
           ModeDeath = $44
-          ModeGrizzardStats = $45
 
           ModeGrizzardDepot = $50
 
           ModeNewGrizzard = $60
 
+          ModeGrizzardStats = $70
 
 ;;; Sounds in the library (index values)
           SoundDrone = 1

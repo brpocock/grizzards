@@ -124,6 +124,7 @@ CheckSwitches:
 
 NoReset:
           lda NewSWCHB
+          beq NoSelect
           and #SWCHBSelect
           bne NoSelect
           lda #ModeGrizzardStats
@@ -145,7 +146,6 @@ NoSelect:
           .fi
 
 SkipSwitches:
-
 
           rts
 

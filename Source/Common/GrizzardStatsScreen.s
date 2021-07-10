@@ -2,10 +2,14 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 GrizzardStatsScreen: .block
 
-          lda SWCHB
-          sta DebounceSWCHB
+          lda #ModeGrizzardStats
+          sta GameMode
 
-Loop:     
+          lda # 0
+          sta NewSWCHB
+
+Loop:
+
           jsr VSync
           jsr VBlank
 
@@ -22,7 +26,6 @@ Loop:
           sta COLUP0
           sta COLUP1
 
-
           ldx # 20
 -
           stx WSYNC
@@ -35,25 +38,33 @@ Loop:
           dex
           bne -
 
-          jsr Overscan
-
-          lda SWCHB
-          cmp DebounceSWCHB
+          lda NewSWCHB
           beq Bouncey1
-          sta DebounceSWCHB
           and #SWCHBReset
           bne +
           jmp GoQuit
 +
+          lda NewSWCHB
           and #SWCHBSelect
-          beq StatsDone
-          
-Bouncey1:
-          jmp Loop
+          bne Bouncey1
 
-StatsDone:
-          lda #ModeCombat
+          lda DeltaY
           sta GameMode
+
+Bouncey1:
+          jsr Overscan
+
+          lda GameMode
+          cmp #ModeGrizzardStats
+          beq Loop
+
+          lda # 0
+          sta NewSWCHB
+
+          cmp #ModeCombat
+          bne +
           jmp CombatMainScreen
-          
++
+          brk
+
           .bend
