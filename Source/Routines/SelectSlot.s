@@ -146,7 +146,7 @@ SkipSwitches:
 
           ;; To enter Elimination Mode (ERASE SLOT):
           ;; — both Difficulty Switches to A/Advanced
-          lda NewSWCHB
+          lda SWCHB
           and # SWCHBP0Advanced | SWCHBP1Advanced
           cmp # SWCHBP0Advanced | SWCHBP1Advanced
           bne ThisIsNotAStickUp
