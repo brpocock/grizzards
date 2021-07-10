@@ -29,8 +29,8 @@ CombatLogic:
           dex
           bne -
           jmp CheckSwitches
-          
-DoMonsterMove:      
+
+DoMonsterMove:
 
           jsr Random
           and #$03
@@ -94,22 +94,22 @@ SelfTarget:
           stx MoveTarget
           jmp StickDone
 
-ChooseTarget:       
+ChooseTarget:
           ldx MoveTarget
           lda NewSWCHA
           and #P0StickLeft
           bne DoneStickLeft
           dex
-          bpl DoneStickLeft
-          ldx #6
+          bne DoneStickLeft
+          ldx # 6
 DoneStickLeft:
           lda NewSWCHA
           and #P0StickRight
           bne DoneStickRight
           inx
-          cpx #6
-          bne DoneStickRight
-          ldx #1
+          cpx # 7
+          bge DoneStickRight
+          ldx # 1
 DoneStickRight:
           stx MoveTarget
 
@@ -129,7 +129,7 @@ NoReset:
           bne NoSelect
           lda #ModeGrizzardStats
           sta GameMode
-          
+
 NoSelect:
           .if TV != SECAM
           ;; TODO — 7800 Pause button support

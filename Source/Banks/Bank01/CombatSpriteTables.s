@@ -3,18 +3,18 @@
 ;;; Combat sprite tables
           
 SpritePresence:
-          .byte 0                ; 0 0 0
-          .byte NUSIZNorm        ; 0 0 1
-          .byte NUSIZNorm        ; 0 1 0
+          .byte 0                 ; 0 0 0
+          .byte NUSIZNorm         ; 0 0 1
+          .byte NUSIZNorm         ; 0 1 0
           .byte NUSIZ2CopiesMed  ; 0 1 1
-          .byte NUSIZNorm        ; 1 0 0
+          .byte NUSIZNorm         ; 1 0 0
           .byte NUSIZ2CopiesWide ; 1 0 1
           .byte NUSIZ2CopiesMed  ; 1 1 0
           .byte NUSIZ3CopiesMed  ; 1 1 1
 
 SpritePosition:
           .byte $03             ; 0 0 0
-          .byte $e7             ; 0 0 1
+          .byte $07             ; 0 0 1
           .byte $15             ; 0 1 0
           .byte $15             ; 0 1 1
           .byte $03             ; 1 0 0

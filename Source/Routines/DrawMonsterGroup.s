@@ -20,13 +20,13 @@ GetMonsterPointer:
 +
           sta CombatSpritePointer
 
-PrepareToDrawMonsters:        
+PrepareToDrawMonsters:
           lda # 0
           sta VDELP0
           sta VDELP1
           sta NUSIZ0
           sta NUSIZ1
-          
+
           ldx MoveTarget
           beq PrepareTopMonsters
           dex
@@ -36,14 +36,14 @@ PrepareToDrawMonsters:
           jmp SetCursorColor
 +
           .ldacolu COLGRAY, 0
-SetCursorColor:       
+SetCursorColor:
           sta COLUP1
 
 PrepareCursor2:
           ldx MoveTarget
           dex
-          cpx # 3
-          bpl PrepareTopMonsters
+          cpx # 4
+          bge PrepareTopMonsters
 
 PositionTopCursor:
           sta WSYNC
@@ -58,12 +58,12 @@ TopCursorPos:
           bne TopCursorPos
           sta RESP1
 
-          lda SpritePosition, x
+          lda CursorPosition, x
           sta HMP1
 
           lda #$ff
           sta GRP1
-          
+
 PrepareTopMonsters:
           lda # 0
           ldx MonsterHP + 0
@@ -132,11 +132,11 @@ NoTopMonsters:
 PrepareBottomCursor:
           lda # 0
           sta GRP1
-          
+
           ldx MoveTarget
           dex
-          cpx # 3
-          bmi PrepareBottomMonsters
+          cpx # 4
+          blt PrepareBottomMonsters
 
           txa
           sec
@@ -156,7 +156,7 @@ BottomCursorPos:
           bne BottomCursorPos
           sta RESP1
 
-          lda SpritePosition, x
+          lda CursorPosition, x
           sta HMP1
 
           lda #$ff
@@ -187,7 +187,7 @@ PrepareBottomMonsters:
           lda SpritePosition, x
           and #$0f
           tay
-          
+
 PositionBottomMonsters:
           sta HMCLR
 Monster2Pos:

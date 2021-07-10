@@ -7,7 +7,7 @@ Loop:
           jsr VBlank
 
           jsr Prepare48pxMobBlob
-          
+
           lda Pause
           beq NotPaused
 
@@ -27,6 +27,7 @@ NotPaused:
 
 PausedOrNot:
 
+MonstersDisplay:
           jsr ShowMonsterName
 
           ldy # 14              ; offset of monster color
