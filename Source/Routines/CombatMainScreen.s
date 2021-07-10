@@ -169,10 +169,8 @@ DoMonsterMove:
 CheckStick:
           ldx MoveSelection
 
-          lda SWCHA
-          cmp DebounceSWCHA
+          lda NewSWCHA
           beq StickDone
-          sta DebounceSWCHA
           and #P0StickUp
           bne DoneStickUp
           lda #SoundChirp
@@ -182,7 +180,7 @@ CheckStick:
           ldx #8
 
 DoneStickUp:
-          lda SWCHA
+          lda NewSWCHA
           and #P0StickDown
           bne DoneStickDown
           lda #SoundChirp
@@ -213,14 +211,14 @@ SelfTarget:
 
 ChooseTarget:       
           ldx MoveTarget
-          lda SWCHA
+          lda NewSWCHA
           and #P0StickLeft
           bne DoneStickLeft
           dex
           bpl DoneStickLeft
           ldx #6
 DoneStickLeft:
-          lda SWCHA
+          lda NewSWCHA
           and #P0StickRight
           bne DoneStickRight
           inx
@@ -251,7 +249,7 @@ StickDone:
           ldy #ServiceShowMove
           jsr FarCall
 
-          lda INPT4
+          lda NewINPT4
           and #$80
           bne CheckSwitches
 
@@ -283,7 +281,7 @@ SelectedRunAway:
           ldy #ServiceShowMove
           jsr FarCall
 
-          lda INPT4
+          lda NewINPT4
           and #$80
           bne CheckSwitches
 
@@ -296,16 +294,14 @@ SelectedRunAway:
 
 CheckSwitches:
 
-          lda SWCHB
-          cmp DebounceSWCHB
+          lda NewSWCHB
           beq SkipSwitches
-          sta DebounceSWCHB
           and #SWCHBReset
           bne NoReset
           jmp GoQuit
 
 NoReset:
-          lda DebounceSWCHB
+          lda NewSWCHB
           and #SWCHBSelect
           bne NoSelect
           lda #ModeGrizzardStats

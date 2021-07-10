@@ -107,11 +107,6 @@ SetUpOtherCombatVars:
           dex
           bne -
 
-          ;; ignore current stick position until it changes,
-          ;; so we aren't reacting to map movement
-          lda SWCHA
-          sta DebounceSWCHA
-
           ldx # KernelLines
 -
           stx WSYNC

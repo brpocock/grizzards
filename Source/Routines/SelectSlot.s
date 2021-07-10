@@ -130,14 +130,12 @@ FillScreen:
 
           jsr Overscan
 
-          lda SWCHB
-          cmp DebounceSWCHB
+          lda NewSWCHB
           beq SkipSwitches
-          sta DebounceSWCHB
           and #SWCHBReset
           beq SlotOK
 
-          lda DebounceSWCHB
+          lda NewSWCHB
           and #SWCHBSelect
           beq SwitchSelectSlot
 SkipSwitches:
@@ -148,7 +146,7 @@ SkipSwitches:
 
           ;; To enter Elimination Mode (ERASE SLOT):
           ;; — both Difficulty Switches to A/Advanced
-          lda DebounceSWCHB
+          lda NewSWCHB
           and # SWCHBP0Advanced | SWCHBP1Advanced
           cmp # SWCHBP0Advanced | SWCHBP1Advanced
           bne ThisIsNotAStickUp

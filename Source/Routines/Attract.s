@@ -141,10 +141,8 @@ FillAttractBottom:
           ;; jmp DoneAttractKernel ; fall through
 
 DoneAttractKernel:
-          lda SWCHB
-          cmp DebounceSWCHB
+          lda NewSWCHB
           beq SkipSwitches
-          sta DebounceSWCHB
           and #SWCHBSelect
           beq LeaveAttract
 SkipSwitches:

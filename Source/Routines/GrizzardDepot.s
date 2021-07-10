@@ -172,15 +172,13 @@ HTDdone:
           lda SWCHA
           ;; TODO handle stick
 
-          lda SWCHB
-          cmp DebounceSWCHB
+          lda NewSWCHB
           beq SwitchesDone
-          sta DebounceSWCHB
           and #SWCHBReset
           bne NoReset
           jmp GoQuit
 NoReset:
-          lda DebounceSWCHB
+          lda NewSWCHB
           and #SWCHBSelect
           bne SwitchesDone
           lda #ModeGrizzardStats
