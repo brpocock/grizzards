@@ -1,10 +1,10 @@
 ;;; Grizzards Source/Routines/PlayMusic.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
-DoMusic:          
+DoMusic:
           lda CurrentMusic + 1
           bne PlayMusic
-          
+
 LoopMusic:
           .switch BANK
           .case 7
@@ -34,7 +34,7 @@ LoopMusic:
 
           .default
           .error "Not expecting to be in bank ", BANK
-          .endswitch 
+          .endswitch
 
           jmp ReallyPlayMusic
 
@@ -54,13 +54,13 @@ ReallyPlayMusic:
           tax
           and #$0f
           sta AUDC1
+
           txa
           and #$f0
           clc
+          .rept 4
           ror a
-          ror a
-          ror a
-          ror a
+          .next
           sta AUDV1
 
           iny
@@ -94,6 +94,6 @@ NoMusic:
           sta AUDF1
           sta AUDC1
           sta AUDV1
-          sta NoteTimer          
+          sta NoteTimer
 
 TheEnd:
