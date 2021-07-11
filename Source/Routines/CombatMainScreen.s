@@ -53,14 +53,18 @@ DelayAfterMonsters:
           dex
           bne -
 
-DrawGrizzardName:
-
+BeginPlayerSection:
           .ldacolu COLBLUE, $f
           sta COLUP0
           sta COLUP1
+          .if TV == SECAM
+          lda #COLMAGENTA
+          .else
           .ldacolu COLINDIGO, $8
+          .fi
           sta COLUBK
 
+DrawGrizzardName:
           ldx #TextBank
           ldy #ServiceShowGrizzardName
           jsr FarCall
@@ -74,23 +78,23 @@ DrawHealthBar:
           ldx CurrentHP
           cpx MaxHP
           beq AtMaxHP
-          cpx #4
+          cpx # 4
           bmi AtMinHP
           .ldacolu COLYELLOW, $f
           sta COLUPF
-          jmp DrawHealthPF
+          bne DrawHealthPF      ; always taken
 
 AtMaxHP:
           .ldacolu COLSPRINGGREEN, $f
           sta COLUPF
-          jmp DrawHealthPF
+          bne DrawHealthPF      ; always taken
 
 AtMinHP:
           .ldacolu COLRED, $f
           sta COLUPF
 
 DrawHealthPF:
-          cpx #8
+          cpx # 8
           bpl FullCenter
           lda HealthyPF2, x
           sta PF2
@@ -99,7 +103,7 @@ DrawHealthPF:
 FullCenter:
           lda #$ff
           sta PF2
-          cpx #16
+          cpx # 16
           bpl FullMid
           lda HealthyPF1, x
           sta PF1
@@ -127,11 +131,13 @@ DoneHealth:
           sta PF1
           sta PF2
 
-          ldx # KernelLines - 190
+          .if KernelLines > 192
+          ldx # KernelLines - 192
 FillScreen:
           stx WSYNC
           dex
           bne FillScreen
+          .fi
 
           jsr Prepare48pxMobBlob
 
@@ -195,7 +201,6 @@ SelectedRunAway:
 
           lda #ModeMap
           sta GameMode
-          jmp GoMap
 
 ScreenDone:
 
@@ -207,6 +212,8 @@ ScreenDone:
           jmp Loop
 
 Leave:
+          cmp #MoveMap
+          bne GoMap
           cmp #ModeGrizzardStats
           bne +
           lda #ModeCombat
@@ -216,6 +223,8 @@ Leave:
           cmp #ModeCombatAnnouncement
           jmp CombatAnnouncementScreen
           brk
+
+;;; 
 
 HealthyPF2:
           .byte %00000000
