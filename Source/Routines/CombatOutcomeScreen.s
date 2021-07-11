@@ -3,10 +3,38 @@
 
 CombatOutcomeScreen:          .block
 
+          jsr Overscan
+
+          jsr VSync
+          jsr VBlank
+
+          lda # 215             ; 181 scan lines
+          sta TIM64T
+
+DetermineOutcome:
+
+
+WaitOutScreen:
+-
+          lda INTIM
+          bpl -
+
+          ldx # KernelLines - 181
+-
+          stx WSYNC
+          dex
+          bne -
+
+          jsr Overscan
+
+;;; 
+
 Loop:
           jsr VSync
           jsr VBlank
 
+          .ldacolu COLBLUE, 0
+          sta COLUBK
           .ldacolu COLGRAY, $f
           sta COLUP0
           sta COLUP1
