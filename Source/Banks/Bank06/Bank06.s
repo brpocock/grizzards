@@ -3,7 +3,7 @@
           BANK = $06
 
           ;; Combat for encounters $00 … $7f
-          
+
           .include "StartBank.s"
           .include "Prepare48pxMobBlob.s"
           .include "SpeakJetIDs.s"
@@ -17,9 +17,9 @@ DoLocal:
           .include "CombatOutcomeScreen.s"
           .align $200, $ea      ; filler TODO
           .include "ExecuteCombatMove.s"
-          
+
           .include "ShowMonsterName.s"
-          
+
           .include "VSync.s"
           .include "VBlank.s"
           .include "Overscan.s"
