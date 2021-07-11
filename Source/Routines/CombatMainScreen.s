@@ -46,7 +46,7 @@ MonstersDisplay:
           jsr FarCall
 
 DelayAfterMonsters:
-          
+
           ldx # 10
 -          
           stx WSYNC
@@ -70,7 +70,7 @@ DrawGrizzard:
           ldy #ServiceDrawGrizzard
           jsr FarCall
 
-DrawHealthBar:      
+DrawHealthBar:
           ldx CurrentHP
           cpx MaxHP
           beq AtMaxHP
@@ -126,7 +126,7 @@ DoneHealth:
           sta PF0
           sta PF1
           sta PF2
-          
+
           ldx # KernelLines - 190
 FillScreen:
           stx WSYNC
@@ -180,7 +180,7 @@ SelectedRunAway:
           lda # COLTURQUOISE | $f
           sta COLUP0
           sta COLUP1
-          
+
           ldx #TextBank
           ldy #ServiceShowMove
           jsr FarCall
@@ -236,6 +236,6 @@ HealthyPF1:
           .byte %00011111
           .byte %00111111
           .byte %01111111
-          
+
           .bend
 
