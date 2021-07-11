@@ -256,8 +256,13 @@ ShowMonsterNameAndNumber:
           lda WhoseTurn
           bne +
           ldx MoveSelection
-          lda MoveTargets, x
-          cmp #1
+          lda MoveTargets, x    ; FIXME
+          ;; This is not correct, .x is the index of the move out of the
+          ;; eight moves this Grizzard can learn, the actual move ID
+          ;; has to be fetched by ServiceFetchGrizzardMove
+          ;; because that data is only present in Bank02.
+          lda # 1
+          cmp # 1
           bne ObjectAOE
           lda MoveTarget
 
