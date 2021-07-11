@@ -57,19 +57,19 @@ SayUsesMove:
           lda #<Phrase_On
           sta CurrentUtterance
           jsr WaitForSpeech
-          
+
           lda WhoseTurn
           beq MonsterObject
 
           jsr SayPlayerGrizzard
           jmp Loop00
-          
+
 MonsterObject:
           jsr SayMonster
 
           lda MoveTarget
           beq JumpToLoop00
-          
+
           lda #>Phrase_Zero
           sta CurrentUtterance + 1
           lda #<Phrase_Zero
@@ -80,19 +80,19 @@ MonsterObject:
 +
 	sta CurrentUtterance
           jsr WaitForSpeech
-          
+
 JumpToLoop00:
           lda #2
           jsr SetNextAlarm
 
           jmp Loop00
 
-Loop:     
+Loop:
           jsr VSync
           jsr VBlank
 Loop00:
           jsr Prepare48pxMobBlob
-          
+
           .ldacolu COLGREEN, 0
           sta COLUBK
 
@@ -101,14 +101,14 @@ Loop00:
           .ldacolu COLTURQUOISE, $f
           jmp +
 
-MonsterTurnColor:   
+MonsterTurnColor:
           .ldacolu COLRED, $f
 +
           sta COLUP0
           sta COLUP1
 
 ;;; Subject
-          
+
           lda MoveAnnouncement
           cmp # 1
           bmi SkipSubject
@@ -118,7 +118,7 @@ DrawSubject:
           beq PlayerSubject
 
           jsr ShowMonsterNameAndNumber
-          
+
           jmp SubjectDone
 
 PlayerSubject:
@@ -126,7 +126,7 @@ PlayerSubject:
           ldx #TextBank
           jsr FarCall
           ldx # 32
-SkipSubjectX:       
+SkipSubjectX:
           stx WSYNC
           dex
           bne SkipSubjectX
@@ -135,11 +135,11 @@ SkipSubjectX:
 SkipSubject:
           ldx # 55
           jmp SkipSubjectX
-          
+
 SubjectDone:
 
 ;;; Verb
-          
+
           lda MoveAnnouncement
           cmp # 2
           bmi SkipVerb
@@ -156,7 +156,7 @@ SkipVerb:
           stx WSYNC
           dex
           bne -
-          
+
 VerbDone:
 
 ;;; Object
@@ -191,11 +191,11 @@ SkipObjectX:
 SkipObject:
           ldx # 60
           jmp SkipObjectX
-          
+
 ObjectDone:
 
 ;;; Done printing the main text
-          
+
           ldx # KernelLines - 132
 FillScreen:
           stx WSYNC
@@ -243,7 +243,7 @@ SetNextAlarm:
 
 ShowMonsterNameAndNumber:
           jsr ShowMonsterName
-          
+
           lda #40               ; blank space
           sta StringBuffer + 0
           sta StringBuffer + 1
@@ -267,7 +267,7 @@ ShowMonsterNameAndNumber:
 ObjectAOE:
 
           ldx #20
--          
+-
           stx WSYNC
           dex
           bne -
