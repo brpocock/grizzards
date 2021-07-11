@@ -212,7 +212,7 @@ ScreenDone:
           jmp Loop
 
 Leave:
-          cmp #MoveMap
+          cmp #ModeMap
           bne GoMap
           cmp #ModeGrizzardStats
           bne +

@@ -38,7 +38,7 @@ AppendDecimalAndPrintThunk:
           jmp BINBCD8
 
 FetchGrizzardMove:
-          ldx Temp
+          ldx MoveSelection
           lda GrizzardMoves, x
           sta Temp
           rts

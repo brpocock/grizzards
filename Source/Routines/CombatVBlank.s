@@ -79,8 +79,6 @@ DoneStickDown:
           stx MoveSelection
 
 StickLeftRight:
-          ldx MoveSelection
-          stx Temp
           ldx #TextBank
           ldy #ServiceFetchGrizzardMove
           jsr FarCall

@@ -12,7 +12,6 @@ CombatAnnouncementScreen:     .block
           lda WhoseTurn
           bne FindMonsterMove
 FindPlayerMove:
-          sty Temp
           ldx #TextBank
           ldy #ServiceFetchGrizzardMove
           jsr FarCall
