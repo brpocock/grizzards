@@ -4,6 +4,7 @@
 DoCombat:          .block
 
           .WaitScreenTop
+          .KillMusic
 
           jsr SeedRandom
           

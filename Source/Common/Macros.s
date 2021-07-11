@@ -199,3 +199,11 @@ WaitScreenBottom:      .macro
           jsr Overscan
 
           .endm
+
+KillMusic:          .macro
+          lda # 0
+          sta AUDC1
+          sta AUDV1
+          sta AUDF1
+          sta NoteTimer
+          .endm
