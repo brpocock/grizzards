@@ -4,10 +4,48 @@ CombatAnnouncementScreen:     .block
 
           lda # 0
           sta MoveAnnouncement
-
+          
           jsr VSync
           jsr VBlank
 
+          ldx # 215             ; 181 scan lines
+          stx TIM64T
+
+          ldx MoveSelection
+
+          lda WhoseTurn
+          bne FindMonsterMove
+FindPlayerMove:
+          stx Temp
+          ldx #BankText
+          ldy #ServiceFetchGrizzardMove
+          jsr FarCall
+          ldx Temp
+          stx CombatMoveSelected
+          jmp MoveFound
+
+FindMonsterMove:
+          lda #>MonsterMoves
+          sta Pointer + 1
+          
+          clc
+          lda CurrentCombatEncounter
+          asl a
+          asl a
+          adc #<MonsterMoves
+          bcc +
+          inc Pointer + 1
++
+          sta Pointer
+
+          lda (Pointer), x
+          sta CombatMoveSelected
+
+MoveFound:
+          lda MoveTargets, x
+          sta CombatMoveTargets
+          
+SpeakMove:
           lda SWCHA
           and #$02              ; Serial Ready bit
           beq JumpToLoop00      ; not ready for speech
@@ -84,12 +122,22 @@ JumpToLoop00:
           lda #2
           jsr SetNextAlarm
 
-          jmp Loop00
+-
+          ldx INTIM
+          bpl -
+
+          ldx # KernelLines - 181
+-
+          stx WSYNC
+          dex
+          bne -
+
+          jsr Overscan
 
 Loop:
           jsr VSync
           jsr VBlank
-Loop00:
+
           jsr Prepare48pxMobBlob
 
           .ldacolu COLGREEN, 0
@@ -170,6 +218,9 @@ VerbDone:
 
 DrawObject:
           lda WhoseTurn
+
+          ;; TODO handle moves that are reflected back on the subject
+          
           bne PlayerObject
 
 MonsterTargetObject:
@@ -255,13 +306,7 @@ ShowMonsterNameAndNumber:
           sta StringBuffer + 5
           lda WhoseTurn
           bne +
-          ldx MoveSelection
-          lda MoveTargets, x    ; FIXME
-          ;; This is not correct, .x is the index of the move out of the
-          ;; eight moves this Grizzard can learn, the actual move ID
-          ;; has to be fetched by ServiceFetchGrizzardMove
-          ;; because that data is only present in Bank02.
-          lda # 1
+          lda CombatMoveTargets
           cmp # 1
           bne ObjectAOE
           lda MoveTarget
