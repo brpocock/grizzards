@@ -85,6 +85,8 @@ StickLeftRight:
           beq ChooseTarget
           cmp #0
           beq SelfTarget
+          ldx MoveTarget
+
           ldx #$ff
           stx MoveTarget
           jmp StickDone
@@ -96,6 +98,13 @@ SelfTarget:
 
 ChooseTarget:
           ldx MoveTarget
+          bne +
+          ldx # 1
++
+          cpx # 7
+          blt +
+          ldx # 1
++
           lda NewSWCHA
           and #P0StickLeft
           bne DoneStickLeft
@@ -108,7 +117,7 @@ DoneStickLeft:
           bne DoneStickRight
           inx
           cpx # 7
-          bge DoneStickRight
+          blt DoneStickRight
           ldx # 1
 DoneStickRight:
           stx MoveTarget

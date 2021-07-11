@@ -39,8 +39,6 @@ MonstersDisplay:
           jsr FarCall
 
 DelayAfterMonsters:
-          lda # 0
-          sta GRP1
           
           ldx # 10
 -          
