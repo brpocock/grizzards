@@ -21,6 +21,8 @@ DoLocal:
           beq GrizzardDepot
           cpy #ServiceAppendDecimalAndPrint
           beq AppendDecimalAndPrintThunk
+          cpy #ServiceFetchGrizzardMove
+          beq FetchGrizzardMove
           brk
 
 DecodeAndShowText:
@@ -34,6 +36,12 @@ AppendDecimalAndPrintThunk:
 
           lda Temp
           jmp BINBCD8
+
+FetchGrizzardMove:
+          ldx Temp
+          lda GrizzardMoves, x
+          sta Temp
+          rts
 
           .include "ShowText.s"
           .include "VSync.s"

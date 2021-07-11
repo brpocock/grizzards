@@ -117,6 +117,7 @@
           ServiceGrizzardDepot = $07
           ServiceAppendDecimalAndPrint = $0e
           ServiceNewGame = $0f
+          ServiceFetchGrizzardMove = $13
 
 ;;; Map services bank, same
 
