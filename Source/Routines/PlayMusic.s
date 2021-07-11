@@ -11,7 +11,7 @@ LoopMusic:
 
           lda GameMode
           cmp #ModeAttractTitle
-          bne NoMusic
+          bne TheEnd
 
           lda #>SongTheme
           sta CurrentMusic + 1
@@ -39,6 +39,12 @@ LoopMusic:
           jmp ReallyPlayMusic
 
 PlayMusic:
+          .if BANK == 7
+          lda GameMode
+          cmp #ModeAttractTitle
+          bne TheEnd
+          .fi
+
           dec NoteTimer
           bne TheEnd
 
@@ -50,8 +56,7 @@ PlayMusic:
 
 ReallyPlayMusic:
           ldy #0
-          lda (CurrentMusic), y
-          tax
+          lax (CurrentMusic), y
           and #$0f
           sta AUDC1
 
@@ -63,18 +68,16 @@ ReallyPlayMusic:
           .next
           sta AUDV1
 
-          iny
-
+          iny                   ; 1
           lda (CurrentMusic), y
           and #$7f
           sta AUDF1
 
-          iny
-
+          iny                   ; 2
           lda (CurrentMusic), y
           sta NoteTimer
 
-          dey
+          dey                   ; 1
           lda (CurrentMusic), y
           bmi LoopMusic
 
@@ -87,13 +90,5 @@ ReallyPlayMusic:
           sta CurrentMusic
 
           jmp TheEnd
-
-NoMusic:
-
-          lda # 0
-          sta AUDF1
-          sta AUDC1
-          sta AUDV1
-          sta NoteTimer
 
 TheEnd:
