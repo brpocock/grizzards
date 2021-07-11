@@ -169,9 +169,9 @@ ClearAllGraphics: .macro
 sound:    .macro volume, control, frequency, duration, end
           .switch FramesPerSecond
           .case 60
-          .byte \volume << 4 | \control, \frequency | \end << 7, \duration
+          .byte (\volume << 4) | \control, \frequency | ( \end << 7 ), \duration
           .case 50
-          .byte \volume << 4 | \control, \frequency | \end << 7, ( (\duration / 60.0) * 50)
+          .byte (\volume << 4) | \control, \frequency | ( \end << 7 ), ( (\duration / 60.0) * 50)
           .default
           .error "Unsupported frame rate: ", FramesPerSecond
           .endswitch
