@@ -11,15 +11,22 @@ Loop:
           lda Pause
           beq NotPaused
 
-          .ldacolu COLGRAY, 0
-          sta COLUBK
           .ldacolu COLGRAY, $f
+          sta COLUBK
+          .ldacolu COLGRAY, 0
           sta COLUP0
           sta COLUP1
           jmp PausedOrNot
 
 NotPaused:
+          .switch TV
+          .case NTSC
           .ldacolu COLRED, 0
+          .case PAL
+          .ldacolu COLRED, $2
+          .case SECAM
+          lda #COLBLACK
+          .endswitch
           sta COLUBK
           .ldacolu COLYELLOW, $f
           sta COLUP0
