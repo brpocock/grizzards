@@ -73,7 +73,7 @@ EndOfSound:
           sta AUDC0
           sta AUDF0
           sta AUDV0
-          sta NoteTimer
+          sta SFXNoteTimer
 
           ;; fall through to DoMusic
 
