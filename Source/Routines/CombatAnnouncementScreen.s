@@ -5,11 +5,7 @@ CombatAnnouncementScreen:     .block
           lda # 0
           sta MoveAnnouncement
 
-          jsr VSync
-          jsr VBlank
-
-          ldx # 215             ; 181 scan lines
-          stx TIM64T
+          .WaitScreenTop
 
           ldy MoveSelection
 
@@ -42,16 +38,20 @@ FindMonsterMove:
           sta CombatMoveSelected
 
 MoveFound:
-          lda MoveTargets, x
-          sta CombatMoveTargets
+          lda MoveDeltaHP, x
+          sta CombatMoveDeltaHP
 
+;;; 
+          
 SpeakMove:
           lda SWCHA
-          and #$02              ; Serial Ready bit
-          beq JumpToLoop00      ; not ready for speech
+          and #$02              ; PlaySpeech.SerialReady (out of scope in this memory bank)
+          beq JumpToLoop00      ; not ready for speech (no AtariVox?)
 
           lda WhoseTurn
           beq SayPlayerSubject
+
+SayMonsterSubject:
           jsr SayMonster
 
           lda #>Phrase_Zero
@@ -122,17 +122,10 @@ JumpToLoop00:
           lda #2
           jsr SetNextAlarm
 
--
-          ldx INTIM
-          bpl -
 
-          ldx # KernelLines - 181
--
-          stx WSYNC
-          dex
-          bne -
+          .WaitScreenBottom
 
-          jsr Overscan
+;;; 
 
 Loop:
           jsr VSync
@@ -271,7 +264,7 @@ AlarmDone:
           jmp Loop
 
 CombatMoveDone:
-          jmp CombatOutcomeScreen
+          jmp ExecuteCombatMove
 
           .bend
 
@@ -306,11 +299,7 @@ ShowMonsterNameAndNumber:
           sta StringBuffer + 5
           lda WhoseTurn
           bne +
-          lda CombatMoveTargets
-          cmp # 1
-          bne ObjectAOE
           lda MoveTarget
-
 +
           sta StringBuffer + 3
           ldx #TextBank
@@ -318,25 +307,7 @@ ShowMonsterNameAndNumber:
           jmp FarCall           ; tail call
 
 ;;; 
-
-ObjectAOE:
-
-          ldx #20
--
-          stx WSYNC
-          dex
-          bne -
-          rts
-
-          .switch BANK
-          .case 5
-          MonsterPhrase := Phrase_Monster5_0
-          .case 6
-          MonsterPhrase := Phrase_Monster6_0
-          .default
-          .error "What bank am I in?"
-          .endswitch
-
+          
 SayMonster:
           lda #>MonsterPhrase
           sta CurrentUtterance + 1

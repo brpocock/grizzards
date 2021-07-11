@@ -143,10 +143,10 @@ NewSWCHB:
 NewINPT4:
           .byte ?
 DeltaX:
-CombatMoveSelected:
+CombatMoveSelected:             ; actual Move ID, not relative to creature
           .byte ?
 DeltaY:
-CombatMoveTargets:
+CombatMoveDeltaHP:              ; base value, MoveHP has actual calculated effective value
           .byte ?
 ;;; Player current X,Y position on screen
 PlayerX:

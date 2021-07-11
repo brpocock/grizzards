@@ -7,6 +7,9 @@
           .include "StartBank.s"
           .include "Prepare48pxMobBlob.s"
           .include "SpeakJetIDs.s"
+
+          MonsterPhrase = Phrase_Monster6_0
+
 DoVBlankWork:
           .include "CombatVBlank.s"
 DoLocal:  

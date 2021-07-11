@@ -3,11 +3,7 @@
 ;;; Common combat routines called from multiple banks
 DoCombat:          .block
 
-          jsr VSync
-          jsr VBlank
-
-          ldx # 215             ; 181 scan lines
-          sta TIM64T
+          .WaitScreenTop
 
           jsr SeedRandom
           
@@ -37,20 +33,9 @@ SetUpMonsterPointer:
           sta CurrentMonsterPointer
 
 AnnounceMonsterSpeech:
-          .switch BANK
-          .case 5
-          lda # >Phrase_Monster5_0
+          lda #>MonsterPhrase
           sta CurrentUtterance + 1
-          lda # <Phrase_Monster5_0
-
-          .case 6
-          lda # >Phrase_Monster6_0
-          sta CurrentUtterance + 1
-          lda # <Phrase_Monster6_0
-
-          .default
-          .error "What bank am I in?"
-          .endswitch
+          lda #<MonsterPhrase
           ldx CurrentCombatEncounter
           clc
           adc EncounterMonster, x
@@ -113,17 +98,7 @@ SetUpOtherCombatVars:
           dex
           bne -
 
--
-          lda INTIM
-          bpl -
-
-          ldx # KernelLines - 181
--
-          stx WSYNC
-          dex
-          bne -
-
-          jsr Overscan
+          .WaitScreenBottom
 
           jmp CombatMainScreen
 

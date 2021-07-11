@@ -77,7 +77,7 @@ MoveEffects:
 
 MoveDeltaHP:
           ;; 0
-          .byte 0
+          .byte $ff             ; RUN AWAY has fake value to indicate there's no target
           .byte 0
           .byte 0
           .byte 0

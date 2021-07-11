@@ -80,16 +80,13 @@ DoneStickDown:
 
 StickLeftRight:
           ldx MoveSelection
-          lda MoveTargets, x
-          cmp #1
-          beq ChooseTarget
-          cmp #0
-          beq SelfTarget
-          ldx MoveTarget
-
-          ldx #$ff
-          stx MoveTarget
-          jmp StickDone
+          stx Temp
+          ldx #TextBank
+          ldy #ServiceFetchGrizzardMove
+          jsr FarCall
+          ldx Temp
+          lda MoveDeltaHP, x
+          bpl ChooseTarget
 
 SelfTarget:
           ldx # 0

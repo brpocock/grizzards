@@ -177,3 +177,25 @@ sound:    .macro volume, control, frequency, duration, end
           .endswitch
           .endm
 
+WaitScreenTop:      .macro
+          jsr VSync
+          jsr VBlank
+
+          lda # TimerSkipFrame
+          sta TIM64T
+          .endm
+
+WaitScreenBottom:      .macro
+-
+          lda INTIM
+          bpl -
+
+          ldx # KernelLines - TimerSkipLines
+-
+          stx WSYNC
+          dex
+          bne -
+
+          jsr Overscan
+
+          .endm

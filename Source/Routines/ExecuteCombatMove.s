@@ -1,199 +1,249 @@
 ;;; Grizzards Source/Common/ExecuteCombatMove.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
 ExecuteCombatMove:  .block
+
+          jsr Overscan
+          ;; Draw one blank frame whilst we do arithmetic
+          ;; These calculations take a variable amount of time
+
+          .WaitScreenTop
+
+DetermineOutcome:
           lda WhoseTurn
-          beq ExecutePlayerMove
+          beq PlayerMove
 
-ExecuteMonsterMove:
-          ldx MoveSelection
-          lda MoveTargets, x
-          beq MonsterHits
-
-          ;; Determine whether the move is a Hit or Miss first
-          jsr Random            ; roll to hit
+MonsterMove:
+          ldx CombatMoveSelected
+          lda MonsterMoves, x
           tax
-          jsr Random            ; 2° roll for critical success/failure
-          and #$0f
-          bne +
-          dex                   ; critical fail
-+
-          cmp #$0f
-          bne +
-          inx                   ; critical success
-+
-          stx Temp
-
-          lda GrizzardDefense
-
-          cmp Temp
-          bpl MonsterHits
-
-          lda #SoundMiss
-          sta NextSound
-
-          rts
-
-MonsterHits:
-          lda #SoundHit
-          sta NextSound
-
-          ldx MoveSelection
-          lda MoveEffects, x
-          and #MoveEffectsToEnemy
-          ora StatusFX
-          sta StatusFX
-
           lda MoveDeltaHP, x
-          bmi MonsterBoostHP
-          sta Temp
-          lda CurrentHP
-          sec
-          sbc Temp
-          bpl +
-          lda # 0
+          bmi MonsterHeals
+
+;;; 
+
+MonsterAttacks:
+          jmp WaitOutScreen     ; TODO
+          
+;;; 
+
+MonsterHeals:
+          jmp WaitOutScreen     ; TODO
+
+;;; 
+          
+PlayerMove:
+          ldx CombatMoveSelected
+          lda MoveDeltaHP, x
+          sta CombatMoveDeltaHP
+          bmi PlayerHeals
+
+PlayerAttacks:
+          ldx GrizzardAttack
+          lda StatusFX
+          and #StatusAttackDown
+          beq +
+          txa
+          ror a
+          tax
 +
-          sta CurrentHP
+          lda StatusFX
+          and #StatusAttackUp
+          beq +
+          txa
+          asl a
+          tax
++
+          txa
+          sta MoveHP            ; temporarily effective Attack score
+          jsr CalculateAttackMask
+          sta Temp
+          jsr Random
+          bmi PlayerAttackNegativeRandom
 
-          rts
-
-MonsterBoostHP:
-          eor #$ff
+          and Temp
           clc
-          ldx WhoseTurn
-          adc MonsterHP - 1, x
-          cmp # 99
-          bpl +
-          lda # 99
-+
-          sta MonsterHP - 1, x
+          adc MoveHP               ; temporarily effective Attack score
+          bne PlayerAttackHitMissP ; always taken
 
-          rts
-
-ExecutePlayerMove:
-          ldx MoveSelection
-          lda MoveTargets, x
-          beq PlayerHits
-          
-          ;; Determine whether the move is a Hit or Miss first
-          jsr Random
-          tax
-          jsr Random
-          and #$0f
-          bne +
-          dex                   ; critical fail
-+
-          cmp #$0f
-          bne +
-          inx                   ; critical success
-+
-          stx Temp
-
-          ldy #14               ; ATK/DEF byte
+PlayerAttackNegativeRandom:
+          and Temp
+          sta Temp
+          lda GrizzardAttack
+          sec
+          sbc Temp
+          ;; fall through
+PlayerAttackHitMissP:
+          tax                   ; stash effective attack strength
+          ldy # 14              ; ATK/DEF of monster
           lda (CurrentMonsterPointer), y
-          and #$0f              ; DEF level
+          and #$0f              ; DEF class
           tay
-          lda LevelTable, y
-
+          lda LevelTable, y     ; effective defend value
+          sta Temp
+          txa
           cmp Temp
-          bpl PlayerHits
+          blt PlayerAttackMiss
 
-          lda #SoundMiss
-          sta NextSound
-
-          rts
-
-PlayerHits:
-          lda #SoundHit
-          sta NextSound
+;;; 
           
-          ldx MoveSelection
-          lda MoveTargets, x
-          beq PlayerTargetsSelf
-          cmp #1
-          beq PlayerTargetsOne
-
-PlayerTargetsAOE:
-          lda MoveEffects, x
-          and #MoveEffectsToEnemy
+PlayerAttackHit:
+          ;; The attack was a success!
+          ;; What is the effect on the enemy's HP?
+          lda CombatMoveDeltaHP
+          jsr CalculateAttackMask
           sta Temp
-          ldx # 6
--
-          lda EnemyStatusFX - 1, x
-          ora Temp
-          sta EnemyStatusFX - 1, x
-          dex
-          bne -
+          jsr Random
+          bmi PlayerAttackHitMinus
+PlayerAttackHitPlus:
+          and Temp
+          clc
+          adc CombatMoveDeltaHP
+          bne PlayerAttackHitCommon ; always taken
 
-          ldx MoveSelection
-          lda MoveDeltaHP, x
-
+PlayerAttackHitMinus:
+          and Temp
           sta Temp
-          ldx # 6
--
-          lda MonsterHP - 1, x
-          sec
+          lda CombatMoveDeltaHP
           sbc Temp
-          bpl +
-          lda # 0
-+
-	sta MonsterHP - 1, x
-          dex
-          bne -
 
-          jmp PlayerMoveDone
-
-PlayerTargetsOne:
-          lda MoveEffects, x
-          and #MoveEffectsToEnemy
-          sta Temp
+PlayerAttackHitCommon:
+          sta MoveHP
           ldx MoveTarget
-          lda EnemyStatusFX - 1, x
-          ora Temp
-          sta EnemyStatusFX - 1, x
-
-          ldx MoveSelection
-          lda MoveDeltaHP, x
-          bmi PlayerBoostHP
-
-          sta Temp
-          ldx MoveTarget
-          lda MonsterHP - 1, x
+          lda MonsterHP, x
           sec
-          sbc Temp
+          sbc MoveHP
           bpl +
-          lda # 0
+          lda # 0               ; zero on negative
 +
-	sta MonsterHP - 1, x
+          sta MonsterHP, x
 
-          jmp PlayerMoveDone
+          ;; OK, also, what is the effect on the enemy's status?
+          jsr Random
+          ldx CombatMoveSelected
+          and MoveEffects, x
+          jsr FindHighBit
+          beq PlayerAttackNoStatusFX
+
+PlayerAttackSetsStatusFX:
+          ldx MoveTarget
+          tay
+          and EnemyStatusFX, x
+          bne PlayerAttackNoStatusFX ; they already have that status
+          tya
+          sta MoveStatusFX
+          ora EnemyStatusFX, x
+          sta EnemyStatusFX, x
+
+PlayerAttackNoStatusFX:
+          lda # 1
+          sta MoveHitMiss
+
+          jmp WaitOutScreen
+
+;;; 
+
+PlayerAttackMiss:
+          lda # 0
+          sta MoveHP
+          sta MoveHitMiss
+          sta MoveStatusFX
+
+          jmp WaitOutScreen
           
-PlayerTargetsSelf:
-          .align $40, $ea
+;;; 
           
-PlayerBoostHP:
-          ;; .a has the MoveDeltaHP value
+PlayerHeals:
+          ;; .A has the negative HP to be gained
+          ;; (alter by random factor)
           eor #$ff
+          sta MoveHP
+          jsr CalculateAttackMask
+          sta Temp
+          jsr Random
+          bmi PlayerHealsMinusHP
+PlayerHealsPlusHP:
+          and Temp
+          clc
+          adc MoveHP
+          sta MoveHP
+          bne PlayerHealsCommon ; always taken
+
+PlayerHealsMinusHP:
+          and Temp
+          sta Temp
+          lda MoveHP
+          sec
+          sbc Temp
+          ;; fall through
+
+PlayerHealsCommon:
           clc
           adc CurrentHP
           cmp MaxHP
-          bpl +
+          blt +
           lda MaxHP
 +
           sta CurrentHP
+          lda MoveHP
+          eor #$ff              ; negate the value to mean "gained"
+          sta MoveHP
 
-          ;; jmp PlayerMoveDone ; fall through
+          ;; Any status FX to apply to the player?
 
-PlayerMoveDone:
-          ldx MoveSelection
-          lda MoveEffects, x
-          and #MoveEffectsToSelf
-          ora StatusFX
-          sta StatusFX
+WaitOutScreen:
+          .WaitScreenBottom
 
+          jmp CombatOutcomeScreen
+
+;;; 
+
+;;; XXX These two routines are nearly identical
+;;; is it worth it to factor out a common prefix subroutine?
+          
+FindHighBit:
+          tay
+          ldx # 7
+-
+          tya
+          and BitMask, x
+          bne +
+          dex
+          bne -
+          lda # 0
+          rts
++
+          lda BitMask, x        ; the only line that differs
+          rts
+
+CalculateAttackMask:
+          tay
+          ldx # 7
+-
+          tya
+          and BitMask, x
+          bne +
+          dex
+          bne -
+          lda # 0
+          rts
++
+          lda AttackMask, x     ; the only line that differs
           rts
 
           .bend
+;;; 
 
+AttackMask:
+          .byte %011111111
+          .byte %00111111
+          .byte %00011111
+          .byte %00001111
+          .byte %00000111
+          .byte %00000011
+          .byte %000000001
+          .byte %00000000
+          .byte %00000000
+          
 LevelTable:
           ;; monsters have levels 0…$b for each of their stats
           ;; this table maps those to actual values

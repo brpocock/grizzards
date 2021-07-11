@@ -146,3 +146,8 @@
           ScreenRightEdge = 200
           ScreenTopEdge = 8
           ScreenBottomEdge = 75
+
+;;; Using TIM64T to skip a frame
+
+          TimerSkipFrame = 215
+          TimerSkipLines = 181

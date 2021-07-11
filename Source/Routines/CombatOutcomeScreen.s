@@ -3,40 +3,6 @@
 
 CombatOutcomeScreen:          .block
 
-;;; TODO: move this first part to another file, this is getting too long
-          jsr Overscan
-
-          jsr VSync
-          jsr VBlank
-
-          lda # 215             ; 181 scan lines
-          sta TIM64T
-
-DetermineOutcome:
-          lda WhoseTurn
-          beq PlayerMove
-
-MonsterMove:
-          jmp CombatMainScreen  ; FIXME
-
-PlayerMove:
-          
-
-WaitOutScreen:
--
-          lda INTIM
-          bpl -
-
-          ldx # KernelLines - 181
--
-          stx WSYNC
-          dex
-          bne -
-
-          jsr Overscan
-
-;;; 
-
 Loop:
           jsr VSync
           jsr VBlank

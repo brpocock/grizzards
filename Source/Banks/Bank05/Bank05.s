@@ -8,6 +8,8 @@
           .include "Prepare48pxMobBlob.s"
           .include "SpeakJetIDs.s"
 
+          MonsterPhrase = Phrase_Monster5_0
+
 DoLocal:  
           .include "CombatSetup.s"
           .include "CombatMainScreen.s"
