@@ -15,7 +15,6 @@ DoLocal:
           .include "GrizzardStatsScreen.s"
           .include "CombatAnnouncementScreen.s"
           .include "CombatOutcomeScreen.s"
-          .align $200, $ea      ; filler TODO
           .include "ExecuteCombatMove.s"
 
           .include "ShowMonsterName.s"

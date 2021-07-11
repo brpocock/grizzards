@@ -3,6 +3,7 @@
 
 CombatOutcomeScreen:          .block
 
+;;; TODO: move this first part to another file, this is getting too long
           jsr Overscan
 
           jsr VSync
@@ -16,9 +17,10 @@ DetermineOutcome:
           beq PlayerMove
 
 MonsterMove:
-
+          jmp CombatMainScreen  ; FIXME
 
 PlayerMove:
+          
 
 WaitOutScreen:
 -

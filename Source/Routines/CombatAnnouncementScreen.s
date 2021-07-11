@@ -11,17 +11,17 @@ CombatAnnouncementScreen:     .block
           ldx # 215             ; 181 scan lines
           stx TIM64T
 
-          ldx MoveSelection
+          ldy MoveSelection
 
           lda WhoseTurn
           bne FindMonsterMove
 FindPlayerMove:
-          stx Temp
-          ldx #BankText
+          sty Temp
+          ldx #TextBank
           ldy #ServiceFetchGrizzardMove
           jsr FarCall
-          ldx Temp
-          stx CombatMoveSelected
+          ldy Temp
+          sty CombatMoveSelected
           jmp MoveFound
 
 FindMonsterMove:
@@ -38,7 +38,7 @@ FindMonsterMove:
 +
           sta Pointer
 
-          lda (Pointer), x
+          lda (Pointer), y
           sta CombatMoveSelected
 
 MoveFound:
@@ -99,7 +99,7 @@ SayUsesMove:
           beq MonsterObject
 
           jsr SayPlayerGrizzard
-          jmp Loop00
+          jmp JumpToLoop00
 
 MonsterObject:
           jsr SayMonster
