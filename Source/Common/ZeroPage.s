@@ -321,7 +321,8 @@ MoveTarget:
 MoveAnnouncement:
           .byte ?
 
-;;; The move's outcome
+;;; The move's outcome, or the last speech segment we spit out
+MoveSpeech:
 MoveHitMiss:
           .byte ?
 
