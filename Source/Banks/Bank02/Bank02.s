@@ -39,8 +39,13 @@ AppendDecimalAndPrintThunk:
 
 FetchGrizzardMove:
           ldx MoveSelection
+          beq FetchedRunAway
+          dex
           lda GrizzardMoves, x
           sta Temp
+          rts
+FetchedRunAway:
+          stx Temp
           rts
 
           .include "ShowText.s"
