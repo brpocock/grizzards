@@ -98,9 +98,8 @@ ShowActive:
           .LoadString "IN USE"
 
 FillToSlot:
-          sta WSYNC
           lda INTIM
-          bne FillToSlot
+          bpl FillToSlot
 
 ShowSaveSlot:
           ldy #ServiceDecodeAndShowText
