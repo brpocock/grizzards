@@ -143,8 +143,10 @@ NewSWCHB:
 NewINPT4:
           .byte ?
 DeltaX:
+CombatMoveSelected:
           .byte ?
 DeltaY:
+CombatMoveTargets:
           .byte ?
 ;;; Player current X,Y position on screen
 PlayerX:
@@ -302,7 +304,7 @@ MonsterHP:
 EnemyStatusFX:
           .byte ?, ?, ?, ?, ?, ?
 
-;;; Which item on the radial menu did the player select?
+;;; Which item on the menu did the player (or monster) select?
 MoveSelection:
           .byte ?
 
