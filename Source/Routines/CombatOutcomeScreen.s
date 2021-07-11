@@ -12,7 +12,13 @@ CombatOutcomeScreen:          .block
           sta TIM64T
 
 DetermineOutcome:
+          lda WhoseTurn
+          beq PlayerMove
 
+MonsterMove:
+
+
+PlayerMove:
 
 WaitOutScreen:
 -

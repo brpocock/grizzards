@@ -4,7 +4,7 @@ CombatAnnouncementScreen:     .block
 
           lda # 0
           sta MoveAnnouncement
-          
+
           jsr VSync
           jsr VBlank
 
@@ -27,7 +27,7 @@ FindPlayerMove:
 FindMonsterMove:
           lda #>MonsterMoves
           sta Pointer + 1
-          
+
           clc
           lda CurrentCombatEncounter
           asl a
@@ -44,7 +44,7 @@ FindMonsterMove:
 MoveFound:
           lda MoveTargets, x
           sta CombatMoveTargets
-          
+
 SpeakMove:
           lda SWCHA
           and #$02              ; Serial Ready bit
@@ -220,7 +220,7 @@ DrawObject:
           lda WhoseTurn
 
           ;; TODO handle moves that are reflected back on the subject
-          
+
           bne PlayerObject
 
 MonsterTargetObject:
@@ -276,7 +276,7 @@ CombatMoveDone:
           .bend
 
 ;;; 
-          
+
 SetNextAlarm:
           tax
           lda ClockMinutes
