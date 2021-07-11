@@ -401,9 +401,12 @@ Facing:
           ;; There must be at least $10 stack space (to be paranoid)
           .if LastRAM > $f0
           .error "Zero page ran right into stack space at ", *
+          .fi
+
           .if LastRAM > $ff
           .error "Zero page overcommitted entirely at ", *
           .fi
-          .fi
 
+          .if LastRAM > $e0
           .warn "End of zero-page variables at ", LastRAM, " leaves ", $100 - LastRAM + 1, " bytes for stack"
+          .fi
