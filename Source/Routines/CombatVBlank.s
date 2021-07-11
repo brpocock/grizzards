@@ -137,17 +137,30 @@ NoReset:
           sta GameMode
 
 NoSelect:
-          .if TV != SECAM
-          ;; TODO — 7800 Pause button support
+
+          .if TV == SECAM
+
+          lda DebounceSWCHB
+          and #SWCHBP0Advanced
+          sta Pause
+
+          .else
+
           lda DebounceSWCHB
           and #SWCHBColor
           eor #SWCHBColor
+          beq NoPause
           lda DebounceSWCHB
           and #SWCHBGenuine2600
           bne +
           lda Pause
           eor #$ff
 +
+          sta Pause
+          rts
+
+NoPause:
+          lda # 0
           sta Pause
           .fi
 

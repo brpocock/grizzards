@@ -567,12 +567,22 @@ NoReset:
 
           .else
 
-          ;; TODO — 7800 Pause button support
           lda DebounceSWCHB
           and #SWCHBColor
           eor #SWCHBColor
+          beq NoPause
+          lda DebounceSWCHB
+          and #SWCHBGenuine2600
+          bne +
+          lda Pause
+          eor #$ff
++
           sta Pause
+          jmp SkipSwitches
 
+NoPause:
+          lda # 0
+          sta Pause
           .fi
 
 SkipSwitches:
