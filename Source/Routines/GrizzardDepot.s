@@ -2,13 +2,18 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 GrizzardDepot:    .block
 
+          .WaitScreenTop
+          .KillMusic
+
           ldy #ServiceSaveToSlot
           ldx #SaveKeyBank
           jsr FarCall
 
           ldx MaxHP
           stx CurrentHP
-          
+
+          .WaitScreenBottom
+
 Loop:     
           jsr VSync
           jsr VBlank
