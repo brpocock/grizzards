@@ -6,11 +6,10 @@ DoMusic:
           bne PlayMusic
           
 LoopMusic:
-          lda GameMode
-
           .switch BANK
           .case 7
 
+          lda GameMode
           cmp #ModeAttractTitle
           bne NoMusic
 
@@ -67,6 +66,7 @@ ReallyPlayMusic:
           iny
 
           lda (CurrentMusic), y
+          and #$7f
           sta AUDF1
 
           iny
