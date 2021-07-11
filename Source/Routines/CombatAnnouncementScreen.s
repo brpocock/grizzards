@@ -14,7 +14,6 @@ CombatAnnouncementScreen:     .block
 
           lda WhoseTurn
           beq SayPlayerSubject
-
           jsr SayMonster
 
           lda #>Phrase_Zero
@@ -210,11 +209,11 @@ FillScreen:
           cmp AlarmMinutes
           bne AlarmDone
           inc MoveAnnouncement
-          lda #2
+          lda # 2
           jsr SetNextAlarm
 
           lda MoveAnnouncement
-          cmp #4
+          cmp # 4
           beq CombatMoveDone
 AlarmDone:
           jsr Overscan
@@ -225,6 +224,8 @@ CombatMoveDone:
 
           .bend
 
+;;; 
+          
 SetNextAlarm:
           tax
           lda ClockMinutes
@@ -240,6 +241,8 @@ SetNextAlarm:
           sta AlarmSeconds
 
           rts
+
+;;; 
 
 ShowMonsterNameAndNumber:
           jsr ShowMonsterName
@@ -262,7 +265,9 @@ ShowMonsterNameAndNumber:
           sta StringBuffer + 3
           ldx #TextBank
           ldy #ServiceDecodeAndShowText
-          jmp FarCall
+          jmp FarCall           ; tail call
+
+;;; 
 
 ObjectAOE:
 
