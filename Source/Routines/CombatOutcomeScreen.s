@@ -97,9 +97,9 @@ CombatOutcomeDone:
           bne CheckForLoss
 
 CheckForWin:
-          ldx #5
+          ldx #6
 -
-          lda MonsterHP, x
+          lda MonsterHP - 1, x
           bne NextTurn
           dex
           bne -
@@ -116,51 +116,7 @@ WonBattle:
           ora ProvinceFlags, y
           sta ProvinceFlags, y
 
-          ldy # 14              ; ATK/DEF
-          lda (CurrentMonsterPointer), y
-          and #$0f
-          sta Temp
-          lda (CurrentMonsterPointer), y
-          and #$f0
-          ror a
-          ror a
-          ror a
-          ror a
-          sed
-          adc Temp
-          sta Temp
-          cld
-          iny                   ; ACU/Count
-          lda (CurrentMonsterPointer), y
-          and #$f0
-          ror a
-          ror a
-          ror a
-          ror a
-          sed
-          adc Temp
-          sta Temp
-          cld
-          lda (CurrentMonsterPointer), y
-          and #$0f
-          tax
-TallyScore:
-          lda Temp
-          sed
-          clc
-          adc Score
-          bcc ScoreDone
-          inc Score + 1
-          bcc ScoreDone
-          inc Score + 2
-          bcc ScoreDone
-          lda # $99
-          sta Score
-          sta Score + 1
-          sta Score + 2
-ScoreDone:
-          dex
-          bne TallyScore
+
           
           lda #ModeMap
           sta GameMode
