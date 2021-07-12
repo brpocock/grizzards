@@ -22,12 +22,171 @@ MonsterMove:
 ;;; 
 
 MonsterAttacks:
-          jmp WaitOutScreen     ; TODO
+          ldy # 14              ; ATK/DEF
+          lda (CurrentMonsterPointer), y
+          and #$f0
+          ror a
+          ror a
+          ror a
+          ror a
+          tax
+          lda LevelTable, x
+          tay
+          ldx WhoseTurn
+          dex
+          lda EnemyStatusFX, x
+          and #StatusAttackDown
+          beq +
+          tya
+          ror a
+          tay
++
+          lda EnemyStatusFX, x
+          and #StatusAttackUp
+          beq +
+          tya
+          asl a
+          tay
++
+          tya
+          sta MoveHP            ; temporarily effective Attack score
+          jsr CalculateAttackMask
+          sta Temp
+          jsr Random
+          bmi MonsterAttackNegativeRandom
+
+          and Temp
+          clc
+          adc MoveHP            ; temporarily effective Attack score
+          bne MonsterAttackHitMissP ;always taken
+
+MonsterAttackNegativeRandom:
+          and Temp
+          sta Temp
+          ldy # 14
+          lda (CurrentMonsterPointer), y
+          and #$f0
+          ror a
+          ror a
+          ror a
+          ror a
+          tax
+          lda LevelTable, x
+          sec
+          sbc Temp
+          ;; fall through
+
+MonsterAttackHitMissP:
+          tax                   ; stash effective attack strength
+          cmp GrizzardDefense
+          blt MonsterAttackMiss
+          ;; fall through
+
+;;; 
+
+MonsterAttackHit:
+          ;; The attack was a success
+          ;; What's the effect on the Grizzard's HP?
+          lda CombatMoveDeltaHP
+          jsr CalculateAttackMask
+          sta Temp
+          jsr Random
+          bmi MonsterAttackHitMinus
+MonsterAttackHitPlus:
+          and Temp
+          clc
+          adc CombatMoveDeltaHP
+          bne MonsterAttackHitCommon ; always taken
+
+MonsterAttackHitMinus:
+          and Temp
+          sta Temp
+          lda CombatMoveDeltaHP
+          sbc Temp
+          ;; fall through
+
+MonsterAttackHitCommon:
+          sta MoveHP
+          lda CurrentHP
+          sec
+          sbc MoveHP
+          bpl +
+          lda # 0               ; zero on negative
++
+          sta CurrentHP
+
+          ;; OK, also, what is the effect on the player's status?
+          jsr Random
+          ldx CombatMoveSelected
+          and MoveEffects, x
+          jsr FindHighBit
+          beq MonsterAttackNoStatusFX
+
+MonsterAttackSetsStatusFX:
+          and StatusFX
+          bne MonsterAttackNoStatusFX
+          sta MoveStatusFX
+          ora StatusFX
+          sta StatusFX
+
+MonsterAttackNoStatusFX:
+          lda # 1
+          sta MoveHitMiss
+
+          jmp WaitOutScreen
+
+;;; 
+
+MonsterAttackMiss:
+          lda # 0
+          sta MoveHP
+          sta MoveHitMiss
+          sta MoveStatusFX
+
+          jmp WaitOutScreen
 
 ;;; 
 
 MonsterHeals:
-          jmp WaitOutScreen     ; TODO
+          ;; .A has the negative HP to be gained
+          ;; (alter by random factor)
+          eor #$ff
+          sta MoveHP
+          jsr CalculateAttackMask
+          sta Temp
+          jsr Random
+          bmi MonsterHealsMinusHP
+          ;; fall through
+MonsterHealsPlusHP:
+          and Temp
+          clc
+          adc MoveHP
+          sta MoveHP
+          bne MonsterHealsCommon ; always taken
+
+MonsterHealsMinusHP:
+          and Temp
+          sta Temp
+          lda MoveHP
+          sec
+          sbc Temp
+          ;; fall through
+
+MonsterHealsCommon:
+          ldx WhoseTurn
+          dex
+          clc
+          adc MonsterHP, x
+          cmp # 99
+          blt +
+          lda # 99
++
+          sta MonsterHP, x
+          lda MoveHP
+          eor #$ff              ; negate the value to mean "gained"
+          sta MoveHP
+
+          ;; TODO Any status FX to apply to the monster?
 
 ;;; 
 
@@ -83,6 +242,7 @@ PlayerAttackHitMissP:
           txa
           cmp Temp
           blt PlayerAttackMiss
+          ;; fall through
 
 ;;; 
 
@@ -105,7 +265,7 @@ PlayerAttackHitMinus:
           sta Temp
           lda CombatMoveDeltaHP
           sbc Temp
-
+          ;; fall through
 PlayerAttackHitCommon:
           sta MoveHP
           ldx MoveTarget
@@ -188,8 +348,10 @@ PlayerHealsCommon:
           eor #$ff              ; negate the value to mean "gained"
           sta MoveHP
 
-          ;; Any status FX to apply to the player?
+          ;; TODO Any status FX to apply to the player?
 
+;;; 
+          
 WaitOutScreen:
           .WaitScreenBottom
 
