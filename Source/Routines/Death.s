@@ -13,7 +13,13 @@ Death:    .block
 Loop:
           jsr VSync
           jsr VBlank
-          
+
+          .ldacolu COLGRAY, 0
+          sta COLUBK
+          .ldacolu COLGRAY, 9
+          sta COLUP0
+          sta COLUP1
+
           jsr Prepare48pxMobBlob
           .LoadString " GAME "
           ldx #TextBank
