@@ -29,7 +29,7 @@ BankSwitch:
           .bend
           .endm
 
-          .warn format("bank %d has %d bytes left (%.1f%%)", BANK, Wired - EndBank, ( (Wired - EndBank) * 100.0 / (Wired - $f000) ) )
+          .warn format("bank %d ends at %x with %d bytes left (%.1f%%)", BANK, EndBank, BankEndAddress - EndBank, ( (Wired - EndBank) * 100.0 / (BankEndAddress - $f000) ) )
 
 ;;; The "Wired memory" is present in every bank and must occupy exactly
 ;;; the same number of bytes.

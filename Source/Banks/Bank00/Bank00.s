@@ -15,6 +15,7 @@
 	.include "StartBank.s"
           .include "SpeakJetIDs.s"
 
+          .text "GRIZ", 0
 DoLocal:
           cpy #ServiceColdStart
           beq ColdStart
