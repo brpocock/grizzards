@@ -8,7 +8,7 @@ EndBank:
           ;; being too high, and tell you  what to lower it to. Careful,
           ;; though, this has to be more than any bank uses.
           .if (* > BankEndAddress) || (* < $f000)
-          .error "Bank ", BANK, " overran ROM space (ending at ", *, ") — ", ( 100 * (1.0 + */$1000.0) ), "%"
+          .error "Bank ", BANK, " overran ROM space (ending at ", *, ")"
           .fi
 
           .proff
