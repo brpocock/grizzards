@@ -13,7 +13,7 @@ EndBank:
 
           .proff
           ;; Fill with cute junk
-          .fill BankEndAddress - *, format("brp/grizzards/%d-%d-%d/", YEARNOW, MONTHNOW, DATENOW)
+          .fill BankEndAddress - *, format("brp/grizzards/%d-%d-%d\0", YEARNOW, MONTHNOW, DATENOW)
           .pron
 
 BankJump: .macro label, bank
