@@ -55,16 +55,6 @@ SetUpMonsterHP:
           ldy # 15              ; offset of count
           lda (CurrentMonsterPointer), y
           and #$07
-          sta Temp
-          dec Temp
-
-PickNumMonsters:    
-          jsr Random
-          and #$07
-          beq PickNumMonsters
-          cmp Temp
-          bpl PickNumMonsters
-          
           tay
 
           ;; Zero HP for 5 monsters (we have at least 1), then …
