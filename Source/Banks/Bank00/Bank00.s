@@ -1,10 +1,10 @@
 ;;;
-;;; 
+;;;
 ;;; *** GRIZZARDS ***
-;;; 
+;;;
 ;;;
 ;;; Copyright © 2021, Bruce-Robert Pocock
-;;; 
+;;;
 
           BANK = $00
 
