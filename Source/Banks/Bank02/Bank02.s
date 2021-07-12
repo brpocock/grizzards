@@ -61,9 +61,7 @@ FetchedRunAway:
           .include "CopyPointerText.s"
           .include "ShowGrizzardName.s"
           .include "ShowGrizzardStats.s"
-
           .include "GrizzardDepot.s"
-
           .include "Failure.s"
 
           .include "GrizzardNames.s"
@@ -85,7 +83,8 @@ PlayTimeText:
 PlayHoursText:
           .MiniText "HOURS "
 
-          .align $100
+          .align $100, "font"
+
           .include "Font.s"
 
 	.include "EndBank.s"
