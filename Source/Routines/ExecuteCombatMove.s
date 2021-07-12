@@ -277,12 +277,24 @@ PlayerAttackHitCommon:
           ;; add to score the amount for that monster
           ldy # 15              ; score value
           lda (CurrentMonsterPointer) ,y
+          sed
           clc
           adc Score
-          bcc +
+          bcc ScoreNoCarry
+          clc
           inc Score + 1
-+
+          bcc ScoreNoCarry
+          clc
+          inc Score + 2
+          bcc ScoreNoCarry
+          lda #$99
           sta Score
+          sta Score + 1
+          sta Score + 2
+ScoreNoCarry:
+          sta Score
+
+          cld
 
           lda # 0               ; zero on negative
           ;; fall through
