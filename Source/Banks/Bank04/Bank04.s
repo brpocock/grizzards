@@ -4,7 +4,8 @@
 
           .include "StartBank.s"
 
-DoLocal:  
+DoLocal:
+          .include "MapSetup.s"
           .include "Map.s"
 
           .include "OverworldMaps.s"
