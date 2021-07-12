@@ -272,9 +272,43 @@ PlayerAttackHitCommon:
           lda MonsterHP, x
           sec
           sbc MoveHP
-          bpl +
-          lda # 0               ; zero on negative
+          bpl PlayerDidNotKillMonster
+
+          ;; add to score 10× the attack class of the monster,
+          ldy # 14              ; ATK/DEF value
+          lda (CurrentMonsterPointer) ,y
+          and #$f0
+          ror a                 ; × 8
+          sta MonsterHP, x      ; using as a temp var!
+          ror a
+          ror a                 ; × 2
+          clc
+          adc MonsterHP, x      ; the temp value
+          clc
+          adc Score
+          bcc +
+          inc Score + 1
 +
+          sta Score
+          ;; … and also 10× the defend class as well.
+          lda (CurrentMonsterPointer), y
+          and #$0f
+          asl a                 ; × 2
+          sta MonsterHP, x
+          asl a
+          asl a                 ; × 8
+          clc
+          adc MonsterHP, x
+          clc
+          adc Score
+          bcc +
+          inc Score + 1
++
+          sta Score
+
+          lda # 0               ; zero on negative
+          ;; fall through
+PlayerDidNotKillMonster:
           sta MonsterHP, x
 
           ;; OK, also, what is the effect on the enemy's status?
