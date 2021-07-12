@@ -23,14 +23,14 @@ MonsterMove:
 
 MonsterAttacks:
           jmp WaitOutScreen     ; TODO
-          
+
 ;;; 
 
 MonsterHeals:
           jmp WaitOutScreen     ; TODO
 
 ;;; 
-          
+
 PlayerMove:
           ldx CombatMoveSelected
           lda MoveDeltaHP, x
@@ -85,7 +85,7 @@ PlayerAttackHitMissP:
           blt PlayerAttackMiss
 
 ;;; 
-          
+
 PlayerAttackHit:
           ;; The attack was a success!
           ;; What is the effect on the enemy's HP?
@@ -149,9 +149,9 @@ PlayerAttackMiss:
           sta MoveStatusFX
 
           jmp WaitOutScreen
-          
+
 ;;; 
-          
+
 PlayerHeals:
           ;; .A has the negative HP to be gained
           ;; (alter by random factor)
@@ -199,7 +199,7 @@ WaitOutScreen:
 
 ;;; XXX These two routines are nearly identical
 ;;; is it worth it to factor out a common prefix subroutine?
-          
+
 FindHighBit:
           tay
           ldx # 7
@@ -243,7 +243,7 @@ AttackMask:
           .byte %000000001
           .byte %00000000
           .byte %00000000
-          
+
 LevelTable:
           ;; monsters have levels 0…$b for each of their stats
           ;; this table maps those to actual values
