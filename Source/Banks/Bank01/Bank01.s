@@ -43,7 +43,7 @@ DoLocal:
           .include "CombatSpriteTables.s"
           .include "GrizzardStartingStats.s"
           .include "StartNewGame.s"
-          
+
           .include "AtariVox-EEPROM-Driver.s"
 
 	.include "EndBank.s"
