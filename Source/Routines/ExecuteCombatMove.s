@@ -274,31 +274,9 @@ PlayerAttackHitCommon:
           sbc MoveHP
           bpl PlayerDidNotKillMonster
 
-          ;; add to score 10× the attack class of the monster,
-          ldy # 14              ; ATK/DEF value
+          ;; add to score the amount for that monster
+          ldy # 15              ; score value
           lda (CurrentMonsterPointer) ,y
-          and #$f0
-          ror a                 ; × 8
-          sta MonsterHP, x      ; using as a temp var!
-          ror a
-          ror a                 ; × 2
-          clc
-          adc MonsterHP, x      ; the temp value
-          clc
-          adc Score
-          bcc +
-          inc Score + 1
-+
-          sta Score
-          ;; … and also 10× the defend class as well.
-          lda (CurrentMonsterPointer), y
-          and #$0f
-          asl a                 ; × 2
-          sta MonsterHP, x
-          asl a
-          asl a                 ; × 8
-          clc
-          adc MonsterHP, x
           clc
           adc Score
           bcc +

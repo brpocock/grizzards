@@ -23,7 +23,7 @@ EncounterMonster:
           .byte 0, 1, 2, 3, 4, 5, 6, 7
           ;; ↑ 127
 
-EncounterOutcome:
+EncounterQuantity:
           ;; 0
           .byte $01, $01, $01, $01,  $01, $01, $01, $01
           .byte $01, $01, $01, $01,  $01, $01, $01, $01

@@ -52,9 +52,7 @@ SetUpMonsterHP:
           lda LevelTable, y
           sta Temp
           
-          ldy # 15              ; offset of count
-          lda (CurrentMonsterPointer), y
-          and #$07
+          lda EncounterQuantity, x
           tay
 
           ;; Zero HP for 5 monsters (we have at least 1), then …
