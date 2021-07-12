@@ -10,7 +10,8 @@ LoopMusic:
           .case 7
 
           lda GameMode
-          cmp #ModeAttractTitle
+          and #$f0
+          cmp #ModeAttract
           bne TheEnd
 
           lda #>SongTheme
@@ -41,7 +42,8 @@ LoopMusic:
 PlayMusic:
           .if BANK == 7
           lda GameMode
-          cmp #ModeAttractTitle
+          and #$f0
+          cmp #ModeAttract
           bne TheEnd
           .fi
 

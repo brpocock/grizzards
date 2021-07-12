@@ -5,7 +5,22 @@ AttractStory:       .block
 
           .ldacolu COLBLUE, $8
           sta COLUBK
-          ldx # KernelLines - 10
+
+          .ldacolu COLBROWN, 0
+          sta COLUP0
+          sta COLUP1
+
+          .LoadString "STORY "
+          ldx #TextBank
+          ldy #ServiceDecodeAndShowText
+          jsr FarCall
+
+          .LoadString "-TODO-"
+          ldx #TextBank
+          ldy #ServiceDecodeAndShowText
+          jsr FarCall
+
+          ldx # KernelLines - 42
 -
           stx WSYNC
           dex
@@ -26,7 +41,7 @@ AttractStory:       .block
 
           lda # 30
           jsr SetNextAlarm
-          lda #ModeAttract
+          lda #ModeAttractTitle
           sta GameMode
 
 StillStory:
