@@ -5,6 +5,8 @@ SelectSlot:        .block
           ;; Select a save game slot
           ;;
 
+          .KillMusic
+
           lda #>Phrase_SelectSlot
           sta CurrentUtterance + 1
           lda #<Phrase_SelectSlot
