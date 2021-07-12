@@ -38,9 +38,11 @@ Loop:
 
           jsr Overscan
 
-          lda GameMode
-          cmp #ModeDeath
-          bne Leave
+          lda NewSWCHB
+          beq +
+          and #SWCHBReset
+          beq Leave
++
           jmp Loop
 
 Leave:
