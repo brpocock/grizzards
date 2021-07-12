@@ -30,7 +30,7 @@ Loop:
           ldy #ServiceDecodeAndShowText
           jsr FarCall
 
-          ldx # KernelLines - 40
+          ldx # KernelLines - 43
 -
           stx WSYNC
           dex
