@@ -24,12 +24,8 @@ Loop:
           bmi DrawHealPoints
           sta Temp              ; for later decoding
 
-          .LoadString "HP  00"
+          .LoadString "HP -00"
 
-          ldx # 39              ; '-'
-          stx StringBuffer + 3
-          and #$7f
-          sta Temp
           jmp DrawHitPoints
 
 DrawMissed:
