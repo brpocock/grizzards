@@ -231,7 +231,7 @@ PlayerAttacks:
           sta Temp
           jsr Random
           bmi PlayerAttackNegativeRandom
-
+PlayerAttackPositiveRandom:
           and Temp
           clc
           adc MoveHP               ; temporarily effective Attack score
@@ -285,6 +285,7 @@ PlayerAttackHitCommon:
           cmp MonsterHP, x
           blt PlayerDidNotKillMonster
 
+PlayerKilledMonster:
           ;; add to score the amount for that monster
           ldy # 15              ; score value
           lda (CurrentMonsterPointer) ,y
