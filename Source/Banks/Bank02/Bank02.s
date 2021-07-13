@@ -32,10 +32,6 @@ DecodeAndShowText:
           jmp ShowText
 
 AppendDecimalAndPrintThunk:
-          lda # 0
-          sta StringBuffer + 4
-          sta StringBuffer + 5
-
           lda Temp
           jmp BINBCD8
 
