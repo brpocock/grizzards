@@ -22,13 +22,9 @@ Loop:
 
           jsr Prepare48pxMobBlob
           .LoadString " GAME "
-          ldx #TextBank
-          ldy #ServiceDecodeAndShowText
-          jsr FarCall
+          .FarJSR TextBank, ServiceDecodeAndShowText
           .LoadString " OVER "
-          ldx #TextBank
-          ldy #ServiceDecodeAndShowText
-          jsr FarCall
+          .FarJSR TextBank, ServiceDecodeAndShowText
 
           ldx # KernelLines - 43
 -

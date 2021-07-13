@@ -11,14 +11,10 @@ AttractStory:       .block
           sta COLUP1
 
           .LoadString "STORY "
-          ldx #TextBank
-          ldy #ServiceDecodeAndShowText
-          jsr FarCall
+          .FarJSR TextBank, ServiceDecodeAndShowText
 
           .LoadString "-TODO-"
-          ldx #TextBank
-          ldy #ServiceDecodeAndShowText
-          jsr FarCall
+          .FarJSR TextBank, ServiceDecodeAndShowText
 
           ldx # KernelLines - 42
 -

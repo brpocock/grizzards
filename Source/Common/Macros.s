@@ -207,3 +207,15 @@ KillMusic:          .macro
           sta AUDF1
           sta NoteTimer
           .endm
+
+FarJSR:   .macro bank, service
+          ldy #\service
+          ldx #\bank
+          jsr FarCall
+          .endm
+
+FarJMP:   .macro bank, service
+          ldy #\service
+          ldx #\bank
+          jmp FarCall
+          .endm

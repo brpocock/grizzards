@@ -49,14 +49,10 @@ FillTop:
           bne FillTop
 
 Slot:
-          ldy #ServiceDecodeAndShowText
-          ldx #TextBank
-          jsr FarCall
+          .FarJSR TextBank, ServiceDecodeAndShowText
 
           .LoadString " SLOT "
-          ldy #ServiceDecodeAndShowText
-          ldx #TextBank
-          jsr FarCall
+          .FarJSR TextBank, ServiceDecodeAndShowText
 
           lda # ( (76 * 75) / 64 )
           sta TIM64T
@@ -104,9 +100,7 @@ FillToSlot:
           bpl FillToSlot
 
 ShowSaveSlot:
-          ldy #ServiceDecodeAndShowText
-          ldx #TextBank
-          jsr FarCall
+          .FarJSR TextBank, ServiceDecodeAndShowText
 
           .LoadString "SLOT 1"
 
@@ -119,9 +113,7 @@ ShowSaveSlot:
           sta StringBuffer + 5
           
 ShowSlot:
-          ldy #ServiceDecodeAndShowText
-          ldx #TextBank
-          jsr FarCall
+          .FarJSR TextBank, ServiceDecodeAndShowText
 
           ldx #KernelLines - 172
 FillScreen:

@@ -43,10 +43,7 @@ MonstersDisplay:
           lda (CurrentMonsterPointer), y
           sta COLUP0
 
-          ldy #ServiceDrawMonsterGroup
-          ldx #MapServicesBank
-          jsr FarCall
-
+          .FarJSR MapServicesBank, ServiceDrawMonsterGroup
 DelayAfterMonsters:
 
           ldx # 10
@@ -69,15 +66,10 @@ BeginPlayerSection:
           sta COLUBK
 
 DrawGrizzardName:
-          ldx #TextBank
-          ldy #ServiceShowGrizzardName
-          jsr FarCall
+          .FarJSR TextBank, ServiceShowGrizzardName
 
 DrawGrizzard:
-          ldx #TextBank
-          ldy #ServiceDrawGrizzard
-          jsr FarCall
-
+          .FarJSR TextBank, ServiceDrawGrizzard
 ;;; 
 
 DrawHealthBar:
@@ -164,9 +156,7 @@ FillScreen:
           sty COLUP0
           sty COLUP1
 
-          ldx #TextBank
-          ldy #ServiceShowMove
-          jsr FarCall
+          .FarJSR TextBank, ServiceShowMove
 
           lda NewINPT4
           beq ScreenDone
@@ -199,9 +189,7 @@ SelectedRunAway:
           sta COLUP0
           sta COLUP1
 
-          ldx #TextBank
-          ldy #ServiceShowMove
-          jsr FarCall
+          .FarJSR TextBank, ServiceShowMove
 
           ldx #5
 -

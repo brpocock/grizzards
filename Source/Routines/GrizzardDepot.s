@@ -5,9 +5,7 @@ GrizzardDepot:    .block
           .WaitScreenTop
           .KillMusic
 
-          ldy #ServiceSaveToSlot
-          ldx #SaveKeyBank
-          jsr FarCall
+          .FarJSR SaveKeyBank, ServiceSaveToSlot
 
           ldx MaxHP
           stx CurrentHP

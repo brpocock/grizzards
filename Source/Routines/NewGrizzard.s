@@ -6,9 +6,7 @@ NewGrizzard:        .block
           lda Temp
           pha
 
-          ldy #ServicePeekGrizzard
-          ldx #SaveKeyBank
-          jsr FarCall
+          .FarJSR SaveKeyBank, ServicePeekGrizzard
 
           bcs CatchEm
           ;; If so, nothing doing, return
@@ -18,9 +16,7 @@ NewGrizzard:        .block
 
 CatchEm:  
           ;; New Grizzard found, save current Grizzard …
-          ldy #ServiceSaveGrizzard
-          ldx #SaveKeyBank
-          jsr FarCall
+          .FarJSR SaveKeyBank, ServiceSaveGrizzard
           
           ;; … and set up this one with default levels
           pla
@@ -52,8 +48,6 @@ CatchEm:
           sta MovesKnown
 
           ;; Now, save this guy for good measure
-          ldy #ServiceSaveGrizzard
-          ldx #SaveKeyBank
-          jmp FarCall
+          .FarJMP SaveKeyBank, ServiceSaveGrizzard
 
           .bend

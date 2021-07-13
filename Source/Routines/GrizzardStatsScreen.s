@@ -19,9 +19,8 @@ Loop:
           dex
           bne -
 
-          ldy #ServiceShowGrizzardStats
-          ldx #TextBank
-          jsr FarCall
+          .FarJSR TextBank, ServiceShowGrizzardStats
+
           .ldacolu COLINDIGO, 0
           sta COLUP0
           sta COLUP1

@@ -37,9 +37,7 @@ DrawHealPoints:
           .LoadString "HEAL00"
 
 DrawHitPoints:
-          ldy #ServiceAppendDecimalAndPrint
-          ldx #TextBank
-          jsr FarCall
+          .FarJSR TextBank, ServiceAppendDecimalAndPrint
           jmp AfterHitPoints
 
 SkipHitPoints:
@@ -74,9 +72,7 @@ DrawStatusFX:
           cpy # 6
           bne -
 
-          ldy #ServiceDecodeAndShowText
-          ldx #TextBank
-          jsr FarCall
+          .FarJSR TextBank, ServiceDecodeAndShowText
 
 SkipStatusFX:
 
@@ -147,9 +143,7 @@ CheckForLoss:
           lda CurrentHP
           bne NextTurn
 
-          ldy #ServiceDeath
-          ldx #MapServicesBank
-          jsr FarCall           ; never returns
+          .FarJMP MapServicesBank, ServiceDeath ; never returns
 
 NextTurn: 
           inc WhoseTurn

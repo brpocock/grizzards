@@ -57,10 +57,8 @@ DecodeScore:
           ror a
           sta StringBuffer + 0
 
-ScoreDone:          
-          ldy #ServiceDecodeAndShowText
-          ldx #TextBank
-          jsr FarCall
+ScoreDone:
+          .FarJSR TextBank, ServiceDecodeAndShowText
 
 AfterScore:
 

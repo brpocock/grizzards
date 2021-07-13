@@ -79,9 +79,7 @@ DoneStickDown:
           stx MoveSelection
 
 StickLeftRight:
-          ldx #TextBank
-          ldy #ServiceFetchGrizzardMove
-          jsr FarCall
+          .FarJSR TextBank, ServiceFetchGrizzardMove
           ldx Temp
           lda MoveDeltaHP, x
           bpl ChooseTarget

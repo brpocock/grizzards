@@ -161,9 +161,7 @@ LeaveAttract:
           jmp SelectSlot
 
 ShowText:
-          ldy #ServiceDecodeAndShowText
-          ldx #TextBank
-          jmp FarCall
+          .FarJMP TextBank, ServiceDecodeAndShowText
 
 SetNextAlarm:
           tax

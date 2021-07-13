@@ -3,9 +3,7 @@
 Map:    .block
 
 Loop:
-          ldx #MapServicesBank
-          ldy #ServiceTopOfScreen
-          jsr FarCall
+          .FarJSR MapServicesBank, ServiceTopOfScreen
 
           ldx CurrentMap
           lda MapRLEL, x
@@ -256,9 +254,7 @@ FillBottomScreen:
           sta WSYNC
           sta WSYNC
 
-          ldy #ServiceBottomOfScreen
-          ldx #MapServicesBank
-          jsr FarCall
+          .FarJSR MapServicesBank, ServiceBottomOfScreen
 
 ScreenJumpLogic:
           lda PlayerY
@@ -395,18 +391,14 @@ Leave:
           brk
 
 EnterGrizzardDepot:
-          ldy #ServiceGrizzardDepot
-          ldx #TextBank
-          jsr FarCall
+          .FarJSR TextBank, ServiceGrizzardDepot
           jmp MapSetup
 
 GetNewGrizzard:
           ldx SpriteFlicker
           lda SpriteParam, x
           sta Temp
-          ldy #ServiceNewGrizzard
-          ldx #MapServicesBank
-          jsr FarCall
+          .FarJSR MapServicesBank, ServiceNewGrizzard
           jmp MapSetup
 
           .bend

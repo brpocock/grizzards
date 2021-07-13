@@ -27,6 +27,4 @@ ShowPointerText:
           cpy # 6
           bne -
 
-          ldx #TextBank
-          ldy #ServiceDecodeAndShowText
-          jmp FarCall
+          .FarJMP TextBank, ServiceDecodeAndShowText ; tail call

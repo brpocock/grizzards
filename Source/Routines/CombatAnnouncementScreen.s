@@ -14,9 +14,7 @@ CombatAnnouncementScreen:     .block
           lda WhoseTurn
           bne FindMonsterMove
 FindPlayerMove:
-          ldx #TextBank
-          ldy #ServiceFetchGrizzardMove
-          jsr FarCall
+          .FarJSR TextBank, ServiceFetchGrizzardMove
           ldy Temp
           sty CombatMoveSelected
           jmp MoveFound
@@ -87,9 +85,7 @@ DrawSubject:
           jmp SubjectDone
 
 PlayerSubject:
-          ldy #ServiceShowGrizzardName
-          ldx #TextBank
-          jsr FarCall
+          .FarJSR TextBank, ServiceShowGrizzardName
           ldx # 32
 SkipSubjectX:
           stx WSYNC
@@ -112,9 +108,7 @@ AnnounceVerb:
           bmi SkipVerb
 
 DrawVerb:
-          ldy #ServiceShowMove
-          ldx #TextBank
-          jsr FarCall
+          .FarJSR TextBank, ServiceShowMove
           jmp VerbDone
 
 SkipVerb:
@@ -150,9 +144,7 @@ MonsterTargetObject:
           jmp ObjectDone
 
 PlayerObject:
-          ldy #ServiceShowGrizzardName
-          ldx #TextBank
-          jsr FarCall
+          .FarJSR TextBank, ServiceShowGrizzardName
           ldx # 32
 SkipObjectX:
           stx WSYNC
@@ -361,9 +353,7 @@ ShowMonsterNameAndNumber:
           lda MoveTarget
 +
           sta StringBuffer + 3
-          ldx #TextBank
-          ldy #ServiceDecodeAndShowText
-          jmp FarCall           ; tail call
+          .FarJMP TextBank, ServiceDecodeAndShowText ; tail call
 
 ;;; 
 
