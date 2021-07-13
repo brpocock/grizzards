@@ -34,7 +34,7 @@ Loop:
 
 DrawMissed:
           .LoadString "MISSED"
-          .FarJSR TextBank, ServiceDecodeAndShowText
+          jsr DecodeAndShowText
           jmp AfterHitPoints
           
 DrawHealPoints:
@@ -45,7 +45,7 @@ DrawHealPoints:
           .LoadString "HEAL00"
 
 DrawHitPoints:
-          .FarJSR TextBank, ServiceAppendDecimalAndPrint
+          jsr AppendDecimalAndPrint
           jmp AfterHitPoints
 
 SkipHitPoints:
@@ -80,7 +80,7 @@ DrawStatusFX:
           cpy # 6
           bne -
 
-          .FarJSR TextBank, ServiceDecodeAndShowText
+          jsr DecodeAndShowText
 
 SkipStatusFX:
 
