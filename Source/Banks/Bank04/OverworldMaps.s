@@ -126,7 +126,7 @@ MapLinks:
 ;;; Note that it can be reused, so the same basic layout, potentially
 ;;; in different colors, can appear in several places.
 
-          .if DEMO = 1
+          .if DEMO == 1
           ROOM17MAP = Map_SouthGlobe      ; no exits to east/west in demo
           .else
           ROOM17MAP = Map_Bow
@@ -202,14 +202,14 @@ MapRLEH:  .byte >MapRLE
 ;;; $80 = left, $40 = right ball.
 MapSides:
           .byte 0, $80, 0, 0, 0
-          .if DEMO = 1
+          .if DEMO == 1
           .byte 0, $40, $80, $80, 0 ; block off area to left of screen 8
           .else
           .byte 0, $40, 0, $80, 0
           .fi
           ;; 10
           .byte 0, 0, 0, 0, 0
-          .if DEMO = 1
+          .if DEMO == 1
           ;; block off area to right of screen 15
           .byte $40, $40, $40, 0, $80 
           .else
