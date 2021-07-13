@@ -4,6 +4,7 @@ CombatAnnouncementScreen:     .block
 
           lda # 0
           sta MoveAnnouncement
+          sta MoveSpeech
 
           .WaitScreenTop
 
@@ -40,84 +41,6 @@ MoveFound:
           lda MoveDeltaHP, x
           sta CombatMoveDeltaHP
 
-;;; 
-          
-SpeakMove:
-          lda SWCHA
-          and #$02              ; PlaySpeech.SerialReady (out of scope in this memory bank)
-          beq JumpToLoop00      ; not ready for speech (no AtariVox?)
-
-          lda WhoseTurn
-          beq SayPlayerSubject
-
-SayMonsterSubject:
-          jsr SayMonster
-
-          lda #>Phrase_Zero
-          sta CurrentUtterance + 1
-          lda #<Phrase_Zero
-          clc
-          adc WhoseTurn
-          bcc +
-          inc CurrentUtterance + 1
-+
-	sta CurrentUtterance
-          jsr WaitForSpeech
-
-          jmp SayUsesMove
-
-SayPlayerSubject:
-          jsr SayPlayerGrizzard
-          ;; fall through
-
-SayUsesMove:
-          lda #>Phrase_UsesMove
-          sta CurrentUtterance + 1
-          lda #<Phrase_UsesMove
-          sta CurrentUtterance
-          jsr WaitForSpeech
-
-          lda #>Phrase_Move01
-          sta CurrentUtterance + 1
-          lda #<Phrase_Move01
-          clc
-          adc MoveSelection
-          bcc +
-          inc CurrentUtterance + 1
-+
-          sta CurrentUtterance
-          jsr WaitForSpeech
-
-          lda #>Phrase_On
-          sta CurrentUtterance + 1
-          lda #<Phrase_On
-          sta CurrentUtterance
-          jsr WaitForSpeech
-
-          lda WhoseTurn
-          beq MonsterObject
-
-          jsr SayPlayerGrizzard
-          jmp JumpToLoop00
-
-MonsterObject:
-          jsr SayMonster
-
-          lda MoveTarget
-          beq JumpToLoop00
-
-          lda #>Phrase_Zero
-          sta CurrentUtterance + 1
-          lda #<Phrase_Zero
-          clc
-          adc MoveTarget
-          bcc +
-          inc CurrentUtterance + 1
-+
-	sta CurrentUtterance
-          jsr WaitForSpeech
-
-JumpToLoop00:
           lda #2
           jsr SetNextAlarm
 
@@ -146,7 +69,9 @@ MonsterTurnColor:
           sta COLUP0
           sta COLUP1
 
-;;; Subject
+;;; 
+
+AnnounceSubject:
 
           lda MoveAnnouncement
           cmp # 1
@@ -177,7 +102,9 @@ SkipSubject:
 
 SubjectDone:
 
-;;; Verb
+;;; 
+
+AnnounceVerb:
 
           lda MoveAnnouncement
           cmp # 2
@@ -198,7 +125,9 @@ SkipVerb:
 
 VerbDone:
 
-;;; Object
+;;; 
+
+AnnounceObject:
 
           lda MoveAnnouncement
           cmp # 3
@@ -236,13 +165,137 @@ SkipObject:
 
 ObjectDone:
 
-;;; Done printing the main text
+;;; 
 
-          ldx # KernelLines - 132
-FillScreen:
-          stx WSYNC
-          dex
-          bne FillScreen
+WaitOutSpeechInterval:
+
+          lda # ( (KernelLines - 132) * 76 ) / 64
+          sta TIM64T
+
+;;; 
+
+ScheduleSpeech:
+
+          lda CurrentUtterance
+          bne SpeechDone
+          lda CurrentUtterance + 1
+          bne SpeechDone
+
+          lda MoveSpeech
+          bne Speech1
+
+          lda WhoseTurn
+          beq SayPlayerSubject
+SayMonsterSubject:
+          jsr SayMonster
+          inc MoveSpeech
+          bne SpeechDone        ; always taken
+
+SayPlayerSubject:
+          jsr SayPlayerGrizzard
+          jmp SpeechDone
+
+Speech1:
+          cmp # 2
+          bge Speech2
+          lda WhoseTurn
+          beq Speech1Done
+
+          lda #>Phrase_Zero
+          sta CurrentUtterance + 1
+          lda #<Phrase_Zero
+          clc
+          adc WhoseTurn
+          bcc +
+          inc CurrentUtterance + 1
++
+          sta CurrentUtterance
+Speech1Done:
+          inc MoveSpeech
+          bne SpeechDone        ; always taken
+
+Speech2:
+          cmp # 3
+          bge Speech3
+
+          lda #>Phrase_UsesMove
+          sta CurrentUtterance + 1
+          lda #<Phrase_UsesMove
+          sta CurrentUtterance
+
+          inc MoveSpeech
+          bne SpeechDone        ; always taken
+
+Speech3:
+          cmp # 4
+          bge Speech4
+
+          lda #>Phrase_Move01
+          sta CurrentUtterance + 1
+          lda #<Phrase_Move01
+          clc
+          adc MoveSelection
+          bcc +
+          inc CurrentUtterance + 1
++
+          sta CurrentUtterance
+
+          inc MoveSpeech
+          bne SpeechDone        ; always taken
+
+Speech4:
+          cmp # 5
+          bge Speech5
+
+          lda #>Phrase_On
+          sta CurrentUtterance + 1
+          lda #<Phrase_On
+          sta CurrentUtterance
+
+          inc MoveSpeech
+          bne SpeechDone        ; always taken
+
+Speech5:
+          cmp # 6
+          bge Speech5
+
+          lda WhoseTurn
+          beq SayMonsterObject
+          jsr SayPlayerGrizzard
+          jmp SayObjectDone
+
+SayMonsterObject:
+          jsr SayMonster
+SayObjectDone:
+          inc MoveSpeech
+          bne SpeechDone        ; always taken
+
+Speech6:
+          cmp # 7
+          bge SpeechDone
+
+          lda WhoseTurn
+          beq Speech6Done
+
+          lda #>Phrase_Zero
+          sta CurrentUtterance + 1
+          lda #<Phrase_Zero
+          clc
+          adc MoveTarget
+          bcc +
+          inc CurrentUtterance + 1
++
+	sta CurrentUtterance
+
+
+Speech6Done:
+          inc MoveSpeech
+          ;; fall through
+SpeechDone:
+
+;;; 
+
+CheckForAlarm:
 
           lda ClockSeconds
           cmp AlarmSeconds
@@ -255,10 +308,16 @@ FillScreen:
           lda # 2
           jsr SetNextAlarm
 
+AlarmDone:
+
+-
+          lda INTIM
+          bpl -
+
           lda MoveAnnouncement
           cmp # 4
           beq CombatMoveDone
-AlarmDone:
+
           jsr Overscan
           jmp Loop
 
@@ -306,7 +365,7 @@ ShowMonsterNameAndNumber:
           jmp FarCall           ; tail call
 
 ;;; 
-          
+
 SayMonster:
           lda #>MonsterPhrase
           sta CurrentUtterance + 1
@@ -318,25 +377,6 @@ SayMonster:
           inc CurrentUtterance + 1
 +
           sta CurrentUtterance
-          ;; fall through
-
-WaitForSpeech:
-
-          ldx #KernelLines - 3
--
-          stx WSYNC
-          dex
-          bne -
-
-          jsr Overscan
-          jsr VSync
-          jsr VBlank
-
-          lda CurrentUtterance
-          bne WaitForSpeech
-          lda CurrentUtterance + 1
-          bne WaitForSpeech
-
           rts
 
 SayPlayerGrizzard:
@@ -350,4 +390,4 @@ SayPlayerGrizzard:
 +
           sta CurrentUtterance
 
-          jmp WaitForSpeech
+          rts
