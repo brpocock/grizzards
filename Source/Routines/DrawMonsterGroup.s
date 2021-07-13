@@ -12,6 +12,7 @@ GetMonsterArtPointer:
           clc
           asl a
           asl a
+          asl a
           bcc +
           inc CombatSpritePointer + 1
 +
