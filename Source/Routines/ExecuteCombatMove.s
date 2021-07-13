@@ -201,6 +201,8 @@ MonsterHealsCommon:
 
           ;; TODO Any status FX to apply to the monster?
 
+          jmp WaitOutScreen
+
 ;;; 
 
 PlayerMove:
