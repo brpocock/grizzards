@@ -34,6 +34,8 @@ NotPaused:
 
 PausedOrNot:
 
+;;; 
+
 MonstersDisplay:
           jsr ShowMonsterName
 
@@ -52,6 +54,8 @@ DelayAfterMonsters:
           stx WSYNC
           dex
           bne -
+
+;;; 
 
 BeginPlayerSection:
           .ldacolu COLBLUE, $f
@@ -73,6 +77,8 @@ DrawGrizzard:
           ldx #TextBank
           ldy #ServiceDrawGrizzard
           jsr FarCall
+
+;;; 
 
 DrawHealthBar:
           ldx CurrentHP
@@ -126,6 +132,8 @@ DoneHealth:
           dex
           bne -
 
+;;;  
+
           lda # 0
           sta PF0
           sta PF1
@@ -138,6 +146,8 @@ FillScreen:
           dex
           bne FillScreen
           .fi
+
+;;; 
 
           jsr Prepare48pxMobBlob
 
@@ -181,6 +191,8 @@ DoUseMove:
 
           jmp CombatAnnouncementScreen
 
+;;; 
+
 SelectedRunAway:
 
           lda # COLTURQUOISE | $f
@@ -190,6 +202,12 @@ SelectedRunAway:
           ldx #TextBank
           ldy #ServiceShowMove
           jsr FarCall
+
+          ldx #5
+-
+          stx WSYNC
+          dex
+          bne -
 
           lda NewINPT4
           beq ScreenDone
@@ -201,6 +219,8 @@ SelectedRunAway:
 
           lda #ModeMap
           sta GameMode
+          ;; fall through
+;;; 
 
 ScreenDone:
 
