@@ -5,13 +5,13 @@ Monsters:
           .MiniText "SLIME "
           .byte 14               ; art
           .byte COLGREEN | $f
-          .byte $11, 6         ; ATK/DEF, + score to defeat
+          .byte $10, 6         ; ATK/DEF, + score to defeat
           
           .MiniText "HORRID"
           .MiniText "SLIME "
           .byte 14               ; art
           .byte COLRED | $f
-          .byte $22, 6        ; ATK/DEF, score
+          .byte $20, 6        ; ATK/DEF, score
           
 
           .MiniText "VORPAL"
