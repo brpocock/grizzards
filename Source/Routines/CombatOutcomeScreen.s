@@ -39,6 +39,8 @@ DrawMissed:
           
 DrawHealPoints:
           eor #$ff
+          clc
+          adc #1
           sta Temp
           .LoadString "HEAL00"
 
