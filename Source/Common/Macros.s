@@ -210,7 +210,7 @@ KillMusic:          .macro
 
 FarJSR:   .macro bank, service
           .if \bank == BANK
-          .error "Don't do FarJSR for the local bank"
+          .error "Don't do FarJSR for the local bank for ", \service
           .fi
           ldy #\service
           ldx #\bank
@@ -219,7 +219,7 @@ FarJSR:   .macro bank, service
 
 FarJMP:   .macro bank, service
           .if \bank == BANK
-          .error "Don't do FarJMP for the local bank"
+          .error "Don't do FarJMP for the local bank for ", \service
           .fi
           ldy #\service
           ldx #\bank
