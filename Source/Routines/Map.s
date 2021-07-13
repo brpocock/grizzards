@@ -325,6 +325,7 @@ GoScreen:
 
           lda #ModeMapNewRoom
           sta GameMode
+          bne CheckSwitches     ; always taken
 
 ScreenBounce:
           ;; stuff the player into the middle of the screen
@@ -379,6 +380,9 @@ SkipSwitches:
           jmp Loop
 
 Leave:
+          cmp #ModeMapNewRoom
+          beq MapSetup.NewRoom
+
           ldx # 0
           stx CurrentMusic + 1
 
@@ -388,8 +392,6 @@ Leave:
           beq EnterGrizzardDepot
           cmp #ModeNewGrizzard
           beq GetNewGrizzard
-          cmp #ModeMapNewRoom
-          beq MapSetup.NewRoom
           brk
 
 EnterGrizzardDepot:

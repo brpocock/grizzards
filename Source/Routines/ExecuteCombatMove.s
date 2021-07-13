@@ -1,5 +1,6 @@
 ;;; Grizzards Source/Common/ExecuteCombatMove.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
+
 ExecuteCombatMove:  .block
 
           jsr Overscan
@@ -375,7 +376,7 @@ PlayerHealsCommon:
           ;; TODO Any status FX to apply to the player?
 
 ;;; 
-          
+
 WaitOutScreen:
           .WaitScreenBottom
 

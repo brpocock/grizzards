@@ -20,6 +20,8 @@ MapSetup: .block
           lda BlessedY
           sta PlayerY
 
+;;; 
+
 NewRoom:
 
           jsr VSync
@@ -195,13 +197,7 @@ AddWanderingSprite:
           jmp SetUpSprite
 
 SpritesDone:
-
-          ;; Wait for TIMINT to finish after our variable-duration
-          ;; walking of the sprite lists
--
-          lda INTIM
-          sta WSYNC
-          bpl -
+;;; 
 
           sta CXCLR
 
