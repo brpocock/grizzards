@@ -1,5 +1,6 @@
 ;;; Grizzards Source/Common/CombatAnnouncementScreen.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
+
 CombatAnnouncementScreen:     .block
 
           lda # 0
@@ -55,11 +56,11 @@ Loop:
 
           jsr Prepare48pxMobBlob
 
-          .ldacolu COLGREEN, 0
+          .ldacolu COLINDIGO, 0
           sta COLUBK
 
           lda WhoseTurn
-          beq MonsterTurnColor
+          bne MonsterTurnColor
           .ldacolu COLTURQUOISE, $f
           jmp +
 
@@ -169,7 +170,7 @@ ObjectDone:
 
 WaitOutSpeechInterval:
 
-          lda # ( (KernelLines - 132) * 76 ) / 64
+          lda # ( (KernelLines - 162) * 76 ) / 64
           sta TIM64T
 
 ;;; 

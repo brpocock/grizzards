@@ -20,21 +20,21 @@ Loop:
           lda MoveHitMiss
           beq DrawHitPoints
 
-          lda # 17              ; 'H'
-          sta StringBuffer + 0
-          lda # 25              ; 'P'
-          sta StringBuffer + 1
-          lda # 40              ; blank
-          sta StringBuffer + 2
-          sta StringBuffer + 3
-
           lda MoveHP
-          bmi DrawHitPoints
+          bmi DrawHealPoints
+
+          .LoadString "HP  00"
 
           ldx # 39              ; '-'
           stx StringBuffer + 3
           and #$7f
           sta Temp
+          jmp DrawHitPoints
+
+DrawHealPoints:
+          eor #$ff
+          sta Temp
+          .LoadString "HEAL00"
 
 DrawHitPoints:
           ldy #ServiceAppendDecimalAndPrint
@@ -56,7 +56,28 @@ AfterHitPoints:
           bmi SkipStatusFX
 
 DrawStatusFX:
-          
+          lda MoveStatusFX
+          jsr ExecuteCombatMove.FindHighBit
+          txa
+          asl a
+          sta Temp
+          asl a
+          adc Temp
+
+          tax
+          ldy # 0
+-
+          lda StatusFXStrings, x
+          sta StringBuffer, y
+          inx
+          iny
+          cpy # 6
+          bne -
+
+          ldy #ServiceDecodeAndShowText
+          ldx #TextBank
+          jsr FarCall
+
 SkipStatusFX:
 
           ldx # 35
@@ -149,3 +170,16 @@ BackToMain:
           jmp CombatMainScreen          
 
           .bend
+
+;;; 
+
+StatusFXStrings:
+          .MiniText "SLEEP "
+          .MiniText "      "
+          .MiniText "ATK DN"
+          .MiniText "DEF DN"
+          .MiniText "MUDDLE"
+          .MiniText "      "
+          .MiniText "ATK UP"
+          .MiniText "DEF UP"
+

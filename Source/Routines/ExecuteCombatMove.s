@@ -109,12 +109,19 @@ MonsterAttackHitMinus:
 MonsterAttackHitCommon:
           sta MoveHP
           lda CurrentHP
+          cmp MoveHP
+          bge MonsterKilledGrizzard
           sec
           sbc MoveHP
-          bpl +
-          lda # 0               ; zero on negative
-+
           sta CurrentHP
+          bne MonsterDidNotKillGrizzard ; always taken
+
+MonsterKilledGrizzard:
+          lda # 0
+          sta CurrentHP
+          beq MonsterAttackNoStatusFX ; always taken
+
+MonsterDidNotKillGrizzard:
 
           ;; OK, also, what is the effect on the player's status?
           jsr Random
@@ -270,10 +277,8 @@ PlayerAttackHitMinus:
 PlayerAttackHitCommon:
           sta MoveHP
           ldx MoveTarget
-          lda MonsterHP, x
-          sec
-          sbc MoveHP
-          bpl PlayerDidNotKillMonster
+          cmp MonsterHP, x
+          blt PlayerDidNotKillMonster
 
           ;; add to score the amount for that monster
           ldy # 15              ; score value
@@ -298,8 +303,13 @@ ScoreNoCarry:
           cld
 
           lda # 0               ; zero on negative
-          ;; fall through
+          beq +                 ; always taken
+
 PlayerDidNotKillMonster:
+          lda MonsterHP, x
+          sec
+          sbc MoveHP
++
           sta MonsterHP, x
 
           ;; OK, also, what is the effect on the enemy's status?
