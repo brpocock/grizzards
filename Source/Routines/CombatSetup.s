@@ -82,6 +82,7 @@ SetUpOtherCombatVars:
           sta WhoseTurn         ; Player's turn
           sta MoveTarget        ; no target selected
           sta MoveAnnouncement
+          sta StatusFX
           ldx #6
 -
           sta EnemyStatusFX - 1, x
