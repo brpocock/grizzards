@@ -105,7 +105,6 @@ SignatureTime:
 
 WaitForScreenEnd:
           lda INTIM
-          sta WSYNC
           bne WaitForScreenEnd
 
           jsr Overscan

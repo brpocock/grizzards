@@ -24,9 +24,9 @@ Overscan: .block
           .endswitch
           
 FillOverscan:
-          sta WSYNC
-          lda TIMINT
+          lda INTIM
           bpl FillOverscan
+
           sta WSYNC
           rts
           .bend
