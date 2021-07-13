@@ -14,14 +14,15 @@ Loop:
           sta COLUP1
 
           lda MoveAnnouncement
-          cmp # 4
+          cmp # 5
           bmi SkipHitPoints
 
           lda MoveHitMiss
-          beq DrawHitPoints
+          beq DrawMissed
 
           lda MoveHP
           bmi DrawHealPoints
+          sta Temp              ; for later decoding
 
           .LoadString "HP  00"
 
@@ -31,6 +32,11 @@ Loop:
           sta Temp
           jmp DrawHitPoints
 
+DrawMissed:
+          .LoadString "MISSED"
+          .FarJSR TextBank, ServiceDecodeAndShowText
+          jmp AfterHitPoints
+          
 DrawHealPoints:
           eor #$ff
           sta Temp
@@ -55,7 +61,7 @@ AfterHitPoints:
 
 DrawStatusFX:
           lda MoveStatusFX
-          jsr ExecuteCombatMove.FindHighBit
+          jsr FindHighBit
           txa
           asl a
           sta Temp
@@ -161,19 +167,20 @@ NextTurn:
           lda #3
           jsr SetNextAlarm
 BackToMain:         
-          jmp CombatMainScreen          
+          rts
 
           .bend
 
 ;;; 
 
 StatusFXStrings:
-          .MiniText "SLEEP "
-          .MiniText "      "
-          .MiniText "ATK DN"
-          .MiniText "DEF DN"
-          .MiniText "MUDDLE"
-          .MiniText "      "
-          .MiniText "ATK UP"
-          .MiniText "DEF UP"
+          .MiniText "      "    ; no status fx
+          .MiniText "SLEEP "    ; sleep
+          .MiniText "      "    ; undefined
+          .MiniText "ATK DN"    ; attack down
+          .MiniText "DEF DN"    ; defend down
+          .MiniText "MUDDLE"    ; muddle mind
+          .MiniText "      "    ; undefined
+          .MiniText "ATK UP"    ; attack up
+          .MiniText "DEF UP"    ; defend up
 

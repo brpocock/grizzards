@@ -9,6 +9,11 @@ ExecuteCombatMove:  .block
 
           .WaitScreenTop
 
+          lda # 0
+          sta MoveHP
+          sta MoveHitMiss
+          sta MoveStatusFX
+
 DetermineOutcome:
           lda WhoseTurn
           beq PlayerMove
@@ -390,56 +395,12 @@ PlayerHealsCommon:
 WaitOutScreen:
           .WaitScreenBottom
 
-          jmp CombatOutcomeScreen
-
-;;; 
-
-;;; XXX These two routines are nearly identical
-;;; is it worth it to factor out a common prefix subroutine?
-
-FindHighBit:
-          tay
-          ldx # 7
--
-          tya
-          and BitMask, x
-          bne +
-          dex
-          bne -
-          lda # 0
-          rts
-+
-          lda BitMask, x        ; the only line that differs
-          rts
-
-CalculateAttackMask:
-          tay
-          ldx # 7
--
-          tya
-          and BitMask, x
-          bne +
-          dex
-          bne -
-          lda # 0
-          rts
-+
-          lda AttackMask, x     ; the only line that differs
-          rts
+          .FarJSR TextBank, ServiceCombatOutcome
+          jmp CombatMainScreen
 
           .bend
-;;; 
 
-AttackMask:
-          .byte %011111111
-          .byte %00111111
-          .byte %00011111
-          .byte %00001111
-          .byte %00000111
-          .byte %00000011
-          .byte %000000001
-          .byte %00000000
-          .byte %00000000
+;;; 
 
 LevelTable:
           ;; monsters have levels 0…$b for each of their stats

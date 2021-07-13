@@ -23,6 +23,8 @@ DoLocal:
           beq AppendDecimalAndPrintThunk
           cpy #ServiceFetchGrizzardMove
           beq FetchGrizzardMove
+          cpy #ServiceCombatOutcome
+          beq CombatOutcomeScreen
           brk
 
 DecodeAndShowText:
@@ -63,6 +65,9 @@ FetchedRunAway:
           .include "ShowGrizzardStats.s"
           .include "GrizzardDepot.s"
           .include "Failure.s"
+          .include "CombatOutcomeScreen.s"
+          .include "SetNextAlarm.s"
+          .include "FindHighBit.s"
 
           .include "GrizzardNames.s"
           .include "GrizzardImages.s"

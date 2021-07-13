@@ -48,6 +48,7 @@ DoLocal:
           .include "AttractCopyright.s"
           .include "AttractStory.s"
           .include "Credits.s"
+          .include "SetNextAlarm.s"
 
 Quit:
           ldy #ServiceColdStart

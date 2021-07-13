@@ -17,8 +17,8 @@ DoLocal:
           .include "CombatMainScreen.s"
           .include "GrizzardStatsScreen.s"
           .include "CombatAnnouncementScreen.s"
-          .include "CombatOutcomeScreen.s"
           .include "ExecuteCombatMove.s"
+          .include "FindHighBit.s"
 
           .include "ShowMonsterName.s"
 
