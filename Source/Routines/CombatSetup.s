@@ -49,6 +49,7 @@ SetUpMonsterHP:
           ldy # 14              ; offset of ATK & DEF
           lda (CurrentMonsterPointer), y
           and #$0f
+          tay
           lda LevelTable, y
           sta Temp
           
