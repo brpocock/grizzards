@@ -209,12 +209,18 @@ KillMusic:          .macro
           .endm
 
 FarJSR:   .macro bank, service
+          .if \bank == BANK
+          .error "Don't do FarJSR for the local bank"
+          .fi
           ldy #\service
           ldx #\bank
           jsr FarCall
           .endm
 
 FarJMP:   .macro bank, service
+          .if \bank == BANK
+          .error "Don't do FarJMP for the local bank"
+          .fi
           ldy #\service
           ldx #\bank
           jmp FarCall
