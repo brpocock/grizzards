@@ -110,6 +110,8 @@ AnnounceVerb:
 
 DrawVerb:
           .FarJSR TextBank, ServiceShowMove
+          stx WSYNC
+
           jmp VerbDone
 
 SkipVerb:
@@ -163,7 +165,7 @@ ObjectDone:
 
 WaitOutSpeechInterval:
 
-          lda # ( (KernelLines - 162) * 76 ) / 64
+          lda # ( (KernelLines - 161) * 76 ) / 64
           sta TIM64T
 
 ;;; 
