@@ -43,7 +43,6 @@ Loop:
           jmp AnimationFrameReady
 
 AnimationFrame0:
-          sta WSYNC             ; stabilize frame count
 
 AnimationFrameReady:
 
@@ -251,6 +250,7 @@ P1Done:
 ;;; 
 
 FillBottomScreen:
+          sta WSYNC
           sta WSYNC
           sta WSYNC
 
