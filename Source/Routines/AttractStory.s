@@ -20,7 +20,13 @@ Loop:
           .LoadString "-TODO-"
           .FarJSR TextBank, ServiceDecodeAndShowText
 
-          ldx # KernelLines - 42
+          .LoadString "COMING"
+          .FarJSR TextBank, ServiceDecodeAndShowText
+
+          .LoadString "AUGUST"
+          .FarJSR TextBank, ServiceDecodeAndShowText
+
+          ldx # KernelLines - 84
 -
           stx WSYNC
           dex
