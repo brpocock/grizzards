@@ -3,6 +3,7 @@
 
 ExecuteCombatMove:  .block
 
+          ;; CombatMainScreen jumps in here without doing its own overscan yet
           jsr Overscan
           ;; Draw one blank frame whilst we do arithmetic
           ;; These calculations take a variable amount of time
