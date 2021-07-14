@@ -110,7 +110,7 @@ FullCenter:
 FullMid:
           lda #$ff
           sta PF1
-          ;; TODO …
+          ;; TODO … draw health bar properly
           nop
           nop
           nop
@@ -124,7 +124,7 @@ DoneHealth:
           dex
           bne -
 
-;;;  
+;;; 
 
           lda # 0
           sta PF0
