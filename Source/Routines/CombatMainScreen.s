@@ -144,7 +144,49 @@ FillScreen:
 
 ;;; 
 
+ChooseMove:
+          lda WhoseTurn
+          beq PlayerChooseMove
+
+MonsterChooseMove:
+          jsr Random
+          and #$03
+          sta Temp
+          ldx CurrentCombatEncounter
+          lda EncounterMonster, x
+          asl a
+          asl a
+          clc
+          adc Temp
+          tax
+          lda MonsterMoves, x
+          sta MoveSelection
+
+MoveAutoChosen:
+          ldx #40
+-
+	stx WSYNC
+          dex
+          bne -
+          jmp ScreenDone
+
+PlayerMuddled:
+          jsr Random
+          and #$07
+          tax
+          lda BitMask, x
+          beq PlayerMuddled
+          stx MoveSelection
+          jmp MoveAutoChosen
+       
 PlayerChooseMove:
+          lda StatusFX
+          and #StatusSleep
+          beq PlayerSleeps
+          lda StatusFX
+          and #StatusMuddle
+          beq PlayerMuddled
+
           jsr Prepare48pxMobBlob
 
           ldx MoveSelection
