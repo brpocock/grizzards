@@ -15,7 +15,7 @@
           .include "StartBank.s"
           .include "SpeakJetIDs.s"
 
-          .text "griz", 0
+          .text "griz", 0       ; Magic cookie to identify file on Linux®
 DoLocal:
           cpy #ServiceColdStart
           beq ColdStart
