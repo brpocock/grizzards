@@ -12,7 +12,7 @@
           PUBLISHER = false
           .endweak
 
-	.include "StartBank.s"
+          .include "StartBank.s"
           .include "SpeakJetIDs.s"
 
           .text "griz", 0
