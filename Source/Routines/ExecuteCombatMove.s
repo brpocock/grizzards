@@ -189,12 +189,12 @@ MonsterHealsCommon:
           ldx WhoseTurn
           dex
           clc
-          adc MonsterHP, x
+          adc MonsterHP - 1, x
           cmp # 99
           blt +
           lda # 99
 +
-          sta MonsterHP, x
+          sta MonsterHP - 1, x
           lda MoveHP
           eor #$ff              ; negate the value to mean "gained"
           sta MoveHP
@@ -284,7 +284,7 @@ PlayerAttackHitMinus:
 PlayerAttackHitCommon:
           sta MoveHP
           ldx MoveTarget
-          cmp MonsterHP, x
+          cmp MonsterHP - 1, x
           blt PlayerDidNotKillMonster
 
 PlayerKilledMonster:
@@ -314,11 +314,11 @@ ScoreNoCarry:
           beq +                 ; always taken
 
 PlayerDidNotKillMonster:
-          lda MonsterHP, x
+          lda MonsterHP - 1, x
           sec
           sbc MoveHP
 +
-          sta MonsterHP, x
+          sta MonsterHP - 1, x
 
           ;; OK, also, what is the effect on the enemy's status?
           jsr Random
