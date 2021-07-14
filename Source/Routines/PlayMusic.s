@@ -1,6 +1,9 @@
 ;;; Grizzards Source/Routines/PlayMusic.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
-
+          .weak
+          PUBLISHER = 0
+          .endweak
+          
 DoMusic:
           lda CurrentMusic + 1
           bne PlayMusic
@@ -10,6 +13,12 @@ LoopMusic:
           .case 7
 
           lda GameMode
+          .if PUBLISHER
+          cmp #ModePublisherPresents
+          .else
+          cmp #ModeBRPPreamble
+          .fi
+          beq TheEnd
           and #$f0
           cmp #ModeAttract
           bne TheEnd
