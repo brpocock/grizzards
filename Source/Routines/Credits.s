@@ -54,7 +54,7 @@ Loop:
 
           lda NewINPT4
           beq +
-          bmi DoneAttractKernel
+          bpl DoneAttractKernel
 +
 
           lda NewSWCHB
