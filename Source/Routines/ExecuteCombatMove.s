@@ -199,6 +199,7 @@ MonsterHealsCommon:
           eor #$ff              ; negate the value to mean "gained"
           sta MoveHP
 
+MonsterBuff:
           ldx CombatMoveSelected
           lda MoveEffects, x
           sta Temp
@@ -209,7 +210,6 @@ MonsterHealsCommon:
           ldx WhoseTurn
           ora EnemyStatusFX - 1, x
           sta EnemyStatusFX - 1, x
-
 
           jmp WaitOutScreen
 
@@ -267,10 +267,8 @@ PlayerAttackHitMissP:
           txa
           cmp Temp
           blt PlayerAttackMiss
-          ;; fall through
-
+          ;; fall through          
 ;;; 
-
 PlayerAttackHit:
           ;; The attack was a success!
           ;; What is the effect on the enemy's HP?
@@ -401,8 +399,18 @@ PlayerHealsCommon:
           eor #$ff              ; negate the value to mean "gained"
           sta MoveHP
 
-          ;; TODO Any status FX to apply to the player?
 
+PlayerBuff:
+          ldx CombatMoveSelected
+          lda MoveEffects, x
+          sta Temp
+          jsr Random
+          and Temp
+          sta MoveStatusFX
+
+          ora StatusFX
+          sta StatusFX
+          ;;  fall through
 ;;; 
 
 WaitOutScreen:
