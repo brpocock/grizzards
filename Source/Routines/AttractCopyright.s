@@ -57,13 +57,13 @@ SkipBelowCopyright:
           lda #ModeAttractStory
           sta GameMode
 
-          lda INPT4
-          cmp DebounceINPT4
-          beq StillCopyright
-          sta DebounceINPT4
-          bpl StillCopyright
-          ;;lda #ModeCreditSecret
-          ;;sta GameMode
-
 StillCopyright:
+
+          lda NewINPT4
+          beq Done
+          bpl Done
+          lda #ModeCreditSecret
+          sta GameMode
+
+Done:
           jmp DoneAttractKernel         
