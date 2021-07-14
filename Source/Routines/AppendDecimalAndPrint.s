@@ -1,6 +1,6 @@
 ;;; Grizzards Source/Routines/AppendDecimalAndPrint.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
-AppendDecimalAndPrint:        
+AppendDecimalAndPrint:
           sta Temp
           jsr CopyPointerText
 
@@ -9,7 +9,7 @@ AppendDecimalAndPrint:
 BINBCD8:
           sed
           lda Temp
-          
+
           ldx # 8
 CNVBIT:                         
           asl Temp
@@ -18,7 +18,7 @@ CNVBIT:
           sta StringBuffer + 5
           dex
           bne CNVBIT
-          
+
           cld
 
           lda StringBuffer + 5
