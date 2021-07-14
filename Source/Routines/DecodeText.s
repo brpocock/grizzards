@@ -9,9 +9,9 @@ DecodeText:	.block
 	sta pp4h
 	sta pp5h
 
+          clc
 	.for i := 0, i < 6, i += 1
 	lda StringBuffer + i
-          clc
           asl a
           asl a
           adc StringBuffer + i
