@@ -26,7 +26,7 @@ DoLocal:
           .include "CombatSpeech.s"
           .include "TitleSpeech.s"
           .include "NumbersSpeech.s"
-
+          .include "AtariToday.s"
           .include "Theme.s"
 
           .include "EndBank.s"

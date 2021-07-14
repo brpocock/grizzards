@@ -21,7 +21,7 @@ ZeroRAM:
 
           sty GameMode
 
-          lda # SoundSweepUp
+          lda # SoundAtariToday
           sta NextSound
 
           .if PUBLISHER
