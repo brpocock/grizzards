@@ -55,17 +55,17 @@ Quit:
 
           .align $100
           .include "Title1.s"
-          .align $100
+          .align $100, 0
           .include "Title2.s"
-          .align $100
+          .align $100, 0
           .include "Title3.s"
-          .align $100
+          .align $100, 0
           .if PUBLISHER
             .include "PublisherCredit.s"
             .include "PublisherName.s"
           .else
             .include "BRPCredit.s"
-            .fill 66            ; leave space for publisher name
+            .fill 66, 0            ; leave space for publisher name
           .fi
 
           .include "EndBank.s"
