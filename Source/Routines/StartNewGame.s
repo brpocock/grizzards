@@ -104,7 +104,7 @@ SignatureTime:
           sta CurrentHP
 
 WaitForScreenEnd:
-          lda INTIM
+          lda INSTAT
           bne WaitForScreenEnd
 
           jsr Overscan

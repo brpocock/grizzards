@@ -305,7 +305,7 @@ CheckForAlarm:
 AlarmDone:
 
 -
-          lda INTIM
+          lda INSTAT
           bpl -
 
           lda MoveAnnouncement

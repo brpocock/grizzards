@@ -96,7 +96,7 @@ ShowActive:
           .LoadString "IN USE"
 
 FillToSlot:
-          lda INTIM
+          lda INSTAT
           bpl FillToSlot
 
 ShowSaveSlot:

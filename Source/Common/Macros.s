@@ -187,7 +187,7 @@ WaitScreenTop:      .macro
 
 WaitScreenBottom:      .macro
 -
-          lda INTIM
+          lda INSTAT
           bpl -
 
           ldx # KernelLines - TimerSkipLines

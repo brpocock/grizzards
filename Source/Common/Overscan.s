@@ -24,7 +24,7 @@ Overscan: .block
           .endswitch
           
 FillOverscan:
-          lda INTIM
+          lda INSTAT
           bpl FillOverscan
 
           sta WSYNC

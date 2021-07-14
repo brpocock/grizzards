@@ -43,7 +43,7 @@ VBlank: .block
 +
 
 FillVBlank:
-          lda INTIM
+          lda INSTAT
           bpl FillVBlank
 
           stx WSYNC
