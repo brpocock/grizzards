@@ -137,6 +137,9 @@ FillScreen:
           stx WSYNC
           dex
           bne FillScreen
+          .else
+          stx WSYNC
+          stx WSYNC
           .fi
 
 ;;; 
@@ -147,7 +150,10 @@ PlayerChooseMove:
           ldx MoveSelection
           bne NotRunAway
           .ldacolu COLTURQUOISE, $f
-          bne ShowSelectedMove
+          .rept 4
+          sta WSYNC
+          .next
+          bne ShowSelectedMove  ; always taken
 
 NotRunAway:
           lda BitMask - 1, x
