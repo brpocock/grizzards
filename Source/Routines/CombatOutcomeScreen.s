@@ -137,8 +137,8 @@ WonBattle:
           ora ProvinceFlags, y
           sta ProvinceFlags, y
 
-          lda 
-          ;; TODO won battle music?
+          lda #SoundVictory
+          sta NextSound
 
           lda #ModeMap
           sta GameMode

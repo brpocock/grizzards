@@ -28,5 +28,6 @@ DoLocal:
           .include "NumbersSpeech.s"
           .include "AtariToday.s"
           .include "Theme.s"
+          .include "Victory.s"
 
           .include "EndBank.s"
