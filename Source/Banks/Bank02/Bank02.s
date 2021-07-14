@@ -33,7 +33,7 @@ DecodeAndShowText:
 
 AppendDecimalAndPrintThunk:
           lda Temp
-          jmp BINBCD8
+          jmp AppendDecimalAndPrint.BINBCD8
 
 FetchGrizzardMove:
           ldx MoveSelection
