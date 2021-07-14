@@ -136,14 +136,22 @@ AnnounceObject:
           beq SkipObject
 
 DrawObject:
+          ldx CombatMoveSelected
+          lda MoveDeltaHP, x
+          bpl ObjectOther
+
+ObjectSelf:
           lda WhoseTurn
+          beq PlayerObject
+          bne MonsterTargetObject
 
-          ;; TODO handle moves that are reflected back on the subject
-
+ObjectOther:
+          lda WhoseTurn
           bne PlayerObject
 
 MonsterTargetObject:
           jsr ShowMonsterNameAndNumber
+          stx WSYNC
           jmp ObjectDone
 
 PlayerObject:
