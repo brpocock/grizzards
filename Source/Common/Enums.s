@@ -98,6 +98,7 @@
           ColdStartBank = $00
           SaveKeyBank = $00
           MapServicesBank = $01
+          AnimationsBank = $01
           TextBank = $02
           FailureBank = $02
           Province0MapBank = $03
@@ -124,10 +125,14 @@
 
           ServiceTopOfScreen = $08
           ServiceBottomOfScreen = $09
-          ServiceFireworks = $0a
-          ServiceDrawMonsterGroup = $0b
           ServiceNewGrizzard = $0c
+
+;;; Animations share the map services bank in 32k
+
+          ServiceDrawMonsterGroup = $0b
+          ServiceFireworks = $0a
           ServiceDeath = $0d
+          ServiceAttractStory = $15
 
 ;;; Also the cold start / save game bank
 
