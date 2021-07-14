@@ -141,10 +141,10 @@ FillScreen:
 
 ;;; 
 
+PlayerChooseMove:
           jsr Prepare48pxMobBlob
 
           ldx MoveSelection
-          cpx # 0
           beq SelectedRunAway
           ldy # COLGRAY | 0
           dex
@@ -160,10 +160,9 @@ FillScreen:
 
           lda NewINPT4
           beq ScreenDone
-          and #$80
+          and #PRESSED
           bne ScreenDone
 
-          ;; Is the move known?
           ldx MoveSelection
           dex
           lda BitMask, x
@@ -184,7 +183,6 @@ DoUseMove:
 ;;; 
 
 SelectedRunAway:
-
           lda # COLTURQUOISE | $f
           sta COLUP0
           sta COLUP1
