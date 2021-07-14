@@ -177,7 +177,23 @@ PlayerMuddled:
           lda BitMask, x
           beq PlayerMuddled
           stx MoveSelection
+          jsr Random
+          bpl +
+          lda StatusFX
+          ora #$ff ^ StatusMuddle
+          sta StatusFX
++
           jmp MoveAutoChosen
+
+PlayerSleeps:
+          jsr Random
+          bpl +
+          bpl +
+          lda StatusFX
+          ora #$ff ^ StatusMuddle
+          sta StatusFX
++
+          jmp CombatOutcomeScreen.NextTurn ; FIXME scanline count
        
 PlayerChooseMove:
           lda StatusFX
