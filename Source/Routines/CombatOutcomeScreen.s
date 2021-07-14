@@ -13,6 +13,7 @@ Loop:
           sta COLUP0
           sta COLUP1
 
+;;; 
           lda MoveAnnouncement
           cmp # 5
           bmi SkipHitPoints
@@ -22,10 +23,10 @@ Loop:
 
           lda MoveHP
           bmi DrawHealPoints
+          beq SkipHitPoints
           sta Temp              ; for later decoding
 
           .LoadString "HP -00"
-
           jmp DrawHitPoints
 
 DrawMissed:
@@ -35,8 +36,7 @@ DrawMissed:
 
 DrawHealPoints:
           eor #$ff
-          clc
-          adc #1
+          beq SkipHitPoints
           sta Temp
           .LoadString "HEAL00"
 
@@ -51,7 +51,7 @@ SkipHitPoints:
           stx WSYNC
           dex
           bne -
-
+;;; 
 AfterHitPoints:
           lda MoveAnnouncement
           cmp # 5
@@ -85,15 +85,15 @@ SkipStatusFX:
           stx WSYNC
           dex
           bne -
-
+;;; 
 AfterStatusFX:
 
-          ldx # KernelLines - 62
+          ldx # KernelLines - 73
 FillScreen:
           stx WSYNC
           dex
           bne FillScreen
-
+;;; 
           lda ClockSeconds
           cmp AlarmSeconds
           bne AlarmDone
@@ -112,7 +112,7 @@ AlarmDone:
 
           jsr Overscan
           jmp Loop
-
+;;; 
 CombatOutcomeDone:
           lda WhoseTurn
           bne CheckForLoss
@@ -137,6 +137,7 @@ WonBattle:
           ora ProvinceFlags, y
           sta ProvinceFlags, y
 
+          lda 
           ;; TODO won battle music?
 
           lda #ModeMap
