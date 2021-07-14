@@ -110,7 +110,7 @@ FullCenter:
 FullMid:
           lda #$ff
           sta PF1
-          ;; TODO …
+          ;; TODO … draw health bar properly
           nop
           nop
           nop
@@ -124,7 +124,7 @@ DoneHealth:
           dex
           bne -
 
-;;;  
+;;; 
 
           lda # 0
           sta PF0
@@ -141,30 +141,37 @@ FillScreen:
 
 ;;; 
 
+PlayerChooseMove:
           jsr Prepare48pxMobBlob
 
           ldx MoveSelection
-          cpx # 0
-          beq SelectedRunAway
-          ldy # COLGRAY | 0
-          dex
-          lda BitMask, x
+          bne NotRunAway
+          .ldacolu COLTURQUOISE, $f
+          bne ShowSelectedMove
+
+NotRunAway:
+          lda BitMask - 1, x
           bit MovesKnown
-          beq +
-          ldy # COLRED | $4
-+
-          sty COLUP0
-          sty COLUP1
+          beq NotMoveKnown
+          .ldacolu COLRED, 4
+          bne ShowSelectedMove
+
+NotMoveKnown:
+          .ldacolu COLGRAY, 0
+          ;; fall through
+ShowSelectedMove:
+          sta COLUP0
+          sta COLUP1
 
           .FarJSR TextBank, ServiceShowMove
 
           lda NewINPT4
           beq ScreenDone
-          and #$80
+          and #PRESSED
           bne ScreenDone
 
-          ;; Is the move known?
           ldx MoveSelection
+          beq RunAway
           dex
           lda BitMask, x
           and MovesKnown
@@ -181,27 +188,7 @@ DoUseMove:
 
           jmp CombatAnnouncementScreen
 
-;;; 
-
-SelectedRunAway:
-
-          lda # COLTURQUOISE | $f
-          sta COLUP0
-          sta COLUP1
-
-          .FarJSR TextBank, ServiceShowMove
-
-          ldx #5
--
-          stx WSYNC
-          dex
-          bne -
-
-          lda NewINPT4
-          beq ScreenDone
-          and #$80
-          bne ScreenDone
-
+RunAway:
           lda #SoundHappy
           sta NextSound
 
@@ -221,7 +208,9 @@ ScreenDone:
 
 Leave:
           cmp #ModeMap
-          bne GoMap
+          bne +
+          jmp GoMap
++
           cmp #ModeGrizzardStats
           bne +
           lda #ModeCombat
@@ -255,4 +244,3 @@ HealthyPF1:
           .byte %01111111
 
           .bend
-

@@ -32,7 +32,7 @@ DrawMissed:
           .LoadString "MISSED"
           jsr DecodeAndShowText
           jmp AfterHitPoints
-          
+
 DrawHealPoints:
           eor #$ff
           clc
@@ -137,8 +137,8 @@ WonBattle:
           ora ProvinceFlags, y
           sta ProvinceFlags, y
 
+          ;; TODO won battle music?
 
-          
           lda #ModeMap
           sta GameMode
           jmp GoMap
@@ -149,7 +149,7 @@ CheckForLoss:
 
           .FarJMP MapServicesBank, ServiceDeath ; never returns
 
-NextTurn: 
+NextTurn:
           inc WhoseTurn
           ldx WhoseTurn
           dex
@@ -164,7 +164,7 @@ NextTurn:
 
           lda #3
           jsr SetNextAlarm
-BackToMain:         
+BackToMain:
           rts
 
           .bend

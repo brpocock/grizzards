@@ -3,6 +3,8 @@
 
 CombatAnnouncementScreen:     .block
 
+          jsr Overscan
+
           lda # 0
           sta MoveAnnouncement
           sta MoveSpeech
@@ -42,7 +44,6 @@ MoveFound:
 
           lda #2
           jsr SetNextAlarm
-
 
           .WaitScreenBottom
 

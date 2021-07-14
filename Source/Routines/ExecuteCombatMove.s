@@ -40,14 +40,14 @@ MonsterAttacks:
           tay
           ldx WhoseTurn
           dex
-          lda EnemyStatusFX, x
+          lda EnemyStatusFX - 1, x
           and #StatusAttackDown
           beq +
           tya
           ror a
           tay
 +
-          lda EnemyStatusFX, x
+          lda EnemyStatusFX - 1, x
           and #StatusAttackUp
           beq +
           tya
@@ -330,12 +330,12 @@ PlayerDidNotKillMonster:
 PlayerAttackSetsStatusFX:
           ldx MoveTarget
           tay
-          and EnemyStatusFX, x
+          and EnemyStatusFX - 1, x
           bne PlayerAttackNoStatusFX ; they already have that status
           tya
           sta MoveStatusFX
-          ora EnemyStatusFX, x
-          sta EnemyStatusFX, x
+          ora EnemyStatusFX - 1, x
+          sta EnemyStatusFX - 1, x
 
 PlayerAttackNoStatusFX:
           lda # 1
