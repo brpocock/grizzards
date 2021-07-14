@@ -15,7 +15,7 @@ Credits:  .block
 
 Loop:
 
-          ldx # 74
+          ldx # 20
 -
           stx WSYNC
           dex
@@ -34,23 +34,31 @@ Loop:
           .LoadString "ZEPHYR"
           jsr ShowText
 
-          ldx # KernelLines - 153
+          ldx # 40
 -
           stx WSYNC
           dex
           bne -
 
-          lda INPT4
-          cmp DebounceINPT4
+          DateString = format("%04d%02d%02d", YEARNOW, MONTHNOW, DATENOW)
+          DateString6 = DateString[2:]
+
+          .LoadString DateString6
+          jsr ShowText
+          
+          ldx # KernelLines - 158
+-
+          stx WSYNC
+          dex
+          bne -
+
+          lda NewINPT4
           beq +
-          sta DebounceINPT4
           bmi DoneAttractKernel
 +
 
-          lda SWCHB
-          cmp DebounceSWCHB
+          lda NewSWCHB
           beq StayCredits
-          sta DebounceSWCHB
           and #SWCHBReset
           beq StayCredits
           lda #ModeAttractCopyright
