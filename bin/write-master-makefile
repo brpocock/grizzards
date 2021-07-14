@@ -18,6 +18,7 @@ MONTH=$(shell date +%m)
 DATE=$(shell date +%d)
 JULIAN=$(shell date +%j)
 BUILD=$(shell date +%y.%j)
+PUBLISHER=0 # override from command line only
 ASFLAGS=--nostart --long-branch --case-sensitive \
 	--ascii -I Source/Common -I Source/Routines -I Source/Generated/Common \
 	-D YEARNOW=${YEAR} -D MONTHNOW=${MONTH} \
