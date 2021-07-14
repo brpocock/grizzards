@@ -3,6 +3,10 @@
 
 AttractStory:       .block
 
+Loop:
+          jsr VSync
+          jsr VBlank
+
           .ldacolu COLBLUE, $8
           sta COLUBK
 
@@ -39,8 +43,14 @@ AttractStory:       .block
           jsr SetNextAlarm
           lda #ModeAttractTitle
           sta GameMode
+          rts
 
 StillStory:
-          jmp DoneAttractKernel
+          jsr Overscan
+          jmp Loop
 
+          ;; TODO flesh out this mode
+
+          .fill $200, $ea
+          
           .bend

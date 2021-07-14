@@ -30,6 +30,8 @@ DoLocal:
           beq StartNewGame
           cpy #ServiceDeath
           beq Death
+          cpy #ServiceAttractStory
+          beq AttractStory
           brk
 
           .include "MapTopService.s"
@@ -43,6 +45,8 @@ DoLocal:
           .include "CombatSpriteTables.s"
           .include "GrizzardStartingStats.s"
           .include "StartNewGame.s"
+          .include "AttractStory.s"
+          .include "SetNextAlarm.s"
 
           .include "AtariVox-EEPROM-Driver.s"
 

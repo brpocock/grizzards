@@ -46,7 +46,6 @@ DoLocal:
           .include "SaveGrizzard.s"
           .include "PreambleAttracts.s"
           .include "AttractCopyright.s"
-          .include "AttractStory.s"
           .include "Credits.s"
           .include "SetNextAlarm.s"
 

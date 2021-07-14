@@ -64,7 +64,8 @@ Loop:
           .fi
           
 StoryMode:
-          jmp AttractStory
+          .FarJSR AnimationsBank, ServiceAttractStory
+          jmp Loop
 
 TitleMode:
           lda AttractHasSpoken
