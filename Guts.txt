@@ -1,0 +1,185 @@
+Developer's Notes: Guts of the Grizzards
+
+This  is a  stream-of-consciousness mess  that  needs to  be cleaned  up
+a lot. Sorry.
+
+If you're reading this, you're probably trying to make out how this game
+works to some  degree. Hopefully this overview document will  set you on
+the right path.
+
+
+
+Each ROM bank is built  around a file named Source/Banks/Bank00/Bank00.s
+or so.  This file contains  little-to-no code, but defines  the constant
+BANK and  .includes all the  specific routines  and data for  that bank.
+For service banks, the dispatch function is found in this file as well.
+
+Note that the  “magic” DoLocal label can be pointed  anywhere in memory,
+and is the entry  point for FarCalls made to this  bank. I usually leave
+it near the beginning, though.
+
+ROM banks have enumerated symbolic names:
+
+ * 0 is ColdStartBank and SaveKeyBank (both). These routines include the
+   publisher/author  credit  screen,  the title  screen,  the  copyright
+   notice, a secret  Easter Egg screen which displays  the build version
+   of the game, and the Select/Erase Game Slot screen.
+
+ * 1  is MapServicesBank  and AnimationsBank  (both). The  animations to
+   which the title  refers are win, lose, and the  “story” screen in the
+   attract sequence.
+
+ * 2 is  the TextBank. It's  also FailureBank,  where the “sad  face” is
+   drawn (via the BRK vector).
+
+ * 3 is the Province0MapBank.  This is one half of the  maps in the game
+   (roughly) and all share a common background song (Province0.midi).
+
+ * 4 is the Province1MapBank, with the rest of the maps.
+
+ * 5 is CombatBank for combats  0-127. These are the persistent combats,
+   which are removed from the map after victory.
+
+ * 6 is CombatBank for combats 128-255. These are the transient combats,
+   typically random encounters, which respawn immediately after victory.
+
+ * 7 is the  SFXBank, handling sound effects, speech  synthesis, and the
+   music for the title/attract sequence.
+
+
+Each bank includes Source/Common/EndBank.s which provides “wired” memory
+(the same  in every bank)  with routines to jump  into a map,  jump into
+combat, or make a “far call” to  a function in another bank. The FarCall
+subroutine  (and the  .FarJSR macro,  or .FarJMP  for tail  calls) takes
+a memory bank number in the X  register, and a service routine ID in the
+Y register. These  are both taken from lists of  constants maintained in
+Source/Common/Enums.s.
+
+I say “the  same in every bank,”  but the actual contents  of the memory
+may be a little different in each bank. EG: The address of DoLocal might
+be  different, or  a  routine might  not need  to  bank-switch to  reach
+a certain destination. In particular,  remember that bank switching does
+not change  the program counter, so  after every store to  a bank switch
+register  the  next opcode  has  to  be at  the  right  location in  the
+destination bank, and this “wiring” ensures that.
+
+One oddball thing found  in EndBank is a BitMask table  that can be used
+to convert the X register to 2 to  the power of X, which us something we
+use all over the place.
+
+Aside from  looking cleaner, an  advantage of  using .FarJSR is  that it
+will signal a compile-time error if you  attempt to do a far call to the
+current memory bank (when you could do a regular JSR instead).
+
+Text  is mostly  encoded (by  the assembler)  in what  I have  nicknamed
+“minifont” coding. 0 = “0,” $0a = “A,” and so forth (so decimal digit or
+hex dumping  is trivial), up  through 40 =  blank. The text  macros like
+.MiniText handle the conversion from Unicode silently at compile-time.
+
+Sound effects have  a one-deep queue system, where  the NextSound memory
+location is a  queue. Sound IDs are taken from  enumerated constants and
+the Bank  7 sound routine  checks NextSound after finishing  the current
+sound. Sound effects use voice 0, music uses voice 1.
+
+The .sound  macro handles change  of duration  based on system,  but not
+pitch adjustments; however, the music  compiler writes out both NTSC and
+PAL  (shared with  SECAM) versions  of pitches  to ensure  best-possible
+fidelity of music  playback.
+
+Music routines  exist in Bank  7 for  the title song,  and in banks  3 &
+4 for  the map background music  for each region of  the game (currently
+the same  music for both,  I need to  write something else).  Sounds and
+music are in  identical formats, but music loops and  sound effects stop
+and play  the next one  (if any) from  the queue. These  functions maybe
+could be combined cleverly to scrape a few bytes of ROM.
+
+Speech routines use CurrentUtterance as a  pointer to a phoneme; once it
+is zeroed  out (because the utterance  has been completed), a  caller is
+permitted  to  place   an  enumerated  ID  of  a   speech  phrase  (from
+Source/Generated/Common/SpeakJetIDs.s)  into   that  two-byte  register;
+since  a ROM  pointer always  is in  the $f000-$ffff  range, the  speech
+routine can  determine that  is an order  for a new  phrase and  look up
+its address.
+
+Sound, music, and speech are  handled during overscan. The sound effects
+bank has only the one service to  provide (well, a 3-in-1 service) so it
+does not require Y to be loaded with a service routine ID.
+
+Common code  is used for VSync,  VBlank, and Overscan in  every ROM bank
+that uses them — which is every bank except 7.
+
+Some FarCalled  routines (eg. player  death) may never return,  and they
+reset the stack pointer (to $ff) and go about their own business.
+
+There is  a 6-char StringBuffer  used for composing  text, and a  set of
+6 (word-length)  “pixel pointers”  used for various  graphics functions,
+including text  display. There's  also a one  byte Temp  and word-length
+Pointer temp vars that are used constantly.
+
+Part of zero  page is globally used;  part of that is saved  to the save
+game “file”  on the EEPROM. A  set of game flags  (indicating victory in
+combat) are saved to different areas  of the save game file depending on
+which “province” the  player is in (Province  0 in ROM banks  4 for maps
+and  6 for  combat, or  Province 1  in banks  3 and  5). Another  5-byte
+segment  holds the  current  Grizzard's stats,  which  are “paged”  when
+changing Grizzards.
+
+The middle  part (between globals and  the stack) of the  zero page hold
+“overlain”  variables   which  are  defined  for   a  specific  routine.
+These routines  normally reset  them on  entry to  a game  routine (e.g.
+starting combat), trashing whatever the previous game routine might have
+left there.
+
+A global  clock stores current  time in  game play, in  frames, seconds,
+minutes, and four-hour increments. (The minutes counter ranges 0-239.)
+An alarm word can  be used to set an alarm for a  future time in minutes
+and   seconds,  and   is  used   to  normalize   display  delays   (e.g.
+message  displays) between  50Hz  and 60Hz  systems.  Currently NTSC  is
+always 60Hz and PAL & SECAM are  locked to 50Hz, but it's plausible that
+could be changed. In addition to working with the alarm timer, the clock
+is  used  for  the  game  play clock  displayed  in  a  Grizzard  Depot.
+If a  crazy person  plays for  more than $ff  4-hours (1,020  hours) the
+hours counter stops and the Depot reports only “MANY” hours played.
+
+The user  input is scanned  during VBlank and debounced.  Current values
+are available  in eg.  DebounceSWCHA; when these  have not  changed, the
+matching new  registers eg.  NewSWCHA are zeroed.  When the  values have
+changed, the New registers contain non-zero values.
+
+For  screens that  want  to perform  some  variable-length work  without
+losing count of scanlines, there are a pair of macros .WaitScreenTop and
+.WaitScreenBottom that  set up TIM64T to  allow the routine to  work for
+the majority  of a frame (181  scanlines, 215 TIM64T counts),  then wait
+out the timer and hit WSYNC enough times to keep the scanline count even
+(262 resp.  312 for  NTSC or  PAL/SECAM). This is  used for  things like
+computing the outcome of a Move in combat which are too complex to count
+cycles in any meaningful way.
+
+There  is (unused)  support for  localization of  text based  on a  LANG
+constant  at compile-time.  This  could  also be  used  to swap  between
+different art pieces  (eg. title card) but that complexity  has not been
+approached yet.  I do  think it would  be cool to  put out  a translated
+version of  the game, but  the 6-char limits will  be a big  problem for
+most languages.
+
+Combat is  roughly broken  into 4  routines: CombatMainScreen  shows the
+monsters, the player's Grizzard, and  (on the player's turn) allows move
+selection (or  makes a  selection for monsters  or a  Muddled Grizzard).
+CombatAnnouncementScreen just echoes what is  happening in the Move, and
+looks up some facts about that  move that are used by ExecuteCombatMove.
+ExecuteCombatMove is somewhat self-explanatory and occurs during a blank
+frame. The CombatOutcomeScreen displays  the outcome, and possibly jumps
+to Death, WinnerFireworks, or back to the map screen as appropriate.
+
+
+
+
+Stylistically, I use CamelCase for  memory addresses and constants both,
+for the  most part, with  CAPS for constants  that are really  more like
+compile-time variables: TV, DEMO, and PUBLISHER in particular.
+
+I usually  add a space between  “#” and a  decimal value, but not  a hex
+value, just to make it slightly easier to tell it's a decimal.
+
+
+
