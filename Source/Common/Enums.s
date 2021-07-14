@@ -158,3 +158,9 @@
 
           TimerSkipFrame = 215
           TimerSkipLines = 181
+
+;;; Localization
+
+          LangEng = $0e
+          LangSpa = $05
+          LangFra = $0f
