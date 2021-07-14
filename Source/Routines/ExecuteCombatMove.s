@@ -188,7 +188,6 @@ MonsterHealsMinusHP:
 
 MonsterHealsCommon:
           ldx WhoseTurn
-          dex
           clc
           adc MonsterHP - 1, x
           cmp # 99
@@ -200,7 +199,17 @@ MonsterHealsCommon:
           eor #$ff              ; negate the value to mean "gained"
           sta MoveHP
 
-          ;; TODO Any status FX to apply to the monster?
+          ldx CombatMoveSelected
+          lda MoveEffects, x
+          sta Temp
+          jsr Random
+          and Temp
+          sta MoveStatusFX
+
+          ldx WhoseTurn
+          ora EnemyStatusFX - 1, x
+          sta EnemyStatusFX - 1, x
+
 
           jmp WaitOutScreen
 
