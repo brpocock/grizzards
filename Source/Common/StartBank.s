@@ -19,7 +19,7 @@
           .if DEMO
           STARTER := 1          ; Start with Aquax in the demo
           .else
-          STARTER := 0          ; Should come from build command-line later
+          STARTER := 0          ; Should come from build command-line
           .fi
           .endweak
 
