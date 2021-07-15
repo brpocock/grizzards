@@ -304,6 +304,8 @@ FightWithSprite:
           ldx SpriteFlicker     ; ? Seems unnecessary 
           lda SpriteParam, x
           sta CurrentCombatEncounter
+          lda SpriteIndex, x
+          sta CurrentCombatIndex
           lda #ModeCombat
           sta GameMode
           rts

@@ -282,6 +282,9 @@ StartGameWipeBlock:
 CurrentCombatEncounter:
           .byte ?
 
+CurrentCombatIndex:
+          .byte ?
+
 CurrentMonsterPointer:
           .word ?
 

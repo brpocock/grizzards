@@ -128,13 +128,13 @@ CheckForWin:
           bne -
 
 WonBattle:
-          lda CurrentCombatEncounter
+          lda CurrentCombatIndex
           ror a
           ror a
           ror a
           and #$07
           tay
-          ldx CurrentCombatEncounter
+          ldx CurrentCombatIndex
           lda BitMask, x
           ora ProvinceFlags, y
           sta ProvinceFlags, y
