@@ -8,10 +8,6 @@
 
           BANK = $00
 
-          .weak
-          PUBLISHER = false
-          .endweak
-
           .include "StartBank.s"
           .include "SpeakJetIDs.s"
 
@@ -56,9 +52,27 @@ Quit:
           .align $100
           .include "Title1.s"
           .align $100, 0
+
+          .switch STARTER
+          .case 0
           .include "Title2.s"
           .align $100, 0
           .include "Title3.s"
+
+          .case 1
+          .include "Title2.s"
+          .align $100, 0
+          .include "Title3.s"
+
+          .case 2
+          .include "Title2.s"
+          .align $100, 0
+          .include "Title3.s"
+
+          .default
+          .error "STARTER ∈ (0 1 2), not ", STARTER
+          .endswitch
+
           .align $100, 0
           .if PUBLISHER
             .include "PublisherCredit.s"

@@ -9,6 +9,16 @@
 
 ;;; Start of each ROM bank
 
+          .weak
+          DEMO := false
+          PUBLISHER := false
+          STARTER := 0
+          TV := NTSC
+          .endweak
+
+          .enc "Unicode"
+          .cdef $00, $1ffff, 0
+
 	.include "Math.s"
 	.include "VCS.s"
 	.include "Enums.s"
@@ -19,6 +29,3 @@
 	* = $f000
 	.offs -$f000
 
-          .weak
-          DEMO = 0
-          .endweak

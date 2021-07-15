@@ -8,10 +8,6 @@
           PAL = "p"[0]
           SECAM = "s"[0]
 
-          .weak          
-          TV = NTSC
-          .endweak
-
 ;;; 
 ;;; Input pins
 
