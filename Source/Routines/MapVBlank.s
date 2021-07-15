@@ -112,7 +112,7 @@ SpriteMoveDone:
           cmp #ScreenLeftEdge
           bge LeftOK
           lda SpriteMotion, x
-          and # $ff ^ SpriteMoveLeft
+          and #~SpriteMoveLeft
           ora #SpriteMoveIdle
           sta SpriteMotion, x
           lda #ScreenLeftEdge + 1
@@ -121,7 +121,7 @@ LeftOK:
           cmp #ScreenRightEdge
           blt RightOK
           lda SpriteMotion, x
-          and # $ff ^ SpriteMoveRight
+          and #~SpriteMoveRight
           ora #SpriteMoveIdle
           sta SpriteMotion, x
           lda #ScreenRightEdge - 1
@@ -131,7 +131,7 @@ RightOK:
           cmp #ScreenTopEdge
           bge TopOK
           lda SpriteMotion, x
-          and # $ff ^ SpriteMoveUp
+          and #~SpriteMoveUp
           ora #SpriteMoveIdle
           sta SpriteMotion, x
           lda #ScreenTopEdge + 1
@@ -140,7 +140,7 @@ TopOK:
           cmp #ScreenBottomEdge
           blt BottomOK
           lda SpriteMotion, x
-          and # $ff ^ SpriteMoveDown
+          and #~SpriteMoveDown
           ora #SpriteMoveIdle
           sta SpriteMotion, x
           lda #ScreenBottomEdge - 1
