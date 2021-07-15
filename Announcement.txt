@@ -178,9 +178,9 @@ music, title graphics, and phoneme tables for speech synthesis.
 
 * Credits
 
-Program, art, music, etc. — Bruce-Robert Pocock.
+Program, game art, music, etc. — Bruce-Robert Pocock.
 
-
+“Label” art — Zephyr Salz
 
 Includes  VCS header  file by  Matthew Dillon,  Olaf “Rhialto”  Seibert,
 Andrew David, and Peter H. Froehlich (converted for 64tass syntax).
