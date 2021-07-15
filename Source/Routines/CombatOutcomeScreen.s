@@ -30,7 +30,7 @@ Loop:
           jmp DrawHitPoints
 
 DrawMissed:
-          .SetPointer Messed
+          .SetPointer Missed
           jsr DecodeAndShowText
           jmp AfterHitPoints
 
