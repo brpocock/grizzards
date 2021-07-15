@@ -43,8 +43,10 @@ DoLocal:
           .include "PreambleAttracts.s"
           .include "AttractCopyright.s"
           .include "Credits.s"
+          .include "CopyPointerText.s"
           .include "SetNextAlarm.s"
 DecodeAndShowText:
+          jsr CopyPointerText
           .FarJMP TextBank, ServiceDecodeAndShowText
 Quit:
           ldy #ServiceColdStart
