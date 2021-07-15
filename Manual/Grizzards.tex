@@ -24,7 +24,7 @@
 
 \checkandfixthelayout
 
-\title{Grizzards \ifdef\DEMO Demo \fi Player's Guide}
+\title{Grizzards \ifdefined\DEMO Demo \fi Player's Guide}
 \author{Bruce-Robert Pocock}
 
 %% TV Standard
@@ -80,7 +80,7 @@
 \null\vfill
 
 \begin{flushleft}
-This is the \textit{Grizzards} \ifdef\DEMO Demo \fi Player's Guide
+This is the \textit{Grizzards} \ifdefined\DEMO Demo \fi Player's Guide
 
 Copyright \copyright{} 2021, Bruce-Robert Pocock
 
@@ -98,18 +98,10 @@ or its successors.
 
 \bigskip
 
-\thedate
+This  is a  DRAFT document.  Areas of  this manual  which have  not been
+written yet, or missing images, are noted with *** (asterisks).
 
-\bigskip
-
-This  manual  is  Copyright   \copyright{}  2021,  Bruce-Robert  Pocock.
-All rights reserved.
-
-\bigskip
-
-This is a DRAFT document.
-
-\ifdef\DEMO
+\ifdefined\DEMO
 This manual describes  a DEMO version of the game.  The full version may
 be different.
 \fi
@@ -128,6 +120,8 @@ Train your Grizzard to  use a variety of moves to  take on the monsters.
 Discover new kinds  of Grizzards with new capabilities.  Can you conquer
 all the monsters of Syrex?
 
+\bigskip
+
 In the \textit{Grizzards}  videogame, you'll roam the land  looking for monsters.
 Monsters may  surprise you as  you travel, or  you may see  them coming.
 When faced  with terrifying beasts,  you'll direct your Grizzard  to use
@@ -142,35 +136,59 @@ its moves to defend you and attack the monsters.
 To play \textit{Grizzards}, you will need:
 
 \begin{itemize}
-\item An  Atari Video  Computer System  CX-2600, Sears  Tele-Games Video
-  Arcade, Atari 2600jr game system, or Atari 7800 ProSystem
+\item An Atari  console: the Atari Video Computer  System CX-2600, Sears
+  Tele-Games  Video Arcade,  Atari  2600jr game  system,  or Atari  7800
+  ProSystem
 \item A TV or video display
 \item A joystick controller
-\item  An AtariVox  device with  (optional) speakers  or headphones,  or
-  a MemCard or SaveKey device.
+\item A  memory device: an  AtariVox device with (optional)  speakers or
+  headphones, or a MemCard or SaveKey device.
 \item The \textit{Grizzards} game cartridge
 \end{itemize}
 
 Set  up your  Video  Computer  System with  your  TV  or video  display.
 Connect a  joystick controller to  the \emph{left} controller  port, and
-the  AtariVox  (or  MemCard  or  SaveKey)  device  to  the  \emph{right}
-controller  port.  Make  certain  that   the  Power  switch  is  in  the
-Off position.
+the memory device to the \emph{right} controller port. Make certain that
+the Power switch is in the Off position.
 
 Finally, insert the \textit{Grizzards} game  cartridge (with the label facing up)
 into the cartridge slot, and turn the Power On.
 
-\section{Controller Ports}
+\section{Joystick}
 
-Your joystick  connects to the  left controller port, and  your AtariVox
-(or MemCard or SaveKey) device connects to the right controller port.
+Your joystick  connects to the  left controller port.
 
-If your  AtariVox (or MemCard or  SaveKey) is missing, you'll  see a red
-Sad Face screen.
+\section{Memory Device}
 
-This game  saves your progress to  the AtariVox (or MemCard  or SaveKey)
-while you play. Always return to the Title Screen by pressing Game Reset
-before turning Off the Power to be sure your game record is not damaged.
+You can  use an AtariVox,  SaveKey, or MemCard  device. One of  these is
+required and  \emph{must} be plugged  in to the  \emph{right} controller
+port. Only plug in the memory device while the power is \emph{off}.
+
+If your memory device is missing, you'll see a red Sad Face screen.
+
+This  game saves  your  progress to  the memory  device  when you  visit
+a Grizzard Depot, or discover a  new Grizzard companion. To be sure your
+progress has been saved, visit a  Grizzard Depot and press Game Reset to
+return to the title screen before turning off the power to your console.
+
+Each  save game  slot occupies  four blocks  of storage  on your  memory
+device; all three  possible slots therefore occupy a total  of 12 blocks
+of storage.
+
+\ifdefined\DEMO
+
+Note  that your  save  game file  for this  demo  will \emph{not}  carry
+forward  to  the actual  game;  you'll  have  to  begin again  with  the
+full game.
+
+\fi
+
+\chapter{How To Play}
+
+\section{General Controls}
+
+You'll use the joystick controller in  the left controller port for most
+of your game play needs.
 
 \section{Console Controls}
 
@@ -179,10 +197,10 @@ before turning Off the Power to be sure your game record is not damaged.
 
 \subsection{Color/B\&W Switch (Pause)}
 
-The  Color/B\&W switch  on the  Atari Video  Computer System  CX-2600 or
-Sears Tele-Games  Video Arcade (or  the Pause  button on the  Atari 7800
-ProSystem) can  be used to pause  your game. Push the  Color/B\&W switch
-into the Color position to play, or the B\&W position to pause the game.
+On an  Atari 2600  (or Sears Arcade)  you can pause  the game  using the
+Color/B\&W Switch. Push the Color/B\&W switch into the Color position to
+play, or the B\&W position to pause the game.
+
 On the Atari  7800, press the Pause  button once to pause  the game, and
 again to resume playing.
 
@@ -211,90 +229,10 @@ since the last time you visited a Grizzard Depot.
 
 \subsection{Difficulty Switches}
 
-In  order  to erase  your  game  progress information,  both  Difficulty
-Switches must be moved to the A (Expert) position.
-
-To protect  against accidentally erasing  your game record, you  can set
-either one of the Difficulty Switches to the B (Novice) position.
-
-\ifdefined\TVSECAM
-
-While you are  playing, the Left Difficulty Switch can  be used to Pause
-the  game.  To   play,  slide  the  Left  Difficulty   Switch  into  the
-B (Novice) position. To pause the game, slide the Left Difficulty Switch
-into the A (Expert) position.
-
-\else
-
-While  you  are playing,  the  Difficulty  Switches  have no  effect  on
-game play.
-
-\fi
-
-\section{Memory Device}
-
-You can  use an AtariVox,  SaveKey, or MemCard  device. One of  these is
-required and  must be  plugged in to  the \emph{right}  controller port.
-Only plug in the memory device while the power is \emph{off}.
-
-Each  save game  slot occupies  four blocks  of storage  on your  memory
-device; all three  possible slots therefore occupy a total  of 12 blocks
-of storage.
-
-\chapter{How To Begin}\label{How To Begin}
-
-Once your  Atari system is set  up and everything is  connected, turn on
-the  Power switch.  You'll see  a  brief introduction  and title  screen
-appear.  If  you   have  an  AtariVox  device,  you'll   also  hear  the
-title spoken.
-
-Press the  Game Select  switch to  choose a memory  slot for  your game.
-There are  3 memory slots  possible. Press  Game Select again  to rotate
-through them. If someone has already begun to play \textit{Grizzards} in
-a certain slot, your screen will  show ``\texttt{RESUME}.'' If a slot is
-empty, you'll see ``\texttt{BEGIN}'' instead.
-
-When you have selected the slot you want to begin (or resume), press the
-Game Reset switch to start.
-
-\section{Choosing a Starter Grizzard}
-
-\ifdef\DEMO
-
-In  this demo,  you'll  begin  with Aquax  as  your Grizzard  companion.
-When the game begins,  there will only be an exit  to the south (bottom)
-of the screen.
-
-\else
-
-When you begin  the game, you can  roam the game world.  You'll see that
-there are four directions in which you can set out. In each direction is
-a Grizzard  companion that you  can choose to  join your party.  You can
-only have one Grizzard companion at a time, so choose carefully.
-
-\fi
-
-\chapter{How To Play}
-
-\section{General Controls}
-
-You'll use the joystick controller in  the left controller port for most
-of your  game play needs.  Depending on where you  are in the  game, the
-joystick will be used in different ways, which will be explained next.
-
-The  Game  Select  switch  is  used from  the  title  screen  to  choose
-a slot\footnote{Technical Note: The Slot  number chosen here is relative
-  to  the three  save game  slots  used by  the \textit{Grizzards}  game
-  program.  Each save  game  slot  actually occupies  4  blocks on  your
-  AtariVox, MemCard or  SaveKey device.} in which to  save your progress
-on your AtariVox (or MemCard or SaveKey). When you have selected a slot,
-the Game Reset switch will start the game.
-
-While you're playing the game, the Game Select switch can be used (from the
-Combat screen or at a Grizzard Depot) to see the statistics of your current
-Grizzard companion, and the Game Reset switch can be used to leave the game
-and return to the title screen, saving your current progress to your
-AtariVox (or MemCard or SaveKey).
+You cannot delete a game in progress unless both Difficulty Switches are
+in the  ``A'' (Advanced or Expert)  position. To protect your  game from
+being deleted,  set either one of  the Difficulty Switches to  the ``B''
+(Beginner or Novice) position.
 
 \ifdefined\TVSECAM
 
@@ -308,21 +246,37 @@ in the ``A'' (Advanced or Expert) position.
 
 \else
 
-The Color/B\&W  switch (on an Atari  7800: Pause button) can  be used to
-pause game play.  When paused, you will not be  able to continue playing
-until you toggle the switch to the Color position.
-
-This game does not make use  of the Difficulty Switches, except that you
-cannot  delete a  game in  progress unless  they both  are in  the ``A''
-(Advanced or Expert) position. To  protect your game from being deleted,
-set either  one of  the Difficulty  Switches to  the ``B''  (Beginner or
-Novice) position.
+This  game does  not  make  use of  the  Difficulty  Switches while  you
+are playing. 
 
 \fi
 
+\subsection{Start a Game}
+Once your  console is set  up and everything  is connected, turn  on the
+Power switch. You'll  see a brief introduction and  title screen appear.
+If you have an AtariVox device, you'll also hear the title spoken.
+
+Press the Game Select switch  to choose a memory slot\footnote{Technical
+  Note: The Slot  number chosen here is relative to  the three save game
+  slots used by the \textit{Grizzards} game program. Each save game slot
+  actually  occupies 4  blocks on  your memory  device.} for  your game.
+There are  3 memory slots  possible. Press  Game Select again  to rotate
+through them. If someone has already begun to play \textit{Grizzards} in
+a certain slot, your screen will  show ``\texttt{RESUME}.'' If a slot is
+empty, you'll see ``\texttt{BEGIN}'' instead.
+
+\ifdefined\DEMO
+This  demo  saves your  progress  in  the  ``scratchpad'' area  of  your
+memory  device.  It's possible  that  other  games might  overwrite  and
+destroy your saved progress.
+\fi
+
+When you have selected the slot you want to begin (or resume), press the
+Game Reset switch to start.
+
 \section{Roaming The World}
 
-\ifdef\TVNTSC
+\ifdefined\TVNTSC
 \else
 The World Map screen shows your  current score (initially 000000) at the
 top of the screen.
@@ -337,7 +291,7 @@ monsters may  sneak up on  you and attack!  Other times you'll  see them
 waiting for you  and can avoid them  --- or walk up to  them when you're
 ready to face them.
 
-\ifdef\DEMO
+\ifdefined\DEMO
 In this demo,  you will have one Grizzard companion,  Aquax. In the full
 game, you  may encounter other Grizzards  that you can convince  to join
 your party.
@@ -347,8 +301,8 @@ your party.
 You may also  encounter Grizzards in the world that  you can convince to
 join your party. When you first begin, you'll only be able to choose one
 Grizzard. Later, you'll have the option to swap Grizzards in your party,
-with up  to 30  total Grizzards  saved in your  AtariVox (or  MemCard or
-SaveKey) device. Each Grizzard may have its own moves and skill scores.
+with up to 30 total Grizzards saved in your memory device. Each Grizzard
+may have its own moves and skill scores.
 
 \fi
 
@@ -357,17 +311,16 @@ Game Select.
 
 \section{Grizzard Depots}
 
-To \ifdef\DEMO\else  swap which  Grizzard you're using,  or to  \fi heal
+To \ifdefined\DEMO\else  swap which  Grizzard you're using,  or to  \fi heal
 your current Grizzard partner, you'll need to find a Grizzard Depot like
 this: ***
 
 Touch the Grizzard Depot on the map screen to enter it.
 
-Your  progress will  \emph{immediately} be  saved to  your AtariVox  (or
-MemCard or SaveKey) device.
+Your progress will \emph{immediately} be saved to your memory device.
 
 At  a  Grizzard  Depot  your  Grizzard partner  will  be  fully  healed.
-\ifdef\DEMO\else You  can then  use the joystick  to choose  a different
+\ifdefined\DEMO\else You  can then  use the joystick  to choose  a different
 Grizzard to travel with you. \fi
 
 The Grizzard Depot main screen looks like this: ***
@@ -376,10 +329,10 @@ Here, you'll see:
 
 \begin{description}
   
-\item[DEPOT] --- indicating that this is, in fact, a Grizzard Depot
+\item[\texttt{DEPOT}] --- indicating that this is, in fact, a Grizzard Depot
 \item[Your Grizzard's name] 
 \item[Your Grizzard's Portrait] 
-\item[PLAYED 0002 HOURS] --- indicating  the number of hours that you've
+\item[\texttt{PLAYED 0002 HOURS}] --- indicating  the number of hours that you've
   been playing  the game. This counts  all the time that  you've played,
   since you  first began this  adventure.
 
@@ -387,7 +340,7 @@ Here, you'll see:
 
 To review your Grizzard's statistics, press the Game Select switch.
 
-\ifdef\DEMO\else
+\ifdefined\DEMO\else
 If you  have more than one  Grizzard in your collection,  you can choose
 which  Grizzard will  be  your  companion. Press  up  (forward) or  down
 (backward)  on  the  joystick  controller  to  cycle  through  available
@@ -421,25 +374,24 @@ If your Grizzard does not yet know how to perform a move, it will appear
 in black.
 
 Most  Moves will  target one  monster  that you're  facing. (Some  Moves
-instead target  all monsters, or yourself.)  Press left or right  on the
-joystick   controller   to   select    a   target   if   you're   facing
-multiple monsters.
+instead affect yourself.) Press left or right on the joystick controller
+to select a target if you're facing multiple monsters.
 
-When you  see the  selection you  want, press the  Fire button.  If your
-Grizzard does  not know how  to perform  the selected move,  you'll hear
-a special sound effect and nothing will happen.
+When you  see the selection  you want, press  the Fire button.  You must
+select a move that your Grizzard knows how to perform.
 
 To review the statistics of your Grizzard, press Game Select.
 
-You will  see a  special display  when your Grizzard,  or a  monster, is
-executing a move: ***
+\subsection{Executing a Move}
 
-The creature using that move's name  will appear first, then the name of
-the move,  then the  creature being  targeted. If  you have  speakers or
-headphones on your AtariVox, you'll also hear the move announced.
+You will  see a  special display  when your Grizzard,  or a  monster, is
+executing a move. The creature using that move's name will appear first,
+then the name of the move, then the creature being targeted. If you have
+speakers  or  headphones   on  your  AtariVox,  you'll   also  hear  the
+move announced.
 
 It's possible for a move to miss its target. If that happens, you'll see
-MISSED appear briefly (and hear it announced on your AtariVox).
+\texttt{MISSED} appear briefly (and hear it announced on your AtariVox).
 
 After a move  has been executed, the creature targeted  by that move may
 be injured (lose hit points) or  have its statistics changed. Changes to
@@ -469,37 +421,29 @@ Your Grizzard  can only  learn certain moves.  Moves that  your Grizzard
 might be able to  perform, but does not yet know how  to, will appear in
 black on the Combat display.
 
-\section{Grizzard Depots}\label{Grizzard Depots}
+\subsection{Status Effects}
 
-A  Grizzard  Depot  is  a  place where  you  can  heal  your  Grizzard's
-wounds\ifdef\DEMO\else  and swap  between  Grizzard  characters in  your
-party to choose your current companion\fi.
+A move can affect its target with Status Effects. There are six possible
+Status Effects that can influence a creature:
 
-When you encounter a Grizzard Depot, you'll see this screen: ***
-
-Your Grizzard will  immediately be healed completely; you  don't need to
-do anything else if that's what you meant to do.
-
-The name  of your  current Grizzard companion  appears here,  along with
-their  portrait,  and  the  total  number of  hours  which  you've  been
-playing \textit{Grizzards}.
-
-\ifdef\DEMO\else
-To swap between Grizzards in your party, press the joystick up and down.
-If you have additional Grizzards in your party, they'll switch places to
-became  your  companion  immediately.  There are  30  distinct  Grizzard
-companions in the game. Can you discover all of them?
-\fi
-
-You  can press  Game  Select switch  to review  the  statistics of  your
-selected companion.
-
-To leave the Grizzard Station, press the Fire button.
-
+\begin{description}
+\item[\texttt{SLEEP}] A creature which has gone to sleep can not move on
+  their turn. There is a 50\% chance of waking on each turn.
+\item[\texttt{ATK UP}] A  creature with Attack Up has  its normal attack
+  score doubled.
+\item[\texttt{ATK DN}] A creature with Attack Down has its normal attack
+  score halved.
+\item[\texttt{DEF UP}] A  creature with Defend Up has  its normal defend
+  score doubled.
+\item[\texttt{DEF DN}] A creature with Defend Down has its normal defend
+  score halved.
+\item[\texttt{MUDDLE}] A creature which has been Muddled will choose its
+  moves at random. There is a 50\% chance of clearing its mind on each turn.
+\end{description}
 
 \section{Winning the Campaign}\label{Winning the Campaign}
 
-\ifdef\DEMO
+\ifdefined\DEMO
 
 It is not possible to ``win'' the demo version of this game. You'll have
 to wait for the full game to be released!
@@ -515,29 +459,6 @@ play from  your save  game slot  if you'd like,  and continue  to battle
 sneaky monsters that attack you in some areas.
 
 \fi
-
-\chapter{Getting Started}\label{Getting Started}
-
-When you first turn on \textit{Grizzards}, you'll see the Title Screen.
-To begin playing, press the Game Select switch.
-
-In \textit{Grizzards}, your game  progress is recorded on your AtariVox
-device. You have a choice of 3 ``slots'' so that three different players
-can use the same AtariVox device to record their progress.
-
-Press  Game  Select  to  choose  one of  the  three  slots,  then  press
-Game Reset.
-
-If  you've started  an adventure  in a  slot, you'll  see that  the word
-``\texttt{RESUME}'' appears on your screen. If that slot is empty, you'll instead
-see the word ``\texttt{BEGIN}.''
-
-\section{Resuming Your Progress}
-
-Your progress  can be saved  by visiting a  Grizzard Depot in  the game.
-When you resume playing later, you'll  return to the last Grizzard Depot
-that you  visited. If you haven't  yet visited a Grizzard  Depot, you'll
-return to the original starting point of the game.
 
 \section{Starting Over}\label{Starting Your Adventure Over}
 
@@ -575,25 +496,13 @@ If  you're  \emph{sure}   you  want  to  erase  your   game  data,  then
 
 If  either of  your Difficulty  Switches is  in the  ``B'' (Beginner  or
 Novice) position, then you can't erase  a game slot. \emph{Tip: When you
-  connect your AtariVox, check the position of those switches.}
+  connect your memory device, check the position of those switches.}
 
-\ifdef\TVSECAM
+\ifdefined\TVSECAM
 Remember,  the  Left  Difficult  Switch  is  used  to  pause  the  game.
 After deleting your save game slot, return the Left Difficulty Switch to
 the ``B'' position.
 \fi
-
-\subsection{Missing AtariVox}
-
-If your  AtariVox (or MemCard or  SaveKey) is missing, you'll  see a red
-Sad Face screen.
-
-Always  turn Off  the Power  switch  before attaching  or removing  your
-AtariVox (or MemCard or SaveKey).
-
-This game  saves your progress to  the AtariVox (or MemCard  or SaveKey)
-while you play. Always return to the Title Screen by pressing Game Reset
-before turning Off the Power to be sure your game record is not damaged.
 
 \section{Interacting With the Game}
 
@@ -660,23 +569,24 @@ resume at the last Grizzard Depot that you had visited.
 
 \subsection{On Your Turn}
 
-When it's your turn, you'll see the name of a Move that your Grizzard may be
-able to perform at the bottom of the screen. If your Grizzard knows how to
-perform this Move, it will appear in color. If your Grizzard does not know
-how to perform this Move, it will appear in black.
+When it's your  turn, you'll see the  name of a Move  that your Grizzard
+may be  able to perform  at the bottom of  the screen. If  your Grizzard
+knows  how to  perform  this Move,  it  will appear  in  color. If  your
+Grizzard does  not yet  know how  to perform this  Move, it  will appear
+in black.
 
 Select a Move by pressing the joystick up and down (forward and back).
 
 Most Moves will target one of the monsters attacking you. When there are
-multiple monsters, you must choose which one to counter-attack. Select the
-target by pressing the joystick left and right.
+multiple  monsters,  you  must   choose  which  one  to  counter-attack.
+Select the target by pressing the joystick left and right.
 
 When you've selected your Move and target, press the Fire button.
 
 \subsection{Statistics}
 
 You can also press the Select switch to review your Grizzard's statistics.
-Each Grizzard companion has a few details:
+Each Grizzard companion has a few statistics:
 
 \begin{description}
   
@@ -700,10 +610,7 @@ Each of these statistics can be raised up to a maximum of 99 points.
 
 Your  Grizzard may  also  be  subject to  one  or  more Status  Effects.
 These  will  alter your  Grizzard's  status  temporarily (only  for  the
-duration of  one battle). These effects  are displayed at the  bottom of
-the screen. If  there are more than  one Status Effect in  effect at the
-same  time,  only one  will  be  displayed; wait  a  moment  to see  the
-others appear.
+duration of  one battle).
 
 \section{Scoring}
 
@@ -730,7 +637,7 @@ your adventure.
 There are  30 Grizzards in  the game world,  each with their  own unique
 starting attributes and sets of Moves.
 
-\ifdef\DEMO
+\ifdefined\DEMO
 
 In this  demo, you  can play  with only Aquax.  Other Grizzards  will be
 available in the full game.
@@ -745,12 +652,12 @@ information about the Moves that Grizzards and monsters can use.
 Here  is a  list of  some of  the Grizzards  that you  can encounter  in
 the game.
 
-\subsubsection{Dirtex}
+\subsection{Dirtex}
 
 Dirtex is  an Earth-type Grizzard.  It can  learn moves that  reduce the
 effectiveness of enemy monsters, as well as doing damage directly.
 
-\subsubsection{Aquax}
+\subsection{Aquax}
 
 Aquax is a Water-type Grizzard. It can learn ***
 
@@ -765,44 +672,17 @@ If a Grizzard (or monster) runs out of hit points, they are defeated.
 If all  monsters in a  group are defeated, they  are gone from  the game
 for good. If your Grizzard is defeated, your game is over.
 
-\section{Run Away}
-
-This is a special Move that you can use to escape from combat and return
-to the map screen.
-
-Your  Grizzard will  not be  healed if  you run  away (unless  you visit
-a  Grizzard Depot);  however, the  monsters  that you  were facing  will
-be healed.
-
-\section{Move Effects}
-
-Each  Move  can have  a  variety  of effects  on  your  Grizzard or  the
-enemy monsters. In addition to  causing damage (reducing the enemy's hit
-points), a Move  can also be used to heal  from damage (increasing one's
-own hit points).
-
-A Move  can also  reduce an  enemy's statistics,  or increase  one's own
-statistics. These are  called Status Effects, and they  persist for some
-time after  they are applied. If  any Status Effects are  affecting your
-Grizzard, they'll appear at the bottom of the statistics screen.
-
-There  are  other   status  effects  that  you  can   also  discover  as
-you explore.
-
-\section{Learning Moves}
-
-Grizzards may learn a move when they see an enemy monster using it.
-
-\section{Some Moves}
-
 Here  are  descriptions  of  some  of  the  Moves  that  your  Grizzards
 might learn. There are more than 50 Moves possible, many of which can be
 learned by your Grizzards.
 
 \subsection{Run Away}
 
-This Move  lets you  escape from  a battle. While  your Grizzard  is not
-healed, the monsters will be, so be careful in deciding when to flee.
+This Move lets you escape from a battle.
+
+Your  Grizzard will  not be  healed if  you run  away (unless  you visit
+a  Grizzard Depot);  however, the  monsters  that you  were facing  will
+be healed immediately.
 
 \subsection{Kick Dirt}
 
@@ -823,33 +703,26 @@ Title Screen.
 
 \subsection{Red Sad Face Screen}
 
-The red sad  face screen means that your AtariVox  device was not found. 
-Turn off your Atari and connect an AtariVox to the right controller port. 
-You may plug in speakers or headphones to your AtariVox so that you can hear
-the game voices.
+The red  sad face screen  means that your  memory device was  not found.
+Turn off your Atari and connect  an AtariVox, SaveKey, or MemCard to the
+right controller  port. You may plug  in speakers or headphones  to your
+AtariVox so that you can hear the game voices.
 
 \subsection{White Sad Face Screen}
 
 The white sad  face screen means that the game  has encountered an error
-and cannot continue. Please contact
-\href{mailto:support@star-hope.org}{support@star-hope.org} for 
+and cannot continue. 
+
+You  should   not  be  able   to  reach  this  screen.   Please  contact
+\href{mailto:support@star-hope.org}{support@star-hope.org}           for
 additional assistance.
 
-You should not be able to reach this screen.
-
-\subsection{Bar Code Information}
-
-The bottom half of the screen will show some bar coded information
-that describes the state of your Atari when the game stopped
-working. If you can take a clear photo of this bar code, it can
-sometimes help the  programmers to diagnose the problem,  but no worries
-if you can't.
 
 \section{TV goes blank when saving}
 
-Make sure  your AtariVox is connected.  If your AtariVox (or  MemCard or
-SaveKey) is not connected  when the game tries to save,  you may see the
-TV picture remain blank while the game tries to record your progress.
+Make sure your memory device is  connected. If your memory device is not
+connected when the game tries to save, you may see the TV picture remain
+blank while the game tries to record your progress.
 
 \section{No voices}
 
@@ -870,8 +743,8 @@ understand anything in this section to play \textit{Grizzards}.
 \section{Development Tools}
 
 The \textit{Grizzards}  source code and development  tools are available
-from
-\href{https://Star-Hope.org/games/Grizzards/}{https://Star-Hope.org/games/Grizzards/},
+from \\
+\href{https://Star-Hope.org/games/Grizzards/}{https://Star-Hope.org/games/Grizzards/} \\
 the \textit{Grizzards} web site.
 
 Development of \textit{Grizzards} made use of:
@@ -881,7 +754,8 @@ Development of \textit{Grizzards} made use of:
 \item 64tass Turbo Assembler Macro
 \item Steel Bank Common Lisp
 \item GNU Make
-\item The GNU Image Manipulation Program (Gimp)
+\item GNU Image Manipulation Program (Gimp)
+\item MuseScore3 music score editor.
 \item GNU Emacs
 \item The Stella emulator
 \item The \TeX{} typesetting system (for this manual)
@@ -891,27 +765,47 @@ Development of \textit{Grizzards} made use of:
 
 There are 3  logical game slots that  you can choose from  for the game.
 Each save game  slot takes up 4  blocks (256 bytes) of  storage space on
-your AtariVox memory card,  for a total of 12 blocks  for all three save
-game slots. The following blocks are used:
+your memory  device, for a  total of 12 blocks  for all three  save game
+slots. The following blocks are used:
 
-\begin{enumeration}
-\item Slot 1 uses memory blocks \$5c-\$5f (addresses \$1700-\$17ff)
-\item Slot 2 uses memory blocks \$60-\$63 (addresses \$1800-\$18ff)
-\item Slot 3 uses memory blocks \$64-\$67 (addresses \$1900-\$19ff)
-\end{enumeration}
+\ifdefined\DEMO
+
+\begin{enumerate}
+\item blocks \$c0-\$c3 (addresses \$3000-\$30ff)
+\item blocks \$c4-\$c7 (addresses \$3100-\$31ff)
+\item blocks \$c8-\$cb (addresses \$3200-\$32ff)
+\end{enumerate}
+
+These blocks are in the Scratchpad  area. This means that other programs
+might potentially disrupt or destroy your saved game record.
+
+The  future version  of this  game will  use a  different set  of memory
+blocks  that are  reserved for  its own  private use,  so this  won't be
+a problem then.
+
+\else
+
+\begin{enumerate}
+\item blocks \$5c-\$5f (addresses \$1700-\$17ff)
+\item blocks \$60-\$63 (addresses \$1800-\$18ff)
+\item blocks \$64-\$67 (addresses \$1900-\$19ff)
+\end{enumerate}
 
 \subsection{Registration}
 
-\ifdef\FIXMERegisterGameWithAtariAge
+\ifdefined\FIXMERegisterGameWithAtariAge
 
-The addresses used by the Save Game Slots are registered with
-AtariAge, so they won't conflict with any other games you might play.
+The addresses used by the Save  Game Slots are registered with AtariAge,
+so they won't conflict with any other games you might play.
 
 \else
 
 The save game blocks used are \emph{not yet} registered with AtariAge.
 
 \fi
+
+\fi
+
 
 \subsection{Portability}
 
@@ -920,16 +814,12 @@ cartridges, regardless of the region for which they were saved.  This means
 that you can save your progress on an NTSC type system and then continue
 playing on a PAL or SECAM system, or vice-versa.
 
-\subsection{Volatility}
+\ifdefined\DEMO
 
-The save game format may change during development. Since this is an
-``alpha'' quality game, it's possible that the final release may not
-be able to read your saved game record.
+The save  game slots used by  this demo, however, are  distinct from the
+ones that will be used in the final game.
 
-When the final game is released, you may need to start over by erasing
-your game record. See Starting Your Adventure Over on page
-\ref{Starting Your Adventure Over} for instructions on erasing your
-game record.
+\fi
 
 \chapter{Credits}
 
@@ -952,13 +842,20 @@ under license.
   transcribed by AtariAge Forum user \texttt{tiggerthehun}
 \item Special thanks to everyone  in the Stella and AtariAge communities
   for making this game possible.
+
 \end{itemize}
+
+\subsection{Testers}
+
+This section will list anyone who helps to playtest this game. ***
 
 \subsection{Publication History}
 
-The \textit{Grizzards} videogame software has not yet been published.
+The \textit{Grizzards}  videogame software  has not yet  been published.
+It is not yet ``alpha'' quality software.
 
-A demo version was created in July, 2021, version 0.1.
+A demo version was created in July, 2021.
+\ifdefined\DEMO This manual describes that demo. \fi
 
 \subsection{License}
 
