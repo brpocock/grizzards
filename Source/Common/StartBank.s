@@ -12,8 +12,15 @@
           .weak
           DEMO := false
           PUBLISHER := false
-          STARTER := 0
           TV := NTSC
+          .endweak
+
+          .weak
+          .if DEMO
+          STARTER := 1          ; Start with Aquax in the demo
+          .else
+          STARTER := 0          ; Should come from build command-line later
+          .fi
           .endweak
 
           .enc "Unicode"

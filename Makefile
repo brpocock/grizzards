@@ -156,6 +156,18 @@ Dist/Grizzards.SECAM.sym:	\
 	$(shell bin/banks Object SECAM.sym)
 	cat $^ > $@
 
+Dist/Grizzards.Demo.NTSC.sym:	\
+	$(shell bin/banks Object Demo.NTSC.sym)
+	cat $^ > $@
+
+Dist/Grizzards.Demo.PAL.sym:	\
+	$(shell bin/banks Object Demo.PAL.sym)
+	cat $^ > $@
+
+Dist/Grizzards.Demo.SECAM.sym:	\
+	$(shell bin/banks Object Demo.SECAM.sym)
+	cat $^ > $@
+
 Dist/Grizzards.NTSC.pro:	Source/Grizzards.pro Dist/Grizzards.NTSC.a26
 	sed $^ -e s/@@TV@@/NTSC/g \
 		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.NTSC.a26 | cut -d\  -f1)/g > $@
@@ -168,7 +180,19 @@ Dist/Grizzards.SECAM.pro:	Source/Grizzards.pro Dist/Grizzards.SECAM.a26
 	sed $^ -e s/@@TV@@/SECAM/g \
 		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.SECAM.a26 | cut -d\  -f1)/g > $@
 
-stella:	Dist/Grizzards.NTSC.a26 Dist/Grizzards.NTSC.sym Dist/Grizzards.NTSC.pro
+Dist/Grizzards.Demo.NTSC.pro:	Source/Grizzards.Demo.pro Dist/Grizzards.NTSC.a26
+	sed $^ -e s/@@TV@@/NTSC/g \
+		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.NTSC.a26 | cut -d\  -f1)/g > $@
+
+Dist/Grizzards.Demo.PAL.pro:	Source/Grizzards.Demo.pro Dist/Grizzards.PAL.a26
+	sed $^ -e s/@@TV@@/PAL/g \
+		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.PAL.a26 | cut -d\  -f1)/g > $@
+
+Dist/Grizzards.Demo.SECAM.pro:	Source/Grizzards.Demo.pro Dist/Grizzards.SECAM.a26
+	sed $^ -e s/@@TV@@/SECAM/g \
+		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.SECAM.a26 | cut -d\  -f1)/g > $@
+
+stella:	Dist/Grizzards.Demo.NTSC.a26 Dist/Grizzards.Demo.NTSC.sym Dist/Grizzards.Demo.NTSC.pro
 	stella -tv.filter 3 -grabmouse 0 -bs F4 \
 		-lc Joystick -rc AtariVox \
 		-format NTSC -pp Yes \

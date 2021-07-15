@@ -18,7 +18,7 @@ MONTH=$(shell date +%m)
 DATE=$(shell date +%d)
 JULIAN=$(shell date +%j)
 BUILD=$(shell date +%y.%j)
-PUBLISHER=0 # override from command line only
+PUBLISHER=false # override from command line only
 ASFLAGS=--nostart --long-branch --case-sensitive \
 	--ascii -I Source/Common -I Source/Routines -I Source/Generated/Common \
 	-D YEARNOW=${YEAR} -D MONTHNOW=${MONTH} \
@@ -53,7 +53,7 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
   print "Dist/Grizzards.Demo.$tv.a26:\t";
 
   for my $bank (@banks) {
-    print "\\\n\tObject/DemoBank$bank.$tv.o ";
+    print "\\\n\tObject/Bank$bank.Demo.$tv.o ";
   }
 
   print "
@@ -137,13 +137,13 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
 \t\${AS2600} -DTV=$tv -I Source/Generated/Bank$bank -l \$\@.labels.txt -L \$\@.list.txt \$< -o \$\@\n
 \tbin/label2sym \$\@.labels.txt\n\n";
 
-      print "Object/DemoBank$bank.$tv.o:\t";
+      print "Object/Bank$bank.Demo.$tv.o:\t";
     for my $file (@files) {
       print "\\\n\t$file";
     }
     print "
 \tmkdir -p Object
-\t\${AS2600} -DTV=$tv -DDEMO=1 -I Source/Generated/Bank$bank -l \$\@.labels.txt -L \$\@.list.txt \$< -o \$\@\n
+\t\${AS2600} -DTV=$tv -DDEMO=true -I Source/Generated/Bank$bank -l \$\@.labels.txt -L \$\@.list.txt \$< -o \$\@\n
 \tbin/label2sym \$\@.labels.txt\n\n";
 }
 }

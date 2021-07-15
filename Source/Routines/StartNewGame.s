@@ -90,8 +90,9 @@ SignatureTime:
           sta BlessedY
           sta PlayerY
 
+          lda # STARTER         ; STARTER Grizzard
+          sta CurrentGrizzard
           lda # 1
-          sta CurrentGrizzard   ; giving them a free Grizzard for now, TODO
           sta GrizzardAttack
           sta GrizzardDefense
           sta GrizzardDefense + 1 ; unused for now
