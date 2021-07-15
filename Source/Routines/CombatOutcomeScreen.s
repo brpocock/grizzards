@@ -121,7 +121,9 @@ CheckForWin:
           ldx #6
 -
           lda MonsterHP - 1, x
-          bne NextTurn
+          beq +
+          rts
++
           dex
           bne -
 
@@ -146,26 +148,9 @@ WonBattle:
 
 CheckForLoss:
           lda CurrentHP
-          bne NextTurn
-
-          .FarJMP MapServicesBank, ServiceDeath ; never returns
-
-NextTurn:
-          inc WhoseTurn
-          ldx WhoseTurn
-          dex
-          cpx #6
           bne +
-          ldx #0
-          stx WhoseTurn
-          jmp BackToMain
+          .FarJMP MapServicesBank, ServiceDeath ; never returns
 +
-          lda MonsterHP, x
-          beq NextTurn
-
-          lda #3
-          jsr SetNextAlarm
-BackToMain:
           rts
 
           .bend

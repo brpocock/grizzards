@@ -417,6 +417,24 @@ WaitOutScreen:
           .WaitScreenBottom
 
           .FarJSR TextBank, ServiceCombatOutcome
+
+NextTurn:
+          inc WhoseTurn
+          ldx WhoseTurn
+          dex
+          cpx #6
+          bne +
+          ldx #0
+          stx WhoseTurn
+          jmp BackToMain
++
+          lda MonsterHP, x
+          beq NextTurn
+
+          lda #3
+          jsr SetNextAlarm
+BackToMain:
+
           jmp CombatMainScreen
 
           .bend

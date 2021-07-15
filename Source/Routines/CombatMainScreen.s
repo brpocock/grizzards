@@ -193,15 +193,15 @@ PlayerSleeps:
           ora #$ff ^ StatusMuddle
           sta StatusFX
 +
-          jmp CombatOutcomeScreen.NextTurn ; FIXME scanline count
+          jmp ExecuteCombatMove.NextTurn ; FIXME scanline count
        
 PlayerChooseMove:
           lda StatusFX
           and #StatusSleep
-          beq PlayerSleeps
+          bne PlayerSleeps
           lda StatusFX
           and #StatusMuddle
-          beq PlayerMuddled
+          bne PlayerMuddled
 
           jsr Prepare48pxMobBlob
 
