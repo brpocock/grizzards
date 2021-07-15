@@ -29,13 +29,9 @@ Loop:
           jmp StartPicture
 
 NoErase:
-          .if TV == SECAM
-          .ldacolu COLYELLOW
-          .else
           .ldacolu COLGREEN, 0
-          .fi
           sta COLUBK
-          .ldacolu COLGREEN
+          .ldacolu COLGREEN, $f
           sta COLUP0
           sta COLUP1
           .LoadString "SELECT"
