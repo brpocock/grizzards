@@ -58,16 +58,22 @@ Quit:
           .include "Grizzard0-0.s"
           .align $100, 0
           .include "Grizzard0-1.s"
+          Title2=Grizzard00
+          Title3=Grizzard01
 
           .case 1
           .include "Grizzard1-0.s"
           .align $100, 0
           .include "Grizzard1-1.s"
+          Title2=Grizzard10
+          Title3=Grizzard11
 
           .case 2
           .include "Grizzard2-0.s"
           .align $100, 0
           .include "Grizzard2-1.s"
+          Title2=Grizzard20
+          Title3=Grizzard21
 
           .default
           .error "STARTER ∈ (0 1 2), not ", STARTER
