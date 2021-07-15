@@ -53,6 +53,16 @@ Loop:
 
 StillStory:
           jsr Overscan
+
+          lda NewSWCHB
+          beq LoopMe
+          and #SWCHBSelect
+          bne LoopMe
+          lda #ModeSelectSlot
+          sta GameMode
+          rts
+
+LoopMe:
           jmp Loop
 
           ;; TODO flesh out this mode

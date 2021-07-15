@@ -65,7 +65,12 @@ Loop:
           
 StoryMode:
           .FarJSR AnimationsBank, ServiceAttractStory
-          jmp Loop
+          lda GameMode
+          cmp #ModeAttractStory
+          beq Loop
+          cmp #ModeAttractTitle
+          beq Loop
+          jmp LeaveAttract
 
 TitleMode:
           lda AttractHasSpoken
@@ -147,6 +152,10 @@ DoneAttractKernel:
           and #SWCHBSelect
           beq LeaveAttract
 SkipSwitches:
+          lda NewINPT4
+          beq +
+          and #PRESSED
+          beq LeaveAttract
 
           jsr Overscan
           jmp Loop
