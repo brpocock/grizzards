@@ -14,7 +14,7 @@ LoopMusic:
           ;; Both can play at the same time, but don't *start*
           ;; playing until the last sound effect has ended
           lda CurrentSound + 1
-          beq TheEnd
+          bne TheEnd
 
           .switch BANK
           .case 7
