@@ -35,7 +35,7 @@ SkipAboveCopyright:
           jsr DecodeAndShowText
           .SetPointer RobertText
           jsr DecodeAndShowText
-          .SetPointer Pococktext
+          .SetPointer PocockText
           jsr DecodeAndShowText
 
           ldx # KernelLines - 153
@@ -72,7 +72,7 @@ Done:
 CopyText:
           .MiniText "COPY  "
 RightText:
-          .MiniText "RIGHT"
+          .MiniText "RIGHT "
 Text2021:
           .MiniText "  2021"
 BruceText:
