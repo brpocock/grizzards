@@ -25,9 +25,18 @@ Hopefully it seems entertaining enough, and  I'll put out a beta version
 at some time in future (as time permits).
 
 
-* Image files
+* Cartridge Image files
 
-Demo files for NTSC (60Hz), PAL (50Hz), and SECAM (50Hz) are available.
+https://star-hope.org/games/Grizzards/Grizzards.Demo.NTSC.a26
+
+https://star-hope.org/games/Grizzards/Grizzards.Demo.PAL.a26
+
+https://star-hope.org/games/Grizzards/Grizzards.Demo.SECAM.a26
+
+All image files with draft PDF manuals:
+
+https://star-hope.org/games/Grizzards/Grizzards.Demo.zip
+
 
 
 * How to Play
@@ -164,8 +173,6 @@ other files specific to a memory  bank (basically like a link table), 16
 source files common to all banks (including VCS.s and things like Math.s
 and Macros.s), and  23 files generated automatically by  tools, like the
 music, title graphics, and phoneme tables for speech synthesis.
-
-
 
 
 

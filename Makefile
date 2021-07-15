@@ -3,7 +3,8 @@ default:	game doc
 all:	dist demo
 
 publish:	dist demo
-	scp Dist/Grizzards.Demo.zip Dist/Grizzards.zip Dist/Grizzards.Source.tar.gz \
+	scp Dist/Grizzards.Demo.NTSC.a26 Dist/Grizzards.Demo.PAL.a26 Dist/Grizzards.Demo.SECAM.a26 \
+		Dist/Grizzards.Demo.zip Dist/Grizzards.Source.tar.gz \
 		star-hope.org:star-hope.org/games/Grizzards/
 
 demo:	Dist/Grizzards.Demo.zip
