@@ -300,8 +300,8 @@ GoScreenRight:
           ;; fall through
 GoScreen:
           lda #0
-          sta DeltaX
-          sta DeltaY
+          sta ΔX
+          sta ΔY
 
           lda #>MapLinks
           sta Pointer + 1

@@ -81,7 +81,7 @@ DoneStickDown:
 StickLeftRight:
           .FarJSR TextBank, ServiceFetchGrizzardMove
           ldx Temp
-          lda MoveDeltaHP, x
+          lda MoveΔHP, x
           bpl ChooseTarget
 
 SelfTarget:

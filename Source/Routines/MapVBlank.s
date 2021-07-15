@@ -211,8 +211,8 @@ UserInputStart:
 
 HandleStick:
           lda #0
-          sta DeltaX
-          sta DeltaY
+          sta ΔX
+          sta ΔY
 
           lda Pause
           bne CheckPlayerMove
@@ -222,7 +222,7 @@ HandleStick:
           bne DoneStickUp
 
           lda #-1
-          sta DeltaY
+          sta ΔY
 
 DoneStickUp:
           lda SWCHA
@@ -230,7 +230,7 @@ DoneStickUp:
           bne DoneStickDown
 
           lda #1
-          sta DeltaY
+          sta ΔY
 
 DoneStickDown:
           lda SWCHA
@@ -240,7 +240,7 @@ DoneStickDown:
           lda #0
           sta Facing
           lda #-1
-          sta DeltaX
+          sta ΔX
 
 DoneStickLeft:
           lda SWCHA
@@ -250,18 +250,18 @@ DoneStickLeft:
           lda #$ff
           sta Facing
           lda #1
-          sta DeltaX
+          sta ΔX
 
 DoneStickRight:
 
           lda PlayerX
           clc
-          adc DeltaX
+          adc ΔX
           sta PlayerX
 
           lda PlayerY
           clc
-          adc DeltaY
+          adc ΔY
           sta PlayerY
 
           ;; fall through …
@@ -323,8 +323,8 @@ GetNewGrizzard:
 
 PlayerMoveOK:
           lda #0
-          sta DeltaX
-          sta DeltaY
+          sta ΔX
+          sta ΔY
           lda PlayerX
           sta BlessedX
           lda PlayerY
@@ -364,14 +364,14 @@ BumpWall:
           sta PlayerX
           jmp BumpY
 +
-          lda DeltaX
+          lda ΔX
           bne ShoveX
           jsr Random
           and # 1
           bne ShoveX
           lda #-1
 ShoveX:
-          sta DeltaX
+          sta ΔX
           clc
           adc PlayerX
           sta PlayerX
@@ -383,14 +383,14 @@ BumpY:
           sta PlayerY
           jmp DoneBump
 +
-          lda DeltaY
+          lda ΔY
           bne ShoveY
           jsr Random
           and # 1
           bne ShoveY
           lda #-1
 ShoveY:
-          sta DeltaY
+          sta ΔY
           clc
           adc PlayerY
           sta PlayerY
