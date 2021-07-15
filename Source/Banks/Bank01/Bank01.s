@@ -32,6 +32,8 @@ DoLocal:
           beq Death
           cpy #ServiceAttractStory
           beq AttractStory
+          cpy #ServiceStartNewGame
+          beq StartNewGame
           brk
 
           .include "MapTopService.s"

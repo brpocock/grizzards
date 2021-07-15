@@ -133,6 +133,7 @@
           ServiceTopOfScreen = $08
           ServiceBottomOfScreen = $09
           ServiceNewGrizzard = $0c
+          ServiceStartNewGame = $16
 
 ;;; Animations share the map services bank in 32k
 

@@ -211,7 +211,7 @@ SlotOK:
 
           lda #ModeStartGame
           sta GameMode
-          jsr FarCall           ; does not return
+          .FarJMP MapServicesBank, ServiceStartNewGame
 
 LoadGame:
           jmp LoadSaveSlot

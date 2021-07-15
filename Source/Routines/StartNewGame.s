@@ -9,19 +9,7 @@ StartNewGame:          .block
           sta StartGameWipeBlock
 
 StartGameScreenLoop:
-          jsr VSync
-          jsr VBlank
-
-          .if KernelLines > 192
-          ldx # KernelLines - 192
-SkipForPAL:
-          stx WSYNC
-          dex
-          bne SkipForPAL
-          .fi
-
-          lda # ( 76 * ( 192 - 1 ) ) / 64 - 2
-          sta TIM64T
+          .WaitScreenTop
 
           lda StartGameWipeBlock
           cmp #$ff
@@ -40,6 +28,10 @@ LetsStart:
           adc #>SaveGameSlotPrefix
           jsr i2cTxByte
           clc
+          ;; if this is non-zero other things will bomb
+          .if <SaveGameSlotPrefix != 0
+          .error "SaveGameSlotPrefix should be page-aligned, got ", SaveGameSlotPrefix
+          .fi
           lda #<SaveGameSlotPrefix
           adc StartGameWipeBlock
           jsr i2cTxByte
@@ -105,10 +97,7 @@ SignatureTime:
           sta CurrentHP
 
 WaitForScreenEnd:
-          lda INSTAT
-          bne WaitForScreenEnd
-
-          jsr Overscan
+          .WaitScreenBottom
 
           lda GameMode
           cmp #ModeStartGame
