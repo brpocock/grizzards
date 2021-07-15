@@ -112,12 +112,14 @@ SetUpSprite:
           ror a
           ror a
           ror a
+          stx Temp
           tax
           tya
           and #$07
           tay
 
           lda ProvinceFlags, x
+          ldx Temp
           and BitMask, y
           beq SpritePresent
 
