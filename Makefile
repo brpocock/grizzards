@@ -66,7 +66,7 @@ game:	Dist/Grizzards.NTSC.a26
 
 doc:	Dist/Grizzards.NTSC.pdf
 
-.PRECIOUS: %.s %.png %.a26 %.txt
+.PRECIOUS: %.s %.png %.a26 %.txt %.zip %.tar.gz
 
 SOURCES=$(shell find Source -name \*.s -o -name \*.txt -o -name \*.png -o -name \*.midi -a -not -name .\#\*)
 
