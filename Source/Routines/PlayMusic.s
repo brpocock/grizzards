@@ -9,6 +9,13 @@ DoMusic:
           bne PlayMusic
 
 LoopMusic:
+          ;; Don't loop if there's currently a sound effect playing
+          ;; e.g. Atari Today jingle, victory music from combat, &c.
+          ;; Both can play at the same time, but don't *start*
+          ;; playing until the last sound effect has ended
+          lda CurrentSound + 1
+          beq TheEnd
+
           .switch BANK
           .case 7
 
