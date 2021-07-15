@@ -29,7 +29,7 @@ LetsStart:
           jsr i2cTxByte
           clc
           ;; if this is non-zero other things will bomb
-          .if <SaveGameSlotPrefix != 0
+          .if ($ff & SaveGameSlotPrefix) != 0
           .error "SaveGameSlotPrefix should be page-aligned, got ", SaveGameSlotPrefix
           .fi
           lda #<SaveGameSlotPrefix
