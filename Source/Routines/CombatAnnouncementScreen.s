@@ -151,7 +151,6 @@ ObjectOther:
 
 MonsterTargetObject:
           jsr ShowMonsterNameAndNumber
-          stx WSYNC
           jmp ObjectDone
 
 PlayerObject:
