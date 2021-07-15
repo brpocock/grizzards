@@ -2,6 +2,7 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 AppendDecimalAndPrint:        .block
           sta Temp
+FromTemp:
           jsr CopyPointerText
 
           ;; based on  https://stackoverflow.com/questions/65432063/6502-assembly-binary-to-bcd-is-that-possible-on-x86
