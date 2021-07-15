@@ -264,17 +264,17 @@ MapSprites:
           .byte 0               ; end of list
 
           ;; Room 1
-          .byte $ff
+          .byte $04
           .byte SpriteWander
           .byte 75, 65         ; x, y position
           .byte SpriteCombat, 3
 
-          .byte $ff
+          .byte $02
           .byte SpriteWander
           .byte 100, 65         ; x, y position
           .byte SpriteCombat, 0
 
-          .byte $ff
+          .byte $03
           .byte SpriteWander
           .byte 100, 25         ; x, y position
           .byte SpriteCombat, 1
@@ -282,7 +282,7 @@ MapSprites:
           .byte 0               ; end of list
 
           ;; Room 2
-          .byte $ff
+          .byte $01
           .byte SpriteWander
           .byte 100, 32         ; x, y position
           .byte SpriteCombat, 0
