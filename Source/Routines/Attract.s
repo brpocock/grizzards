@@ -156,7 +156,7 @@ SkipSwitches:
           beq +
           and #PRESSED
           beq LeaveAttract
-
++
           jsr Overscan
           jmp Loop
 
