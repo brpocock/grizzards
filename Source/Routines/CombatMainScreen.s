@@ -43,7 +43,7 @@ MonstersDisplay:
           lda (CurrentMonsterPointer), y
 
           .if TV == SECAM
-          bne +
+          bne +                 ; COLBLACK = 0
           lda #COLWHITE
 +
           .fi
