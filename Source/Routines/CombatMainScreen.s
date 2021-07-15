@@ -180,7 +180,7 @@ PlayerMuddled:
           jsr Random
           bpl +
           lda StatusFX
-          ora #$ff ^ StatusMuddle
+          ora #~StatusMuddle
           sta StatusFX
 +
           jmp MoveAutoChosen
@@ -190,7 +190,7 @@ PlayerSleeps:
           bpl +
           bpl +
           lda StatusFX
-          ora #$ff ^ StatusMuddle
+          ora #~StatusSleep
           sta StatusFX
 +
           jmp ExecuteCombatMove.NextTurn ; FIXME scanline count
