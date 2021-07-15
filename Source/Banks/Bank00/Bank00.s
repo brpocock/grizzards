@@ -44,7 +44,8 @@ DoLocal:
           .include "AttractCopyright.s"
           .include "Credits.s"
           .include "SetNextAlarm.s"
-
+DecodeAndShowText:
+          .FarJMP TextBank, ServiceDecodeAndShowText
 Quit:
           ldy #ServiceColdStart
           jmp ColdStart
