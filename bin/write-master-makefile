@@ -19,11 +19,12 @@ DATE=$(shell date +%d)
 JULIAN=$(shell date +%j)
 BUILD=$(shell date +%y.%j)
 PUBLISHER=false # override from command line only
+STARTER=1 # override from caller
 ASFLAGS=--nostart --long-branch --case-sensitive \
 	--ascii -I Source/Common -I Source/Routines -I Source/Generated/Common \
 	-D YEARNOW=${YEAR} -D MONTHNOW=${MONTH} \
 	-D DATENOW=${DATE} -D JULIANDATENOW=${JULIAN} \
-	-D BUILD=${BUILD} -D PUBLISHER=${PUBLISHER} \
+	-D BUILD=${BUILD} -D PUBLISHER=${PUBLISHER} -D STARTER=${STARTER} \
 	-Wall -Wno-shadow -Wno-leading-zeros
 AS2600=64tass ${ASFLAGS} --m6502
 
