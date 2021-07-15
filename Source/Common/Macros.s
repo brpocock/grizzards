@@ -225,3 +225,10 @@ FarJMP:   .macro bank, service
           ldx #\bank
           jmp FarCall
           .endm
+
+SetPointer:         .macro value
+          lda #>\value
+          sta Pointer + 1
+          lda #<\value
+          sta Pointer
+          .endm
