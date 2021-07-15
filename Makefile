@@ -198,14 +198,13 @@ stella:	Dist/Grizzards.Demo.NTSC.a26 Dist/Grizzards.Demo.NTSC.sym Dist/Grizzards
 		-format NTSC -pp Yes \
 		-debug $<
 
-stella-pal:	Dist/Grizzards.PAL.a26 Dist/Grizzards.PAL.sym Dist/Grizzards.PAL.pro
+stella-pal:	Dist/Grizzards.Demo.PAL.a26 Dist/Grizzards.Demo.PAL.sym Dist/Grizzards.Demo.PAL.pro
 	stella -tv.filter 3 -grabmouse 0 -bs F4 \
 		-lc Joystick -rc AtariVox \
 		-format PAL -pp Yes \
 		-debug $<
 
-
-stella-secam:	Dist/Grizzards.SECAM.a26 Dist/Grizzards.SECAM.sym Dist/Grizzards.SECAM.pro
+stella-secam:	Dist/Grizzards.Demo.SECAM.a26 Dist/Grizzards.Demo.SECAM.sym Dist/Grizzards.Demo.SECAM.pro
 	stella -tv.filter 3 -grabmouse 0 -bs F4 \
 		-lc Joystick -rc AtariVox \
 		-format SECAM -pp Yes \
