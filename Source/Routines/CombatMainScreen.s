@@ -41,6 +41,13 @@ MonstersDisplay:
 
           ldy # 14              ; offset of monster color
           lda (CurrentMonsterPointer), y
+
+          .if TV == SECAM
+          bne +
+          lda #COLWHITE
++
+          .fi
+
           sta COLUP0
 
           .FarJSR MapServicesBank, ServiceDrawMonsterGroup
