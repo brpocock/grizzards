@@ -25,18 +25,18 @@ SkipAboveCopyright:
           sta COLUP0
           sta COLUP1
 
-          .LoadString " COPY "
-          jsr ShowText
-          .LoadString "RIGHT "
-          jsr ShowText
-          .LoadString " 2021 "
-          jsr ShowText
-          .LoadString "BRUCE-"
-          jsr ShowText
-          .LoadString "ROBERT"
-          jsr ShowText
-          .LoadString "POCOCK"
-          jsr ShowText
+          .SetPointer CopyText
+          jsr DecodeAndShowText
+          .SetPointer RightText
+          jsr DecodeAndShowText
+          .SetPointer Text2021
+          jsr DecodeAndShowText
+          .SetPointer BruceText
+          jsr DecodeAndShowText
+          .SetPointer RobertText
+          jsr DecodeAndShowText
+          .SetPointer Pococktext
+          jsr DecodeAndShowText
 
           ldx # KernelLines - 153
 SkipBelowCopyright:
@@ -68,3 +68,17 @@ StillCopyright:
 
 Done:
           jmp DoneAttractKernel         
+
+CopyText:
+          .MiniText "COPY  "
+RightText:
+          .MiniText "RIGHT"
+Text2021:
+          .MiniText "  2021"
+BruceText:
+          .MiniText "BRUCE-"
+RobertText:
+          .MiniText "ROBERT"
+PocockText:
+          .MiniText "POCOCK"
+
