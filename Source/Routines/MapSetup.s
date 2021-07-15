@@ -11,8 +11,8 @@ MapSetup: .block
           lda # 0
           sta SpriteFlicker
           sta SpriteCount
-          sta ΔX
-          sta ΔY
+          sta DeltaX
+          sta DeltaY
           sta CurrentMusic + 1
 
           lda BlessedX

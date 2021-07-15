@@ -23,7 +23,7 @@ MonsterMove:
           ldx CombatMoveSelected
           lda MonsterMoves, x
           tax
-          lda MoveΔHP, x
+          lda MoveDeltaHP, x
           bmi MonsterHeals
 
 ;;; 
@@ -94,7 +94,7 @@ MonsterAttackHitMissP:
 MonsterAttackHit:
           ;; The attack was a success
           ;; What's the effect on the Grizzard's HP?
-          lda CombatMoveΔHP
+          lda CombatMoveDeltaHP
           jsr CalculateAttackMask
           sta Temp
           jsr Random
@@ -102,13 +102,13 @@ MonsterAttackHit:
 MonsterAttackHitPlus:
           and Temp
           clc
-          adc CombatMoveΔHP
+          adc CombatMoveDeltaHP
           bne MonsterAttackHitCommon ; always taken
 
 MonsterAttackHitMinus:
           and Temp
           sta Temp
-          lda CombatMoveΔHP
+          lda CombatMoveDeltaHP
           sbc Temp
           ;; fall through
 
@@ -217,8 +217,8 @@ MonsterBuff:
 
 PlayerMove:
           ldx CombatMoveSelected
-          lda MoveΔHP, x
-          sta CombatMoveΔHP
+          lda MoveDeltaHP, x
+          sta CombatMoveDeltaHP
           bmi PlayerHeals
 
 PlayerAttacks:
@@ -272,7 +272,7 @@ PlayerAttackHitMissP:
 PlayerAttackHit:
           ;; The attack was a success!
           ;; What is the effect on the enemy's HP?
-          lda CombatMoveΔHP
+          lda CombatMoveDeltaHP
           jsr CalculateAttackMask
           sta Temp
           jsr Random
@@ -280,13 +280,13 @@ PlayerAttackHit:
 PlayerAttackHitPlus:
           and Temp
           clc
-          adc CombatMoveΔHP
+          adc CombatMoveDeltaHP
           bne PlayerAttackHitCommon ; always taken
 
 PlayerAttackHitMinus:
           and Temp
           sta Temp
-          lda CombatMoveΔHP
+          lda CombatMoveDeltaHP
           sbc Temp
           ;; fall through
 PlayerAttackHitCommon:

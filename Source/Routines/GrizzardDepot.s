@@ -80,21 +80,21 @@ Loop:
           clc
           asl a
           rol Temp
-          sta ΔX
+          sta DeltaX
 
           lda ClockMinutes
           ;; ÷ 60 is too slow so we cheat, since the output is 0..3
           cmp # 180
           blt +
-          inc ΔX
+          inc DeltaX
 +
           cmp # 120
           blt +
-          inc ΔX
+          inc DeltaX
 +
           cmp # 60
           blt HTD
-          inc ΔX
+          inc DeltaX
 
 HTD:
           sed             ; Output gets added up in decimal.
@@ -106,7 +106,7 @@ HTD:
 
           ldx # 4 * 15
 HTDloop:
-          asl ΔX      ; (0 to 15 is 16 bit positions.)
+          asl DeltaX      ; (0 to 15 is 16 bit positions.)
           rol Temp    ; If the next highest bit was 0,
           bcc HTDnext       ; then skip to the next bit after that.
           lda StringBuffer+4     ; But if the bit was 1,
@@ -153,7 +153,7 @@ HTDnext:
 
 HTDdone:  
           cld
-          stx ΔX            ; 0
+          stx DeltaX            ; 0
 
           jsr DecodeText
           jsr ShowText

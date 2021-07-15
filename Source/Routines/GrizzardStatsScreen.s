@@ -47,7 +47,7 @@ Loop:
           and #SWCHBSelect
           bne Bouncey1
 
-          lda ΔY
+          lda DeltaY
           sta GameMode
 
 Bouncey1:

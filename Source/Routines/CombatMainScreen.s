@@ -278,7 +278,7 @@ Leave:
           cmp #ModeGrizzardStats
           bne +
           lda #ModeCombat
-          sta ΔY
+          sta DeltaY
           jmp GrizzardStatsScreen
 +
           cmp #ModeCombatAnnouncement

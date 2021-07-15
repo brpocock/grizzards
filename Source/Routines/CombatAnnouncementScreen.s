@@ -39,8 +39,8 @@ FindMonsterMove:
           sta CombatMoveSelected
 
 MoveFound:
-          lda MoveΔHP, x
-          sta CombatMoveΔHP
+          lda MoveDeltaHP, x
+          sta CombatMoveDeltaHP
 
           lda #2
           jsr SetNextAlarm
@@ -137,7 +137,7 @@ AnnounceObject:
 
 DrawObject:
           ldx CombatMoveSelected
-          lda MoveΔHP, x
+          lda MoveDeltaHP, x
           bpl ObjectOther
 
 ObjectSelf:
