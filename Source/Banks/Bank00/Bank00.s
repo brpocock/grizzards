@@ -55,19 +55,19 @@ Quit:
 
           .switch STARTER
           .case 0
-          .include "Title2.s"
+          .include "Grizzard0-0.s"
           .align $100, 0
-          .include "Title3.s"
+          .include "Grizzard0-1.s"
 
           .case 1
-          .include "Title2.s"
+          .include "Grizzard1-0.s"
           .align $100, 0
-          .include "Title3.s"
+          .include "Grizzard1-1.s"
 
           .case 2
-          .include "Title2.s"
+          .include "Grizzard2-0.s"
           .align $100, 0
-          .include "Title3.s"
+          .include "Grizzard2-1.s"
 
           .default
           .error "STARTER ∈ (0 1 2), not ", STARTER
