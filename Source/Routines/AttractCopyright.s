@@ -59,9 +59,10 @@ SkipBelowCopyright:
 
 StillCopyright:
 
-          lda NewINPT4
+          lda NewSWCHA
           beq Done
-          bpl Done
+          and #P0StickUp
+          bne Done
           lda #ModeCreditSecret
           sta GameMode
 
