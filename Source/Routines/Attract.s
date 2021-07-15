@@ -100,7 +100,19 @@ FillAttractMid1:
           dex
           bne FillAttractMid1
 
+          .switch STARTER
+
+          .case 0
           .ldacolu COLSPRINGGREEN, $f
+
+          .case 1
+          .ldacolu COLBROWN, $f
+
+          .case 2
+          .ldacolu COLTEAL, $f
+
+          .endswitch
+
           sta COLUP0
           sta COLUP1
 
