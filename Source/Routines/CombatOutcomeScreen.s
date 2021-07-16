@@ -3,6 +3,15 @@
 
 CombatOutcomeScreen:          .block
 
+          lda MoveHitMiss
+          beq SoundForMiss
+          lda #SoundHit
+          bne +                 ; alway taken
+SoundForMiss:
+          lda #SoundMiss
++
+          sta SoundNext
+
 Loop:
           jsr VSync
           jsr VBlank
