@@ -88,7 +88,7 @@ SkipStatusFX:
 ;;; 
 AfterStatusFX:
 
-          ldx # KernelLines - 84
+          ldx # KernelLines - 73
 FillScreen:
           stx WSYNC
           dex
