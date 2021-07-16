@@ -42,8 +42,8 @@ MovesTable:
           .MiniText "GREAT "
           .MiniText "  MOJO"
 
-          .MiniText "STEAL "
-          .MiniText "   AIM"
+          .MiniText "WIND  "
+          .MiniText " FIGHT"
 
           .MiniText "STEAL "
           .MiniText "ATTACK"
