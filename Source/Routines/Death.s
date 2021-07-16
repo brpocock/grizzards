@@ -26,7 +26,7 @@ Loop:
           .LoadString " OVER "
           .FarJSR TextBank, ServiceDecodeAndShowText
 
-          ldx # KernelLines - 43
+          ldx # KernelLines - 42
 -
           stx WSYNC
           dex
