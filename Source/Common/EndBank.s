@@ -51,7 +51,7 @@ GoMap:
           ldx #$ff              ; smash the stack
           txs
           lda CurrentProvince
-          beq +
+          bne +
           sta BankSwitch0 + Province0MapBank
           jmp DoLocal
 +
@@ -64,7 +64,7 @@ GoCombat:
           txs
           lda CurrentCombatEncounter
           and #$80
-          beq +
+          bne +
           sta BankSwitch0 + CombatBank0To127
           jmp DoLocal
 +        
