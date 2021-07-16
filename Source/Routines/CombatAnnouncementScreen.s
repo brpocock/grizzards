@@ -3,8 +3,10 @@
 
 CombatAnnouncementScreen:     .block
 
+          ;; We are jumped in here lacking an overscan
           jsr Overscan
 
+          ;; Set up for the combat move announcement & execution
           lda # 0
           sta MoveAnnouncement
           sta MoveSpeech
