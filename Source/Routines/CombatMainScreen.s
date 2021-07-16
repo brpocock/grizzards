@@ -59,7 +59,7 @@ MonstersDisplay:
 DelayAfterMonsters:
 
           ldx # 10
--          
+-
           stx WSYNC
           dex
           bne -
