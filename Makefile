@@ -26,18 +26,18 @@ cart-pal:	Dist/Grizzards.PAL.a26
 cart-secam:	Dist/Grizzards.SECAM.a26
 	minipro -p AT27C256@DIP28 -w Dist/Grizzards.SECAM.a26
 
-harmony:	Dist/Grizzards.NTSC.a26 \
-		Dist/Grizzards.PAL.a26 \
-		Dist/Grizzards.SECAM.a26
+harmony:	Dist/Grizzards.Demo.NTSC.a26 \
+		Dist/Grizzards.Demo.PAL.a26 \
+		Dist/Grizzards.Demo.SECAM.a26
 	if [ $$(uname -s) = 'Linux' ] ; then \
 	  cp Dist/*.a26 /run/media/${USER}/HARMONY/ ; \
 	else \
 	  echo "Patch Makefile for your $$(uname -s) OS" ; \
 	fi
 
-uno:	Dist/Grizzards.NTSC.a26 \
-		Dist/Grizzards.PAL.a26 \
-		Dist/Grizzards.SECAM.a26
+uno:	Dist/Grizzards.Demo.NTSC.a26 \
+		Dist/Grizzards.Demo.PAL.a26 \
+		Dist/Grizzards.Demo.SECAM.a26
 	if [ $$(uname -s) = 'Linux' ] ; then \
 	  cp Dist/*.a26 /run/media/${USER}/TBA_2600/ ; \
 	else \
