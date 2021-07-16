@@ -14,8 +14,8 @@ MoveEffects:
           .byte StatusDefendDown
           .byte StatusDefendUp
           .byte StatusAttackUp
-          .byte StatusDefendUp
-          .byte StatusAttackUp
+          .byte StatusDefendDown
+          .byte StatusAttackDown
           .byte 0
           .byte StatusAttackDown
           .byte StatusDefendDown
@@ -74,7 +74,7 @@ MoveEffects:
           .byte 0
           .byte 0
           ;; ↑ 63
-
+;;; 
 MoveDeltaHP:
           ;; 0
           .byte $ff             ; RUN AWAY has fake value to indicate there's no target
@@ -88,7 +88,7 @@ MoveDeltaHP:
           ;; 8
           .byte 0
           .byte 0
-          .byte 0
+          .byte $ff
           .byte 5
           .byte 5
           .byte 0
