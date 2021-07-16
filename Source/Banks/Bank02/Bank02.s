@@ -39,6 +39,14 @@ FetchGrizzardMove:
           ldx MoveSelection
           beq FetchedRunAway
           dex
+          stx Temp
+          lda CurrentGrizzard
+          asl a
+          asl a
+          asl a
+          clc
+          adc Temp
+          tax
           lda GrizzardMoves, x
           sta Temp
           rts
