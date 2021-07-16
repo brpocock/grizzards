@@ -4,10 +4,10 @@ MonsterMoves:
           ;; Each monster type can know 4 moves
 
           ;; 0
-          .byte 1, 2, 3, 4
-          .byte 1, 2, 3, 4
-          .byte 1, 2, 3, 4
-          .byte 1, 2, 3, 4
+          .byte 2, 2, 2, 3
+          .byte 2, 2, 3, 3
+          .byte 35, 35, 35, 23
+          .byte 35, 35, 17, 14
           .byte 1, 2, 3, 4
           .byte 1, 2, 3, 4
           .byte 1, 2, 3, 4
