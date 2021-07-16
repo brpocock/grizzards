@@ -5,7 +5,7 @@ CombatMainScreen:   .block
           lda #0
           sta MoveSelection
           lda #ModeCombat
-          sta GameMove
+          sta GameMode
 Loop:
           jsr VSync
           jsr VBlank
