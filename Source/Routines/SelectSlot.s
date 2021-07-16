@@ -111,7 +111,7 @@ ShowSaveSlot:
 ShowSlot:
           .FarJSR TextBank, ServiceDecodeAndShowText
 
-          ldx #KernelLines - 172
+          ldx #KernelLines - 170
 FillScreen:
           sta WSYNC
           dex
