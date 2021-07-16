@@ -411,6 +411,16 @@ PlayerBuff:
 ;;; 
 
 WaitOutScreen:
+
+          lda MoveHitMiss
+          beq SoundForMiss
+          lda #SoundHit
+          bne +
+SoundForMiss:
+          lda #SoundHit
++
+          sta NextSound
+          
           .WaitScreenBottom
 
           .FarJSR TextBank, ServiceCombatOutcome
