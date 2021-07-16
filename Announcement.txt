@@ -10,8 +10,7 @@ Aside from requiring a SaveKey, this is a straightforward F4 32kiB cartridge.
 
 At this point I have reached a sort of alpha quality and put together a little demo build that shows off some of the main mechanisms of the game.
 
-You are a Grizzard Handler, and you can take your Grizzard companion out with you to fight monsters. The goals are to find all 30 Grizzard
-companions (only one is in this demo) and destroy all the monsters in the game world (except random encounters).
+You are a Grizzard Handler, and you can take your Grizzard companion out with you to fight monsters. The goals are to find all 30 Grizzard companions (only one is in this demo) and destroy all the monsters in the game world (except random encounters).
 
 Hopefully it seems entertaining enough, and I'll put out a beta version at some time in future (as time permits).
 
