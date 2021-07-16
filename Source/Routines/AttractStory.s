@@ -26,7 +26,7 @@ Loop:
           .LoadString "AUGUST"
           .FarJSR TextBank, ServiceDecodeAndShowText
 
-          ldx # KernelLines - 84
+          ldx # KernelLines - 79
 -
           stx WSYNC
           dex
