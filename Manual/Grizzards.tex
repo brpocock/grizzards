@@ -16,6 +16,9 @@
 % \setstocksize{6in}{4in}
 \usepackage[utf8]{inputenc}
 \usepackage{babel}
+\usepackage{microtype}
+\tolerance=1
+\emergencystretch=\maxdimen
 %\usepackage{tgtermes}
 \usepackage{hyperref}
 \usepackage[protrusion=true,expansion=true]{microtype}
@@ -149,46 +152,13 @@ To play \textit{Grizzards}, you will need:
 Set  up your  Video  Computer  System with  your  TV  or video  display.
 Connect a  joystick controller to  the \emph{left} controller  port, and
 the memory device to the \emph{right} controller port. Make certain that
-the Power switch is in the Off position.
+the  Power  switch   is  in  the  Off  position   when  connecting  your
+memory device.
 
-Finally, insert the \textit{Grizzards} game  cartridge (with the label facing up)
-into the cartridge slot, and turn the Power On.
-
-\section{Joystick}
-
-Your joystick  connects to the  left controller port.
-
-\section{Memory Device}
-
-You can  use an AtariVox,  SaveKey, or MemCard  device. One of  these is
-required and  \emph{must} be plugged  in to the  \emph{right} controller
-port. Only plug in the memory device while the power is \emph{off}.
-
-If your memory device is missing, you'll see a red Sad Face screen.
-
-This  game saves  your  progress to  the memory  device  when you  visit
-a Grizzard Depot, or discover a  new Grizzard companion. To be sure your
-progress has been saved, visit a  Grizzard Depot and press Game Reset to
-return to the title screen before turning off the power to your console.
-
-Each  save game  slot occupies  four blocks  of storage  on your  memory
-device; all three  possible slots therefore occupy a total  of 12 blocks
-of storage.
-
-\ifdefined\DEMO
-
-Note  that your  save  game file  for this  demo  will \emph{not}  carry
-forward  to  the actual  game;  you'll  have  to  begin again  with  the
-full game.
-
-\fi
+Finally, insert  the \textit{Grizzards}  game cartridge (with  the label
+facing up) into the cartridge slot, and turn the Power On.
 
 \chapter{How To Play}
-
-\section{General Controls}
-
-You'll use the joystick controller in  the left controller port for most
-of your game play needs.
 
 \section{Console Controls}
 
@@ -209,8 +179,7 @@ again to resume playing.
 \subsection{Game Select}
 
 When viewing  the Title Screen,  you can use  the Game Select  switch to
-choose  the  Slot  you  wish  to   use.  See  Getting  Started  on  page
-\ref{Getting Started} for details.
+choose the Slot you wish to use to save your progress.
 
 While you are  playing the game, you  can use the Game  Select switch to
 review   your  Grizzard's   statistics   from  the   Combat  screen   or
@@ -251,7 +220,7 @@ are playing.
 
 \fi
 
-\subsection{Start a Game}
+\section{Start a Game}
 Once your  console is set  up and everything  is connected, turn  on the
 Power switch. You'll  see a brief introduction and  title screen appear.
 If you have an AtariVox device, you'll also hear the title spoken.
@@ -266,9 +235,12 @@ a certain slot, your screen will  show ``\texttt{RESUME}.'' If a slot is
 empty, you'll see ``\texttt{BEGIN}'' instead.
 
 \ifdefined\DEMO
+\skip
 This  demo  saves your  progress  in  the  ``scratchpad'' area  of  your
 memory  device.  It's possible  that  other  games might  overwrite  and
-destroy your saved progress.
+destroy your saved progress. This is  just because it's a demo, and does
+not have a private area reserved for it yet.
+\skip
 \fi
 
 When you have selected the slot you want to begin (or resume), press the
@@ -276,20 +248,28 @@ Game Reset switch to start.
 
 \section{Roaming The World}
 
-\ifdefined\TVNTSC
-\else
-The World Map screen shows your  current score (initially 000000) at the
-top of the screen.
-\fi
-In the map display, you'll see the current area in which you
-are traveling. Guide yourself using the joystick controller.
+\ifdefined\TVNTSC \else  The World Map  screen shows your  current score
+(initially \texttt{000000})  at the top  of the  screen. \fi In  the map
+display,  you'll  see the  current  area  in  which you  are  traveling.
+Guide yourself using the joystick controller.
 
 *** image
 
-Throughout  the  world  you  may  encounter  monsters.  Sometimes  these
+As   you  travel,   you   may  encounter   monsters,\ifdefined\DEMO\else
+Grizzards, \fi Grizzard Depots, or  doors. To interact with them, simply
+walk into them.
+
+A monster,  or group of  monsters, look  like this: ***  Sometimes these
 monsters may  sneak up on  you and attack!  Other times you'll  see them
 waiting for you  and can avoid them  --- or walk up to  them when you're
 ready to face them.
+
+
+
+A Grizzard Depot looks like this: ***
+
+A door looks like this: ***
+
 
 \ifdefined\DEMO
 In this demo,  you will have one Grizzard companion,  Aquax. In the full
@@ -299,10 +279,11 @@ your party.
 \else
 
 You may also  encounter Grizzards in the world that  you can convince to
-join your party. When you first begin, you'll only be able to choose one
-Grizzard. Later, you'll have the option to swap Grizzards in your party,
-with up to 30 total Grizzards saved in your memory device. Each Grizzard
-may have its own moves and skill scores.
+join your  party. A wild  Grizzard looks like  this: *** When  you first
+begin, you'll  only be able to  choose one Grizzard. Later,  you'll have
+the  option  to swap  Grizzards  in  your party,  with  up  to 30  total
+Grizzards saved  in your memory device.  Each Grizzard may have  its own
+moves and skill scores.
 
 \fi
 
@@ -323,20 +304,9 @@ At  a  Grizzard  Depot  your  Grizzard partner  will  be  fully  healed.
 \ifdefined\DEMO\else You  can then  use the joystick  to choose  a different
 Grizzard to travel with you. \fi
 
-The Grizzard Depot main screen looks like this: ***
-
-Here, you'll see:
-
-\begin{description}
-  
-\item[\texttt{DEPOT}] --- indicating that this is, in fact, a Grizzard Depot
-\item[Your Grizzard's name] 
-\item[Your Grizzard's Portrait] 
-\item[\texttt{PLAYED 0002 HOURS}] --- indicating  the number of hours that you've
-  been playing  the game. This counts  all the time that  you've played,
-  since you  first began this  adventure.
-
-\end{description}
+Here,  you'll  see  the   word  \texttt{DEPOT},  your  current  Grizzard
+companion,  and  the  number  of hours  you've  been  playing  Grizzards
+(total, since you first started in this slot).
 
 To review your Grizzard's statistics, press the Game Select switch.
 
@@ -382,7 +352,7 @@ select a move that your Grizzard knows how to perform.
 
 To review the statistics of your Grizzard, press Game Select.
 
-\subsection{Executing a Move}
+\section{Executing a Move}
 
 You will  see a  special display  when your Grizzard,  or a  monster, is
 executing a move. The creature using that move's name will appear first,
@@ -396,7 +366,8 @@ It's possible for a move to miss its target. If that happens, you'll see
 After a move  has been executed, the creature targeted  by that move may
 be injured (lose hit points) or  have its statistics changed. Changes to
 statistics  are temporary  and last  only  the duration  of one  battle.
-After the battle, your Grizzard's statistics will return to normal.
+After the battle,  your Grizzard's statistics (or those  of any monsters
+you failed to defeat) will return to normal.
 
 If  you Grizzard  loses hit  points, the  bar below  your Grizzard  will
 reduce in  length. When your Grizzard  is nearly out of  hit points, the
@@ -411,7 +382,10 @@ to choose the same game slot and Game Reset to resume and try again.
 If you  defeat all of  the monsters, victory  is yours! Your  score will
 increase, and you'll return to the World Map screen victorious.
 
-\subsection{Grizzard Learning}
+You  may choose  to run  away from  a fight,  but the  monsters will  be
+immediately healed and may still come after you.
+
+\section{Grizzard Learning}
 
 Your  Grizzard companion  may  learn from  opposing  Monsters. This  can
 result  in your  Grizzard  increasing  its Attack  or  Defend score,  or
@@ -421,7 +395,38 @@ Your Grizzard  can only  learn certain moves.  Moves that  your Grizzard
 might be able to  perform, but does not yet know how  to, will appear in
 black on the Combat display.
 
-\subsection{Status Effects}
+\section{Statistics}
+
+You can also  press the Game Select switch during  combat to review your
+Grizzard's statistics. Each Grizzard companion has a few statistics:
+
+\begin{description}
+  
+\item[\texttt{ATK}] is the Grizzard's  \emph{attack} rating. This is the
+  amount  of damage  that  your  Grizzard can  do  when it  successfully
+  attacks a monster. Some Moves cause more damage than others, though.
+  
+\item[\texttt{DEF}] is the Grizzard's  \emph{defend} rating. This is how
+  likely your Grizzard is to avoid being hurt by a monster's Move.
+
+\item[\texttt{HP}]  is  the  Grizzard's  \emph{hit  points}  or  health.
+  When  monsters hit  your Grizzard,  this  value will  decrease. If  it
+  reaches zero, your game is over.
+
+\item[\texttt{MAX}]  is   the  Grizzard's  \emph{maximum   hit  points}.
+  Your Grizzard can gain more hit points up to this amount.
+  
+\end{itemize}
+
+Each of  these statistics can  be raised up to  a maximum of  99 points.
+They may go up a bit after each monster that you defeat.
+
+Your  Grizzard may  also  be  subject to  one  or  more Status  Effects.
+These  will  alter your  Grizzard's  status  temporarily (only  for  the
+duration of  one battle).
+
+
+\section{Status Effects}
 
 A move can affect its target with Status Effects. There are six possible
 Status Effects that can influence a creature:
@@ -441,6 +446,26 @@ Status Effects that can influence a creature:
   moves at random. There is a 50\% chance of clearing its mind on each turn.
 \end{description}
 
+\section{Scoring}
+
+When you  defeat a monster, you'll  earn points. The number  of points
+you earn will increase as you defeat more difficult monsters.
+
+Your score begins at \texttt{000000} when you start your adventure.
+
+\section{Game Over}
+
+If  you fail  in your  mission,  your game  is over.  However, you  have
+another chance to continue.
+
+When you continue, it'll  be just as if you'd never  failed in the first
+place. However, you'll start over from  the last Grizzard Depot that you
+had visited. If you fail before visiting a Grizzard Depot, you'll return
+to the original starting point.
+
+Just  choose   your  game   slot  from  the   Title  Screen   to  resume
+your adventure.
+
 \section{Winning the Campaign}\label{Winning the Campaign}
 
 \ifdefined\DEMO
@@ -453,10 +478,6 @@ to wait for the full game to be released!
 If  you  defeat  all of  the  main  monsters  in  the game,  you'll  see
 a fireworks  show to let  you know  that you've completed  the campaign.
 Your ``final'' score will appear above the fireworks display.
-
-After this  reward, you'll return  to the  Title Screen. You  can resume
-play from  your save  game slot  if you'd like,  and continue  to battle
-sneaky monsters that attack you in some areas.
 
 \fi
 
@@ -504,134 +525,6 @@ After deleting your save game slot, return the Left Difficulty Switch to
 the ``B'' position.
 \fi
 
-\section{Interacting With the Game}
-
-Your adventure will take the form of two main types of actions:
-
-\begin{enumerate}
-\item Moving around the game world on the Map Screen.
-\item Fighting off monsters on the Combat Screen.
-\end{enumerate}
-
-\section{The Map Screen}
-
-The Map Screen is where you navigate the world.  You'll encounter different
-types of terrain in different provinces of the world, but you'll get around
-in the same way.
-
-To walk around the world, press the joystick controller in the direction
-you'd like to travel.
-
-As you travel,  you may encounter monsters,  Grizzards, Grizzard Depots,
-or doors. To interact with them, simply walk into them.
-
-A monster, or group of monsters, look like this: ***
-
-A wild Grizzard looks like this: ***
-
-A Grizzard Depot looks like this: ***
-
-A door looks like this: ***
-
-Monsters  can  be   very  sneaky.  You  may  not   always  see  monsters
-approaching. As you travel, sneaky monsters may attack and draw you into
-combat unexpectedly.
-
-\section{The Combat Screen}
-
-You can approach a monster that you see on the Map Screen and start a
-battle with them by running into the monster. Even though you might
-only see one monster on the Map Screen, there may be more than one
-traveling together. You can avoid these battles by not touching the
-monster on the Map Screen.
-
-Sometimes,  though, monsters  may sneak  up  on you.  You can  encounter
-monsters  in  dangerous  territories  without  ever  having  seen  them.
-These battles cannot be avoided.
-
-In a battle, you'll see one or  more monsters at the top of your screen,
-along with the name of the monster type. Below this, you'll see the name
-of your Grizzard  companion and its health bar. The  longer this bar is,
-the more health your Grizzard companion has.
-
-\subsection{On the Monsters' Turn}
-
-When it's the monsters' turn to attack, you won't see any move selection
-menu at the bottom of the screen.
-
-The monsters may  attack your Grizzard. If they succeed,  it will reduce
-the health of your Grizzard.
-
-If  your  Grizzard  is  defeated,  the monsters  will  surely  eat  you.
-Your  adventure  will  end,  and  you'll return  to  the  Title  screen.
-Don't worry,  though; your  progress will  be saved  still, and  you can
-resume at the last Grizzard Depot that you had visited.
-
-\subsection{On Your Turn}
-
-When it's your  turn, you'll see the  name of a Move  that your Grizzard
-may be  able to perform  at the bottom of  the screen. If  your Grizzard
-knows  how to  perform  this Move,  it  will appear  in  color. If  your
-Grizzard does  not yet  know how  to perform this  Move, it  will appear
-in black.
-
-Select a Move by pressing the joystick up and down (forward and back).
-
-Most Moves will target one of the monsters attacking you. When there are
-multiple  monsters,  you  must   choose  which  one  to  counter-attack.
-Select the target by pressing the joystick left and right.
-
-When you've selected your Move and target, press the Fire button.
-
-\subsection{Statistics}
-
-You can also press the Select switch to review your Grizzard's statistics.
-Each Grizzard companion has a few statistics:
-
-\begin{description}
-  
-\item[\texttt{ATK}] is the Grizzard's  \emph{attack} rating. This is the
-  amount  of damage  that  your  Grizzard can  do  when it  successfully
-  attacks a monster. Some Moves cause more damage than others, though.
-  
-\item[\texttt{DEF}] is the Grizzard's  \emph{defend} rating. This is how
-  likely your Grizzard is to avoid being hurt by a monster's Move.
-
-\item[\texttt{HP}]  is  the  Grizzard's  \emph{hit  points}  or  health.
-  When  monsters hit  your Grizzard,  this  value will  decrease. If  it
-  reaches zero, your game is over.
-
-\item[\texttt{MAX}]  is   the  Grizzard's  \emph{maximum   hit  points}.
-  Your Grizzard can gain more hit points up to this amount.
-  
-\end{itemize}
-
-Each of these statistics can be raised up to a maximum of 99 points.
-
-Your  Grizzard may  also  be  subject to  one  or  more Status  Effects.
-These  will  alter your  Grizzard's  status  temporarily (only  for  the
-duration of  one battle).
-
-\section{Scoring}
-
-When you  defeat a monster, you'll  earn points. The number  of points
-you earn will increase as you defeat more difficult monsters.
-
-Your score begins at 000000 when you start your adventure.
-
-\section{Game Over}
-
-If  you fail  in your  mission,  your game  is over.  However, you  have
-another chance to continue.
-
-When you continue, it'll  be just as if you'd never  failed in the first
-place. However, you'll start over from  the last Grizzard Depot that you
-had visited. If you fail before visiting a Grizzard Depot, you'll return
-to the original starting point.
-
-Just  choose   your  game   slot  from  the   Title  Screen   to  resume
-your adventure.
-
 \chapter{Grizzards}
 
 There are  30 Grizzards in  the game world,  each with their  own unique
@@ -645,36 +538,76 @@ available in the full game.
 \fi
 
 Each Grizzard is able  to learn up to 8 different  moves, in addition to
-the universal move RUN AWAY. It's up to you to discover which Moves each
-Grizzard  is able  to  learn. See  Moves on  page  \ref{Moves} for  more
-information about the Moves that Grizzards and monsters can use.
+the universal move  \texttt{RUN AWAY}. It's up to you  to discover which
+Moves each  Grizzard is  able to  learn.
 
-Here  is a  list of  some of  the Grizzards  that you  can encounter  in
-the game.
+\ifdefined\DEMO\else
+
+Depending on which edition of  \textit{Grizzards} you have, you'll start
+with  one  of  three  different Grizzard  companions.  Your  ``starter''
+Grizzard will be featured on the title screen of the game.
 
 \subsection{Dirtex}
 
-Dirtex is  an Earth-type Grizzard.  It can  learn moves that  reduce the
-effectiveness of enemy monsters, as well as doing damage directly.
+The green Dirtex Grizzard lives in the grass. It can learn these Moves:
+
+\begin{itemize}
+\item \texttt{KICK DIRT} --- kick dirt at the enemy, causing some damage
+  to them.
+\item \texttt{BURY DEEP} --- try to bury the enemy, which may cause them
+  to fall asleep.
+\item  \texttt{DIRTY FOOT}  --- causes  some  damage and  may lower  the
+  enemy's defend value.
+\item \texttt{LOAMY FEAR} --- may lower the enemy's attack value.
+\item \texttt{DUSTY EYES} --- may lower the enemy's defend value.
+\item \texttt{FIRST  AID} ---  heals a small  amount of  health, raising
+  your own hit points.
+\item \texttt{SIMPLE CURE} --- heals a bit larger amount of health.
+\item \texttt{COMMON CURE} --- heals even more health.
+\end{itemize}
+
+\fi
 
 \subsection{Aquax}
 
-Aquax is a Water-type Grizzard. It can learn ***
+Aquax is a brown Grizzard which lives  in the swamps. It can learn these
+Moves:
 
-\subsubsection{***}
+\begin{itemize}
+\item  \texttt{SPLISH SPLASH}  --- splash  water at  the enemy,  causing
+  some damage. 
+\item \texttt{RAISE HOPE} --- may increase its own defend ability.
+\item \texttt{SURE SPLASH} --- may increase its own attack ability.
+\item \texttt{QUICK FOOT}  --- causes some damage and  may also increase
+  its own defend ability.
+\item \texttt{GREAT MOJO}  --- causes some damage and  may also increase
+  its own attack ability.
+\item \texttt{FIRST  AID} ---  heals a small  amount of  health, raising
+  your own hit points.
+\item \texttt{SIMPLE CURE} --- heals a bit larger amount of health.
+\item \texttt{COMMON CURE} --- heals even more health.
+\end{itemize}
 
-\chapter{Moves}\label{Moves}
+\ifdefined\DEMO\else
 
-There are  many different Moves that  Grizzards and monsters can  use in
-the  game.  Some Moves  are  used  to  reduce  the enemy's  hit  points.
-If a Grizzard (or monster) runs out of hit points, they are defeated.
+\subsection{Airex}
 
-If all  monsters in a  group are defeated, they  are gone from  the game
-for good. If your Grizzard is defeated, your game is over.
+Airex is a teal Grizzard which lives in the trees. It can learn these Moves:
 
-Here  are  descriptions  of  some  of  the  Moves  that  your  Grizzards
-might learn. There are more than 50 Moves possible, many of which can be
-learned by your Grizzards.
+\begin{itemize}
+\item \texttt{MILD SHOCK} --- shocks  the enemy with static electricity,
+  causing some damage.
+\item \texttt{WIND FIGHT} --- causes a bit more damage than \texttt{MILD SHOCK}
+\item \texttt{STEAL ATTACK} --- may lower the enemy's attack value.
+\item \texttt{STEAL DEFEND} --- may lower the enemy's defend value.
+\item \texttt{STEAL TURN} --- may put the enemy to sleep
+\item \texttt{FIRST  AID} ---  heals a small  amount of  health, raising
+  your own hit points.
+\item \texttt{SIMPLE CURE} --- heals a bit larger amount of health.
+\item \texttt{COMMON CURE} --- heals even more health.
+\end{itemize}
+
+\fi
 
 \subsection{Run Away}
 
@@ -684,14 +617,26 @@ Your  Grizzard will  not be  healed if  you run  away (unless  you visit
 a  Grizzard Depot);  however, the  monsters  that you  were facing  will
 be healed immediately.
 
-\subsection{Kick Dirt}
 
-In this  move, the attacker  kicks dirt at  their enemy. This  can cause
-minor damage to the enemy.
-
-\subsection{***}
 
 \chapter{Troubleshooting}
+
+\ifdefined\DEMO
+
+\section{Screen ``Jitters,'' freezes, or flashes blue}
+
+These may  be signs that  a screen  (or the transition  between screens)
+does not have the correct ``scan line'' count. This is a technical error
+by the game's  developer (that's me!) and must be  corrected in the next
+version of the game.
+
+If you see these effects (or if you are running in Stella, if you notice
+that the scan  line count is not \ifdefined\TVNTSC 262  \else 312 \fi at
+all         times)         please         report         them         to
+\hred{mailto:support@star-hope.org}{support@star-hope.org} so  that they
+can be corrected before the game is finished.
+
+\fi
 
 \section{Sad Face Screen}
 
@@ -751,14 +696,15 @@ Development of \textit{Grizzards} made use of:
 
 \begin{itemize}
 \item Fedora Linux\registered{} operating system
-\item 64tass Turbo Assembler Macro
+\item 64tass Turbo Macro Assembler
 \item Steel Bank Common Lisp
+\item Perl
 \item GNU Make
 \item GNU Image Manipulation Program (Gimp)
 \item MuseScore3 music score editor.
 \item GNU Emacs
 \item The Stella emulator
-\item The \TeX{} typesetting system (for this manual)
+\item The \LaTeX{} typesetting system (for this manual)
 \end{itemize}
 
 \section{Game Record Slots}
@@ -829,17 +775,20 @@ Bruce-Robert  Pocock.   All  Rights  are  Reserved   except  as  granted
 under license.
 
 \begin{itemize}
-  
-\item Bruce-Robert  Pocock \hdots Programming, Manual,  In-Game Artwork,
+\item Bruce-Robert  Pocock --- Programming, Manual,  In-Game Artwork,
   and Music \& Sound effects.
-\item Zephyr Salz \hdots Label/Cover Artwork
-  \bigskip
+\item Zephyr Salz --- Label/Cover Artwork
+\end{itemize}
+
+\bigskip
+
+\begin{itemize}
 \item  Includes VCS  header  file by  Matthew  Dillon, Olaf  ``Rhialto''
   Seibert, Andrew David, and Peter H. Froehlich
-\item Binary-to-decimal  translation based  upon code by  Andrew Jacobs,
+\item Binary  to decimal translation  based upon code by  Andrew Jacobs,
   based upon code by Garth Wilson
-\item Some math  functions by AtariAge forum  user Omegamatrix; others
-  taken from December 1984 Apple Assembly Line.
+\item Some math functions by AtariAge forum user \textt{Omegamatrix}
+\item Some math functions taken from December 1984 Apple Assembly Line.
 \item   ``Have  You   Played  Atari   Today''  jingle   by  Atari   Inc.
   transcribed by AtariAge Forum user \texttt{tiggerthehun}
 \item Special thanks to everyone  in the Stella and AtariAge communities
@@ -853,7 +802,8 @@ This section will list anyone who helps to playtest this game. ***
 
 \subsection{Publication History}
 
-The \textit{Grizzards}  videogame software  has not yet  been published.
+The \textit{Grizzards} videogame software has not yet been published.
+
 It is not yet ``alpha'' quality software.
 
 A demo version was created in July, 2021.
