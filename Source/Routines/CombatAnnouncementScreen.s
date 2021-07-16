@@ -6,7 +6,8 @@ CombatAnnouncementScreen:     .block
           ;; We are jumped in here lacking an overscan
           jsr Overscan
 
-          ;; Set up for the combat move announcement & execution
+;;; Set up for the combat move announcement & execution
+;;; (this whole first page is really a separate step from the announcement screen)
           lda # 0
           sta MoveAnnouncement
           sta MoveSpeech
@@ -28,7 +29,8 @@ FindMonsterMove:
           sta Pointer + 1
 
           clc
-          lda CurrentCombatEncounter
+          ldx CurrentCombatEncounter
+          lda EncounterMonster, x
           asl a
           asl a
           adc #<MonsterMoves
