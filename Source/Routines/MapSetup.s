@@ -103,10 +103,12 @@ SetUpSprite:
           ;; End of sprite list?
           beq SpritesDone
           iny
+          sty Temp
           sta SpriteIndex, x
           cmp #$ff
           beq SpritePresent
 
+          sty Temp
           tay
           and #$38
           ror a
@@ -124,12 +126,14 @@ SetUpSprite:
           beq SpritePresent
 
 SpriteAbsent:
+          ldy Temp
           .rept 5
           iny
           .next
           jmp SetUpSprite
 
 SpritePresent:
+          ldy Temp
           lda (Pointer), y
           cmp #SpriteFixed
           beq AddFixedSprite
