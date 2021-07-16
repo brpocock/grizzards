@@ -23,8 +23,6 @@ DetermineOutcome:
 
 MonsterMove:
           ldx CombatMoveSelected
-          lda MonsterMoves, x
-          tax
           lda MoveDeltaHP, x
           bmi MonsterHeals
 
