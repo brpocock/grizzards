@@ -160,7 +160,7 @@ HTDdone:
           sta Pointer
           jsr ShowPointerText
 
-          ldx # KernelLines - 138
+          ldx # KernelLines - 135
 -
           stx WSYNC
           dex
@@ -193,7 +193,7 @@ SwitchesDone:
 +
           jsr Overscan
           jmp Loop
-
+;;; 
 ShowPointerText:
           jsr CopyPointerText
           jmp DecodeAndShowText
