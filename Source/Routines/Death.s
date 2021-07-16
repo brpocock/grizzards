@@ -10,6 +10,9 @@ Death:    .block
           ldx #ModeDeath
           stx GameMode
 
+          ldx #SoundGameOver
+          stx NextSound
+
 Loop:
           jsr VSync
           jsr VBlank
