@@ -12,17 +12,6 @@ Loop:
 
           jsr Prepare48pxMobBlob
 
-          lda Pause
-          beq NotPaused
-
-          .ldacolu COLGRAY, $f
-          sta COLUBK
-          .ldacolu COLGRAY, 0
-          sta COLUP0
-          sta COLUP1
-          jmp PausedOrNot
-
-NotPaused:
           .switch TV
           .case NTSC
           .ldacolu COLRED, 0
