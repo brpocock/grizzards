@@ -17,14 +17,14 @@ Dist/Grizzards.Source.tar.gz:	game
 
 cart:	cart-ntsc
 
-cart-ntsc:	Dist/Grizzards.NTSC.a26
-	minipro -p AT27C256@DIP28 -w Dist/Grizzards.NTSC.a26
+cart-ntsc:	Dist/Grizzards.Demo.NTSC.a26
+	minipro -p AT27C256@DIP28 -w $<
 
-cart-pal:	Dist/Grizzards.PAL.a26
-	minipro -p AT27C256@DIP28 -w Dist/Grizzards.PAL.a26
+cart-pal:	Dist/Grizzards.Demo.PAL.a26
+	minipro -p AT27C256@DIP28 -w $<
 
-cart-secam:	Dist/Grizzards.SECAM.a26
-	minipro -p AT27C256@DIP28 -w Dist/Grizzards.SECAM.a26
+cart-secam:	Dist/Grizzards.Demo.SECAM.a26
+	minipro -p AT27C256@DIP28 -w $<
 
 harmony:	Dist/Grizzards.Demo.NTSC.a26 \
 		Dist/Grizzards.Demo.PAL.a26 \
