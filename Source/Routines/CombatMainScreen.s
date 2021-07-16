@@ -50,6 +50,11 @@ MonstersDisplay:
 
           sta COLUP0
 
+          lda WhoseTurn         ; show highlight on monster moving
+          beq +
+          sta MoveTarget
++
+
           .FarJSR MapServicesBank, ServiceDrawMonsterGroup
 DelayAfterMonsters:
 
