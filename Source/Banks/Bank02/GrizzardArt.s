@@ -11,35 +11,35 @@ GrizzardPictureSelect:
 
 GrizzardColor:
 
-          .byte COLGREEN | $f
-          .byte COLBROWN | $f
-          .byte COLTEAL | $f
-          .byte COLGREEN | $f
-          .byte COLGREEN | $f
-          .byte COLGREEN | $f
-          .byte COLGREEN | $f
-          .byte COLGREEN | $f
-          .byte COLGREEN | $f
-          .byte COLGREEN | $f
+          .colu COLGREEN, $f
+          .colu COLBROWN, $f
+          .colu COLTEAL, $f
+          .colu COLGREEN, $f
+          .colu COLGREEN, $f
+          .colu COLGREEN, $f
+          .colu COLGREEN, $f
+          .colu COLGREEN, $f
+          .colu COLGREEN, $f
+          .colu COLGREEN, $f
           ;; 10
-          .byte COLTURQUOISE | $f
-          .byte COLTURQUOISE | $f
-          .byte COLTURQUOISE | $f
-          .byte COLTURQUOISE | $f
-          .byte COLTURQUOISE | $f
-          .byte COLTURQUOISE | $f
-          .byte COLTURQUOISE | $f
-          .byte COLTURQUOISE | $f
-          .byte COLTURQUOISE | $f
-          .byte COLTURQUOISE | $f
+          .colu COLTURQUOISE, $f
+          .colu COLTURQUOISE, $f
+          .colu COLTURQUOISE, $f
+          .colu COLTURQUOISE, $f
+          .colu COLTURQUOISE, $f
+          .colu COLTURQUOISE, $f
+          .colu COLTURQUOISE, $f
+          .colu COLTURQUOISE, $f
+          .colu COLTURQUOISE, $f
+          .colu COLTURQUOISE, $f
           ;; 20
-          .byte COLINDIGO | $f
-          .byte COLINDIGO | $f
-          .byte COLINDIGO | $f
-          .byte COLINDIGO | $f
-          .byte COLINDIGO | $f
-          .byte COLINDIGO | $f
-          .byte COLINDIGO | $f
-          .byte COLINDIGO | $f
-          .byte COLINDIGO | $f
-          .byte COLINDIGO | $f
+          .colu COLINDIGO, $f
+          .colu COLINDIGO, $f
+          .colu COLINDIGO, $f
+          .colu COLINDIGO, $f
+          .colu COLINDIGO, $f
+          .colu COLINDIGO, $f
+          .colu COLINDIGO, $f
+          .colu COLINDIGO, $f
+          .colu COLINDIGO, $f
+          .colu COLINDIGO, $f
