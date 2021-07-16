@@ -109,10 +109,10 @@
           AnimationsBank = $01
           TextBank = $02
           FailureBank = $02
-          Province0MapBank = $03
-          Province1MapBank = $04
-          CombatBank0To127 = $05
-          CombatBank128To255 = $06
+          Province0MapBank = $04
+          Province1MapBank = $03
+          CombatBank0To127 = $06
+          CombatBank128To255 = $05
           SFXBank = $07
 
 ;;; Text bank provides multiple services, selected with .y
