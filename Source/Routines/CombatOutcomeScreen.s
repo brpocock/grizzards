@@ -10,7 +10,7 @@ CombatOutcomeScreen:          .block
 SoundForMiss:
           lda #SoundMiss
 +
-          sta SoundNext
+          sta NextSound
 
 Loop:
           jsr VSync
