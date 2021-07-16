@@ -47,7 +47,7 @@ FindSprites:
           beq DoneFinding
 
           ;; Crash early if the map ID is out of range for this province (bank)
-          cpx MapCount
+          cpx #MapCount
           bpl BadMap
 
           ;; Skipping over a room means searching for the end of the list
