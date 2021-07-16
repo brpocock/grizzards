@@ -163,15 +163,6 @@ ChooseMove:
 MonsterChooseMove:
           jsr Random
           and #$03
-          sta Temp
-          ldx CurrentCombatEncounter
-          lda EncounterMonster, x
-          asl a
-          asl a
-          clc
-          adc Temp
-          tax
-          lda MonsterMoves, x
           sta MoveSelection
 
 MoveAutoChosen:
