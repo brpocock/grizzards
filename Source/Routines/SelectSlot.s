@@ -11,7 +11,7 @@ SelectSlot:        .block
           sta CurrentUtterance + 1
           lda #<Phrase_SelectSlot
           sta CurrentUtterance
-          
+;;; 
 Loop:     
           jsr VSync
           jsr VBlank
@@ -118,7 +118,7 @@ FillScreen:
           bne FillScreen
 
           jsr Overscan
-
+;;; 
           lda NewSWCHB
           beq SkipSwitches
           and #SWCHBReset
@@ -151,7 +151,7 @@ SkipSwitches:
           lda #ModeEraseSlot
           sta GameMode
           jmp Loop
-
+;;; 
 EliminationMode:
           ;; Release button to exit Elimination Mode
           lda INPT4
@@ -182,7 +182,7 @@ ThisIsNotAStickUp:
           sta GameMode
 
           jmp Loop
-
+;;; 
 SwitchSelectSlot:
           lda #SoundChirp
           sta NextSound
@@ -195,7 +195,7 @@ SwitchSelectSlot:
           sta SaveGameSlot
 GoBack:
           jmp Loop
-
+;;; 
 SlotOK:
 
           lda #SoundHappy
