@@ -263,28 +263,28 @@ MapSprites:
           .byte 0               ; end of list
 
           ;; Room 1
-          .byte $04
+          .byte 1
           .byte SpriteWander
-          .byte 75, 65         ; x, y position
-          .byte SpriteCombat, 3
-
-          .byte $02
-          .byte SpriteWander
-          .byte 100, 65         ; x, y position
-          .byte SpriteCombat, 0
-
-          .byte $03
-          .byte SpriteWander
-          .byte 100, 25         ; x, y position
+          .byte $3c, $27
           .byte SpriteCombat, 1
+
+          .byte 2
+          .byte SpriteWander
+          .byte $bd, $21
+          .byte SpriteCombat, 2
+
+          .byte 3
+          .byte SpriteWander
+          .byte $7b, $2c
+          .byte SpriteCombat, 3
 
           .byte 0               ; end of list
 
           ;; Room 2
-          .byte $01
+          .byte 5
           .byte SpriteWander
           .byte 100, 32         ; x, y position
-          .byte SpriteCombat, 0
+          .byte SpriteCombat, 5
 
           .byte 0
           
@@ -297,6 +297,16 @@ MapSprites:
           .byte 0
           
           ;; Room 4
+          .byte 6
+          .byte SpriteFixed
+          .byte $72, $13
+          .byte SpriteCombat, 6
+
+          .byte $ff
+          .byte SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 6
+
           .byte 0
           
           ;; Room 5
