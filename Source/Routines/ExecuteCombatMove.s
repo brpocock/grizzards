@@ -183,7 +183,6 @@ MonsterHealsMinusHP:
           sec
           sbc Temp
           ;; fall through
-
 MonsterHealsCommon:
           ldx WhoseTurn
           clc
@@ -208,6 +207,9 @@ MonsterBuff:
           ldx WhoseTurn
           ora EnemyStatusFX - 1, x
           sta EnemyStatusFX - 1, x
+
+          lda # 1
+          sta MoveHitMiss
 
           jmp WaitOutScreen
 
@@ -362,7 +364,7 @@ PlayerAttackMiss:
 ;;; 
 
 PlayerHeals:
-          ;; .A has the negative HP to be gained
+          ;; .A has the inverted HP to be gained
           ;; (alter by random factor)
           eor #$ff
           sta MoveHP
@@ -384,7 +386,6 @@ PlayerHealsMinusHP:
           sec
           sbc Temp
           ;; fall through
-
 PlayerHealsCommon:
           clc
           adc CurrentHP
@@ -397,7 +398,6 @@ PlayerHealsCommon:
           eor #$ff              ; negate the value to mean "gained"
           sta MoveHP
 
-
 PlayerBuff:
           ldx CombatMoveSelected
           lda MoveEffects, x
@@ -405,6 +405,9 @@ PlayerBuff:
           jsr Random
           and Temp
           sta MoveStatusFX
+
+          lda # 1
+          sta MoveHitMiss
 
           ora StatusFX
           sta StatusFX
