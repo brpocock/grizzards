@@ -150,7 +150,7 @@ ObjectSelf:
 ObjectOther:
           lda WhoseTurn
           bne PlayerObject
-
+          ;; fall through
 MonsterTargetObject:
           jsr ShowMonsterNameAndNumber
           jmp ObjectDone
