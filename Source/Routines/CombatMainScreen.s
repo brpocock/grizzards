@@ -164,6 +164,10 @@ MoveAutoChosen:
 	stx WSYNC
           dex
           bne -
+          ;; TODO: hold on this screen for 2s before auto-choosing a move
+          ;; TODO: if it's the player being muddled, show "MUDDLE" in stead of the move name
+          ldx # ModeCombatAnnouncement
+          stx GameMode
           jmp ScreenDone
 
 PlayerMuddled:
