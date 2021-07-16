@@ -11,7 +11,7 @@ GrizzardDepot:    .block
           stx CurrentHP
 
           .WaitScreenBottom
-
+;;; 
 Loop:     
           jsr VSync
           jsr VBlank
@@ -29,10 +29,7 @@ Loop:
           bne -
 
           jsr Prepare48pxMobBlob
-          lda #>DepotText
-          sta Pointer + 1
-          lda #<DepotText
-          sta Pointer
+          .SetPointer DepotText
           jsr ShowPointerText
 
           jsr ShowGrizzardName
@@ -43,12 +40,9 @@ Loop:
           sta COLUP0
           sta COLUP1
 
-          lda #>PlayTimeText
-          sta Pointer + 1
-          lda #<PlayTimeText
-          sta Pointer
+          .SetPointer PlayTimeText
           jsr ShowPointerText
-
+;;; 
           lda # 40              ; blank space
           sta StringBuffer + 0
           sta StringBuffer + 5
@@ -95,7 +89,7 @@ Loop:
           cmp # 60
           blt HTD
           inc DeltaX
-
+;;; 
 HTD:
           sed             ; Output gets added up in decimal.
           ldy #0
@@ -157,7 +151,7 @@ HTDdone:
 
           jsr DecodeText
           jsr ShowText
-
+;;; 
 ;;; End of the hours decode + display routine
 
           lda #>PlayHoursText
@@ -187,7 +181,7 @@ NoReset:
           lda #ModeGrizzardStats
           sta GameMode
           rts
-
+;;; 
 SwitchesDone:
           lda INPT4
           and #$80
@@ -203,7 +197,8 @@ SwitchesDone:
 ShowPointerText:
           jsr CopyPointerText
           jmp DecodeAndShowText
-          
+
+;;; 
                 ; The table below has high byte first just to
                 ; make it easier to see the number progression.
 DecimalTable:
