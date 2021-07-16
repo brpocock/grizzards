@@ -19,14 +19,14 @@ DetermineOutcome:
           lda WhoseTurn
           beq PlayerMove
 
+;;; 
+
 MonsterMove:
           ldx CombatMoveSelected
           lda MonsterMoves, x
           tax
           lda MoveDeltaHP, x
           bmi MonsterHeals
-
-;;; 
 
 MonsterAttacks:
           ldy # 14              ; ATK/DEF
@@ -40,7 +40,6 @@ MonsterAttacks:
           lda LevelTable, x
           tay
           ldx WhoseTurn
-          dex
           lda EnemyStatusFX - 1, x
           and #StatusAttackDown
           beq +
