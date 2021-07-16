@@ -2,6 +2,8 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 CombatMainScreen:   .block
 
+          lda #0
+          sta MoveSelection
 Loop:
           jsr VSync
           jsr VBlank
