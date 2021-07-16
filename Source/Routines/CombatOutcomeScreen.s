@@ -35,11 +35,11 @@ Loop:
           beq SkipHitPoints
           sta Temp              ; for later decoding
 
-          .SetPointer HPLost
+          .SetPointer HPLostText
           jmp DrawHitPoints
 
 DrawMissed:
-          .SetPointer Missed
+          .SetPointer MissedText
           jsr DecodeAndShowText
           jmp AfterHitPoints
 
@@ -47,7 +47,7 @@ DrawHealPoints:
           eor #$ff
           beq SkipHitPoints
           sta Temp
-          .SetPointer Healed
+          .SetPointer HealedText
 
 DrawHitPoints:
           jsr AppendDecimalAndPrint.FromTemp
@@ -177,9 +177,9 @@ StatusFXStrings:
           .MiniText "ATK UP"    ; attack up
           .MiniText "DEF UP"    ; defend up
 
-HPLost:
+HPLostText:
           .MiniText "HP -00"
-Healed:
+HealedText:
           .MiniText "HEAL00"
-Missed:
+MissedText:
           .MiniText "MISSED"
