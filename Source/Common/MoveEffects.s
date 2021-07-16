@@ -87,7 +87,7 @@ MoveDeltaHP:
           .byte 0
           ;; 8
           .byte 0
-          .byte 0
+          .byte $ff
           .byte $ff
           .byte 5
           .byte 5
