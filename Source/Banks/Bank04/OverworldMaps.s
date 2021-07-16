@@ -3,7 +3,7 @@
 
           ;; How many maps are in these tables?
 MapCount = 47
-
+;;; 
 ;;; Foreground and background colors
 ;;; Remember SECAM and don't make these too similar
 
@@ -60,7 +60,7 @@ MapColors:
           .colors COLRED, COLBROWN
           .colors COLORANGE, COLBROWN
           .colors COLORANGE, COLBROWN
-
+;;; 
 ;;; Links up, down, left, right are map indices in this bank
 MapLinks:
           .byte $ff, $ff, $ff, $ff
@@ -119,7 +119,7 @@ MapLinks:
           ;; 45
           .byte 44, $ff, $ff, 46
           .byte 43, $ff, 45, 37
-
+;;; 
 ;;; RLE Map data for each screen.
 
 ;;; Note that it can be reused, so the same basic layout, potentially
@@ -193,7 +193,7 @@ MapLinks:
 
 MapRLEL:  .byte <MapRLE
 MapRLEH:  .byte >MapRLE
-
+;;; 
 ;;; Maps can have left or right sides added by the Ball
 ;;;
 ;;; This lets the exits be asymmetrical, even though the playfield is in
@@ -223,7 +223,7 @@ MapSides:
           ;; 40
           .byte $40, $40, $40, 0, $80
           .byte $80, 0
-
+;;; 
 ;;; The Sprites Lists
 ;;;
 ;;; Each screen can have a list of sprites here, ending with a zero
