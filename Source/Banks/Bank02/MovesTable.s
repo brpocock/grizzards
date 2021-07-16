@@ -114,8 +114,8 @@ MovesTable:
           .MiniText "LIFE  "
           .MiniText "RETURN"
 
-          .MiniText "STEAL "
-          .MiniText "  LIFE"
+          .MiniText "NIBBLE"
+          .MiniText "      "
 
           .MiniText "MUDDLE"
           .MiniText "  MIND"
