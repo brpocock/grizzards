@@ -2,8 +2,7 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
           ;; How many maps are in these tables?
-MapCount:
-          .byte 47
+MapCount = 47
 
 ;;; Foreground and background colors
 ;;; Remember SECAM and don't make these too similar
