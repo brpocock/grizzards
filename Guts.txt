@@ -86,10 +86,11 @@ fidelity of music  playback.
 
 Music routines  exist in Bank  7 for  the title song,  and in banks  3 &
 4 for  the map background music  for each region of  the game (currently
-the same  music for both,  I need to  write something else).  Sounds and
-music are in  identical formats, but music loops and  sound effects stop
-and play  the next one  (if any) from  the queue. These  functions maybe
-could be combined cleverly to scrape a few bytes of ROM.
+the same  music for both, but  pitch-shifted; I need to  write something
+else). Sounds  and music are in  identical formats, but music  loops and
+sound  effects stop  and play  the  next one  (if any)  from the  queue.
+These functions maybe  could be combined cleverly to scrape  a few bytes
+of ROM.
 
 Speech routines use CurrentUtterance as a  pointer to a phoneme; once it
 is zeroed  out (because the utterance  has been completed), a  caller is
@@ -122,14 +123,14 @@ and  6 for  combat, or  Province 1  in banks  3 and  5). Another  5-byte
 segment  holds the  current  Grizzard's stats,  which  are “paged”  when
 changing Grizzards.
 
-The middle  part (between globals and  the stack) of the  zero page hold
+The middle part  (between globals and the stack) of  the zero page holds
 “overlain”  variables   which  are  defined  for   a  specific  routine.
 These routines  normally reset  them on  entry to  a game  routine (e.g.
 starting combat), trashing whatever the previous game routine might have
 left there.
 
 A global  clock stores current  time in  game play, in  frames, seconds,
-minutes, and four-hour increments. (The minutes counter ranges 0-239.)
+minutes, and  four-hour increments. (The minutes  counter ranges 0-239.)
 An alarm word can  be used to set an alarm for a  future time in minutes
 and   seconds,  and   is  used   to  normalize   display  delays   (e.g.
 message  displays) between  50Hz  and 60Hz  systems.  Currently NTSC  is
@@ -142,7 +143,11 @@ hours counter stops and the Depot reports only “MANY” hours played.
 The user  input is scanned  during VBlank and debounced.  Current values
 are available  in eg.  DebounceSWCHA; when these  have not  changed, the
 matching new  registers eg.  NewSWCHA are zeroed.  When the  values have
-changed, the New registers contain non-zero values.
+changed, the New registers contain  non-zero values. (Since stick cannot
+be both left & right or up & down, at least two directions must be 1; to
+ensure that the fire button registers a 1  on INPT4 we OR it with a $01;
+we likewise set a spurious 1 bit  in SWCHB in case someone flips all the
+switches at once.)
 
 For  screens that  want  to perform  some  variable-length work  without
 losing count of scanlines, there are a pair of macros .WaitScreenTop and
@@ -151,14 +156,16 @@ the majority  of a frame (181  scanlines, 215 TIM64T counts),  then wait
 out the timer and hit WSYNC enough times to keep the scanline count even
 (262 resp.  312 for  NTSC or  PAL/SECAM). This is  used for  things like
 computing the outcome of a Move in combat which are too complex to count
-cycles in any meaningful way.
+cycles in any meaningful way (and take  too long to stuff into VBlank or
+Overscan or something).
 
 There  is (unused)  support for  localization of  text based  on a  LANG
 constant  at compile-time.  This  could  also be  used  to swap  between
 different art pieces  (eg. title card) but that complexity  has not been
 approached yet.  I do  think it would  be cool to  put out  a translated
 version of  the game, but  the 6-char limits will  be a big  problem for
-most languages.
+most  languages (not  to  mention  the effort  of  translating all  this
+nonsense) so it's unlikely to happen.
 
 Combat is  roughly broken  into 4  routines: CombatMainScreen  shows the
 monsters, the player's Grizzard, and  (on the player's turn) allows move
@@ -174,7 +181,7 @@ to Death, WinnerFireworks, or back to the map screen as appropriate.
 
 Stylistically, I use CamelCase for  memory addresses and constants both,
 for the  most part, with  CAPS for constants  that are really  more like
-compile-time variables: TV, DEMO, and PUBLISHER in particular.
+compile-time variables: TV, DEMO, STARTER, and PUBLISHER in particular.
 
 I usually  add a space between  “#” and a  decimal value, but not  a hex
 value, just to make it slightly easier to tell it's a decimal.
