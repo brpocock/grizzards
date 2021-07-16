@@ -41,7 +41,7 @@ MoveEffects:
           .byte 0
           .byte 0
           .byte 0
-          .byte 0
+          .byte 3
           .byte StatusMuddle
           .byte 0
           .byte 0
