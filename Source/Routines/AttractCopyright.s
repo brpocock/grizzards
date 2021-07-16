@@ -15,7 +15,7 @@ CopyrightMode:
 
 DoneCopyrightSpeech:
 
-          ldx # 29
+          ldx # 24
 SkipAboveCopyright:
           stx WSYNC
           dex
