@@ -32,16 +32,14 @@ ROM banks have enumerated symbolic names:
  * 2 is  the TextBank. It's  also FailureBank,  where the “sad  face” is
    drawn (via the BRK vector).
 
- * 3 is the Province0MapBank.  This is one half of the  maps in the game
-   (roughly) and all share a common background song (Province0.midi).
+ * 3 is the Province1MapBank.  This is one half of the  maps in the game
+   (roughly) and all share a common background song (Province1.midi).
 
- * 4 is the Province1MapBank, with the rest of the maps.
+ * 4 is the Province0MapBank, with the rest of the maps.
 
- * 5 is CombatBank for combats  0-127. These are the persistent combats,
-   which are removed from the map after victory.
-
- * 6 is CombatBank for combats 128-255. These are the transient combats,
-   typically random encounters, which respawn immediately after victory.
+ * 5 is CombatBank for combats 128-255.
+ 
+ * 6 is CombatBank for combats 0-127.
 
  * 7 is the  SFXBank, handling sound effects, speech  synthesis, and the
    music for the title/attract sequence.
