@@ -112,7 +112,8 @@ MonsterAttackHitCommon:
           sta MoveHP
           lda CurrentHP
           cmp MoveHP
-          bge MonsterKilledGrizzard
+          beq MonsterKilledGrizzard
+          blt MonsterKilledGrizzard
           sec
           sbc MoveHP
           sta CurrentHP
