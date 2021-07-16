@@ -206,7 +206,7 @@ PlayerSleeps:
           sta StatusFX
 +
           jmp ExecuteCombatMove.NextTurn ; FIXME scanline count
-       
+
 PlayerChooseMove:
           lda StatusFX
           and #StatusSleep
