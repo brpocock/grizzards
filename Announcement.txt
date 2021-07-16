@@ -80,6 +80,8 @@ Naturally, I'm excited to see any feedback.
 
 * Development
 
+For the curious: https://github.com/brpocock/grizzards/ has the whole source dump. (Theoretically there are spoilers in there, if you go looking for them.)
+
 This is written in hand-coded assembler — no surprises there, I'm sure — using the 64tass (Turbo Assembler), which is more familiar to me coming from a C=64 background than DASM or others. It's pretty similar until you start playing with macros and compile-time conditionals and the like. I wrote a little utility to convert the symbol tables it writes out into DASM-alike format for Stella. I'm running it under Linux but it should work just as well on macOS.
 
 Music was written in MIDI using MuseScore3; monster, Grizzard, and title graphics were draw in PNG using Gimp. MIDI and PNG conversion to source code use a Lisp utility that is just an awful example of spaghetti code but has been used for C=64 conversions in the past. It actually began as part of an Atari 2600 game that I was working on many years ago which was derailed when my house burned down, so it's called the Skyline Tool after that game.
