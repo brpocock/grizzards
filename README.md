@@ -54,6 +54,22 @@ All image files with draft PDF manuals
 https://star-hope.org/games/Grizzards/Grizzards.Demo.zip
 
 
+Major Bugs
+-----------
+
+* Combat moves after  the first move do not work  properly. If you don't
+  "one-hit" a  monster you'll  probably end up  in a  weird, error-prone
+  loop until you're killed.
+  
+* Combat Moves  are not associated correctly with  the player's Grizzard
+  or  monsters,  and  the  outcomes  of  those  Moves  need  to  be  set
+  up properly.
+
+* There  may still be  screen line count  issues with some  screens that
+  will  cause rolling,  flickering,  or even  blanking  (or blue  screen
+  blanking) on modern (digital) TVs. Please report them if you find such
+  a bug: support@star-hope.orgsup
+
 
 How to Play
 ------------
