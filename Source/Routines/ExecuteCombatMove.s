@@ -24,6 +24,7 @@ DetermineOutcome:
 MonsterMove:
           ldx CombatMoveSelected
           lda MoveDeltaHP, x
+          sta CombatMoveDeltaHP
           bmi MonsterHeals
 
 MonsterAttacks:
@@ -36,7 +37,7 @@ MonsterAttacks:
           ror a
           tax
           lda LevelTable, x
-          tay
+          tay                   ; Attack score
           ldx WhoseTurn
           lda EnemyStatusFX - 1, x
           and #StatusAttackDown
@@ -58,7 +59,7 @@ MonsterAttacks:
           sta Temp
           jsr Random
           bmi MonsterAttackNegativeRandom
-
+MonsterAttackPositiveRandom:
           and Temp
           clc
           adc MoveHP            ; temporarily effective Attack score
@@ -79,7 +80,6 @@ MonsterAttackNegativeRandom:
           sec
           sbc Temp
           ;; fall through
-
 MonsterAttackHitMissP:
           tax                   ; stash effective attack strength
           cmp GrizzardDefense
@@ -108,7 +108,6 @@ MonsterAttackHitMinus:
           lda CombatMoveDeltaHP
           sbc Temp
           ;; fall through
-
 MonsterAttackHitCommon:
           sta MoveHP
           lda CurrentHP
@@ -125,7 +124,6 @@ MonsterKilledGrizzard:
           beq MonsterAttackNoStatusFX ; always taken
 
 MonsterDidNotKillGrizzard:
-
           ;; OK, also, what is the effect on the player's status?
           jsr Random
           ldx CombatMoveSelected
@@ -134,12 +132,14 @@ MonsterDidNotKillGrizzard:
           beq MonsterAttackNoStatusFX
 
 MonsterAttackSetsStatusFX:
+          tay
           and StatusFX
           bne MonsterAttackNoStatusFX
+          tya
           sta MoveStatusFX
           ora StatusFX
           sta StatusFX
-
+          ;;  fall through to common code
 MonsterAttackNoStatusFX:
           lda # 1
           sta MoveHitMiss
@@ -341,7 +341,7 @@ PlayerAttackSetsStatusFX:
           sta MoveStatusFX
           ora EnemyStatusFX - 1, x
           sta EnemyStatusFX - 1, x
-
+          ;; fall through to common code
 PlayerAttackNoStatusFX:
           lda # 1
           sta MoveHitMiss
