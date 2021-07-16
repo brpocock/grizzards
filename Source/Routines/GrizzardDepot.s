@@ -175,12 +175,8 @@ HTDdone:
           bne NoReset
           jmp GoQuit
 NoReset:
-          lda NewSWCHB
-          and #SWCHBSelect
-          bne SwitchesDone
-          lda #ModeGrizzardStats
-          sta GameMode
-          rts
+          ;; fall through
+          ;; TODO, enable Select to show Grizzard stats
 ;;; 
 SwitchesDone:
           lda INPT4
