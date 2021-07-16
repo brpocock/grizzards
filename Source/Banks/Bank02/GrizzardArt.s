@@ -4,7 +4,7 @@
 
 GrizzardPictureSelect:
 
-          .byte 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+          .byte 0, 3, 1, 3, 4, 5, 6, 7, 8, 9
           ;; 10
           .byte 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
           ;; 20
@@ -13,8 +13,8 @@ GrizzardPictureSelect:
 GrizzardColor:
 
           .byte COLGREEN | $f
-          .byte COLGREEN | $f
-          .byte COLGREEN | $f
+          .byte COLBROWN | $f
+          .byte COLTEAL | $f
           .byte COLGREEN | $f
           .byte COLGREEN | $f
           .byte COLGREEN | $f
