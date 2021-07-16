@@ -42,6 +42,11 @@ Loop:
           and #SWCHBReset
           beq Leave
 +
+	lda NewINPT4
+          beq +
+          and #PRESSED
+          beq Leave
++
           jmp Loop
 
 Leave:
