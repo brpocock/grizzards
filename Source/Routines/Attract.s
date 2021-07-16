@@ -116,6 +116,8 @@ FillAttractMid1:
           sta COLUP0
           sta COLUP1
 
+          sta WSYNC             ; just for line count
+
           lda ClockFrame
           and # $20
           beq DrawTitle3
