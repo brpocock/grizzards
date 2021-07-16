@@ -29,5 +29,6 @@ DoLocal:
           .include "AtariToday.s"
           .include "Theme.s"
           .include "Victory.s"
+          .include "GameOver.s"
 
           .include "EndBank.s"

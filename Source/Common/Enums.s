@@ -50,6 +50,7 @@
           SoundSweepUp = 7
           SoundAtariToday = 8
           SoundVictory = 9
+          SoundGameOver = 10
 
 ;;; Status Effects for player or enemies 
           StatusSleep = $01
