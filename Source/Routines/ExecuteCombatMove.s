@@ -410,7 +410,6 @@ PlayerBuff:
           sta StatusFX
           ;;  fall through
 ;;; 
-
 WaitOutScreen:
 
           lda MoveHitMiss
@@ -423,9 +422,54 @@ SoundForMiss:
           sta NextSound
           
           .WaitScreenBottom
-
+;;; 
           .FarJSR TextBank, ServiceCombatOutcome
+;;; 
+          ;; If this was a monster's move, could the player learn that move?
+          lda WhoseTurn
+          beq NextTurn
 
+          .WaitScreenTop
+          
+          lda #1
+          sta pp1h        ; using this as our loop counter
+
+CheckMove:
+          sta MoveSelection
+          .FarJSR TextBank, ServiceFetchGrizzardMove
+          lda Temp
+          cmp CombatMoveSelected
+          bne CheckNextMove
+
+          jsr Random
+          and #$07
+          bne DidNotLearn
+LearnedMove:
+          ldx pp1h              ; bit index of move to learn
+          lda BitMask, x
+          ora MovesKnown
+          sta MovesKnown
+          ldy # 1
+          bne AfterTryingToLearn ; always taken
+
+CheckNextMove:
+          inc pp1h
+          lda pp1h
+          cmp #8
+          blt CheckMove
+          ;; fall through
+DidNotLearn:   
+          ldy # 0
+
+AfterTryingToLearn:
+          .WaitScreenBottom
+
+          cpy # 0
+          beq NextTurn
+
+          ;; TODO — .FarJSR TextBank, ServiceLearnedMove
+          
+;;; 
 NextTurn:
           inc WhoseTurn
           ldx WhoseTurn
