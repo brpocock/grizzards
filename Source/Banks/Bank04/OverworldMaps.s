@@ -318,7 +318,7 @@ MapSprites:
           .byte 0
 
           ;; Room 7
-          .byte $ff
+          .byte 7
           .byte SpriteFixed
           .byte $7c, $2a
           .byte SpriteCombat, 2
