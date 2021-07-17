@@ -93,7 +93,7 @@ DrawSubject:
 
 PlayerSubject:
           .FarJSR TextBank, ServiceShowGrizzardName
-          .SkipLInes 32
+          .SkipLines 32
           beq SubjectDone       ; always taken
 
 SkipSubject:
