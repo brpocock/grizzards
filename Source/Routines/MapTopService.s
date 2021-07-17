@@ -111,7 +111,7 @@ NextFlickerCandidate:
           ldx #0
 FlickerOK:
           dey
-          beq NoSprites
+          beq TheEnd
           lda SpriteMotion, x
           cmp # SpriteRandomEncounter
           beq NextFlickerCandidate
