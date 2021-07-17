@@ -262,7 +262,7 @@ PlayerAttackHitMissP:
           txa
           cmp Temp
           blt PlayerAttackMiss
-          ;; fall through          
+          ;; fall through
 ;;; 
 PlayerAttackHit:
           ;; The attack was a success!
@@ -420,7 +420,7 @@ SoundForMiss:
           lda #SoundHit
 +
           sta NextSound
-          
+
           .WaitScreenBottom
 ;;; 
           .FarJSR TextBank, ServiceCombatOutcome
@@ -430,7 +430,7 @@ SoundForMiss:
           beq NextTurn
 
           .WaitScreenTop
-          
+
           lda #1
           sta pp1h        ; using this as our loop counter
 
@@ -441,6 +441,7 @@ CheckMove:
           cmp CombatMoveSelected
           bne CheckNextMove
 
+          sta pp1l
           jsr Random
           and #$07
           bne DidNotLearn
@@ -458,7 +459,7 @@ CheckNextMove:
           cmp #8
           blt CheckMove
           ;; fall through
-DidNotLearn:   
+DidNotLearn:
           ldy # 0
 
 AfterTryingToLearn:
@@ -467,7 +468,7 @@ AfterTryingToLearn:
           cpy # 0
           beq NextTurn
 
-          lda pp1h
+          lda pp1l
           sta Temp
           .FarJSR TextBank, ServiceLearnedMove
 ;;; 

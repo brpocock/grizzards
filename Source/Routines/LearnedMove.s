@@ -6,16 +6,45 @@ LearnedMove:        .block
           ;; Call with the move ID stashed in Temp
           lda #ModeLearnedMove
           sta GameMode
+
+          lda Temp
+          sta DeltaX
+
+          lda # 4
+          jsr SetNextAlarm
 Loop:
           jsr VSync
           jsr VBlank
-          .SkipLines (KernelLines - 35) / 2
 
-          lda Temp
+          .ldacolu COLGRAY, 0
+          sta COLUP0
+          sta COLUP1
+          .ldacolu COLTURQUOISE, $f
+          sta COLUBK
+
+          .SkipLines (KernelLines - 45) / 2
+
+          .SetPointer LearntText
+          jsr CopyPointerText
+          jsr DecodeAndShowText
+
+          ldy DeltaX
           jsr ShowMove.WithDecodedMoveID
 
-          .SkipLines (KernelLines - 35) / 2
+          .SkipLines (KernelLines - 45) / 2
           jsr Overscan
+
+CheckForAlarm:
+          lda ClockSeconds
+          cmp AlarmSeconds
+          bne AlarmDone
+
+          lda ClockMinutes
+          cmp AlarmMinutes
+          bne AlarmDone
+          rts
+
+AlarmDone:
 
           lda NewSWCHB
           beq SwitchesDone
@@ -35,4 +64,7 @@ SwitchesDone:
 +
           jmp Loop
 
+LearntText:
+          .MiniText "LEARNT"
+          
           .bend
