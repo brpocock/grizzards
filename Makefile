@@ -211,7 +211,7 @@ stella-secam:	Dist/Grizzards.Demo.SECAM.a26 Dist/Grizzards.Demo.SECAM.sym Dist/G
 		-debug $<
 
 quickclean:
-	rm -rf Object Dist
+	rm -rf Object Dist Source/Generated
 
 clean:
 	rm -fr Object Dist Source/Generated bin/buildapp bin/skyline-tool
