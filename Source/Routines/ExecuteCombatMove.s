@@ -38,14 +38,14 @@ MonsterAttacks:
           tay                   ; Attack score
           ldx WhoseTurn
           lda EnemyStatusFX - 1, x
-          and #StatusAttackDown
+          .BitBit StatusAttackDown
           beq +
           tya
           ror a
           tay
 +
           lda EnemyStatusFX - 1, x
-          and #StatusAttackUp
+          .BitBit StatusAttackUp
           beq +
           tya
           asl a
@@ -219,14 +219,14 @@ PlayerMove:
 PlayerAttacks:
           ldx GrizzardAttack
           lda StatusFX
-          and #StatusAttackDown
+          .BitBit StatusAttackDown
           beq +
           txa
           ror a
           tax
 +
           lda StatusFX
-          and #StatusAttackUp
+          .BitBit StatusAttackUp
           beq +
           txa
           asl a

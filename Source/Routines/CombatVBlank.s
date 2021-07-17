@@ -35,10 +35,9 @@ DoAutoMove:
           bne DoMonsterMove
 MaybeDoPlayerMove:
           lda StatusFX
-          and #StatusSleep
+          .BitBit StatusSleep
           bne DoPlayerSleep
-          lda StatusFX
-          and #StatusMuddle
+          .BitBit StatusMuddle
           bne DoPlayerMuddled
           beq CheckStick        ; always taken
 
@@ -85,7 +84,7 @@ CheckStick:
 
           lda NewSWCHA
           beq StickDone
-          and #P0StickUp
+          .BitBit P0StickUp
           bne DoneStickUp
           lda #SoundChirp
           sta NextSound
@@ -95,7 +94,7 @@ CheckStick:
 
 DoneStickUp:
           lda NewSWCHA
-          and #P0StickDown
+          .BitBit P0StickDown
           bne DoneStickDown
           lda #SoundChirp
           sta NextSound
@@ -128,14 +127,14 @@ ChooseTarget:
           ldx # 1
 +
           lda NewSWCHA
-          and #P0StickLeft
+          .BitBit P0StickLeft
           bne DoneStickLeft
           dex
           bne DoneStickLeft
           ldx # 6
 DoneStickLeft:
           lda NewSWCHA
-          and #P0StickRight
+          .BitBit P0StickRight
           bne DoneStickRight
           inx
           cpx # 7
@@ -149,14 +148,12 @@ CheckSwitches:
 
           lda NewSWCHB
           beq SkipSwitches
-          and #SWCHBReset
+          .BitBit SWCHBReset
           bne NoReset
           jmp GoQuit
 
 NoReset:
-          lda NewSWCHB
-          beq NoSelect
-          and #SWCHBSelect
+          .BitBit SWCHBSelect
           bne NoSelect
           lda #ModeGrizzardStats
           sta GameMode
@@ -166,17 +163,15 @@ NoSelect:
           .if TV == SECAM
 
           lda DebounceSWCHB
-          and #SWCHBP0Advanced
+          .BitBit SWCHBP0Advanced
           sta Pause
 
           .else
 
           lda DebounceSWCHB
-          and #SWCHBColor
-          eor #SWCHBColor
-          beq NoPause
-          lda DebounceSWCHB
-          and #SWCHBGenuine2600
+          .BitBit SWCHBColor
+          bne NoPause
+          .BitBit SWCHBGenuine2600
           bne +
           lda Pause
           eor #$ff

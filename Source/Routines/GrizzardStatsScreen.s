@@ -15,7 +15,11 @@ Loop:
 
           .SkipLines 4
 
+          .if BANK == TextBank
+          jsr ShowGrizzardStats
+          .else
           .FarJSR TextBank, ServiceShowGrizzardStats
+          .fi
 
           .ldacolu COLINDIGO, 0
           sta COLUP0
@@ -35,12 +39,11 @@ Loop:
 
           lda NewSWCHB
           beq Bouncey1
-          and #SWCHBReset
+          .BitBit SWCHBReset
           bne +
           jmp GoQuit
 +
-          lda NewSWCHB
-          and #SWCHBSelect
+          .BitBit SWCHBSelect
           bne Bouncey1
 
           lda DeltaY
@@ -56,10 +59,21 @@ Bouncey1:
           ldy # 0
           sty NewSWCHB
 
+          .if ((BANK == CombatBank0To127) || (BANK == CombatBank128To255))
+
           cmp #ModeCombat
           bne +
           jmp CombatMainScreen
 +
+
+          .else
+
+          cmp #ModeGrizzardDepot
+          bne +
+          jmp GrizzardDepot
++
+
+          .fi
 
           brk
           .bend
