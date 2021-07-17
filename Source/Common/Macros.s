@@ -273,7 +273,7 @@ BitBit:   .macro constant
           bit BitMask + 6
 
           .case $80
-          .bit BitMask + 7
+          bit BitMask + 7
 
           .default
           .error "Constant is not a power-of-two bit value: ", \constant
