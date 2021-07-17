@@ -89,20 +89,16 @@ DrawSubject:
 
           jsr ShowMonsterNameAndNumber
 
-          jmp SubjectDone
+          jmp AnnounceVerb
 
 PlayerSubject:
           .FarJSR TextBank, ServiceShowGrizzardName
           .SkipLines 32
-          beq SubjectDone       ; always taken
+          beq AnnounceVerb       ; always taken
 
 SkipSubject:
           .SkipLines 55
-
-SubjectDone:
-
 ;;; 
-
 AnnounceVerb:
 
           lda MoveAnnouncement
@@ -115,14 +111,11 @@ DrawVerb:
           .FarJSR TextBank, ServiceShowMoveDecoded
           stx WSYNC
 
-          jmp VerbDone
+          jmp AnnounceObject
 
+SkipVerb:
           .SkipLines 42
-
-VerbDone:
-
 ;;; 
-
 AnnounceObject:
 
           lda MoveAnnouncement
@@ -149,29 +142,21 @@ ObjectOther:
           ;; fall through
 MonsterTargetObject:
           jsr ShowMonsterNameAndNumber
-          jmp ObjectDone
+          jmp WaitOutSpeechInterval
 
 PlayerObject:
           .FarJSR TextBank, ServiceShowGrizzardName
           .SkipLines 32
-          beq ObjectDone        ; always taken
+          beq WaitOutSpeechInterval   ; always taken
 
 SkipObject:
           .SkipLines 60
-
-ObjectDone:
-
 ;;; 
-
 WaitOutSpeechInterval:
-
           lda # ( (KernelLines - 161) * 76 ) / 64
           sta TIM64T
-
 ;;; 
-
 ScheduleSpeech:
-
           lda CurrentUtterance
           bne SpeechDone
           lda CurrentUtterance + 1
