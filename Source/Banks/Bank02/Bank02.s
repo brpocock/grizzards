@@ -70,6 +70,7 @@ ShowMoveDecoded:
           .include "GrizzardArt.s"
           .include "GrizzardMoves.s"
           .include "MovesTable.s"
+          .include "Random.s"
 
 StatsText:
           .MiniText "ATK 00"

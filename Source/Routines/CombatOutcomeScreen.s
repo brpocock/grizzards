@@ -150,7 +150,7 @@ WonBattle:
           bne +
           inc GrizzardDefense
 +
-          
+
 ;;; TODO Check if they have won the game
           .fill $20, $ea        ; pad with some NOPs
 
