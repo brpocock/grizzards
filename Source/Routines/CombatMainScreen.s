@@ -142,67 +142,20 @@ FillScreen:
           stx WSYNC
           dex
           bne FillScreen
-          .else
-          stx WSYNC
-          stx WSYNC
           .fi
 
 ;;; 
-
-ChooseMove:
           lda WhoseTurn
           beq PlayerChooseMove
 
-MonsterChooseMove:
-          jsr Random
-          and #$03
-          sta MoveSelection
-
-MoveAutoChosen:
-          ldx #40
+          ldx # 30
 -
-	stx WSYNC
+          stx WSYNC
           dex
           bne -
-          ;; TODO: hold on this screen for 2s before auto-choosing a move
-          ;; TODO: if it's the player being muddled, show "MUDDLE" in stead of the move name
-          ldx # ModeCombatAnnouncement
-          stx GameMode
-          jmp ScreenDone
-
-PlayerMuddled:
-          jsr Random
-          and #$07
-          tax
-          lda BitMask, x
-          beq PlayerMuddled
-          stx MoveSelection
-          jsr Random
-          bpl +
-          lda StatusFX
-          ora #~StatusMuddle
-          sta StatusFX
-+
-          jmp MoveAutoChosen
-
-PlayerSleeps:
-          jsr Random
-          bpl +
-          bpl +
-          lda StatusFX
-          ora #~StatusSleep
-          sta StatusFX
-+
-          jmp ExecuteCombatMove.NextTurn ; FIXME scanline count
+          beq ScreenDone        ; always taken
 
 PlayerChooseMove:
-          lda StatusFX
-          and #StatusSleep
-          bne PlayerSleeps
-          lda StatusFX
-          and #StatusMuddle
-          bne PlayerMuddled
-
           jsr Prepare48pxMobBlob
 
           ldx MoveSelection
