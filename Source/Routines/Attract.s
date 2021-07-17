@@ -119,7 +119,7 @@ FillAttractMid1:
           sta WSYNC             ; just for line count
 
           lda ClockFrame
-          and # $20
+          .BitBit $20
           beq DrawTitle3
 
           .SetUpFortyEight Title2

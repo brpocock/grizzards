@@ -247,3 +247,35 @@ SkipLines:          .macro length
 
           .fi
           .endm
+
+BitBit:   .macro constant
+          .switch \constant
+
+          .case $01
+          bit BitMask
+
+          .case $02
+          bit BitMask + 1
+
+          .case $04
+          bit BitMask + 2
+
+          .case $08
+          bit BitMask + 3
+
+          .case $10
+          bit BitMask + 4
+
+          .case $20
+          bit BitMask + 5
+
+          .case $40
+          bit BitMask + 6
+
+          .case $80
+          .bit BitMask + 7
+
+          .default
+          .error "Constant is not a power-of-two bit value: ", \constant
+          .endswitch
+          .endm
