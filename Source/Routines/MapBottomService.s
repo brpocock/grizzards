@@ -12,7 +12,7 @@ BottomOfScreenService: .block
           sta WSYNC
 
           .if TV == NTSC
-          .SkipLInes KernelLines - 184
+          .SkipLines KernelLines - 184
           .else
           .SkipLines KernelLines - 219
           .fi
