@@ -144,7 +144,7 @@ MapLinks:
           Map_Arc,
           Map_EWPassage,
           Map_Narrow,
-          SCREEN8MAP,
+          ROOM8MAP,
           Map_Bulge,
           ;; 10
           Map_NorthGlobe,
