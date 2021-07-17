@@ -123,6 +123,7 @@
           ServiceShowGrizzardStats = $04
           ServiceDrawGrizzard = $05
           ServiceShowMove = $06
+          ServiceShowMoveDecoded = $17
           ServiceGrizzardDepot = $07
           ServiceAppendDecimalAndPrint = $0e
           ServiceNewGame = $0f

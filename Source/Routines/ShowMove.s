@@ -1,13 +1,15 @@
 ;;; Grizzards Source/Routines/ShowMove.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
-ShowMove:
+ShowMove: .block
+
+;;; Default entry point is only useful for the player, used for the menu.
           ldy MoveSelection
           beq MoveRunAway
           dey
-          
+
           lda #>GrizzardMoves
           sta Pointer + 1
-          
+
           lda CurrentGrizzard
           asl a
           asl a
@@ -20,8 +22,10 @@ ShowMove:
           lda (Pointer), y
           tay
 
-MoveRunAway:        
-          
+MoveRunAway:
+
+WithDecodedMoveID:              ; move ID is in Y register
+
           lda #>MovesTable
           sta Pointer + 1
           tya                   ; move number
@@ -32,6 +36,10 @@ MoveRunAway:
           asl a                 ; × 4
           sta Pointer
           asl a                 ; × 8
+          bcc +
+          inc Pointer + 1
++
+          clc
           adc Pointer           ; × 12
           bcc +
           inc Pointer + 1
@@ -57,3 +65,5 @@ MoveRunAway:
 
           jsr CopyPointerText
           jmp DecodeAndShowText
+
+          .bend

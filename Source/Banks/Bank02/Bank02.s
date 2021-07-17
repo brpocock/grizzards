@@ -17,6 +17,8 @@ DoLocal:
           beq DrawGrizzard
           cpy #ServiceShowMove
           beq ShowMove
+          cpy #ServiceShowMoveDecoded
+          beq ShowMoveDecoded
           cpy #ServiceGrizzardDepot
           beq GrizzardDepot
           cpy #ServiceAppendDecimalAndPrint
@@ -54,6 +56,10 @@ FetchedRunAway:
           stx Temp
           rts
 
+ShowMoveDecoded:
+          ldy Temp
+          jmp ShowMove.WithDecodedMoveID
+          
           .include "ShowText.s"
           .include "VSync.s"
           .include "VBlank.s"

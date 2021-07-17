@@ -22,6 +22,7 @@ FindPlayerMove:
           .FarJSR TextBank, ServiceFetchGrizzardMove
           ldy Temp
           sty CombatMoveSelected
+          ldx CombatMoveSelected
           jmp MoveFound
 
 FindMonsterMove:
@@ -41,6 +42,7 @@ FindMonsterMove:
 
           lda (Pointer), y
           sta CombatMoveSelected
+          tax
 
 MoveFound:
           lda MoveDeltaHP, x
@@ -113,7 +115,9 @@ AnnounceVerb:
           bmi SkipVerb
 
 DrawVerb:
-          .FarJSR TextBank, ServiceShowMove
+          lda CombatMoveSelected
+          sta Temp
+          .FarJSR TextBank, ServiceShowMoveDecoded
           stx WSYNC
 
           jmp VerbDone

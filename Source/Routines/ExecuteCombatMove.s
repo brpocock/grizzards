@@ -22,9 +22,7 @@ DetermineOutcome:
 ;;; 
 
 MonsterMove:
-          ldx CombatMoveSelected
-          lda MoveDeltaHP, x
-          sta CombatMoveDeltaHP
+          lda CombatMoveDeltaHP
           bmi MonsterHeals
 
 MonsterAttacks:
@@ -131,7 +129,6 @@ MonsterDidNotKillGrizzard:
           and MoveEffects, x
           jsr FindHighBit
           beq MonsterAttackNoStatusFX
-
 MonsterAttackSetsStatusFX:
           tay
           and StatusFX
@@ -216,9 +213,7 @@ MonsterBuff:
 ;;; 
 
 PlayerMove:
-          ldx CombatMoveSelected
-          lda MoveDeltaHP, x
-          sta CombatMoveDeltaHP
+          lda CombatMoveDeltaHP
           bmi PlayerHeals
 
 PlayerAttacks:
