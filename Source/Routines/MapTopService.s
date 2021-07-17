@@ -103,11 +103,15 @@ P0HPos:
 
           stx CXCLR
           ldx SpriteFlicker
+NextFlickerCandidate:
           inx
           cpx SpriteCount
           bmi FlickerOK
           ldx #0
 FlickerOK:
+          lda SpriteMotion, x
+          cmp # SpriteRandomEncounter
+          beq NextFlickerCandidate
           stx SpriteFlicker
 
           lda SpriteX, x
