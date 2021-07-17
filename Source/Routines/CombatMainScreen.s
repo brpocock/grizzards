@@ -158,6 +158,9 @@ FillScreen:
 PlayerChooseMove:
           jsr Prepare48pxMobBlob
 
+          sta WSYNC
+          sta WSYNC
+
           ldx MoveSelection
           bne NotRunAway
           .ldacolu COLTURQUOISE, $f
