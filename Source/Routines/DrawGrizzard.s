@@ -21,24 +21,32 @@ DrawGrizzard:
           sta RESP1
 
           lda # >GrizzardImages
-          sta Pointer + 1
+          sta pp2h
+          sta pp3h
           ldx CurrentGrizzard
           lda GrizzardPictureSelect, x
           clc
           asl a
           asl a
           asl a
-          adc # <GrizzardImages
+          adc # <GrizzardImages - 1
           bcc +
-          inc Pointer + 1
+          inc pp2h
+          inc pp3h
 +
-          sta Pointer
-          
+          sta pp2l
+          clc
+          adc # GrizzardImages.Height
+          bcc +
+          inc pp3h
++
+          sta pp3l
+
           ldy # 8
 -
-          lda GrizzardImages - 1, y
+          lda (pp2l), y
           sta GRP0
-          lda GrizzardImages + GrizzardImages.Height - 1, y
+          lda (pp3l), y
           sta GRP1
           sta WSYNC
           sta WSYNC
