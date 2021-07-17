@@ -15,7 +15,11 @@ Loop:
 
           .SkipLines 4
 
+          .if BANK == TextBank
+          jsr ShowGrizzardStats
+          .else
           .FarJSR TextBank, ServiceShowGrizzardStats
+          .fi
 
           .ldacolu COLINDIGO, 0
           sta COLUP0
@@ -55,10 +59,21 @@ Bouncey1:
           ldy # 0
           sty NewSWCHB
 
+          .if ((BANK == CombatBank0To127) || (BANK == CombatBank128To255))
+
           cmp #ModeCombat
           bne +
           jmp CombatMainScreen
 +
+
+          .else
+
+          cmp #ModeGrizzardDepot
+          bne +
+          jmp GrizzardDepot
++
+
+          .fi
 
           brk
           .bend
