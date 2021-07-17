@@ -134,7 +134,25 @@ WonBattle:
           ora ProvinceFlags, y
           sta ProvinceFlags, y
 
+          jsr Random
+          sta Temp
+          lda GrizzardAttack
+          jsr CalculateAttackMask
+          and Temp
+          bne +
+          inc GrizzardAttack
++
+          jsr Random
+          sta Temp
+          lda GrizzardDefense
+          jsr CalculateAttackMask
+          and Temp
+          bne +
+          inc GrizzardDefense
++
+          
 ;;; TODO Check if they have won the game
+          .fill $20, $ea        ; pad with some NOPs
 
 WonReturnToMap:
           lda #SoundVictory
