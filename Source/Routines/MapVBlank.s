@@ -11,7 +11,7 @@ MapVBlank:        .block
           
 MovementLogic:
           lda ClockFrame
-          and # $04
+          .BitBit $04
           bne CheckSpriteCollision
 
 ;;; 
@@ -38,22 +38,19 @@ SpriteXMove:
           cmp #SpriteMoveIdle
           beq SpriteMoveNext
           lda SpriteMotion, x
-          and #SpriteMoveLeft
+          .BitBit SpriteMoveLeft
           bne +
           dec SpriteX, x
 +
-          lda SpriteMotion, x
-          and #SpriteMoveRight
+          .BitBit SpriteMoveRight
           bne +
           inc SpriteX, x
 +
-          lda SpriteMotion, x
-          and #SpriteMoveUp
+          .BitBit SpriteMoveUp
           bne +
           dec SpriteY, x
 +
-          lda SpriteMotion, x
-          and #SpriteMoveDown
+          .BitBit SpriteMoveDown
           bne +
           inc SpriteY, x
 +
@@ -66,11 +63,10 @@ SpriteMoveNext:
           bne SpriteMoveDone
 
           tya
-          and #$10
+          .BitBit $10
           beq ChasePlayer
 
-          tya
-          and #$20
+          .BitBit $20
           beq RandomlyMove
 
           lda SpriteMoveIdle
@@ -166,7 +162,7 @@ CheckSpriteCollision:
           ;; Who did we just draw?
           ldx SpriteFlicker
           lda SpriteMotion, x
-          and #SpriteMoveLeft
+          .BitBit SpriteMoveLeft
           bne SpriteCxRight
 
 SpriteCxLeft:
@@ -186,11 +182,10 @@ SpriteCxRight:
 
 SpriteCxUpDown:
           lda SpriteMotion, x
-          and #SpriteMoveUp
+          .BitBit SpriteMoveUp
           bne SpriteCxDown
 
 SpriteCxUp:
-          lda SpriteMotion, x
           and # SpriteMoveLeft | SpriteMoveRight
           ora #SpriteMoveDown
           sta SpriteMotion, x
@@ -223,42 +218,38 @@ HandleStick:
           bne CheckPlayerMove
 
           lda SWCHA
-          and #P0StickUp
+          .BitBit P0StickUp
           bne DoneStickUp
 
-          lda #-1
-          sta DeltaY
+          ldx #-1
+          stx DeltaY
 
 DoneStickUp:
-          lda SWCHA
-          and #P0StickDown
+          .BitBit P0StickDown
           bne DoneStickDown
 
-          lda #1
-          sta DeltaY
+          ldx #1
+          stx DeltaY
 
 DoneStickDown:
-          lda SWCHA
-          and #P0StickLeft
+          .BitBit P0StickLeft
           bne DoneStickLeft
 
-          lda #0
-          sta Facing
-          lda #-1
-          sta DeltaX
+          ldx #0
+          stx Facing
+          ldx #-1
+          stx DeltaX
 
 DoneStickLeft:
-          lda SWCHA
-          and #P0StickRight
+          .BitBit P0StickRight
           bne DoneStickRight
 
-          lda #$ff
-          sta Facing
-          lda #1
-          sta DeltaX
+          ldx #$ff
+          stx Facing
+          ldx #1
+          stx DeltaX
 
 DoneStickRight:
-
           lda PlayerX
           clc
           adc DeltaX
@@ -282,7 +273,7 @@ CheckPlayerMove:
 
 NoBumpWall:
           lda CXPPMM
-          and #$80              ; hit other sprite
+          .BitBit $80              ; hit other sprite
           beq PlayerMoveOK
 
 BumpSprite:

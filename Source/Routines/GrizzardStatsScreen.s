@@ -35,12 +35,11 @@ Loop:
 
           lda NewSWCHB
           beq Bouncey1
-          and #SWCHBReset
+          .BitBit SWCHBReset
           bne +
           jmp GoQuit
 +
-          lda NewSWCHB
-          and #SWCHBSelect
+          .BitBit SWCHBSelect
           bne Bouncey1
 
           lda DeltaY

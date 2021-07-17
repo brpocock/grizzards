@@ -121,11 +121,10 @@ FillScreen:
 ;;; 
           lda NewSWCHB
           beq SkipSwitches
-          and #SWCHBReset
+          .BitBit SWCHBReset
           beq SlotOK
 
-          lda NewSWCHB
-          and #SWCHBSelect
+          .BitBit SWCHBSelect
           beq SwitchSelectSlot
 SkipSwitches:
 
@@ -141,11 +140,11 @@ SkipSwitches:
           bne ThisIsNotAStickUp
           ;; — pull Down on joystick
           lda SWCHA
-          and #P0StickDown
+          .BitBit P0StickDown
           bne ThisIsNotAStickUp
           ;; — hold Fire button
           lda INPT4
-          and #PRESSED
+          .BitBit PRESSED
           bne ThisIsNotAStickUp
 
           lda #ModeEraseSlot
@@ -155,12 +154,12 @@ SkipSwitches:
 EliminationMode:
           ;; Release button to exit Elimination Mode
           lda INPT4
-          and #PRESSED
+          .BitBit PRESSED
           bne ThisIsNotAStickUp
 
           ;; Push stick Up to erase the selected slot
           lda SWCHA
-          and #P0StickUp
+          .BitBit P0StickUp
           beq EraseSlotNow
           jmp Loop
 

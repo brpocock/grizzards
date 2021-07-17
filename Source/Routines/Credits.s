@@ -47,7 +47,7 @@ Loop:
 
           lda NewSWCHB
           beq StayCredits
-          and #SWCHBReset
+          .BitBit SWCHBReset
           beq StayCredits
           lda #ModeAttractCopyright
           sta GameMode
