@@ -29,7 +29,7 @@ Loop:
 +
           sta pp1l
           lda ClockFrame
-          and #$10
+          .BitBit $10
           bne AnimationFrame0
 
           lda pp1l
@@ -134,7 +134,7 @@ P1Ready:
           sta ENABL
           lda MapSides, x
           bmi LeftBall
-          and #$40
+          .BitBit $40
           bne RightBall
           beq NoBalls           ; always taken
 
@@ -334,7 +334,7 @@ CheckSwitches:
 
           lda NewSWCHB
           beq SkipSwitches
-          and #SWCHBReset
+          .BitBit SWCHBReset
           bne NoReset
           jmp GoQuit
 
@@ -343,17 +343,16 @@ NoReset:
           .if TV == SECAM
 
           lda DebounceSWCHB
-          and #SWCHBP0Advanced
+          .BitBit SWCHBP0Advanced
           sta Pause
 
           .else
 
           lda DebounceSWCHB
-          and #SWCHBColor
-          eor #SWCHBColor
-          beq NoPause
+          .BitBit SWCHBColor
+          bne NoPause
           lda DebounceSWCHB
-          and #SWCHBGenuine2600
+          .BitBit SWCHBGenuine2600
           bne +
           lda Pause
           eor #$ff

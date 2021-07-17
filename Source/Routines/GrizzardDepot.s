@@ -167,7 +167,7 @@ HTDdone:
 
           lda NewSWCHB
           beq SwitchesDone
-          and #SWCHBReset
+          .BitBit SWCHBReset
           bne NoReset
           jmp GoQuit
 NoReset:
@@ -176,7 +176,7 @@ NoReset:
 ;;; 
 SwitchesDone:
           lda INPT4
-          and #$80
+          .BitBit PRESSED
           bne +
           lda #ModeMap
           sta GameMode

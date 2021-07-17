@@ -81,7 +81,7 @@ FillScreen:
 
           lda NewSWCHB
           beq SkipSwitches
-          and #SWCHBReset
+          .BitBit SWCHBReset
           beq Reset
 SkipSwitches:	
 

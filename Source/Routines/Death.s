@@ -39,12 +39,12 @@ Loop:
 
           lda NewSWCHB
           beq +
-          and #SWCHBReset
+          .BitBit SWCHBReset
           beq Leave
 +
 	lda NewINPT4
           beq +
-          and #PRESSED
+          .BitBit PRESSED
           beq Leave
 +
           jmp Loop
