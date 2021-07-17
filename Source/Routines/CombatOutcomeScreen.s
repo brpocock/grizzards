@@ -40,6 +40,7 @@ Loop:
 
 DrawMissed:
           .SetPointer MissedText
+          jsr CopyPointerText
           jsr DecodeAndShowText
           jmp AfterHitPoints
 
@@ -84,12 +85,10 @@ DrawStatusFX:
           jsr DecodeAndShowText
 
 SkipStatusFX:
-
           .SkipLines 35
 ;;; 
 AfterStatusFX:
-
-          .SkipLines KernelLines - 73
+          .SkipLines KernelLines - 79
 ;;; 
           lda ClockSeconds
           cmp AlarmSeconds
