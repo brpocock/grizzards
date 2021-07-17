@@ -22,6 +22,7 @@ DrawGrizzard:
 
           lda # >GrizzardImages
           sta Pointer + 1
+          ldx CurrentGrizzard
           lda GrizzardPictureSelect, x
           clc
           asl a
