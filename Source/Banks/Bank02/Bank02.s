@@ -37,25 +37,6 @@ AppendDecimalAndPrintThunk:
           lda Temp
           jmp AppendDecimalAndPrint.BINBCD8
 
-FetchGrizzardMove:
-          ldx MoveSelection
-          beq FetchedRunAway
-          dex
-          stx Temp
-          lda CurrentGrizzard
-          asl a
-          asl a
-          asl a
-          clc
-          adc Temp
-          tax
-          lda GrizzardMoves, x
-          sta Temp
-          rts
-FetchedRunAway:
-          stx Temp
-          rts
-
 ShowMoveDecoded:
           ldy Temp
           jmp ShowMove.WithDecodedMoveID
@@ -78,6 +59,7 @@ ShowMoveDecoded:
           .include "CombatOutcomeScreen.s"
           .include "SetNextAlarm.s"
           .include "FindHighBit.s"
+          .include "FetchGrizzardMove.s"
 
           .include "GrizzardNames.s"
           .include "GrizzardImages.s"
