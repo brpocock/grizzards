@@ -55,8 +55,7 @@ DrawHitPoints:
           jmp AfterHitPoints
 
 SkipHitPoints:
-
-          .SkipLines 35
+          .SkipLines 41
 ;;; 
 AfterHitPoints:
           lda MoveAnnouncement
