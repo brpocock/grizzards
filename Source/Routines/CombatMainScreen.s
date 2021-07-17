@@ -128,15 +128,13 @@ DoneHealth:
           sta PF1
           sta PF2
 
-          .if KernelLines > 192
           .SkipLines KernelLines - 192
-          .fi
 
 ;;; 
           lda WhoseTurn
           beq PlayerChooseMove
 
-          .SkipLInes 46
+          .SkipLines 46
           beq ScreenDone        ; always taken
 
 PlayerChooseMove:
