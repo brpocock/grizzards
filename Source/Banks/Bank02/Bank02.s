@@ -56,6 +56,7 @@ ShowMoveDecoded:
           .include "CopyPointerText.s"
           .include "ShowGrizzardName.s"
           .include "ShowGrizzardStats.s"
+          .include "GrizzardStatsScreen.s"
           .include "GrizzardDepot.s"
           .include "Failure.s"
           .include "CombatOutcomeScreen.s"

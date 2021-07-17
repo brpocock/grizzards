@@ -171,20 +171,34 @@ HTDdone:
           bne NoReset
           jmp GoQuit
 NoReset:
-          ;; fall through
-          ;; TODO, enable Select to show Grizzard stats
-;;; 
+          .BitBit SWCHBSelect
+          bne SwitchesDone
+          lda #ModeGrizzardStats
+          sta GameMode
+          lda #ModeGrizzardDepot
+          sta DeltaY            ; where to return after stats display
+          bne TriggerDone       ; always taken
+
 SwitchesDone:
           lda INPT4
           .BitBit PRESSED
-          bne +
+          bne TriggerDone
           lda #ModeMap
           sta GameMode
           jsr Overscan
           rts
-+
+
+TriggerDone:
+;;; 
           jsr Overscan
+          lda GameMode
+          cmp #ModeGrizzardDepot
+          bne +
           jmp Loop
++
+          cmp #ModeGrizzardStats
+          jmp GrizzardStatsScreen
+
 ;;; 
 ShowPointerText:
           jsr CopyPointerText
