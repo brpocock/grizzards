@@ -134,6 +134,9 @@ WonBattle:
           ora ProvinceFlags, y
           sta ProvinceFlags, y
 
+;;; TODO Check if they have won the game
+
+WonReturnToMap:
           lda #SoundVictory
           sta NextSound
 

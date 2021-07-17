@@ -32,6 +32,7 @@
           ModeCombatOutcome = $43
           ModeDeath = $44
           ModeCombatNextTurn = $45
+          ModeLearnedMove = $46
 
           ModeGrizzardDepot = $50
 
@@ -118,39 +119,40 @@
 
 ;;; Text bank provides multiple services, selected with .y
 
+          ServiceAppendDecimalAndPrint = $0e
+          ServiceCombatOutcome = $14
           ServiceDecodeAndShowText = $01
-          ServiceShowText = $02
+          ServiceDrawGrizzard = $05
+          ServiceFetchGrizzardMove = $13
+          ServiceGrizzardDepot = $07
+          ServiceLearnedMove = $18
+          ServiceNewGame = $0f
           ServiceShowGrizzardName = $03
           ServiceShowGrizzardStats = $04
-          ServiceDrawGrizzard = $05
           ServiceShowMove = $06
           ServiceShowMoveDecoded = $17
-          ServiceGrizzardDepot = $07
-          ServiceAppendDecimalAndPrint = $0e
-          ServiceNewGame = $0f
-          ServiceFetchGrizzardMove = $13
-          ServiceCombatOutcome = $14
+          ServiceShowText = $02
 
 ;;; Map services bank, same
 
-          ServiceTopOfScreen = $08
           ServiceBottomOfScreen = $09
           ServiceNewGrizzard = $0c
           ServiceStartNewGame = $16
+          ServiceTopOfScreen = $08
 
 ;;; Animations share the map services bank in 32k
 
+          ServiceAttractStory = $15
+          ServiceDeath = $0d
           ServiceDrawMonsterGroup = $0b
           ServiceFireworks = $0a
-          ServiceDeath = $0d
-          ServiceAttractStory = $15
 
 ;;; Also the cold start / save game bank
 
           ServiceColdStart = $00
-          ServiceSaveToSlot = $10
-          ServiceSaveGrizzard = $11
           ServicePeekGrizzard = $12
+          ServiceSaveGrizzard = $11
+          ServiceSaveToSlot = $10
 
 ;;; Maximum number of Grizzards allowed
 ;;; The save/load routines should handle up to 36
