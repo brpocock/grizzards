@@ -245,5 +245,5 @@ SkipLines:          .macro length
           dex
           bne -
 
-          .end
+          .fi
           .endm
