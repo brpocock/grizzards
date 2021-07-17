@@ -127,8 +127,10 @@ MapLinks:
 
           .if DEMO
           ROOM17MAP = Map_SouthGlobe      ; no exits to east/west in demo
+          ROOM8MAP = Map_Bow
           .else
           ROOM17MAP = Map_Bow
+          ROOM8MAP = Map_FourWay
           .fi
           
           MapRLE = (
@@ -142,7 +144,7 @@ MapLinks:
           Map_Arc,
           Map_EWPassage,
           Map_Narrow,
-          Map_FourWay,
+          SCREEN8MAP,
           Map_Bulge,
           ;; 10
           Map_NorthGlobe,
