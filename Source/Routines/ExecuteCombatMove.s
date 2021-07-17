@@ -286,7 +286,9 @@ PlayerAttackHitMinus:
           ;; fall through
 PlayerAttackHitCommon:
           sta MoveHP
+PlayerReduceMonsterHP:
           ldx MoveTarget
+          ; lda MoveHP ; already set
           cmp MonsterHP - 1, x
           blt PlayerDidNotKillMonster
 
