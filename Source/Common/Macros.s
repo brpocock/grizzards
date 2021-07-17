@@ -190,11 +190,7 @@ WaitScreenBottom:      .macro
           lda INSTAT
           bpl -
 
-          ldx # KernelLines - TimerSkipLines
--
-          stx WSYNC
-          dex
-          bne -
+          .SkipLines KernelLines - TimerSkipLines
 
           jsr Overscan
 
@@ -234,9 +230,20 @@ SetPointer:         .macro value
           .endm
 
 SkipLines:          .macro length
+
+          .if \length < 3
+
+          .rept \length
+          stx WSYNX
+          .next
+
+          .else
+
           ldx # \length
 -
           stx WSYNC
           dex
           bne -
+
+          .end
           .endm
