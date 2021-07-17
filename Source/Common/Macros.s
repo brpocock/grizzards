@@ -232,3 +232,11 @@ SetPointer:         .macro value
           lda #<\value
           sta Pointer
           .endm
+
+SkipLines:          .macro length
+          ldx # \length
+-
+          stx WSYNC
+          dex
+          bne -
+          .endm
