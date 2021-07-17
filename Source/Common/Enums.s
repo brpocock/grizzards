@@ -32,6 +32,7 @@
           ModeCombatOutcome = $43
           ModeDeath = $44
           ModeCombatNextTurn = $45
+          ModeLearnedMove = $46
 
           ModeGrizzardDepot = $50
 

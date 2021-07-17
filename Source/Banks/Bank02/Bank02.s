@@ -27,6 +27,8 @@ DoLocal:
           beq FetchGrizzardMove
           cpy #ServiceCombatOutcome
           beq CombatOutcomeScreen
+          cpy #ServiceLearnedMove
+          beq LearnedMove
           brk
 
 DecodeAndShowText:
@@ -60,6 +62,7 @@ ShowMoveDecoded:
           .include "SetNextAlarm.s"
           .include "FindHighBit.s"
           .include "FetchGrizzardMove.s"
+          .include "LearnedMove.s"
 
           .include "GrizzardNames.s"
           .include "GrizzardImages.s"

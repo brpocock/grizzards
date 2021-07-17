@@ -467,8 +467,9 @@ AfterTryingToLearn:
           cpy # 0
           beq NextTurn
 
-          ;; TODO — .FarJSR TextBank, ServiceLearnedMove
-          
+          lda pp1h
+          sta Temp
+          .FarJSR TextBank, ServiceLearnedMove
 ;;; 
 NextTurn:
           inc WhoseTurn
