@@ -36,7 +36,11 @@ PrepareTopCursor:
           sta HMCLR
 
           ldx MoveTarget
-          beq PrepareTopMonsters
+          bne +
+
+          stx WSYNC
+          stx WSYNC
+          beq PrepareTopMonsters ; always taken
 
           dex
           lda MonsterHP, x
@@ -155,8 +159,12 @@ PrepareBottomCursor:
           sta GRP0
 
           ldx MoveTarget
-          beq PrepareBottomMonsters
-          
+          bne +
+          stx WSYNC
+          stx WSYNC
+          beq PrepareBottomMonsters ; always taken
+
++
           dex
           lda MonsterHP, x
           beq +

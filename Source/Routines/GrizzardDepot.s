@@ -160,11 +160,7 @@ HTDdone:
           sta Pointer
           jsr ShowPointerText
 
-          ldx # KernelLines - 135
--
-          stx WSYNC
-          dex
-          bne - 
+          .SkipLines KernelLines - 135
 
           lda SWCHA
           ;; TODO handle stick

@@ -15,11 +15,7 @@ CopyrightMode:
 
 DoneCopyrightSpeech:
 
-          ldx # 24
-SkipAboveCopyright:
-          stx WSYNC
-          dex
-          bne SkipAboveCopyright
+          .SkipLines 24
 
           .ldacolu COLTURQUOISE, $e
           sta COLUP0
@@ -38,11 +34,7 @@ SkipAboveCopyright:
           .SetPointer PocockText
           jsr DecodeAndShowText
 
-          ldx # KernelLines - 153
-SkipBelowCopyright:
-          stx WSYNC
-          dex
-          bne SkipBelowCopyright
+          .SkipLines KernelLines - 153
 
           lda ClockSeconds
           cmp AlarmSeconds

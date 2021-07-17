@@ -93,12 +93,8 @@ DrawSubject:
 
 PlayerSubject:
           .FarJSR TextBank, ServiceShowGrizzardName
-          ldx # 32
-SkipSubjectX:
-          stx WSYNC
-          dex
-          bne SkipSubjectX
-          beq SubjectDone
+          .SkipLInes 32
+          beq SubjectDone       ; always taken
 
 SkipSubject:
           ldx # 55
@@ -122,12 +118,7 @@ DrawVerb:
 
           jmp VerbDone
 
-SkipVerb:
-          ldx # 42
--
-          stx WSYNC
-          dex
-          bne -
+          .SkipLines 42
 
 VerbDone:
 
@@ -163,12 +154,8 @@ MonsterTargetObject:
 
 PlayerObject:
           .FarJSR TextBank, ServiceShowGrizzardName
-          ldx # 32
-SkipObjectX:
-          stx WSYNC
-          dex
-          bne SkipObjectX
-          beq ObjectDone
+          .SkipLInes 32
+          beq ObjectDone        ; always taken
 
 SkipObject:
           ldx # 60

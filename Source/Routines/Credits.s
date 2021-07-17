@@ -15,11 +15,7 @@ Credits:  .block
 
 Loop:
 
-          ldx # 20
--
-          stx WSYNC
-          dex
-          bne -
+          .SkipLines 20
 
           .ldacolu COLINDIGO, $e
           sta COLUP0
@@ -34,11 +30,7 @@ Loop:
           .LoadString "ZEPHYR"
           jsr ShowText
 
-          ldx # 40
--
-          stx WSYNC
-          dex
-          bne -
+          .SkipLines 40
 
           DateString = format("%04d%02d%02d", YEARNOW, MONTHNOW, DATENOW)
           DateString6 = DateString[2:]
@@ -46,11 +38,7 @@ Loop:
           .LoadString DateString6
           jsr ShowText
           
-          ldx # KernelLines - 158
--
-          stx WSYNC
-          dex
-          bne -
+          .SkipLines KernelLines - 158
 
           lda NewINPT4
           beq +

@@ -55,11 +55,7 @@ DrawHitPoints:
 
 SkipHitPoints:
 
-          ldx # 35
--
-          stx WSYNC
-          dex
-          bne -
+          .SkipLines 35
 ;;; 
 AfterHitPoints:
           lda MoveAnnouncement
@@ -89,19 +85,11 @@ DrawStatusFX:
 
 SkipStatusFX:
 
-          ldx # 35
--
-          stx WSYNC
-          dex
-          bne -
+          .SkipLines 35
 ;;; 
 AfterStatusFX:
 
-          ldx # KernelLines - 73
-FillScreen:
-          stx WSYNC
-          dex
-          bne FillScreen
+          .SkipLines KernelLines - 73
 ;;; 
           lda ClockSeconds
           cmp AlarmSeconds

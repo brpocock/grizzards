@@ -20,7 +20,7 @@ CombatLogic:
 
           lda ClockMinutes
           cmp AlarmMinutes
-          beq DoMonsterMove
+          beq DoAutoMove
 
 +
           ldx # KernelLines - 180
@@ -29,20 +29,49 @@ CombatLogic:
           dex
           bne -
           jmp CheckSwitches
+;;; 
+DoAutoMove:
+          lda WhoseTurn
+          bne DoMonsterMove
+MaybeDoPlayerMove:
+          lda StatusFX
+          and #StatusSleep
+          bne DoPlayerSleep
+          lda StatusFX
+          and #StatusMuddle
+          bne DoPlayerMuddled
+          beq CheckStick        ; always taken
+
+DoPlayerSleep:
+          jsr Random
+          bpl +
+          bpl +
+          lda StatusFX
+          ora #~StatusSleep
+          sta StatusFX
++
+          lda #ModeCombatNextTurn
+          sta GameMode
+          bne CheckStick        ; always taken
+
+DoPlayerMuddled:
+          jsr Random
+          and #$07
+          tax
+          lda BitMask, x
+          bit MovesKnown
+          beq DoPlayerMuddled
+          stx MoveSelection
+          jsr Random
+          bpl CheckStick
+          lda StatusFX
+          ora #~StatusMuddle
+          sta StatusFX
+          jmp CheckStick
 
 DoMonsterMove:
-
           jsr Random
           and #$03
-          sta Temp
-
-          lda EncounterMonster
-          asl a
-          asl a                 ; at most 200
-          adc Temp
-
-          tay
-          lda MonsterMoves, y
           sta MoveSelection
 
           lda #SoundDrone

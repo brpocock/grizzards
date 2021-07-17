@@ -31,6 +31,7 @@
           ModeCombatAnnouncement = $41
           ModeCombatOutcome = $43
           ModeDeath = $44
+          ModeCombatNextTurn = $45
 
           ModeGrizzardDepot = $50
 

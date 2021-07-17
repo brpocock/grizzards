@@ -13,11 +13,7 @@ Loop:
           jsr VSync
           jsr VBlank
 
-          ldx #4
--
-          sta WSYNC
-          dex
-          bne -
+          .SkipLines 4
 
           .FarJSR TextBank, ServiceShowGrizzardStats
 

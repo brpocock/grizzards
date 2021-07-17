@@ -51,11 +51,7 @@ MonstersDisplay:
           .FarJSR MapServicesBank, ServiceDrawMonsterGroup
 DelayAfterMonsters:
 
-          ldx # 10
--
-          stx WSYNC
-          dex
-          bne -
+          .SkipLines 10
 
 ;;; 
 
@@ -123,11 +119,7 @@ FullMid:
           sta PF0
 
 DoneHealth:
-          ldx #4
--
-          sta WSYNC
-          dex
-          bne -
+          .SkipLines 4
 
 ;;; 
 
@@ -137,29 +129,18 @@ DoneHealth:
           sta PF2
 
           .if KernelLines > 192
-          ldx # KernelLines - 192
-FillScreen:
-          stx WSYNC
-          dex
-          bne FillScreen
+          .SkipLines KernelLines - 192
           .fi
 
 ;;; 
           lda WhoseTurn
           beq PlayerChooseMove
 
-          ldx # 30
--
-          stx WSYNC
-          dex
-          bne -
+          .SkipLInes 46
           beq ScreenDone        ; always taken
 
 PlayerChooseMove:
           jsr Prepare48pxMobBlob
-
-          sta WSYNC
-          sta WSYNC
 
           ldx MoveSelection
           bne NotRunAway

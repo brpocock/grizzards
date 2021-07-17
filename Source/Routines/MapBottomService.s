@@ -12,14 +12,10 @@ BottomOfScreenService: .block
           sta WSYNC
 
           .if TV == NTSC
-          ldx #KernelLines - 184
+          .SkipLInes KernelLines - 184
           .else
-          ldx #KernelLines - 219
+          .SkipLines KernelLines - 219
           .fi
-FillScreen:
-          stx WSYNC
-          dex
-          bne FillScreen
 
           rts
 

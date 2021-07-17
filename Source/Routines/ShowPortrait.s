@@ -13,11 +13,7 @@ Faces:    .block
           
           jsr Prepare48pxMobBlob
 
-          ldx #10
-TopMargin:
-          stx WSYNC
-          dex
-          bne TopMargin
+          .SkipLines 10
 
           lda # 0 
           clc
@@ -45,11 +41,7 @@ TopMargin:
           sty LineCounter
           jsr ShowPicture
 
-          ldx #10
-BottomMargin:
-          stx WSYNC
-          dex
-          bne BottomMargin
+          .SkipLines 10
 
           jsr DecodeText
           jsr ShowText
