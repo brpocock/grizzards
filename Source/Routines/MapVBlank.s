@@ -28,6 +28,11 @@ DoSpriteMotion:
 MoveSprites:
           lda SpriteMotion, x
           beq SpriteMoveDone
+          cmp #SpriteRandomEncounter
+          bne SpriteXMove
+          dex
+          bne MoveSprites
+          jmp CheckSpriteCollision
 
 SpriteXMove:        
           cmp #SpriteMoveIdle
