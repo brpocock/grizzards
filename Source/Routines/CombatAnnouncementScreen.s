@@ -97,8 +97,7 @@ PlayerSubject:
           beq SubjectDone       ; always taken
 
 SkipSubject:
-          ldx # 55
-          jmp SkipSubjectX
+          .SkipLines 55
 
 SubjectDone:
 
@@ -154,12 +153,11 @@ MonsterTargetObject:
 
 PlayerObject:
           .FarJSR TextBank, ServiceShowGrizzardName
-          .SkipLInes 32
+          .SkipLines 32
           beq ObjectDone        ; always taken
 
 SkipObject:
-          ldx # 60
-          jmp SkipObjectX
+          .SkipLines 60
 
 ObjectDone:
 
