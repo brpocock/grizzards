@@ -30,6 +30,14 @@ MoveSprites:
           beq SpriteMoveDone
           cmp #SpriteRandomEncounter
           bne SpriteXMove
+          jsr Random            ; Is there a random encounter?
+          bne NoRandom
+          jsr Random
+          and #1
+          bne NoRandom
+          jmp FightWithSpriteX
+
+NoRandom:
           dex
           bne MoveSprites
           jmp CheckSpriteCollision
@@ -151,7 +159,7 @@ BottomOK:
           dex
           cpx #$ff              ; wait for it to wrap around below 0
           bne MoveSprites
-
+          ;; fall through
 ;;; 
 
 CheckSpriteCollision:
@@ -164,7 +172,6 @@ CheckSpriteCollision:
           lda SpriteMotion, x
           .BitBit SpriteMoveLeft
           bne SpriteCxRight
-
 SpriteCxLeft:
           lda SpriteMotion, x
           and # SpriteMoveUp | SpriteMoveDown
@@ -179,12 +186,10 @@ SpriteCxRight:
           ora #SpriteMoveLeft
           sta SpriteMotion, x
           dec SpriteX, x
-
 SpriteCxUpDown:
           lda SpriteMotion, x
           .BitBit SpriteMoveUp
           bne SpriteCxDown
-
 SpriteCxUp:
           and # SpriteMoveLeft | SpriteMoveRight
           ora #SpriteMoveDown
@@ -297,7 +302,8 @@ BumpSprite:
           jmp ProvinceChange
 
 FightWithSprite:
-          ldx SpriteFlicker     ; ? Seems unnecessary 
+          ldx SpriteFlicker     ; ? Seems unnecessary
+FightWithSpriteX:
           lda SpriteParam, x
           sta CurrentCombatEncounter
           lda SpriteIndex, x
