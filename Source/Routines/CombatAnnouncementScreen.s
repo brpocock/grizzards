@@ -174,6 +174,7 @@ SayMonsterSubject:
 
 SayPlayerSubject:
           jsr SayPlayerGrizzard
+          inc MoveSpeech
           jmp SpeechDone
 
 Speech1:
