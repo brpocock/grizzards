@@ -22,21 +22,31 @@ PlaySpeech: .block
           clc
           adc #>SpeechIndexH
           sta Pointer + 1
+
           lda CurrentUtterance
           clc
           adc #<SpeechIndexH
+          bcc +
+          inc Pointer + 1
++
           sta Pointer
+
           lda (Pointer), y
-          sta Temp
+          sta Temp              ; high byte of speech address
 
           lda CurrentUtterance + 1
           clc
           adc #>SpeechIndexL
           sta Pointer + 1
+
           lda CurrentUtterance
           clc
           adc #<SpeechIndexL
+          bcc +
+          inc Pointer + 1
++
           sta Pointer
+
           lda (Pointer), y
           sta CurrentUtterance
 
