@@ -27,7 +27,11 @@ DoLocal:
           .include "TitleSpeech.s"
           .include "NumbersSpeech.s"
           .include "AtariToday.s"
-          .include "Theme.s"
+          ;;.include "Theme.s"
+SongTheme:
+          .sound 0, 0, 0, 0, 0
+          .sound 0, 0, 0, 0, 1
+          .fill 400, 0
           .include "Victory.s"
           .include "GameOver.s"
 
