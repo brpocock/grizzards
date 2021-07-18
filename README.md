@@ -221,7 +221,7 @@ Program, art, music, etc. — Bruce-Robert Pocock.
 
 
 Includes  VCS header  file by  Matthew Dillon,  Olaf “Rhialto”  Seibert,
-Andrew David, and Peter H. Froehlich (converted for 64tass syntax).
+Andrew Davie, and Peter H. Froehlich (converted for 64tass syntax).
  
 Binary-to-decimal translation  based upon  code by Andrew  Jacobs, based
 upon code by Garth Wilson.
