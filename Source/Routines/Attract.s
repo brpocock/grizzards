@@ -94,7 +94,7 @@ DoneTitleSpeech:
           sty LineCounter
           jsr ShowPicture
 
-          ldx # 40
+          ldx # 42
 FillAttractMid1:
           sta WSYNC
           dex
