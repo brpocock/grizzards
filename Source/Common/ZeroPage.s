@@ -143,8 +143,11 @@ NewSWCHB:
           .byte ?
 NewINPT4:
           .byte ?
+;;; XXX  these  should be  moved  into  the  overlay section,  but  that
+;;; requires some remediation
 DeltaX:
 CombatMoveSelected:             ; actual Move ID, not relative to creature
+MoveSpeech:                     ; speech segment of the sentence being emitted
           .byte ?
 DeltaY:
 CombatMoveDeltaHP:              ; base value, MoveHP has actual calculated effective value
@@ -327,8 +330,7 @@ MoveTarget:
 MoveAnnouncement:
           .byte ?
 
-;;; The move's outcome, or the last speech segment we spit out
-MoveSpeech:
+;;; The move's outcome
 MoveHitMiss:
           .byte ?
 
