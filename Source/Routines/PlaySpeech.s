@@ -18,6 +18,8 @@ PlaySpeech: .block
           ;; New utterance ID is in the "mailbox"
           ;; Find it in the index.
 
+          ldy # 0
+
           lda CurrentUtterance + 1
           clc
           adc #>SpeechIndexH
