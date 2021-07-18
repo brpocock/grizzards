@@ -42,7 +42,7 @@ Loop:
 	sty GRP1
 	sty GRP0
 	dec LineCounter
-	bpl Loop
+	bne Loop
 
           .option allow_branch_across_page = true
 
