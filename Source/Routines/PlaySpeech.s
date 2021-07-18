@@ -63,7 +63,7 @@ ContinueSpeaking:
           lda SpeakJetCooldown
           cmp #$20              ; seems to hang after 36 bytes or so
           bmi NotOverheated
-          cmp #$70              ; cooldown value derived experimentally
+          cmp #$20              ; cooldown value derived experimentally
           bmi TheEnd
           lda #0
           sta SpeakJetCooldown
