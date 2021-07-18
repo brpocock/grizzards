@@ -123,7 +123,7 @@ Build time for all 3 platforms is around 16s, including the MIDI/PNG/TXT convers
 
     Program, game art, music, etc. — Bruce-Robert Pocock.
     “Label” art — Zephyr Salz
-    Includes VCS header file by Matthew Dillon, Olaf “Rhialto” Seibert, Andrew David, and Peter H. Froehlich (converted for 64tass syntax).
+    Includes VCS header file by Matthew Dillon, Olaf “Rhialto” Seibert, Andrew Davie, and Peter H. Froehlich (converted for 64tass syntax).
     Binary-to-decimal translation based upon code by Andrew Jacobs, based upon code by Garth Wilson.
     Some math functions by AtariAge Forum user Omegamatrix; others taken from December 1984 Apple Assembly Line. (actually, I'm not sure if I'm using these, but they're in the macro files.)
     “Have You Played Atari Today” jingle transcribed by AtariAge Forum user tiggerthehun and converted to MIDI myself.
