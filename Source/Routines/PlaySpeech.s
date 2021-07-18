@@ -1,8 +1,8 @@
 ;;; Grizzards Source/Routines/PlaySpeech.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
+
 ;;; The following  subroutine based upon  AtariVox Speech Synth  Driver, by
 ;;; Alex Herbert, 2004; altered by Bruce-Robert Pocock, 2017, 2020
-
 
 PlaySpeech: .block
           SerialOutput = $01
@@ -18,21 +18,37 @@ PlaySpeech: .block
           ;; New utterance ID is in the "mailbox"
           ;; Find it in the index.
 
-          lda CurrentUtterance + 1
-          adc #>SpeechIndexH
-          sta Pointer + 1
-          lda CurrentUtterance
-          adc #<SpeechIndexH
-          sta Pointer
-          lda (Pointer), y
-          sta Temp
+          ldy # 0
 
           lda CurrentUtterance + 1
+          clc
+          adc #>SpeechIndexH
+          sta Pointer + 1
+
+          lda CurrentUtterance
+          clc
+          adc #<SpeechIndexH
+          bcc +
+          inc Pointer + 1
++
+          sta Pointer
+
+          lda (Pointer), y
+          sta Temp              ; high byte of speech address
+
+          lda CurrentUtterance + 1
+          clc
           adc #>SpeechIndexL
           sta Pointer + 1
+
           lda CurrentUtterance
+          clc
           adc #<SpeechIndexL
+          bcc +
+          inc Pointer + 1
++
           sta Pointer
+
           lda (Pointer), y
           sta CurrentUtterance
 
@@ -49,7 +65,7 @@ ContinueSpeaking:
           lda SpeakJetCooldown
           cmp #$20              ; seems to hang after 36 bytes or so
           bmi NotOverheated
-          cmp #$70              ; cooldown value derived experimentally
+          cmp #$20              ; cooldown value derived experimentally
           bmi TheEnd
           lda #0
           sta SpeakJetCooldown

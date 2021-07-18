@@ -174,6 +174,7 @@ SayMonsterSubject:
 
 SayPlayerSubject:
           jsr SayPlayerGrizzard
+          inc MoveSpeech
           jmp SpeechDone
 
 Speech1:
@@ -238,7 +239,7 @@ Speech4:
 
 Speech5:
           cmp # 6
-          bge Speech5
+          bge Speech6
 
           lda WhoseTurn
           beq SayMonsterObject
