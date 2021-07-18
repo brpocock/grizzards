@@ -1,8 +1,8 @@
 ;;; Grizzards Source/Routines/PlaySpeech.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
+
 ;;; The following  subroutine based upon  AtariVox Speech Synth  Driver, by
 ;;; Alex Herbert, 2004; altered by Bruce-Robert Pocock, 2017, 2020
-
 
 PlaySpeech: .block
           SerialOutput = $01
@@ -19,18 +19,22 @@ PlaySpeech: .block
           ;; Find it in the index.
 
           lda CurrentUtterance + 1
+          clc
           adc #>SpeechIndexH
           sta Pointer + 1
           lda CurrentUtterance
+          clc
           adc #<SpeechIndexH
           sta Pointer
           lda (Pointer), y
           sta Temp
 
           lda CurrentUtterance + 1
+          clc
           adc #>SpeechIndexL
           sta Pointer + 1
           lda CurrentUtterance
+          clc
           adc #<SpeechIndexL
           sta Pointer
           lda (Pointer), y
