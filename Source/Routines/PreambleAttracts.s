@@ -38,7 +38,7 @@ StillPresenting:
 
 SingleGraphicAttract:
 
-          ldx # 70
+          ldx # 71
 SkipAboveGraphic:
           stx WSYNC
           dex
