@@ -188,6 +188,7 @@ Speech3:
           bge Speech4
 
           lda MoveStatusFX
+          beq DontSayHP
           .BitBit StatusSleep
           bne SaySleep
           .BitBit StatusMuddle

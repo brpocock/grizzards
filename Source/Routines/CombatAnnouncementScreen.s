@@ -155,7 +155,8 @@ ScheduleSpeech:
           bne SpeechDone
 
           lda MoveSpeech
-          bne Speech1
+          cmp # 1
+          bge Speech1
 
           lda WhoseTurn
           beq SayPlayerSubject
@@ -167,7 +168,7 @@ SayMonsterSubject:
 SayPlayerSubject:
           jsr SayPlayerGrizzard
           inc MoveSpeech
-          jmp SpeechDone
+          bne SpeechDone        ; always taken
 
 Speech1:
           cmp # 2
@@ -295,28 +296,7 @@ AlarmDone:
 CombatMoveDone:
           jmp ExecuteCombatMove
 
-          .bend
-
 ;;; 
-
-SetNextAlarm:
-          tax
-          lda ClockMinutes
-          sta AlarmMinutes
-          txa
-          adc ClockSeconds
-          cmp # 60
-          bmi +
-          sec
-          sbc # 60
-          inc AlarmMinutes
-+
-          sta AlarmSeconds
-
-          rts
-
-;;; 
-
 ShowMonsterNameAndNumber:
           jsr ShowMonsterName
 
@@ -332,9 +312,7 @@ ShowMonsterNameAndNumber:
 +
           sta StringBuffer + 3
           .FarJMP TextBank, ServiceDecodeAndShowText ; tail call
-
 ;;; 
-
 SayMonster:
           lda #>MonsterPhrase
           sta CurrentUtterance + 1
@@ -358,5 +336,22 @@ SayPlayerGrizzard:
           inc CurrentUtterance + 1
 +
           sta CurrentUtterance
+          rts
+;;; 
+          .bend
+;;; 
+SetNextAlarm:
+          tax
+          lda ClockMinutes
+          sta AlarmMinutes
+          txa
+          adc ClockSeconds
+          cmp # 60
+          bmi +
+          sec
+          sbc # 60
+          inc AlarmMinutes
++
+          sta AlarmSeconds
 
           rts
