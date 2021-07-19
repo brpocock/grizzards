@@ -175,13 +175,18 @@ ShowSelectedMove:
           lda BitMask, x
           and MovesKnown
           bne DoUseMove
-
+MoveNotOK:
           lda #SoundBump
           sta NextSound
 
-          jmp ScreenDone
+          bne ScreenDone        ; always taken
 
 DoUseMove:
+          ldx MoveTarget
+          beq MoveOK
+          lda MonsterHP - 1, x
+          beq MoveNotOK
+MoveOK:
           lda #SoundChirp
           sta NextSound
 
@@ -195,9 +200,7 @@ RunAway:
           sta GameMode
           ;; fall through
 ;;; 
-
 ScreenDone:
-
           jsr Overscan
 
           lda GameMode
