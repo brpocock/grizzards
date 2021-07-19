@@ -158,6 +158,23 @@ ScheduleSpeech:
           cmp # 1
           bge Speech1
 
+          lda MoveStatusFX
+          bne SomethingHappened
+          lda MoveHP
+          beq NothingHappened
+          cmp #$ff
+          bne SomethingHappened
+
+NothingHappened:
+          lda #>Phrase_NoEffect
+          sta CurrentUtterance + 1
+          lda #<Phrase_NoEffect
+          sta CurrentUtterance
+          lda # $ff
+          sta MoveSpeech
+
+SomethingHappened:
+          
           lda WhoseTurn
           beq SayPlayerSubject
 SayMonsterSubject:
