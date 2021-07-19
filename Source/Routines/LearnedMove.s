@@ -26,10 +26,11 @@ Loop:
 
           .SetPointer LearntText
           jsr CopyPointerText
-          jsr DecodeAndShowText
+          .FarJSR TextBank, ServiceDecodeAndShowText
 
           ldy DeltaX
-          jsr ShowMove.WithDecodedMoveID
+          sty Temp
+          .FarJSR TextBank, ServiceShowMoveDecoded
 
           .SkipLines (KernelLines - 45) / 2
           jsr Overscan

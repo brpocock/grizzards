@@ -3,6 +3,7 @@
 	BANK = $02
 
 	.include "StartBank.s"
+          .include "SpeakJetIDs.s"
 
 DoLocal:
           cpy #ServiceDecodeAndShowText
@@ -27,8 +28,6 @@ DoLocal:
           beq FetchGrizzardMove
           cpy #ServiceCombatOutcome
           beq CombatOutcomeScreen
-          cpy #ServiceLearnedMove
-          beq LearnedMove
           brk
 
 DecodeAndShowText:
@@ -58,19 +57,17 @@ ShowMoveDecoded:
           .include "ShowGrizzardStats.s"
           .include "GrizzardStatsScreen.s"
           .include "GrizzardDepot.s"
-          .include "Failure.s"
-          .include "CombatOutcomeScreen.s"
           .include "SetNextAlarm.s"
           .include "FindHighBit.s"
           .include "FetchGrizzardMove.s"
-          .include "LearnedMove.s"
+          .include "Random.s"
+          .include "CombatOutcomeScreen.s"
 
           .include "GrizzardNames.s"
           .include "GrizzardImages.s"
           .include "GrizzardArt.s"
           .include "GrizzardMoves.s"
           .include "MovesTable.s"
-          .include "Random.s"
 
 StatsText:
           .MiniText "ATK 00"

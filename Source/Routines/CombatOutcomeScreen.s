@@ -3,6 +3,9 @@
 
 CombatOutcomeScreen:          .block
 
+          lda # 0
+          sta MoveSpeech
+
           lda MoveHitMiss
           beq SoundForMiss
           lda #SoundHit
@@ -25,7 +28,7 @@ Loop:
 ;;; 
           lda MoveAnnouncement
           cmp # 5
-          bmi SkipHitPoints
+          blt SkipHitPoints
 
           lda MoveHitMiss
           beq DrawMissed
@@ -106,6 +109,168 @@ AfterStatusFX:
 AlarmDone:
 
           jsr Overscan
+
+ScheduleSpeech:
+          lda CurrentUtterance
+          bne SpeechDone
+          lda CurrentUtterance + 1
+          bne SpeechDone
+
+          lda MoveSpeech
+          bne Speech1
+
+          lda WhoseTurn
+          beq SayMonsterSubject
+SayPlayerSubject:
+          lda #>Phrase_Grizzard
+          sta CurrentUtterance + 1
+          lda #<Phrase_Grizzard
+          sta CurrentUtterance
+
+          inc MoveSpeech
+          bne SpeechDone        ; always taken
+
+SayMonsterSubject:
+          lda #>Phrase_Monster
+          sta CurrentUtterance + 1
+          lda #<Phrase_Monster
+          sta CurrentUtterance
+
+          inc MoveSpeech
+          bne SpeechDone        ; always taken
+          
+Speech1:
+          cmp # 2
+          bge Speech2
+
+          lda MoveHP
+          bmi SayHealed
+          beq DontSayHP
+SayInjured:
+          lda #>Phrase_IsInjured
+          sta CurrentUtterance + 1
+          lda #<Phrase_IsInjured
+          sta CurrentUtterance
+
+          inc MoveSpeech
+          bne SpeechDone        ; always taken
+
+SayHealed:
+          lda #>Phrase_IsHealed
+          sta CurrentUtterance + 1
+          lda #<Phrase_IsHealed
+          sta CurrentUtterance
+          ;; fall through to common section
+DontSayHP:
+          inc MoveSpeech
+          bne SpeechDone        ; always taken
+
+Speech2:
+          cmp # 3
+          bge Speech3
+
+          lda MoveHP
+          beq DontSayHP
+          lda MoveStatusFX
+          beq DontSayHP
+
+SayAnd:
+          lda #>Phrase_And
+          sta CurrentUtterance + 1
+          lda #<Phrase_And
+          sta CurrentUtterance
+
+          inc MoveSpeech
+          bne SpeechDone        ; always taken
+
+Speech3:
+          cmp # 4
+          bge Speech4
+
+          lda MoveStatusFX
+          .BitBit StatusSleep
+          bne SaySleep
+          .BitBit StatusMuddle
+          bne SayMuddle
+          .BitBit StatusAttackUp
+          bne SayAttack
+          .BitBit StatusAttackDown
+          bne SayAttack
+          .BitBit StatusDefendUp
+          bne SayDefend
+          .BitBit StatusDefendDown
+          bne SayDefend
+          brk
+
+SaySleep:
+          lda #>Phrase_StatusFXSleep
+          sta CurrentUtterance + 1
+          lda #<Phrase_StatusFXSleep
+          sta CurrentUtterance
+
+          inc MoveSpeech
+          bne SpeechDone        ; always taken
+
+SayMuddle:          
+          lda #>Phrase_StatusFXMuddle
+          sta CurrentUtterance + 1
+          lda #<Phrase_StatusFXMuddle
+          sta CurrentUtterance
+
+          inc MoveSpeech
+          bne SpeechDone        ; always taken
+
+
+SayAttack:
+          lda #>Phrase_StatusFXAttack
+          sta CurrentUtterance + 1
+          lda #<Phrase_StatusFXAttack
+          sta CurrentUtterance
+
+          inc MoveSpeech
+          bne SpeechDone        ; always taken
+
+SayDefend:
+          lda #>Phrase_StatusFXDefend
+          sta CurrentUtterance + 1
+          lda #<Phrase_StatusFXDefend
+          sta CurrentUtterance
+
+          inc MoveSpeech
+          bne SpeechDone        ; always taken
+
+Speech4:
+          lda MoveSpeech
+          cmp # 4
+          bge SpeechDone
+
+          lda MoveStatusFX
+          and #StatusAttackDown | StatusDefendDown
+          beq Speech4NotDown
+
+          lda #>Phrase_StatusFXLower
+          sta CurrentUtterance + 1
+          lda #<Phrase_StatusFXLower
+          sta CurrentUtterance
+          inc MoveSpeech
+          bne SpeechDone        ; always taken
+
+Speech4NotDown:
+          lda MoveStatusFX
+          and #StatusAttackUp | StatusDefendUp
+          beq Spoke4
+
+          lda #>Phrase_StatusFXRaise
+          sta CurrentUtterance + 1
+          lda #<Phrase_StatusFXRaise
+          sta CurrentUtterance
+          ;; fall through to common
+Spoke4:
+          inc MoveSpeech
+          bne SpeechDone        ; always taken
+
+SpeechDone:
+;;;  
           jmp Loop
 ;;; 
 CombatOutcomeDone:
@@ -151,6 +316,7 @@ WonBattle:
           inc GrizzardDefense
 +
 
+
 ;;; TODO Check if they have won the game
           .fill $20, $ea        ; pad with some NOPs
 
@@ -158,6 +324,11 @@ WonReturnToMap:
           lda #SoundVictory
           sta NextSound
 
+          lda #>Phrase_Victory
+          sta CurrentUtterance + 1
+          lda #<Phrase_Victory
+          sta CurrentUtterance
+          
           lda #ModeMap
           sta GameMode
           jmp GoMap
@@ -165,6 +336,12 @@ WonReturnToMap:
 CheckForLoss:
           lda CurrentHP
           bne +
+
+          lda #>Phrase_GameOver
+          sta CurrentUtterance + 1
+          lda #<Phrase_GameOver
+          sta CurrentUtterance
+          
           .FarJMP MapServicesBank, ServiceDeath ; never returns
 +
           rts

@@ -274,11 +274,8 @@ Speech6Done:
           inc MoveSpeech
           ;; fall through
 SpeechDone:
-
 ;;; 
-
 CheckForAlarm:
-
           lda ClockSeconds
           cmp AlarmSeconds
           bne AlarmDone

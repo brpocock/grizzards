@@ -110,7 +110,7 @@
           MapServicesBank = $01
           AnimationsBank = $01
           TextBank = $02
-          FailureBank = $02
+          FailureBank = $01
           Province0MapBank = $04
           Province1MapBank = $03
           CombatBank0To127 = $06

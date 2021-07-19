@@ -14,6 +14,8 @@ DoVBlankWork:
           .include "Overscan.s"
           .include "48Pixels.s"
           .include "Prepare48pxMobBlob.s"
+          .include "LearnedMove.s"
+          .include "Failure.s"
 
 DoLocal:
           cpy #ServiceTopOfScreen
@@ -34,8 +36,11 @@ DoLocal:
           beq AttractStory
           cpy #ServiceStartNewGame
           beq StartNewGame
+          cpy #ServiceLearnedMove
+          beq LearnedMove
           brk
 
+          .include "CopyPointerText.s"
           .include "MapTopService.s"
           .include "MapBottomService.s"
           .include "DrawMonsterGroup.s"
