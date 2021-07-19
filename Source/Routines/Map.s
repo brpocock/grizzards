@@ -333,17 +333,17 @@ ScreenBounce:
 CheckSwitches:
 
           lda NewSWCHB
-          beq SkipSwitches
+          beq NoReset
           .BitBit SWCHBReset
           bne NoReset
           jmp GoQuit
 
 NoReset:
-
+;;; 
           .if TV == SECAM
 
           lda DebounceSWCHB
-          .BitBit SWCHBP0Advanced
+          and # SWCHBP0Advanced
           sta Pause
 
           .else
@@ -351,7 +351,6 @@ NoReset:
           lda DebounceSWCHB
           .BitBit SWCHBColor
           bne NoPause
-          lda DebounceSWCHB
           .BitBit SWCHBGenuine2600
           bne +
           lda Pause
@@ -363,8 +362,9 @@ NoReset:
 NoPause:
           lda # 0
           sta Pause
-          .fi
 
+          .fi
+;;; 
 SkipSwitches:
 
           jsr Overscan
