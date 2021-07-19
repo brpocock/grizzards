@@ -234,13 +234,26 @@ Speech5:
           cmp # 6
           bge Speech6
 
+          ldx CombatMoveSelected
           lda WhoseTurn
           beq SayMonsterObject
+SayPlayerObject:
+          lda MoveDeltaHP, x
+          bpl +
+          jsr SayMonster
+          jmp SayObjectDone
++
           jsr SayPlayerGrizzard
           jmp SayObjectDone
 
 SayMonsterObject:
+          lda MoveDeltaHP, x
+          bpl +
+          jsr SayPlayerGrizzard
+          jmp SayObjectDone
++
           jsr SayMonster
+
 SayObjectDone:
           inc MoveSpeech
           bne SpeechDone        ; always taken
@@ -249,9 +262,18 @@ Speech6:
           cmp # 7
           bge SpeechDone
 
+          ldx CombatMoveSelected
           lda WhoseTurn
-          beq Speech6Done
+          beq SayObjectNumberOnPlayersTurn
+SayObjectNumberOnMonstersTurn:
+          lda MoveDeltaHP, x
+          bpl Speech6Done
+          bmi SayThatObjectNumber ; always taken
 
+SayObjectNumberOnPlayersTurn:
+          lda MoveDeltaHP, x
+          bmi Speech6Done
+SayThatObjectNumber:
           lda #>(Phrase_One - 1)
           sta CurrentUtterance + 1
           lda #<(Phrase_One - 1)
@@ -261,7 +283,6 @@ Speech6:
           inc CurrentUtterance + 1
 +
 	sta CurrentUtterance
-
 
 Speech6Done:
           inc MoveSpeech

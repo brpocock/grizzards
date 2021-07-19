@@ -122,6 +122,9 @@ ScheduleSpeech:
           lda WhoseTurn
           beq SayMonsterSubject
 SayPlayerSubject:
+          lda MoveHP
+          bmi SayMonster
+SayPlayer:
           lda #>Phrase_Grizzard
           sta CurrentUtterance + 1
           lda #<Phrase_Grizzard
@@ -131,6 +134,9 @@ SayPlayerSubject:
           bne SpeechDone        ; always taken
 
 SayMonsterSubject:
+          lda MoveHP
+          bpl SayPlayer
+SayMonster:
           lda #>Phrase_Monster
           sta CurrentUtterance + 1
           lda #<Phrase_Monster
@@ -144,8 +150,8 @@ Speech1:
           bge Speech2
 
           lda MoveHP
-          bmi SayHealed
           beq DontSayHP
+          bmi SayHealed
 SayInjured:
           lda #>Phrase_IsInjured
           sta CurrentUtterance + 1
@@ -156,6 +162,8 @@ SayInjured:
           bne SpeechDone        ; always taken
 
 SayHealed:
+          eor #$ff
+          beq DontSayHP
           lda #>Phrase_IsHealed
           sta CurrentUtterance + 1
           lda #<Phrase_IsHealed
@@ -170,6 +178,8 @@ Speech2:
           bge Speech3
 
           lda MoveHP
+          beq DontSayHP
+          eor #$ff
           beq DontSayHP
           lda MoveStatusFX
           beq DontSayHP
@@ -193,13 +203,10 @@ Speech3:
           bne SaySleep
           .BitBit StatusMuddle
           bne SayMuddle
-          .BitBit StatusAttackUp
+          and # StatusAttackUp | StatusAttackDown
           bne SayAttack
-          .BitBit StatusAttackDown
-          bne SayAttack
-          .BitBit StatusDefendUp
-          bne SayDefend
-          .BitBit StatusDefendDown
+          lda MoveStatusFX
+          and # StatusDefendUp | StatusDefendDown
           bne SayDefend
           brk
 
@@ -220,7 +227,6 @@ SayMuddle:
 
           inc MoveSpeech
           bne SpeechDone        ; always taken
-
 
 SayAttack:
           lda #>Phrase_StatusFXAttack
