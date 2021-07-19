@@ -184,7 +184,7 @@ MoveNotOK:
 DoUseMove:
           ldx MoveTarget
           beq MoveOK
-          lda MonsterHP, x
+          lda MonsterHP - 1, x
           beq MoveNotOK
 MoveOK:
           lda #SoundChirp
