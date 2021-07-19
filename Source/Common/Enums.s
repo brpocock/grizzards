@@ -169,7 +169,7 @@
 ;;; Using TIM64T to skip a frame
 
           TimerSkipFrame = 215
-          TimerSkipLines = 181
+          TimerSkipLines = 184
 
 ;;; Localization
 

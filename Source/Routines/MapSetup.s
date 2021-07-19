@@ -19,14 +19,8 @@ MapSetup: .block
           sta PlayerX
           lda BlessedY
           sta PlayerY
-
 ;;; 
-
 NewRoom:
-
-          jsr VSync
-          jsr VBlank
-
           .WaitScreenTop
 
           ;; Got to figure out the sprites
@@ -48,7 +42,9 @@ FindSprites:
 
           ;; Crash early if the map ID is out of range for this province (bank)
           cpx #MapCount
-          bpl BadMap
+          bmi SkipRoom
+BadMap:
+          brk
 
           ;; Skipping over a room means searching for the end of the list
 SkipRoom:
@@ -204,15 +200,10 @@ AddWanderingSprite:
 
 SpritesDone:
 ;;; 
-
           sta CXCLR
 
           .WaitScreenBottom
-          jsr Overscan
 
-          jmp Map.Loop
-
-BadMap:
-          brk
+          jmp Map
 
           .bend
