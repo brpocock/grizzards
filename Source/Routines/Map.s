@@ -15,7 +15,7 @@ Loop:
           beq NoSprites
 
           ldx SpriteFlicker
-          lda #>SpriteArt
+          lda #>MapSprites
           sta pp1h
           clc
           lda SpriteAction, x
@@ -23,7 +23,7 @@ Loop:
           .rept 4
           asl a
           .next
-          adc #<SpriteArt
+          adc #<MapSprites
           bcc +
           inc pp1h
 +
@@ -81,9 +81,9 @@ P1Ready:
           and #$10
           clc
           ror a
-          adc #<PlayerWalk1
+          adc #<PlayerSprites
           sta pp0l
-          lda #>PlayerWalk1
+          lda #>PlayerSprites
           sta pp0h
 
           ldx CurrentMap
