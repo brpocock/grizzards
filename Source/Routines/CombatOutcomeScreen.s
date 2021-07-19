@@ -109,7 +109,7 @@ AfterStatusFX:
 AlarmDone:
 
           jsr Overscan
-
+;;; 
 ScheduleSpeech:
           lda CurrentUtterance
           bne SpeechDone
@@ -120,8 +120,8 @@ ScheduleSpeech:
           bne Speech1
 
           lda WhoseTurn
-          beq SayMonsterSubject
-SayPlayerSubject:
+          beq SaySubjectPlayerTurn
+SaySubjectMonsterTurn:
           lda MoveHP
           bmi SayMonster
 SayPlayer:
@@ -133,9 +133,9 @@ SayPlayer:
           inc MoveSpeech
           bne SpeechDone        ; always taken
 
-SayMonsterSubject:
+SaySubjectPlayerTurn:
           lda MoveHP
-          bpl SayPlayer
+          bmi SayPlayer
 SayMonster:
           lda #>Phrase_Monster
           sta CurrentUtterance + 1
@@ -144,10 +144,13 @@ SayMonster:
 
           inc MoveSpeech
           bne SpeechDone        ; always taken
-          
+
 Speech1:
           cmp # 2
           bge Speech2
+
+          lda MoveHitMiss
+          beq SayMissed
 
           lda MoveHP
           beq DontSayHP
@@ -161,6 +164,15 @@ SayInjured:
           inc MoveSpeech
           bne SpeechDone        ; always taken
 
+SayMissed:
+          lda #>Phrase_Missed
+          sta CurrentUtterance + 1
+          lda #<Phrase_Missed
+          sta CurrentUtterance
+
+          inc MoveSpeech
+          bne SpeechDone        ; always taken
+          
 SayHealed:
           eor #$ff
           beq DontSayHP
@@ -208,7 +220,7 @@ Speech3:
           lda MoveStatusFX
           and # StatusDefendUp | StatusDefendDown
           bne SayDefend
-          brk
+          beq DontSayHP
 
 SaySleep:
           lda #>Phrase_StatusFXSleep
