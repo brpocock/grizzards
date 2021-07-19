@@ -18,8 +18,6 @@ DoVBlankWork:
 DoLocal:
           cpy #ServiceTopOfScreen
           beq TopOfScreenService
-          cpy #ServiceBottomOfScreen
-	beq BottomOfScreenService
           cpy #ServiceFireworks
           beq WinnerFireworks
           cpy #ServiceDrawMonsterGroup
@@ -37,7 +35,6 @@ DoLocal:
           brk
 
           .include "MapTopService.s"
-          .include "MapBottomService.s"
           .include "DrawMonsterGroup.s"
           .include "WinnerFireworks.s"
           .include "NewGrizzard.s"

@@ -18,9 +18,7 @@ ExecuteCombatMove:  .block
 DetermineOutcome:
           lda WhoseTurn
           beq PlayerMove
-
 ;;; 
-
 MonsterMove:
           lda CombatMoveDeltaHP
           bmi MonsterHeals
@@ -83,9 +81,7 @@ MonsterAttackHitMissP:
           cmp GrizzardDefense
           blt MonsterAttackMiss
           ;; fall through
-
 ;;; 
-
 MonsterAttackHit:
           ;; The attack was a success
           ;; What's the effect on the Grizzard's HP?
@@ -143,9 +139,7 @@ MonsterAttackNoStatusFX:
           sta MoveHitMiss
 
           jmp WaitOutScreen
-
 ;;; 
-
 MonsterAttackMiss:
           lda # 0
           sta MoveHP
@@ -153,9 +147,7 @@ MonsterAttackMiss:
           sta MoveStatusFX
 
           jmp WaitOutScreen
-
 ;;; 
-
 MonsterHeals:
           ;; .A has the negative HP to be gained
           ;; (alter by random factor)
@@ -209,9 +201,7 @@ MonsterBuff:
           sta MoveHitMiss
 
           jmp WaitOutScreen
-
 ;;; 
-
 PlayerMove:
           lda CombatMoveDeltaHP
           bmi PlayerHeals
@@ -347,9 +337,7 @@ PlayerAttackNoStatusFX:
           sta MoveHitMiss
 
           jmp WaitOutScreen
-
 ;;; 
-
 PlayerAttackMiss:
           lda # 0
           sta MoveHP
@@ -357,9 +345,7 @@ PlayerAttackMiss:
           sta MoveStatusFX
 
           jmp WaitOutScreen
-
 ;;; 
-
 PlayerHeals:
           ;; .A has the inverted HP to be gained
           ;; (alter by random factor)
@@ -492,9 +478,7 @@ BackToMain:
           jmp CombatMainScreen
 
           .bend
-
 ;;; 
-
 LevelTable:
           ;; monsters have levels 0…$b for each of their stats
           ;; this table maps those to actual values

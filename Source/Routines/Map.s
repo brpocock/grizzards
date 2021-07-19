@@ -179,9 +179,7 @@ DoneBall:
           sta PF1
           lda pp3l
           sta PF2
-
 ;;; 
-
 DrawMap:
           dec RunLength
           bne DrawLine
@@ -246,15 +244,22 @@ P1Done:
           sta WSYNC
 
           bne DrawMap
-
 ;;; 
-
 FillBottomScreen:
-          sta WSYNC
-          sta WSYNC
-          sta WSYNC
+          lda # 0
+          sta COLUBK
+          sta PF0
+          sta PF1
+          sta PF2
+          sta GRP0
+          sta GRP1
+          sta ENABL
 
-          .FarJSR MapServicesBank, ServiceBottomOfScreen
+          .if TV == NTSC
+          .SkipLines KernelLines - 180
+          .else
+          .SkipLines KernelLines - 215
+          .fi
 
 ScreenJumpLogic:
           lda PlayerY

@@ -52,9 +52,7 @@ MoveFound:
           jsr SetNextAlarm
 
           .WaitScreenBottom
-
 ;;; 
-
 Loop:
           jsr VSync
           jsr VBlank
@@ -74,9 +72,7 @@ MonsterTurnColor:
 +
           sta COLUP0
           sta COLUP1
-
 ;;; 
-
 AnnounceSubject:
 
           lda MoveAnnouncement
@@ -93,11 +89,11 @@ DrawSubject:
 
 PlayerSubject:
           .FarJSR TextBank, ServiceShowGrizzardName
-          .SkipLines 32
+          .SkipLines 36
           beq AnnounceVerb       ; always taken
 
 SkipSubject:
-          .SkipLines 55
+          .SkipLines 59
 ;;; 
 AnnounceVerb:
 
@@ -153,7 +149,7 @@ SkipObject:
           .SkipLines 60
 ;;; 
 WaitOutSpeechInterval:
-          lda # ( (KernelLines - 161) * 76 ) / 64
+          lda # ( (KernelLines - 151) * 76 ) / 64
           sta TIM64T
 ;;; 
 ScheduleSpeech:
@@ -274,9 +270,7 @@ Speech6Done:
           inc MoveSpeech
           ;; fall through
 SpeechDone:
-
 ;;; 
-
 CheckForAlarm:
 
           lda ClockSeconds
@@ -305,29 +299,7 @@ AlarmDone:
 
 CombatMoveDone:
           jmp ExecuteCombatMove
-
-          .bend
-
 ;;; 
-
-SetNextAlarm:
-          tax
-          lda ClockMinutes
-          sta AlarmMinutes
-          txa
-          adc ClockSeconds
-          cmp # 60
-          bmi +
-          sec
-          sbc # 60
-          inc AlarmMinutes
-+
-          sta AlarmSeconds
-
-          rts
-
-;;; 
-
 ShowMonsterNameAndNumber:
           jsr ShowMonsterName
 
@@ -343,9 +315,7 @@ ShowMonsterNameAndNumber:
 +
           sta StringBuffer + 3
           .FarJMP TextBank, ServiceDecodeAndShowText ; tail call
-
 ;;; 
-
 SayMonster:
           lda #>MonsterPhrase
           sta CurrentUtterance + 1
@@ -371,3 +341,5 @@ SayPlayerGrizzard:
           sta CurrentUtterance
 
           rts
+;;; 
+          .bend

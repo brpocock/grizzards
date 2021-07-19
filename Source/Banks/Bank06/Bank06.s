@@ -19,6 +19,7 @@ DoLocal:
           .include "CombatAnnouncementScreen.s"
           .include "ExecuteCombatMove.s"
           .include "FindHighBit.s"
+          .include "SetNextAlarm.s"
 
           .include "ShowMonsterName.s"
 
