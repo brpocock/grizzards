@@ -8,7 +8,7 @@ StartNewGame:          .block
           lda #0
           sta StartGameWipeBlock
 
-StartGameScreenLoop:
+Loop:
           .WaitScreenTop
 
           lda StartGameWipeBlock
@@ -101,10 +101,8 @@ WaitForScreenEnd:
 
           lda GameMode
           cmp #ModeStartGame
-          beq Loop
+          bne Loop
 
           jmp GoMap
 
-Loop:
-          jmp StartGameScreenLoop
           .bend

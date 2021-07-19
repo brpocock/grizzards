@@ -65,9 +65,7 @@ NoSprites:
           lda #$ff
           sta P1LineCounter
 
-          .rept 4
-          sta WSYNC
-          .next
+          .SkipLines 4
 
 P1Ready:
           lda PlayerY
@@ -371,14 +369,13 @@ NoPause:
           .fi
 ;;; 
 SkipSwitches:
-
           jsr Overscan
 
           lda GameMode
           cmp #ModeMap
           bne Leave
           jmp Loop
-
+;;; 
 Leave:
           cmp #ModeMapNewRoom
           beq MapSetup.NewRoom

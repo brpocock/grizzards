@@ -177,23 +177,32 @@ sound:    .macro volume, control, frequency, duration, end
           .endswitch
           .endm
 
+TimeLines:          .macro lines
+          SkipCycles = 76 * (\lines)
+          .if ( (SkipCycles/64) < $100 )
+          lda # (SkipCycles/64) - 1
+          sta TIM64T
+          .else
+          lda # (SkipCycles/1024) - 1
+          sta TIM1024T
+          .fi
+          .endm
+          
 WaitScreenTop:      .macro
           jsr VSync
           jsr VBlank
-
-          lda # TimerSkipFrame
-          sta TIM64T
+          .TimeLines KernelLines
           .endm
 
-WaitScreenBottom:      .macro
+WaitForTimer:       .macro
 -
           lda INSTAT
           bpl -
+          .endm
 
-          .SkipLines KernelLines - TimerSkipLines
-
+WaitScreenBottom:      .macro
+          .WaitForTimer
           jsr Overscan
-
           .endm
 
 KillMusic:          .macro
@@ -231,10 +240,10 @@ SetPointer:         .macro value
 
 SkipLines:          .macro length
 
-          .if \length < 3
+          .if \length < 5
 
           .rept \length
-          stx WSYNX
+          stx WSYNC
           .next
 
           .else

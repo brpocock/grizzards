@@ -1,6 +1,7 @@
 ;;; Grizzards Source/Routines/LoadSaveSlot.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
 LoadSaveSlot: .block
+          .WaitScreenTop
           jsr CheckSaveSlot
           bcc ReallyLoadIt
 
@@ -52,6 +53,8 @@ ReadGlobalLoop:
           jsr LoadProvinceData
 
           jsr LoadGrizzardData
+
+          .WaitScreenBottom
           jmp GoMap
 
 LoadFailed:

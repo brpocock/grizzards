@@ -2,6 +2,7 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
 MapSetup: .block
+          .WaitScreenTop
 
           jsr Random
           and #$4f
@@ -19,10 +20,13 @@ MapSetup: .block
           sta PlayerX
           lda BlessedY
           sta PlayerY
+          jmp NewRoomTimerRunning
 ;;; 
 NewRoom:
-          .WaitScreenTop
-
+          jsr VSync
+          jsr VBlank
+          .TimeLines KernelLines - 3
+NewRoomTimerRunning:
           ;; Got to figure out the sprites
           ;; Start at the head of the sprite list
           lda #<MapSprites
@@ -204,6 +208,8 @@ SpritesDone:
 
           .WaitScreenBottom
 
+          .if Map != *
           jmp Map
+          .fi
 
           .bend

@@ -10,6 +10,10 @@ Loop:
           jsr VSync
           jsr VBlank
 
+          ;; drawing the monsters seems to sometimes be a little variable in its timing, so we'll use a timer.
+          lda # (( 76 * 95 ) / 64)
+          sta TIM64T
+
           jsr Prepare48pxMobBlob
 
           .switch TV
@@ -26,9 +30,7 @@ Loop:
           sta COLUP1
 
 PausedOrNot:
-
 ;;; 
-
 MonstersDisplay:
           jsr ShowMonsterName
 
@@ -50,11 +52,9 @@ MonstersDisplay:
 
           .FarJSR MapServicesBank, ServiceDrawMonsterGroup
 DelayAfterMonsters:
-
-          .SkipLines 10
-
+          .WaitForTimer
+          .TimeLines KernelLines - 122
 ;;; 
-
 BeginPlayerSection:
           .ldacolu COLBLUE, $f
           sta COLUP0
@@ -72,7 +72,6 @@ DrawGrizzardName:
 DrawGrizzard:
           .FarJSR TextBank, ServiceDrawGrizzard
 ;;; 
-
 DrawHealthBar:
           ldx CurrentHP
           cpx MaxHP
@@ -117,19 +116,15 @@ FullMid:
           nop
           nop
           sta PF0
-
+;;; 
 DoneHealth:
           .SkipLines 4
-
-;;; 
-
           lda # 0
           sta PF0
           sta PF1
           sta PF2
 
           .SkipLines KernelLines - 192
-
 ;;; 
           lda WhoseTurn
           beq PlayerChooseMove
@@ -143,9 +138,7 @@ PlayerChooseMove:
           ldx MoveSelection
           bne NotRunAway
           .ldacolu COLTURQUOISE, $f
-          .rept 4
           sta WSYNC
-          .next
           bne ShowSelectedMove  ; always taken
 
 NotRunAway:
@@ -153,7 +146,7 @@ NotRunAway:
           bit MovesKnown
           beq NotMoveKnown
           .ldacolu COLRED, 4
-          bne ShowSelectedMove
+          bne ShowSelectedMove  ; always taken
 
 NotMoveKnown:
           .ldacolu COLGRAY, 0
@@ -201,6 +194,8 @@ RunAway:
           ;; fall through
 ;;; 
 ScreenDone:
+          .WaitForTimer
+          .SkipLines 6
           jsr Overscan
 
           lda GameMode
@@ -222,9 +217,7 @@ Leave:
           cmp #ModeCombatAnnouncement
           jmp CombatAnnouncementScreen
           brk
-
 ;;; 
-
 HealthyPF2:
           .byte %00000000
           .byte %10000000

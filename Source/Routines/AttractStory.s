@@ -67,6 +67,8 @@ LoopMe:
 
           ;; TODO flesh out this mode
 
-          .fill $200, $ea
+          .rept $200
+          nop
+          .next
           
           .bend

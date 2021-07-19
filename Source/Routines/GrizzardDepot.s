@@ -1,16 +1,10 @@
 ;;; Grizzards Source/Routines/GrizzardDepot.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
 GrizzardDepot:    .block
-
-          .WaitScreenTop
-          .KillMusic
-
-          .FarJSR SaveKeyBank, ServiceSaveToSlot
-
           ldx MaxHP
           stx CurrentHP
 
-          .WaitScreenBottom
+          .FarJSR SaveKeyBank, ServiceSaveToSlot
 ;;; 
 Loop:     
           jsr VSync
@@ -22,11 +16,7 @@ Loop:
           sta COLUP0
           sta COLUP1
 
-          ldx #4
--
-          sta WSYNC
-          dex
-          bne -
+          .SkipLines 4
 
           jsr Prepare48pxMobBlob
           .SetPointer DepotText
@@ -106,7 +96,7 @@ HTDloop:
           lda StringBuffer+4     ; But if the bit was 1,
           clc             ; get ready to
           adc DecimalTable+3, x   ; add the bit value in the table to the
-          sta StringBuffer+4     ; output sum in decimal--  first low byte,
+          sta StringBuffer+4     ; output sum in decimal —  first low byte,
           and #$f0               ; (with a carry on 10 not 100)
           beq +
           sec
@@ -198,15 +188,13 @@ TriggerDone:
 +
           cmp #ModeGrizzardStats
           jmp GrizzardStatsScreen
-
 ;;; 
 ShowPointerText:
           jsr CopyPointerText
           jmp DecodeAndShowText
-
 ;;; 
-                ; The table below has high byte first just to
-                ; make it easier to see the number progression.
+          ;; The table below has high byte first just to
+          ;; make it easier to see the number progression.
 DecimalTable:
           .byte    0,0,0,1,  0,0,0,2,  0,0,0,4,  0,0,0,8
           .byte    0,0,1,6,  0,0,3,2,  0,0,6,4,  0,1,2,8

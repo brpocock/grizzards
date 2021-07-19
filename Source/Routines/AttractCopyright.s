@@ -1,8 +1,7 @@
 ;;; Grizzards Source/Routines/AttractCopyright.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
-CopyrightMode:
-
+CopyrightMode:      .block
           lda AttractHasSpoken
           cmp #<Phrase_TitleCopyright
           beq DoneCopyrightSpeech
@@ -12,7 +11,6 @@ CopyrightMode:
           lda #<Phrase_TitleCopyright
           sta CurrentUtterance
           sta AttractHasSpoken
-
 DoneCopyrightSpeech:
 
           .SkipLines 24
@@ -34,7 +32,7 @@ DoneCopyrightSpeech:
           .SetPointer PocockText
           jsr DecodeAndShowText
 
-          .SkipLines KernelLines - 153
+          .SkipLines KernelLines - 154
 
           lda ClockSeconds
           cmp AlarmSeconds
@@ -48,9 +46,8 @@ DoneCopyrightSpeech:
           jsr SetNextAlarm
           lda #ModeAttractStory
           sta GameMode
-
+;;; 
 StillCopyright:
-
           lda NewSWCHA
           beq Done
           and #P0StickUp
@@ -59,8 +56,10 @@ StillCopyright:
           sta GameMode
 
 Done:
-          jmp DoneAttractKernel         
+          jmp Attract.DoneAttractKernel
 
+          .bend
+;;; 
 CopyText:
           .MiniText "COPY  "
 RightText:
@@ -73,4 +72,3 @@ RobertText:
           .MiniText "ROBERT"
 PocockText:
           .MiniText "POCOCK"
-

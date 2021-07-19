@@ -1,7 +1,7 @@
 ;;; Grizzards Source/Routines/SaveToSlot.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
 SaveToSlot:	.block
-
+          .WaitScreenTop
 WriteMasterBlock:
           ;; OK, now we're going to actually write the Master block,
           ;; this is a 5 byte signature, then the Global vars space
@@ -72,17 +72,10 @@ WriteCurrentProvince:
           jsr i2cStopWrite
 
 WriteCurrentGrizzard:
+          .WaitScreenBottom
           jmp SaveGrizzard      ; tail call
 
-
-
-
 SaveRetry:
-          jsr Random
-          tax
--
-          dex
-          bne -
-
+          .WaitScreenBottom
           jmp SaveToSlot
 	.bend

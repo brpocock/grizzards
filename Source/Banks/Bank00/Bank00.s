@@ -48,6 +48,8 @@ DoLocal:
 DecodeAndShowText:
           jsr CopyPointerText
           .FarJMP TextBank, ServiceDecodeAndShowText
+ShowText:
+          .FarJMP TextBank, ServiceDecodeAndShowText
 Quit:
           ldy #ServiceColdStart
           jmp ColdStart

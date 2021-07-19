@@ -1,15 +1,11 @@
 ;;; Grizzards Source/Routines/Attract.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
-Attract:
-          
+Attract:  .block
           ;;
           ;; Title screen and attract sequence
           ;;
 
           ldx #$20
-
-          ldy GameMode          ; preserve if set
-
           lda #0
 ZeroRAM:
           sta $80, x
@@ -18,8 +14,6 @@ ZeroRAM:
           sta $e0, x
           dex
           bne ZeroRAM
-
-          sty GameMode
 
           lda # SoundAtariToday
           sta NextSound
@@ -33,16 +27,12 @@ ZeroRAM:
 
           lda # 4
           jsr SetNextAlarm
-
+;;; 
 Loop:
           jsr VSync
           jsr VBlank
 
-          ldx #4
--
-          sta WSYNC
-          dex
-          bne -
+          .SkipLines 4
 
           jsr Prepare48pxMobBlob
 
@@ -57,12 +47,12 @@ Loop:
           beq Credits
           .if PUBLISHER
             cmp #ModePublisherPresents
-            beq PublisherPresentsMode
+            beq Preamble.PublisherPresentsMode
           .else
             cmp #ModeBRPPreamble
-            beq BRPPreambleMode
+            beq Preamble.BRPPreambleMode
           .fi
-          
+;;; 
 StoryMode:
           .FarJSR AnimationsBank, ServiceAttractStory
           lda GameMode
@@ -70,8 +60,8 @@ StoryMode:
           beq Loop
           cmp #ModeAttractTitle
           beq Loop
-          jmp LeaveAttract
-
+          jmp Leave
+;;; 
 TitleMode:
           lda AttractHasSpoken
           cmp #<Phrase_TitleIntro
@@ -82,10 +72,8 @@ TitleMode:
           lda #<Phrase_TitleIntro
           sta CurrentUtterance
           sta AttractHasSpoken
-
 DoneTitleSpeech:
-
-          .ldacolu COLINDIGO, $f
+          .ldacolu COLINDIGO, $a
           sta COLUP0
           sta COLUP1
 
@@ -94,23 +82,17 @@ DoneTitleSpeech:
           sty LineCounter
           jsr ShowPicture
 
-          ldx # 42
-FillAttractMid1:
-          sta WSYNC
-          dex
-          bne FillAttractMid1
+          .SkipLines 42
 
           .switch STARTER
-
           .case 0
-          .ldacolu COLSPRINGGREEN, $f
-
+          .ldacolu COLGREEN, $e
           .case 1
-          .ldacolu COLBROWN, $f
-
+          .ldacolu COLBROWN, $6
           .case 2
-          .ldacolu COLTEAL, $f
-
+          .ldacolu COLTEAL, $e
+          .default
+          .error "STARTER ∈ (0 1 2), ¬ ", STARTER
           .endswitch
 
           sta COLUP0
@@ -139,12 +121,7 @@ DrawTitle3:
           sty PF2
 
 PrepareFillAttractBottom:
-
-          ldx # KernelLines - Title1.Height - Title2.Height - 58
-FillAttractBottom:
-          sta WSYNC
-          dex
-          bne FillAttractBottom
+          .SkipLines KernelLines - Title1.Height - Title2.Height - 59
 
           lda ClockSeconds
           cmp AlarmSeconds
@@ -158,33 +135,28 @@ FillAttractBottom:
           jsr SetNextAlarm
           lda #ModeAttractCopyright
           sta GameMode
-          ;; jmp DoneAttractKernel ; fall through
-
+          ;; fall through
+;;; 
 DoneAttractKernel:
+          sta WSYNC
           lda NewSWCHB
-          beq SkipSwitches
+          beq +
           and #SWCHBSelect
-          beq LeaveAttract
-SkipSwitches:
+          beq Leave
++
           lda NewINPT4
           beq +
           and #PRESSED
-          beq LeaveAttract
+          beq Leave
 +
           jsr Overscan
           jmp Loop
 
-LeaveAttract:
-          lda #SoundChirp
-          sta NextSound
-
+Leave:
           jsr Overscan
 
           lda #ModeSelectSlot
           sta GameMode
           jmp SelectSlot
-
-ShowText:
-          .FarJMP TextBank, ServiceDecodeAndShowText
-
-
+;;; 
+          .bend

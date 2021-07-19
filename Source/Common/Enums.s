@@ -166,11 +166,6 @@
           ScreenTopEdge = 8
           ScreenBottomEdge = 75
 
-;;; Using TIM64T to skip a frame
-
-          TimerSkipFrame = 215
-          TimerSkipLines = 184
-
 ;;; Localization
 
           LangEng = $0e

@@ -1,24 +1,30 @@
 ;;; Grizzards Source/Routines/PreambleAttracts.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
+Preamble: .block
+          
           .if PUBLISHER
+
 PublisherPresentsMode:
           .SetUpFortyEight PublisherCredit
-          lda #CTRLPFREF
-          sta CTRLPF
           .ldacolu COLGRAY, $f
           sta COLUBK
           ldy # PublisherCredit.Height
           .ldacolu COLTURQUOISE, $8
+
           .else
+
 BRPPreambleMode:
           .SetUpFortyEight BRPCredit
           ldy # BRPCredit.Height
           .ldacolu COLINDIGO, $f
+
           .fi
 
           sta COLUP0
           sta COLUP1
+
+          sta WSYNC
 
           lda ClockSeconds
           cmp AlarmSeconds
@@ -34,15 +40,9 @@ BRPPreambleMode:
           sta GameMode
           
 StillPresenting:
-          jmp SingleGraphicAttract
-
 SingleGraphicAttract:
 
-          ldx # 71
-SkipAboveGraphic:
-          stx WSYNC
-          dex
-          bne SkipAboveGraphic
+          .SkipLines 71
 
           sty LineCounter
           jsr ShowPicture
@@ -54,17 +54,14 @@ SkipAboveGraphic:
           sty LineCounter
           jsr ShowPicture
 
-          ldx # KernelLines - (125 + PublisherName.Height)
+          .SkipLines KernelLines - (127 + PublisherName.Height)
 
           .else
 
-          ldx # KernelLines - 125
+          .SkipLines KernelLines - 127
 
           .fi
 
-SkipBelowGraphic:
-          stx WSYNC
-          dex
-          bne SkipBelowGraphic
+          jmp Attract.DoneAttractKernel
 
-          jmp DoneAttractKernel
+          .bend

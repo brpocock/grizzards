@@ -7,6 +7,9 @@ SelectSlot:        .block
 
           .KillMusic
 
+          lda #SoundChirp
+          sta NextSound
+
           lda #>Phrase_SelectSlot
           sta CurrentUtterance + 1
           lda #<Phrase_SelectSlot
@@ -196,12 +199,14 @@ GoBack:
           jmp Loop
 ;;; 
 SlotOK:
-
+          sta WSYNC
+          .WaitScreenTop
           lda #SoundHappy
           sta NextSound
 
           jsr CheckSaveSlot
           ;; carry is SET if the slot is EMPTY
+          .WaitScreenBottom
           bcc LoadGame
 
           lda #ModeStartGame
