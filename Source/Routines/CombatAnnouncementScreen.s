@@ -174,7 +174,6 @@ NothingHappened:
           sta MoveSpeech
 
 SomethingHappened:
-          
           lda WhoseTurn
           beq SayPlayerSubject
 SayMonsterSubject:
@@ -222,11 +221,11 @@ Speech3:
           cmp # 4
           bge Speech4
 
-          lda #>Phrase_Move01
+          lda #>Phrase_Move01 - 1
           sta CurrentUtterance + 1
-          lda #<Phrase_Move01
+          lda #<Phrase_Move01 - 1
           clc
-          adc MoveSelection
+          adc CombatMoveSelected
           bcc +
           inc CurrentUtterance + 1
 +

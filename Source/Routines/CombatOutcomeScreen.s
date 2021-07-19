@@ -266,7 +266,7 @@ Speech4:
           lda MoveStatusFX
           and #StatusAttackDown | StatusDefendDown
           beq Speech4NotDown
-
+Speech4Down:
           lda #>Phrase_StatusFXLower
           sta CurrentUtterance + 1
           lda #<Phrase_StatusFXLower
