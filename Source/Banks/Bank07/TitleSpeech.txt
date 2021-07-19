@@ -12,3 +12,6 @@ Erase a save game slot.
 
 Credits:
 With love to Zephyr Salz.
+
+Story:
+Save the world of Syrex. Train your Grizzards to defeat the monsters.

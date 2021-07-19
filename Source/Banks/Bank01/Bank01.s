@@ -5,6 +5,7 @@
           ;; Map Services Bank
 
 	.include "StartBank.s"
+          .include "SpeakJetIDs.s"
 
 DoVBlankWork:
           .include "MapVBlank.s"

@@ -13,7 +13,13 @@ DoLocal:
 
           .include "PlayerSprites.s"
           .include "MapSprites.s"
-          
+
+SpriteColor:
+          .colu COLGREEN, $a
+          .colu COLRED, $e
+          .colu COLSPRINGGREEN, $e
+          .colu COLBLUE, $8
+
           .include "Province0.s"
 
           .include "VSync.s"
