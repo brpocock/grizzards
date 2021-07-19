@@ -183,9 +183,9 @@ Speech1:
           lda WhoseTurn
           beq Speech1Done
 
-          lda #>Phrase_Zero
+          lda #>(Phrase_One - 1)
           sta CurrentUtterance + 1
-          lda #<Phrase_Zero
+          lda #<(Phrase_One - 1)
           clc
           adc WhoseTurn
           bcc +
@@ -259,9 +259,9 @@ Speech6:
           lda WhoseTurn
           beq Speech6Done
 
-          lda #>Phrase_Zero
+          lda #>(Phrase_One - 1)
           sta CurrentUtterance + 1
-          lda #<Phrase_Zero
+          lda #<(Phrase_One - 1)
           clc
           adc MoveTarget
           bcc +

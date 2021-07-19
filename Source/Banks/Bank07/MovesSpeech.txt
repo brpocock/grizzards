@@ -2,118 +2,118 @@ RunAway:
 Run Away
 
 Move01:
-Move One
+Kick Dirt
 
 Move02:
 Splish Splash
 
 Move03:
-Move Three
+Mild Shock
 
 Move04:
-A Move
+Hot Spark
 
 Move05:
-A Move
+Bury Deep
 
 Move06:
-A Move
+Dirty Foot
 
 Move07:
-A Move
+Loam-e Fear
 
 Move08:
-A Move
+Dust-e Eyes
 
 Move09:
-A Move
+Raise Hope
 
 Move10:
-A Move
+Sure Splash
 
 Move11:
-A Move
+Quick Foot
 
 Move12:
-A Move
+Great Mojo
 
 Move13:
-A Move
+Wind Fight
 
 Move14:
-A Move
+Steal Attack
 
 Move15:
-A Move
+Steal Defend
 
 Move16:
-A Move
+Steal Turn
 
 Move17:
-A Move
+Fire Start
 
 Move18:
-A Move
+Burnt Edges
 
 Move19:
-A Move
+Rogue Flare
 
 Move20:
-A Move
+Double Flares
 
 Move21:
-A Move
+Tail Whip
 
 Move22:
-A Move
+Tail Lash
 
 Move23:
-A Move
+Bite
 
 Move24:
-A Move
+Poison Bite
 
 Move25:
-A Move
+Cruel Stab
 
 Move26:
-A Move
+Blind Blob
 
 Move27:
-A Move
+Slimy Trick
 
 Move28:
-A Move
+Guard Down
 
 Move29:
-A Move
+First Aid
 
 Move30:
-A Move
+Simple Cure
 
 Move31:
-A Move
+Common Cure
 
 Move32:
-A Move
+Great Cure
 
 Move33:
-A Move
+Heal Wound
 
 Move34:
-A Move
+Life Return
 
 Move35:
-A Move
+Nibble
 
 Move36:
-A Move
+Muddle Mind
 
 Move37:
-A Move
+Great Muddle
 
 Move38:
-A Move
+Scare Away
 
 Move39:
 A Move

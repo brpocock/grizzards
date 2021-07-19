@@ -37,8 +37,28 @@ is raised
 StatusFXLower:
 is lowered
 
+
 Victory:
 Victory
 
 GameOver:
 Game Over
+
+One:
+one
+
+Two:
+two
+
+Three:
+three
+
+Four:
+four
+
+Five:
+five
+
+Six:
+six
+
