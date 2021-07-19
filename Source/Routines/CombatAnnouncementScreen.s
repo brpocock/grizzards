@@ -52,9 +52,7 @@ MoveFound:
           jsr SetNextAlarm
 
           .WaitScreenBottom
-
 ;;; 
-
 Loop:
           jsr VSync
           jsr VBlank
@@ -74,9 +72,7 @@ MonsterTurnColor:
 +
           sta COLUP0
           sta COLUP1
-
 ;;; 
-
 AnnounceSubject:
 
           lda MoveAnnouncement
@@ -100,7 +96,6 @@ SkipSubject:
           .SkipLines 55
 ;;; 
 AnnounceVerb:
-
           lda MoveAnnouncement
           cmp # 2
           bmi SkipVerb
@@ -117,7 +112,6 @@ SkipVerb:
           .SkipLines 42
 ;;; 
 AnnounceObject:
-
           lda MoveAnnouncement
           cmp # 3
           bmi SkipObject
@@ -125,16 +119,14 @@ AnnounceObject:
           lda MoveTarget
           cmp #$ff
           beq SkipObject
-
 DrawObject:
           ldx CombatMoveSelected
           lda MoveDeltaHP, x
           bpl ObjectOther
-
 ObjectSelf:
           lda WhoseTurn
           beq PlayerObject
-          bne MonsterTargetObject
+          bne MonsterTargetObject ; always taken
 
 ObjectOther:
           lda WhoseTurn
