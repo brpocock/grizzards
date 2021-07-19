@@ -914,6 +914,7 @@ minute = \MM \Fast \IH \NE \IH \TT
 mirror = \MM \IYRR \OWRR
 miss = \MM \IH \SE
 misses = \MM \IH \SE \EH \SE
+missed = \MM \IH \SE \IH \ED
 mistake = \MM \Fast \IH \SE \TT \EYIY \EK
 mitten = \MM \IH \Slow \TT \Fast \EY \NE
 mix = \MM \IH \KE \SE
