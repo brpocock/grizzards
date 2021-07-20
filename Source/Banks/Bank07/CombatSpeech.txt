@@ -1,5 +1,14 @@
+NoEffect:
+but nothing happens
+
 Monster:
 The monster
+
+Grizzard:
+Your Grizzard
+
+Learnt:
+Learnt
 
 UsesMove:
 uses move
@@ -7,17 +16,17 @@ uses move
 On:
 on
 
-AndMisses:
-but they failed
+And:
+and
 
-AndHits:
-and hits
+Missed:
+missed
 
 IsInjured:
 is injured
 
-IsDestroyed:
-is destroyed
+IsHealed:
+is healed
 
 StatusFXSleep:
 goes to sleep
@@ -37,6 +46,12 @@ is raised
 StatusFXLower:
 is lowered
 
+Victory:
+Victory
+
+GameOver:
+Game Over
+
 One:
 one
 
@@ -54,3 +69,4 @@ five
 
 Six:
 six
+

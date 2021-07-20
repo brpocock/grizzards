@@ -13,7 +13,6 @@
 
           * = $80
 ZeroPage:
-
 ;;; 
 ;;; General-purpose short-term variable
 ;;;
@@ -23,7 +22,6 @@ Temp:
 
 Pointer:
           .word ?
-
 ;;; 
 ;;; Main "Traffic Cop" Switching
 ;;;
@@ -35,7 +33,6 @@ GameMode:
 
 Pause:
           .byte ?
-
 ;;; 
 ;;; Game play/progress indicators -- global
 
@@ -95,15 +92,12 @@ EndGlobalGameData:
           .if GlobalGameDataLength > 27
           .error "Global data exceeds 27 bytes (length is ", GlobalGameDataLength, " bytes)"
           .fi
-
 ;;; 
 ;;; Game play/progress indicators -- local to one province
 ;;; (paged in/out as player changes provinces)
 ProvinceFlags:
           .byte ?, ?, ?, ?,   ?, ?, ?, ?
-
 ;;; 
-
 ;;; How much Energy (HP) can the player's Grizzard have?
 MaxHP:
           .byte ?
@@ -143,6 +137,8 @@ NewSWCHB:
           .byte ?
 NewINPT4:
           .byte ?
+;;; XXX  these  should be  moved  into  the  overlay section,  but  that
+;;; requires some remediation
 DeltaX:
 CombatMoveSelected:             ; actual Move ID, not relative to creature
           .byte ?
@@ -154,10 +150,10 @@ PlayerX:
           .byte ?
 PlayerY:
           .byte ?
-
 ;;; 
 ;;; Variables used in drawing
 
+MoveSpeech:                     ; speech segment of the sentence being emitted
 ;;; Line counter for various sorts of "kernels"
 LineCounter:
           .byte ?
@@ -188,7 +184,6 @@ pp4l:	.byte ?
 pp4h:	.byte ?
 pp5l:	.byte ?
 pp5h:	.byte ?
-
 ;;; 
 ;;; SpeakJet
 
@@ -199,14 +194,12 @@ CurrentUtterance:
 
 SpeakJetCooldown:
           .byte ?
-
 ;;; 
 ;;; EEPROM
 
 ;;; The active game slot, 0-2 (1-3)
 SaveGameSlot:
           .byte ?
-
 ;;; 
 ;;; Music and Sound FX
 
@@ -238,7 +231,6 @@ SoundTimer:
 ;;; Random number generator workspace
 Rand:
           .word ?
-
 ;;; 
 ;;; Transient work space for one game mode
 ;;;
@@ -247,7 +239,6 @@ Rand:
 ;;; area of memory appropriately.
 
             Scratchpad = *
-
 ;;; 
 ;;; Attract mode flags
 
@@ -262,7 +253,6 @@ AttractHasSpoken:
 
 AttractStoryPanel:
           .byte ?
-
 ;;; 
 ;;; Start Game phase
 
@@ -272,7 +262,6 @@ AttractStoryPanel:
 ;;; We need to blank global + all provincial data
 StartGameWipeBlock:
           .word ?
-
 ;;; 
 ;;; Combat mode scratchpad
 
@@ -327,8 +316,7 @@ MoveTarget:
 MoveAnnouncement:
           .byte ?
 
-;;; The move's outcome, or the last speech segment we spit out
-MoveSpeech:
+;;; The move's outcome
 MoveHitMiss:
           .byte ?
 
@@ -341,10 +329,8 @@ MoveStatusFX:
           .byte ?
 
           CombatEnd = *
-
 ;;; 
 ;;; Scratchpad for Map mode
-
             * = Scratchpad
 
 ;;; Pointer to the start of the map's RLE display data
@@ -396,7 +382,6 @@ Facing:
           .byte ?
           
           MapEnd = *
-          
 ;;; 
 ;;; Verify that we don't run over
 

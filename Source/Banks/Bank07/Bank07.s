@@ -30,6 +30,6 @@ DoLocal:
           .include "Victory.s"
           .include "GameOver.s"
 
-          .fill 111, "sfx"
+          .fill 54, "sfx"
 
           .include "EndBank.s"
