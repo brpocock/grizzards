@@ -48,7 +48,7 @@ MoveFound:
           lda MoveDeltaHP, x
           sta CombatMoveDeltaHP
 
-          lda #2
+          lda # 1
           jsr SetNextAlarm
 
           .WaitScreenBottom
@@ -77,7 +77,7 @@ AnnounceSubject:
 
           lda MoveAnnouncement
           cmp # 1
-          bmi SkipSubject
+          blt SkipSubject
 
 DrawSubject:
           lda WhoseTurn
@@ -96,10 +96,9 @@ SkipSubject:
           .SkipLines 59
 ;;; 
 AnnounceVerb:
-
           lda MoveAnnouncement
           cmp # 2
-          bmi SkipVerb
+          blt SkipVerb
 
 DrawVerb:
           lda CombatMoveSelected
@@ -113,24 +112,21 @@ SkipVerb:
           .SkipLines 42
 ;;; 
 AnnounceObject:
-
           lda MoveAnnouncement
           cmp # 3
-          bmi SkipObject
+          blt SkipObject
 
           lda MoveTarget
           cmp #$ff
           beq SkipObject
-
 DrawObject:
           ldx CombatMoveSelected
           lda MoveDeltaHP, x
           bpl ObjectOther
-
 ObjectSelf:
           lda WhoseTurn
           beq PlayerObject
-          bne MonsterTargetObject
+          bne MonsterTargetObject ; always taken
 
 ObjectOther:
           lda WhoseTurn
@@ -159,7 +155,8 @@ ScheduleSpeech:
           bne SpeechDone
 
           lda MoveSpeech
-          bne Speech1
+          cmp # 1
+          bge Speech1
 
           lda WhoseTurn
           beq SayPlayerSubject
@@ -171,7 +168,7 @@ SayMonsterSubject:
 SayPlayerSubject:
           jsr SayPlayerGrizzard
           inc MoveSpeech
-          jmp SpeechDone
+          bne SpeechDone        ; always taken
 
 Speech1:
           cmp # 2
@@ -208,11 +205,11 @@ Speech3:
           cmp # 4
           bge Speech4
 
-          lda #>Phrase_Move01
+          lda #>Phrase_Move01 - 1
           sta CurrentUtterance + 1
-          lda #<Phrase_Move01
+          lda #<Phrase_Move01 - 1
           clc
-          adc MoveSelection
+          adc CombatMoveSelected
           bcc +
           inc CurrentUtterance + 1
 +
@@ -237,13 +234,26 @@ Speech5:
           cmp # 6
           bge Speech6
 
+          ldx CombatMoveSelected
           lda WhoseTurn
           beq SayMonsterObject
+SayPlayerObject:
+          lda MoveDeltaHP, x
+          bpl +
+          jsr SayMonster
+          jmp SayObjectDone
++
           jsr SayPlayerGrizzard
           jmp SayObjectDone
 
 SayMonsterObject:
+          lda MoveDeltaHP, x
+          bpl +
+          jsr SayPlayerGrizzard
+          jmp SayObjectDone
++
           jsr SayMonster
+
 SayObjectDone:
           inc MoveSpeech
           bne SpeechDone        ; always taken
@@ -252,9 +262,18 @@ Speech6:
           cmp # 7
           bge SpeechDone
 
+          ldx CombatMoveSelected
           lda WhoseTurn
-          beq Speech6Done
+          beq SayObjectNumberOnPlayersTurn
+SayObjectNumberOnMonstersTurn:
+          lda MoveDeltaHP, x
+          bpl Speech6Done
+          bmi SayThatObjectNumber ; always taken
 
+SayObjectNumberOnPlayersTurn:
+          lda MoveDeltaHP, x
+          bmi Speech6Done
+SayThatObjectNumber:
           lda #>(Phrase_One - 1)
           sta CurrentUtterance + 1
           lda #<(Phrase_One - 1)
@@ -265,14 +284,12 @@ Speech6:
 +
 	sta CurrentUtterance
 
-
 Speech6Done:
           inc MoveSpeech
           ;; fall through
 SpeechDone:
 ;;; 
 CheckForAlarm:
-
           lda ClockSeconds
           cmp AlarmSeconds
           bne AlarmDone
@@ -285,7 +302,6 @@ CheckForAlarm:
           jsr SetNextAlarm
 
 AlarmDone:
-
 -
           lda INSTAT
           bpl -
@@ -339,7 +355,6 @@ SayPlayerGrizzard:
           inc CurrentUtterance + 1
 +
           sta CurrentUtterance
-
           rts
 ;;; 
           .bend

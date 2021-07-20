@@ -218,7 +218,7 @@ MapSides:
 ;;; Moving sprites wander the screen, obeying walls.
 ;;; Random encounters occupy a sprite data slot but are not actually
 ;;; visible on the screen.
-MapSprites:
+SpriteList:
           ;; Room 0
           .byte $ff              ; not removeable
           .byte SpriteFixed     ; fixed position sprite

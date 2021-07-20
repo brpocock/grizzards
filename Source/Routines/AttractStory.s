@@ -3,6 +3,16 @@
 
 AttractStory:       .block
 
+          lda AttractHasSpoken
+          cmp #<Phrase_Story
+          beq Loop
+          
+          lda #>Phrase_Story
+          sta CurrentUtterance + 1
+          lda #<Phrase_Story
+          sta CurrentUtterance
+          sta AttractHasSpoken
+
 Loop:
           jsr VSync
           jsr VBlank

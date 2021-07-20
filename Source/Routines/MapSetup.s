@@ -29,9 +29,9 @@ NewRoom:
 NewRoomTimerRunning:
           ;; Got to figure out the sprites
           ;; Start at the head of the sprite list
-          lda #<MapSprites
+          lda #<SpriteList
           sta Pointer
-          lda #>MapSprites
+          lda #>SpriteList
           sta Pointer + 1
           lda #ModeMap
           sta GameMode

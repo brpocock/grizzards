@@ -24,15 +24,16 @@ MonsterMove:
           bmi MonsterHeals
 
 MonsterAttacks:
-          ldy # 14              ; ATK/DEF
+          ldy # MonsterLevelsIndex
           lda (CurrentMonsterPointer), y
           and #$f0
+          clc
           ror a
           ror a
           ror a
           ror a
           tax
-          lda LevelTable, x
+          lda LevelTable, x     ; effective attack value
           tay                   ; Attack score
           ldx WhoseTurn
           lda EnemyStatusFX - 1, x
@@ -64,15 +65,16 @@ MonsterAttackPositiveRandom:
 MonsterAttackNegativeRandom:
           and Temp
           sta Temp
-          ldy # 14
+          ldy # MonsterLevelsIndex
           lda (CurrentMonsterPointer), y
           and #$f0
+          clc
           ror a
           ror a
           ror a
           ror a
           tax
-          lda LevelTable, x
+          lda LevelTable, x     ; effective attack value
           sec
           sbc Temp
           ;; fall through
@@ -243,7 +245,7 @@ PlayerAttackNegativeRandom:
           ;; fall through
 PlayerAttackHitMissP:
           tax                   ; stash effective attack strength
-          ldy # 14              ; ATK/DEF of monster
+          ldy # MonsterLevelsIndex
           lda (CurrentMonsterPointer), y
           and #$0f              ; DEF class
           tay
@@ -284,7 +286,7 @@ PlayerReduceMonsterHP:
 
 PlayerKilledMonster:
           ;; add to score the amount for that monster
-          ldy # 15              ; score value
+          ldy # MonsterPointsIndex
           lda (CurrentMonsterPointer) ,y
           sed
           clc
@@ -401,7 +403,7 @@ WaitOutScreen:
           lda MoveHitMiss
           beq SoundForMiss
           lda #SoundHit
-          bne +
+          bne +                 ; always taken
 SoundForMiss:
           lda #SoundHit
 +
@@ -431,9 +433,13 @@ CheckMove:
           jsr Random
           and #$07
           bne DidNotLearn
-LearnedMove:
-          ldx pp1h              ; bit index of move to learn
+
+          ldx pp1h
+          dex                   ; bit index of move to learn
           lda BitMask, x
+          bit MovesKnown
+          bne DidNotLearn       ; already know this move
+LearntMove:
           ora MovesKnown
           sta MovesKnown
           ldy # 1
@@ -456,7 +462,7 @@ AfterTryingToLearn:
 
           lda pp1l
           sta Temp
-          .FarJSR TextBank, ServiceLearnedMove
+          .FarJSR AnimationsBank, ServiceLearntMove
 ;;; 
 NextTurn:
           inc WhoseTurn
@@ -474,13 +480,13 @@ NextTurn:
           lda #3
           jsr SetNextAlarm
 BackToMain:
-
           jmp CombatMainScreen
-
-          .bend
 ;;; 
+          ;; (also referenced by CombatSetup.s)
 LevelTable:
           ;; monsters have levels 0…$b for each of their stats
           ;; this table maps those to actual values
           .byte 1, 2, 5, 10,  15, 25, 35, 50
           .byte 60, 70, 80, 90, 99, 99, 99, 99
+;;; 
+          .bend

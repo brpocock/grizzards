@@ -124,7 +124,11 @@ DoneHealth:
           sta PF1
           sta PF2
 
+          .if TV == NTSC
           .SkipLines KernelLines - 192
+          .else
+          .SkipLines KernelLines - 209
+          .fi
 ;;; 
           lda WhoseTurn
           beq PlayerChooseMove

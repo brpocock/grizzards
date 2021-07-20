@@ -15,7 +15,7 @@ Loop:
           beq NoSprites
 
           ldx SpriteFlicker
-          lda #>SpriteArt
+          lda #>MapSprites
           sta pp1h
           clc
           lda SpriteAction, x
@@ -23,7 +23,7 @@ Loop:
           .rept 4
           asl a
           .next
-          adc #<SpriteArt
+          adc #<MapSprites
           bcc +
           inc pp1h
 +
@@ -75,13 +75,20 @@ P1Ready:
           sta PF1
           sta PF2
 
+          lda DeltaX
+          ora DeltaY
+          beq P0Frame0        ; always show frame 0 unless moving
           lda ClockFrame
-          and #$10
+          and #$08
+          bne +
+          ldx #SoundFootstep
+          stx NextSound
++
           clc
-          ror a
-          adc #<PlayerWalk1
+P0Frame0:
+          adc #<PlayerSprites
           sta pp0l
-          lda #>PlayerWalk1
+          lda #>PlayerSprites
           sta pp0h
 
           ldx CurrentMap

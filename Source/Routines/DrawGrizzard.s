@@ -50,6 +50,9 @@ DrawGrizzard:
           sta GRP1
           sta WSYNC
           sta WSYNC
+          .if TV != NTSC
+          sta WSYNC
+          .fi
           dey
           bne -
 

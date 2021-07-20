@@ -31,11 +31,11 @@ Loop:
           dex
           bne -
 
-          ldx # KernelLines - 180
--
-          stx WSYNC
-          dex
-          bne -
+          .if TV == NTSC
+          .SkipLines KernelLines - 180
+          .else
+          .SkipLines KernelLines - 165
+          .fi
 
           lda NewSWCHB
           beq Bouncey1
@@ -63,6 +63,8 @@ Bouncey1:
 
           cmp #ModeCombat
           bne +
+          lda # 1
+          jsr SetNextAlarm
           jmp CombatMainScreen
 +
 

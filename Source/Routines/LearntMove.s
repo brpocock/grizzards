@@ -1,10 +1,10 @@
-;;; Grizzards Source/Routines/LearnedMove.s
+;;; Grizzards Source/Routines/LearntMove.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
-LearnedMove:        .block
+LearntMove:        .block
 
           ;; Call with the move ID stashed in Temp
-          lda #ModeLearnedMove
+          lda #ModeLearntMove
           sta GameMode
 
           lda Temp
@@ -12,6 +12,14 @@ LearnedMove:        .block
 
           lda # 4
           jsr SetNextAlarm
+
+          lda #>Phrase_Learnt
+          sta CurrentUtterance + 1
+          lda #<Phrase_Learnt
+          sta CurrentUtterance
+
+          lda # 0
+          sta DeltaY
 Loop:
           jsr VSync
           jsr VBlank
@@ -26,13 +34,33 @@ Loop:
 
           .SetPointer LearntText
           jsr CopyPointerText
-          jsr DecodeAndShowText
+          .FarJSR TextBank, ServiceDecodeAndShowText
 
           ldy DeltaX
-          jsr ShowMove.WithDecodedMoveID
+          sty Temp
+          .FarJSR TextBank, ServiceShowMoveDecoded
 
           .SkipLines (KernelLines - 45) / 2
           jsr Overscan
+
+CheckForSpeech:
+          lda DeltaY
+          bne CheckForAlarm
+
+          lda CurrentUtterance + 1
+          bne CheckForAlarm
+
+          lda #>Phrase_Move01 - 1
+          sta CurrentUtterance + 1
+          lda #<Phrase_Move01 - 1
+          clc
+          adc DeltaX
+          bcc +
+          inc CurrentUtterance + 1
++
+          sta CurrentUtterance
+          lda # 1
+          sta DeltaY
 
 CheckForAlarm:
           lda ClockSeconds
@@ -55,7 +83,7 @@ AlarmDone:
 SwitchesDone:
 
           lda GameMode
-          cmp #ModeLearnedMove
+          cmp #ModeLearntMove
           beq +
           cmp #ModeColdStart
           beq GoColdStart

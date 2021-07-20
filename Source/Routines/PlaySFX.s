@@ -6,7 +6,7 @@ PlaySFX: .block
           bne PlaySound
 
           lda NextSound
-          beq DoMusic
+          beq EndOfSound
 
 PlayNewSound:
           cmp #SoundCount + 1
@@ -27,7 +27,7 @@ PlayNewSoundReally:
 
 PlaySound:
           dec SFXNoteTimer
-          bne DoMusic
+          bne EndOfSound
 
 PlayNextSFXNote:
           ldy #0

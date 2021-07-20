@@ -29,9 +29,7 @@ PrepareToDrawMonsters:
           sta NUSIZ0
           sta NUSIZ1
           sta pp3l
-
 ;;; 
-          
 PrepareTopCursor:
           sta HMCLR
 
@@ -124,14 +122,17 @@ Monster1Pos:
 
           lda pp3l
           sta GRP1
-          
+
 DrawTopMonsters:
-          ldy #7
+          ldy # 7
 -
           lda (CombatSpritePointer), y
           sta GRP0
           sta WSYNC
           sta WSYNC
+          .if TV != NTSC
+          sta WSYNC
+          .fi
           dey
           bpl -
           ldy # 0
@@ -143,14 +144,8 @@ DrawTopMonsters:
 NoTopMonsters:
           lda # 0
           sta GRP0
-          ldy # 18
--
-          sta WSYNC
-          dey
-          bne -
-
+          .SkipLines 18
 ;;; 
-
 PrepareBottomCursor:
           sta HMCLR
 
@@ -251,12 +246,15 @@ Monster2Pos:
           sta GRP1
 
 DrawBottomMonsters:
-          ldy #7
+          ldy # 7
 -
           lda (CombatSpritePointer), y
           sta GRP0
           sta WSYNC
           sta WSYNC
+          .if TV != NTSC
+          sta WSYNC
+          .fi
           dey
           bpl -
           ldy # 0
@@ -269,12 +267,6 @@ DrawBottomMonsters:
 NoBottomMonsters:
           lda # 0
           sta GRP0
-          ldy # 20
--
-          sta WSYNC
-          dey
-          bne -
-
+          .SkipLines 20
 ;;; 
-
           rts

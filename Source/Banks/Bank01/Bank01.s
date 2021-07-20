@@ -4,7 +4,8 @@
 
           ;; Map Services Bank
 
-	.include "StartBank.s"
+          .include "StartBank.s"
+          .include "SpeakJetIDs.s"
 
 DoVBlankWork:
           .include "MapVBlank.s"
@@ -14,6 +15,8 @@ DoVBlankWork:
           .include "Overscan.s"
           .include "48Pixels.s"
           .include "Prepare48pxMobBlob.s"
+          .include "LearntMove.s"
+          .include "Failure.s"
 
 DoLocal:
           cpy #ServiceTopOfScreen
@@ -32,8 +35,11 @@ DoLocal:
           beq AttractStory
           cpy #ServiceStartNewGame
           beq StartNewGame
+          cpy #ServiceLearntMove
+          beq LearntMove
           brk
 
+          .include "CopyPointerText.s"
           .include "MapTopService.s"
           .include "DrawMonsterGroup.s"
           .include "WinnerFireworks.s"
