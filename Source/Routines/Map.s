@@ -77,10 +77,17 @@ P1Ready:
           sta PF1
           sta PF2
 
+          lda DeltaX
+          ora DeltaY
+          beq P0Frame0        ; always show frame 0 unless moving
           lda ClockFrame
-          and #$10
+          and #$08
+          bne +
+          ldx #SoundFootstep
+          stx NextSound
++
           clc
-          ror a
+P0Frame0:
           adc #<PlayerSprites
           sta pp0l
           lda #>PlayerSprites
