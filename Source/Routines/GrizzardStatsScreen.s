@@ -63,6 +63,8 @@ Bouncey1:
 
           cmp #ModeCombat
           bne +
+          lda # 1
+          jsr SetNextAlarm
           jmp CombatMainScreen
 +
 
