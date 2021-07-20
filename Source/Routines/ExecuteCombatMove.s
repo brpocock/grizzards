@@ -27,6 +27,7 @@ MonsterAttacks:
           ldy # MonsterLevelsIndex
           lda (CurrentMonsterPointer), y
           and #$f0
+          clc
           ror a
           ror a
           ror a
@@ -67,6 +68,7 @@ MonsterAttackNegativeRandom:
           ldy # MonsterLevelsIndex
           lda (CurrentMonsterPointer), y
           and #$f0
+          clc
           ror a
           ror a
           ror a
@@ -401,7 +403,7 @@ WaitOutScreen:
           lda MoveHitMiss
           beq SoundForMiss
           lda #SoundHit
-          bne +
+          bne +                 ; always taken
 SoundForMiss:
           lda #SoundHit
 +
