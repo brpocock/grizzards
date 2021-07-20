@@ -11,7 +11,45 @@
           .include "StartBank.s"
           .include "SpeakJetIDs.s"
 
-          .text "griz", 0       ; Magic cookie to identify file on Linux®
+;;; Start with page-aligned bitmaps
+          .include "Title1.s"
+          .align $100, 0
+
+          .switch STARTER
+          .case 0
+          .include "Grizzard0-0.s"
+          .align $100, 0
+          .include "Grizzard0-1.s"
+          Title2=Grizzard00
+          Title3=Grizzard01
+
+          .case 1
+          .include "Grizzard1-0.s"
+          .align $100, 0
+          .include "Grizzard1-1.s"
+          Title2=Grizzard10
+          Title3=Grizzard11
+
+          .case 2
+          .include "Grizzard2-0.s"
+          .align $100, 0
+          .include "Grizzard2-1.s"
+          Title2=Grizzard20
+          Title3=Grizzard21
+
+          .default
+          .error "STARTER ∈ (0 1 2), not ", STARTER
+          .endswitch
+
+          .align $100, 0
+          .if PUBLISHER
+            .include "PublisherCredit.s"
+            .include "PublisherName.s"
+          .else
+            .include "BRPCredit.s"
+            .fill 66, 0            ; leave space for publisher name
+          .fi
+
 DoLocal:
           cpy #ServiceColdStart
           beq ColdStart
@@ -53,44 +91,5 @@ ShowText:
 Quit:
           ldy #ServiceColdStart
           jmp ColdStart
-
-          .align $100
-          .include "Title1.s"
-          .align $100, 0
-
-          .switch STARTER
-          .case 0
-          .include "Grizzard0-0.s"
-          .align $100, 0
-          .include "Grizzard0-1.s"
-          Title2=Grizzard00
-          Title3=Grizzard01
-
-          .case 1
-          .include "Grizzard1-0.s"
-          .align $100, 0
-          .include "Grizzard1-1.s"
-          Title2=Grizzard10
-          Title3=Grizzard11
-
-          .case 2
-          .include "Grizzard2-0.s"
-          .align $100, 0
-          .include "Grizzard2-1.s"
-          Title2=Grizzard20
-          Title3=Grizzard21
-
-          .default
-          .error "STARTER ∈ (0 1 2), not ", STARTER
-          .endswitch
-
-          .align $100, 0
-          .if PUBLISHER
-            .include "PublisherCredit.s"
-            .include "PublisherName.s"
-          .else
-            .include "BRPCredit.s"
-            .fill 66, 0            ; leave space for publisher name
-          .fi
 
           .include "EndBank.s"

@@ -190,7 +190,12 @@ TimeLines:          .macro lines
           
 WaitScreenTop:      .macro
           jsr VSync
+          .if TV == NTSC
           .TimeLines KernelLines - 1
+          .else
+          lda #$ff              ; 214.74 lines
+          sta TIM64T
+          .fi
           .endm
 
 WaitForTimer:       .macro
@@ -201,6 +206,9 @@ WaitForTimer:       .macro
 
 WaitScreenBottom:      .macro
           .WaitForTimer
+          .if TV != NTSC
+          .SkipLines 11
+          .fi
           jsr Overscan
           .endm
 

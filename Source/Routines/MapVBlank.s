@@ -15,7 +15,7 @@ MovementLogic:
           beq DoSpriteMotion
 
           .SkipLines 2
-          bne CheckSpriteCollision ; always taken
+          jmp CheckSpriteCollision ; always taken
 ;;; 
 DoSpriteMotion:
           ldx SpriteCount

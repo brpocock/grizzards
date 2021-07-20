@@ -5,13 +5,10 @@ Attract:  .block
           ;; Title screen and attract sequence
           ;;
 
-          ldx #$20
+          ldx #$80
           lda #0
 ZeroRAM:
           sta $80, x
-          sta $a0, x
-          sta $c0, x
-          sta $e0, x
           dex
           bne ZeroRAM
 
@@ -29,10 +26,10 @@ ZeroRAM:
           jsr SetNextAlarm
 ;;; 
 Loop:
-          jsr VSync
-
+          .WaitScreenTop
+          .if TV == NTSC
           .SkipLines 4
-
+          .fi
           jsr Prepare48pxMobBlob
 
           lda GameMode
@@ -120,7 +117,6 @@ DrawTitle3:
           sty PF2
 
 PrepareFillAttractBottom:
-          .SkipLines KernelLines - Title1.Height - Title2.Height - 59
 
           lda ClockSeconds
           cmp AlarmSeconds
@@ -137,7 +133,8 @@ PrepareFillAttractBottom:
           ;; fall through
 ;;; 
 DoneAttractKernel:
-          sta WSYNC
+          .WaitScreenBottom
+
           lda NewSWCHB
           beq +
           and #SWCHBSelect
@@ -148,12 +145,9 @@ DoneAttractKernel:
           and #PRESSED
           beq Leave
 +
-          jsr Overscan
           jmp Loop
 
 Leave:
-          jsr Overscan
-
           lda #ModeSelectSlot
           sta GameMode
           jmp SelectSlot

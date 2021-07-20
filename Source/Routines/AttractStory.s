@@ -14,7 +14,7 @@ AttractStory:       .block
           sta AttractHasSpoken
 ;;; 
 Loop:
-          jsr VSync
+          .WaitScreenTop
 
           .ldacolu COLBLUE, $8
           sta COLUBK
@@ -35,10 +35,6 @@ Loop:
           .LoadString "AUGUST"
           .FarJSR TextBank, ServiceDecodeAndShowText
 
-          .SkipLines KernelLines - 79
-
-          .ldacolu COLGRAY, 0
-          sta COLUBK
 ;;; 
 
           lda ClockSeconds
@@ -56,7 +52,7 @@ Loop:
           rts
 
 StillStory:
-          jsr Overscan
+          .WaitScreenBottom
 
           lda NewSWCHB
           beq LoopMe

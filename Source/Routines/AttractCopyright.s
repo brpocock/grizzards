@@ -32,8 +32,6 @@ DoneCopyrightSpeech:
           .SetPointer PocockText
           jsr DecodeAndShowText
 
-          .SkipLines KernelLines - 154
-
           lda ClockSeconds
           cmp AlarmSeconds
           bmi StillCopyright

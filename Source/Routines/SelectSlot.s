@@ -17,6 +17,11 @@ SelectSlot:        .block
 ;;; 
 Loop:     
           jsr VSync
+          .if TV == NTSC
+          .TimeLines KernelLines * 2/3 - 1
+          .else
+          .TimeLines KernelLines / 2 - 1
+          .fi
 
           lda GameMode
           cmp #ModeSelectSlot
@@ -40,20 +45,13 @@ NoErase:
 
 StartPicture:
 
-          ldx #16
-FillTop:
-          sta WSYNC
-          dex
-          bne FillTop
+          .SkipLines 16
 
 Slot:
           .FarJSR TextBank, ServiceDecodeAndShowText
 
           .LoadString " SLOT "
           .FarJSR TextBank, ServiceDecodeAndShowText
-
-          lda # ( (76 * 75) / 64 )
-          sta TIM64T
 
           lda #ModeErasing
           cmp GameMode
@@ -96,6 +94,12 @@ ShowActive:
 
 FillToSlot:
           .WaitForTimer
+          .if TV == NTSC
+          sta WSYNC
+          .TimeLines KernelLines / 3 - 1
+          .else
+          .TimeLines KernelLines / 2 - 1
+          .fi
 
 ShowSaveSlot:
           .FarJSR TextBank, ServiceDecodeAndShowText
@@ -113,8 +117,7 @@ ShowSaveSlot:
 ShowSlot:
           .FarJSR TextBank, ServiceDecodeAndShowText
 
-          .SkipLines KernelLines - 170
-
+          .WaitForTimer
           jsr Overscan
 ;;; 
           lda NewSWCHB

@@ -17,7 +17,7 @@ PublisherPresentsMode:
 BRPPreambleMode:
           .SetUpFortyEight BRPCredit
           ldy # BRPCredit.Height
-          .ldacolu COLINDIGO, $f
+          .ldacolu COLINDIGO, $8
 
           .fi
 
@@ -53,13 +53,6 @@ SingleGraphicAttract:
           ldy #PublisherName.Height
           sty LineCounter
           jsr ShowPicture
-
-          .SkipLines KernelLines - (127 + PublisherName.Height)
-
-          .else
-
-          .SkipLines KernelLines - 127
-
           .fi
 
           jmp Attract.DoneAttractKernel

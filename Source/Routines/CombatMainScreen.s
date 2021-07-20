@@ -51,7 +51,11 @@ MonstersDisplay:
           .FarJSR MapServicesBank, ServiceDrawMonsterGroup
 DelayAfterMonsters:
           .WaitForTimer
+          .if TV == NTSC
           .TimeLines KernelLines - 97
+          .else
+          .TimeLines KernelLines - 99
+          .fi
 ;;; 
 BeginPlayerSection:
           sta WSYNC

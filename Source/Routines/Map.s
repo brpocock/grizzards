@@ -264,7 +264,7 @@ FillBottomScreen:
           .if TV == NTSC
           .SkipLines KernelLines - 181
           .else
-          .SkipLines KernelLines - 216
+          .SkipLines KernelLines - 217
           .fi
 
 ScreenJumpLogic:
