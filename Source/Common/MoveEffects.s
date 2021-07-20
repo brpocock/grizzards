@@ -41,7 +41,7 @@ MoveEffects:
           .byte 0
           .byte 0
           .byte 0
-          .byte 3
+          .byte 0
           .byte StatusMuddle
           .byte 0
           .byte 0
@@ -116,7 +116,7 @@ MoveDeltaHP:
           .byte $ff ^ 25
           .byte $ff ^ 50
           .byte $ff ^ 99
-          .byte 0
+          .byte 15
           .byte 0
           .byte 0
           .byte 0
