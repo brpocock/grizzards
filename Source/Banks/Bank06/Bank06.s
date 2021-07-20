@@ -29,7 +29,6 @@ DoLocal:
           .include "Random.s"
           .include "48Pixels.s"
           .include "MoveEffects.s"
-          .include "SetNextAlarm.s"
 
           .include "Combat6.s"
           .include "Monsters6.s"          
