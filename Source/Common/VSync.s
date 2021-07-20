@@ -59,7 +59,5 @@ NoTime:
           .if VBlank != *
           jmp VBlank
           .fi
-          
+
           .bend
-
-

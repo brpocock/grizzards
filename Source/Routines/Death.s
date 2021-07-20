@@ -28,14 +28,10 @@ Loop:
           .LoadString " OVER "
           .FarJSR TextBank, ServiceDecodeAndShowText
 
-          ldx # KernelLines - 42
--
-          stx WSYNC
-          dex
-          bne -
+          .SkipLines KernelLines - 42
 
           jsr Overscan
-
+;;; 
           lda NewSWCHB
           beq +
           .BitBit SWCHBReset

@@ -1,6 +1,6 @@
 ;;; Grizzards Source/Routines/MapTopService.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
-TopOfScreenService: .block          
+TopOfScreenService: .block
           jsr VSync
 
           jsr Prepare48pxMobBlob

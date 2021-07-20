@@ -113,11 +113,7 @@ ShowSaveSlot:
 ShowSlot:
           .FarJSR TextBank, ServiceDecodeAndShowText
 
-          ldx #KernelLines - 170
-FillScreen:
-          sta WSYNC
-          dex
-          bne FillScreen
+          .SkipLines KernelLines - 170
 
           jsr Overscan
 ;;; 
@@ -205,8 +201,8 @@ SlotOK:
 
           jsr CheckSaveSlot
           ;; carry is SET if the slot is EMPTY
-          .WaitScreenBottom
           bcc LoadGame
+          .WaitScreenBottom
 
           lda #ModeStartGame
           sta GameMode

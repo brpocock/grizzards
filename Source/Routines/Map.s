@@ -30,7 +30,7 @@ Loop:
           sta pp1l
           lda ClockFrame
           .BitBit $10
-          bne AnimationFrame0
+          bne AnimationFrameReady
 
           lda pp1l
           clc
@@ -40,12 +40,7 @@ Loop:
 +
           sta pp1l
 
-          jmp AnimationFrameReady
-
-AnimationFrame0:
-
 AnimationFrameReady:
-
           ldx SpriteFlicker
           lda SpriteAction, x
           and #$03
@@ -77,12 +72,16 @@ P1Ready:
 
           lda DeltaX
           ora DeltaY
-          beq P0Frame0        ; always show frame 0 unless moving
+          beq DelayFrame0        ; always show frame 0 unless moving
           lda ClockFrame
           and #$08
           bne +
           ldx #SoundFootstep
           stx NextSound
+          bne +                 ; always taken
+
+DelayFrame0:
+          sta WSYNC
 +
           clc
 P0Frame0:
@@ -261,9 +260,9 @@ FillBottomScreen:
           sta ENABL
 
           .if TV == NTSC
-          .SkipLines KernelLines - 180
+          .SkipLines KernelLines - 181
           .else
-          .SkipLines KernelLines - 215
+          .SkipLines KernelLines - 216
           .fi
 
 ScreenJumpLogic:
