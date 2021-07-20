@@ -46,7 +46,7 @@ AnnounceMonsterSpeech:
           sta CurrentUtterance
           
 SetUpMonsterHP:     
-          ldy # 14              ; offset of ATK & DEF
+          ldy # MonsterLevels
           lda (CurrentMonsterPointer), y
           and #$0f
           tay
@@ -72,7 +72,7 @@ SetUpMonsterHP:
           bne -
 
 SetUpMonsterArt:
-          ldy # 12              ; art index
+          ldy # MonsterArt
           lda (CurrentMonsterPointer), y
           sta CurrentMonsterArt
                     
