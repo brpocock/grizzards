@@ -122,18 +122,11 @@ DoneHealth:
           sta PF0
           sta PF1
           sta PF2
-
-          .if TV == NTSC
-          .SkipLines KernelLines - 192
-          .else
-          .SkipLines KernelLines - 209
-          .fi
 ;;; 
           lda WhoseTurn
           beq PlayerChooseMove
-
-          .SkipLines 44
-          beq ScreenDone        ; always taken
+          .WaitForTimer
+          jmp ScreenDone
 
 PlayerChooseMove:
           jsr Prepare48pxMobBlob
@@ -141,7 +134,6 @@ PlayerChooseMove:
           ldx MoveSelection
           bne NotRunAway
           .ldacolu COLTURQUOISE, $f
-          .SkipLines 2
           bne ShowSelectedMove  ; always taken
 
 NotRunAway:
@@ -160,6 +152,8 @@ ShowSelectedMove:
           sta WSYNC
 
           .FarJSR TextBank, ServiceShowMove
+
+          .WaitForTimer
 
           lda NewINPT4
           beq ScreenDone
@@ -186,7 +180,7 @@ DoUseMove:
 MoveOK:
           lda #SoundChirp
           sta NextSound
-
+          .SkipLines 3
           jmp CombatAnnouncementScreen
 
 RunAway:
@@ -198,7 +192,6 @@ RunAway:
           ;; fall through
 ;;; 
 ScreenDone:
-          .WaitForTimer
           .SkipLines 3
           jsr Overscan
 

@@ -15,7 +15,7 @@ SoundForMiss:
           sta NextSound
 ;;; 
 Loop:
-          jsr VSync
+          .WaitScreenTop
 
           .ldacolu COLBLUE, 0
           sta COLUBK
@@ -55,7 +55,7 @@ DrawHitPoints:
           jmp AfterHitPoints
 
 SkipHitPoints:
-          .SkipLines 44
+          .SkipLines 34
 ;;; 
 AfterHitPoints:
           lda MoveAnnouncement
@@ -84,10 +84,7 @@ DrawStatusFX:
           jsr DecodeAndShowText
 
 SkipStatusFX:
-          .SkipLines 35
-;;; 
 AfterStatusFX:
-          .SkipLines KernelLines - 82
 ;;; 
           lda ClockSeconds
           cmp AlarmSeconds
@@ -104,7 +101,7 @@ AfterStatusFX:
           cmp # 6
           beq CombatOutcomeDone
 AlarmDone:
-          jsr Overscan
+          .WaitScreenBottom
 ;;; 
 ScheduleSpeech:
           lda CurrentUtterance
@@ -299,8 +296,7 @@ Speech4NotDown:
           ;; fall through to common
 Spoke4:
           inc MoveSpeech
-          bne SpeechDone        ; always taken
-
+          ;; fall through
 SpeechDone:
 ;;;  
           jmp Loop
@@ -313,9 +309,7 @@ CheckForWin:
           ldx #6
 -
           lda MonsterHP - 1, x
-          beq +
-          rts
-+
+          bne Bye
           dex
           bne -
 
@@ -363,6 +357,7 @@ WonReturnToMap:
           
           lda #ModeMap
           sta GameMode
+          .WaitScreenBottom
           jmp GoMap
 
 CheckForLoss:
@@ -376,6 +371,8 @@ CheckForLoss:
           
           .FarJMP MapServicesBank, ServiceDeath ; never returns
 +
+Bye:
+          .WaitScreenBottom
           rts
 
           .bend

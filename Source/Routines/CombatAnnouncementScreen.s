@@ -53,7 +53,7 @@ MoveFound:
           .WaitScreenBottom
 ;;; 
 Loop:
-          jsr VSync
+          .WaitScreenTop
           jsr Prepare48pxMobBlob
 
           .ldacolu COLINDIGO, 0
@@ -71,7 +71,6 @@ MonsterTurnColor:
           sta COLUP1
 ;;; 
 AnnounceSubject:
-
           lda MoveAnnouncement
           cmp # 1
           blt SkipSubject
@@ -79,18 +78,15 @@ AnnounceSubject:
 DrawSubject:
           lda WhoseTurn
           beq PlayerSubject
-
+MonsterSubject:
           jsr ShowMonsterNameAndNumber
-
           jmp AnnounceVerb
 
 PlayerSubject:
           .FarJSR TextBank, ServiceShowGrizzardName
-          .SkipLines 36
-          beq AnnounceVerb       ; always taken
+          jmp AnnounceVerb       ; always taken
 
 SkipSubject:
-          .SkipLines 59
 ;;; 
 AnnounceVerb:
           lda MoveAnnouncement
@@ -106,7 +102,6 @@ DrawVerb:
           jmp AnnounceObject
 
 SkipVerb:
-          .SkipLines 42
 ;;; 
 AnnounceObject:
           lda MoveAnnouncement
@@ -135,15 +130,11 @@ MonsterTargetObject:
 
 PlayerObject:
           .FarJSR TextBank, ServiceShowGrizzardName
-          .SkipLines 32
           beq WaitOutSpeechInterval   ; always taken
 
 SkipObject:
-          .SkipLines 60
 ;;; 
 WaitOutSpeechInterval:
-          .TimeLines KernelLines - 165
-;;; 
 ScheduleSpeech:
           lda CurrentUtterance
           bne SpeechDone
@@ -298,13 +289,11 @@ CheckForAlarm:
           jsr SetNextAlarm
 
 AlarmDone:
-          .WaitForTimer
+          .WaitScreenBottom
 
           lda MoveAnnouncement
           cmp # 4
           beq CombatMoveDone
-
-          jsr Overscan
           jmp Loop
 
 CombatMoveDone:
