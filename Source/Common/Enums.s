@@ -32,7 +32,7 @@
           ModeCombatOutcome = $43
           ModeDeath = $44
           ModeCombatNextTurn = $45
-          ModeLearnedMove = $46
+          ModeLearntMove = $46
 
           ModeGrizzardDepot = $50
 
@@ -125,7 +125,7 @@
           ServiceDrawGrizzard = $05
           ServiceFetchGrizzardMove = $13
           ServiceGrizzardDepot = $07
-          ServiceLearnedMove = $18
+          ServiceLearntMove = $18
           ServiceNewGame = $0f
           ServiceShowGrizzardName = $03
           ServiceShowGrizzardStats = $04

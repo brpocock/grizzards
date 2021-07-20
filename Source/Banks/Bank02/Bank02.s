@@ -69,6 +69,9 @@ ShowMoveDecoded:
           .include "GrizzardMoves.s"
           .include "MovesTable.s"
 
+          .align $100, "font"
+          .include "Font.s"
+
 StatsText:
           .MiniText "ATK 00"
           .MiniText "DEF 00"
@@ -81,9 +84,5 @@ PlayTimeText:
           .MiniText "PLAYED"
 PlayHoursText:
           .MiniText "HOURS "
-
-          .align $100, "font"
-
-          .include "Font.s"
 
 	.include "EndBank.s"

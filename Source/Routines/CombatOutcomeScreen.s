@@ -119,6 +119,23 @@ ScheduleSpeech:
           lda MoveSpeech
           bne Speech1
 
+          lda MoveStatusFX
+          bne SomethingHappened
+          lda MoveHP
+          beq NothingHappened
+          cmp #$ff
+          bne SomethingHappened
+
+NothingHappened:
+          lda #>Phrase_NoEffect
+          sta CurrentUtterance + 1
+          lda #<Phrase_NoEffect
+          sta CurrentUtterance
+          lda # $ff
+          sta MoveSpeech
+          bne SpeechDone        ; always taken
+
+SomethingHappened:
           lda WhoseTurn
           beq SaySubjectPlayerTurn
 SaySubjectMonsterTurn:

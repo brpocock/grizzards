@@ -15,7 +15,7 @@ DoVBlankWork:
           .include "Overscan.s"
           .include "48Pixels.s"
           .include "Prepare48pxMobBlob.s"
-          .include "LearnedMove.s"
+          .include "LearntMove.s"
           .include "Failure.s"
 
 DoLocal:
@@ -37,8 +37,8 @@ DoLocal:
           beq AttractStory
           cpy #ServiceStartNewGame
           beq StartNewGame
-          cpy #ServiceLearnedMove
-          beq LearnedMove
+          cpy #ServiceLearntMove
+          beq LearntMove
           brk
 
           .include "CopyPointerText.s"

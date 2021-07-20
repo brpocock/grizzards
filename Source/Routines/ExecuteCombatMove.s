@@ -445,9 +445,13 @@ CheckMove:
           jsr Random
           and #$07
           bne DidNotLearn
-LearnedMove:
-          ldx pp1h              ; bit index of move to learn
+
+          ldx pp1h
+          dex                   ; bit index of move to learn
           lda BitMask, x
+          bit MovesKnown
+          bne DidNotLearn       ; already know this move
+LearntMove:
           ora MovesKnown
           sta MovesKnown
           ldy # 1
@@ -470,7 +474,7 @@ AfterTryingToLearn:
 
           lda pp1l
           sta Temp
-          .FarJSR AnimationsBank, ServiceLearnedMove
+          .FarJSR AnimationsBank, ServiceLearntMove
 ;;; 
 NextTurn:
           inc WhoseTurn

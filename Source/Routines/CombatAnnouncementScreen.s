@@ -48,7 +48,7 @@ MoveFound:
           lda MoveDeltaHP, x
           sta CombatMoveDeltaHP
 
-          lda #2
+          lda # 1
           jsr SetNextAlarm
 
           .WaitScreenBottom
@@ -77,7 +77,7 @@ AnnounceSubject:
 
           lda MoveAnnouncement
           cmp # 1
-          bmi SkipSubject
+          blt SkipSubject
 
 DrawSubject:
           lda WhoseTurn
@@ -98,7 +98,7 @@ SkipSubject:
 AnnounceVerb:
           lda MoveAnnouncement
           cmp # 2
-          bmi SkipVerb
+          blt SkipVerb
 
 DrawVerb:
           lda CombatMoveSelected
@@ -114,7 +114,7 @@ SkipVerb:
 AnnounceObject:
           lda MoveAnnouncement
           cmp # 3
-          bmi SkipObject
+          blt SkipObject
 
           lda MoveTarget
           cmp #$ff
@@ -158,22 +158,6 @@ ScheduleSpeech:
           cmp # 1
           bge Speech1
 
-          lda MoveStatusFX
-          bne SomethingHappened
-          lda MoveHP
-          beq NothingHappened
-          cmp #$ff
-          bne SomethingHappened
-
-NothingHappened:
-          lda #>Phrase_NoEffect
-          sta CurrentUtterance + 1
-          lda #<Phrase_NoEffect
-          sta CurrentUtterance
-          lda # $ff
-          sta MoveSpeech
-
-SomethingHappened:
           lda WhoseTurn
           beq SayPlayerSubject
 SayMonsterSubject:
@@ -318,7 +302,6 @@ CheckForAlarm:
           jsr SetNextAlarm
 
 AlarmDone:
-
 -
           lda INSTAT
           bpl -
@@ -376,19 +359,3 @@ SayPlayerGrizzard:
           rts
 ;;; 
           .bend
-;;; 
-SetNextAlarm:
-          tax
-          lda ClockMinutes
-          sta AlarmMinutes
-          txa
-          adc ClockSeconds
-          cmp # 60
-          bmi +
-          sec
-          sbc # 60
-          inc AlarmMinutes
-+
-          sta AlarmSeconds
-
-          rts
