@@ -315,7 +315,6 @@ AlarmDone:
 
 CombatMoveDone:
           jmp ExecuteCombatMove
-
 ;;; 
 ShowMonsterNameAndNumber:
           jsr ShowMonsterName

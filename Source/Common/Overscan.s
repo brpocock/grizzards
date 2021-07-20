@@ -10,15 +10,12 @@ Overscan: .block
 
           .switch BANK
           .case 3
-
           jsr DoMusic
 
           .case 4
-
           jsr DoMusic
 
           .default
-
           ;; no op
 
           .endswitch

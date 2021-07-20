@@ -46,11 +46,11 @@ AnnounceMonsterSpeech:
           sta CurrentUtterance
           
 SetUpMonsterHP:     
-          ldy # 14              ; offset of ATK & DEF
+          ldy # MonsterLevelsIndex
           lda (CurrentMonsterPointer), y
           and #$0f
           tay
-          lda LevelTable, y
+          lda ExecuteCombatMove.LevelTable, y     ; effective defend value
           sta Temp
           
           lda EncounterQuantity, x
@@ -72,7 +72,7 @@ SetUpMonsterHP:
           bne -
 
 SetUpMonsterArt:
-          ldy # 12              ; art index
+          ldy # MonsterArtIndex
           lda (CurrentMonsterPointer), y
           sta CurrentMonsterArt
                     

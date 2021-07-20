@@ -160,7 +160,11 @@ HTDdone:
           sta Pointer
           jsr ShowPointerText
 
+          .if TV == NTSC
           .SkipLines KernelLines - 135
+          .else
+          .SkipLines KernelLines - 144
+          .fi
 
           lda SWCHA
           ;; TODO handle stick
