@@ -2,7 +2,6 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 ;;; Common combat routines called from multiple banks
 DoCombat:          .block
-
           .WaitScreenTop
           .KillMusic
 
@@ -91,6 +90,5 @@ SetUpOtherCombatVars:
 
           .WaitScreenBottom
 
-          jmp CombatMainScreen
-
+          ;; MUST be followed by CombatMainScreen directly
           .bend

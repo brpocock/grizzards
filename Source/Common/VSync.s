@@ -56,8 +56,5 @@ NoTime:
 
           sty VSYNC                    ; .y = 0
 
-          .if VBlank != *
-          jmp VBlank
-          .fi
-
+          ;; MUST be followed by VBlank directly
           .bend

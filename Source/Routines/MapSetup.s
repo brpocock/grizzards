@@ -207,8 +207,6 @@ SpritesDone:
 
           .WaitScreenBottom
 
-          .if Map != *
-          jmp Map
-          .fi
+          ;; MUST be followed by Map directly
 
           .bend

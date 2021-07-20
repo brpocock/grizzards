@@ -10,8 +10,7 @@ Loop:
           jsr VSync
 
           ;; drawing the monsters seems to sometimes be a little variable in its timing, so we'll use a timer.
-          lda # (( 76 * 95 ) / 64)
-          sta TIM64T
+          .TimeLines 95
 
           jsr Prepare48pxMobBlob
 
@@ -52,9 +51,10 @@ MonstersDisplay:
           .FarJSR MapServicesBank, ServiceDrawMonsterGroup
 DelayAfterMonsters:
           .WaitForTimer
-          .TimeLines KernelLines - 122
+          .TimeLines KernelLines - 97
 ;;; 
 BeginPlayerSection:
+          sta WSYNC
           .ldacolu COLBLUE, $f
           sta COLUP0
           sta COLUP1
@@ -132,7 +132,7 @@ DoneHealth:
           lda WhoseTurn
           beq PlayerChooseMove
 
-          .SkipLines 46
+          .SkipLines 44
           beq ScreenDone        ; always taken
 
 PlayerChooseMove:
@@ -141,7 +141,7 @@ PlayerChooseMove:
           ldx MoveSelection
           bne NotRunAway
           .ldacolu COLTURQUOISE, $f
-          sta WSYNC
+          .SkipLines 2
           bne ShowSelectedMove  ; always taken
 
 NotRunAway:
@@ -157,6 +157,7 @@ NotMoveKnown:
 ShowSelectedMove:
           sta COLUP0
           sta COLUP1
+          sta WSYNC
 
           .FarJSR TextBank, ServiceShowMove
 
@@ -198,7 +199,7 @@ RunAway:
 ;;; 
 ScreenDone:
           .WaitForTimer
-          .SkipLines 6
+          .SkipLines 3
           jsr Overscan
 
           lda GameMode

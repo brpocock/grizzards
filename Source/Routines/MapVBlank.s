@@ -226,8 +226,6 @@ HandleStick:
           ldx #-1
           stx DeltaY
 
-          sta WSYNC
-
 DoneStickUp:
           .BitBit P0StickDown
           bne DoneStickDown
@@ -264,10 +262,9 @@ DoneStickRight:
           adc DeltaY
           sta PlayerY
 
-          sta WSYNC
           ;; fall through …
 ;;; 
-          ;; Collision Handling
+;;; Collision Handling
 CheckPlayerMove:
           lda CXP0FB
           and #$c0              ; hit playfield or ball
@@ -355,7 +352,7 @@ ProvinceChange:
           ldy #ModeMapNewRoom
           sty GameMode
           rts
-
+;;; 
 BumpWall:
           sta CXCLR
 
@@ -401,5 +398,5 @@ DoneBump:
           sta NextSound
 
           rts
-
+;;; 
           .bend

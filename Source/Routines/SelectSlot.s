@@ -113,7 +113,7 @@ ShowSaveSlot:
 ShowSlot:
           .FarJSR TextBank, ServiceDecodeAndShowText
 
-          .SkipLines KernelLines - 169
+          .SkipLines KernelLines - 170
 
           jsr Overscan
 ;;; 
@@ -187,7 +187,7 @@ SwitchSelectSlot:
           inc SaveGameSlot
           lda SaveGameSlot
           cmp #3
-          bmi GoBack
+          blt GoBack
           lda #0
           sta SaveGameSlot
 GoBack:

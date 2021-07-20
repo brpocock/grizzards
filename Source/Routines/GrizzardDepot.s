@@ -150,7 +150,7 @@ HTDdone:
           jsr ShowPointerText
 
           .if TV == NTSC
-          .SkipLines KernelLines - 135
+          .SkipLines KernelLines - 136
           .else
           .SkipLines KernelLines - 144
           .fi

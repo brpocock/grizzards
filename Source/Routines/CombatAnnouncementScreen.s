@@ -2,17 +2,16 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
 CombatAnnouncementScreen:     .block
-
           ;; We are jumped in here lacking an overscan
           jsr Overscan
 
 ;;; Set up for the combat move announcement & execution
 ;;; (this whole first page is really a separate step from the announcement screen)
+          .WaitScreenTop
+
           lda # 0
           sta MoveAnnouncement
           sta MoveSpeech
-
-          .WaitScreenTop
 
           ldy MoveSelection
 
@@ -143,8 +142,7 @@ SkipObject:
           .SkipLines 60
 ;;; 
 WaitOutSpeechInterval:
-          lda # ( (KernelLines - 151) * 76 ) / 64
-          sta TIM64T
+          .TimeLines KernelLines - 165
 ;;; 
 ScheduleSpeech:
           lda CurrentUtterance
@@ -300,9 +298,7 @@ CheckForAlarm:
           jsr SetNextAlarm
 
 AlarmDone:
--
-          lda INSTAT
-          bpl -
+          .WaitForTimer
 
           lda MoveAnnouncement
           cmp # 4

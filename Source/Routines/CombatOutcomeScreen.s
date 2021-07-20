@@ -2,7 +2,6 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
 CombatOutcomeScreen:          .block
-
           lda # 0
           sta MoveSpeech
 
@@ -14,7 +13,7 @@ SoundForMiss:
           lda #SoundMiss
 +
           sta NextSound
-
+;;; 
 Loop:
           jsr VSync
 
@@ -23,7 +22,6 @@ Loop:
           .ldacolu COLGRAY, $f
           sta COLUP0
           sta COLUP1
-
 ;;; 
           lda MoveAnnouncement
           cmp # 5
@@ -57,7 +55,7 @@ DrawHitPoints:
           jmp AfterHitPoints
 
 SkipHitPoints:
-          .SkipLines 41
+          .SkipLines 44
 ;;; 
 AfterHitPoints:
           lda MoveAnnouncement
@@ -89,7 +87,7 @@ SkipStatusFX:
           .SkipLines 35
 ;;; 
 AfterStatusFX:
-          .SkipLines KernelLines - 79
+          .SkipLines KernelLines - 82
 ;;; 
           lda ClockSeconds
           cmp AlarmSeconds
@@ -106,7 +104,6 @@ AfterStatusFX:
           cmp # 6
           beq CombatOutcomeDone
 AlarmDone:
-
           jsr Overscan
 ;;; 
 ScheduleSpeech:

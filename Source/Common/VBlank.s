@@ -6,11 +6,8 @@
           .endweak
 
 VBlank: .block
+          sta WSYNC
           .TimeLines VBlankLines
-
-          .if DoVBlankWork != 0
-          jsr DoVBlankWork
-          .fi
 
           lda # 0
           sta NewSWCHA
@@ -40,9 +37,12 @@ VBlank: .block
           sta NewINPT4
 +
 
+          .if DoVBlankWork != 0
+          jsr DoVBlankWork
+          .fi
+
           .WaitForTimer
 
-          stx WSYNC
           ldx # 0
           stx VBLANK
           rts

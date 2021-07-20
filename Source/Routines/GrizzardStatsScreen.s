@@ -24,7 +24,7 @@ Loop:
           sta COLUP1
 
           .if TV == NTSC
-          .SkipLines KernelLines - 160
+          .SkipLines KernelLines - 137
           .else
           .SkipLines KernelLines - 145
           .fi
