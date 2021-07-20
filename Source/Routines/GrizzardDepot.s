@@ -15,7 +15,7 @@ Loop:
           sta COLUP0
           sta COLUP1
 
-          .SkipLines 4
+          .SkipLines 5
 
           jsr Prepare48pxMobBlob
           .SetPointer DepotText

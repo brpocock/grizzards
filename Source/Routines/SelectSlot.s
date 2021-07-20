@@ -93,9 +93,9 @@ ShowResume:
 ShowActive:
           .LoadString "IN USE"
 
+
 FillToSlot:
-          lda INSTAT
-          bpl FillToSlot
+          .WaitForTimer
 
 ShowSaveSlot:
           .FarJSR TextBank, ServiceDecodeAndShowText
@@ -113,7 +113,7 @@ ShowSaveSlot:
 ShowSlot:
           .FarJSR TextBank, ServiceDecodeAndShowText
 
-          .SkipLines KernelLines - 170
+          .SkipLines KernelLines - 169
 
           jsr Overscan
 ;;; 

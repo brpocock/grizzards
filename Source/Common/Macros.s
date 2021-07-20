@@ -184,7 +184,7 @@ TimeLines:          .macro lines
           sta TIM64T
           .else
           lda # (SkipCycles/1024) - 1
-          sta TIM1024T
+          sta T1024T
           .fi
           .endm
           

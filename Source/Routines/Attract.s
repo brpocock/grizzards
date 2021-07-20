@@ -31,7 +31,7 @@ ZeroRAM:
 Loop:
           jsr VSync
 
-          .SkipLines 4
+          .SkipLines 5
 
           jsr Prepare48pxMobBlob
 

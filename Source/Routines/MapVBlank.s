@@ -12,10 +12,11 @@ MapVBlank:        .block
 MovementLogic:
           lda ClockFrame
           .BitBit $04
-          bne CheckSpriteCollision
+          beq DoSpriteMotion
 
+          .SkipLines 2
+          bne CheckSpriteCollision ; always taken
 ;;; 
-          
 DoSpriteMotion:
           ldx SpriteCount
           beq UserInputStart
@@ -161,7 +162,6 @@ BottomOK:
           bne MoveSprites
           ;; fall through
 ;;; 
-
 CheckSpriteCollision:
           lda CXP1FB
           and #$c0              ; hit playfield or ball
@@ -205,11 +205,8 @@ SpriteCxDown:
           dec SpriteY, x
 
 MovementLogicDone:
-
 ;;; 
-
 UserInputStart: 
-          
           lda BumpCooldown
           beq HandleStick
           dec BumpCooldown
@@ -228,6 +225,8 @@ HandleStick:
 
           ldx #-1
           stx DeltaY
+
+          sta WSYNC
 
 DoneStickUp:
           .BitBit P0StickDown
@@ -265,9 +264,9 @@ DoneStickRight:
           adc DeltaY
           sta PlayerY
 
+          sta WSYNC
           ;; fall through …
-          ;; jmp CheckPlayerMove
-
+;;; 
           ;; Collision Handling
 CheckPlayerMove:
           lda CXP0FB

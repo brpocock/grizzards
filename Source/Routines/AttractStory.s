@@ -35,11 +35,7 @@ Loop:
           .LoadString "AUGUST"
           .FarJSR TextBank, ServiceDecodeAndShowText
 
-          ldx # KernelLines - 79
--
-          stx WSYNC
-          dex
-          bne -
+          .SkipLines KernelLines - 79
 
           .ldacolu COLGRAY, 0
           sta COLUBK

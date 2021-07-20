@@ -134,8 +134,6 @@ P0Frame0:
           sty LineCounter
 
           ldx CurrentMap
-          lda #ENABLED
-          sta ENABL
           lda MapSides, x
           bmi LeftBall
           .BitBit $40
@@ -147,6 +145,8 @@ LeftBall:
           sta RESBL
           lda # $20
           sta HMBL
+          lda #ENABLED
+          sta ENABL
           bne DoneBall          ; always taken
 
 RightBall:
@@ -155,6 +155,8 @@ RightBall:
           sta RESBL
           lda # 0
           sta HMBL
+          lda #ENABLED
+          sta ENABL
           beq DoneBall          ; always taken
 
 NoBalls:

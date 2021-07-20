@@ -9,7 +9,8 @@ StartNewGame:          .block
           sta StartGameWipeBlock
 
 Loop:
-          .WaitScreenTop
+          jsr VSync
+          .TimeLines KernelLines - 2
 
           lda StartGameWipeBlock
           cmp #$ff

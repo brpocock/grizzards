@@ -6,9 +6,7 @@
           .endweak
 
 VBlank: .block
-          lda # ( 76 * VBlankLines ) / 64 - 1
-          sta TIM64T
-          sta WSYNC
+          .TimeLines VBlankLines
 
           .if DoVBlankWork != 0
           jsr DoVBlankWork
@@ -42,9 +40,7 @@ VBlank: .block
           sta NewINPT4
 +
 
-FillVBlank:
-          lda INSTAT
-          bpl FillVBlank
+          .WaitForTimer
 
           stx WSYNC
           ldx # 0
