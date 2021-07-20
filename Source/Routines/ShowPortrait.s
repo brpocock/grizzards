@@ -2,7 +2,6 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 Faces:    .block
           jsr VSync
-          jsr VBlank
 
           lda # COLGREEN | $0
           sta COLUBK

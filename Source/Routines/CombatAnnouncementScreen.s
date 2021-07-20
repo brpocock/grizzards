@@ -55,8 +55,6 @@ MoveFound:
 ;;; 
 Loop:
           jsr VSync
-          jsr VBlank
-
           jsr Prepare48pxMobBlob
 
           .ldacolu COLINDIGO, 0

@@ -8,7 +8,6 @@ CombatMainScreen:   .block
           sta GameMode
 Loop:
           jsr VSync
-          jsr VBlank
 
           ;; drawing the monsters seems to sometimes be a little variable in its timing, so we'll use a timer.
           lda # (( 76 * 95 ) / 64)

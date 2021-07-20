@@ -17,7 +17,6 @@ SoundForMiss:
 
 Loop:
           jsr VSync
-          jsr VBlank
 
           .ldacolu COLBLUE, 0
           sta COLUBK

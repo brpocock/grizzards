@@ -12,10 +12,9 @@ AttractStory:       .block
           lda #<Phrase_Story
           sta CurrentUtterance
           sta AttractHasSpoken
-
+;;; 
 Loop:
           jsr VSync
-          jsr VBlank
 
           .ldacolu COLBLUE, $8
           sta COLUBK
@@ -44,8 +43,7 @@ Loop:
 
           .ldacolu COLGRAY, 0
           sta COLUBK
-          
-          lda SWCHB
+;;; 
 
           lda ClockSeconds
           cmp AlarmSeconds

@@ -22,7 +22,6 @@ LearntMove:        .block
           sta DeltaY
 Loop:
           jsr VSync
-          jsr VBlank
 
           .ldacolu COLGRAY, 0
           sta COLUP0

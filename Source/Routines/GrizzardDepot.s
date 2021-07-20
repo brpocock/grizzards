@@ -8,7 +8,6 @@ GrizzardDepot:    .block
 ;;; 
 Loop:     
           jsr VSync
-          jsr VBlank
 
           .ldacolu COLTEAL, $f
           sta COLUBK

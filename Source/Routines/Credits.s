@@ -60,7 +60,6 @@ StayCredits:
 
           jsr Overscan
           jsr VSync
-          jsr VBlank
 
           jmp Loop
 

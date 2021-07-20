@@ -7,11 +7,9 @@ GrizzardStatsScreen: .block
 
           lda # 0
           sta NewSWCHB
-
+;;; 
 Loop:
-
           jsr VSync
-          jsr VBlank
 
           .SkipLines 4
 

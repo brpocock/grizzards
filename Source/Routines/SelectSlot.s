@@ -17,7 +17,6 @@ SelectSlot:        .block
 ;;; 
 Loop:     
           jsr VSync
-          jsr VBlank
 
           lda GameMode
           cmp #ModeSelectSlot

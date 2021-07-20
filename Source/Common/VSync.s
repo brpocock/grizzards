@@ -55,7 +55,11 @@ NoTime:
           sta WSYNC                    ; VSYNC line 3/3
 
           sty VSYNC                    ; .y = 0
-          rts
+
+          .if VBlank != *
+          jmp VBlank
+          .fi
+          
           .bend
 
 

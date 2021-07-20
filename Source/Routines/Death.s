@@ -12,10 +12,9 @@ Death:    .block
 
           ldx #SoundGameOver
           stx NextSound
-
+;;; 
 Loop:
           jsr VSync
-          jsr VBlank
 
           .ldacolu COLGRAY, 0
           sta COLUBK

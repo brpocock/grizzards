@@ -30,7 +30,6 @@ ZeroRAM:
 ;;; 
 Loop:
           jsr VSync
-          jsr VBlank
 
           .SkipLines 4
 

@@ -190,7 +190,6 @@ TimeLines:          .macro lines
           
 WaitScreenTop:      .macro
           jsr VSync
-          jsr VBlank
           .TimeLines KernelLines
           .endm
 

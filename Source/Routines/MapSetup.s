@@ -24,7 +24,6 @@ MapSetup: .block
 ;;; 
 NewRoom:
           jsr VSync
-          jsr VBlank
           .TimeLines KernelLines - 3
 NewRoomTimerRunning:
           ;; Got to figure out the sprites
