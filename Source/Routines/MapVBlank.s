@@ -327,8 +327,6 @@ GetNewGrizzard:
 
 PlayerMoveOK:
           lda #0
-          sta DeltaX
-          sta DeltaY
           lda PlayerX
           sta BlessedX
           lda PlayerY

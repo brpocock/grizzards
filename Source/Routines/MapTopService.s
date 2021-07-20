@@ -12,14 +12,13 @@ TopOfScreenService: .block
           sta COLUP1
           .ldacolu COLGRAY, 0
           sta COLUBK
-
+;;; 
           lda Pause
           beq DecodeScore
           .LoadString "PAUSED"
           jmp ScoreDone
           
 DecodeScore:
-
           lda Score             ; rightmost digit
           and #$0f
           sta StringBuffer + 5
@@ -59,9 +58,8 @@ DecodeScore:
 
 ScoreDone:
           .FarJSR TextBank, ServiceDecodeAndShowText
-
+;;; 
 AfterScore:
-
           lda #CTRLPFREF | CTRLPFBALLSZ8 | CTRLPFPFP
           sta CTRLPF
 
@@ -131,7 +129,6 @@ P1HPos:
           asl a
           asl a
           sta HMP1
-
 TheEnd:
           rts
 
