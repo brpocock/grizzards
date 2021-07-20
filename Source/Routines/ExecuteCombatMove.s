@@ -24,7 +24,7 @@ MonsterMove:
           bmi MonsterHeals
 
 MonsterAttacks:
-          ldy # 14              ; ATK/DEF
+          ldy # MonsterLevels
           lda (CurrentMonsterPointer), y
           and #$f0
           ror a
@@ -64,7 +64,7 @@ MonsterAttackPositiveRandom:
 MonsterAttackNegativeRandom:
           and Temp
           sta Temp
-          ldy # 14
+          ldy # MonsterLevels
           lda (CurrentMonsterPointer), y
           and #$f0
           ror a
@@ -243,7 +243,7 @@ PlayerAttackNegativeRandom:
           ;; fall through
 PlayerAttackHitMissP:
           tax                   ; stash effective attack strength
-          ldy # 14              ; ATK/DEF of monster
+          ldy # MonsterLevels
           lda (CurrentMonsterPointer), y
           and #$0f              ; DEF class
           tay
@@ -284,7 +284,7 @@ PlayerReduceMonsterHP:
 
 PlayerKilledMonster:
           ;; add to score the amount for that monster
-          ldy # 15              ; score value
+          ldy # MonsterPoints
           lda (CurrentMonsterPointer) ,y
           sed
           clc
@@ -478,7 +478,6 @@ NextTurn:
           lda #3
           jsr SetNextAlarm
 BackToMain:
-
           jmp CombatMainScreen
 ;;; 
           ;; (also referenced by CombatSetup.s)
