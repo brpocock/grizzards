@@ -32,7 +32,7 @@ Loop:
           bne -
 
           .if TV == NTSC
-          .SkipLInes KernelLines - 180
+          .SkipLines KernelLines - 180
           .else
           .SkipLines KernelLines - 165
           .fi
