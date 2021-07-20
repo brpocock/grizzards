@@ -18,9 +18,7 @@ ExecuteCombatMove:  .block
 DetermineOutcome:
           lda WhoseTurn
           beq PlayerMove
-
 ;;; 
-
 MonsterMove:
           lda CombatMoveDeltaHP
           bmi MonsterHeals
@@ -34,7 +32,7 @@ MonsterAttacks:
           ror a
           ror a
           tax
-          lda LevelTable, x
+          lda LevelTable, x     ; effective attack value
           tay                   ; Attack score
           ldx WhoseTurn
           lda EnemyStatusFX - 1, x
@@ -74,7 +72,7 @@ MonsterAttackNegativeRandom:
           ror a
           ror a
           tax
-          lda LevelTable, x
+          lda LevelTable, x     ; effective attack value
           sec
           sbc Temp
           ;; fall through
@@ -83,9 +81,7 @@ MonsterAttackHitMissP:
           cmp GrizzardDefense
           blt MonsterAttackMiss
           ;; fall through
-
 ;;; 
-
 MonsterAttackHit:
           ;; The attack was a success
           ;; What's the effect on the Grizzard's HP?
@@ -143,9 +139,7 @@ MonsterAttackNoStatusFX:
           sta MoveHitMiss
 
           jmp WaitOutScreen
-
 ;;; 
-
 MonsterAttackMiss:
           lda # 0
           sta MoveHP
@@ -153,9 +147,7 @@ MonsterAttackMiss:
           sta MoveStatusFX
 
           jmp WaitOutScreen
-
 ;;; 
-
 MonsterHeals:
           ;; .A has the negative HP to be gained
           ;; (alter by random factor)
@@ -209,9 +201,7 @@ MonsterBuff:
           sta MoveHitMiss
 
           jmp WaitOutScreen
-
 ;;; 
-
 PlayerMove:
           lda CombatMoveDeltaHP
           bmi PlayerHeals
@@ -347,9 +337,7 @@ PlayerAttackNoStatusFX:
           sta MoveHitMiss
 
           jmp WaitOutScreen
-
 ;;; 
-
 PlayerAttackMiss:
           lda # 0
           sta MoveHP
@@ -357,9 +345,7 @@ PlayerAttackMiss:
           sta MoveStatusFX
 
           jmp WaitOutScreen
-
 ;;; 
-
 PlayerHeals:
           ;; .A has the inverted HP to be gained
           ;; (alter by random factor)
@@ -494,13 +480,12 @@ NextTurn:
 BackToMain:
 
           jmp CombatMainScreen
-
-          .bend
-
 ;;; 
-
+          ;; (also referenced by CombatSetup.s)
 LevelTable:
           ;; monsters have levels 0…$b for each of their stats
           ;; this table maps those to actual values
           .byte 1, 2, 5, 10,  15, 25, 35, 50
           .byte 60, 70, 80, 90, 99, 99, 99, 99
+;;; 
+          .bend
