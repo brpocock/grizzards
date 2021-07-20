@@ -24,7 +24,7 @@ MonsterMove:
           bmi MonsterHeals
 
 MonsterAttacks:
-          ldy # MonsterLevels
+          ldy # MonsterLevelsIndex
           lda (CurrentMonsterPointer), y
           and #$f0
           ror a
@@ -64,7 +64,7 @@ MonsterAttackPositiveRandom:
 MonsterAttackNegativeRandom:
           and Temp
           sta Temp
-          ldy # MonsterLevels
+          ldy # MonsterLevelsIndex
           lda (CurrentMonsterPointer), y
           and #$f0
           ror a
@@ -243,7 +243,7 @@ PlayerAttackNegativeRandom:
           ;; fall through
 PlayerAttackHitMissP:
           tax                   ; stash effective attack strength
-          ldy # MonsterLevels
+          ldy # MonsterLevelsIndex
           lda (CurrentMonsterPointer), y
           and #$0f              ; DEF class
           tay
@@ -284,7 +284,7 @@ PlayerReduceMonsterHP:
 
 PlayerKilledMonster:
           ;; add to score the amount for that monster
-          ldy # MonsterPoints
+          ldy # MonsterPointsIndex
           lda (CurrentMonsterPointer) ,y
           sed
           clc

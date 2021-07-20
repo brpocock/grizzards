@@ -178,8 +178,8 @@
           LangFra = $0f
 ;;; 
 ;;; Indices into the monster table
-          MonsterName = $00
-          MonsterArt = 12
-          MonsterColor = 13
-          MonsterLevels = 14
-          MonsterPoints = 15
+          MonsterNameIndex = $00
+          MonsterArtIndex = 12
+          MonsterColorIndex = 13
+          MonsterLevelsIndex = 14
+          MonsterPointsIndex = 15

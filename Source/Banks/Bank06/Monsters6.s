@@ -13,7 +13,6 @@ Monsters:
           .colu COLRED, $f
           .byte $20, $6        ; ATK/DEF, score
           
-
           .MiniText "VORPAL"
           .MiniText "BUNNY "
           .byte 0

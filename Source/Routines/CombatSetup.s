@@ -46,7 +46,7 @@ AnnounceMonsterSpeech:
           sta CurrentUtterance
           
 SetUpMonsterHP:     
-          ldy # MonsterLevels
+          ldy # MonsterLevelsIndex
           lda (CurrentMonsterPointer), y
           and #$0f
           tay
@@ -72,7 +72,7 @@ SetUpMonsterHP:
           bne -
 
 SetUpMonsterArt:
-          ldy # MonsterArt
+          ldy # MonsterArtIndex
           lda (CurrentMonsterPointer), y
           sta CurrentMonsterArt
                     
