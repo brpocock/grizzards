@@ -130,6 +130,9 @@ DrawTopMonsters:
           sta GRP0
           sta WSYNC
           sta WSYNC
+          .if TV != NTSC
+          sta WSYNC
+          .fi
           dey
           bpl -
           ldy # 0
@@ -249,6 +252,9 @@ DrawBottomMonsters:
           sta GRP0
           sta WSYNC
           sta WSYNC
+          .if TV != NTSC
+          sta WSYNC
+          .fi
           dey
           bpl -
           ldy # 0

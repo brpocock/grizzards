@@ -31,11 +31,11 @@ Loop:
           dex
           bne -
 
-          ldx # KernelLines - 180
--
-          stx WSYNC
-          dex
-          bne -
+          .if TV == NTSC
+          .SkipLInes KernelLines - 180
+          .else
+          .SkipLines KernelLines - 165
+          .fi
 
           lda NewSWCHB
           beq Bouncey1
