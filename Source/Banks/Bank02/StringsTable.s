@@ -5,6 +5,7 @@ StatsText:
           .MiniText "DEF 00"
           .MiniText "HP  00"
           .MiniText "MAX 00"
+          .NoPageCrossSince StatsText
 DepotText:
           .MiniText "DEPOT "
 PlayTimeText:

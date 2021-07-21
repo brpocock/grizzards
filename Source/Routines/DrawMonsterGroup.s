@@ -1,9 +1,8 @@
 ;;; Grizzards Source/Routines/DrawMonsterGroup.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
-DrawMonsterGroup:
+DrawMonsterGroup:   .block
 
 GetMonsterPointer:
-
           lda #>MonsterArt
           sta CombatSpritePointer + 1
 
@@ -35,19 +34,17 @@ PrepareTopCursor:
 
           ldx MoveTarget
           bne +
-
           stx WSYNC
           stx WSYNC
           beq PrepareTopMonsters ; always taken
-
-          dex
-          lda MonsterHP, x
++
+          lda MonsterHP - 1, x
           beq +
           .ldacolu COLGRAY, $f
-          jmp SetCursorColor
+          bne SetTopCursorColor ; always taken
 +
           .ldacolu COLGRAY, 0
-SetCursorColor:
+SetTopCursorColor:
           sta COLUP1
 
 PrepareCursor2:
@@ -56,7 +53,7 @@ PrepareCursor2:
           blt +
           lda # 0
           sta pp3l
-          jmp PrepareTopMonsters
+          beq PrepareTopMonsters ; always taken
 +
           dex
 
@@ -107,10 +104,8 @@ PrepareToPositionTopMonsters:
           tay
 
 PositionTopMonsters:
-
-Monster1Pos:
           dey
-          bne Monster1Pos
+          bne PositionTopMonsters
           sta RESP0
 
           lda SpritePosition, x
@@ -139,32 +134,39 @@ DrawTopMonsters:
           sty GRP0
           sty GRP1
 
-          jmp PrepareBottomCursor
+          beq PrepareBottomCursor ; always taken
 
 NoTopMonsters:
           lda # 0
           sta GRP0
-          .SkipLines 18
+          sta WSYNC
+          .SleepX 71
+          sta HMOVE
+          lda pp3l
+          sta GRP1
+          .if TV == NTSC
+            .SkipLines 18
+          .else
+            .SkipLines 24
+          .fi
 ;;; 
 PrepareBottomCursor:
-          sta HMCLR
-
           lda # 0
           sta GRP1
           sta GRP0
+
+          sta HMCLR
 
           ldx MoveTarget
           bne +
           stx WSYNC
           stx WSYNC
           beq PrepareBottomMonsters ; always taken
-
 +
-          dex
-          lda MonsterHP, x
+          lda MonsterHP - 1, x
           beq +
           .ldacolu COLGRAY, $f
-          jmp SetBottomCursorColor
+          bne SetBottomCursorColor ; always taken
 +
           .ldacolu COLGRAY, 0
 SetBottomCursorColor:
@@ -176,7 +178,7 @@ PrepareCursor2B:
           bge +
           lda # 0
           sta pp3l
-          jmp PrepareBottomMonsters
+          beq PrepareBottomMonsters ; always taken
 +
           .rept 4
           dex
@@ -229,10 +231,8 @@ PrepareToPositionBottomMonsters:
           tay
 
 PositionBottomMonsters:
-
-Monster2Pos:
           dey
-          bne Monster2Pos
+          bne PositionBottomMonsters
           sta RESP0
 
           lda SpritePosition, x
@@ -257,9 +257,11 @@ DrawBottomMonsters:
           .fi
           dey
           bpl -
+FinishUp:
           ldy # 0
           sty GRP0
           sty GRP1
+
           sta WSYNC
           sta WSYNC
           rts
@@ -267,6 +269,16 @@ DrawBottomMonsters:
 NoBottomMonsters:
           lda # 0
           sta GRP0
-          .SkipLines 20
-;;; 
-          rts
+          sta WSYNC
+          .SleepX 71
+          sta HMOVE
+          lda pp3l
+          sta GRP1
+          .if TV == NTSC
+            .SkipLines 18
+          .else
+            .SkipLines 24
+          .fi
+          jmp FinishUp
+
+          .bend

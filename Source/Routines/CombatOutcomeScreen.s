@@ -119,9 +119,6 @@ AfterStatusFX:
           cmp AlarmSeconds
           bne AlarmDone
 
-          lda ClockMinutes
-          cmp AlarmMinutes
-          bne AlarmDone
           inc MoveAnnouncement
           lda #2
           jsr SetNextAlarm
@@ -344,6 +341,7 @@ CheckForWin:
 
 WonBattle:
           lda CurrentCombatIndex
+          clc
           ror a
           ror a
           ror a
@@ -353,24 +351,38 @@ WonBattle:
           lda BitMask, x
           ora ProvinceFlags, y
           sta ProvinceFlags, y
-
+          ;; Did the player level up their stats by this victory?
+          ;; The likelihood decreases the higher that stat is.
           jsr Random
           sta Temp
           lda GrizzardAttack
+          cmp # 99
+          bge AttackLevelUpDone
           jsr CalculateAttackMask
           and Temp
-          bne +
+          bne AttackLevelUpDone
           inc GrizzardAttack
-+
+AttackLevelUpDone:
           jsr Random
           sta Temp
           lda GrizzardDefense
+          cmp # 99
+          bge DefendLevelUpDone
           jsr CalculateAttackMask
           and Temp
-          bne +
+          bne DefendLevelUpDone
           inc GrizzardDefense
-+
-
+DefendLevelUpDone:
+          jsr Random
+          sta Temp
+          lda MaxHP
+          cmp # 99
+          bge HPLevelUpDone
+          jsr CalculateAttackMask
+          and Temp
+          bne HPLevelUpDone
+          inc MaxHP
+HPLevelUpDone:
 
 ;;; TODO Check if they have won the game
           .fill $20, $ea        ; pad with some NOPs

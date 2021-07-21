@@ -5,6 +5,9 @@
 	.include "StartBank.s"
           .include "SpeakJetIDs.s"
 
+          .align $100, "font"
+          .include "Font.s"
+
 DoLocal:
           cpy #ServiceDecodeAndShowText
           beq DecodeAndShowText
@@ -68,10 +71,6 @@ ShowMoveDecoded:
           .include "GrizzardArt.s"
           .include "GrizzardMoves.s"
           .include "MovesTable.s"
-
-          .align $100, "font"
-          .include "Font.s"
-
           .include "StringsTable.s"
 
 	.include "EndBank.s"

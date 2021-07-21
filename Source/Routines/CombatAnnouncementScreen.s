@@ -279,9 +279,6 @@ CheckForAlarm:
           cmp AlarmSeconds
           bne AlarmDone
 
-          lda ClockMinutes
-          cmp AlarmMinutes
-          bne AlarmDone
           inc MoveAnnouncement
           lda # 2
           jsr SetNextAlarm

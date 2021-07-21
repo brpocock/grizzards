@@ -30,10 +30,6 @@ BRPPreambleMode:
           cmp AlarmSeconds
           bmi StillPresenting
 
-          lda ClockMinutes
-          cmp AlarmMinutes
-          bmi StillPresenting
-
           lda # 30
           jsr SetNextAlarm
           lda #ModeAttractTitle

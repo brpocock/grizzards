@@ -11,7 +11,6 @@ MovementLogic:
           lda ClockFrame
           .BitBit $04
           beq DoSpriteMotion
-
           bne CheckSpriteCollision ; always taken
 ;;; 
 DoSpriteMotion:
@@ -76,7 +75,7 @@ SpriteMoveNext:
 
           lda SpriteMoveIdle
           sta SpriteMotion, x
-          jmp SpriteMoveDone
+          bne SpriteMoveDone    ; always taken
 
 ChasePlayer:
           lda SpriteX, x
@@ -85,12 +84,12 @@ ChasePlayer:
           bge ChaseRight
           lda #SpriteMoveLeft
           sta SpriteMotion, x
-          jmp SpriteMoveDone
+          bne SpriteMoveDone    ; always taken
 
 ChaseRight:
           lda #SpriteMoveRight
           sta SpriteMotion, x
-          jmp SpriteMoveDone
+          bne SpriteMoveDone    ; always taken
 
 ChaseUpDown:
           lda SpriteY, x
@@ -98,20 +97,21 @@ ChaseUpDown:
           bge ChaseDown
           lda #SpriteMoveUp
           sta SpriteMotion, x
-          jmp SpriteMoveDone
+          bne SpriteMoveDone    ; always taken
 
 ChaseDown:
           lda #SpriteMoveDown
           sta SpriteMotion, x
-          jmp SpriteMoveDone
+          bne SpriteMoveDone    ; always taken
 
 RandomlyMove:
           jsr Random
           and #$f0              ; random movement may be up+down or something stupid like that
-          beq RandomlyMove
+          bne +
+          lda #SpriteMoveIdle
++
           sta SpriteMotion, x
           ;; fall through
-
 SpriteMoveDone:
           lda SpriteX, x
           cmp #ScreenLeftEdge
@@ -153,8 +153,7 @@ TopOK:
 BottomOK:
 
           dex
-          cpx #$ff              ; wait for it to wrap around below 0
-          bne MoveSprites
+          bpl MoveSprites
           ;; fall through
 ;;; 
 CheckSpriteCollision:
@@ -173,7 +172,8 @@ SpriteCxLeft:
           ora #SpriteMoveRight
           sta SpriteMotion, x
           inc SpriteX, x
-          jmp SpriteCxUpDown
+          inc SpriteX, x
+          bne SpriteCxUpDown    ; always taken
 
 SpriteCxRight:
           lda SpriteMotion, x
@@ -181,6 +181,8 @@ SpriteCxRight:
           ora #SpriteMoveLeft
           sta SpriteMotion, x
           dec SpriteX, x
+          dec SpriteX, x
+          ;; fall through
 SpriteCxUpDown:
           lda SpriteMotion, x
           .BitBit SpriteMoveUp
@@ -190,7 +192,8 @@ SpriteCxUp:
           ora #SpriteMoveDown
           sta SpriteMotion, x
           inc SpriteY, x
-          jmp MovementLogicDone
+          inc SpriteY, x
+          bne MovementLogicDone ; always taken
 
 SpriteCxDown:
           lda SpriteMotion, x
@@ -198,7 +201,8 @@ SpriteCxDown:
           ora #SpriteMoveDown
           sta SpriteMotion, x
           dec SpriteY, x
-
+          dec SpriteY, x
+          ;; fall through
 MovementLogicDone:
 ;;; 
 UserInputStart: 
