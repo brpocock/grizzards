@@ -132,6 +132,7 @@ SpriteAbsent:
           jmp SetUpSprite
 
 SpritePresent:
+          ldx SpriteCount
           ldy Temp
           lda (Pointer), y
           cmp #SpriteFixed
