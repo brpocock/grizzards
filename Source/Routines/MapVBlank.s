@@ -11,7 +11,6 @@ MovementLogic:
           lda ClockFrame
           .BitBit $04
           beq DoSpriteMotion
-
           bne CheckSpriteCollision ; always taken
 ;;; 
 DoSpriteMotion:
@@ -155,7 +154,7 @@ BottomOK:
           dex
           cpx #$ff              ; wait for it to wrap around below 0
           bne MoveSprites
-          ;; fall through
+          beq MovementLogicDone ; always taken
 ;;; 
 CheckSpriteCollision:
           lda CXP1FB
@@ -173,7 +172,8 @@ SpriteCxLeft:
           ora #SpriteMoveRight
           sta SpriteMotion, x
           inc SpriteX, x
-          jmp SpriteCxUpDown
+          inc SpriteX, x
+          bne SpriteCxUpDown    ; always taken
 
 SpriteCxRight:
           lda SpriteMotion, x
@@ -181,6 +181,8 @@ SpriteCxRight:
           ora #SpriteMoveLeft
           sta SpriteMotion, x
           dec SpriteX, x
+          dec SpriteX, x
+          ;; fall through
 SpriteCxUpDown:
           lda SpriteMotion, x
           .BitBit SpriteMoveUp
@@ -190,7 +192,8 @@ SpriteCxUp:
           ora #SpriteMoveDown
           sta SpriteMotion, x
           inc SpriteY, x
-          jmp MovementLogicDone
+          inc SpriteY, x
+          bne MovementLogicDone ; always taken
 
 SpriteCxDown:
           lda SpriteMotion, x
@@ -198,7 +201,8 @@ SpriteCxDown:
           ora #SpriteMoveDown
           sta SpriteMotion, x
           dec SpriteY, x
-
+          dec SpriteY, x
+          ;; fall through
 MovementLogicDone:
 ;;; 
 UserInputStart: 
