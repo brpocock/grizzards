@@ -12,7 +12,6 @@ CopyrightMode:      .block
           sta CurrentUtterance
           sta AttractHasSpoken
 DoneCopyrightSpeech:
-
           .SkipLines 24
 
           .ldacolu COLTURQUOISE, $e
@@ -20,17 +19,17 @@ DoneCopyrightSpeech:
           sta COLUP1
 
           .SetPointer CopyText
-          jsr DecodeAndShowText
+          jsr ShowPointerText
           .SetPointer RightText
-          jsr DecodeAndShowText
+          jsr ShowPointerText
           .SetPointer Text2021
-          jsr DecodeAndShowText
+          jsr ShowPointerText
           .SetPointer BruceText
-          jsr DecodeAndShowText
+          jsr ShowPointerText
           .SetPointer RobertText
-          jsr DecodeAndShowText
+          jsr ShowPointerText
           .SetPointer PocockText
-          jsr DecodeAndShowText
+          jsr ShowPointerText
 
           lda ClockSeconds
           cmp AlarmSeconds
@@ -57,16 +56,3 @@ Done:
           jmp Attract.DoneAttractKernel
 
           .bend
-;;; 
-CopyText:
-          .MiniText "COPY  "
-RightText:
-          .MiniText "RIGHT "
-Text2021:
-          .MiniText "  2021"
-BruceText:
-          .MiniText "BRUCE-"
-RobertText:
-          .MiniText "ROBERT"
-PocockText:
-          .MiniText "POCOCK"

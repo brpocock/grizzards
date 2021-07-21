@@ -71,16 +71,45 @@ DrawStatusFX:
           asl a
           adc Temp
 
-          tax
-          ldy # 0
--
-          lda StatusFXStrings, x
-          sta StringBuffer, y
-          inx
-          iny
-          cpy # 6
-          bne -
+          .BitBit StatusSleep
+          bne FXSleep
+          .BitBit StatusAttackDown
+          bne FXAttackDown
+          .BitBit StatusAttackUp
+          bne FXAttackUp
+          .BitBit StatusDefendDown
+          bne FXDefendDown
+          .BitBit StatusDefendUp
+          bne FXDefendUp
+          .BitBit StatusMuddle
+          bne FXMuddle
+          jmp AfterStatusFX
 
+FXSleep:
+          .SetPointer SleepText
+          bne EchoStatus        ; always taken
+
+FXAttackDown:
+          .SetPointer AttackDownText
+          bne EchoStatus        ; always taken
+
+FXAttackUp:
+          .SetPointer AttackUpText
+          bne EchoStatus        ; always taken
+
+FXDefendDown:
+          .SetPointer DefendDownText
+          bne EchoStatus        ; always taken
+
+FXDefendUp:
+          .SetPointer DefendUpText
+          bne EchoStatus        ; always taken
+
+FXMuddle:
+          .SetPointer MuddleText
+          ;; fall through
+EchoStatus:
+          jsr CopyPointerText
           jsr DecodeAndShowText
 
 SkipStatusFX:
@@ -101,7 +130,6 @@ AfterStatusFX:
           cmp # 6
           beq CombatOutcomeDone
 AlarmDone:
-          .WaitScreenBottom
 ;;; 
 ScheduleSpeech:
           lda CurrentUtterance
@@ -299,6 +327,7 @@ Spoke4:
           ;; fall through
 SpeechDone:
 ;;;  
+          .WaitScreenBottom
           jmp Loop
 ;;; 
 CombatOutcomeDone:
@@ -362,7 +391,7 @@ WonReturnToMap:
 
 CheckForLoss:
           lda CurrentHP
-          bne +
+          bne Bye
 
           lda #>Phrase_GameOver
           sta CurrentUtterance + 1
@@ -370,29 +399,7 @@ CheckForLoss:
           sta CurrentUtterance
           
           .FarJMP MapServicesBank, ServiceDeath ; never returns
-+
 Bye:
-          .WaitScreenBottom
-          rts
+          .WaitScreenBottomTail
 
           .bend
-
-;;; 
-
-StatusFXStrings:
-          .MiniText "      "    ; no status fx
-          .MiniText "SLEEP "    ; sleep
-          .MiniText "      "    ; undefined
-          .MiniText "ATK DN"    ; attack down
-          .MiniText "DEF DN"    ; defend down
-          .MiniText "MUDDLE"    ; muddle mind
-          .MiniText "      "    ; undefined
-          .MiniText "ATK UP"    ; attack up
-          .MiniText "DEF UP"    ; defend up
-
-HPLostText:
-          .MiniText "HP -00"
-HealedText:
-          .MiniText "HEAL00"
-MissedText:
-          .MiniText "MISSED"

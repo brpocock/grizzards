@@ -5,9 +5,10 @@ GrizzardDepot:    .block
           stx CurrentHP
 
           .FarJSR SaveKeyBank, ServiceSaveToSlot
+          .KillMusic
 ;;; 
 Loop:     
-          jsr VSync
+          .WaitScreenTop
 
           .ldacolu COLTEAL, $f
           sta COLUBK
@@ -149,12 +150,6 @@ HTDdone:
           sta Pointer
           jsr ShowPointerText
 
-          .if TV == NTSC
-          .SkipLines KernelLines - 136
-          .else
-          .SkipLines KernelLines - 144
-          .fi
-
           lda SWCHA
           ;; TODO handle stick
 
@@ -178,12 +173,13 @@ SwitchesDone:
           bne TriggerDone
           lda #ModeMap
           sta GameMode
-          jsr Overscan
+
+          .WaitScreenBottom
           rts
 
 TriggerDone:
 ;;; 
-          jsr Overscan
+          .WaitScreenBottom
           lda GameMode
           cmp #ModeGrizzardDepot
           bne +

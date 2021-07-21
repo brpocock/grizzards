@@ -83,9 +83,11 @@ DoLocal:
           .include "Credits.s"
           .include "CopyPointerText.s"
           .include "SetNextAlarm.s"
-DecodeAndShowText:
+          .include "Bank0Strings.s"
+
+ShowPointerText:
           jsr CopyPointerText
-          .FarJMP TextBank, ServiceDecodeAndShowText
+          ;; fall through
 ShowText:
           .FarJMP TextBank, ServiceDecodeAndShowText
 Quit:

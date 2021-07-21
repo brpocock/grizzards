@@ -206,6 +206,7 @@ SpritesDone:
           sta CXCLR
 
           .WaitScreenBottom
+          stx WSYNC
 
           ;; MUST be followed by Map directly
 

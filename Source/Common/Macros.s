@@ -212,6 +212,14 @@ WaitScreenBottom:      .macro
           jsr Overscan
           .endm
 
+WaitScreenBottomTail:      .macro
+          .WaitForTimer
+          .if TV != NTSC
+          .SkipLines 11
+          .fi
+          jmp Overscan          ; tail call
+          .endm
+
 KillMusic:          .macro
           lda # 0
           sta AUDC1

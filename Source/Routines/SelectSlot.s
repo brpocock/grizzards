@@ -59,7 +59,7 @@ Slot:
           jsr EraseSlotSignature
           lda #ModeSelectSlot
           sta GameMode
-          jmp ShowClear
+          jmp ShowVacant
 
 DoNotDestroy:
 
@@ -68,46 +68,51 @@ DoNotDestroy:
 
           jsr CheckSaveSlot
           ;; carry is SET if the slot is EMPTY
-          bcc ShowResume
+          bcc +
+          ldy # 0               ; slot empty
+          beq MidScreen         ; always taken
++
+          ldy # 1               ; slot busy
+
+MidScreen:
+          .WaitForTimer
+          .if TV == NTSC
+          .SkipLines 2
+          .TimeLines KernelLines / 3 - 1
+          .else
+          .TimeLines KernelLines / 2 - 1
+          .fi
+
+          cpy # 0
+          bne ShowResume
 
           lda GameMode
           cmp #ModeSelectSlot
-          bne ShowClear
+          bne ShowVacant
 
-          .LoadString "BEGIN "
+          .SetPointer BeginText
           jmp FillToSlot
 
-ShowClear:
-          .LoadString "VACANT"
+ShowVacant:
+          .SetPointer VacantText
           jmp FillToSlot
 
 ShowResume:
           lda GameMode
           cmp #ModeSelectSlot
           bne ShowActive
-          .LoadString "RESUME"
+          .SetPointer ResumeText
           jmp FillToSlot
 
 ShowActive:
-          .LoadString "IN USE"
-
+          .SetPointer InUseText
 
 FillToSlot:
-          .WaitForTimer
-          .if TV == NTSC
-          sta WSYNC
-          .TimeLines KernelLines / 3 - 1
-          .else
-          .TimeLines KernelLines / 2 - 1
-          .fi
-
 ShowSaveSlot:
-          .FarJSR TextBank, ServiceDecodeAndShowText
+          jsr ShowPointerText
 
-          .LoadString "SLOT 1"
-
-          ;; Ensure a new scanline whichever branch is taken
-          .Sleep 15
+          .SetPointer SlotOneText
+          jsr CopyPointerText
 
           ldx SaveGameSlot
           inx
