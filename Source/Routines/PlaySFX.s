@@ -10,7 +10,7 @@ PlaySFX: .block
 
 PlayNewSound:
           cmp #SoundCount + 1
-          bmi PlayNewSoundReally
+          blt PlayNewSoundReally
 
           lda #SoundDeleted     ; replace incorrect sounds with the toilet flush
 
@@ -27,7 +27,7 @@ PlayNewSoundReally:
 
 PlaySound:
           dec SFXNoteTimer
-          bne EndOfSound
+          bne DoMusic
 
 PlayNextSFXNote:
           ldy #0
