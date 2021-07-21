@@ -18,6 +18,7 @@ DoLocal:
           .include "ExecuteCombatMove.s"
           .include "FindHighBit.s"
           .include "SetNextAlarm.s"
+          .include "CopyPointerText.s"
 
           .include "ShowMonsterName.s"
 

@@ -1,12 +1,11 @@
 ;;; Grizzards Source/Routines/CopyPointerText.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
 CopyPointerText:
-          ldy # 0
+          ldy # 5
 -
           lda (Pointer), y
           sta StringBuffer, y
-          iny
-          cpy # 6
-          bne -
+          dey
+          bpl -
           
           rts

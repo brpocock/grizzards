@@ -16,38 +16,23 @@ ShowGrizzardStats:  .block
           sta COLUP0
           sta COLUP1
 
-          lda #> StatsText
-          sta Pointer +1
-          lda #< StatsText
-          sta Pointer
+          .SetPointer StatsText
           lda GrizzardAttack
           jsr AppendDecimalAndPrint
 
-          lda #> StatsText + 6
-          sta Pointer +1
-          lda #< StatsText + 6
+          lda #< StatsText + 6  ; high byte unchanged
           sta Pointer
           lda GrizzardDefense
           jsr AppendDecimalAndPrint
 
-          lda #> StatsText + 12
-          sta Pointer +1
-          lda #< StatsText + 12
+          lda #< StatsText + 12 ; high byte unchanged
           sta Pointer
           lda CurrentHP
           jsr AppendDecimalAndPrint
 
-          lda #> StatsText + 18
-          sta Pointer +1
-          lda #< StatsText + 18
+          lda #< StatsText + 18 ; high byte unchanged
           sta Pointer
           lda MaxHP
           jmp AppendDecimalAndPrint
-
-          ldx # 16
--
-          stx WSYNC
-          dex
-          bne -
 
           .bend

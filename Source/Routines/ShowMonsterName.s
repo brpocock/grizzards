@@ -19,12 +19,5 @@ ShowMonsterName:
           ;; tail call, fall through
           
 ShowPointerText:
-          ldy # 0
--
-          lda (Pointer), y
-          sta StringBuffer, y
-          iny
-          cpy # 6
-          bne -
-
+          jsr CopyPointerText
           .FarJMP TextBank, ServiceDecodeAndShowText ; tail call
