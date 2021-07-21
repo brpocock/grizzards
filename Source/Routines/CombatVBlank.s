@@ -16,13 +16,8 @@ CombatLogic:
 
           lda ClockSeconds
           cmp AlarmSeconds
-          bne +
-
-          lda ClockMinutes
-          cmp AlarmMinutes
           beq DoAutoMove
 
-+
           ldx # KernelLines - 180
 -
           stx WSYNC
