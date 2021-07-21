@@ -45,7 +45,7 @@ FindSprites:
 
           ;; Crash early if the map ID is out of range for this province (bank)
           cpx #MapCount
-          bmi SkipRoom
+          blt SkipRoom
 BadMap:
           brk
 
