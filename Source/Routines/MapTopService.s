@@ -2,7 +2,6 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 TopOfScreenService: .block
           jsr VSync
-
           jsr Prepare48pxMobBlob
 
           .ldacolu COLGRAY, $f

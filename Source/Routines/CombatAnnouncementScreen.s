@@ -73,7 +73,7 @@ MonsterTurnColor:
 AnnounceSubject:
           lda MoveAnnouncement
           cmp # 1
-          blt SkipSubject
+          blt AnnounceVerb
 
 DrawSubject:
           lda WhoseTurn
@@ -84,9 +84,7 @@ MonsterSubject:
 
 PlayerSubject:
           .FarJSR TextBank, ServiceShowGrizzardName
-          jmp AnnounceVerb       ; always taken
-
-SkipSubject:
+          ;; fall through
 ;;; 
 AnnounceVerb:
           lda MoveAnnouncement

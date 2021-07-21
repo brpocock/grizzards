@@ -32,8 +32,8 @@ Loop:
           sta COLUP1
           .ldacolu COLGOLD, $0
           sta COLUBK
-          .LoadString "ERASE "
-          jmp StartPicture
+          .SetPointer EraseText
+          bne StartPicture      ; always taken
 
 NoErase:
           .ldacolu COLGREEN, 0
@@ -41,17 +41,17 @@ NoErase:
           .ldacolu COLGREEN, $f
           sta COLUP0
           sta COLUP1
-          .LoadString "SELECT"
+          .SetPointer SelectText
 
 StartPicture:
 
           .SkipLines 16
 
 Slot:
-          .FarJSR TextBank, ServiceDecodeAndShowText
+          jsr ShowPointerText
 
-          .LoadString " SLOT "
-          .FarJSR TextBank, ServiceDecodeAndShowText
+          .SetPointer SlotText
+          jsr ShowPointerText
 
           lda #ModeErasing
           cmp GameMode
@@ -59,10 +59,9 @@ Slot:
           jsr EraseSlotSignature
           lda #ModeSelectSlot
           sta GameMode
-          jmp ShowVacant
+          bne ShowVacant        ; always taken
 
 DoNotDestroy:
-
           ;; See if the slot is in use
           ;; by checking for the signature bytes
 
@@ -91,23 +90,22 @@ MidScreen:
           bne ShowVacant
 
           .SetPointer BeginText
-          jmp FillToSlot
+          bne ShowSaveSlot      ; always taken
 
 ShowVacant:
           .SetPointer VacantText
-          jmp FillToSlot
+          bne ShowSaveSlot      ; always taken
 
 ShowResume:
           lda GameMode
           cmp #ModeSelectSlot
           bne ShowActive
           .SetPointer ResumeText
-          jmp FillToSlot
+          bne ShowSaveSlot
 
 ShowActive:
           .SetPointer InUseText
 
-FillToSlot:
 ShowSaveSlot:
           jsr ShowPointerText
 
@@ -209,14 +207,21 @@ SlotOK:
 
           jsr CheckSaveSlot
           ;; carry is SET if the slot is EMPTY
-          bcc LoadGame
+          bcc +
+          ldy # 0               ; slot empty
+          beq FinishScreenAndProceed ; always taken
++
+          ldy # 1               ; slot busy
+
+FinishScreenAndProceed:
+          sty Temp
           .WaitScreenBottom
+          ldy Temp
+          bne LoadSaveSlot      ; located immediately after this in memory
+                                ; (so, reachable by branch)
 
           lda #ModeStartGame
           sta GameMode
           .FarJMP MapServicesBank, ServiceStartNewGame
-
-LoadGame:
-          jmp LoadSaveSlot
 
           .bend

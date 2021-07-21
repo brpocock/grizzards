@@ -2,11 +2,9 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
 MapVBlank:        .block
-
           lda GameMode
           cmp #ModeMap
           beq MovementLogic
-
           rts
           
 MovementLogic:
@@ -14,14 +12,13 @@ MovementLogic:
           .BitBit $04
           beq DoSpriteMotion
 
-          jmp CheckSpriteCollision ; always taken
+          bne CheckSpriteCollision ; always taken
 ;;; 
 DoSpriteMotion:
           ldx SpriteCount
           beq UserInputStart
           cpx # 5
--                               ;hang
-          bge -
+-         bge -                 ; hang
 
           dex
 
@@ -40,7 +37,7 @@ MoveSprites:
 NoRandom:
           dex
           bne MoveSprites
-          jmp CheckSpriteCollision
+          beq CheckSpriteCollision ; always taken
 
 SpriteXMove:        
           cmp #SpriteMoveIdle
@@ -116,7 +113,6 @@ RandomlyMove:
           ;; fall through
 
 SpriteMoveDone:
-
           lda SpriteX, x
           cmp #ScreenLeftEdge
           bge LeftOK

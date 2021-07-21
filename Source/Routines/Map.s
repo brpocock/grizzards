@@ -4,6 +4,7 @@ Map:    .block
 
 Loop:
           .FarJSR MapServicesBank, ServiceTopOfScreen
+          .TimeLines KernelLines - 28
 
           ldx CurrentMap
           lda MapRLEL, x
@@ -48,8 +49,6 @@ AnimationFrameReady:
           lda SpriteColor, x
           sta COLUP1
 
-          sta WSYNC
-
           ldx SpriteFlicker
           lda SpriteY, x
           sta P1LineCounter
@@ -59,8 +58,6 @@ AnimationFrameReady:
 NoSprites:
           lda #$ff
           sta P1LineCounter
-
-          .SkipLines 4
 
 P1Ready:
           lda PlayerY
@@ -261,12 +258,6 @@ FillBottomScreen:
           sta GRP1
           sta ENABL
 
-          .if TV == NTSC
-          .SkipLines KernelLines - 181
-          .else
-          .SkipLines KernelLines - 217
-          .fi
-
 ScreenJumpLogic:
           lda PlayerY
           cmp #ScreenTopEdge
@@ -377,6 +368,7 @@ NoPause:
           .fi
 ;;; 
 SkipSwitches:
+          .WaitForTimer
           jsr Overscan
 
           lda GameMode
