@@ -125,10 +125,10 @@ SetUpSprite:
           beq SpritePresent
 
 SpriteAbsent:
-          ldy Temp
-          .rept 5
-          iny
-          .next
+          lda Temp
+          clc
+          adc # 6
+          tay
           jmp SetUpSprite
 
 SpritePresent:
