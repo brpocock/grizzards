@@ -1,7 +1,7 @@
 ;;; Grizzards Source/Routines/ShowGrizzardStats.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
 ShowGrizzardStats:  .block
-          .ldacolu COLBLUE, $f
+          .ldacolu COLTURQUOISE, 8
           sta COLUBK
           .ldacolu COLINDIGO, 0
           sta COLUP0

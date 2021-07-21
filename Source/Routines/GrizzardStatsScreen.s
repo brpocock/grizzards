@@ -1,7 +1,6 @@
 ;;; Grizzards Source/Common/GrizzardStatsScreen.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
 GrizzardStatsScreen: .block
-
           lda #ModeGrizzardStats
           sta GameMode
 
@@ -9,9 +8,9 @@ GrizzardStatsScreen: .block
           sta NewSWCHB
 ;;; 
 Loop:
-          jsr VSync
+          .WaitScreenTop
 
-          .SkipLines 4
+          .SkipLines 10
 
           .if BANK == TextBank
           jsr ShowGrizzardStats
@@ -19,16 +18,9 @@ Loop:
           .FarJSR TextBank, ServiceShowGrizzardStats
           .fi
 
-          .ldacolu COLINDIGO, 0
-          sta COLUP0
-          sta COLUP1
-
-          .if TV == NTSC
-          .SkipLines KernelLines - 137
-          .else
-          .SkipLines KernelLines - 145
-          .fi
 ;;; 
+          .WaitScreenBottom
+
           lda NewSWCHB
           beq Bouncey1
           .BitBit SWCHBReset
@@ -42,8 +34,6 @@ Loop:
           sta GameMode
 
 Bouncey1:
-          jsr Overscan
-
           lda GameMode
           cmp #ModeGrizzardStats
           beq Loop
