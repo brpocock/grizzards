@@ -87,13 +87,13 @@ DrawHealthBar:
           cpx MaxHP
           beq AtMaxHP
           cpx # 4
-          bmi AtMinHP
+          blt AtMinHP
           .ldacolu COLYELLOW, $f
           sta COLUPF
           bne DrawHealthPF      ; always taken
 
 AtMaxHP:
-          .ldacolu COLSPRINGGREEN, $f
+          .ldacolu COLGREEN, $f
           sta COLUPF
           bne DrawHealthPF      ; always taken
 
@@ -103,29 +103,37 @@ AtMinHP:
 
 DrawHealthPF:
           cpx # 8
-          bpl FullCenter
+          bge FullPF2
           lda HealthyPF2, x
           sta PF2
-          jmp DoneHealth
+          bne DoneHealth        ; always taken
 
-FullCenter:
+FullPF2:
           lda #$ff
           sta PF2
-          cpx # 16
-          bpl FullMid
+          txa                   ; ∈ 8…99
+          clc
+          ror                   ; ∈ 4…50
+          clc
+          ror                   ; ∈ 2…25
+          clc
+          ror                   ; ∈ 1…12
+          tax
+          cpx # 8
+          bge FullPF1
           lda HealthyPF1, x
           sta PF1
-          jmp DoneHealth
+          bne DoneHealth        ; always taken
 
-FullMid:
+FullPF1:                        ; ∈ 8…12
+          sec
+          sbc # 8               ; ∈ 0…4
+          tax
           lda #$ff
           sta PF1
-          ;; TODO … draw health bar properly
-          nop
-          nop
-          nop
-          nop
+          lda HealthyPF2, x
           sta PF0
+          ;; fall through
 ;;; 
 DoneHealth:
           .SkipLines 4
