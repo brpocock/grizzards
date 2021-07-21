@@ -7,6 +7,9 @@ SelectSlot:        .block
 
           .KillMusic
 
+          lda #SoundChirp
+          sta NextSound
+
           lda #>Phrase_SelectSlot
           sta CurrentUtterance + 1
           lda #<Phrase_SelectSlot
@@ -14,7 +17,11 @@ SelectSlot:        .block
 ;;; 
 Loop:     
           jsr VSync
-          jsr VBlank
+          .if TV == NTSC
+          .TimeLines KernelLines * 2/3 - 1
+          .else
+          .TimeLines KernelLines / 2 - 1
+          .fi
 
           lda GameMode
           cmp #ModeSelectSlot
@@ -25,8 +32,8 @@ Loop:
           sta COLUP1
           .ldacolu COLGOLD, $0
           sta COLUBK
-          .LoadString "ERASE "
-          jmp StartPicture
+          .SetPointer EraseText
+          bne StartPicture      ; always taken
 
 NoErase:
           .ldacolu COLGREEN, 0
@@ -34,24 +41,17 @@ NoErase:
           .ldacolu COLGREEN, $f
           sta COLUP0
           sta COLUP1
-          .LoadString "SELECT"
+          .SetPointer SelectText
 
 StartPicture:
 
-          ldx #16
-FillTop:
-          sta WSYNC
-          dex
-          bne FillTop
+          .SkipLines 16
 
 Slot:
-          .FarJSR TextBank, ServiceDecodeAndShowText
+          jsr ShowPointerText
 
-          .LoadString " SLOT "
-          .FarJSR TextBank, ServiceDecodeAndShowText
-
-          lda # ( (76 * 75) / 64 )
-          sta TIM64T
+          .SetPointer SlotText
+          jsr ShowPointerText
 
           lda #ModeErasing
           cmp GameMode
@@ -59,49 +59,58 @@ Slot:
           jsr EraseSlotSignature
           lda #ModeSelectSlot
           sta GameMode
-          jmp ShowClear
+          bne ShowVacant        ; always taken
 
 DoNotDestroy:
-
           ;; See if the slot is in use
           ;; by checking for the signature bytes
 
           jsr CheckSaveSlot
           ;; carry is SET if the slot is EMPTY
-          bcc ShowResume
+          bcc +
+          ldy # 0               ; slot empty
+          beq MidScreen         ; always taken
++
+          ldy # 1               ; slot busy
+
+MidScreen:
+          .WaitForTimer
+          .if TV == NTSC
+          .SkipLines 2
+          .TimeLines KernelLines / 3 - 1
+          .else
+          .TimeLines KernelLines / 2 - 1
+          .fi
+
+          cpy # 0
+          bne ShowResume
 
           lda GameMode
           cmp #ModeSelectSlot
-          bne ShowClear
+          bne ShowVacant
 
-          .LoadString "BEGIN "
-          jmp FillToSlot
+          .SetPointer BeginText
+          bne ShowSaveSlot      ; always taken
 
-ShowClear:
-          .LoadString "VACANT"
-          jmp FillToSlot
+ShowVacant:
+          .SetPointer VacantText
+          bne ShowSaveSlot      ; always taken
 
 ShowResume:
           lda GameMode
           cmp #ModeSelectSlot
           bne ShowActive
-          .LoadString "RESUME"
-          jmp FillToSlot
+          .SetPointer ResumeText
+          bne ShowSaveSlot
 
 ShowActive:
-          .LoadString "IN USE"
-
-FillToSlot:
-          lda INSTAT
-          bpl FillToSlot
+          .SetPointer InUseText
 
 ShowSaveSlot:
-          .FarJSR TextBank, ServiceDecodeAndShowText
+          jsr ShowPointerText
 
-          .LoadString "SLOT 1"
-
-          ;; Ensure a new scanline whichever branch is taken
-          .Sleep 15
+          .SetPointer SlotOneText
+          jsr CopyPointerText
 
           ldx SaveGameSlot
           inx
@@ -111,12 +120,7 @@ ShowSaveSlot:
 ShowSlot:
           .FarJSR TextBank, ServiceDecodeAndShowText
 
-          ldx #KernelLines - 170
-FillScreen:
-          sta WSYNC
-          dex
-          bne FillScreen
-
+          .WaitForTimer
           jsr Overscan
 ;;; 
           lda NewSWCHB
@@ -189,26 +193,35 @@ SwitchSelectSlot:
           inc SaveGameSlot
           lda SaveGameSlot
           cmp #3
-          bmi GoBack
+          blt GoBack
           lda #0
           sta SaveGameSlot
 GoBack:
           jmp Loop
 ;;; 
 SlotOK:
-
+          sta WSYNC
+          .WaitScreenTop
           lda #SoundHappy
           sta NextSound
 
           jsr CheckSaveSlot
           ;; carry is SET if the slot is EMPTY
-          bcc LoadGame
+          bcc +
+          ldy # 0               ; slot empty
+          beq FinishScreenAndProceed ; always taken
++
+          ldy # 1               ; slot busy
+
+FinishScreenAndProceed:
+          sty Temp
+          .WaitScreenBottom
+          ldy Temp
+          bne LoadSaveSlot      ; located immediately after this in memory
+                                ; (so, reachable by branch)
 
           lda #ModeStartGame
           sta GameMode
           .FarJMP MapServicesBank, ServiceStartNewGame
-
-LoadGame:
-          jmp LoadSaveSlot
 
           .bend

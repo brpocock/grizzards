@@ -4,6 +4,7 @@ Map:    .block
 
 Loop:
           .FarJSR MapServicesBank, ServiceTopOfScreen
+          .TimeLines KernelLines - 28
 
           ldx CurrentMap
           lda MapRLEL, x
@@ -30,7 +31,7 @@ Loop:
           sta pp1l
           lda ClockFrame
           .BitBit $10
-          bne AnimationFrame0
+          bne AnimationFrameReady
 
           lda pp1l
           clc
@@ -40,20 +41,13 @@ Loop:
 +
           sta pp1l
 
-          jmp AnimationFrameReady
-
-AnimationFrame0:
-
 AnimationFrameReady:
-
           ldx SpriteFlicker
           lda SpriteAction, x
           and #$03
           tax
           lda SpriteColor, x
           sta COLUP1
-
-          sta WSYNC
 
           ldx SpriteFlicker
           lda SpriteY, x
@@ -65,10 +59,6 @@ NoSprites:
           lda #$ff
           sta P1LineCounter
 
-          .rept 4
-          sta WSYNC
-          .next
-
 P1Ready:
           lda PlayerY
           sta P0LineCounter
@@ -79,12 +69,16 @@ P1Ready:
 
           lda DeltaX
           ora DeltaY
-          beq P0Frame0        ; always show frame 0 unless moving
+          beq DelayFrame0        ; always show frame 0 unless moving
           lda ClockFrame
           and #$08
           bne +
           ldx #SoundFootstep
           stx NextSound
+          bne +                 ; always taken
+
+DelayFrame0:
+          sta WSYNC
 +
           clc
 P0Frame0:
@@ -137,8 +131,6 @@ P0Frame0:
           sty LineCounter
 
           ldx CurrentMap
-          lda #ENABLED
-          sta ENABL
           lda MapSides, x
           bmi LeftBall
           .BitBit $40
@@ -150,6 +142,8 @@ LeftBall:
           sta RESBL
           lda # $20
           sta HMBL
+          lda #ENABLED
+          sta ENABL
           bne DoneBall          ; always taken
 
 RightBall:
@@ -158,6 +152,8 @@ RightBall:
           sta RESBL
           lda # 0
           sta HMBL
+          lda #ENABLED
+          sta ENABL
           beq DoneBall          ; always taken
 
 NoBalls:
@@ -186,9 +182,7 @@ DoneBall:
           sta PF1
           lda pp3l
           sta PF2
-
 ;;; 
-
 DrawMap:
           dec RunLength
           bne DrawLine
@@ -253,15 +247,16 @@ P1Done:
           sta WSYNC
 
           bne DrawMap
-
 ;;; 
-
 FillBottomScreen:
-          sta WSYNC
-          sta WSYNC
-          sta WSYNC
-
-          .FarJSR MapServicesBank, ServiceBottomOfScreen
+          lda # 0
+          sta COLUBK
+          sta PF0
+          sta PF1
+          sta PF2
+          sta GRP0
+          sta GRP1
+          sta ENABL
 
 ScreenJumpLogic:
           lda PlayerY
@@ -373,14 +368,14 @@ NoPause:
           .fi
 ;;; 
 SkipSwitches:
-
+          .WaitForTimer
           jsr Overscan
 
           lda GameMode
           cmp #ModeMap
           bne Leave
           jmp Loop
-
+;;; 
 Leave:
           cmp #ModeMapNewRoom
           beq MapSetup.NewRoom

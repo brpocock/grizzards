@@ -81,6 +81,7 @@ DoMonsterMove:
 
 CheckStick:
           ldx MoveSelection
+          stx WSYNC
 
           lda NewSWCHA
           beq StickDone
@@ -145,6 +146,7 @@ DoneStickRight:
 
 StickDone:
 CheckSwitches:
+          stx WSYNC
 
           lda NewSWCHB
           beq SkipSwitches

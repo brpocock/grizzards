@@ -2,17 +2,16 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
 CombatAnnouncementScreen:     .block
-
           ;; We are jumped in here lacking an overscan
           jsr Overscan
 
 ;;; Set up for the combat move announcement & execution
 ;;; (this whole first page is really a separate step from the announcement screen)
+          .WaitScreenTop
+
           lda # 0
           sta MoveAnnouncement
           sta MoveSpeech
-
-          .WaitScreenTop
 
           ldy MoveSelection
 
@@ -54,9 +53,7 @@ MoveFound:
           .WaitScreenBottom
 ;;; 
 Loop:
-          jsr VSync
-          jsr VBlank
-
+          .WaitScreenTop
           jsr Prepare48pxMobBlob
 
           .ldacolu COLINDIGO, 0
@@ -74,26 +71,20 @@ MonsterTurnColor:
           sta COLUP1
 ;;; 
 AnnounceSubject:
-
           lda MoveAnnouncement
           cmp # 1
-          blt SkipSubject
+          blt AnnounceVerb
 
 DrawSubject:
           lda WhoseTurn
           beq PlayerSubject
-
+MonsterSubject:
           jsr ShowMonsterNameAndNumber
-
           jmp AnnounceVerb
 
 PlayerSubject:
           .FarJSR TextBank, ServiceShowGrizzardName
-          .SkipLines 32
-          beq AnnounceVerb       ; always taken
-
-SkipSubject:
-          .SkipLines 55
+          ;; fall through
 ;;; 
 AnnounceVerb:
           lda MoveAnnouncement
@@ -109,7 +100,6 @@ DrawVerb:
           jmp AnnounceObject
 
 SkipVerb:
-          .SkipLines 42
 ;;; 
 AnnounceObject:
           lda MoveAnnouncement
@@ -138,16 +128,11 @@ MonsterTargetObject:
 
 PlayerObject:
           .FarJSR TextBank, ServiceShowGrizzardName
-          .SkipLines 32
           beq WaitOutSpeechInterval   ; always taken
 
 SkipObject:
-          .SkipLines 60
 ;;; 
 WaitOutSpeechInterval:
-          lda # ( (KernelLines - 161) * 76 ) / 64
-          sta TIM64T
-;;; 
 ScheduleSpeech:
           lda CurrentUtterance
           bne SpeechDone
@@ -302,15 +287,11 @@ CheckForAlarm:
           jsr SetNextAlarm
 
 AlarmDone:
--
-          lda INSTAT
-          bpl -
+          .WaitScreenBottom
 
           lda MoveAnnouncement
           cmp # 4
           beq CombatMoveDone
-
-          jsr Overscan
           jmp Loop
 
 CombatMoveDone:

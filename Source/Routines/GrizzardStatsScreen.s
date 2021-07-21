@@ -7,11 +7,9 @@ GrizzardStatsScreen: .block
 
           lda # 0
           sta NewSWCHB
-
+;;; 
 Loop:
-
           jsr VSync
-          jsr VBlank
 
           .SkipLines 4
 
@@ -25,18 +23,12 @@ Loop:
           sta COLUP0
           sta COLUP1
 
-          ldx # 20
--
-          stx WSYNC
-          dex
-          bne -
-
           .if TV == NTSC
-          .SkipLines KernelLines - 180
+          .SkipLines KernelLines - 137
           .else
-          .SkipLines KernelLines - 165
+          .SkipLines KernelLines - 145
           .fi
-
+;;; 
           lda NewSWCHB
           beq Bouncey1
           .BitBit SWCHBReset

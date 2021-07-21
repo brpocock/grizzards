@@ -11,48 +11,7 @@
           .include "StartBank.s"
           .include "SpeakJetIDs.s"
 
-          .text "griz", 0       ; Magic cookie to identify file on Linux®
-DoLocal:
-          cpy #ServiceColdStart
-          beq ColdStart
-          cpy #ServiceSaveToSlot
-          beq SaveToSlot
-          brk
-
-	.include "ColdStart.s"
-          .include "SaveToSlot.s"
-
-          .include "Random.s"
-          .include "Attract.s"
-          .include "SelectSlot.s"
-          .include "48Pixels.s"
-          .include "Prepare48pxMobBlob.s"
-          .include "ShowPicture.s"
-          .include "VSync.s"
-          .include "VBlank.s"
-          .include "Overscan.s"
-          .include "AtariVox-EEPROM-Driver.s"
-          .include "CheckSaveSlot.s"
-          .include "LoadSaveSlot.s"
-          .include "LoadGrizzardData.s"
-          .include "LoadProvinceData.s"
-          .include "SaveProvinceData.s"
-          .include "EraseSlotSignature.s"
-          .include "SetGrizzardAddress.s"
-          .include "SaveGrizzard.s"
-          .include "PreambleAttracts.s"
-          .include "AttractCopyright.s"
-          .include "Credits.s"
-          .include "CopyPointerText.s"
-          .include "SetNextAlarm.s"
-DecodeAndShowText:
-          jsr CopyPointerText
-          .FarJMP TextBank, ServiceDecodeAndShowText
-Quit:
-          ldy #ServiceColdStart
-          jmp ColdStart
-
-          .align $100
+;;; Start with page-aligned bitmaps
           .include "Title1.s"
           .align $100, 0
 
@@ -90,5 +49,49 @@ Quit:
             .include "BRPCredit.s"
             .fill 66, 0            ; leave space for publisher name
           .fi
+
+DoLocal:
+          cpy #ServiceColdStart
+          beq ColdStart
+          cpy #ServiceSaveToSlot
+          beq SaveToSlot
+          brk
+
+	.include "ColdStart.s"
+          .include "SaveToSlot.s"
+
+          .include "Random.s"
+          .include "Attract.s"
+          .include "SelectSlot.s"
+          .include "LoadSaveSlot.s"
+          .include "48Pixels.s"
+          .include "Prepare48pxMobBlob.s"
+          .include "ShowPicture.s"
+          .include "VSync.s"
+          .include "VBlank.s"
+          .include "Overscan.s"
+          .include "AtariVox-EEPROM-Driver.s"
+          .include "CheckSaveSlot.s"
+          .include "LoadGrizzardData.s"
+          .include "LoadProvinceData.s"
+          .include "SaveProvinceData.s"
+          .include "EraseSlotSignature.s"
+          .include "SetGrizzardAddress.s"
+          .include "SaveGrizzard.s"
+          .include "PreambleAttracts.s"
+          .include "AttractCopyright.s"
+          .include "Credits.s"
+          .include "CopyPointerText.s"
+          .include "SetNextAlarm.s"
+          .include "Bank0Strings.s"
+
+ShowPointerText:
+          jsr CopyPointerText
+          ;; fall through
+ShowText:
+          .FarJMP TextBank, ServiceDecodeAndShowText
+Quit:
+          ldy #ServiceColdStart
+          jmp ColdStart
 
           .include "EndBank.s"

@@ -2,26 +2,23 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
 MapVBlank:        .block
-
           lda GameMode
           cmp #ModeMap
           beq MovementLogic
-
           rts
           
 MovementLogic:
           lda ClockFrame
           .BitBit $04
-          bne CheckSpriteCollision
+          beq DoSpriteMotion
 
+          bne CheckSpriteCollision ; always taken
 ;;; 
-          
 DoSpriteMotion:
           ldx SpriteCount
           beq UserInputStart
           cpx # 5
--                               ;hang
-          bge -
+-         bge -                 ; hang
 
           dex
 
@@ -40,7 +37,7 @@ MoveSprites:
 NoRandom:
           dex
           bne MoveSprites
-          jmp CheckSpriteCollision
+          beq CheckSpriteCollision ; always taken
 
 SpriteXMove:        
           cmp #SpriteMoveIdle
@@ -116,7 +113,6 @@ RandomlyMove:
           ;; fall through
 
 SpriteMoveDone:
-
           lda SpriteX, x
           cmp #ScreenLeftEdge
           bge LeftOK
@@ -161,7 +157,6 @@ BottomOK:
           bne MoveSprites
           ;; fall through
 ;;; 
-
 CheckSpriteCollision:
           lda CXP1FB
           and #$c0              ; hit playfield or ball
@@ -205,11 +200,8 @@ SpriteCxDown:
           dec SpriteY, x
 
 MovementLogicDone:
-
 ;;; 
-
 UserInputStart: 
-          
           lda BumpCooldown
           beq HandleStick
           dec BumpCooldown
@@ -266,9 +258,8 @@ DoneStickRight:
           sta PlayerY
 
           ;; fall through …
-          ;; jmp CheckPlayerMove
-
-          ;; Collision Handling
+;;; 
+;;; Collision Handling
 CheckPlayerMove:
           lda CXP0FB
           and #$c0              ; hit playfield or ball
@@ -356,7 +347,7 @@ ProvinceChange:
           ldy #ModeMapNewRoom
           sty GameMode
           rts
-
+;;; 
 BumpWall:
           sta CXCLR
 
@@ -402,5 +393,5 @@ DoneBump:
           sta NextSound
 
           rts
-
+;;; 
           .bend

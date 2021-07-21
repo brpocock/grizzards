@@ -11,9 +11,9 @@ GrizzardPictureSelect:
 
 GrizzardColor:
 
-          .colu COLGREEN, $f
-          .colu COLBROWN, $f
-          .colu COLTEAL, $f
+          .colu COLGREEN, $e
+          .colu COLBROWN, $6
+          .colu COLTEAL, $e
           .colu COLGREEN, $f
           .colu COLGREEN, $f
           .colu COLGREEN, $f

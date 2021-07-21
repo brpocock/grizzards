@@ -72,17 +72,6 @@ ShowMoveDecoded:
           .align $100, "font"
           .include "Font.s"
 
-StatsText:
-          .MiniText "ATK 00"
-          .MiniText "DEF 00"
-          .MiniText "HP  00"
-          .MiniText "MAX 00"
-
-DepotText:
-          .MiniText "DEPOT "
-PlayTimeText:
-          .MiniText "PLAYED"
-PlayHoursText:
-          .MiniText "HOURS "
+          .include "StringsTable.s"
 
 	.include "EndBank.s"

@@ -12,10 +12,9 @@ Death:    .block
 
           ldx #SoundGameOver
           stx NextSound
-
+;;; 
 Loop:
           jsr VSync
-          jsr VBlank
 
           .ldacolu COLGRAY, 0
           sta COLUBK
@@ -29,14 +28,10 @@ Loop:
           .LoadString " OVER "
           .FarJSR TextBank, ServiceDecodeAndShowText
 
-          ldx # KernelLines - 42
--
-          stx WSYNC
-          dex
-          bne -
+          .SkipLines KernelLines - 42
 
           jsr Overscan
-
+;;; 
           lda NewSWCHB
           beq +
           .BitBit SWCHBReset

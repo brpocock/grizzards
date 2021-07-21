@@ -2,7 +2,6 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
 CombatOutcomeScreen:          .block
-
           lda # 0
           sta MoveSpeech
 
@@ -14,17 +13,15 @@ SoundForMiss:
           lda #SoundMiss
 +
           sta NextSound
-
+;;; 
 Loop:
-          jsr VSync
-          jsr VBlank
+          .WaitScreenTop
 
           .ldacolu COLBLUE, 0
           sta COLUBK
           .ldacolu COLGRAY, $f
           sta COLUP0
           sta COLUP1
-
 ;;; 
           lda MoveAnnouncement
           cmp # 5
@@ -58,7 +55,7 @@ DrawHitPoints:
           jmp AfterHitPoints
 
 SkipHitPoints:
-          .SkipLines 41
+          .SkipLines 34
 ;;; 
 AfterHitPoints:
           lda MoveAnnouncement
@@ -74,23 +71,49 @@ DrawStatusFX:
           asl a
           adc Temp
 
-          tax
-          ldy # 0
--
-          lda StatusFXStrings, x
-          sta StringBuffer, y
-          inx
-          iny
-          cpy # 6
-          bne -
+          .BitBit StatusSleep
+          bne FXSleep
+          .BitBit StatusAttackDown
+          bne FXAttackDown
+          .BitBit StatusAttackUp
+          bne FXAttackUp
+          .BitBit StatusDefendDown
+          bne FXDefendDown
+          .BitBit StatusDefendUp
+          bne FXDefendUp
+          .BitBit StatusMuddle
+          bne FXMuddle
+          jmp AfterStatusFX
 
+FXSleep:
+          .SetPointer SleepText
+          bne EchoStatus        ; always taken
+
+FXAttackDown:
+          .SetPointer AttackDownText
+          bne EchoStatus        ; always taken
+
+FXAttackUp:
+          .SetPointer AttackUpText
+          bne EchoStatus        ; always taken
+
+FXDefendDown:
+          .SetPointer DefendDownText
+          bne EchoStatus        ; always taken
+
+FXDefendUp:
+          .SetPointer DefendUpText
+          bne EchoStatus        ; always taken
+
+FXMuddle:
+          .SetPointer MuddleText
+          ;; fall through
+EchoStatus:
+          jsr CopyPointerText
           jsr DecodeAndShowText
 
 SkipStatusFX:
-          .SkipLines 35
-;;; 
 AfterStatusFX:
-          .SkipLines KernelLines - 79
 ;;; 
           lda ClockSeconds
           cmp AlarmSeconds
@@ -107,8 +130,6 @@ AfterStatusFX:
           cmp # 6
           beq CombatOutcomeDone
 AlarmDone:
-
-          jsr Overscan
 ;;; 
 ScheduleSpeech:
           lda CurrentUtterance
@@ -303,10 +324,10 @@ Speech4NotDown:
           ;; fall through to common
 Spoke4:
           inc MoveSpeech
-          bne SpeechDone        ; always taken
-
+          ;; fall through
 SpeechDone:
 ;;;  
+          .WaitScreenBottom
           jmp Loop
 ;;; 
 CombatOutcomeDone:
@@ -317,9 +338,7 @@ CheckForWin:
           ldx #6
 -
           lda MonsterHP - 1, x
-          beq +
-          rts
-+
+          bne Bye
           dex
           bne -
 
@@ -367,11 +386,12 @@ WonReturnToMap:
           
           lda #ModeMap
           sta GameMode
+          .WaitScreenBottom
           jmp GoMap
 
 CheckForLoss:
           lda CurrentHP
-          bne +
+          bne Bye
 
           lda #>Phrase_GameOver
           sta CurrentUtterance + 1
@@ -379,27 +399,7 @@ CheckForLoss:
           sta CurrentUtterance
           
           .FarJMP MapServicesBank, ServiceDeath ; never returns
-+
-          rts
+Bye:
+          .WaitScreenBottomTail
 
           .bend
-
-;;; 
-
-StatusFXStrings:
-          .MiniText "      "    ; no status fx
-          .MiniText "SLEEP "    ; sleep
-          .MiniText "      "    ; undefined
-          .MiniText "ATK DN"    ; attack down
-          .MiniText "DEF DN"    ; defend down
-          .MiniText "MUDDLE"    ; muddle mind
-          .MiniText "      "    ; undefined
-          .MiniText "ATK UP"    ; attack up
-          .MiniText "DEF UP"    ; defend up
-
-HPLostText:
-          .MiniText "HP -00"
-HealedText:
-          .MiniText "HEAL00"
-MissedText:
-          .MiniText "MISSED"

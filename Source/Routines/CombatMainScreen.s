@@ -8,7 +8,9 @@ CombatMainScreen:   .block
           sta GameMode
 Loop:
           jsr VSync
-          jsr VBlank
+
+          ;; drawing the monsters seems to sometimes be a little variable in its timing, so we'll use a timer.
+          .TimeLines 95
 
           jsr Prepare48pxMobBlob
 
@@ -26,9 +28,7 @@ Loop:
           sta COLUP1
 
 PausedOrNot:
-
 ;;; 
-
 MonstersDisplay:
           jsr ShowMonsterName
 
@@ -50,12 +50,15 @@ MonstersDisplay:
 
           .FarJSR MapServicesBank, ServiceDrawMonsterGroup
 DelayAfterMonsters:
-
-          .SkipLines 10
-
+          .WaitForTimer
+          .if TV == NTSC
+          .TimeLines KernelLines - 97
+          .else
+          .TimeLines KernelLines - 99
+          .fi
 ;;; 
-
 BeginPlayerSection:
+          sta WSYNC
           .ldacolu COLBLUE, $f
           sta COLUP0
           sta COLUP1
@@ -72,7 +75,6 @@ DrawGrizzardName:
 DrawGrizzard:
           .FarJSR TextBank, ServiceDrawGrizzard
 ;;; 
-
 DrawHealthBar:
           ldx CurrentHP
           cpx MaxHP
@@ -117,29 +119,18 @@ FullMid:
           nop
           nop
           sta PF0
-
+;;; 
 DoneHealth:
           .SkipLines 4
-
-;;; 
-
           lda # 0
           sta PF0
           sta PF1
           sta PF2
-
-          .if TV == NTSC
-          .SkipLines KernelLines - 192
-          .else
-          .SkipLines KernelLines - 209
-          .fi
-
 ;;; 
           lda WhoseTurn
           beq PlayerChooseMove
-
-          .SkipLines 46
-          beq ScreenDone        ; always taken
+          .WaitForTimer
+          jmp ScreenDone
 
 PlayerChooseMove:
           jsr Prepare48pxMobBlob
@@ -147,9 +138,6 @@ PlayerChooseMove:
           ldx MoveSelection
           bne NotRunAway
           .ldacolu COLTURQUOISE, $f
-          .rept 4
-          sta WSYNC
-          .next
           bne ShowSelectedMove  ; always taken
 
 NotRunAway:
@@ -157,7 +145,7 @@ NotRunAway:
           bit MovesKnown
           beq NotMoveKnown
           .ldacolu COLRED, 4
-          bne ShowSelectedMove
+          bne ShowSelectedMove  ; always taken
 
 NotMoveKnown:
           .ldacolu COLGRAY, 0
@@ -165,8 +153,11 @@ NotMoveKnown:
 ShowSelectedMove:
           sta COLUP0
           sta COLUP1
+          sta WSYNC
 
           .FarJSR TextBank, ServiceShowMove
+
+          .WaitForTimer
 
           lda NewINPT4
           beq ScreenDone
@@ -193,7 +184,7 @@ DoUseMove:
 MoveOK:
           lda #SoundChirp
           sta NextSound
-
+          .SkipLines 3
           jmp CombatAnnouncementScreen
 
 RunAway:
@@ -205,6 +196,7 @@ RunAway:
           ;; fall through
 ;;; 
 ScreenDone:
+          .SkipLines 3
           jsr Overscan
 
           lda GameMode
@@ -226,9 +218,7 @@ Leave:
           cmp #ModeCombatAnnouncement
           jmp CombatAnnouncementScreen
           brk
-
 ;;; 
-
 HealthyPF2:
           .byte %00000000
           .byte %10000000

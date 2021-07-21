@@ -19,6 +19,7 @@ DoLocal:
           .include "CombatAnnouncementScreen.s"
           .include "ExecuteCombatMove.s"
           .include "FindHighBit.s"
+          .include "SetNextAlarm.s"
 
           .include "ShowMonsterName.s"
 
@@ -28,7 +29,6 @@ DoLocal:
           .include "Random.s"
           .include "48Pixels.s"
           .include "MoveEffects.s"
-          .include "SetNextAlarm.s"
 
           .include "Combat6.s"
           .include "Monsters6.s"          

@@ -1,20 +1,14 @@
 ;;; Grizzards Source/Routines/GrizzardDepot.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
 GrizzardDepot:    .block
-
-          .WaitScreenTop
-          .KillMusic
-
-          .FarJSR SaveKeyBank, ServiceSaveToSlot
-
           ldx MaxHP
           stx CurrentHP
 
-          .WaitScreenBottom
+          .FarJSR SaveKeyBank, ServiceSaveToSlot
+          .KillMusic
 ;;; 
 Loop:     
-          jsr VSync
-          jsr VBlank
+          .WaitScreenTop
 
           .ldacolu COLTEAL, $f
           sta COLUBK
@@ -22,11 +16,7 @@ Loop:
           sta COLUP0
           sta COLUP1
 
-          ldx #4
--
-          sta WSYNC
-          dex
-          bne -
+          .SkipLines 5
 
           jsr Prepare48pxMobBlob
           .SetPointer DepotText
@@ -106,7 +96,7 @@ HTDloop:
           lda StringBuffer+4     ; But if the bit was 1,
           clc             ; get ready to
           adc DecimalTable+3, x   ; add the bit value in the table to the
-          sta StringBuffer+4     ; output sum in decimal--  first low byte,
+          sta StringBuffer+4     ; output sum in decimal —  first low byte,
           and #$f0               ; (with a carry on 10 not 100)
           beq +
           sec
@@ -160,12 +150,6 @@ HTDdone:
           sta Pointer
           jsr ShowPointerText
 
-          .if TV == NTSC
-          .SkipLines KernelLines - 135
-          .else
-          .SkipLines KernelLines - 144
-          .fi
-
           lda SWCHA
           ;; TODO handle stick
 
@@ -189,12 +173,13 @@ SwitchesDone:
           bne TriggerDone
           lda #ModeMap
           sta GameMode
-          jsr Overscan
+
+          .WaitScreenBottom
           rts
 
 TriggerDone:
 ;;; 
-          jsr Overscan
+          .WaitScreenBottom
           lda GameMode
           cmp #ModeGrizzardDepot
           bne +
@@ -202,15 +187,13 @@ TriggerDone:
 +
           cmp #ModeGrizzardStats
           jmp GrizzardStatsScreen
-
 ;;; 
 ShowPointerText:
           jsr CopyPointerText
           jmp DecodeAndShowText
-
 ;;; 
-                ; The table below has high byte first just to
-                ; make it easier to see the number progression.
+          ;; The table below has high byte first just to
+          ;; make it easier to see the number progression.
 DecimalTable:
           .byte    0,0,0,1,  0,0,0,2,  0,0,0,4,  0,0,0,8
           .byte    0,0,1,6,  0,0,3,2,  0,0,6,4,  0,1,2,8

@@ -55,7 +55,6 @@ NoTime:
           sta WSYNC                    ; VSYNC line 3/3
 
           sty VSYNC                    ; .y = 0
-          rts
+
+          ;; MUST be followed by VBlank directly
           .bend
-
-

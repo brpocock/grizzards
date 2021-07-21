@@ -2,6 +2,7 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
 MapSetup: .block
+          .WaitScreenTop
 
           jsr Random
           and #$4f
@@ -19,16 +20,12 @@ MapSetup: .block
           sta PlayerX
           lda BlessedY
           sta PlayerY
-
+          jmp NewRoomTimerRunning
 ;;; 
-
 NewRoom:
-
           jsr VSync
-          jsr VBlank
-
-          .WaitScreenTop
-
+          .TimeLines KernelLines - 3
+NewRoomTimerRunning:
           ;; Got to figure out the sprites
           ;; Start at the head of the sprite list
           lda #<SpriteList
@@ -48,7 +45,9 @@ FindSprites:
 
           ;; Crash early if the map ID is out of range for this province (bank)
           cpx #MapCount
-          bpl BadMap
+          bmi SkipRoom
+BadMap:
+          brk
 
           ;; Skipping over a room means searching for the end of the list
 SkipRoom:
@@ -204,15 +203,11 @@ AddWanderingSprite:
 
 SpritesDone:
 ;;; 
-
           sta CXCLR
 
           .WaitScreenBottom
-          jsr Overscan
+          stx WSYNC
 
-          jmp Map.Loop
-
-BadMap:
-          brk
+          ;; MUST be followed by Map directly
 
           .bend

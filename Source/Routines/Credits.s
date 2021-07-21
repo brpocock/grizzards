@@ -3,19 +3,19 @@
 
 Credits:  .block
 
-          lda AttractHasSpoken
-          cmp #<Phrase_Credits
-          beq Loop
-          
           lda #>Phrase_Credits
           sta CurrentUtterance + 1
           lda #<Phrase_Credits
           sta CurrentUtterance
           sta AttractHasSpoken
-
+          ldx # 15
+          bne LoopFirst         ; always taken
 Loop:
-
-          .SkipLines 20
+          ldx # 21
+LoopFirst:
+          stx WSYNC
+          dex
+          bne LoopFirst
 
           .ldacolu COLINDIGO, $e
           sta COLUP0
@@ -38,11 +38,11 @@ Loop:
           .LoadString DateString6
           jsr ShowText
           
-          .SkipLines KernelLines - 158
+          .SkipLines KernelLines - 164
 
           lda NewINPT4
           beq +
-          bpl DoneAttractKernel
+          bpl Bye
 +
 
           lda NewSWCHB
@@ -51,13 +51,15 @@ Loop:
           beq StayCredits
           lda #ModeAttractCopyright
           sta GameMode
-          jmp DoneAttractKernel
+Bye:
+          .SkipLines 4
+          jmp Attract.DoneAttractKernel
 
 StayCredits:
+          .SkipLines 6
 
           jsr Overscan
           jsr VSync
-          jsr VBlank
 
           jmp Loop
 
