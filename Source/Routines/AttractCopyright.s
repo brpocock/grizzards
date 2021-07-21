@@ -35,10 +35,6 @@ DoneCopyrightSpeech:
           cmp AlarmSeconds
           bmi StillCopyright
 
-          lda ClockMinutes
-          cmp AlarmMinutes
-          bmi StillCopyright
-
           lda # 30
           jsr SetNextAlarm
           lda #ModeAttractStory

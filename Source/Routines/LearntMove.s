@@ -66,9 +66,6 @@ CheckForAlarm:
           cmp AlarmSeconds
           bne AlarmDone
 
-          lda ClockMinutes
-          cmp AlarmMinutes
-          bne AlarmDone
           rts
 
 AlarmDone:

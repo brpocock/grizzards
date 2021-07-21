@@ -122,10 +122,6 @@ PrepareFillAttractBottom:
           cmp AlarmSeconds
           bmi DoneAttractKernel
 
-          lda ClockMinutes
-          cmp AlarmMinutes
-          bmi DoneAttractKernel
-
           lda # 4
           jsr SetNextAlarm
           lda #ModeAttractCopyright

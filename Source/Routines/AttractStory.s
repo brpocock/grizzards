@@ -41,10 +41,6 @@ Loop:
           cmp AlarmSeconds
           bmi StillStory
 
-          lda ClockMinutes
-          cmp AlarmMinutes
-          bmi StillStory
-
           lda # 30
           jsr SetNextAlarm
           lda #ModeAttractTitle
