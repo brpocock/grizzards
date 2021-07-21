@@ -96,8 +96,7 @@ SleepLoop:
 
 	.bend
           .endm
-          
-          
+
 ;;; 
           
 NoPageCrossSince:          .macro start
