@@ -75,7 +75,7 @@ SpriteMoveNext:
 
           lda SpriteMoveIdle
           sta SpriteMotion, x
-          jmp SpriteMoveDone
+          bne SpriteMoveDone    ; always taken
 
 ChasePlayer:
           lda SpriteX, x
@@ -84,12 +84,12 @@ ChasePlayer:
           bge ChaseRight
           lda #SpriteMoveLeft
           sta SpriteMotion, x
-          jmp SpriteMoveDone
+          bne SpriteMoveDone    ; always taken
 
 ChaseRight:
           lda #SpriteMoveRight
           sta SpriteMotion, x
-          jmp SpriteMoveDone
+          bne SpriteMoveDone    ; always taken
 
 ChaseUpDown:
           lda SpriteY, x
@@ -97,20 +97,21 @@ ChaseUpDown:
           bge ChaseDown
           lda #SpriteMoveUp
           sta SpriteMotion, x
-          jmp SpriteMoveDone
+          bne SpriteMoveDone    ; always taken
 
 ChaseDown:
           lda #SpriteMoveDown
           sta SpriteMotion, x
-          jmp SpriteMoveDone
+          bne SpriteMoveDone    ; always taken
 
 RandomlyMove:
           jsr Random
           and #$f0              ; random movement may be up+down or something stupid like that
-          beq RandomlyMove
+          bne +
+          lda #SpriteMoveIdle
++
           sta SpriteMotion, x
           ;; fall through
-
 SpriteMoveDone:
           lda SpriteX, x
           cmp #ScreenLeftEdge
@@ -152,9 +153,8 @@ TopOK:
 BottomOK:
 
           dex
-          cpx #$ff              ; wait for it to wrap around below 0
-          bne MoveSprites
-          beq MovementLogicDone ; always taken
+          bpl MoveSprites
+          ;; fall through
 ;;; 
 CheckSpriteCollision:
           lda CXP1FB

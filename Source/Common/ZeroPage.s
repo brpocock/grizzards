@@ -112,11 +112,11 @@ GrizzardZeroPad:
 ;;; Moves known (8 bits = 8 possible moves)
 MovesKnown:
           .byte ?
-          
+
+;;; UNUSED byte.
+          .byte ?
 ;;; An alarm can be set for various in-game special events.
 ;;; This happens in real time.
-AlarmMinutes:
-          .byte ?
 AlarmSeconds:
           .byte ?
 

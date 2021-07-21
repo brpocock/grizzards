@@ -36,8 +36,15 @@ MonstersDisplay:
           lda (CurrentMonsterPointer), y
 
           .if TV == SECAM
+          ;; With only 8 colors we might run into
+          ;; something that's “rounded off” to black
+          ;; (background) or white (highlight)
           bne +                 ; COLBLACK = 0
-          lda #COLWHITE
+          lda #COLGREEN
++
+          cmp #COLWHITE
+          bne +
+          lda #COLGREEN
 +
           .fi
 
