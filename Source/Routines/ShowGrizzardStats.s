@@ -6,12 +6,12 @@ ShowGrizzardStats:  .block
           .ldacolu COLINDIGO, 0
           sta COLUP0
           sta COLUP1
-          
+
           jsr ShowGrizzardName
           jsr DrawGrizzard
 
           jsr Prepare48pxMobBlob
-          
+
           .ldacolu COLINDIGO, 0
           sta COLUP0
           sta COLUP1
