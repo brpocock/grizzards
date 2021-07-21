@@ -132,7 +132,7 @@ MapLinks:
           ROOM17MAP = Map_Bow
           ROOM8MAP = Map_FourWay
           .fi
-          
+
           MapRLE = (
           ;; 0
           Map_Closed,
@@ -212,7 +212,7 @@ MapSides:
           .byte 0, 0, 0, 0, 0
           .if DEMO
           ;; block off area to right of screen 15
-          .byte $40, $40, $40, 0, $80 
+          .byte $40, $40, $40, 0, $80
           .else
           .byte 0, $40, $40, 0, $80
           .fi
@@ -261,7 +261,7 @@ SpriteList:
           .byte SpriteProvinceDoor | $30, 0
 
           .fi
-          
+
           .byte 0               ; end of list
 
           ;; Room 1
@@ -289,15 +289,20 @@ SpriteList:
           .byte SpriteCombat, 5
 
           .byte 0
-          
+
           ;; Room 3
+          .byte $ff              ; not removeable
+          .byte SpriteFixed     ; fixed position sprite
+          .byte $7d, $30         ; x, y position
+          .byte SpriteDoor, 0   ; action
+
           .byte $ff
           .byte SpriteFixed
-          .byte $7d, $31         ; x, y
+          .byte $7d, $10         ; x, y
           .byte SpriteGrizzardDepot, 0
 
           .byte 0
-          
+
           ;; Room 4
           .byte 6
           .byte SpriteFixed
@@ -310,7 +315,7 @@ SpriteList:
           .byte SpriteCombat, 6
 
           .byte 0
-          
+
           ;; Room 5
           .byte 0
 
@@ -326,6 +331,21 @@ SpriteList:
           .byte 0
 
           ;; Room 8
+          .byte 8
+          .byte SpriteWander
+          .byte $52, $2d
+          .byte SpriteCombat, 2
+
+          .byte 9
+          .byte SpriteFixed
+          .byte $c3, $20
+          .byte SpriteCombat, 2
+
+          .byte 10
+          .byte SpriteFixed
+          .byte $c3, $2b
+          .byte SpriteCombat, 2
+
           .byte 0
 
           ;; Room 9
@@ -335,14 +355,28 @@ SpriteList:
           .byte 0
 
           ;; Room 11
+          .byte 11
+          .byte SpriteWander
+          .byte $7e, $27
+          .byte SpriteCombat, 2
+
           .byte 0
 
           ;; Room 12
+          .byte 12
+          .byte SpriteWander
+          .byte $7e, $27
+          .byte SpriteCombat, 2
+
           .byte 0
 
           ;; Room 13
+          .byte 13
+          .byte SpriteWander
+          .byte $7e, $27
+          .byte SpriteCombat, 2
+
           .byte 0
-          
 
 	;;Room 14
 	.byte 0
@@ -351,6 +385,11 @@ SpriteList:
 	.byte 0
 
 	;;Room 16
+          .byte $ff
+          .byte SpriteFixed
+          .byte $7b, $25
+          .byte SpriteCombat, 2
+
 	.byte 0
 
 	;;Room 17
