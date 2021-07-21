@@ -93,7 +93,7 @@ FoundSprites:
 DoneFinding:
           ;; Start with 0 sprites
           ;; There can be up to 4
-          ldx #0
+          ldx #0                ; XXX this is probably already the case
           stx SpriteCount
 
 SetUpSprite:
