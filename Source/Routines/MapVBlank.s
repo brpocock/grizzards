@@ -14,7 +14,6 @@ MovementLogic:
           .BitBit $04
           beq DoSpriteMotion
 
-          .SkipLines 2
           jmp CheckSpriteCollision ; always taken
 ;;; 
 DoSpriteMotion:
