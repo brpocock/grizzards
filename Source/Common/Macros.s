@@ -7,36 +7,36 @@ Sleep:    .macro Cycles
         .error "Can't sleep back-in-time for ", \Cycles, " cycles"
         .else
         .switch \Cycles
-	
+        
         .case 0
-	
+        
         .case 1
         .error "Cannot sleep 1 cycle (must be 2+)"
 
         .case 2
         nop
 
-	.case 3
-	nop $ea
+        .case 3
+        nop $ea
 
         .case 4
         nop
         nop
 
-	.case 5
+        .case 5
         dec $2d
 
-	.case 6
-	nop $ea
-	nop $ea
+        .case 6
+        nop $ea
+        nop $ea
 
-	.case 7
+        .case 7
         dec $2d
-	nop
+        nop
 
-	.case 8
+        .case 8
         dec $2d
-	nop $ea
+        nop $ea
         .case 9
         dec $2d
         nop
@@ -58,8 +58,8 @@ Sleep:    .macro Cycles
         ;; Alternate sleep macro, which will use .x as a
         ;; countdown register. Exits with .x = 0
 SleepX: .macro Cycles
-	.block
-	
+        .block
+        
           .if \Cycles < 10
           .Sleep \Cycles
           .else
@@ -94,7 +94,7 @@ SleepLoop:
         .fi
         .fi
 
-	.bend
+        .bend
           .endm
 
 ;;; 
