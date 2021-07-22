@@ -154,7 +154,7 @@ RightBall:
           sta HMBL
           lda #ENABLED
           sta ENABL
-          beq DoneBall          ; always taken
+          bne DoneBall          ; always taken
 
 NoBalls:
           lda # 0
