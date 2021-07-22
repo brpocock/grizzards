@@ -14,6 +14,10 @@ MovementLogic:
           bne CheckSpriteCollision ; always taken
 ;;; 
 DoSpriteMotion:
+          lda Pause
+          beq +
+          jmp CheckSpriteCollision
++
           ldx SpriteCount
           beq UserInputStart
           cpx # 5
