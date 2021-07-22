@@ -28,7 +28,7 @@ BRPPreambleMode:
 
           lda ClockSeconds
           cmp AlarmSeconds
-          bmi StillPresenting
+          bne StillPresenting
 
           lda # 30
           jsr SetNextAlarm

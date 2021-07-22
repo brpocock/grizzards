@@ -39,7 +39,7 @@ Loop:
 
           lda ClockSeconds
           cmp AlarmSeconds
-          bmi StillStory
+          bne StillStory
 
           lda # 30
           jsr SetNextAlarm

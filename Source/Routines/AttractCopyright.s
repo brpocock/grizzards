@@ -33,7 +33,7 @@ DoneCopyrightSpeech:
 
           lda ClockSeconds
           cmp AlarmSeconds
-          bmi StillCopyright
+          bne StillCopyright
 
           lda # 30
           jsr SetNextAlarm

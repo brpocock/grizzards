@@ -120,7 +120,7 @@ PrepareFillAttractBottom:
 
           lda ClockSeconds
           cmp AlarmSeconds
-          bmi DoneAttractKernel
+          bne DoneAttractKernel
 
           lda # 4
           jsr SetNextAlarm
