@@ -162,8 +162,8 @@
 ;;; 
 ;;; Screen boundaries for popping to the next screen
 
-          ScreenLeftEdge = 48
-          ScreenRightEdge = 200
+          ScreenLeftEdge = 44
+          ScreenRightEdge = 204
           ScreenTopEdge = 8
           ScreenBottomEdge = 75
 ;;; 
