@@ -97,7 +97,7 @@ DoneFinding:
           stx SpriteCount
 
 SetUpSprite:
-          ;; .y wraps, from 0 to max 25 when all 4 sprites are used
+          ;; .y varies from 0 to max 25 when all 4 sprites are used
           lda (Pointer), y         ; .y = .x × 6 + 0
           ;; End of sprite list?
           beq SpritesDone
@@ -105,10 +105,9 @@ SetUpSprite:
           sty Temp
           sta SpriteIndex, x
           cmp #$ff
-          beq SpritePresent
+          beq SpritePresentAndYSet
 
-          sty Temp
-          tay
+          tay                   ; has the combat been conquered?
           and #$38
           ror a
           ror a
@@ -123,24 +122,30 @@ SetUpSprite:
           ldx SpriteCount
           and BitMask, y
           beq SpritePresent
-
+          ;; fall through
 SpriteAbsent:
           lda Temp
           clc
-          adc # 6
+          adc # 5               ; already been incremented once
           tay
-          jmp SetUpSprite
+          bne SetUpSprite       ; always taken
+
+MoreSprites:
+          sta SpriteMotion, x
+          iny
+          inc SpriteCount
+          inx
+          bne SetUpSprite       ; always taken
 
 SpritePresent:
-          ldx SpriteCount
           ldy Temp
+SpritePresentAndYSet:
           lda (Pointer), y
           cmp #SpriteFixed
           beq AddFixedSprite
-
           cmp #SpriteWander
           beq AddWanderingSprite
-
+          ;; fall through
 AddRandomEncounter:
           iny
           lda (Pointer), y
@@ -152,12 +157,11 @@ AddRandomEncounter:
           iny
           lda (Pointer), y
           sta SpriteAction, x
-          lda # SpriteRandomEncounter
-          sta SpriteMotion, x
-          inc SpriteCount
           iny
-          inx
-          jmp SetUpSprite
+          lda (Pointer), y         ; .y = .x × 6 + 5
+          sta SpriteParam, x
+          lda # SpriteRandomEncounter
+          bne MoreSprites       ; always taken
 
 AddFixedSprite:
           iny
@@ -173,12 +177,9 @@ AddFixedSprite:
           lda (Pointer), y         ; .y = .x × 6 + 5
           sta SpriteParam, x
           lda # 0
-          sta SpriteMotion, x
-          inc SpriteCount
-          iny                   ; .y = .x⁺¹ × 6   (start of next entry)
+          ;; .y = .x⁺¹ × 6   (start of next entry)
           ;; Go back looking for more sprites
-          inx
-          jmp SetUpSprite
+          beq MoreSprites       ; always taken
 
 AddWanderingSprite:
           ;; TODO: merge this with the fixed sprite code
@@ -195,12 +196,9 @@ AddWanderingSprite:
           lda (Pointer), y         ; .y = .x × 6 + 5
           sta SpriteParam, x
           lda # SpriteMoveIdle
-          sta SpriteMotion, x
-          inc SpriteCount
-          iny                   ; .y = .x⁺¹ × 6   (start of next entry)
+          ;; .y = .x⁺¹ × 6   (start of next entry)
           ;; Go back looking for more sprites
-          inx
-          jmp SetUpSprite
+          bne MoreSprites                 ; always taken
 
 SpritesDone:
 ;;; 
