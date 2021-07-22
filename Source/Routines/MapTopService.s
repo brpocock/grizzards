@@ -2,6 +2,7 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 TopOfScreenService: .block
           jsr VSync
+          .TimeLines 30
           jsr Prepare48pxMobBlob
 
           .ldacolu COLGRAY, $f
@@ -126,7 +127,9 @@ P1HPos:
           asl a
           asl a
           sta HMP1
+
 TheEnd:
+          .WaitForTimer
           rts
 
           .bend

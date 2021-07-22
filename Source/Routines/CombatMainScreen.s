@@ -10,7 +10,11 @@ Loop:
           jsr VSync
 
           ;; drawing the monsters seems to sometimes be a little variable in its timing, so we'll use a timer.
-          .TimeLines 95
+          .if TV == NTSC
+          .TimeLines 96
+          .else
+          .TimeLines 104
+          .fi
 
           jsr Prepare48pxMobBlob
 
@@ -59,9 +63,9 @@ MonstersDisplay:
 DelayAfterMonsters:
           .WaitForTimer
           .if TV == NTSC
-          .TimeLines KernelLines - 97
+          .TimeLines KernelLines - 101
           .else
-          .TimeLines KernelLines - 99
+          .TimeLines KernelLines - 107
           .fi
 ;;; 
 BeginPlayerSection:
