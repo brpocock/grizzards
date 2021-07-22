@@ -5,25 +5,36 @@
 %
 % If you're a human, skip to "\mainmatter" to skip over the preamble.
 %
-\documentclass[12pt,openright,book]{memoir}
+\documentclass[10pt,twocolumn,openany,article]{memoir}
 
 \setstocksize{9in}{6in}
 \settrimmedsize{\stockheight}{\dimexpr 6in-15mm}{*}
-\settypeblocksize{6.25in}{3.5in}{*}
 
-% \usepackage{geometry}
-% \geometry{height=6in,width=4in}
-% \setstocksize{6in}{4in}
+\setlrmarginsandblock{.5cm}{1.5cm}{*}
+\setulmarginsandblock{1.5cm}{*}{1}
+\checkandfixthelayout
+
+
 \usepackage[utf8]{inputenc}
 \usepackage{babel}
 \usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{pdfpages}
 \tolerance=1
 \emergencystretch=\maxdimen
 %\usepackage{tgtermes}
 \usepackage{hyperref}
+  \usepackage{xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+
 \usepackage[protrusion=true,expansion=true]{microtype}
 \fontfamily{pnc}
-\chapterstyle{bianchi}
+\chapterstyle{komalike}
 
 \checkandfixthelayout
 
@@ -72,17 +83,20 @@
 %%% BEGIN DOCUMENT
 
 \begin{document}
-
-%%%\let\cleardoublepage\clearpage
-
-
-\maketitle
-
 \frontmatter
+%%%\let\cleardoublepage\clearpage
+\includepdf{../Manual/Cover.png}
 
-\null\vfill
+% \clearpage
 
-\begin{flushleft}
+% \maketitle
+
+\thispagestyle{empty}
+
+\twocolumn[
+
+\null{}\vspace{1in}
+
 This is the \textit{Grizzards} \ifdefined\DEMO Demo \fi Player's Guide
 
 Copyright \copyright{} 2021, Bruce-Robert Pocock
@@ -109,10 +123,7 @@ This manual describes  a DEMO version of the game.  The full version may
 be different.
 \fi
 
-\end{flushleft}
-\let\cleardoublepage\clearpage
-
-\mainmatter
+\vspace{1in}
 
 \chapter*{Introduction}\label{Introduction}
 
@@ -130,7 +141,11 @@ Monsters may  surprise you as  you travel, or  you may see  them coming.
 When faced  with terrifying beasts,  you'll direct your Grizzard  to use
 its moves to defend you and attack the monsters.
 
-\cleardoublepage
+]
+\let\cleardoublepage\clearpage
+
+
+\mainmatter
 
 \tableofcontents
 
@@ -157,6 +172,8 @@ memory device.
 
 Finally, insert  the \textit{Grizzards}  game cartridge (with  the label
 facing up) into the cartridge slot, and turn the Power On.
+
+\vfill
 
 \chapter{How To Play}
 
@@ -352,7 +369,7 @@ select a move that your Grizzard knows how to perform.
 
 To review the statistics of your Grizzard, press Game Select.
 
-\section{Executing a Move}
+\subsection{Executing a Move}
 
 You will  see a  special display  when your Grizzard,  or a  monster, is
 executing a move. The creature using that move's name will appear first,
@@ -385,7 +402,7 @@ increase, and you'll return to the World Map screen victorious.
 You  may choose  to run  away from  a fight,  but the  monsters will  be
 immediately healed and may still come after you.
 
-\section{Grizzard Learning}
+\subsection{Grizzard Learning}
 
 Your  Grizzard companion  may  learn from  opposing  Monsters. This  can
 result  in your  Grizzard  increasing  its Attack  or  Defend score,  or
@@ -395,7 +412,7 @@ Your Grizzard  can only  learn certain moves.  Moves that  your Grizzard
 might be able to  perform, but does not yet know how  to, will appear in
 black on the Combat display.
 
-\section{Statistics}
+\subsection{Statistics}
 
 You can also  press the Game Select switch during  combat to review your
 Grizzard's statistics. Each Grizzard companion has a few statistics:
@@ -426,7 +443,7 @@ These  will  alter your  Grizzard's  status  temporarily (only  for  the
 duration of  one battle).
 
 
-\section{Status Effects}
+\subsection{Status Effects}
 
 A move can affect its target with Status Effects. There are six possible
 Status Effects that can influence a creature:
@@ -446,7 +463,7 @@ Status Effects that can influence a creature:
   moves at random. There is a 50\% chance of clearing its mind on each turn.
 \end{description}
 
-\section{Scoring}
+\subsection{Scoring}
 
 When you  defeat a monster, you'll  earn points. The number  of points
 you earn will increase as you defeat more difficult monsters.
@@ -525,7 +542,7 @@ After deleting your save game slot, return the Left Difficulty Switch to
 the ``B'' position.
 \fi
 
-\chapter{Grizzards}
+\chapter{Grizzards and Moves}
 
 There are  30 Grizzards in  the game world,  each with their  own unique
 starting attributes and sets of Moves.
@@ -692,21 +709,6 @@ from \\
 \href{https://Star-Hope.org/games/Grizzards/}{https://Star-Hope.org/games/Grizzards/} \\
 the \textit{Grizzards} web site.
 
-Development of \textit{Grizzards} made use of:
-
-\begin{itemize}
-\item Fedora Linux\registered{} operating system
-\item 64tass Turbo Macro Assembler
-\item Steel Bank Common Lisp
-\item Perl
-\item GNU Make
-\item GNU Image Manipulation Program (Gimp)
-\item MuseScore3 music score editor.
-\item GNU Emacs
-\item The Stella emulator
-\item The \LaTeX{} typesetting system (for this manual)
-\end{itemize}
-
 \section{Game Record Slots}
 
 There are 3  logical game slots that  you can choose from  for the game.
@@ -809,7 +811,7 @@ This section will list anyone who helps to playtest this game. ***
 
 The \textit{Grizzards} videogame software has not yet been published.
 
-It is not yet ``alpha'' quality software.
+It is ``alpha'' quality software.
 
 A demo version was created in July, 2021.
 \ifdefined\DEMO This manual describes that demo. \fi
