@@ -243,7 +243,7 @@ SpriteList:
           .byte $7d, $42         ; x, y position
           .byte SpriteDoor, 3   ; action
 
-          .if DEMO != 1         ; hide doors 2,3,4 from demo
+          .if !DEMO         ; hide doors 2,3,4 from demo
 
           .byte $ff
           .byte SpriteFixed
