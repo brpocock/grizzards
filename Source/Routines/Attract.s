@@ -129,8 +129,6 @@ PrepareFillAttractBottom:
           ;; fall through
 ;;; 
 DoneAttractKernel:
-          .WaitScreenBottom
-
           lda NewSWCHB
           beq +
           and #SWCHBSelect
@@ -141,11 +139,13 @@ DoneAttractKernel:
           and #PRESSED
           beq Leave
 +
+          .WaitScreenBottom
           jmp Loop
 
 Leave:
           lda #ModeSelectSlot
           sta GameMode
+          .WaitScreenBottom
           jmp SelectSlot
 ;;; 
           .bend
