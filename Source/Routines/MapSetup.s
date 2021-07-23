@@ -23,6 +23,7 @@ MapSetup: .block
           jmp NewRoomTimerRunning
 ;;; 
 NewRoom:
+          stx WSYNC
           jsr VSync
           .TimeLines KernelLines - 3
 NewRoomTimerRunning:
@@ -205,6 +206,7 @@ SpritesDone:
           sta CXCLR
 
           .WaitScreenBottom
+          stx WSYNC
           stx WSYNC
 
           ;; MUST be followed by Map directly
