@@ -50,6 +50,8 @@
             .fill 66, 0            ; leave space for publisher name
           .fi
 
+          .include "ShowPicture.s"
+
 DoLocal:
           cpy #ServiceColdStart
           beq ColdStart
@@ -66,7 +68,6 @@ DoLocal:
           .include "LoadSaveSlot.s"
           .include "48Pixels.s"
           .include "Prepare48pxMobBlob.s"
-          .include "ShowPicture.s"
           .include "VSync.s"
           .include "VBlank.s"
           .include "Overscan.s"

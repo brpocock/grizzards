@@ -132,6 +132,20 @@ ShowSlot:
           beq SwitchSelectSlot
 SkipSwitches:
 
+          lda NewSWCHA
+          beq SkipStick
+          .BitBit P0StickLeft
+          beq SwitchMinusSlot
+          .BitBit P0StickRight
+          beq SwitchSelectSlot
+SkipStick:
+
+          lda NewINPT4
+          beq SkipButton
+          .BitBit PRESSED
+          beq SlotOK
+SkipButton:
+
           lda GameMode
           cmp #ModeEraseSlot
           beq EliminationMode
@@ -186,17 +200,24 @@ ThisIsNotAStickUp:
 
           jmp Loop
 ;;; 
-SwitchSelectSlot:
-          lda #SoundChirp
-          sta NextSound
+SwitchMinusSlot:
+          dec SaveGameSlot
+          bpl GoBack
+          lda # 2
+          sta SaveGameSlot
+          bne GoBack            ; always taken
 
+SwitchSelectSlot:
           inc SaveGameSlot
           lda SaveGameSlot
-          cmp #3
+          cmp # 3
           blt GoBack
           lda #0
           sta SaveGameSlot
 GoBack:
+          lda #SoundChirp
+          sta NextSound
+
           jmp Loop
 ;;; 
 SlotOK:
