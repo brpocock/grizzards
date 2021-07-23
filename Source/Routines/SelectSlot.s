@@ -5,6 +5,13 @@ SelectSlot:        .block
           ;; Select a save game slot
           ;;
 
+          jsr VSync
+          .if TV == NTSC
+          .TimeLines KernelLines * 2/3 - 1
+          .else
+          .TimeLines KernelLines / 2 - 1
+          .fi
+
           .KillMusic
 
           lda #SoundChirp
@@ -14,6 +21,7 @@ SelectSlot:        .block
           sta CurrentUtterance + 1
           lda #<Phrase_SelectSlot
           sta CurrentUtterance
+          bne FirstLoop
 ;;; 
 Loop:     
           jsr VSync
@@ -22,6 +30,7 @@ Loop:
           .else
           .TimeLines KernelLines / 2 - 1
           .fi
+FirstLoop:
 
           lda GameMode
           cmp #ModeSelectSlot
