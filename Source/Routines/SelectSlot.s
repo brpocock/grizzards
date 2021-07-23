@@ -68,7 +68,7 @@ Slot:
           jsr EraseSlotSignature
           lda #ModeSelectSlot
           sta GameMode
-          bne ShowVacant        ; always taken
+          bne MidScreen        ; always taken
 
 DoNotDestroy:
           ;; See if the slot is in use
