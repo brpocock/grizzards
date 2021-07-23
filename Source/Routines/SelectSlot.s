@@ -222,6 +222,6 @@ FinishScreenAndProceed:
 
           lda #ModeStartGame
           sta GameMode
-          .FarJMP MapServicesBank, ServiceStartNewGame
+          .FarJMP MapServicesBank, ServiceNewGame
 
           .bend

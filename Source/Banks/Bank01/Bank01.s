@@ -33,8 +33,6 @@ DoLocal:
           beq Death
           cpy #ServiceAttractStory
           beq AttractStory
-          cpy #ServiceStartNewGame
-          beq StartNewGame
           cpy #ServiceLearntMove
           beq LearntMove
           brk
