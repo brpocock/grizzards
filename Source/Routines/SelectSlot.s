@@ -140,12 +140,6 @@ SkipSwitches:
           beq SwitchSelectSlot
 SkipStick:
 
-          lda NewINPT4
-          beq SkipButton
-          .BitBit PRESSED
-          beq SlotOK
-SkipButton:
-
           lda GameMode
           cmp #ModeEraseSlot
           beq EliminationMode
@@ -197,6 +191,12 @@ EraseSlotNow:
 ThisIsNotAStickUp:
           lda #ModeSelectSlot
           sta GameMode
+
+          lda NewINPT4
+          beq SkipButton
+          .BitBit PRESSED
+          beq SlotOK
+SkipButton:
 
           jmp Loop
 ;;; 
