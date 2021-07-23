@@ -15,6 +15,26 @@
 \checkandfixthelayout
 
 
+%% TV Standard
+
+\ifdefined\TVNTSC
+\newcommand\TV{NTSC}
+\newcommand\REGION{US, Canada, Mexico, Brazil, and Japan}
+\else
+\ifdefined\TVPAL
+\newcommand\TV{PAL}
+\newcommand\REGION{UK and Europe (except France)}
+\else
+\ifdefined\TVSECAM
+\newcommand\TV{SECAM}
+\newcommand\REGION{France, Russia, Africa}
+\else
+\error{Must define a TV standard}
+\fi
+\fi
+\fi
+
+
 \usepackage[utf8]{inputenc}
 \usepackage{babel}
 \usepackage{microtype}
@@ -24,14 +44,19 @@
 \emergencystretch=\maxdimen
 %\usepackage{tgtermes}
 \usepackage{hyperref}
-  \usepackage{xcolor}
+\usepackage{xcolor}
 \hypersetup{
     colorlinks,
     linkcolor={red!50!black},
     citecolor={blue!50!black},
-    urlcolor={blue!80!black}
-}
-
+    urlcolor={blue!80!black},
+    pdftitle={Grizzards \ifdefined\DEMO{ Demo }\fi Manual for \TV},
+    pdfsubject={Grizzards videogame for the Atari 2600},
+    pdfauthor={Bruce-Robert Pocock}%,
+%    pdfkeywords={Your PDF keywords}
+  }
+\usepackage{caption}
+\captionsetup{labelformat=empty}
 \usepackage[protrusion=true,expansion=true]{microtype}
 \fontfamily{pnc}
 \chapterstyle{komalike}
@@ -41,44 +66,6 @@
 \title{Grizzards \ifdefined\DEMO Demo \fi Player's Guide}
 \author{Bruce-Robert Pocock}
 
-%% TV Standard
-
-\ifdefined\TVNTSC
-  \newcommand\TV{NTSC}
-  \newcommand\REGION{US, Canada, Mexico, Brazil, and Japan}
-\else
-  \ifdefined\TVPAL
-    \newcommand\TV{PAL}
-    \newcommand\REGION{UK and Europe (except France)}
-  \else
-    \ifdefined\TVSECAM
-      \newcommand\TV{SECAM}
-      \newcommand\REGION{France, Russia, Africa}
-    \else
-      \error{Must define a TV standard}
-    \fi
-  \fi
-\fi
-
-%% BEGIN TITLE
-
-\makeatletter
-\def\maketitle{%
-  \null
-  \thispagestyle{empty}%
-  \vfill
-  \begin{center}\leavevmode
-    \normalfont
-    {\LARGE\raggedleft \@author\par}%
-    \hrulefill\par
-    {\huge\raggedright \@title\par}%
-    \vskip 1cm
-  \end{center}%
-  \vfill
-  \null
-  \cleardoublepage
-  }
-\makeatother
 
 %%% BEGIN DOCUMENT
 
@@ -94,36 +81,6 @@
 \thispagestyle{empty}
 
 \twocolumn[
-
-\null{}\vspace{1in}
-
-This is the \textit{Grizzards} \ifdefined\DEMO Demo \fi Player's Guide
-
-Copyright \copyright{} 2021, Bruce-Robert Pocock
-
-\bigskip
-
-This  version is  for systems  in \REGION{}  using the  \TV{} television
-standard. For Atari  Video Computer System CX-2600  (or Sears Tele-Games
-Video  Arcade or  Atari 7800  ProSystem) with  AtariVox (or  MemCard, or
-SaveKey) device.
-
-\bigskip
-
-This videogame software was not created, published, or licensed by Atari
-or its successors.
-
-\bigskip
-
-This  is a  DRAFT document.  Areas of  this manual  which have  not been
-written yet, or missing images, are noted with *** (asterisks).
-
-\ifdefined\DEMO
-This manual describes  a DEMO version of the game.  The full version may
-be different.
-\fi
-
-\vspace{1in}
 
 \chapter*{Introduction}\label{Introduction}
 
@@ -141,9 +98,34 @@ Monsters may  surprise you as  you travel, or  you may see  them coming.
 When faced  with terrifying beasts,  you'll direct your Grizzard  to use
 its moves to defend you and attack the monsters.
 
-]
-\let\cleardoublepage\clearpage
+\vspace{1in}\vfill
 
+This is the \textit{Grizzards} \ifdefined\DEMO Demo \fi Player's Guide
+
+Copyright \copyright{} 2021, Bruce-Robert Pocock
+
+\bigskip
+
+This  version is  for systems  in \REGION{}  using the  \TV{} television
+standard. For Atari  Video Computer System CX-2600  (or Sears Tele-Games
+Video  Arcade or  Atari 7800  ProSystem) with  AtariVox (or  MemCard, or
+SaveKey) device.
+
+\bigskip
+
+This videogame software was not created, published, or licensed by Atari
+or its successors.
+
+\ifdefined\DEMO
+\bigskip
+
+This manual describes  a DEMO version of the game.  The full version may
+be different.
+\fi
+
+]
+
+\let\cleardoublepage\clearpage
 
 \mainmatter
 
@@ -161,8 +143,13 @@ To play \textit{Grizzards}, you will need:
 \item A joystick controller
 \item A  memory device: an  AtariVox device with (optional)  speakers or
   headphones, or a MemCard or SaveKey device.
+
+  \includegraphics[width=.4\columnwidth]{../Manual/AtariVox.jpeg}
+  \includegraphics[width=.4\columnwidth]{../Manual/SaveKey.jpeg}
+
 \item The \textit{Grizzards} game cartridge
 \end{itemize}
+
 
 Set  up your  Video  Computer  System with  your  TV  or video  display.
 Connect a  joystick controller to  the \emph{left} controller  port, and
@@ -172,6 +159,13 @@ memory device.
 
 Finally, insert  the \textit{Grizzards}  game cartridge (with  the label
 facing up) into the cartridge slot, and turn the Power On.
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=\columnwidth]{../Manual/Atari-2600-Wood-4Sw-Set.png}
+  \end{center}
+\end{figure}
+
 
 \vfill
 
@@ -238,9 +232,19 @@ are playing.
 \fi
 
 \section{Start a Game}
+
+\begin{center}
+  \includegraphics[width=\columnwidth]{../Manual/TitleAquax\TV.png}
+\end{center}
+
 Once your  console is set  up and everything  is connected, turn  on the
-Power switch. You'll  see a brief introduction and  title screen appear.
-If you have an AtariVox device, you'll also hear the title spoken.
+Power  switch. You'll  see  the  title screen  appear.  If  you have  an
+AtariVox device, you'll also hear the title spoken.
+
+
+\begin{center}
+  \includegraphics[width=\columnwidth]{../Manual/SelectSlot\TV.png}
+\end{center}
 
 Press the Game Select switch  to choose a memory slot\footnote{Technical
   Note: The Slot  number chosen here is relative to  the three save game
@@ -265,27 +269,42 @@ Game Reset switch to start.
 
 \section{Roaming The World}
 
-\ifdefined\TVNTSC \else  The World Map  screen shows your  current score
-(initially \texttt{000000})  at the top  of the  screen. \fi In  the map
-display,  you'll  see the  current  area  in  which you  are  traveling.
-Guide yourself using the joystick controller.
+The   World   Map   screen   shows   your   current   score   (initially
+\texttt{000000}) at  the top of the  screen. In the map  display, you'll
+see the  current area in which  you are traveling. Guide  yourself using
+the joystick controller.
 
-*** image
+\begin{center}
+  \includegraphics[width=\columnwidth]{../Manual/Map\TV.png}
+\end{center}
 
 As   you  travel,   you   may  encounter   monsters,\ifdefined\DEMO\else
 Grizzards, \fi Grizzard Depots, or  doors. To interact with them, simply
 walk into them.
 
-A monster,  or group of  monsters, look  like this: ***  Sometimes these
-monsters may  sneak up on  you and attack!  Other times you'll  see them
-waiting for you  and can avoid them  --- or walk up to  them when you're
-ready to face them.
+A  monster,  or group  of  monsters,  look  like this:
+
+\begin{center}
+  \includegraphics[width=1in]{../Manual/Monster\TV.png}
+\end{center}
+
+Sometimes these  monsters may sneak  up on  you and attack!  Other times
+you'll see  them waiting for you  and can avoid  them --- or walk  up to
+them when you're ready to face them.
+
+A Grizzard Depot looks like this:
+
+\begin{center}
+  \includegraphics[width=1in]{../Manual/Depot\TV.png}
+\end{center}
 
 
+A door looks like this:
 
-A Grizzard Depot looks like this: ***
+\begin{center}
+  \includegraphics[width=1in]{../Manual/Door\TV.png}
+\end{center}
 
-A door looks like this: ***
 
 
 \ifdefined\DEMO
@@ -296,11 +315,13 @@ your party.
 \else
 
 You may also  encounter Grizzards in the world that  you can convince to
-join your  party. A wild  Grizzard looks like  this: *** When  you first
-begin, you'll  only be able to  choose one Grizzard. Later,  you'll have
-the  option  to swap  Grizzards  in  your party,  with  up  to 30  total
-Grizzards saved  in your memory device.  Each Grizzard may have  its own
-moves and skill scores.
+join your party. A wild Grizzard looks like this:
+
+***
+
+At a  Grizzard Depot, you'll have  the option to swap  Grizzards in your
+party,  with up  to  30 total  Grizzards saved  in  your memory  device.
+Each Grizzard may have its own moves and skill scores.
 
 \fi
 
@@ -310,8 +331,9 @@ Game Select.
 \section{Grizzard Depots}
 
 To \ifdefined\DEMO\else  swap which  Grizzard you're using,  or to  \fi heal
-your current Grizzard partner, you'll need to find a Grizzard Depot like
-this: ***
+your current Grizzard partner, you'll need to find a Grizzard Depot.
+
+\includegraphics[width=\columnwidth]{../Manual/DepotScreenshot\TV.png}
 
 Touch the Grizzard Depot on the map screen to enter it.
 
@@ -344,14 +366,17 @@ a Grizzard partner, they're sure to eat you alive! Luckily your Grizzard
 partner  will  defend  you  from  them,  and  monsters  will  attack  it
 before you.
 
-When you encounter monsters, you'll  see the Combat display, which looks
-like this: ***
+When you encounter monsters, you'll  see the Combat display.
 
-The name of  the monsters that you're facing is  displayed. Monsters may
-travel in groups, so you may see more than one monster facing you.
+\begin{figure}
+  \includegraphics[width=\columnwidth]{../Manual/CombatScreen\TV.png}
+  \caption{The Combat screen}
+\end{figure}
 
-You'll also  see the name  of your  Grizzard companion and  its portrait
-below. The  long bar represents  the health of  your Grizzard. If  it is
+Monsters may  travel in  groups, so  you may see  more than  one monster
+facing you.
+
+The  long bar  beneath your  Grizzard represents  its health.  If it  is
 reduced to zero, your adventure will be over.
 
 Using the joystick controller, you can  choose from among the moves that
@@ -369,16 +394,15 @@ select a move that your Grizzard knows how to perform.
 
 To review the statistics of your Grizzard, press Game Select.
 
+\begin{figure}
+  \includegraphics[width=\columnwidth]{../Manual/StatsScreenshot\TV.png}
+  \caption{Viewing your Grizzard's statistics}
+\end{figure}
+
 \subsection{Executing a Move}
 
-You will  see a  special display  when your Grizzard,  or a  monster, is
-executing a move. The creature using that move's name will appear first,
-then the name of the move, then the creature being targeted. If you have
-speakers  or  headphones   on  your  AtariVox,  you'll   also  hear  the
-move announced.
-
 It's possible for a move to miss its target. If that happens, you'll see
-\texttt{MISSED} appear briefly (and hear it announced on your AtariVox).
+\texttt{MISSED} appear briefly.
 
 After a move  has been executed, the creature targeted  by that move may
 be injured (lose hit points) or  have its statistics changed. Changes to
@@ -475,6 +499,8 @@ Your score begins at \texttt{000000} when you start your adventure.
 If  you fail  in your  mission,  your game  is over.  However, you  have
 another chance to continue.
 
+\includegraphics[width=\columnwidth]{../Manual/GameOver\TV.png}
+
 When you continue, it'll  be just as if you'd never  failed in the first
 place. However, you'll start over from  the last Grizzard Depot that you
 had visited. If you fail before visiting a Grizzard Depot, you'll return
@@ -542,6 +568,8 @@ After deleting your save game slot, return the Left Difficulty Switch to
 the ``B'' position.
 \fi
 
+\clearpage
+
 \chapter{Grizzards and Moves}
 
 There are  30 Grizzards in  the game world,  each with their  own unique
@@ -564,7 +592,9 @@ Depending on which edition of  \textit{Grizzards} you have, you'll start
 with  one  of  three  different Grizzard  companions.  Your  ``starter''
 Grizzard will be featured on the title screen of the game.
 
-\subsection{Dirtex}
+\section{Dirtex}
+
+\includegraphics[width=\columnwidth]{../Source/Banks/Bank00/Grizzard0-1.png}
 
 The green Dirtex Grizzard lives in the grass. It can learn these Moves:
 
@@ -585,7 +615,9 @@ The green Dirtex Grizzard lives in the grass. It can learn these Moves:
 
 \fi
 
-\subsection{Aquax}
+\section{Aquax}
+
+\includegraphics[width=\columnwidth]{../Source/Banks/Bank00/Grizzard1-1.png}
 
 Aquax is a brown Grizzard which lives  in the swamps. It can learn these
 Moves:
@@ -607,7 +639,9 @@ Moves:
 
 \ifdefined\DEMO\else
 
-\subsection{Airex}
+\section{Airex}
+
+\includegraphics[width=\columnwidth]{../Source/Banks/Bank00/Grizzard2-0.png}
 
 Airex is a teal Grizzard which lives in the trees. It can learn these Moves:
 
@@ -626,7 +660,7 @@ Airex is a teal Grizzard which lives in the trees. It can learn these Moves:
 
 \fi
 
-\subsection{Run Away}
+\section{Run Away}
 
 This Move lets you escape from a battle.
 
@@ -665,12 +699,16 @@ Title Screen.
 
 \subsection{Red Sad Face Screen}
 
+\includegraphics[width=\columnwidth]{../Manual/RedSadFace\TV.png}
+
 The red  sad face screen  means that your  memory device was  not found.
-Turn off your Atari and connect  an AtariVox, SaveKey, or MemCard to the
-right controller  port. You may plug  in speakers or headphones  to your
-AtariVox so that you can hear the game voices.
+Turn off  your console and connect  an AtariVox, SaveKey, or  MemCard to
+the right  controller port. You  may plug  in speakers or  headphones to
+your AtariVox so that you can hear the game voices.
 
 \subsection{White Sad Face Screen}
+
+\includegraphics[width=\columnwidth]{../Manual/WhiteSadFace\TV.png}
 
 The white sad  face screen means that the game  has encountered an error
 and cannot continue. 
@@ -769,45 +807,48 @@ ones that will be used in the final game.
 
 \fi
 
-\chapter{Credits}
+\chapter*{Credits}
 
-The  \textit{Grizzards} videogame  software,  including its  audiovisual
+{\small
+
+  The  \textit{Grizzards} videogame  software,  including its  audiovisual
 components   and  this   manual,   are   copyright  \copyright{}   2021,
 Bruce-Robert  Pocock.   All  Rights  are  Reserved   except  as  granted
 under license.
 
 \begin{itemize}
-\item Bruce-Robert  Pocock --- Programming, Manual,  In-Game Artwork,
-  Sound effects, map (travel) music.
-\item Zephyr Salz --- Label/Cover Artwork, Title theme music
+\item Bruce-Robert Pocock --- Programming, Manual text, In-Game Artwork,
+  Sound effects
+\item Zephyr Salz --- Art for manual, label, and cover; Music
 \end{itemize}
 
 \bigskip
 
-\begin{itemize}
-\item  Includes VCS  header  file by  Matthew  Dillon, Olaf  ``Rhialto''
-  Seibert, Andrew Davie, and Peter H. Froehlich
-\item Binary  to decimal translation  based upon code by  Andrew Jacobs,
-  based upon code by Garth Wilson
-\item ``Six Digit Score'' 48 pixel wide display routines as explained on
-  Stella list by Erik Mooney and Bradford W. Mott
-\item SaveKey  EEPROM and  AtariVox speech  synthesis driver  based upon
-  code by Alex Herbert
-\item Random number generator by AtariAge forum user \texttt{Supercat}
-\item Some math functions by AtariAge forum user \textt{Omegamatrix}
-\item Some math functions taken from December 1984 Apple Assembly Line.
-\item   ``Have  You   Played  Atari   Today''  jingle   by  Atari   Inc.
-  transcribed by AtariAge Forum user \texttt{tiggerthehun}
-\item Special thanks to everyone  in the Stella and AtariAge communities
-  for making this game possible.
 
-\end{itemize}
+Includes VCS  header file by  Matthew Dillon, Olaf  ``Rhialto'' Seibert,
+Andrew  Davie, and  Peter H.  Froehlich. Binary  to decimal  translation
+based upon  code by  Andrew Jacobs,  based upon  code by  Garth Wilsone.
+``Six  Digit Score''  48 pixel  wide  display routines  as explained  on
+Stella list  by Erik  Mooney and  Bradford W.  Mott. SaveKey  EEPROM and
+AtariVox  speech  synthesis driver  based  upon  code by  Alex  Herbert.
+Random  number  generator  by  AtariAge  forum  user  \texttt{Supercat}.
+Some math functions by AtariAge forum user \textt{Omega\-matrix}. Some math
+functions  taken from  December  1984 Apple  Assembly  Line. ``Have  You
+Played Atari Today'' jingle by  Atari Inc. transcribed by AtariAge Forum
+user \texttt{tigger\-the\-hun}. AtariVox and  SaveKey illustrations from the
+AtariAge store.
+
+Special thanks  to everyone in  the Stella and AtariAge  communities for
+making this game possible.
 
 \subsection{Testers}
 
 This section will list anyone who helps to playtest this game. ***
 
-\subsection{Publication History}
+}
+
+
+\chapter*{Publication History}
 
 The \textit{Grizzards} videogame software has not yet been published.
 

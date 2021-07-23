@@ -63,9 +63,11 @@ Dist/Grizzards.Demo.zip: \
 	Dist/Grizzards.Demo.SECAM.pdf
 	zip $@ $^
 
-game:	Dist/Grizzards.NTSC.a26
+game:	Dist/Grizzards.NTSC.a26 Dist/Grizzards.PAL.a26 Dist/Grizzards.SECAM.a26
 
-doc:	Dist/Grizzards.NTSC.pdf
+doc:	Dist/Grizzards.NTSC.pdf Dist/Grizzards.PAL.pdf Dist/Grizzards.SECAM.pdf
+
+demo-doc:	Dist/Grizzards.Demo.NTSC.pdf Dist/Grizzards.Demo.PAL.pdf Dist/Grizzards.Demo.SECAM.pdf
 
 .PRECIOUS: %.s %.png %.a26 %.txt %.zip %.tar.gz
 
