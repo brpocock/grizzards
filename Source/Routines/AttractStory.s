@@ -7,38 +7,74 @@ AttractStory:       .block
           lda AttractHasSpoken
           cmp #<Phrase_Story
           beq Loop
-          
+
           lda #>Phrase_Story
           sta CurrentUtterance + 1
           lda #<Phrase_Story
           sta CurrentUtterance
           sta AttractHasSpoken
 
-          bne LoopFirst         ; always taken
+          lda # 0
+          sta AttractStoryPanel
+          sta AttractStoryProgress
+
+          jsr Random
+          and #$07
+          adc # 2
+          sta CurrentMonsterArt
+          jsr Random
+          sta pp5h
+
+          ldx # 6
+-
+          jsr Random
+          and #$03
+          sta MonsterHP - 1, x
+          dex
+          bne -
+
+          beq LoopFirst
 ;;; 
 Loop:
           .WaitScreenTop
 LoopFirst:
-          .ldacolu COLBLUE, $8
-          sta COLUBK
+          lda AttractStoryPanel
+          cmp # 1
+          bge StoryPhase1
 
-          .ldacolu COLBROWN, 0
+          ldx # AttractStoryProgress
+-
+          stx WSYNC
+          dex
+          bne -
+
+          stx MoveTarget
+
+          lda pp5l
           sta COLUP0
-          sta COLUP1
 
-          .LoadString "STORY "
-          .FarJSR TextBank, ServiceDecodeAndShowText
+          jsr DrawMonsterGroup
 
-          .LoadString "-TODO-"
-          .FarJSR TextBank, ServiceDecodeAndShowText
+          inc AttractStoryProgress
+          lda AttractStoryProgress
+          cmp # KernelLines / 3
+          blt StoryDone
+          inc AttractStoryProgress
 
-          .LoadString "COMING"
-          .FarJSR TextBank, ServiceDecodeAndShowText
+StoryPhase1:
+          cmp # 2
+          bge StoryPhase2
 
-          .LoadString "AUGUST"
-          .FarJSR TextBank, ServiceDecodeAndShowText
+StoryPhase2:
+          cmp # 3
+          bge StoryPhase3
 
+StoryPhase3:
+StoryDone:
+          ;; fall through
 ;;; 
+
+          jsr Prepare48pxMobBlob
 
           lda ClockSeconds
           cmp AlarmSeconds
@@ -64,10 +100,4 @@ StillStory:
 LoopMe:
           jmp Loop
 
-          ;; TODO flesh out this mode
-
-          .rept $200
-          nop
-          .next
-          
           .bend
