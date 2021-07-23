@@ -193,8 +193,7 @@ DrawMap:
           ldy # 1
           ;; skip run length until the PF regs are written
           ;; or we'll be too late and update halfway into the line
-          lda (pp5l), y
-          tax
+          lax (pp5l), y
           iny
           lda (pp5l), y
           iny
