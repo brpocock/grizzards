@@ -50,6 +50,9 @@ ReadGlobalLoop:
 
           jsr i2cStopRead
 
+          .WaitScreenBottom
+          .WaitScreenTop
+
           jsr LoadProvinceData
 
           jsr LoadGrizzardData
