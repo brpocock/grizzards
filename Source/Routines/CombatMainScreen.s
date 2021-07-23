@@ -117,11 +117,11 @@ FullPF2:
           sta PF2
           txa                   ; ∈ 8…99
           clc
-          ror                   ; ∈ 4…50
+          ror a                  ; ∈ 4…50
           clc
-          ror                   ; ∈ 2…25
+          ror a                  ; ∈ 2…25
           clc
-          ror                   ; ∈ 1…12
+          ror a                  ; ∈ 1…12
           tax
           cpx # 8
           bge FullPF1
