@@ -19,7 +19,13 @@ AttractStory:       .block
           and #$07
           adc # 2
           sta CurrentMonsterArt
+RandomColor:
           jsr Random
+          .if TV == SECAM
+          beq RandomColor
+          .else
+          ora #$03
+          .fi
           sta DeltaX
 
           lda # 0
@@ -84,7 +90,7 @@ StoryPhase0:
           sta DeltaY
           inc AttractStoryProgress
           lda AttractStoryProgress
-          cmp # KernelLines / 3
+          cmp # KernelLines / 4
           blt StoryDone
           inc AttractStoryPanel
 ;;; 
@@ -138,7 +144,7 @@ SixSound:
           inc AttractStoryPanel
 
 NotSix:
-          .SkipLines KernelLines / 3
+          .SkipLines KernelLines / 4
 
           lda DeltaX
           sta COLUP0

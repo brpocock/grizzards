@@ -1,6 +1,9 @@
 ;;; Grizzards Source/Routines/Random.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
 SeedRandom:
+
+          .if BANK == 0
+
           lda Rand
           bne +
           
@@ -13,6 +16,12 @@ SeedRandom:
           rts
 
 +
+          .else
+
+          lda Rand
+
+          .fi
+
           eor ClockFrame
           sta Rand
           lda Rand + 1
