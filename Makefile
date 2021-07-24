@@ -31,7 +31,7 @@ harmony:	Dist/Grizzards.Demo.NTSC.a26 \
 		Dist/Grizzards.Demo.PAL.a26 \
 		Dist/Grizzards.Demo.SECAM.a26
 	if [ $$(uname -s) = 'Linux' ] ; then \
-	  cp Dist/*.a26 /run/media/${USER}/HARMONY/ ; \
+	  cp $^ /run/media/${USER}/HARMONY/ ; \
 	else \
 	  echo "Patch Makefile for your $$(uname -s) OS" ; \
 	fi
@@ -40,7 +40,7 @@ uno:	Dist/Grizzards.Demo.NTSC.a26 \
 		Dist/Grizzards.Demo.PAL.a26 \
 		Dist/Grizzards.Demo.SECAM.a26
 	if [ $$(uname -s) = 'Linux' ] ; then \
-	  cp Dist/*.a26 /run/media/${USER}/TBA_2600/ ; \
+	  cp $^ /run/media/${USER}/TBA_2600/ ; \
 	else \
 	  echo "Patch Makefile for your $$(uname -s) OS" ; \
 	fi
