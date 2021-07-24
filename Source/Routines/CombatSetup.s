@@ -39,9 +39,6 @@ AnnounceMonsterSpeech:
           ldx CurrentCombatEncounter
           clc
           adc EncounterMonster, x
-          bcc +
-          inc CurrentUtterance + 1
-+
           sta CurrentUtterance
           
 SetUpMonsterHP:     
