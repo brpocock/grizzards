@@ -182,8 +182,7 @@ TimeLines:          .macro lines
           lda # (SkipCycles/64) - 1
           sta TIM64T
           .else
-          lda # (SkipCycles/1024) - 1
-          sta T1024T
+          .error "Cannot skip ", \lines, " lines with TIM64T"
           .fi
           .endm
           
@@ -194,6 +193,15 @@ WaitScreenTop:      .macro
           .else
           lda #$ff              ; 214.74 lines
           sta TIM64T
+          .fi
+          .endm
+
+WaitScreenTopMinus: .macro NTSCMinus, PALMinus
+          jsr VSync
+          .if TV == NTSC
+          .TimeLines KernelLines - \NTSCMinus
+          .else
+          .TimeLines 214 - \PALMinus
           .fi
           .endm
 

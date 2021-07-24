@@ -6,6 +6,7 @@ CombatMainScreen:   .block
           sta MoveSelection
           lda #ModeCombat
           sta GameMode
+;;; 
 Loop:
           jsr VSync
 
@@ -62,13 +63,14 @@ MonstersDisplay:
           .FarJSR MapServicesBank, ServiceDrawMonsterGroup
 DelayAfterMonsters:
           .WaitForTimer
+;;; 
+BeginPlayerSection:
           .if TV == NTSC
           .TimeLines KernelLines - 101
           .else
-          .TimeLines KernelLines - 107
+          .TimeLines KernelLines - 110
           .fi
-;;; 
-BeginPlayerSection:
+
           sta WSYNC
           .ldacolu COLBLUE, $f
           sta COLUP0
@@ -149,6 +151,8 @@ DoneHealth:
           lda WhoseTurn
           beq PlayerChooseMove
           .WaitForTimer
+          stx WSYNC
+          stx WSYNC
           jmp ScreenDone
 
 PlayerChooseMove:
@@ -177,6 +181,10 @@ ShowSelectedMove:
           .FarJSR TextBank, ServiceShowMove
 
           .WaitForTimer
+	
+          .if TV != NTSC
+          .SkipLines 3
+	  .fi
 
           lda NewINPT4
           beq ScreenDone
@@ -204,6 +212,7 @@ MoveOK:
           lda #SoundChirp
           sta NextSound
           .SkipLines 3
+          jsr Overscan
           jmp CombatAnnouncementScreen
 
 RunAway:

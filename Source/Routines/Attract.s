@@ -26,6 +26,10 @@ ZeroRAM:
           jsr SetNextAlarm
 ;;; 
 Loop:
+          lda GameMode
+          cmp #ModeAttractStory
+          beq StoryMode
+
           .WaitScreenTop
           .if TV == NTSC
           .SkipLines 4
@@ -37,8 +41,6 @@ Loop:
           beq TitleMode
           cmp #ModeAttractCopyright
           beq CopyrightMode
-          cmp #ModeAttractStory
-          beq StoryMode
           cmp #ModeCreditSecret
           beq Credits
           .if PUBLISHER
@@ -129,8 +131,6 @@ PrepareFillAttractBottom:
           ;; fall through
 ;;; 
 DoneAttractKernel:
-          .WaitScreenBottom
-
           lda NewSWCHB
           beq +
           and #SWCHBSelect
@@ -141,11 +141,13 @@ DoneAttractKernel:
           and #PRESSED
           beq Leave
 +
+          .WaitScreenBottom
           jmp Loop
 
 Leave:
           lda #ModeSelectSlot
           sta GameMode
+          .WaitScreenBottom
           jmp SelectSlot
 ;;; 
           .bend

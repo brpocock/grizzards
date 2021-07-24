@@ -2,9 +2,6 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
 CombatAnnouncementScreen:     .block
-          ;; We are jumped in here lacking an overscan
-          jsr Overscan
-
 ;;; Set up for the combat move announcement & execution
 ;;; (this whole first page is really a separate step from the announcement screen)
           .WaitScreenTop

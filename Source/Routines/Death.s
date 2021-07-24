@@ -2,20 +2,27 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
 Death:    .block
+          .WaitScreenTop
 
           ;; Blow away the stack, we're starting over
           ldx #$ff
           txs
+
+          lda #>Phrase_GameOver
+          sta CurrentUtterance + 1
+          lda #<Phrase_GameOver
+          sta CurrentUtterance
 
           ldx #ModeDeath
           stx GameMode
 
           ldx #SoundGameOver
           stx NextSound
+          bne LoopFirst         ; always taken
 ;;; 
 Loop:
-          jsr VSync
-
+          .WaitScreenTop
+LoopFirst:
           .ldacolu COLGRAY, 0
           sta COLUBK
           .ldacolu COLGRAY, 9
@@ -28,9 +35,7 @@ Loop:
           .LoadString " OVER "
           .FarJSR TextBank, ServiceDecodeAndShowText
 
-          .SkipLines KernelLines - 42
-
-          jsr Overscan
+          .WaitScreenBottom
 ;;; 
           lda NewSWCHB
           beq +

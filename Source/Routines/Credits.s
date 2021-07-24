@@ -38,7 +38,7 @@ LoopFirst:
           .LoadString DateString6
           jsr ShowText
           
-          .SkipLines KernelLines - 164
+          .SkipLines KernelLines - 159
 
           lda NewINPT4
           beq +
@@ -52,11 +52,9 @@ LoopFirst:
           lda #ModeAttractCopyright
           sta GameMode
 Bye:
-          .SkipLines 4
           jmp Attract.DoneAttractKernel
 
 StayCredits:
-          .SkipLines 6
 
           jsr Overscan
           jsr VSync

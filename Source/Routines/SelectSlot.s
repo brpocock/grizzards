@@ -5,6 +5,8 @@ SelectSlot:        .block
           ;; Select a save game slot
           ;;
 
+          jsr VSync
+
           .KillMusic
 
           lda #SoundChirp
@@ -14,6 +16,14 @@ SelectSlot:        .block
           sta CurrentUtterance + 1
           lda #<Phrase_SelectSlot
           sta CurrentUtterance
+
+          .if TV == NTSC
+          .TimeLines KernelLines * 2/3 - 2
+          .else
+          .TimeLines KernelLines / 2 - 2
+          .fi
+
+          jmp LoopFirst
 ;;; 
 Loop:     
           jsr VSync
@@ -22,6 +32,7 @@ Loop:
           .else
           .TimeLines KernelLines / 2 - 1
           .fi
+LoopFirst:
 
           lda GameMode
           cmp #ModeSelectSlot
@@ -59,7 +70,7 @@ Slot:
           jsr EraseSlotSignature
           lda #ModeSelectSlot
           sta GameMode
-          bne ShowVacant        ; always taken
+          bne MidScreen        ; always taken
 
 DoNotDestroy:
           ;; See if the slot is in use

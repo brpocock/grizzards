@@ -23,8 +23,9 @@ MapSetup: .block
           jmp NewRoomTimerRunning
 ;;; 
 NewRoom:
-          jsr VSync
-          .TimeLines KernelLines - 3
+          stx WSYNC
+          .WaitScreenTopMinus 3, 0
+          
 NewRoomTimerRunning:
           ;; Got to figure out the sprites
           ;; Start at the head of the sprite list
@@ -205,6 +206,7 @@ SpritesDone:
           sta CXCLR
 
           .WaitScreenBottom
+          stx WSYNC
           stx WSYNC
 
           ;; MUST be followed by Map directly
