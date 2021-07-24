@@ -2,6 +2,7 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
 AttractStory:       .block
+          .WaitScreenTop
 
           lda AttractHasSpoken
           cmp #<Phrase_Story
@@ -12,10 +13,12 @@ AttractStory:       .block
           lda #<Phrase_Story
           sta CurrentUtterance
           sta AttractHasSpoken
+
+          bne LoopFirst         ; always taken
 ;;; 
 Loop:
           .WaitScreenTop
-
+LoopFirst:
           .ldacolu COLBLUE, $8
           sta COLUBK
 
