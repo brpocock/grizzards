@@ -2,6 +2,17 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 SeedRandom:
           lda Rand
+          bne +
+          
+          lda INPT1
+          eor INPT3
+          sta Rand
+          lda INPT2
+          eor INPT5
+          sta Rand + 1
+          rts
+
++
           eor ClockFrame
           sta Rand
           lda Rand + 1
