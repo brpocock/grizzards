@@ -253,6 +253,8 @@ AttractHasSpoken:
 
 AttractStoryPanel:
           .byte ?
+AttractStoryProgress:
+          .byte ?
 ;;; 
 ;;; Start Game phase
 

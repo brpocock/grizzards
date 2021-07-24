@@ -12,6 +12,8 @@ ZeroRAM:
           dex
           bne ZeroRAM
 
+          jsr SeedRandom
+
           lda # SoundAtariToday
           sta NextSound
 
