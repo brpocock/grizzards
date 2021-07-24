@@ -59,7 +59,10 @@ DrawHitPoints:
           jmp AfterHitPoints
 
 SkipHitPoints:
+          .if TV == NTSC
+          ;; XXX PAL ran out of space
           .SkipLines 34
+          .fi
 ;;; 
 AfterHitPoints:
           lda MoveAnnouncement
