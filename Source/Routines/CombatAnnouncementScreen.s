@@ -104,11 +104,11 @@ SkipVerb:
 AnnounceObject:
           lda MoveAnnouncement
           cmp # 3
-          blt SkipObject
+          blt Speak
 
           lda MoveTarget
           cmp #$ff
-          beq SkipObject
+          beq Speak
 DrawObject:
           ldx CombatMoveSelected
           lda MoveDeltaHP, x
@@ -124,16 +124,13 @@ ObjectOther:
           ;; fall through
 MonsterTargetObject:
           jsr ShowMonsterNameAndNumber
-          jmp WaitOutSpeechInterval
+          jmp Speak
 
 PlayerObject:
           .FarJSR TextBank, ServiceShowGrizzardName
-          beq WaitOutSpeechInterval   ; always taken
 
-SkipObject:
 ;;; 
-WaitOutSpeechInterval:
-ScheduleSpeech:
+Speak:
           lda CurrentUtterance
           bne SpeechDone
           lda CurrentUtterance + 1
@@ -238,7 +235,7 @@ SayMonsterObject:
           jmp SayObjectDone
 +
           jsr SayMonster
-
+          ;; fall through
 SayObjectDone:
           inc MoveSpeech
           bne SpeechDone        ; always taken
@@ -277,21 +274,26 @@ SpeechDone:
 CheckForAlarm:
           lda ClockSeconds
           cmp AlarmSeconds
-          bne AlarmDone
+          bne KeepWaiting
 
           inc MoveAnnouncement
           lda # 2
           jsr SetNextAlarm
 
-AlarmDone:
+KeepWaiting:
           .WaitScreenBottom
 
           lda MoveAnnouncement
           cmp # 4
           beq CombatMoveDone
+GoBack:
           jmp Loop
 
 CombatMoveDone:
+          ;; lda MoveSpeech
+          ;; cmp # 7
+          ;; bne GoBack
+
           jmp ExecuteCombatMove
 ;;; 
 ShowMonsterNameAndNumber:
