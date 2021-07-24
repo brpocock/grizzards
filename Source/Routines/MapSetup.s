@@ -24,8 +24,8 @@ MapSetup: .block
 ;;; 
 NewRoom:
           stx WSYNC
-          jsr VSync
-          .TimeLines KernelLines - 3
+          .WaitScreenTopMinus 3, 0
+          
 NewRoomTimerRunning:
           ;; Got to figure out the sprites
           ;; Start at the head of the sprite list

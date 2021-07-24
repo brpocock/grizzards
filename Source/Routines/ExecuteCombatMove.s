@@ -5,7 +5,7 @@ ExecuteCombatMove:  .block
           ;; Draw one blank frame whilst we do arithmetic
           ;; These calculations take a variable amount of time
 
-          .WaitScreenTopMinus 2
+          .WaitScreenTopMinus 2, 0
 
           lda # 0
           sta MoveHP
@@ -137,6 +137,9 @@ MonsterAttackNoStatusFX:
           lda # 1
           sta MoveHitMiss
 
+          .if TV != NTSC
+          stx WSYNC
+          .fi
           jmp WaitOutScreen
 ;;; 
 MonsterAttackMiss:
@@ -406,6 +409,9 @@ SoundForMiss:
           sta NextSound
 
           .WaitScreenBottom
+          .if TV != NTSC
+          stx WSYNC
+          .fi
 ;;; 
           .FarJSR TextBank, ServiceCombatOutcome
 ;;; 

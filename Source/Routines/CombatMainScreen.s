@@ -63,13 +63,14 @@ MonstersDisplay:
           .FarJSR MapServicesBank, ServiceDrawMonsterGroup
 DelayAfterMonsters:
           .WaitForTimer
+;;; 
+BeginPlayerSection:
           .if TV == NTSC
           .TimeLines KernelLines - 101
           .else
-          .TimeLines KernelLines - 107
+          .TimeLines KernelLines - 110
           .fi
-;;; 
-BeginPlayerSection:
+
           sta WSYNC
           .ldacolu COLBLUE, $f
           sta COLUP0
@@ -180,6 +181,10 @@ ShowSelectedMove:
           .FarJSR TextBank, ServiceShowMove
 
           .WaitForTimer
+	
+          .if TV != NTSC
+          .SkipLines 3
+	  .fi
 
           lda NewINPT4
           beq ScreenDone
