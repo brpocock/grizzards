@@ -5,7 +5,7 @@ ExecuteCombatMove:  .block
           ;; Draw one blank frame whilst we do arithmetic
           ;; These calculations take a variable amount of time
 
-          .WaitScreenTop
+          .WaitScreenTopMinus 2
 
           lda # 0
           sta MoveHP
@@ -396,13 +396,12 @@ PlayerBuff:
           ;;  fall through
 ;;; 
 WaitOutScreen:
-
           lda MoveHitMiss
           beq SoundForMiss
           lda #SoundHit
           bne +                 ; always taken
 SoundForMiss:
-          lda #SoundHit
+          lda #SoundMiss
 +
           sta NextSound
 
@@ -410,11 +409,11 @@ SoundForMiss:
 ;;; 
           .FarJSR TextBank, ServiceCombatOutcome
 ;;; 
+          .WaitScreenTop
+
           ;; If this was a monster's move, could the player learn that move?
           lda WhoseTurn
           beq NextTurn
-
-          .WaitScreenTop
 
           lda #1
           sta pp1h        ; using this as our loop counter
@@ -452,10 +451,10 @@ DidNotLearn:
           ldy # 0
 
 AfterTryingToLearn:
-          .WaitScreenBottom
-
           cpy # 0
           beq NextTurn
+
+          .WaitScreenBottom
 
           lda pp1l
           sta Temp
@@ -465,18 +464,20 @@ NextTurn:
           inc WhoseTurn
           ldx WhoseTurn
           dex
-          cpx #6
-          bne +
+          cpx # 6
+          bne NotLastMonster
           ldx #0
           stx WhoseTurn
           jmp BackToMain
-+
+NotLastMonster:
           lda MonsterHP, x
           beq NextTurn
 
           lda #3
           jsr SetNextAlarm
 BackToMain:
+          .WaitScreenBottom
+
           jmp CombatMainScreen
 ;;; 
           ;; (also referenced by CombatSetup.s)

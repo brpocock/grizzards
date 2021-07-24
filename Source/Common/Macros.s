@@ -197,6 +197,16 @@ WaitScreenTop:      .macro
           .fi
           .endm
 
+WaitScreenTopMinus: .macro minus
+          jsr VSync
+          .if TV == NTSC
+          .TimeLines KernelLines - \minus
+          .else
+          lda #$ff
+          sta TIM64T
+          .fi
+          .endm
+
 WaitForTimer:       .macro
 -
           lda INSTAT

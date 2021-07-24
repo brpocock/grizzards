@@ -6,6 +6,7 @@ CombatMainScreen:   .block
           sta MoveSelection
           lda #ModeCombat
           sta GameMode
+;;; 
 Loop:
           jsr VSync
 
@@ -149,6 +150,8 @@ DoneHealth:
           lda WhoseTurn
           beq PlayerChooseMove
           .WaitForTimer
+          stx WSYNC
+          stx WSYNC
           jmp ScreenDone
 
 PlayerChooseMove:
@@ -204,6 +207,7 @@ MoveOK:
           lda #SoundChirp
           sta NextSound
           .SkipLines 3
+          jsr Overscan
           jmp CombatAnnouncementScreen
 
 RunAway:

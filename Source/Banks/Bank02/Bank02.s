@@ -14,7 +14,9 @@ DoLocal:
           cpy #ServiceShowText
           beq ShowText
           cpy #ServiceShowGrizzardName
-          beq ShowGrizzardName
+          beq ShowGrizzardName 
+          cpy #ServiceCombatOutcome
+          beq CombatOutcomeScreen
           cpy #ServiceShowGrizzardStats
           beq ShowGrizzardStats
           cpy #ServiceDrawGrizzard
@@ -29,8 +31,6 @@ DoLocal:
           beq AppendDecimalAndPrintThunk
           cpy #ServiceFetchGrizzardMove
           beq FetchGrizzardMove
-          cpy #ServiceCombatOutcome
-          beq CombatOutcomeScreen
           brk
 
 DecodeAndShowText:
