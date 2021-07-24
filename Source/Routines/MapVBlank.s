@@ -316,7 +316,7 @@ DoorWithSprite:
           sta CurrentMap
           ldy #ModeMapNewRoom
           sty GameMode
-          jsr Overscan
+          .WaitForTimer
           rts
 
 GetNewGrizzard:
