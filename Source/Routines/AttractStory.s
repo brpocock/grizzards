@@ -87,7 +87,7 @@ StoryPhase0:
           cmp # KernelLines / 3
           blt StoryDone
           inc AttractStoryPanel
-
+;;; 
 StoryPhase1:
           cmp # 8
           bge StoryDone
@@ -110,6 +110,8 @@ Six:
           lda MonsterHP, x
           beq +
           lda # SoundHit
+          sta WSYNC
+          sta WSYNC
           bne SixSound
 +
           lda # SoundMiss
@@ -210,10 +212,18 @@ StoryDone:
 
 StillStory:
           lda NewSWCHB
-          beq LoopMe
+          beq CheckFire
 
           and #SWCHBSelect
           bne LoopMe
+
+CheckFire:
+          lda NewINPT4
+          beq LoopMe
+          and #PRESSED
+          bne LoopMe
+
+SelectSlot:
           lda #ModeSelectSlot
           sta GameMode
           rts
