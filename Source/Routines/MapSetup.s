@@ -209,6 +209,5 @@ SpritesDone:
           stx WSYNC
           stx WSYNC
 
-          ;; MUST be followed by Map directly
-
+          ;; fall through to Map
           .bend
