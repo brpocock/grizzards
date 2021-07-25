@@ -60,10 +60,14 @@ DoLocal:
           brk
 
 	.include "ColdStart.s"
+          ;; falls through to
+          .include "DetectConsole.s"
+          ;; falls through to
+          .include "Attract.s"
+
           .include "SaveToSlot.s"
 
           .include "Random.s"
-          .include "Attract.s"
           .include "SelectSlot.s"
           .include "LoadSaveSlot.s"
           .include "48Pixels.s"

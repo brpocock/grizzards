@@ -34,21 +34,6 @@ ColdStart:
           lda # $ff - (SWCHBReset | SWCHBSelect | SWCHBColor | SWCHBP0Advanced | SWCHBP1Advanced)
           .fi
           sta SWBCNT
-
-          ;; From ↑ we have the boot-time value of .S in .X
-          ;; A real 2600 starts with .S = $fd
-          ;; A 7800 (or some clones) don't
-          ;; We  use this  for deciding  how to  handle the  Color/B&W /
-	;; Pause switch
-          ;; (Stella emulates that as well)
-          cpx #$fd
-          beq Cx2600Genuine
-          lda # 0
-          beq SetSWCHBFlags
-Cx2600Genuine:
-          lda # SWCHBGenuine2600
-SetSWCHBFlags:    
-          sta SWCHB
 	
 ResetStack:
           ldx #$ff
@@ -57,5 +42,5 @@ ResetStack:
           ldx #0
           stx GameMode
           
-          jmp Attract
+          ;; Fall through to DetectConsole
 	.bend
