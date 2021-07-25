@@ -116,13 +116,10 @@ Six:
           lda MonsterHP, x
           beq +
           lda # SoundHit
-          sta WSYNC
-          sta WSYNC
-          bne SixSound
-+
-          lda # SoundMiss
-SixSound: 
           sta NextSound
+          stx WSYNC
+          stx WSYNC
++
           lda MonsterHP, x
           beq NotSix
           lda # 0
