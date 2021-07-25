@@ -52,7 +52,7 @@ LoopFirst:
           lda #ModeAttractCopyright
           sta GameMode
 Bye:
-          jmp Attract.DoneAttractKernel
+          jmp Attract.DoneKernel
 
 StayCredits:
 

@@ -2,8 +2,6 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
 AttractStory:       .block
-          .WaitScreenTop
-
           lda AttractHasSpoken
           cmp #<Phrase_Story
           beq Loop
@@ -67,10 +65,12 @@ StoryPhase0:
           bge StoryPhase1
 
           ldx AttractStoryProgress
+          beq +
 -
           stx WSYNC
           dex
           bne -
++
 
           stx MoveTarget        ; always zero
 

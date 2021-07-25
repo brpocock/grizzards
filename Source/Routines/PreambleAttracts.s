@@ -50,6 +50,6 @@ SingleGraphicAttract:
             jsr ShowPicture
           .fi
 
-          jmp Attract.DoneAttractKernel
+          jmp Attract.DoneKernel
 
           .bend

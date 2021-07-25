@@ -28,11 +28,12 @@ ZeroRAM:
           jsr SetNextAlarm
 ;;; 
 Loop:
+          .WaitScreenTop
+
           lda GameMode
           cmp #ModeAttractStory
           beq StoryMode
 
-          .WaitScreenTop
           .if TV == NTSC
           .SkipLines 4
           .fi
@@ -124,7 +125,7 @@ PrepareFillAttractBottom:
 
           lda ClockSeconds
           cmp AlarmSeconds
-          bne DoneAttractKernel
+          bne DoneKernel
 
           lda # 4
           jsr SetNextAlarm
@@ -132,7 +133,7 @@ PrepareFillAttractBottom:
           sta GameMode
           ;; fall through
 ;;; 
-DoneAttractKernel:
+DoneKernel:
           lda NewSWCHB
           beq +
           and #SWCHBSelect
