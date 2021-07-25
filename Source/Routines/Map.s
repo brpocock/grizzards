@@ -370,12 +370,12 @@ NoPause:
           .fi
 ;;; 
 SkipSwitches:
-          .WaitForTimer
-          jsr Overscan
 
           lda GameMode
           cmp #ModeMap
           bne Leave
+          .WaitForTimer
+          jsr Overscan
           jmp Loop
 ;;; 
 Leave:
@@ -385,10 +385,15 @@ Leave:
           ldx # 0
           stx CurrentMusic + 1
 
-          cmp #ModeCombat
-          beq GoCombat
           cmp #ModeGrizzardDepot
           beq EnterGrizzardDepot
+
+          .WaitForTimer
+          jsr Overscan
+
+          lda GameMode
+          cmp #ModeCombat
+          beq GoCombat
           cmp #ModeNewGrizzard
           beq GetNewGrizzard
           brk

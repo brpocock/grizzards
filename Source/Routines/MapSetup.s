@@ -23,7 +23,10 @@ MapSetup: .block
           jmp NewRoomTimerRunning
 ;;; 
 NewRoom:
+          .WaitForTimer
           stx WSYNC
+          stx WSYNC
+          jsr Overscan
           .WaitScreenTopMinus 3, 0
           
 NewRoomTimerRunning:
@@ -209,6 +212,5 @@ SpritesDone:
           stx WSYNC
           stx WSYNC
 
-          ;; MUST be followed by Map directly
-
+          ;; fall through to Map
           .bend

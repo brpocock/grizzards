@@ -22,7 +22,7 @@ SaveGrizzard:       .block
           cpx # 5
           bne -
 
-          .WaitScreenBottom
-          jmp i2cStopWrite      ; tail call
-
+          jsr i2cStopWrite
+          rts
+   
           .bend
