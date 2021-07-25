@@ -390,6 +390,8 @@ Leave:
 
           .WaitForTimer
           jsr Overscan
+
+          lda GameMode
           cmp #ModeCombat
           beq GoCombat
           cmp #ModeNewGrizzard

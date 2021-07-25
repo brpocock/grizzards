@@ -23,7 +23,10 @@ MapSetup: .block
           jmp NewRoomTimerRunning
 ;;; 
 NewRoom:
+          .WaitForTimer
           stx WSYNC
+          stx WSYNC
+          jsr Overscan
           .WaitScreenTopMinus 3, 0
           
 NewRoomTimerRunning:
