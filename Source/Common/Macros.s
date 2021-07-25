@@ -214,7 +214,7 @@ WaitForTimer:       .macro
 WaitScreenBottom:      .macro
           .WaitForTimer
           .if TV != NTSC
-          .SkipLInes 11
+          .SkipLines 11
           .fi
           jsr Overscan
           .endm
