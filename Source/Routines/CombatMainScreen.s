@@ -140,7 +140,7 @@ FullPF1:                        ; ∈ 8…12
           lda HealthyPF2, x
           sta PF0
           ;; fall through
-;;; 
+
 DoneHealth:
           .SkipLines 4
           lda # 0
@@ -150,9 +150,12 @@ DoneHealth:
 ;;; 
           lda WhoseTurn
           beq PlayerChooseMove
+
           .WaitForTimer
-          stx WSYNC
-          stx WSYNC
+
+          .if TV == NTSC
+          .SkipLines 2
+          .fi
           jmp ScreenDone
 
 PlayerChooseMove:
