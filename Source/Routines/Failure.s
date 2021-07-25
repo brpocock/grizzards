@@ -56,7 +56,11 @@ DumpBits:
           sta PF2
           sta WSYNC
           .if TV != NTSC
+          txa
+          and #$02
+          beq +
           sta WSYNC
++
           .fi
           inx
           cpx #$80
