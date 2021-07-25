@@ -1,8 +1,7 @@
 ;;; Grizzards Source/Routines/Failure.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
 Failure:	.block
-
-          jsr VSync
+          .WaitScreenTop
 
           lda # 0
           sta GRP0
@@ -10,6 +9,8 @@ Failure:	.block
           sta ENAM0
           sta ENAM1
           sta ENABL
+          sta AUDV0
+          sta AUDV1
 
           lda GameMode
           cmp #ModeNoAtariVox
@@ -26,28 +27,18 @@ CommonSadness:
           lda #CTRLPFREF
           sta CTRLPF
 
-          jsr VBlank
-
-          ldx # 8
+          ldy # 8
 DrawSadFace:
-          lda SadFace-1,x
+          lda SadFace-1,y
           sta PF2
-          ldy #10
-Skip10:   
-          sta WSYNC
+          .SkipLines 10
           dey
-          bne Skip10
-          dex
           bne DrawSadFace
 
-          stx PF2               ; .x = 0
+          sty PF2               ; always 0
 
-          txa
-          ldx #20
-SadPad:
-          sta WSYNC
-          dex
-          bne SadPad
+          tya
+          .SkipLines 20
 
           .if TV != SECAM
           lda #COLGRAY|$4
@@ -64,6 +55,9 @@ DumpBits:
           lda $80, x
           sta PF2
           sta WSYNC
+          .if TV != NTSC
+          sta WSYNC
+          .fi
           inx
           cpx #$80
           bne DumpBits
@@ -73,11 +67,7 @@ DumpBits:
           sta PF2
           sta COLUBK
 
-          ldx # KernelLines + OverscanLines - 64 - 103
-FillScreen:
-          sta WSYNC
-          dex
-          bne FillScreen
+          .WaitScreenBottom
 
           lda NewSWCHB
           beq SkipSwitches
