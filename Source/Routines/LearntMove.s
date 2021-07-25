@@ -54,9 +54,6 @@ CheckForSpeech:
           lda #<Phrase_Move01 - 1
           clc
           adc DeltaX
-          bcc +
-          inc CurrentUtterance + 1
-+
           sta CurrentUtterance
           lda # 1
           sta DeltaY

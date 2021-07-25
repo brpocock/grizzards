@@ -45,6 +45,9 @@ WriteGlobalLoop:
 	inx
 	cpx # GlobalGameDataLength
 	bne WriteGlobalLoop
+          
+          .WaitScreenBottom
+          .WaitScreenTop
 
           ;; Pad out to $20
           ldx # $20 - 5 - GlobalGameDataLength
@@ -61,9 +64,10 @@ WritePadAfterGlobal:
           jsr i2cStartWrite
           bcs -
           jsr i2cStopWrite
-
+          .WaitScreenBottom
 WriteCurrentProvince:
           jsr SaveProvinceData
+          .WaitScreenTop
 
           ;; Wait for acknowledge bit
 -

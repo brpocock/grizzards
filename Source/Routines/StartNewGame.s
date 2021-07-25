@@ -52,8 +52,7 @@ InitGameVars:
           .WaitScreenBottom
 
 Loop:
-          jsr VSync
-          .TimeLines KernelLines - 2
+          .WaitScreenTopMinus 2, 2
 
           lda StartGameWipeBlock
           cmp #$ff

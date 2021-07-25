@@ -10,7 +10,10 @@ GrizzardStatsScreen: .block
 Loop:
           .WaitScreenTop
 
+          .if TV == NTSC
+          ;; XXX would be nice in PAL, but we can't spare the bytes of ROM
           .SkipLines 10
+          .fi
 
           .if BANK == TextBank
           jsr ShowGrizzardStats

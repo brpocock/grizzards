@@ -2,9 +2,6 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
 CombatAnnouncementScreen:     .block
-          ;; We are jumped in here lacking an overscan
-          jsr Overscan
-
 ;;; Set up for the combat move announcement & execution
 ;;; (this whole first page is really a separate step from the announcement screen)
           .WaitScreenTop
@@ -163,9 +160,6 @@ Speech1:
           lda #<(Phrase_One - 1)
           clc
           adc WhoseTurn
-          bcc +
-          inc CurrentUtterance + 1
-+
           sta CurrentUtterance
 Speech1Done:
           inc MoveSpeech
@@ -192,9 +186,6 @@ Speech3:
           lda #<Phrase_Move01 - 1
           clc
           adc CombatMoveSelected
-          bcc +
-          inc CurrentUtterance + 1
-+
           sta CurrentUtterance
 
           inc MoveSpeech
@@ -261,9 +252,6 @@ SayThatObjectNumber:
           lda #<(Phrase_One - 1)
           clc
           adc MoveTarget
-          bcc +
-          inc CurrentUtterance + 1
-+
 	sta CurrentUtterance
 
 Speech6Done:
@@ -319,9 +307,6 @@ SayMonster:
           ldx CurrentCombatEncounter
           clc
           adc EncounterMonster, x
-          bcc +
-          inc CurrentUtterance + 1
-+
           sta CurrentUtterance
           rts
 
@@ -331,9 +316,6 @@ SayPlayerGrizzard:
           lda #<Phrase_Grizzard0
           clc
           adc CurrentGrizzard
-          bcc +
-          inc CurrentUtterance + 1
-+
           sta CurrentUtterance
           rts
 ;;; 

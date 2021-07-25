@@ -68,9 +68,6 @@ DoMonsterMove:
           and #$03
           sta MoveSelection
 
-          lda #SoundDrone
-          sta NextSound
-
           lda #ModeCombatAnnouncement
           sta GameMode
 

@@ -44,13 +44,12 @@ SingleGraphicAttract:
           jsr ShowPicture
 
           .if PUBLISHER
-
-          .SetUpFortyEight PublisherName
-          ldy #PublisherName.Height
-          sty LineCounter
-          jsr ShowPicture
+            .SetUpFortyEight PublisherName
+            ldy #PublisherName.Height
+            sty LineCounter
+            jsr ShowPicture
           .fi
 
-          jmp Attract.DoneAttractKernel
+          jmp Attract.DoneKernel
 
           .bend

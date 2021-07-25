@@ -2,7 +2,7 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
 MapSetup: .block
-          .WaitScreenTop
+          .WaitScreenTopMinus 3, 0
 
           jsr Random
           and #$4f
@@ -23,8 +23,12 @@ MapSetup: .block
           jmp NewRoomTimerRunning
 ;;; 
 NewRoom:
-          jsr VSync
-          .TimeLines KernelLines - 3
+          .WaitForTimer
+          stx WSYNC
+          stx WSYNC
+          jsr Overscan
+          .WaitScreenTopMinus 3, 0
+          
 NewRoomTimerRunning:
           ;; Got to figure out the sprites
           ;; Start at the head of the sprite list
@@ -206,7 +210,7 @@ SpritesDone:
 
           .WaitScreenBottom
           stx WSYNC
+          stx WSYNC
 
-          ;; MUST be followed by Map directly
-
+          ;; fall through to Map
           .bend

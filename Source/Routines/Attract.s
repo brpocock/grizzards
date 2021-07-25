@@ -12,6 +12,8 @@ ZeroRAM:
           dex
           bne ZeroRAM
 
+          jsr SeedRandom
+
           lda # SoundAtariToday
           sta NextSound
 
@@ -27,6 +29,11 @@ ZeroRAM:
 ;;; 
 Loop:
           .WaitScreenTop
+
+          lda GameMode
+          cmp #ModeAttractStory
+          beq StoryMode
+
           .if TV == NTSC
           .SkipLines 4
           .fi
@@ -37,8 +44,6 @@ Loop:
           beq TitleMode
           cmp #ModeAttractCopyright
           beq CopyrightMode
-          cmp #ModeAttractStory
-          beq StoryMode
           cmp #ModeCreditSecret
           beq Credits
           .if PUBLISHER
@@ -120,7 +125,7 @@ PrepareFillAttractBottom:
 
           lda ClockSeconds
           cmp AlarmSeconds
-          bne DoneAttractKernel
+          bne DoneKernel
 
           lda # 4
           jsr SetNextAlarm
@@ -128,9 +133,7 @@ PrepareFillAttractBottom:
           sta GameMode
           ;; fall through
 ;;; 
-DoneAttractKernel:
-          .WaitScreenBottom
-
+DoneKernel:
           lda NewSWCHB
           beq +
           and #SWCHBSelect
@@ -141,11 +144,13 @@ DoneAttractKernel:
           and #PRESSED
           beq Leave
 +
+          .WaitScreenBottom
           jmp Loop
 
 Leave:
           lda #ModeSelectSlot
           sta GameMode
+          .WaitScreenBottom
           jmp SelectSlot
 ;;; 
           .bend

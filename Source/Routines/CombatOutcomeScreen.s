@@ -2,6 +2,8 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
 CombatOutcomeScreen:          .block
+          .WaitScreenTopMinus 1, 0
+
           lda # 0
           sta MoveSpeech
 
@@ -13,10 +15,12 @@ SoundForMiss:
           lda #SoundMiss
 +
           sta NextSound
+
+          bne LoopFirst         ; always taken
 ;;; 
 Loop:
           .WaitScreenTop
-
+LoopFirst:
           .ldacolu COLBLUE, 0
           sta COLUBK
           .ldacolu COLGRAY, $f
@@ -55,7 +59,10 @@ DrawHitPoints:
           jmp AfterHitPoints
 
 SkipHitPoints:
+          .if TV == NTSC
+          ;; XXX PAL ran out of space
           .SkipLines 34
+          .fi
 ;;; 
 AfterHitPoints:
           lda MoveAnnouncement
@@ -385,7 +392,7 @@ DefendLevelUpDone:
 HPLevelUpDone:
 
 ;;; TODO Check if they have won the game
-          .fill $20, $ea        ; pad with some NOPs
+          .fill $30, $ea        ; pad with some NOPs to reserve space
 
 WonReturnToMap:
           lda #SoundVictory
@@ -405,12 +412,8 @@ CheckForLoss:
           lda CurrentHP
           bne Bye
 
-          lda #>Phrase_GameOver
-          sta CurrentUtterance + 1
-          lda #<Phrase_GameOver
-          sta CurrentUtterance
-          
-          .FarJMP MapServicesBank, ServiceDeath ; never returns
+          .WaitScreenBottom
+          .FarJMP MapServicesBank, ServiceDeath
 Bye:
           .WaitScreenBottomTail
 

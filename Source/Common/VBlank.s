@@ -28,6 +28,9 @@ VBlank: .block
           ora #$40              ; guarantee at least one "1" bit
           sta NewSWCHB
 +
+
+          .if BANK != $02
+          ;; XXX Bank 2 ran out of space, and no routine in bank 2 cares about this.
           lda INPT4
           and #$80
           cmp DebounceINPT4
@@ -36,6 +39,7 @@ VBlank: .block
           ora #$01              ; guarantee at least one "1" bit
           sta NewINPT4
 +
+          .fi
 
           .if DoVBlankWork != 0
           jsr DoVBlankWork

@@ -2,6 +2,7 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 ;;; Common combat routines called from multiple banks
 DoCombat:          .block
+          stx WSYNC
           .WaitScreenTop
           .KillMusic
 
@@ -39,9 +40,6 @@ AnnounceMonsterSpeech:
           ldx CurrentCombatEncounter
           clc
           adc EncounterMonster, x
-          bcc +
-          inc CurrentUtterance + 1
-+
           sta CurrentUtterance
           
 SetUpMonsterHP:     

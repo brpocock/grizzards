@@ -49,6 +49,6 @@ StillCopyright:
           sta GameMode
 
 Done:
-          jmp Attract.DoneAttractKernel
+          jmp Attract.DoneKernel
 
           .bend
