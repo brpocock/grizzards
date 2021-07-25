@@ -4,8 +4,11 @@ GrizzardDepot:    .block
           ldx MaxHP
           stx CurrentHP
 
+          .WaitForTimer
+          jsr Overscan
           .FarJSR SaveKeyBank, ServiceSaveToSlot
           .KillMusic
+          jmp ReturnToLoop
 ;;; 
 Loop:     
           .WaitScreenTop
@@ -179,10 +182,11 @@ SwitchesDone:
 
 TriggerDone:
 ;;; 
-          .WaitScreenBottom
           lda GameMode
           cmp #ModeGrizzardDepot
           bne +
+ReturnToLoop:
+          .WaitScreenBottom
           jmp Loop
 +
           cmp #ModeGrizzardStats
