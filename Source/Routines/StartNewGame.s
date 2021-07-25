@@ -16,6 +16,7 @@ InitGameVars:
 
           lda # 0
           sta CurrentProvince
+          sta NextMap
           sta CurrentMap
           sta Score
           sta Score + 1

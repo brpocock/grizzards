@@ -26,6 +26,8 @@ NewRoom:
           .WaitForTimer
           stx WSYNC
           stx WSYNC
+          lda NextMap
+          sta CurrentMap
           jsr Overscan
           .WaitScreenTopMinus 3, 0
           
