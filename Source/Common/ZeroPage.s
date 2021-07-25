@@ -113,7 +113,8 @@ GrizzardZeroPad:
 MovesKnown:
           .byte ?
 
-;;; UNUSED byte.
+;;; Temporarily used when switching rooms
+NextMap:
           .byte ?
 ;;; An alarm can be set for various in-game special events.
 ;;; This happens in real time.

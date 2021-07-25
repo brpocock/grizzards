@@ -321,7 +321,7 @@ GoScreen:
           lda (Pointer), y
           cmp #$ff
           beq ScreenBounce
-          sta CurrentMap
+          sta NextMap
 
           lda #ModeMapNewRoom
           sta GameMode

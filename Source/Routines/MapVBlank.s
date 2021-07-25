@@ -313,7 +313,7 @@ FightWithSpriteX:
 
 DoorWithSprite:
           lda SpriteParam, x
-          sta CurrentMap
+          sta NextMap
           ldy #ModeMapNewRoom
           sty GameMode
           .WaitForTimer
@@ -350,7 +350,7 @@ ProvinceChange:
           ror a
           sta CurrentProvince
           lda SpriteParam, x
-          sta CurrentMap
+          sta NextMap
           jsr Overscan
           ldy #ModeMapNewRoom
           sty GameMode
