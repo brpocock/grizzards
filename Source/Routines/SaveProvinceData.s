@@ -2,7 +2,7 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
 SaveProvinceData:   .block
-
+          .WaitScreenTop
 PositionProvinceData:
           jsr i2cStartWrite
           
@@ -27,6 +27,8 @@ WriteProvinceData:
           cpx # 8             ; 4 provinces × 8 bytes of flags each
           bne -
 
-          jmp i2cStopWrite      ; tail call
+          jsr i2cStopWrite
+          .WaitScreenBottom
+          rts
 
           .bend
