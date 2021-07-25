@@ -2,7 +2,7 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
 MapSetup: .block
-          .WaitScreenTop
+          .WaitScreenTopMinus 3, 0
 
           jsr Random
           and #$4f
