@@ -21,8 +21,9 @@ DoSpriteMotion:
           ldx SpriteCount
           beq UserInputStart
           cpx # 5
--         bge -                 ; hang
-
+          blt +
+          brk
++
           dex
 
 MoveSprites:
