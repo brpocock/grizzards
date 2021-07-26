@@ -154,7 +154,6 @@ PlayerY:
 ;;; 
 ;;; Variables used in drawing
 
-MoveSpeech:                     ; speech segment of the sentence being emitted
 ;;; Line counter for various sorts of "kernels"
 LineCounter:
           .byte ?
@@ -163,10 +162,8 @@ LineCounter:
 RunLength:
           .byte ?
 
-;;; Last frame when animation was updated
-;;; used in map display for sprites, and combat
-;;; display for health
-LastAnimationFrame:
+;;; What part of a sentence has been sent to the AtariVox/SpeakJet?
+SpeechSegment:
           .byte ?
 
 ;;; Pixel pointers used in 48px graphics and text, and sometimes

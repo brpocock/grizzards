@@ -5,7 +5,7 @@ CombatOutcomeScreen:          .block
           .WaitScreenTopMinus 1, 0
 
           lda # 0
-          sta MoveSpeech
+          sta SpeechSegment
 
           lda MoveHitMiss
           beq SoundForMiss
@@ -141,7 +141,7 @@ ScheduleSpeech:
           lda CurrentUtterance + 1
           bne SpeechDone
 
-          lda MoveSpeech
+          lda SpeechSegment
           bne Speech1
 
           lda MoveStatusFX
@@ -157,7 +157,7 @@ NothingHappened:
           lda #<Phrase_NoEffect
           sta CurrentUtterance
           lda # $ff
-          sta MoveSpeech
+          sta SpeechSegment
           bne SpeechDone        ; always taken
 
 SomethingHappened:
@@ -172,7 +172,7 @@ SayPlayer:
           lda #<Phrase_Grizzard
           sta CurrentUtterance
 
-          inc MoveSpeech
+          inc SpeechSegment
           bne SpeechDone        ; always taken
 
 SaySubjectPlayerTurn:
@@ -184,7 +184,7 @@ SayMonster:
           lda #<Phrase_Monster
           sta CurrentUtterance
 
-          inc MoveSpeech
+          inc SpeechSegment
           bne SpeechDone        ; always taken
 
 Speech1:
@@ -203,7 +203,7 @@ SayInjured:
           lda #<Phrase_IsInjured
           sta CurrentUtterance
 
-          inc MoveSpeech
+          inc SpeechSegment
           bne SpeechDone        ; always taken
 
 SayMissed:
@@ -212,7 +212,7 @@ SayMissed:
           lda #<Phrase_Missed
           sta CurrentUtterance
 
-          inc MoveSpeech
+          inc SpeechSegment
           bne SpeechDone        ; always taken
           
 SayHealed:
@@ -224,7 +224,7 @@ SayHealed:
           sta CurrentUtterance
           ;; fall through to common section
 DontSayHP:
-          inc MoveSpeech
+          inc SpeechSegment
           bne SpeechDone        ; always taken
 
 Speech2:
@@ -244,7 +244,7 @@ SayAnd:
           lda #<Phrase_And
           sta CurrentUtterance
 
-          inc MoveSpeech
+          inc SpeechSegment
           bne SpeechDone        ; always taken
 
 Speech3:
@@ -270,7 +270,7 @@ SaySleep:
           lda #<Phrase_StatusFXSleep
           sta CurrentUtterance
 
-          inc MoveSpeech
+          inc SpeechSegment
           bne SpeechDone        ; always taken
 
 SayMuddle:          
@@ -279,7 +279,7 @@ SayMuddle:
           lda #<Phrase_StatusFXMuddle
           sta CurrentUtterance
 
-          inc MoveSpeech
+          inc SpeechSegment
           bne SpeechDone        ; always taken
 
 SayAttack:
@@ -288,7 +288,7 @@ SayAttack:
           lda #<Phrase_StatusFXAttack
           sta CurrentUtterance
 
-          inc MoveSpeech
+          inc SpeechSegment
           bne SpeechDone        ; always taken
 
 SayDefend:
@@ -297,12 +297,12 @@ SayDefend:
           lda #<Phrase_StatusFXDefend
           sta CurrentUtterance
 
-          inc MoveSpeech
+          inc SpeechSegment
           bne SpeechDone        ; always taken
 
 Speech4:
-          lda MoveSpeech
-          cmp # 4
+          lda SpeechSegment
+          cmp # 5
           bge SpeechDone
 
           lda MoveStatusFX
@@ -313,7 +313,7 @@ Speech4Down:
           sta CurrentUtterance + 1
           lda #<Phrase_StatusFXLower
           sta CurrentUtterance
-          inc MoveSpeech
+          inc SpeechSegment
           bne SpeechDone        ; always taken
 
 Speech4NotDown:
@@ -327,7 +327,7 @@ Speech4NotDown:
           sta CurrentUtterance
           ;; fall through to common
 Spoke4:
-          inc MoveSpeech
+          inc SpeechSegment
           ;; fall through
 SpeechDone:
 ;;;  
