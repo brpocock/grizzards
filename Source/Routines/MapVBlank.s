@@ -6,209 +6,11 @@ MapVBlank:        .block
           cmp #ModeMap
           beq MovementLogic
           rts
-          
+
 MovementLogic:
-          lda ClockFrame
-          .BitBit $04
-          beq DoSpriteMotion
-          bne CheckSpriteCollision ; always taken
-;;; 
-DoSpriteMotion:
-          lda Pause
-          beq +
-          jmp CheckSpriteCollision
-+
-          ldx SpriteCount
-          beq UserInputStart
-          cpx # 5
-          blt +
-          brk
-+
-          dex
+          jsr CheckSpriteCollision
+          jsr DoSpriteMotion
 
-MoveSprites:
-          lda SpriteMotion, x
-          beq SpriteMoveDone
-          cmp #SpriteRandomEncounter
-          bne SpriteXMove
-          jsr Random            ; Is there a random encounter?
-          bne NoRandom
-          jsr Random
-          and #1
-          bne NoRandom
-          jmp FightWithSpriteX
-
-NoRandom:
-          dex
-          bne MoveSprites
-          beq CheckSpriteCollision ; always taken
-
-SpriteXMove:        
-          cmp #SpriteMoveIdle
-          beq SpriteMoveNext
-          lda SpriteMotion, x
-          .BitBit SpriteMoveLeft
-          bne +
-          dec SpriteX, x
-+
-          .BitBit SpriteMoveRight
-          bne +
-          inc SpriteX, x
-+
-          .BitBit SpriteMoveUp
-          bne +
-          dec SpriteY, x
-+
-          .BitBit SpriteMoveDown
-          bne +
-          inc SpriteY, x
-+
-          
-SpriteMoveNext:
-          ;; Possibly change movement randomly
-          jsr Random
-          tay
-          and #$07
-          bne SpriteMoveDone
-
-          tya
-          .BitBit $10
-          beq ChasePlayer
-
-          .BitBit $20
-          beq RandomlyMove
-
-          lda SpriteMoveIdle
-          sta SpriteMotion, x
-          bne SpriteMoveDone    ; always taken
-
-ChasePlayer:
-          lda SpriteX, x
-          cmp PlayerX
-          beq ChaseUpDown
-          bge ChaseRight
-          lda #SpriteMoveLeft
-          sta SpriteMotion, x
-          bne SpriteMoveDone    ; always taken
-
-ChaseRight:
-          lda #SpriteMoveRight
-          sta SpriteMotion, x
-          bne SpriteMoveDone    ; always taken
-
-ChaseUpDown:
-          lda SpriteY, x
-          cmp PlayerY
-          bge ChaseDown
-          lda #SpriteMoveUp
-          sta SpriteMotion, x
-          bne SpriteMoveDone    ; always taken
-
-ChaseDown:
-          lda #SpriteMoveDown
-          sta SpriteMotion, x
-          bne SpriteMoveDone    ; always taken
-
-RandomlyMove:
-          jsr Random
-          and #$f0              ; random movement may be up+down or something stupid like that
-          bne +
-          lda #SpriteMoveIdle
-+
-          sta SpriteMotion, x
-          ;; fall through
-SpriteMoveDone:
-          lda SpriteX, x
-          cmp #ScreenLeftEdge
-          bge LeftOK
-          lda SpriteMotion, x
-          and #~SpriteMoveLeft
-          ora #SpriteMoveIdle
-          sta SpriteMotion, x
-          lda #ScreenLeftEdge + 1
-          sta SpriteX, x
-LeftOK:
-          cmp #ScreenRightEdge
-          blt RightOK
-          lda SpriteMotion, x
-          and #~SpriteMoveRight
-          ora #SpriteMoveIdle
-          sta SpriteMotion, x
-          lda #ScreenRightEdge - 1
-          sta SpriteX, x
-RightOK:
-          lda SpriteY, x
-          cmp #ScreenTopEdge
-          bge TopOK
-          lda SpriteMotion, x
-          and #~SpriteMoveUp
-          ora #SpriteMoveIdle
-          sta SpriteMotion, x
-          lda #ScreenTopEdge + 1
-          sta SpriteY, x
-TopOK:
-          cmp #ScreenBottomEdge
-          blt BottomOK
-          lda SpriteMotion, x
-          and #~SpriteMoveDown
-          ora #SpriteMoveIdle
-          sta SpriteMotion, x
-          lda #ScreenBottomEdge - 1
-          sta SpriteY, x
-BottomOK:
-
-          dex
-          bpl MoveSprites
-          ;; fall through
-;;; 
-CheckSpriteCollision:
-          lda CXP1FB
-          and #$c0              ; hit playfield or ball
-          beq MovementLogicDone
-
-          ;; Who did we just draw?
-          ldx SpriteFlicker
-          lda SpriteMotion, x
-          .BitBit SpriteMoveLeft
-          bne SpriteCxRight
-SpriteCxLeft:
-          lda SpriteMotion, x
-          and # SpriteMoveUp | SpriteMoveDown
-          ora #SpriteMoveRight
-          sta SpriteMotion, x
-          inc SpriteX, x
-          inc SpriteX, x
-          bne SpriteCxUpDown    ; always taken
-
-SpriteCxRight:
-          lda SpriteMotion, x
-          and # SpriteMoveUp | SpriteMoveDown
-          ora #SpriteMoveLeft
-          sta SpriteMotion, x
-          dec SpriteX, x
-          dec SpriteX, x
-          ;; fall through
-SpriteCxUpDown:
-          lda SpriteMotion, x
-          .BitBit SpriteMoveUp
-          bne SpriteCxDown
-SpriteCxUp:
-          and # SpriteMoveLeft | SpriteMoveRight
-          ora #SpriteMoveDown
-          sta SpriteMotion, x
-          inc SpriteY, x
-          inc SpriteY, x
-          bne MovementLogicDone ; always taken
-
-SpriteCxDown:
-          lda SpriteMotion, x
-          and # SpriteMoveLeft | SpriteMoveRight
-          ora #SpriteMoveDown
-          sta SpriteMotion, x
-          dec SpriteY, x
-          dec SpriteY, x
-          ;; fall through
-MovementLogicDone:
 ;;; 
 UserInputStart: 
           lda BumpCooldown
@@ -402,5 +204,240 @@ DoneBump:
           sta NextSound
 
           rts
+          .bend
+
+          
 ;;; 
+CheckSpriteCollision:         .block
+          lda CXP1FB
+          and #$c0              ; hit playfield or ball
+          beq CollisionDone
+
+          ;; Who did we just draw?
+          ldx SpriteFlicker
+          lda SpriteMotion, x
+          .BitBit SpriteMoveLeft
+          beq SpriteCxRight
+SpriteCxLeft:
+          and # SpriteMoveUp | SpriteMoveDown
+          ora #SpriteMoveRight
+          sta SpriteMotion, x
+          inc SpriteX, x
+          inc SpriteX, x
+          bne SpriteCxUpDown    ; always taken
+
+SpriteCxRight:
+          .BitBit SpriteMoveRight
+          beq SpriteCxUpDown
+          and # SpriteMoveUp | SpriteMoveDown
+          ora #SpriteMoveLeft
+          sta SpriteMotion, x
+          dec SpriteX, x
+          dec SpriteX, x
+          ;; fall through
+SpriteCxUpDown:
+          lda SpriteMotion, x
+          .BitBit SpriteMoveUp
+          beq SpriteCxDown
+SpriteCxUp:
+          and # SpriteMoveLeft | SpriteMoveRight
+          ora #SpriteMoveDown
+          sta SpriteMotion, x
+          dec SpriteY, x
+          dec SpriteY, x
+          bne CollisionDone ; always taken
+
+SpriteCxDown:
+          .BitBit SpriteMoveDown
+          beq CollisionDone
+          and # SpriteMoveLeft | SpriteMoveRight
+          ora #SpriteMoveDown
+          sta SpriteMotion, x
+          inc SpriteY, x
+          inc SpriteY, x
+          ;; fall through
+CollisionDone:
+          rts
+          .bend
+;;; 
+DoSpriteMotion:     .block
+          lda Pause
+          beq +
+          rts
++
+          ldx SpriteCount
+          beq MovementLogicDone
+          cpx # 5
+          blt +
+          brk
++
+          dex
+
+MoveSprites:
+          lda ClockFrame
+          ;; Allow moving approximately 10 Hz regardless of TV region
+          sec
+-
+          sbc #ceil(FramesPerSecond / 10)
+          bcs -
+          cmp #$ff
+          beq +
+          rts
+
++
+
+          lda SpriteMotion, x
+          beq SpriteMoveDone
+          cmp #SpriteRandomEncounter
+          bne SpriteXMove
+          jsr Random            ; Is there a random encounter?
+          bne NoRandom
+          jsr Random
+          and #1
+          bne NoRandom
+          pla                   ; discard the call to us
+          pla
+          jmp MapVBlank.FightWithSpriteX
+
+NoRandom:
+          dex
+          bne MoveSprites
+          beq CheckSpriteCollision ; always taken
+
+SpriteXMove:        
+          cmp #SpriteMoveIdle
+          beq SpriteMoveNext
+          lda SpriteMotion, x
+          .BitBit SpriteMoveLeft
+          bne +
+          dec SpriteX, x
++
+          .BitBit SpriteMoveRight
+          bne +
+          inc SpriteX, x
++
+          .BitBit SpriteMoveUp
+          bne +
+          dec SpriteY, x
++
+          .BitBit SpriteMoveDown
+          bne +
+          inc SpriteY, x
++
+          
+SpriteMoveNext:
+          ;; Possibly change movement randomly
+          jsr Random
+          tay
+          and #$07
+          bne SpriteMoveDone
+
+          tya
+          .BitBit $10
+          beq ChasePlayer
+
+          .BitBit $20
+          beq RandomlyMove
+
+          lda SpriteMoveIdle
+          sta SpriteMotion, x
+          bne SpriteMoveDone    ; always taken
+
+ChasePlayer:
+          lda SpriteX, x
+          cmp PlayerX
+          beq ChaseUpDown
+          bge ChaseRight
+          lda #SpriteMoveLeft
+          sta SpriteMotion, x
+          bne SpriteMoveDone    ; always taken
+
+ChaseRight:
+          lda #SpriteMoveRight
+          sta SpriteMotion, x
+          bne SpriteMoveDone    ; always taken
+
+ChaseUpDown:
+          lda SpriteY, x
+          cmp PlayerY
+          bge ChaseDown
+          lda #SpriteMoveUp
+          sta SpriteMotion, x
+          bne SpriteMoveDone    ; always taken
+
+ChaseDown:
+          lda #SpriteMoveDown
+          sta SpriteMotion, x
+          bne SpriteMoveDone    ; always taken
+
+RandomlyMove:
+          jsr Random
+          and # SpriteMoveUp | SpriteMoveDown | SpriteMoveLeft | SpriteMoveRight
+          bne +
+          lda #SpriteMoveIdle
++
+          .BitBit SpriteMoveUp
+          beq +
+          and # ~SpriteMoveDown
++
+          .BitBit SpriteMoveDown
+          beq +
+          and # ~SpriteMoveUp
++
+          .BitBit SpriteMoveLeft
+          beq +
+          and # ~SpriteMoveRight
++
+          .BitBit SpriteMoveRight
+          beq +
+          and # ~SpriteMoveLeft
++
+          sta SpriteMotion, x
+          ;; fall through
+SpriteMoveDone:
+          lda SpriteX, x
+          cmp #ScreenLeftEdge
+          bge LeftOK
+          lda SpriteMotion, x
+          and #~SpriteMoveLeft
+          ora #SpriteMoveIdle
+          sta SpriteMotion, x
+          lda #ScreenLeftEdge + 1
+          sta SpriteX, x
+LeftOK:
+          cmp #ScreenRightEdge
+          blt RightOK
+          lda SpriteMotion, x
+          and #~SpriteMoveRight
+          ora #SpriteMoveIdle
+          sta SpriteMotion, x
+          lda #ScreenRightEdge - 1
+          sta SpriteX, x
+RightOK:
+          lda SpriteY, x
+          cmp #ScreenTopEdge
+          bge TopOK
+          lda SpriteMotion, x
+          and #~SpriteMoveUp
+          ora #SpriteMoveIdle
+          sta SpriteMotion, x
+          lda #ScreenTopEdge + 1
+          sta SpriteY, x
+TopOK:
+          cmp #ScreenBottomEdge
+          blt BottomOK
+          lda SpriteMotion, x
+          and #~SpriteMoveDown
+          ora #SpriteMoveIdle
+          sta SpriteMotion, x
+          lda #ScreenBottomEdge - 1
+          sta SpriteY, x
+BottomOK:
+
+          dex
+          bpl MoveSprites
+          ;; fall through
+MovementLogicDone:
+          rts
+
           .bend

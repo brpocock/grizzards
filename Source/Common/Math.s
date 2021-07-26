@@ -613,8 +613,12 @@ Mul .macro factor, temp
           asl
           asl
 
+          .case 12
+          .Mul 6, \temp
+          asl
+
           .case 14
-          mul 7, \temp
+          .Mul 7, \temp
           asl
 
           .case 15
