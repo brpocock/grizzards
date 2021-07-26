@@ -26,7 +26,9 @@ MapSetup: .block
 ;;; 
 NewRoom:
           .WaitForTimer
+          .if TV != NTSC
           stx WSYNC
+          .fi
           stx WSYNC
           lda NextMap
           sta CurrentMap
