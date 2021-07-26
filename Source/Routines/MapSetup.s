@@ -20,6 +20,8 @@ MapSetup: .block
           sta PlayerX
           lda BlessedY
           sta PlayerY
+          lda CurrentMap
+          sta NextMap
           jmp NewRoomTimerRunning
 ;;; 
 NewRoom:
