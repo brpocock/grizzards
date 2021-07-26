@@ -267,7 +267,6 @@ GetNewGrizzard:
           rts
 
 PlayerMoveOK:
-          lda #0
           lda PlayerX
           sta BlessedX
           lda PlayerY
