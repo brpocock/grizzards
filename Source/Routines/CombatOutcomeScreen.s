@@ -193,7 +193,7 @@ Speech1:
           beq SayMissed
 
           lda MoveHP
-          beq DontSayHP
+          beq SpeechQueued
           bmi SayHealed
 SayInjured:
           lda #>Phrase_IsInjured
@@ -214,25 +214,23 @@ SayMissed:
           
 SayHealed:
           eor #$ff
-          beq DontSayHP
+          beq SpeechQueued
           lda #>Phrase_IsHealed
           sta CurrentUtterance + 1
           lda #<Phrase_IsHealed
           sta CurrentUtterance
-          ;; fall through to common section
-DontSayHP:
-          bne SpeechQueued        ; always taken
+          bne SpeechQueued      ; always taken
 
 Speech2:
           cmp # 3
           bge Speech3
 
           lda MoveHP
-          beq DontSayHP
+          beq SpeechQueued
           eor #$ff
-          beq DontSayHP
+          beq SpeechQueued
           lda MoveStatusFX
-          beq DontSayHP
+          beq SpeechQueued      ; always taken
 
 SayAnd:
           lda #>Phrase_And
@@ -247,7 +245,7 @@ Speech3:
           bge Speech4
 
           lda MoveStatusFX
-          beq DontSayHP
+          beq SpeechQueued
           .BitBit StatusSleep
           bne SaySleep
           .BitBit StatusMuddle
@@ -257,7 +255,7 @@ Speech3:
           lda MoveStatusFX
           and # StatusDefendUp | StatusDefendDown
           bne SayDefend
-          beq DontSayHP
+          beq SpeechQueued      ; always taken
 
 SaySleep:
           lda #>Phrase_StatusFXSleep
@@ -306,7 +304,7 @@ Speech4Down:
 Speech4NotDown:
           lda MoveStatusFX
           and #StatusAttackUp | StatusDefendUp
-          beq SpeechQueud
+          beq SpeechQueued
 
           lda #>Phrase_StatusFXRaise
           sta CurrentUtterance + 1

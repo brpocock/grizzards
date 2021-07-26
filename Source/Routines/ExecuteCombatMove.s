@@ -21,7 +21,7 @@ MonsterMove:
           bmi MonsterHeals
 
 MonsterAttacks:
-          ldy # MonsterLevelsIndex
+          ldy #MonsterLevelsIndex
           lda (CurrentMonsterPointer), y
           and #$f0
           clc
@@ -57,7 +57,7 @@ MonsterAttackPositiveRandom:
           and Temp
           clc
           adc MoveHP            ; temporarily effective Attack score
-          bne MonsterAttackHitMissP ;always taken
+          jmp MonsterAttackHitMissP ;always taken
 
 MonsterAttackNegativeRandom:
           and Temp
@@ -99,6 +99,7 @@ MonsterAttackHitMinus:
           and Temp
           sta Temp
           lda CombatMoveDeltaHP
+          sec
           sbc Temp
           ;; fall through
 MonsterAttackHitCommon:
@@ -274,6 +275,7 @@ PlayerAttackHitMinus:
           and Temp
           sta Temp
           lda CombatMoveDeltaHP
+          sec
           sbc Temp
           ;; fall through
 PlayerAttackHitCommon:
