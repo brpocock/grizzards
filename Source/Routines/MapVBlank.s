@@ -255,15 +255,45 @@ DoneStickLeft:
           stx DeltaX
 
 DoneStickRight:
-          lda PlayerX
-          clc
-          adc DeltaX
-          sta PlayerX
 
-          lda PlayerY
+ApplyStick:
+
+FractionalMovement: .macro deltaVar, fractionVar, positionVar, pxPerSecond
+          .block
+          lda \fractionVar
+          ldx \deltaVar
+          cpx #0
+          beq DoneMovement
+          bpl MovePlus
+MoveMinus:
+          sec
+          sbc #ceil(\pxPerSecond * $80)
+          sta \fractionVar
+          bcs DoneMovement
+          adc #$80
+          sta \fractionVar
+          dec \positionVar
+          jmp DoneMovement
+
+MovePlus:
           clc
-          adc DeltaY
-          sta PlayerY
+          adc #ceil(\pxPerSecond * $80)
+          sta \fractionVar
+          bcc DoneMovement
+          sbc #$80
+          sta \fractionVar
+          inc \positionVar
+DoneMovement:
+          .bend
+          .endm
+
+          MovementDivisor = 0.85
+          ;; Make MovementDivisor  relatively the same in  both directions
+	;; so diagonal movement forms a 45° line
+          MovementSpeedX = ((40.0 / MovementDivisor) / FramesPerSecond)
+          .FractionalMovement DeltaX, PlayerXFraction, PlayerX, MovementSpeedX
+          MovementSpeedY = ((30.0 / MovementDivisor) / FramesPerSecond)
+          .FractionalMovement DeltaY, PlayerYFraction, PlayerY, MovementSpeedY
 
           ;; fall through …
 ;;; 
