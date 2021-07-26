@@ -172,8 +172,7 @@ SayPlayer:
           lda #<Phrase_Grizzard
           sta CurrentUtterance
 
-          inc SpeechSegment
-          bne SpeechDone        ; always taken
+          bne SpeechQueued        ; always taken
 
 SaySubjectPlayerTurn:
           lda MoveHP
@@ -184,8 +183,7 @@ SayMonster:
           lda #<Phrase_Monster
           sta CurrentUtterance
 
-          inc SpeechSegment
-          bne SpeechDone        ; always taken
+          bne SpeechQueued        ; always taken
 
 Speech1:
           cmp # 2
@@ -203,8 +201,7 @@ SayInjured:
           lda #<Phrase_IsInjured
           sta CurrentUtterance
 
-          inc SpeechSegment
-          bne SpeechDone        ; always taken
+          bne SpeechQueued        ; always taken
 
 SayMissed:
           lda #>Phrase_Missed
@@ -224,8 +221,7 @@ SayHealed:
           sta CurrentUtterance
           ;; fall through to common section
 DontSayHP:
-          inc SpeechSegment
-          bne SpeechDone        ; always taken
+          bne SpeechQueued        ; always taken
 
 Speech2:
           cmp # 3
@@ -244,8 +240,7 @@ SayAnd:
           lda #<Phrase_And
           sta CurrentUtterance
 
-          inc SpeechSegment
-          bne SpeechDone        ; always taken
+          bne SpeechQueued        ; always taken
 
 Speech3:
           cmp # 4
@@ -270,35 +265,28 @@ SaySleep:
           lda #<Phrase_StatusFXSleep
           sta CurrentUtterance
 
-          inc SpeechSegment
-          bne SpeechDone        ; always taken
+          bne SpeechQueued        ; always taken
 
 SayMuddle:          
           lda #>Phrase_StatusFXMuddle
           sta CurrentUtterance + 1
           lda #<Phrase_StatusFXMuddle
           sta CurrentUtterance
-
-          inc SpeechSegment
-          bne SpeechDone        ; always taken
+          bne SpeechQueued      ; always taken
 
 SayAttack:
           lda #>Phrase_StatusFXAttack
           sta CurrentUtterance + 1
           lda #<Phrase_StatusFXAttack
           sta CurrentUtterance
-
-          inc SpeechSegment
-          bne SpeechDone        ; always taken
+          bne SpeechQueued        ; always taken
 
 SayDefend:
           lda #>Phrase_StatusFXDefend
           sta CurrentUtterance + 1
           lda #<Phrase_StatusFXDefend
           sta CurrentUtterance
-
-          inc SpeechSegment
-          bne SpeechDone        ; always taken
+          bne SpeechQueued        ; always taken
 
 Speech4:
           lda SpeechSegment
@@ -313,20 +301,19 @@ Speech4Down:
           sta CurrentUtterance + 1
           lda #<Phrase_StatusFXLower
           sta CurrentUtterance
-          inc SpeechSegment
-          bne SpeechDone        ; always taken
+          bne SpeechQueued        ; always taken
 
 Speech4NotDown:
           lda MoveStatusFX
           and #StatusAttackUp | StatusDefendUp
-          beq Spoke4
+          beq SpeechQueud
 
           lda #>Phrase_StatusFXRaise
           sta CurrentUtterance + 1
           lda #<Phrase_StatusFXRaise
           sta CurrentUtterance
           ;; fall through to common
-Spoke4:
+SpeechQueued:
           inc SpeechSegment
           ;; fall through
 SpeechDone:
