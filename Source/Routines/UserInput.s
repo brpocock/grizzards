@@ -33,8 +33,11 @@ DoneStickDown:
           .BitBit P0StickLeft
           bne DoneStickLeft
 
-          ldx #0
-          stx Facing
+          lda MapFlags
+          and # ~ MapFlagFacing
+          sta MapFlags
+          lda SWCHA
+
           ldx #-1
           stx DeltaX
 
@@ -42,8 +45,11 @@ DoneStickLeft:
           .BitBit P0StickRight
           bne DoneStickRight
 
-          ldx #$ff
-          stx Facing
+          tax
+          lda MapFlags
+          ora #MapFlagFacing
+          sta MapFlags
+
           ldx #1
           stx DeltaX
 

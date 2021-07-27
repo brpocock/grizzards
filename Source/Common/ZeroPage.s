@@ -403,8 +403,11 @@ SpriteParam:
 BumpCooldown:
           .byte ?
 
-Facing:
+MapFlags:
           .byte ?
+
+          MapFlagFacing = $08   ; matches REFP0
+          MapFlagSpritesMoved = $01
 
 PlayerXFraction:
           .byte ?
