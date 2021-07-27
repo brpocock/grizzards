@@ -40,6 +40,9 @@
           ModeNewGrizzard = $60
 
           ModeGrizzardStats = $70
+
+          ModeSignpost = $80
+          ModeSignpostDone = $81
 ;;; 
 ;;; Sounds in the library (index values)
           SoundDrone = 1
@@ -85,6 +88,8 @@
           SpriteGrizzardDepot = $01
           SpriteGrizzard = $02
           SpriteDoor = $03
+          SpriteSign = $04
+          SpritePerson = $05
           SpriteProvinceDoor = $07
 ;;; 
           ;; Save game slot address.
@@ -115,8 +120,9 @@
           Province0MapBank = $04
           Province1MapBank = $03
           CombatBank0To127 = $06
-          CombatBank128To255 = $05
+          CombatBank128To255 = $06
           SFXBank = $07
+          SignpostBank = $05
 ;;; 
 ;;; Text bank provides multiple services, selected with .y
 

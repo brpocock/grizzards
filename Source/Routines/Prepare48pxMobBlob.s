@@ -17,7 +17,7 @@ Prepare48pxMobBlob: .block
 
           ;; Sets P0₀ position to 55px, P1₀ to 63px
 
-          lda #0
+          lda # 0
           sta REFP0
           sta REFP1
           sta GRP0
@@ -25,7 +25,7 @@ Prepare48pxMobBlob: .block
           lda #NUSIZ3CopiesClose
           sta NUSIZ0
           sta NUSIZ1
-          lda #1
+          lda # 1
           sta VDELP0
           sta VDELP1
 
@@ -33,8 +33,8 @@ Prepare48pxMobBlob: .block
 
           sta WSYNC           ; Critical timing from here …
           sta HMCLR 
-          ldx # $a0
-          ldy # $b0
+          ldx #$a0
+          ldy #$b0
           stx HMP0
           sty HMP1
           .Sleep 24

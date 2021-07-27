@@ -23,7 +23,7 @@ Loop:
           sta pp1h
           clc
           lda SpriteAction, x
-          and #$03
+          and #$07
           .rept 4
           asl a
           .next
@@ -398,6 +398,15 @@ Leave:
           beq GoCombat
           cmp #ModeNewGrizzard
           beq GetNewGrizzard
+          cmp #ModeSignpost
+          bne UnknownMode
+          ldx #SignpostBank
+          jsr FarCall
+          lda #ModeMap
+          sta GameMode
+          jmp MapSetup
+
+UnknownMode:
           brk
 
 EnterGrizzardDepot:

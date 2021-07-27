@@ -263,6 +263,34 @@ AttractStoryProgress:
 StartGameWipeBlock:
           .word ?
 ;;; 
+;;; SIgnpost mode scratchpad
+
+          * = Scratchpad
+
+SignpostIndex:
+          .byte ?
+
+SignpostText:
+          .word ?
+
+SignpostWork:
+          .word ?
+
+SignpostAction:
+          .word ?
+
+SignpostFG:
+          .byte ?
+
+SignpostBG:
+          .byte ?
+
+SignpostScanline:
+          .byte ?
+
+SignpostTextLine:
+          .byte ?
+;;; 
 ;;; Combat mode scratchpad
 
           * = Scratchpad

@@ -239,12 +239,23 @@ BumpSprite:
           beq EnterDepot
           cmp #SpriteGrizzard
           beq GetNewGrizzard
+          cmp #SpriteSign
+          beq ReadSign
+          cmp #SpritePerson
+          beq ReadSign
           and #SpriteProvinceDoor
           beq PlayerMoveOK      ; No action
           jmp ProvinceChange
 
+ReadSign:
+          lda SpriteParam, x
+          sta SignpostIndex
+          lda #ModeSignpost
+          sta GameMode
+          rts
+
 FightWithSprite:
-          ldx SpriteFlicker     ; ? Seems unnecessary
+          ldx SpriteFlicker     ; ? Seems unnecessary XXX
 FightWithSpriteX:
           lda SpriteParam, x
           sta CurrentCombatEncounter
