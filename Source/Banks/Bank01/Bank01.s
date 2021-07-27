@@ -53,7 +53,7 @@ DoLocal:
 
           .include "CheckSpriteCollision.s"
           .include "CheckPlayerCollision.s"
-          .include "SpriteMotion.s"
+          .include "SpriteMovement.s"
           .include "UserInput.s"
 
           .include "AtariVox-EEPROM-Driver.s"
