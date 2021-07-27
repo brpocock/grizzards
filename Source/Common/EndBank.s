@@ -64,13 +64,7 @@ GoMap:
 GoCombat:
           ldx #$ff              ; smash the stack
           txs
-          lda CurrentCombatEncounter
-          and #$80
-          bne +
           sta BankSwitch0 + CombatBank0To127
-          jmp DoLocal
-+        
-          sta BankSwitch0 + CombatBank128To255
           jmp DoLocal
 
 ;;; Perform a far call to a memory bank with a specific local

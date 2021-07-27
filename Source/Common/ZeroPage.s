@@ -162,10 +162,6 @@ LineCounter:
 RunLength:
           .byte ?
 
-;;; What part of a sentence has been sent to the AtariVox/SpeakJet?
-SpeechSegment:
-          .byte ?
-
 ;;; Pixel pointers used in 48px graphics and text, and sometimes
 ;;; used as general-purpose short-term pointers as well.
 PixelPointers:
@@ -184,6 +180,10 @@ pp5l:	.byte ?
 pp5h:	.byte ?
 ;;; 
 ;;; SpeakJet
+
+;;; What part of a sentence has been sent to the AtariVox/SpeakJet?
+SpeechSegment:
+          .byte ?
 
 ;;; Pointer to the next phoneme to be spoken, or $0000
 ;;; When commanding new speech, set to utterance ID with $00 high byte
@@ -263,6 +263,34 @@ AttractStoryProgress:
 StartGameWipeBlock:
           .word ?
 ;;; 
+;;; SIgnpost mode scratchpad
+
+          * = Scratchpad
+
+SignpostIndex:
+          .byte ?
+
+SignpostText:
+          .word ?
+
+SignpostWork:
+          .word ?
+
+SignpostAction:
+          .word ?
+
+SignpostFG:
+          .byte ?
+
+SignpostBG:
+          .byte ?
+
+SignpostScanline:
+          .byte ?
+
+SignpostTextLine:
+          .byte ?
+;;; 
 ;;; Combat mode scratchpad
 
           * = Scratchpad
@@ -328,7 +356,7 @@ MoveHP:
 MoveStatusFX:
           .byte ?
 
-          CombatEnd = *
+          CombatEnd = * - 1
 ;;; 
 ;;; Scratchpad for Map mode
             * = Scratchpad
@@ -343,7 +371,7 @@ MapLinesPointer:
 ;;; pp0 is pointer to player graphics.
 ;;; pp1-pp4 are pointers to the other sprites, if any.
 SpriteCount:
-            .byte ?
+          .byte ?
 
 ;;; Which non-player sprite should be drawn on this frame?
 SpriteFlicker:
@@ -352,9 +380,9 @@ SpriteFlicker:
 
 ;;; Counters for drawing P0 and P1 on this frame
 P0LineCounter:
-            .byte ?
+          .byte ?
 P1LineCounter:
-            .byte ?
+          .byte ?
 
 SpriteIndex:
           .byte ?, ?, ?, ?
@@ -380,14 +408,19 @@ BumpCooldown:
 
 Facing:
           .byte ?
-          
-          MapEnd = *
+
+PlayerXFraction:
+          .byte ?
+PlayerYFraction:
+          .byte ?
+
+          MapEnd = * - 1
 ;;; 
 ;;; Verify that we don't run over
 
           LastRAM = CombatEnd > MapEnd ? CombatEnd : MapEnd
           
-          ;; There must be at least $10 stack space (to be paranoid)
+          ;; There must be at least $10 stack space (to be fairly safe)
           .if LastRAM > $f0
           .error "Zero page ran right into stack space at ", *
           .fi
@@ -397,5 +430,5 @@ Facing:
           .fi
 
           .if LastRAM > $e0
-          .warn "End of zero-page variables at ", LastRAM, " leaves ", $100 - LastRAM + 1, " bytes for stack"
+          .warn "End of zero-page variables at ", LastRAM, " leaves ", $100 - LastRAM, " bytes for stack"
           .fi

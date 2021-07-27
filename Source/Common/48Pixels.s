@@ -42,6 +42,18 @@ SetUpFortyEight:	.macro Graphics
 	.cdef "  ", 40
 	.enc "none"
 
+          .enc "minifont-extended"
+	.cdef "09", 0
+	.cdef "az", 10
+	.cdef "AZ", 10
+	.cdef "..", 36
+	.cdef "!!", 37
+	.cdef "??", 38
+	.cdef "--", 39
+	.cdef "  ", 40
+          .cdef ",,", 41
+	.enc "none"
+
 MiniText:	.macro String
 	.enc "minifont"
 	.byte \String[0]
@@ -53,6 +65,22 @@ MiniText:	.macro String
 	.enc "none"
 	.endm
 
+SignText: .macro String
+          .enc "minifont-extended"
+	.byte \String[0]
+	.byte \String[1]
+	.byte \String[2]
+	.byte \String[3]
+	.byte \String[4]
+	.byte \String[5]
+	.byte \String[6]
+	.byte \String[7]
+	.byte \String[8]
+	.byte \String[9]
+	.byte \String[10]
+	.byte \String[11]
+	.enc "none"
+	.endm
 	
 LoadString:	.macro String
 	.enc "minifont"

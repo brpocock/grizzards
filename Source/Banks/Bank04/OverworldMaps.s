@@ -288,6 +288,11 @@ SpriteList:
           .byte 100, 32         ; x, y position
           .byte SpriteCombat, 5
 
+          .byte $ff
+          .byte SpriteFixed
+          .byte 100, 32
+          .byte SpriteSign, 0
+
           .byte 0
 
           ;; Room 3
