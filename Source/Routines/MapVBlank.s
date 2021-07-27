@@ -376,7 +376,7 @@ SpriteMoveNext:
           .BitBit $20
           beq RandomlyMove
 
-          lda SpriteMoveIdle
+          lda #SpriteMoveIdle
           sta SpriteMotion, x
           bne SpriteMoveDone    ; always taken
 
