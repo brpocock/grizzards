@@ -13,12 +13,7 @@ DoLocal:
           .include "MapRLE.s"
           .include "PlayerSprites.s"
           .include "MapSprites.s"
-
-SpriteColor:
-          .colu COLGREEN, $a    ; Grizzard
-          .colu COLRED, $8      ; Grizzard Depot
-          .colu COLSPRINGGREEN, $e ; Monsters
-          .colu COLBLUE, $8        ; Doors
+          .include "SpriteColor.s"
 
           .include "Province0.s"
 

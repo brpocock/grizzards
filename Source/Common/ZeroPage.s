@@ -222,9 +222,6 @@ NextSound:
 CurrentSound:
           .word ?
 
-;;; Timer until the current sound "note" is done
-SoundTimer:
-          .byte ?
 
 ;;; Random number generator workspace
 Rand:
@@ -421,14 +418,14 @@ PlayerYFraction:
           LastRAM = CombatEnd > MapEnd ? CombatEnd : MapEnd
           
           ;; There must be at least $10 stack space (to be fairly safe)
-          .if LastRAM > $f0
-          .error "Zero page ran right into stack space at ", *
+          .if LastRAM >= $f0
+          .error "Zero page ran right into stack space at ", LastRAM
           .fi
 
-          .if LastRAM > $ff
-          .error "Zero page overcommitted entirely at ", *
+          .if LastRAM >= $ff
+          .error "Zero page overcommitted entirely at ", LastRAM
           .fi
 
-          .if LastRAM > $e0
+          .if LastRAM >= $e0
           .warn "End of zero-page variables at ", LastRAM, " leaves ", $100 - LastRAM, " bytes for stack"
           .fi
