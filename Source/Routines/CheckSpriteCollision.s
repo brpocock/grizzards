@@ -3,18 +3,17 @@
 
 CheckSpriteCollision:         .block
           lda CXP1FB
-          and $c0           ; collision with playfield or ball
-          beq Done
+          and #$c0           ; collision with playfield or ball
+          beq Bye
           ldx SpriteFlicker
           lda SpriteMotion, x
-
+CheckLeft:
           .BitBit SpriteMoveLeft
           beq CheckRight
 
           inc SpriteX, x
           inc SpriteX, x
           eor # SpriteMoveLeft | SpriteMoveRight
-          sta SpriteMotion, x
           bne CheckUp           ; always taken
 
 CheckRight:
@@ -24,7 +23,6 @@ CheckRight:
           dec SpriteX, x
           dec SpriteX, x
           eor # SpriteMoveLeft | SpriteMoveRight
-          sta SpriteMotion, x
           ;; fall through
 CheckUp:
           .BitBit SpriteMoveUp
@@ -33,7 +31,6 @@ CheckUp:
           inc SpriteY, x
           inc SpriteY, x
           eor # SpriteMoveUp | SpriteMoveDown
-          sta SpriteMotion, x
           bne Done              ; always taken
 
 CheckDown:
@@ -43,8 +40,9 @@ CheckDown:
           dec SpriteY, x
           dec SpriteY, x
           eor # SpriteMoveUp | SpriteMoveDown
-          sta SpriteMotion, x
           ;; fall through
 Done:
+          sta SpriteMotion, x
+Bye:
           rts
           .bend
