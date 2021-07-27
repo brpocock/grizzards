@@ -85,10 +85,9 @@ PlayerMoveOK:
           sta BlessedX
           lda PlayerY
           sta BlessedY
-
 DonePlayerMove:
           ldy #$00
-          beq UserInputStart
+          beq UserInputStart    ; always taken
 
 EnterDepot:
           lda #ModeGrizzardDepot
@@ -131,7 +130,6 @@ ShoveX:
           clc
           adc PlayerX
           sta PlayerX
-
 BumpY:    
           lda BlessedY
           cmp PlayerY
@@ -150,11 +148,9 @@ ShoveY:
           clc
           adc PlayerY
           sta PlayerY
-
 DoneBump:           
           lda #SoundBump
           sta NextSound
-
 ;;; 
 UserInputStart: 
           lda BumpCooldown
@@ -284,18 +280,18 @@ SpriteCxUp:
           and # SpriteMoveLeft | SpriteMoveRight
           ora #SpriteMoveDown
           sta SpriteMotion, x
-          dec SpriteY, x
-          dec SpriteY, x
+          inc SpriteY, x
+          inc SpriteY, x
           bne CollisionDone ; always taken
 
 SpriteCxDown:
           .BitBit SpriteMoveDown
           beq CollisionDone
           and # SpriteMoveLeft | SpriteMoveRight
-          ora #SpriteMoveDown
+          ora #SpriteMoveUp
           sta SpriteMotion, x
-          inc SpriteY, x
-          inc SpriteY, x
+          dec SpriteY, x
+          dec SpriteY, x
           ;; fall through
 CollisionDone:
           rts
