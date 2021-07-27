@@ -316,7 +316,7 @@ MoveSprites:
           ;; Allow moving approximately 10 Hz regardless of TV region
           sec
 -
-          sbc #ceil(FramesPerSecond / 10)
+          sbc # FramesPerSecond / 10
           bcs -
           cmp #$ff
           beq +
