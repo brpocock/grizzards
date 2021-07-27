@@ -163,8 +163,9 @@ HandleStick:
           sta DeltaY
 
           lda Pause
-          bne CheckPlayerMove
-
+          beq +
+          rts
++
           lda SWCHA
           .BitBit P0StickUp
           bne DoneStickUp
