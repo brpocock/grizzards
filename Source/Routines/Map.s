@@ -47,7 +47,7 @@ Loop:
 AnimationFrameReady:
           ldx SpriteFlicker
           lda SpriteAction, x
-          and #$03
+          and #$07
           tax
           lda SpriteColor, x
           sta COLUP1
