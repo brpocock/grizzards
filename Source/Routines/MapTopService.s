@@ -91,7 +91,8 @@ P0HPos:
           asl a
           sta HMP0
 
-          lda Facing
+          lda MapFlags
+          and #MapFlagFacing
           sta REFP0
 
           ldx SpriteCount

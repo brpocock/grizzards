@@ -51,6 +51,11 @@ DoLocal:
           .include "AttractStory.s"
           .include "SetNextAlarm.s"
 
+          .include "CheckSpriteCollision.s"
+          .include "CheckPlayerCollision.s"
+          .include "SpriteMotion.s"
+          .include "UserInput.s"
+
           .include "AtariVox-EEPROM-Driver.s"
 
 	.include "EndBank.s"

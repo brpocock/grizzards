@@ -8,6 +8,9 @@
 
 ;;; Console Detection Routine
 ;;;
+;;; By AtariAge user Batari —
+;;; https://atariage.com/forums/topic/63710-detecting-the-console/?tab=comments#comment-819710
+;;;
 ;;; normally we'd use CLEAN_START, but to detect if console is 2600 or 7800
 ;;; we need to take a look at the ZP RAM values in $80, $D0, and $D1 before
 ;;; zeroing out RAM
