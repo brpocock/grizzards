@@ -23,7 +23,7 @@ Loop:
           sta pp1h
           clc
           lda SpriteAction, x
-          and #$03
+          and #$07
           .rept 4
           asl a
           .next
@@ -64,24 +64,25 @@ NoSprites:
 
 P1Ready:
           lda PlayerY
+          ldy NextMap
+          cpy CurrentMap
+          beq +
+          ;; new screen being loaded: player is off the screen
+          lda #$ff
++
           sta P0LineCounter
-
           lda #0
           sta PF1
           sta PF2
 
           lda DeltaX
           ora DeltaY
-          beq DelayFrame0        ; always show frame 0 unless moving
+          beq +        ; always show frame 0 unless moving
           lda ClockFrame
           and #$08
           bne +
           ldx #SoundFootstep
           stx NextSound
-          bne +                 ; always taken
-
-DelayFrame0:
-          sta WSYNC
 +
           clc
 P0Frame0:
@@ -129,7 +130,8 @@ P0Frame0:
           inc pp5h
 +
           sta pp5l
-
+;;; 
+BeforeKernel:
           ldy # 72              ; 72 × 2 lines = 144 lines total
           sty LineCounter
 
@@ -321,7 +323,7 @@ GoScreen:
           lda (Pointer), y
           cmp #$ff
           beq ScreenBounce
-          sta CurrentMap
+          sta NextMap
 
           lda #ModeMapNewRoom
           sta GameMode
@@ -396,6 +398,15 @@ Leave:
           beq GoCombat
           cmp #ModeNewGrizzard
           beq GetNewGrizzard
+          cmp #ModeSignpost
+          bne UnknownMode
+          ldx #SignpostBank
+          jsr FarCall
+          lda #ModeMap
+          sta GameMode
+          jmp MapSetup
+
+UnknownMode:
           brk
 
 EnterGrizzardDepot:

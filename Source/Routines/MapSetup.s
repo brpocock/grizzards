@@ -20,12 +20,18 @@ MapSetup: .block
           sta PlayerX
           lda BlessedY
           sta PlayerY
+          lda CurrentMap
+          sta NextMap
           jmp NewRoomTimerRunning
 ;;; 
 NewRoom:
           .WaitForTimer
+          .if TV != NTSC
           stx WSYNC
+          .fi
           stx WSYNC
+          lda NextMap
+          sta CurrentMap
           jsr Overscan
           .WaitScreenTopMinus 3, 0
           
@@ -168,25 +174,20 @@ AddRandomEncounter:
           bne MoreSprites       ; always taken
 
 AddFixedSprite:
-          iny
-          lda (Pointer), y         ; .y = .x × 6 + 2
-          sta SpriteX, x
-          iny
-          lda (Pointer), y         ; .y = .x × 6 + 3
-          sta SpriteY, x
-          iny
-          lda (Pointer), y         ; .y = .x × 6 + 4
-          sta SpriteAction, x
-          iny
-          lda (Pointer), y         ; .y = .x × 6 + 5
-          sta SpriteParam, x
+          jsr AddPlacedSprite
           lda # 0
           ;; .y = .x⁺¹ × 6   (start of next entry)
           ;; Go back looking for more sprites
           beq MoreSprites       ; always taken
 
 AddWanderingSprite:
-          ;; TODO: merge this with the fixed sprite code
+          jsr AddPlacedSprite
+          lda # SpriteMoveIdle
+          ;; .y = .x⁺¹ × 6   (start of next entry)
+          ;; Go back looking for more sprites
+          bne MoreSprites                 ; always taken
+
+AddPlacedSprite:
           iny
           lda (Pointer), y         ; .y = .x × 6 + 2
           sta SpriteX, x
@@ -199,10 +200,7 @@ AddWanderingSprite:
           iny
           lda (Pointer), y         ; .y = .x × 6 + 5
           sta SpriteParam, x
-          lda # SpriteMoveIdle
-          ;; .y = .x⁺¹ × 6   (start of next entry)
-          ;; Go back looking for more sprites
-          bne MoreSprites                 ; always taken
+          rts
 
 SpritesDone:
 ;;; 

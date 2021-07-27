@@ -21,7 +21,7 @@ ShowText:  .block
 	.option allow_branch_across_page = false
 	
           sta WSYNC
-	ldy #4
+	ldy # 4
 	sty LineCounter
 	.SleepX 56
 Loop:

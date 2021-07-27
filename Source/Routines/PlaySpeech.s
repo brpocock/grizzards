@@ -62,6 +62,7 @@ ContinueSpeaking:
 
           ;; check for expected buffer overflow
           inc SpeakJetCooldown
+          inc SpeakJetCooldown
           lda SpeakJetCooldown
           cmp #$20              ; seems to hang after 36 bytes or so
           bmi NotOverheated
@@ -124,5 +125,9 @@ DoneSpeaking:
           sta CurrentUtterance + 1
 
 TheEnd:
+          lda SpeakJetCooldown
+          beq +
+          dec SpeakJetCooldown
++
           rts
           .bend

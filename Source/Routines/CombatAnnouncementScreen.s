@@ -8,7 +8,7 @@ CombatAnnouncementScreen:     .block
 
           lda # 0
           sta MoveAnnouncement
-          sta MoveSpeech
+          sta SpeechSegment
 
           ldy MoveSelection
 
@@ -101,11 +101,11 @@ SkipVerb:
 AnnounceObject:
           lda MoveAnnouncement
           cmp # 3
-          blt SkipObject
+          blt Speak
 
           lda MoveTarget
           cmp #$ff
-          beq SkipObject
+          beq Speak
 DrawObject:
           ldx CombatMoveSelected
           lda MoveDeltaHP, x
@@ -121,22 +121,20 @@ ObjectOther:
           ;; fall through
 MonsterTargetObject:
           jsr ShowMonsterNameAndNumber
-          jmp WaitOutSpeechInterval
+          jmp Speak
 
 PlayerObject:
           .FarJSR TextBank, ServiceShowGrizzardName
-          beq WaitOutSpeechInterval   ; always taken
 
-SkipObject:
 ;;; 
-WaitOutSpeechInterval:
-ScheduleSpeech:
+Speak:
           lda CurrentUtterance
           bne SpeechDone
           lda CurrentUtterance + 1
           bne SpeechDone
 
-          lda MoveSpeech
+Speech0:
+          lda SpeechSegment
           cmp # 1
           bge Speech1
 
@@ -144,19 +142,17 @@ ScheduleSpeech:
           beq SayPlayerSubject
 SayMonsterSubject:
           jsr SayMonster
-          inc MoveSpeech
-          bne SpeechDone        ; always taken
+          jmp SpeechQueued
 
 SayPlayerSubject:
           jsr SayPlayerGrizzard
-          inc MoveSpeech
-          bne SpeechDone        ; always taken
+          jmp SpeechQueued
 
 Speech1:
           cmp # 2
           bge Speech2
           lda WhoseTurn
-          beq Speech1Done
+          beq SpeechQueued
 
           lda #>(Phrase_One - 1)
           sta CurrentUtterance + 1
@@ -164,9 +160,7 @@ Speech1:
           clc
           adc WhoseTurn
           sta CurrentUtterance
-Speech1Done:
-          inc MoveSpeech
-          bne SpeechDone        ; always taken
+          bne SpeechQueued      ; always taken
 
 Speech2:
           cmp # 3
@@ -176,9 +170,7 @@ Speech2:
           sta CurrentUtterance + 1
           lda #<Phrase_UsesMove
           sta CurrentUtterance
-
-          inc MoveSpeech
-          bne SpeechDone        ; always taken
+          bne SpeechQueued      ; always taken
 
 Speech3:
           cmp # 4
@@ -191,8 +183,7 @@ Speech3:
           adc CombatMoveSelected
           sta CurrentUtterance
 
-          inc MoveSpeech
-          bne SpeechDone        ; always taken
+          bne SpeechQueued      ; always taken
 
 Speech4:
           cmp # 5
@@ -203,8 +194,7 @@ Speech4:
           lda #<Phrase_On
           sta CurrentUtterance
 
-          inc MoveSpeech
-          bne SpeechDone        ; always taken
+          bne SpeechQueued      ; always taken
 
 Speech5:
           cmp # 6
@@ -217,22 +207,19 @@ SayPlayerObject:
           lda MoveDeltaHP, x
           bpl +
           jsr SayMonster
-          jmp SayObjectDone
+          jmp SpeechQueued
 +
           jsr SayPlayerGrizzard
-          jmp SayObjectDone
+          jmp SpeechQueued
 
 SayMonsterObject:
           lda MoveDeltaHP, x
           bpl +
           jsr SayPlayerGrizzard
-          jmp SayObjectDone
+          jmp SpeechQueued
 +
           jsr SayMonster
-
-SayObjectDone:
-          inc MoveSpeech
-          bne SpeechDone        ; always taken
+          jmp SpeechQueued
 
 Speech6:
           cmp # 7
@@ -243,12 +230,12 @@ Speech6:
           beq SayObjectNumberOnPlayersTurn
 SayObjectNumberOnMonstersTurn:
           lda MoveDeltaHP, x
-          bpl Speech6Done
+          bpl SpeechQueued
           bmi SayThatObjectNumber ; always taken
 
 SayObjectNumberOnPlayersTurn:
           lda MoveDeltaHP, x
-          bmi Speech6Done
+          bmi SpeechQueued
 SayThatObjectNumber:
           lda #>(Phrase_One - 1)
           sta CurrentUtterance + 1
@@ -257,26 +244,27 @@ SayThatObjectNumber:
           adc MoveTarget
 	sta CurrentUtterance
 
-Speech6Done:
-          inc MoveSpeech
+SpeechQueued:
+          inc SpeechSegment
           ;; fall through
 SpeechDone:
 ;;; 
 CheckForAlarm:
           lda ClockSeconds
           cmp AlarmSeconds
-          bne AlarmDone
+          bne KeepWaiting
 
           inc MoveAnnouncement
           lda # 2
           jsr SetNextAlarm
 
-AlarmDone:
+KeepWaiting:
           .WaitScreenBottom
 
           lda MoveAnnouncement
           cmp # 4
           beq CombatMoveDone
+GoBack:
           jmp Loop
 
 CombatMoveDone:

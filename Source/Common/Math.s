@@ -6,6 +6,7 @@
 
 Add16cc .macro address, addend
           .block
+          lda \address
           adc \addend
           bcc _cc
           inc \address + 1
