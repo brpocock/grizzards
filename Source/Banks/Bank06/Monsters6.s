@@ -52,8 +52,8 @@ Monsters:
 	.MiniText "FLAME "
 	.MiniText " DOGGO"
 	.byte 6
-	.colu COLBLUE, $8
-	.byte $00, $20
+	.colu COLRED, $d
+	.byte $22, $20
 
 	.MiniText "FUZZIE"
 	.MiniText "  BEAR"

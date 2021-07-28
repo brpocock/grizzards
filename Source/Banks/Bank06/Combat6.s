@@ -3,7 +3,7 @@
 EncounterMonster:
           ;; 0
           .byte 0, 0, 0, 1, 2, 0, 3, 3
-          .byte 0, 1, 2, 3, 4, 5, 6, 7
+          .byte 8, 1, 2, 3, 4, 5, 6, 7
           .byte 0, 1, 2, 3, 4, 5, 6, 7
           .byte 0, 1, 2, 3, 4, 5, 6, 7
           ;; 32
@@ -25,7 +25,7 @@ EncounterMonster:
 
 EncounterQuantity:
           ;; 0
-          .byte 1, 1, 2, 1,  1, 1, 1, 1
+          .byte 1, 1, 2, 1,  1, 3, 1, 1
           .byte 1, 1, 1, 1,  1, 1, 1, 1
           .byte 1, 1, 1, 1,  1, 1, 1, 1
           .byte 1, 1, 1, 1,  1, 1, 1, 1

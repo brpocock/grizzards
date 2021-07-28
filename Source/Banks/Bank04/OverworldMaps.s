@@ -285,13 +285,13 @@ SpriteList:
           ;; Room 2
           .byte 5
           .byte SpriteWander
-          .byte 100, 32         ; x, y position
+          .byte 125, 32         ; x, y position
           .byte SpriteCombat, 5
 
           .byte $ff
           .byte SpriteFixed
           .byte 100, 32
-          .byte SpriteSign, 0
+          .byte SpriteSign, 0   ; Beware
 
           .byte 0
 
@@ -317,7 +317,17 @@ SpriteList:
           .byte $ff
           .byte SpriteRandomEncounter
           .byte 0, 0
-          .byte SpriteCombat, 6
+          .byte SpriteCombat, 7
+
+          .byte $ff
+          .byte SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 8
+
+          .byte $ff
+          .byte SpriteFixed
+          .byte $48, $30
+          .byte SpriteSign, 1   ; Fire Swamp
 
           .byte 0
 
