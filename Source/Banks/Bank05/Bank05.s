@@ -21,4 +21,6 @@ DoLocal:
           .include "48Pixels.s"
           .include "DecodeText.s"
 
+          .include "SignpostText.s"
+
           .include "EndBank.s"
