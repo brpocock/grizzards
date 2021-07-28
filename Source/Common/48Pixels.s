@@ -52,6 +52,7 @@ SetUpFortyEight:	.macro Graphics
 	.cdef "--", 39
 	.cdef "  ", 40
           .cdef ",,", 41
+          .cdef "''", 42
 	.enc "none"
 
 MiniText:	.macro String
