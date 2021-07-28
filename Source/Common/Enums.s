@@ -184,3 +184,10 @@
           MonsterColorIndex = 13
           MonsterLevelsIndex = 14
           MonsterPointsIndex = 15
+;;; 
+;;; MapFlags values
+          MapFlagFacing = $08   ; matches REFP0 REFLECTED bit
+          MapFlagSprite1Moved = $10
+          MapFlagSprite2Moved = $20
+          MapFlagSprite3Moved = $40
+          MapFlagSprite4Moved = $80

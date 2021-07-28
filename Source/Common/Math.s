@@ -38,7 +38,7 @@ Inc16cc .macro address
           inc \address
           bcc _cc
           inc \address + 1
-_cc:      
+_cc:
           .bend
           .endm
 
@@ -93,473 +93,473 @@ Asl16 .macro address
 
 
 ;;; 
-                    
+
 Div .macro denominator, temp
-          ;; Unsigned Integer Division Routines                  
+          ;; Unsigned Integer Division Routines
           ;; by Omegamatrix
 
           .switch \denominator
 
           .case 0
           .error "Dude, it's a 6502, it doesn't do ∞ very convincingly."
-          
+
           .case 1
           ;; nil
-          
+
           .case 2
-          ;;1 byte, 2 cycles                                     
-          lsr                                                   
+          ;;1 byte, 2 cycles
+          lsr
 
           .case 3
-          ;;18 bytes, 30 cycles                                  
-          sta \temp                                              
-          lsr                                                   
-          adc #21                                               
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-                                                                                         
+          ;;18 bytes, 30 cycles
+          sta \temp
+          lsr
+          adc #21
+          lsr
+          adc \temp
+          ror
+          lsr
+          adc \temp
+          ror
+          lsr
+          adc \temp
+          ror
+          lsr
+
           .case 4
-          ;;2 bytes, 4 cycles                                    
-          lsr                                                   
-          lsr                                                   
-          
+          ;;2 bytes, 4 cycles
+          lsr
+          lsr
+
           .case 5
-          ;;18 bytes, 30 cycles                                  
-          sta \temp                                              
-          lsr                                                   
-          adc #13                                               
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          lsr                                                   
-                                                                                         
+          ;;18 bytes, 30 cycles
+          sta \temp
+          lsr
+          adc #13
+          adc \temp
+          ror
+          lsr
+          lsr
+          adc \temp
+          ror
+          adc \temp
+          ror
+          lsr
+          lsr
+
           .case 6
-          ;;17 bytes, 30 cycles                                  
-          lsr                                                   
-          sta \temp                                              
-          lsr                                                   
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
+          ;;17 bytes, 30 cycles
+          lsr
+          sta \temp
+          lsr
+          lsr
+          adc \temp
+          ror
+          lsr
+          adc \temp
+          ror
+          lsr
+          adc \temp
+          ror
+          lsr
 
           .case 7
-          ;;Divide by 7 (From December '84 Apple Assembly Line)  
-          ;;15 bytes, 27 cycles                                  
-          sta \temp                                              
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          lsr                                                   
-                                                                                         
+          ;;Divide by 7 (From December '84 Apple Assembly Line)
+          ;;15 bytes, 27 cycles
+          sta \temp
+          lsr
+          lsr
+          lsr
+          adc \temp
+          ror
+          lsr
+          lsr
+          adc \temp
+          ror
+          lsr
+          lsr
+
           .case 8
-          ;;3 bytes, 6 cycles                                    
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-                                                                                         
+          ;;3 bytes, 6 cycles
+          lsr
+          lsr
+          lsr
+
           .case 9
-          ;;17 bytes, 30 cycles                                  
-          sta \temp                                              
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          adc \temp                                              
-          ror                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-                                                                                         
+          ;;17 bytes, 30 cycles
+          sta \temp
+          lsr
+          lsr
+          lsr
+          adc \temp
+          ror
+          adc \temp
+          ror
+          adc \temp
+          ror
+          lsr
+          lsr
+          lsr
+
           .case 10
-          ;;17 bytes, 30 cycles                                  
-          lsr                                                   
-          sta \temp                                              
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          lsr                                                   
-                                                                                         
+          ;;17 bytes, 30 cycles
+          lsr
+          sta \temp
+          lsr
+          adc \temp
+          ror
+          lsr
+          lsr
+          adc \temp
+          ror
+          adc \temp
+          ror
+          lsr
+          lsr
+
           .case 11
-          ;;20 bytes, 35 cycles                                  
-          sta \temp                                              
-          lsr                                                   
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          adc \temp                                              
-          ror                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-                                                                                         
+          ;;20 bytes, 35 cycles
+          sta \temp
+          lsr
+          lsr
+          adc \temp
+          ror
+          adc \temp
+          ror
+          adc \temp
+          ror
+          lsr
+          adc \temp
+          ror
+          lsr
+          lsr
+          lsr
+
           .case 12
-          ;;17 bytes, 30 cycles                                  
-          lsr                                                   
-          lsr                                                   
-          sta \temp                                              
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-                                                                                         
+          ;;17 bytes, 30 cycles
+          lsr
+          lsr
+          sta \temp
+          lsr
+          adc \temp
+          ror
+          lsr
+          adc \temp
+          ror
+          lsr
+          adc \temp
+          ror
+          lsr
+
           .case 13
-          ;; 21 bytes, 37 cycles                                 
-          sta \temp                                              
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          adc \temp                                              
-          ror                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          lsr                                                   
-          clc                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-                                                                                         
+          ;; 21 bytes, 37 cycles
+          sta \temp
+          lsr
+          adc \temp
+          ror
+          adc \temp
+          ror
+          adc \temp
+          ror
+          lsr
+          lsr
+          clc
+          adc \temp
+          ror
+          lsr
+          lsr
+          lsr
+
           .case 14
-          ;;1/14 = 1/7 * 1/2                                     
-          ;;16 bytes, 29 cycles                                  
-          sta \temp                                              
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-                                                                                         
+          ;;1⁄14 = 1⁄7 × 1⁄2
+          ;;16 bytes, 29 cycles
+          sta \temp
+          lsr
+          lsr
+          lsr
+          adc \temp
+          ror
+          lsr
+          lsr
+          adc \temp
+          ror
+          lsr
+          lsr
+          lsr
+
           .case 15
-          ;;14 bytes, 24 cycles                                  
-          sta \temp                                              
-          lsr                                                   
-          adc #4                                                
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-                                                                                         
+          ;;14 bytes, 24 cycles
+          sta \temp
+          lsr
+          adc #4
+          lsr
+          lsr
+          lsr
+          adc \temp
+          ror
+          lsr
+          lsr
+          lsr
+
           .case 16
-          ;;4 bytes, 8 cycles                                    
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-                                                                                         
+          ;;4 bytes, 8 cycles
+          lsr
+          lsr
+          lsr
+          lsr
+
           .case 17
-          ;;18 bytes, 30 cycles                                  
-          sta \temp                                              
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          adc \temp                                              
-          ror                                                   
-          adc \temp                                              
-          ror                                                   
-          adc #0                                                
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
+          ;;18 bytes, 30 cycles
+          sta \temp
+          lsr
+          adc \temp
+          ror
+          adc \temp
+          ror
+          adc \temp
+          ror
+          adc #0
+          lsr
+          lsr
+          lsr
+          lsr
 
           .case 18
-          ;;Divide by 18 = 1/9 * 1/2                             
-          ;;18 bytes, 32 cycles                                  
-          sta \temp                                              
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          adc \temp                                              
-          ror                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-                                                                                         
+          ;;Divide by 18 = 1⁄9 × 1⁄2
+          ;;18 bytes, 32 cycles
+          sta \temp
+          lsr
+          lsr
+          lsr
+          adc \temp
+          ror
+          adc \temp
+          ror
+          adc \temp
+          ror
+          lsr
+          lsr
+          lsr
+          lsr
+
           .case 19
-          ;;17 bytes, 30 cycles                                  
-          sta \temp                                              
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-                                                                                         
+          ;;17 bytes, 30 cycles
+          sta \temp
+          lsr
+          adc \temp
+          ror
+          lsr
+          adc \temp
+          ror
+          adc \temp
+          ror
+          lsr
+          lsr
+          lsr
+          lsr
+
           .case 20
-          ;;18 bytes, 32 cycles                                  
-          lsr                                                   
-          lsr                                                   
-          sta \temp                                              
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          lsr                                                   
-                                                                                         
+          ;;18 bytes, 32 cycles
+          lsr
+          lsr
+          sta \temp
+          lsr
+          adc \temp
+          ror
+          lsr
+          lsr
+          adc \temp
+          ror
+          adc \temp
+          ror
+          lsr
+          lsr
+
           .case 21
-          ;;20 bytes, 36 cycles                                  
-          sta \temp                                              
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-                                                                                         
+          ;;20 bytes, 36 cycles
+          sta \temp
+          lsr
+          adc \temp
+          ror
+          lsr
+          lsr
+          lsr
+          lsr
+          adc \temp
+          ror
+          adc \temp
+          ror
+          lsr
+          lsr
+          lsr
+          lsr
+
           .case 22
-          ;;21 bytes, 34 cycles                                  
-          lsr                                                   
-          cmp #33                                               
-          adc #0                                                
-          sta \temp                                              
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-                                                                                         
+          ;;21 bytes, 34 cycles
+          lsr
+          cmp #33
+          adc #0
+          sta \temp
+          lsr
+          adc \temp
+          ror
+          adc \temp
+          ror
+          lsr
+          adc \temp
+          ror
+          lsr
+          lsr
+          lsr
+
           .case 23
-          ;;19 bytes, 34 cycles                                  
-          sta \temp                                              
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          adc \temp                                              
-          ror                                                             
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-                                                                                         
+          ;;19 bytes, 34 cycles
+          sta \temp
+          lsr
+          lsr
+          lsr
+          adc \temp
+          ror
+          adc \temp
+          ror
+          lsr
+          adc \temp
+          ror
+          lsr
+          lsr
+          lsr
+          lsr
+
           .case 24
-          ;;15 bytes, 27 cycles                                  
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-          sta \temp                                              
-          lsr                                                   
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          
+          ;;15 bytes, 27 cycles
+          lsr
+          lsr
+          lsr
+          sta \temp
+          lsr
+          lsr
+          adc \temp
+          ror
+          lsr
+          adc \temp
+          ror
+          lsr
+
           .case 25
-          ;;16 bytes, 29 cycles                                  
-          sta \temp                                              
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-                                                                                         
+          ;;16 bytes, 29 cycles
+          sta \temp
+          lsr
+          lsr
+          lsr
+          adc \temp
+          ror
+          lsr
+          adc \temp
+          ror
+          lsr
+          lsr
+          lsr
+          lsr
+
           .case 26
-          ;;21 bytes, 37 cycles                                  
-          lsr                                                   
-          sta \temp                                              
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          adc \temp                                              
-          ror                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-                                                                                         
+          ;;21 bytes, 37 cycles
+          lsr
+          sta \temp
+          lsr
+          adc \temp
+          ror
+          adc \temp
+          ror
+          adc \temp
+          ror
+          lsr
+          lsr
+          adc \temp
+          ror
+          lsr
+          lsr
+          lsr
+
           .case 27
-          ;;15 bytes, 27 cycles                                  
-          sta \temp                                              
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-                                                                                         
+          ;;15 bytes, 27 cycles
+          sta \temp
+          lsr
+          adc \temp
+          ror
+          lsr
+          lsr
+          adc \temp
+          ror
+          lsr
+          lsr
+          lsr
+          lsr
+
           .case 28
-          ;;14 bytes, 24 cycles                                  
-          lsr                                                   
-          lsr                                                   
-          sta \temp                                              
-          lsr                                                   
-          adc #2                                                
-          lsr                                                   
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          lsr                                                   
-          
+          ;;14 bytes, 24 cycles
+          lsr
+          lsr
+          sta \temp
+          lsr
+          adc #2
+          lsr
+          lsr
+          adc \temp
+          ror
+          lsr
+          lsr
+
           .case 29
-          ;;20 bytes, 36 cycles                                  
-          sta \temp                                              
-          lsr                                                   
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          adc \temp                                              
+          ;;20 bytes, 36 cycles
+          sta \temp
+          lsr
+          lsr
+          adc \temp
+          ror
+          adc \temp
           ror
           .rept 3
           lsr
           .next
-          adc \temp                                              
+          adc \temp
           ror
           .rept 4
           lsr
           .next
-          
+
           .case 30
-          ;;14 bytes, 26 cycles                                  
+          ;;14 bytes, 26 cycles
           sta \temp
           .rept 4
           lsr
           .next
-          sec                                                   
-          adc \temp                                              
+          sec
+          adc \temp
           ror
           .rept 4
-          lsr                                                   
+          lsr
           .next
-                                                                                         
+
           .case 31
-          ;;14 bytes, 26 cycles                                  
-          sta \temp                                              
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-          adc \temp                                              
-          ror                                                   
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-                                                                                         
+          ;;14 bytes, 26 cycles
+          sta \temp
+          lsr
+          lsr
+          lsr
+          lsr
+          lsr
+          adc \temp
+          ror
+          lsr
+          lsr
+          lsr
+          lsr
+
           .case 32
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
-          lsr                                                   
+          lsr
+          lsr
+          lsr
+          lsr
           lsr
 
           .default
@@ -576,7 +576,7 @@ Mul .macro factor, temp
           .switch \factor
           .case 0
           lda #0
-          
+
           .case 1
           ;; nothing
 
@@ -614,8 +614,12 @@ Mul .macro factor, temp
           asl
           asl
 
+          .case 12
+          .Mul 6, \temp
+          asl
+
           .case 14
-          mul 7, \temp
+          .Mul 7, \temp
           asl
 
           .case 15
@@ -624,7 +628,7 @@ Mul .macro factor, temp
           asl
           .next
           sbc \temp
-          
+
           .case 16
           .rept 4
           asl
@@ -640,5 +644,5 @@ Mul .macro factor, temp
 
           .endswitch
           .endm
-          
+
 ;;;

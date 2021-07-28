@@ -403,7 +403,7 @@ SpriteParam:
 BumpCooldown:
           .byte ?
 
-Facing:
+MapFlags:
           .byte ?
 
 PlayerXFraction:

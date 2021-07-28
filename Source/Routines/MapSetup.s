@@ -204,8 +204,6 @@ AddPlacedSprite:
 
 SpritesDone:
 ;;; 
-          sta CXCLR
-
           .WaitScreenBottom
           stx WSYNC
           stx WSYNC
