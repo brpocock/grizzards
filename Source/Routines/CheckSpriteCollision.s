@@ -5,6 +5,20 @@ CheckSpriteCollision:         .block
           lda CXP1FB
           and #$c0           ; collision with playfield or ball
           beq Bye
+
+          ldx SpriteFlicker
+          lda # $08
+-
+          asl
+          dex
+          bpl -
+
+          bit MapFlags
+          beq Bye
+          eor #$ff
+          and MapFlags
+          sta MapFlags
+
           ldx SpriteFlicker
           lda SpriteMotion, x
 CheckLeft:

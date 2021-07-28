@@ -36,8 +36,6 @@ MoveSprites:
           jsr Random
           and #1
           bne NoRandom
-          pla                   ; discard the call to us
-          pla
           jmp CheckPlayerCollision.FightWithSpriteX
 
 NoRandom:
@@ -171,6 +169,10 @@ BottomOK:
           bpl MoveSprites
           ;; fall through
 MovementLogicDone:
+          lda #MapFlagSprite1Moved | MapFlagSprite2Moved | MapFlagSprite3Moved | MapFlagSprite4Moved
+          ora MapFlags
+          sta MapFlags
+
           rts
 
           .bend
