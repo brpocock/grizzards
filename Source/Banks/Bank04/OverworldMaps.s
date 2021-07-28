@@ -361,6 +361,11 @@ SpriteList:
           .byte $c3, $2b
           .byte SpriteCombat, 2
 
+          .byte $ff
+          .byte SpriteFixed
+          .byte $37, $29
+          .byte SpriteSign, 9
+
           .byte 0
 
           ;; Room 9
@@ -397,6 +402,11 @@ SpriteList:
 	.byte 0
 
 	;;Room 15
+          .byte $ff
+          .byte SpriteFixed
+          .byte $c3, $2b
+          .byte SpriteSign, 10
+
 	.byte 0
 
 	;;Room 16

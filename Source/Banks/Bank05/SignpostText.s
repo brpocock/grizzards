@@ -3,11 +3,12 @@
 
 ;;; Order of sign texts MUST match the texts in SignpostSpeech.txt or it all goes to Hell.
           
-          Signs = (Sign_Beware, Sign_FireSwamp, NPC_SouthGate, NPC_TunnelBlocked, NPC_TunnelOpen, NPC_Artefact, NPC_TakeArtefact1, NPC_TakeArtefact2, Sign_LostMines, Sign_SpiralWoods)
+          Signs = (Sign_Beware, Sign_FireSwamp, NPC_SouthGate, NPC_TunnelBlocked, NPC_TunnelOpen, NPC_Artifact, NPC_TakeArtifact1, NPC_TakeArtifact2, Sign_LostMines, Sign_SpiralWoods)
 
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
 
+;;; 0
 Sign_Beware:
           .colu COLGRAY, 0
           .colu COLYELLOW, $f
@@ -17,7 +18,7 @@ Sign_Beware:
           .SignText "MONSTERS.   "
           .SignText "BE CAREFUL! "
           .byte ModeSignpostDone
-
+;;; 1
 Sign_FireSwamp:
           .colu COLRED, 0
           .colu COLRED, $f
@@ -27,7 +28,7 @@ Sign_FireSwamp:
           .SignText "FLAME DOGGOS"
           .SignText "AND R.O.U.S."
           .byte ModeSignpostDone
-
+;;; 2
 NPC_SouthGate:
           .colu COLINDIGO, 0
           .colu COLBLUE, $9
@@ -37,7 +38,7 @@ NPC_SouthGate:
           .SignText "WHERE MANY  "
           .SignText "PEOPLE LIVE."
           .byte ModeSignpostDone
-
+;;; 3
 NPC_TunnelBlocked:
           .colu COLINDIGO, 0
           .colu COLBLUE, $9
@@ -48,7 +49,7 @@ NPC_TunnelBlocked:
           .SignText "BRING THEM. "
           .byte ModeSignpostSetFlag
           .byte 16
-
+;;; 4
 NPC_TunnelOpen:
           .colu COLINDIGO, 0
           .colu COLBLUE, $9
@@ -58,8 +59,8 @@ NPC_TunnelOpen:
           .SignText "THE TUNNELS."
           .SignText "END OF DEMO."
           .byte ModeSignpostDone
-
-NPC_Artefact:
+;;; 5
+NPC_Artifact:
           .colu COLINDIGO, 0
           .colu COLTURQUOISE, $9
           .SignText "I HAVE 1 OF "
@@ -68,8 +69,8 @@ NPC_Artefact:
           .SignText "WHO SAYS YOU"
           .SignText "CAN TAKE IT?"
           .byte ModeSignpostDone
-
-NPC_TakeArtefact1:
+;;; 6
+NPC_TakeArtifact1:
           .colu COLINDIGO, 0
           .colu COLTURQUOISE, $9
           .SignText "I HAVE 1 OF "
@@ -79,8 +80,8 @@ NPC_TakeArtefact1:
           .SignText "THE TUNNELS."
           .byte ModeSignpostSetFlag
           .byte 18
-
-NPC_TakeArtefact2:
+;;; 7
+NPC_TakeArtifact2:
           .colu COLINDIGO, 0
           .colu COLTURQUOISE, $9
           .SignText "I HAVE 1 OF "
@@ -90,7 +91,17 @@ NPC_TakeArtefact2:
           .SignText "THE TUNNELS."
           .byte ModeSignpostSetFlag
           .byte 17
-
+;;; 8
+NPC_TookArtifact:
+          .colu COLINDIGO, 0
+          .colu COLTURQUOISE, $9
+          .SignText "I HOPE MY   "
+          .SignText "ARTIFACT CAN"
+          .SignText "HELP YOU TO "
+          .SignText "DEFEAT ALL  "
+          .SignText "THE MONSTERS"
+          .byte ModeSignpostDone
+;;; 9
 Sign_LostMines:
           .colu COLGRAY, 0
           .colu COLBROWN, $6
@@ -100,15 +111,17 @@ Sign_LostMines:
           .SignText "IN.         "
           .SignText "            "
           .byte ModeSignpostDone
-
+;;; 10
 Sign_SpiralWoods:
           .colu COLGRAY, 0
           .colu COLBROWN, $6
+          .SignText "            "
           .SignText "SPIRAL WOODS"
           .SignText " - CLOSED - "
           .SignText "NO ENTRANCE."
           .SignText "            "
-          .SignText "            "
           .byte ModeSignpostDone
 
           
+	
+; LocalWords:  Grizzards

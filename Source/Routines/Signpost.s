@@ -10,6 +10,46 @@ Setup:
           sta CurrentUtterance + 1  ; zero from KillMusic
 
           ldx SignpostIndex
+
+          cpx # 3
+          beq CheckTunnelBlocked
+          cpx # 6
+          beq CheckTunnelVisited
+          cpx # 7
+          beq CheckTunnelVisited
+
+          jmp IndexReady
+
+CheckTunnelBlocked:
+          lda ProvinceFlags + 2
+          and # %00000110   ; Do they have both artifacts?
+          cmp # %00000110
+          bne IndexReady        ; no, tunnel blocked
+          inx                   ; yes, tunnel open now
+          bne IndexReady        ; alway taken
+
+CheckTunnelVisited:
+          lda ProvinceFlags + 2
+          and # $01
+          bne VisitedTunnel   ; did they visit the tunnel?
+          ldx # 5               ; no, can't have artifact
+          bne IndexReady        ; always taken
+
+VisitedTunnel:
+          lda ProvinceFlags + 2
+          cpx # 6
+          beq Artifact1
+          and # $02
+          beq IndexReady        ; get artifact
+TookArtifact:
+          ldx # 8
+          bne IndexReady        ; always taken
+Artifact1:
+          and # $04
+          bne TookArtifact
+          ;; fall through
+
+IndexReady:
           stx CurrentUtterance
 
           lda SignH, x
@@ -29,7 +69,7 @@ Setup:
           .Add16 SignpostText, #2
 
           .WaitScreenBottom
-
+;;; 
 Loop:
           .WaitScreenTop
 
