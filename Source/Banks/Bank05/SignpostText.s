@@ -61,8 +61,8 @@ NPC_Artefact:
           .colu COLTURQUOISE, $9
           .SignText "I HAVE 1 OF "
           .SignText "THE TWO     "
-          .SignText "ARTEFACTS.   "
-          .SignText "WHO SAYS YOU "
+          .SignText "ARTEFACTS.  "
+          .SignText "WHO SAYS YOU"
           .SignText "CAN TAKE IT?"
           .byte ModeSignpostDone
 
@@ -71,7 +71,7 @@ NPC_TakeArtefact:
           .colu COLTURQUOISE, $9
           .SignText "I HAVE 1 OF "
           .SignText "THE TWO     "
-          .SignText "ARTEFACTS.   "
+          .SignText "ARTEFACTS.  "
           .SignText "TAKE THIS TO"
           .SignText "THE TUNNELS."
           .byte ModeSignpostDone          
