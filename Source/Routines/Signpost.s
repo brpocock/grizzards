@@ -7,10 +7,10 @@ Setup:
           .WaitScreenTop
 
           .KillMusic
-          sta CurrentUtterance
-          sta CurrentUtterance + 1
+          sta CurrentUtterance + 1  ; zero from KillMusic
 
           ldx SignpostIndex
+          stx CurrentUtterance
 
           lda SignH, x
           sta SignpostText + 1
