@@ -21,18 +21,24 @@ BUILD=$(shell date +%y.%j)
 PUBLISHER=false # override from command line only
 STARTER=1 # override from caller
 ASFLAGS=--nostart --long-branch --case-sensitive \
-	--ascii -I Source/Common -I Source/Routines -I Source/Generated/Common \
+	--ascii -I. -I Source/Common -I Source/Routines -I Source/Generated/Common \
 	-D YEARNOW=${YEAR} -D MONTHNOW=${MONTH} \
 	-D DATENOW=${DATE} -D JULIANDATENOW=${JULIAN} \
 	-D BUILD=${BUILD} -D PUBLISHER=${PUBLISHER} -D STARTER=${STARTER} \
 	-Wall -Wno-shadow -Wno-leading-zeros
 AS2600=64tass ${ASFLAGS} --m6502
 
-Source/Generated/Common/SpeakJetIDs.s:	$(shell ls -1 Source/Banks/Bank07/*Speech.txt)
-	bin/make-speakjet-enums
+Source/Generated/Bank05/SpeakJetIDs.s:	$(shell ls -1 Source/Banks/Bank05/*Speech.txt)
+	bin/make-speakjet-enums 5
+
+Source/Generated/Bank05/SpeakJetIndex.s:	$(shell ls -1 Source/Banks/Bank05/*Speech.txt)
+	bin/make-speakjet-enums 5
+
+Source/Generated/Bank07/SpeakJetIDs.s:	$(shell ls -1 Source/Banks/Bank07/*Speech.txt)
+	bin/make-speakjet-enums 7
 
 Source/Generated/Bank07/SpeakJetIndex.s:	$(shell ls -1 Source/Banks/Bank07/*Speech.txt)
-	bin/make-speakjet-enums
+	bin/make-speakjet-enums 7
 
 ';
 

@@ -93,7 +93,8 @@ Dist/Grizzards.Demo.SECAM.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-
 
 Source/Generated/Makefile:	bin/write-master-makefile ${SOURCES}
 	mkdir -p Source/Generated
-	bin/make-speakjet-enums
+	bin/make-speakjet-enums 5
+	bin/make-speakjet-enums 7
 	$< > Source/Generated/Makefile
 
 Dist/Grizzards.NTSC.pdf: Object/Grizzards.tex

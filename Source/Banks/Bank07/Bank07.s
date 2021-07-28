@@ -19,7 +19,6 @@ DoLocal:
           .include "SpeakJetIndex.s"
           ;; Speech index uses a wildcard on this directory
           ;; All files must be included or the index will break
-          .include "Monsters5Speech.s"
           .include "Monsters6Speech.s"
           .include "MovesSpeech.s"
           .include "GrizzardsSpeech.s"

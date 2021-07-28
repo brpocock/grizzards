@@ -333,10 +333,9 @@ CheckForWin:
 
 WonBattle:
           lda CurrentCombatIndex
-          clc
-          ror a
-          ror a
-          ror a
+          lsr a
+          lsr a
+          lsr a
           and #$07
           tay
           ldx CurrentCombatIndex

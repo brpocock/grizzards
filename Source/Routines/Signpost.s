@@ -5,6 +5,11 @@ Signpost: .block
 
 Setup:
           .WaitScreenTop
+
+          .KillMusic
+          sta CurrentUtterance
+          sta CurrentUtterance + 1
+
           ldx SignpostIndex
 
           lda SignH, x
@@ -313,6 +318,40 @@ NoButton:
           jmp Loop
 
 Leave:
+          cmp #ModeSignpostSetFlag
+          bne ByeBye
+          ldy # 2 + (12 * 5) + 1
+          lda (SignpostText), y
+
+          lsr a
+          lsr a
+          lsr a
+          and #$07
+          tay
+          ldx CurrentCombatIndex
+          lda BitMask, x
+          ora ProvinceFlags, y
+          sta ProvinceFlags, y
+ByeBye:
+          sta CurrentUtterance
+          sta CurrentUtterance + 1
+          
           rts
           .bend
 
+;;; 
+;;; Overscan is different, we don't have  sound effects nor music and we
+;;; don't want Bank 7 to get confused by our speech.
+Overscan: .block
+          lda # ( 76 * OverscanLines ) / 64 - 1
+          sta TIM64T
+
+          jsr PlaySpeech
+
+FillOverscan:
+          lda INSTAT
+          bpl FillOverscan
+
+          sta WSYNC
+          rts
+          .bend          
