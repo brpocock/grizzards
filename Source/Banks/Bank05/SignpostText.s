@@ -1,7 +1,9 @@
 ;;; Grizzards Source/Banks/Bank05/SignpostText.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
-          Signs = (Sign_Beware, Sign_FireSwamp, NPC_SouthGate, NPC_TunnelBlocked, NPC_TunnelOpen, NPC_Artefact, NPC_TakeArtefact)
+;;; Order of sign texts MUST match the texts in SignpostSpeech.txt or it all goes to Hell.
+          
+          Signs = (Sign_Beware, Sign_FireSwamp, NPC_SouthGate, NPC_TunnelBlocked, NPC_TunnelOpen, NPC_Artefact, NPC_TakeArtefact1, NPC_TakeArtefact2, Sign_LostMines, Sign_SpiralWoods)
 
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
@@ -42,9 +44,10 @@ NPC_TunnelBlocked:
           .SignText "I CAN'T OPEN"
           .SignText "THE TUNNELS "
           .SignText "WITHOUT THE "
-          .SignText "2 ARTEFACTS."
+          .SignText "2 ARTIFACTS."
           .SignText "BRING THEM. "
-          .byte ModeSignpostDone
+          .byte ModeSignpostSetFlag
+          .byte 16
 
 NPC_TunnelOpen:
           .colu COLINDIGO, 0
@@ -61,17 +64,51 @@ NPC_Artefact:
           .colu COLTURQUOISE, $9
           .SignText "I HAVE 1 OF "
           .SignText "THE TWO     "
-          .SignText "ARTEFACTS.  "
+          .SignText "ARTIFACTS.  "
           .SignText "WHO SAYS YOU"
           .SignText "CAN TAKE IT?"
           .byte ModeSignpostDone
 
-NPC_TakeArtefact:
+NPC_TakeArtefact1:
           .colu COLINDIGO, 0
           .colu COLTURQUOISE, $9
           .SignText "I HAVE 1 OF "
           .SignText "THE TWO     "
-          .SignText "ARTEFACTS.  "
+          .SignText "ARTIFACTS.  "
           .SignText "TAKE THIS TO"
           .SignText "THE TUNNELS."
-          .byte ModeSignpostDone          
+          .byte ModeSignpostSetFlag
+          .byte 18
+
+NPC_TakeArtefact2:
+          .colu COLINDIGO, 0
+          .colu COLTURQUOISE, $9
+          .SignText "I HAVE 1 OF "
+          .SignText "THE TWO     "
+          .SignText "ARTIFACTS.  "
+          .SignText "TAKE THIS TO"
+          .SignText "THE TUNNELS."
+          .byte ModeSignpostSetFlag
+          .byte 17
+
+Sign_LostMines:
+          .colu COLGRAY, 0
+          .colu COLBROWN, $6
+          .SignText " LOST MINES "
+          .SignText " - CLOSED - "
+          .SignText "DUE TO CAVE-"
+          .SignText "IN.         "
+          .SignText "            "
+          .byte ModeSignpostDone
+
+Sign_SpiralWoods:
+          .colu COLGRAY, 0
+          .colu COLBROWN, $6
+          .SignText "SPIRAL WOODS"
+          .SignText " - CLOSED - "
+          .SignText "NO ENTRANCE."
+          .SignText "            "
+          .SignText "            "
+          .byte ModeSignpostDone
+
+          
