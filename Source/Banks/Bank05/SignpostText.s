@@ -107,8 +107,8 @@ Sign_LostMines:
           .colu COLBROWN, $6
           .SignText " LOST MINES "
           .SignText " - CLOSED - "
-          .SignText "DUE TO CAVE-"
-          .SignText "IN.         "
+          .SignText "   DUE TO   "
+          .SignText "  CAVE-IN.  "
           .SignText "            "
           .byte ModeSignpostDone
 ;;; 10
