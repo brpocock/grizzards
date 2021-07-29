@@ -5,8 +5,54 @@ Signpost: .block
 
 Setup:
           .WaitScreenTop
+
+          .KillMusic
+          sta AUDC0
+          sta AUDF0
+          sta AUDV0
+          sta CurrentUtterance + 1  ; zero from KillMusic
+
           ldx SignpostIndex
 
+          cpx # 3
+          beq CheckTunnelBlocked
+          cpx # 6
+          beq CheckTunnelVisited
+          cpx # 7
+          beq CheckTunnelVisited
+
+          jmp IndexReady
+
+CheckTunnelBlocked:
+          lda ProvinceFlags + 2
+          and # %00000110   ; Do they have both artifacts?
+          cmp # %00000110
+          bne IndexReady        ; no, tunnel blocked
+          inx                   ; yes, tunnel open now
+          bne IndexReady        ; alway taken
+
+CheckTunnelVisited:
+          lda ProvinceFlags + 2
+          and # $01
+          bne VisitedTunnel   ; did they visit the tunnel?
+          ldx # 5               ; no, can't have artifact
+          bne IndexReady        ; always taken
+
+VisitedTunnel:
+          lda ProvinceFlags + 2
+          cpx # 6
+          beq Artifact1
+          and # $02
+          beq IndexReady        ; get artifact
+TookArtifact:
+          ldx # 8
+          bne IndexReady        ; always taken
+Artifact1:
+          and # $04
+          bne TookArtifact
+          ;; fall through
+
+IndexReady:
           lda SignH, x
           sta SignpostText + 1
           sta SignpostWork + 1
@@ -14,6 +60,9 @@ Setup:
           sta SignpostText
           sta SignpostWork
 
+          inx
+          stx CurrentUtterance
+          
           ldy # 0
           lda (SignpostWork), y
           sta SignpostFG
@@ -24,7 +73,7 @@ Setup:
           .Add16 SignpostText, #2
 
           .WaitScreenBottom
-
+;;; 
 Loop:
           .WaitScreenTop
 
@@ -299,7 +348,7 @@ DoneDrawing:
           .BitBit PRESSED
           bne NoButton
 
-          ldy # 2 + (12 * 5)
+          ldy # (12 * 5)
           lda (SignpostText), y
           sta GameMode
 
@@ -313,23 +362,34 @@ NoButton:
           jmp Loop
 
 Leave:
+          cmp #ModeSignpostSetFlag
+          bne ByeBye
+          ldy # (12 * 5) + 1
+          lda (SignpostText), y
+          sta Temp
+          .SetBitFlag Temp
+
+ByeBye:
+          lda # 0
+          sta CurrentUtterance
+          sta CurrentUtterance + 1
+          
           rts
           .bend
 
 ;;; 
+;;; Overscan is different, we don't have  sound effects nor music and we
+;;; don't want Bank 7 to get confused by our speech.
+Overscan: .block
+          lda # ( 76 * OverscanLines ) / 64 - 1
+          sta TIM64T
 
-          Signs = (Sign_HelloWorld)
+          jsr PlaySpeech
 
-SignH:    .byte >(Signs)
-SignL:    .byte <(Signs)
+FillOverscan:
+          lda INSTAT
+          bpl FillOverscan
 
-Sign_HelloWorld:
-          .colu COLGRAY, 0
-          .colu COLYELLOW, $f
-          .SignText "BEWARE! THIS"
-          .SignText "ROUTE LEADS "
-          .SignText "TO MANY EVIL"
-          .SignText "MONSTERS.   "
-          .SignText "BE CAREFUL! "
-          .byte ModeSignpostDone
-;;; 
+          sta WSYNC
+          rts
+          .bend          

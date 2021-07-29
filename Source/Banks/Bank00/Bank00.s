@@ -9,7 +9,7 @@
           BANK = $00
 
           .include "StartBank.s"
-          .include "SpeakJetIDs.s"
+          .include "Source/Generated/Bank07/SpeakJetIDs.s"
 
 ;;; Start with page-aligned bitmaps
           .include "Title1.s"

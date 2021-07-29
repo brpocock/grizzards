@@ -4,7 +4,7 @@ GrizzardNames:
           .MiniText "DIRTEX"
           .MiniText "AQUAX "
           .MiniText "AIREX "
-          .MiniText "FLAMEX "
+          .MiniText "FLAMEX"
           .MiniText "SOILEY"
           .MiniText "WETNAS"
           .MiniText "WINDOO"

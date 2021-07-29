@@ -52,10 +52,14 @@ SetUpFortyEight:	.macro Graphics
 	.cdef "--", 39
 	.cdef "  ", 40
           .cdef ",,", 41
+          .cdef "''", 42
 	.enc "none"
 
 MiniText:	.macro String
 	.enc "minifont"
+          .if len(\String) != 6
+          .error "String length for .MiniText must be 6 ", \String, " is ", len(\String)
+          .fi
 	.byte \String[0]
 	.byte \String[1]
 	.byte \String[2]
@@ -67,6 +71,9 @@ MiniText:	.macro String
 
 SignText: .macro String
           .enc "minifont-extended"
+          .if len(\String) != 12
+          .error "String length for .SignText must be 12 ", \String, " is ", len(\String)
+          .fi
 	.byte \String[0]
 	.byte \String[1]
 	.byte \String[2]
@@ -84,6 +91,9 @@ SignText: .macro String
 	
 LoadString:	.macro String
 	.enc "minifont"
+          .if len(\String) != 6
+          .error "String length for .LoadString must be 6 ", \String, " is ", len(\String)
+          .fi
 	lda #\String[0]
 	sta StringBuffer + 0
 	lda #\String[1]

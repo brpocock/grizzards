@@ -1,23 +1,28 @@
 #!/usr/bin/perl -W
 
-opendir BANK7, "Source/Banks/Bank07" or die;
+my $bank = shift @ARGV;
 
-`mkdir -p Source/Generated/Common/ Source/Generated/Bank07`;
+# zero pad the input bank which should be specified in hex anyway
+$bank = sprintf '%02x' => hex($bank);
 
-open COMMON, '>', 'Source/Generated/Common/SpeakJetIDs.s' or die;
-open INDEX, '>', 'Source/Generated/Bank07/SpeakJetIndex.s' or die;
+opendir BANKX, "Source/Banks/Bank$bank" or die;
+
+`mkdir -p Source/Generated/Bank$bank`;
+
+open COMMON, '>', "Source/Generated/Bank$bank/SpeakJetIDs.s" or die;
+open INDEX, '>', "Source/Generated/Bank$bank/SpeakJetIndex.s" or die;
 
 print COMMON <<END;
 ;;; Source/Generated/Common/SpeakJetIDs.s
 ;;; generated from all Speech includes files
 ;;;
 ;;; These IDs are used to command various utterances
-;;; to occur from the speech engine in Bank 7
+;;; to occur from the speech engine in Bank \$$bank
 
 END
 
-print INDEX ';;; Source/Generated/Bank07/SpeakJetIndex.s
-;;; generated from all Speech includes files
+print INDEX ';;; Source/Generated/Bank' . $bank . '/SpeakJetIndex.s
+;;; generated from all Speech includes files in this bank
 ;;;
 ;;; This matches SpeakJetIDs.s in order but
 ;;; maps to actual addresses
@@ -26,10 +31,10 @@ SpeechIndex = ($0000';
 
 $n = 1; # because $00 means "no speech"
 
-while (my $dirent = readdir BANK7) {
+while (my $dirent = readdir BANKX) {
   next unless $dirent =~ /(.*)Speech.txt/;
 
-  open INFILE, '<', "Source/Banks/Bank07/$dirent";
+  open INFILE, '<', "Source/Banks/Bank$bank/$dirent";
   while (my $line = <INFILE>) {
     next unless $line =~ /^\s*([A-Za-z0-9_]+):/;
 
@@ -53,4 +58,4 @@ SpeechIndexL:
 
 close INDEX;
 close COMMON;
-closedir BANK7;
+closedir BANKX;
