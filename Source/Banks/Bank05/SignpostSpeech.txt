@@ -6,27 +6,27 @@ Now  entering the  fire bog.  Be  wary of  flame doggos  and rodents  of
 unusual size
 
 SouthGate:
-To the south are tunnels to the field where many people liv
+♀To the south are tunnels to the field where many people liv
 
 TunnelBlocked:
-I can't open the tunnels with out the two artifacts. Bring them
+♀I can't open the tunnels with out the two artifacts. Bring them
 
 TunnelOpen:
-Now that you brought them I can open the tunnels.
-This is the end of the demo area for Grizzards.
+♀Now that you brought them I can open the tunnels.
+☿This is the end of the demo area for Grizzards.
 Thank you for playing
 
 Artifact:
-I have one of the two artifacts. Who says you can ¿ take it ?
+♂I have one of the two artifacts. Who says you can ¿ take it
 
 TakeArtifact1:
-I have one of the two artifacts. Take this to the tunnels
+♂I have one of the two artifacts. Take this to the tunnels
 
 TakeArtifact2:
-I have one of the two artifacts. Take this to the tunnels
+♂I have one of the two artifacts. Take this to the tunnels
 
 TookArtifact:
-I hope my artifact can help you to defeat all the monsters
+♂I hope my artifact can help you to defeat all the monsters
 
 LostMines:
 The lost mines are closed due to a cave-in

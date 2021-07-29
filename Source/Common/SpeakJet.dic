@@ -4,8 +4,14 @@
 #
 , = \Pause2
 . = \Pause3
-¿ = \Pitch \96
-? = \Pitch \88
+¿ = \Pitch \115
+? = \Pitch \130
+#
+# Pitch shifting
+#
+♀ = \Pitch \125
+♂ = \Pitch \96
+☿ = \Pitch \88
 #
 # Words sorted alphabetically
 #
@@ -87,7 +93,7 @@ Aquax = \AY \KO \Fast \WW \AY \EK \ZZ
 archer = \AWRR \CH \EYRR
 archery = \AWRR \CH \EYRR \IY
 are = \AWRR
-area = \EYIY \IH \RR \IY \AX
+area = \EYIY \RR \IY \AX
 arm = \AWRR \MM
 army = \Fast \AW \RR \MM \IY
 around = \UX \Fast \RR \AYWW \NE \OD
@@ -332,7 +338,7 @@ defeat = \DE \AX \FF \IY \TT
 definitely = \DE \EH \FF \IH \NO \IH \TT \LE \IY
 delta = \DE \EHLE \TT \Fast \UX
 dentist = \DE \Fast \EY \NE \TT \IH \SE \TT
-demo = \DE \EH \MM \OH
+demo = \DE \EH \MM \Slow \OWWW 
 described = \DE \AX \SE \KO \RR \IYEH \BE \Fast \EH \DE
 desert = \DE \Stress \EH \ZZ \Fast \AXRR \TT
 desk = \DE \EH \SE \KE

@@ -266,9 +266,9 @@ SpriteList:
 
           ;; Room 1
           .byte 1
-          .byte SpriteWander
+          .byte SpriteFixed
           .byte $3c, $27
-          .byte SpriteCombat, 1
+          .byte SpritePerson, 2
 
           .byte 2
           .byte SpriteWander
@@ -335,6 +335,10 @@ SpriteList:
           .byte 0
 
           ;; Room 6
+          .byte 17
+          .byte SpriteWander
+          .byte $b9, $28
+          .byte SpritePerson, 7 ; Artifact 2
           .byte 0
 
           ;; Room 7
