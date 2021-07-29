@@ -332,13 +332,44 @@ SpriteList:
           .byte 0
 
           ;; Room 5
+          .byte $ff
+          .byte SpriteWander
+          .byte $30, $30
+          .byte SpriteCombat, 9
+
+          .byte $ff
+          .byte SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 9
+
+          .byte $ff
+          .byte SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 10
+
           .byte 0
 
           ;; Room 6
+          .byte $ff
+          .byte SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 8
+
+          .byte $ff
+          .byte SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 9
+
+          .byte $ff
+          .byte SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 10
+
           .byte 17
           .byte SpriteWander
           .byte $b9, $28
           .byte SpritePerson, 7 ; Artifact 2
+
           .byte 0
 
           ;; Room 7
@@ -373,9 +404,35 @@ SpriteList:
           .byte 0
 
           ;; Room 9
+
+          .byte 11
+          .byte SpriteWander
+          .byte $73, $21
+          .byte SpriteCombat, 9
+
+          .byte 12
+          .byte SpriteWander
+          .byte $73, $32
+          .byte SpriteCombat, 10
+
+          .byte 13
+          .byte SpriteWander
+          .byte $88, $21
+          .byte SpriteCombat, 11
+
+          .byte 14
+          .byte SpriteWander
+          .byte $88, $32
+          .byte SpriteCombat, 12
+
           .byte 0
 
           ;; Room 10
+          .byte $ff
+          .byte SpriteWander
+          .byte $80, $28
+          .byte SpritePerson, 6 ; artifact 1
+
           .byte 0
 
           ;; Room 11
