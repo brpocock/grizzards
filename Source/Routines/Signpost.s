@@ -7,6 +7,9 @@ Setup:
           .WaitScreenTop
 
           .KillMusic
+          sta AUDC0
+          sta AUDF0
+          sta AUDV0
           sta CurrentUtterance + 1  ; zero from KillMusic
 
           ldx SignpostIndex
@@ -50,8 +53,6 @@ Artifact1:
           ;; fall through
 
 IndexReady:
-          stx CurrentUtterance
-
           lda SignH, x
           sta SignpostText + 1
           sta SignpostWork + 1
@@ -59,6 +60,9 @@ IndexReady:
           sta SignpostText
           sta SignpostWork
 
+          inx
+          stx CurrentUtterance
+          
           ldy # 0
           lda (SignpostWork), y
           sta SignpostFG
@@ -362,17 +366,11 @@ Leave:
           bne ByeBye
           ldy # 2 + (12 * 5) + 1
           lda (SignpostText), y
+          sta Temp
+          .SetBitFlag Temp
 
-          lsr a
-          lsr a
-          lsr a
-          and #$07
-          tay
-          ldx CurrentCombatIndex
-          lda BitMask, x
-          ora ProvinceFlags, y
-          sta ProvinceFlags, y
 ByeBye:
+          lda # 0
           sta CurrentUtterance
           sta CurrentUtterance + 1
           

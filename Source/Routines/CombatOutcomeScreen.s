@@ -332,16 +332,7 @@ CheckForWin:
           bne -
 
 WonBattle:
-          lda CurrentCombatIndex
-          lsr a
-          lsr a
-          lsr a
-          and #$07
-          tay
-          ldx CurrentCombatIndex
-          lda BitMask, x
-          ora ProvinceFlags, y
-          sta ProvinceFlags, y
+          .SetBitFlag CurrentCombatIndex
           ;; Did the player level up their stats by this victory?
           ;; The likelihood decreases the higher that stat is.
           jsr Random

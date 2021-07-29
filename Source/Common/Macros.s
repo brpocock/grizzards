@@ -317,3 +317,17 @@ BitBit:   .macro constant
           .error "Constant is not a power-of-two bit value: ", \constant
           .endswitch
           .endm
+;;; 
+SetBitFlag:         .macro flag
+          lda \flag
+          lsr a
+          lsr a
+          lsr a
+          tay
+          lda \flag
+          and #$07
+          tax
+          lda BitMask, x
+          ora ProvinceFlags, y
+          sta ProvinceFlags, y
+          .endm
