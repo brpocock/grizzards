@@ -3,7 +3,7 @@
 
 ;;; Order of sign texts MUST match the texts in SignpostSpeech.txt or it all goes to Hell.
           
-          Signs = (Sign_Beware, Sign_FireSwamp, NPC_SouthGate, NPC_TunnelBlocked, NPC_TunnelOpen, NPC_Artifact, NPC_TakeArtifact1, NPC_TakeArtifact2, Sign_LostMines, Sign_SpiralWoods)
+          Signs = (Sign_Beware, Sign_FireSwamp, NPC_SouthGate, NPC_TunnelBlocked, NPC_TunnelOpen, NPC_Artifact, NPC_TakeArtifact1, NPC_TakeArtifact2, NPC_TookArtifact, Sign_LostMines, Sign_SpiralWoods)
 
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)

@@ -404,7 +404,7 @@ SpriteList:
 	;;Room 15
           .byte $ff
           .byte SpriteFixed
-          .byte $c3, $2b
+          .byte $c0, $2b
           .byte SpriteSign, 10
 
 	.byte 0
@@ -418,6 +418,11 @@ SpriteList:
 	.byte 0
 
 	;;Room 17
+          .byte $ff
+          .byte SpriteFixed
+          .byte $7e, $40
+          .byte SpritePerson, 3
+
 	.byte 0
 
 	;;Room 18

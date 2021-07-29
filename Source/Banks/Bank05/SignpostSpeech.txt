@@ -6,7 +6,7 @@ Now  entering the  fire bog.  Be  wary of  flame doggos  and rodents  of
 unusual size
 
 SouthGate:
-To the south are tunnels to the field where many people live
+To the south are tunnels to the field where many people liv
 
 TunnelBlocked:
 I can't open the tunnels with out the two artifacts. Bring them
