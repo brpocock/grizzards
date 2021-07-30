@@ -177,6 +177,10 @@ ExecuteCombatMove is somewhat self-explanatory and occurs during a blank
 frame. The CombatOutcomeScreen displays  the outcome, and possibly jumps
 to Death, WinnerFireworks, or back to the map screen as appropriate.
 
+The Signpost  system has a setup  code block that has  special cases for
+"game logic" to swap out which message is shown depending on game flags.
+That is the least data-driven element of the game design system.
+
 
 
 
