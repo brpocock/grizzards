@@ -34,3 +34,8 @@ The lost mines are closed due to a cave-in
 SpiralWoods:
 The spiral woods are closed. No entrance
 
+TrebleVillage:
+Treble Village. Flee now. The monsters are coming.
+
+TrebleVIllageNPC:
+♂I'm getting out of here. The monsters keep getting closer to us.

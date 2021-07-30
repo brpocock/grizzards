@@ -3,7 +3,7 @@
 
 ;;; Order of sign texts MUST match the texts in SignpostSpeech.txt or it all goes to Hell.
           
-          Signs = (Sign_Beware, Sign_FireSwamp, NPC_SouthGate, NPC_TunnelBlocked, NPC_TunnelOpen, NPC_Artifact, NPC_TakeArtifact1, NPC_TakeArtifact2, NPC_TookArtifact, Sign_LostMines, Sign_SpiralWoods)
+          Signs = (Sign_Beware, Sign_FireSwamp, NPC_SouthGate, NPC_TunnelBlocked, NPC_TunnelOpen, NPC_Artifact, NPC_TakeArtifact1, NPC_TakeArtifact2, NPC_TookArtifact, Sign_LostMines, Sign_SpiralWoods, Sign_TrebleVillage, NPC_TrebleVillage)
 
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
@@ -122,6 +122,26 @@ Sign_SpiralWoods:
           .SignText "            "
           .byte ModeSignpostDone
 
-          
-	
+;;; 11
+Sign_TrebleVillage:
+          .colu COLRED, 0
+          .colu COLGOLD, $8
+          .SignText "   TREBLE   "
+          .SignText "   VILLAGE  "
+          .SignText "FLEE NOW!   "
+          .SignText "THE MONSTERS"
+          .SignText "ARE COMING! "
+          .byte ModeSignpostDone
+
+;;; 12
+NPC_TrebleVillage:
+          .colu COLINDIGO, 0
+          .colu COLBLUE, $9
+          .SignText "I'M GETTING "
+          .SignText "OUT OF HERE!"
+          .SignText "THE MONSTERS"
+          .SignText "KEEP GETTING"
+          .SignText "CLOSER TO US"
+          .byte ModeSignpostSetFlag
+          .byte 19
 ; LocalWords:  Grizzards

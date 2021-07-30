@@ -243,29 +243,15 @@ SpriteList:
           .byte $7d, $42         ; x, y position
           .byte SpriteDoor, 3   ; action
 
-          .if !DEMO         ; hide doors 2,3,4 from demo
-
           .byte $ff
           .byte SpriteFixed
-          .byte $b5, $26
-          .byte SpriteProvinceDoor | $10, 0
-
-          .byte $ff
-          .byte SpriteFixed
-          .byte $43, $26
-          .byte SpriteProvinceDoor | $20, 0
-
-          .byte $ff
-          .byte SpriteFixed
-          .byte $7d, $0f
-          .byte SpriteProvinceDoor | $30, 0
-
-          .fi
+          .byte $7d, $10         ; x, y
+          .byte SpriteGrizzardDepot, 0
 
           .byte 0               ; end of list
 
           ;; Room 1
-          .byte 1
+          .byte $ff
           .byte SpriteFixed
           .byte $3c, $27
           .byte SpritePerson, 2
@@ -303,8 +289,13 @@ SpriteList:
 
           .byte $ff
           .byte SpriteFixed
-          .byte $7d, $10         ; x, y
-          .byte SpriteGrizzardDepot, 0
+          .byte 100, 32
+          .byte SpriteSign, 11  ; Treble Village
+
+          .byte 19
+          .byte SpriteWander
+          .byte 100, 32
+          .byte SpritePerson, 12 ; Fleeing village
 
           .byte 0
 
