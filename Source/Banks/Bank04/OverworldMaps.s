@@ -9,24 +9,24 @@ MapCount = 47
 
 MapColors:
           ;; 0
-          .colors COLINDIGO, COLSPRINGGREEN
-          .colors COLGREEN, COLSPRINGGREEN
-          .colors COLGREEN, COLSPRINGGREEN
-          .colors COLGREEN, COLSPRINGGREEN
-          .colors COLTEAL, COLSPRINGGREEN
-          .colors COLCYAN, COLSPRINGGREEN
-          .colors COLCYAN, COLSPRINGGREEN
-          .colors COLGREEN, COLGRAY
-          .colors COLGREEN, COLGRAY
-          .colors COLCYAN, COLGRAY
+          .colors COLINDIGO, COLCYAN
+          .colors COLINDIGO, COLBROWN
+          .colors COLINDIGO, COLBROWN
+          .colors COLINDIGO, COLBROWN
+          .colors COLRED, COLRED
+          .colors COLRED, COLRED
+          .colors COLRED, COLRED
+          .colors COLGRAY, COLGRAY
+          .colors COLGRAY, COLGRAY
+          .colors COLRED, COLRED
           ;; 10
-          .colors COLTURQUOISE, COLGRAY
-          .colors COLGREEN, COLGRAY
-          .colors COLTEAL, COLGRAY
+          .colors COLGREEN, COLSPRINGGREEN
+          .colors COLGRAY, COLBROWN
+          .colors COLGRAY, COLBROWN
+          .colors COLGRAY, COLBROWN
           .colors COLCYAN, COLGRAY
-          .colors COLCYAN, COLGRAY
-          .colors COLTURQUOISE, COLGRAY
-          .colors COLTURQUOISE, COLGRAY
+          .colors COLGREEN, COLSPRINGGREEN
+          .colors COLGREEN, COLSPRINGGREEN
           .colors COLTURQUOISE, COLGRAY
           .colors COLTURQUOISE, COLGRAY
           .colors COLBLUE, COLGRAY
@@ -254,7 +254,7 @@ SpriteList:
           .byte $ff
           .byte SpriteFixed
           .byte $3c, $27
-          .byte SpritePerson, 2
+          .byte SpritePerson, 2 ; there are tunnels in the south
 
           .byte 2
           .byte SpriteWander
@@ -266,13 +266,18 @@ SpriteList:
           .byte $7b, $2c
           .byte SpriteCombat, 3
 
+          .byte $ff
+          .byte SpriteFixed
+          .byte $3c, $20
+          .byte SpriteSign, 13  ; Treble Docks to Port Lion
+
           .byte 0               ; end of list
 
           ;; Room 2
           .byte 5
           .byte SpriteWander
           .byte 125, 32         ; x, y position
-          .byte SpriteCombat, 5
+          .byte SpriteCombat, 1
 
           .byte $ff
           .byte SpriteFixed
@@ -323,9 +328,9 @@ SpriteList:
           .byte 0
 
           ;; Room 5
-          .byte $ff
+          .byte 22
           .byte SpriteWander
-          .byte $30, $30
+          .byte $34, $2c
           .byte SpriteCombat, 9
 
           .byte $ff
@@ -356,7 +361,7 @@ SpriteList:
           .byte 0, 0
           .byte SpriteCombat, 10
 
-          .byte 17
+          .byte $ff
           .byte SpriteWander
           .byte $b9, $28
           .byte SpritePerson, 7 ; Artifact 2
@@ -419,6 +424,21 @@ SpriteList:
           .byte 0
 
           ;; Room 10
+          .byte 20
+          .byte SpriteWander
+          .byte $80, $28
+          .byte SpriteCombat, 4
+          
+          .byte 21
+          .byte SpriteWander
+          .byte $80, $28
+          .byte SpriteCombat, 4
+          
+          .byte $ff
+          .byte SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 15
+          
           .byte $ff
           .byte SpriteWander
           .byte $80, $28
@@ -427,7 +447,7 @@ SpriteList:
           .byte 0
 
           ;; Room 11
-          .byte 11
+          .byte 15
           .byte SpriteWander
           .byte $7e, $27
           .byte SpriteCombat, 2
@@ -435,7 +455,12 @@ SpriteList:
           .byte 0
 
           ;; Room 12
-          .byte 12
+          .byte $ff
+          .byte SpriteFixed
+          .byte $7e, $27
+          .byte SpriteSign, 14
+          
+          .byte 4
           .byte SpriteWander
           .byte $7e, $27
           .byte SpriteCombat, 2
@@ -443,7 +468,7 @@ SpriteList:
           .byte 0
 
           ;; Room 13
-          .byte 13
+          .byte 5
           .byte SpriteWander
           .byte $7e, $27
           .byte SpriteCombat, 2
@@ -454,6 +479,11 @@ SpriteList:
 	.byte 0
 
 	;;Room 15
+          .byte 6
+          .byte SpriteWander
+          .byte $af, $2b
+          .byte SpriteCombat, 15
+          
           .byte $ff
           .byte SpriteFixed
           .byte $c0, $2b

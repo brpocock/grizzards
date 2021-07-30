@@ -11,7 +11,7 @@ Monsters:
           .MiniText "SLIME "
           .byte 14               ; art
           .colu COLRED, $f
-          .byte $20, $6        ; ATK/DEF, score
+          .byte $21, $6        ; ATK/DEF, score
           
           .MiniText "VORPAL"
           .MiniText "BUNNY "
@@ -29,31 +29,31 @@ Monsters:
 	.MiniText " SHEEP"
 	.byte 2
 	.colu COLBLUE, $8
-	.byte $00, $15
+	.byte $22, $15
 
 	.MiniText "VIKING"
 	.MiniText "TURTLE"
 	.byte 3
 	.colu COLBLUE, $8
-	.byte $00, $15
+	.byte $33, $15
 
 	.MiniText "CRAZY "
 	.MiniText "   FOX"
 	.byte 4
 	.colu COLBLUE, $8
-	.byte $00, $25
+	.byte $44, $50
 
 	.MiniText "WATER "
 	.MiniText " KITTY"
 	.byte 5
 	.colu COLBLUE, $8
 	.byte $00, $20
-
+;;; 8
 	.MiniText "FLAME "
 	.MiniText " DOGGO"
 	.byte 6
 	.colu COLRED, $d
-	.byte $22, $20
+	.byte $32, $35
 
 	.MiniText "FUZZIE"
 	.MiniText "  BEAR"
@@ -73,7 +73,7 @@ Monsters:
 	.MiniText " PANDA"
 	.byte 9
 	.colu COLBLUE, $8
-	.byte $33, $10
+	.byte $33, $35
 
 	.MiniText "LEGGY "
 	.MiniText "MUTANT"
@@ -91,7 +91,7 @@ Monsters:
 	.MiniText " -WISP"
 	.byte 12
 	.colu COLBLUE, $8
-	.byte $00, $10
+	.byte $41, $10
 
 	.MiniText "BUTTER"
 	.MiniText "   FLY"

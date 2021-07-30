@@ -204,11 +204,7 @@ colors:   .macro co1, co2
 ;;; NTSC, PAL
           .default
 
-          .if \co1 == \co2
-            .byte \co1 | ((\co2 - $10) >> 4)
-          .else
-            .byte \co1 | (\co2 >> 4)
-          .fi
+          .byte \co1 | (\co2 >> 4)
 
           .endswitch            ; TV
 .endm

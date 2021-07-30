@@ -7,7 +7,7 @@
 
 ;;; This file provides additional characters:
 
-;;;  ,'
+;;;  ,'<>
 
 FontExtended:	.block
 
@@ -25,4 +25,15 @@ FontExtended:	.block
           .byte %00000100
           .byte %00001100
 
+          .byte %00000111
+          .byte %00011111
+          .byte %11111111
+          .byte %00011111
+          .byte %00000111
+
+          .byte %11100000
+          .byte %11111000
+          .byte %11111111
+          .byte %11111000
+          .byte %11100000
 	.bend
