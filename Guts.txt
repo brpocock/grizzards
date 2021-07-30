@@ -37,9 +37,11 @@ ROM banks have enumerated symbolic names:
 
  * 4 is the Province0MapBank, with the rest of the maps.
 
- * 5 is CombatBank for combats 128-255.
+ * 5 is the Signpost bank, handling  signs and NPCs (which are basically
+   the same thing,  aside from some story-driven  special-casing and map
+   icons)
  
- * 6 is CombatBank for combats 0-127.
+ * 6 is CombatBank
 
  * 7 is the  SFXBank, handling sound effects, speech  synthesis, and the
    music for the title/attract sequence.
@@ -118,10 +120,9 @@ Pointer temp vars that are used constantly.
 Part of zero  page is globally used;  part of that is saved  to the save
 game “file”  on the EEPROM. A  set of game flags  (indicating victory in
 combat) are saved to different areas  of the save game file depending on
-which “province” the  player is in (Province  0 in ROM banks  4 for maps
-and  6 for  combat, or  Province 1  in banks  3 and  5). Another  5-byte
-segment  holds the  current  Grizzard's stats,  which  are “paged”  when
-changing Grizzards.
+which  “province” the  player is  in (Province  0 in  ROM banks  4 ,  or
+Province  1  in banks  3).  Another  5-byte  segment holds  the  current
+Grizzard's stats, which are “paged” when changing Grizzards.
 
 The middle part  (between globals and the stack) of  the zero page holds
 “overlain”  variables   which  are  defined  for   a  specific  routine.
