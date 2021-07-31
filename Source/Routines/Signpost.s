@@ -47,9 +47,18 @@ VisitedTunnel:
 TookArtifact:
           ldx # 8
           bne IndexReady        ; always taken
+
+Artifact1Scared:
+          ldx # 15
+          bne IndexReady        ; always taken
+          
 Artifact1:
           and # $04
           bne TookArtifact
+          lda ProvinceFlags + 2
+          and #$30
+          cmp #$30
+          bne Artifact1Scared
           ;; fall through
 
 IndexReady:
@@ -142,7 +151,7 @@ DrawLeftField:
           .Add16 SignpostWork, #12
 
           jmp AlignedLeft
-          .align $80, $ea
+          .align $40, $ea
 
 AlignedLeft:
           .option allow_branch_across_page = false
@@ -249,7 +258,7 @@ DrawRightField:
           .Add16 SignpostWork, # 6
 
           jmp AlignedRight
-          .align $80, $ea
+          .align $20, $ea
 
 AlignedRight:
           .option allow_branch_across_page = false

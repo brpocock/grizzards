@@ -98,7 +98,7 @@ Monsters may  surprise you as  you travel, or  you may see  them coming.
 When faced  with terrifying beasts,  you'll direct your Grizzard  to use
 its moves to defend you and attack the monsters.
 
-\vspace{1in}\vfill
+\vspace{2in}\vfill
 
 This is the \textit{Grizzards} \ifdefined\DEMO Demo \fi Player's Guide
 
@@ -271,6 +271,11 @@ not have a private area reserved for it yet.
 When you have selected the slot you want to begin (or resume), press the
 Game Reset switch or Fire button to start.
 
+You'll begin in the ruins of  Treble Village after the monsters invaded.
+You know that to the east are  the extremely dangerous Fire Bog, so your
+best  bet   is  to  head   west  (left)  and   see  if  there   are  any
+other survivors.
+
 \section{Roaming The World}
 
 The   World   Map   screen   shows   your   current   score   (initially
@@ -319,9 +324,6 @@ party,  with up  to  30 total  Grizzards saved  in  your memory  device.
 Each Grizzard may have its own moves and skill scores.
 
 \fi
-
-To  review the  statistics  of your  current  Grizzard companion,  press
-Game Select.
 
 A door looks like this:
 
@@ -457,8 +459,8 @@ Grizzard's statistics. Each Grizzard companion has a few statistics:
 \begin{description}
   
 \item[\texttt{ATK}] is the Grizzard's  \emph{attack} rating. This is the
-  amount  of damage  that  your  Grizzard can  do  when it  successfully
-  attacks a monster. Some Moves cause more damage than others, though.
+  likelihood  that your  Grizzard will  hit when  it attacks  a monster.
+  Some Moves cause more damage than others, though.
   
 \item[\texttt{DEF}] is the Grizzard's  \emph{defend} rating. This is how
   likely your Grizzard is to avoid being hurt by a monster's Move.
@@ -582,8 +584,6 @@ After deleting your save game slot, return the Left Difficulty Switch to
 the ``B'' position.
 \fi
 
-\clearpage
-
 \chapter{Grizzards and Moves}
 
 There are  30 Grizzards in  the game world,  each with their  own unique
@@ -608,7 +608,7 @@ Grizzard will be featured on the title screen of the game.
 
 \section{Dirtex}
 
-\includegraphics[width=\columnwidth]{../Source/Banks/Bank00/Grizzard0-1.png}
+\includegraphics[width=\columnwidth]{../Manual/Dirtex\TV.png}
 
 The green Dirtex Grizzard lives in the grass. It can learn these Moves:
 
@@ -655,7 +655,7 @@ Moves:
 
 \section{Airex}
 
-\includegraphics[width=\columnwidth]{../Source/Banks/Bank00/Grizzard2-0.png}
+\includegraphics[width=\columnwidth]{../Manual/Airex\TV.png}
 
 Airex is a teal Grizzard which lives in the trees. It can learn these Moves:
 
@@ -821,7 +821,7 @@ ones that will be used in the final game.
 
 \fi
 
-\chapter*{Credits}
+\chapter{Credits}
 
 {\small
 
@@ -846,13 +846,13 @@ based upon  code by  Andrew Jacobs,  based upon  code by  Garth Wilsone.
 Stella list  by Erik  Mooney and  Bradford W.  Mott. SaveKey  EEPROM and
 AtariVox  speech  synthesis driver  based  upon  code by  Alex  Herbert.
 Random  number  generator  by  AtariAge  forum  user  \texttt{Supercat}.
-Some  math  functions  by  AtariAge  forum  user  \textt{Omega\-matrix}.
-Some math functions taken from December 1984 Apple Assembly Line. ``Have
-You Played  Atari Today'' jingle  by Atari Inc. transcribed  by AtariAge
-Forum user \texttt{tigger\-the\-hun}. Atari 7800 console detection logic
-by  AtariAge  user  \texttt{batari}   courtesy  of  Darrell  Spice,  Jr.
-AtariVox  and  SaveKey  illustrations  in   this  manual  are  from  the
-AtariAge store.
+Some  math  functions  by AtariAge  forum  user  \texttt{Omega\-matrix}.
+Some  math functions  taken  from December  1984 \textit{Apple  Assembly
+  Line}.  ``Have  You   Played  Atari  Today''  jingle   by  Atari  Inc.
+transcribed by AtariAge Forum user \texttt{tigger\-the\-hun}. Atari 7800
+console  detection logic  by AtariAge  user \texttt{batari}  courtesy of
+Darrell Spice, Jr. AtariVox and SaveKey illustrations in this manual are
+from the AtariAge store.
 
 Special thanks  to everyone in  the Stella and AtariAge  communities for
 making this game possible.
@@ -863,6 +863,8 @@ This section will list anyone who helps to playtest this game. ***
 
 }
 
+
+\vfill
 
 \chapter*{Publication History}
 
@@ -880,5 +882,9 @@ videogame software for \emph{non-commercial personal use}.
 
 Redistribution not for profit is allowed, but sales of this software
 requires a license.
+
+\clearpage
+\addcontentsline{toc}{chapter}{Map of Syrex}
+\includepdf[height=9in,width=6in,fitpaper=true]{../Manual/SyrexMap.pdf}
 
 \end{document}
