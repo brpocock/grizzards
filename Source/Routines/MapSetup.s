@@ -105,6 +105,7 @@ DoneFinding:
           ;; There can be up to 4
           ldx # 0                ; XXX this is probably already the case
           stx SpriteCount
+          stx SpriteFlicker
 
 SetUpSprite:
           ;; .y varies from 0 to max 25 when all 4 sprites are used
