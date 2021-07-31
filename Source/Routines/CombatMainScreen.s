@@ -2,7 +2,7 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 CombatMainScreen:   .block
 
-          lda #0
+          lda #1
           sta MoveSelection
           lda #ModeCombat
           sta GameMode
