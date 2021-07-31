@@ -255,7 +255,7 @@ CheckForAlarm:
           bne KeepWaiting
 
           inc MoveAnnouncement
-          lda # 2
+          lda # 1
           jsr SetNextAlarm
 
 KeepWaiting:
