@@ -95,6 +95,7 @@ DrawStatusFX:
 
           .BitBit StatusMuddle
           bne FXMuddle
+
           jmp AfterStatusFX
 
 FXSleep:
