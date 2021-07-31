@@ -2,7 +2,7 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
 LearntMove:        .block
-
+          .WaitScreenTop
           ;; Call with the move ID stashed in Temp
           lda #ModeLearntMove
           sta GameMode
@@ -20,8 +20,9 @@ LearntMove:        .block
 
           lda # 0
           sta DeltaY
+          .WaitScreenBottom
 Loop:
-          jsr VSync
+          .WaitScreenTop
 
           .ldacolu COLGRAY, 0
           sta COLUP0
@@ -38,9 +39,6 @@ Loop:
           ldy DeltaX
           sty Temp
           .FarJSR TextBank, ServiceShowMoveDecoded
-
-          .SkipLines (KernelLines - 45) / 2
-          jsr Overscan
 
 CheckForSpeech:
           lda DeltaY
@@ -63,6 +61,8 @@ CheckForAlarm:
           cmp AlarmSeconds
           bne AlarmDone
 
+          .WaitScreenBottom
+          
           rts
 
 AlarmDone:
@@ -80,9 +80,12 @@ SwitchesDone:
           beq +
           cmp #ModeColdStart
           beq GoColdStart
+
+          .WaitScreenBottom
           rts
 
 +
+          .WaitScreenBottom
           jmp Loop
 
 LearntText:
