@@ -235,14 +235,14 @@ DrawRightField:
 
           sta WSYNC
           sta HMCLR
-          ldx #$b0
-          ldy #$c0
+          ldx #$00
+          ldy #$00
           stx HMP0
           sty HMP1
-          .Sleep 31
+          .Sleep 34
           sta RESP0
           sta RESP1
-          .Sleep 23
+          .Sleep 13
           sta HMOVE             ; Cycle 74 HMOVE
 
           .option allow_branch_across_page = true
