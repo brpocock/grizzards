@@ -476,6 +476,26 @@ SpriteList:
           .byte 0
 
 	;;Room 14
+          .byte 11
+          .byte SpriteWander
+          .byte $73, $21
+          .byte SpriteCombat, 9
+
+          .byte 12
+          .byte SpriteWander
+          .byte $73, $32
+          .byte SpriteCombat, 10
+
+          .byte 13
+          .byte SpriteWander
+          .byte $88, $21
+          .byte SpriteCombat, 11
+
+          .byte 14
+          .byte SpriteWander
+          .byte $88, $32
+          .byte SpriteCombat, 12
+          
 	.byte 0
 
 	;;Room 15
@@ -492,10 +512,25 @@ SpriteList:
 	.byte 0
 
 	;;Room 16
-          .byte $ff
+          .byte 23
           .byte SpriteFixed
           .byte $7b, $25
-          .byte SpriteCombat, 2
+          .byte SpriteCombat, 13
+
+          .byte $ff
+          .byte SpriteRandomEncounter
+          .byte $7b, $25
+          .byte SpriteCombat, 15
+
+          .byte $ff
+          .byte SpriteRandomEncounter
+          .byte $7b, $25
+          .byte SpriteCombat, 15
+
+          .byte $ff
+          .byte SpriteRandomEncounter
+          .byte $7b, $25
+          .byte SpriteCombat, 14
 
 	.byte 0
 
