@@ -170,6 +170,11 @@ SkipStick:
           .BitBit PRESSED
           bne ThisIsNotAStickUp
 
+          lda #>Phrase_EraseSlot
+          sta CurrentUtterance + 1
+          lda #<Phrase_EraseSlot
+          sta CurrentUtterance
+
           lda #ModeEraseSlot
           sta GameMode
           jmp Loop
@@ -189,11 +194,6 @@ EliminationMode:
 EraseSlotNow:
           lda #SoundDeleted
           sta NextSound
-
-          lda #>Phrase_EraseSlot
-          sta CurrentUtterance + 1
-          lda #<Phrase_EraseSlot
-          sta CurrentUtterance
 
           lda #ModeErasing
           sta GameMode
