@@ -5,7 +5,7 @@ Monsters:
           .MiniText "SLIME "
           .byte 14               ; art
           .colu COLGREEN, $f
-          .byte $10, $6         ; ATK/DEF, + score for defeating (BCD)
+          .byte $20, $6         ; ATK/DEF, + score for defeating (BCD)
           
           .MiniText "HORRID"
           .MiniText "SLIME "
