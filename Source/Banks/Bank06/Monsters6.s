@@ -23,7 +23,7 @@ Monsters:
           .MiniText "  U.S."
           .byte 1
           .colu COLGOLD, $0
-          .byte $33, $15
+          .byte $32, $15
 
 	.MiniText "LECTRO"
 	.MiniText " SHEEP"
@@ -73,7 +73,7 @@ Monsters:
 	.MiniText " PANDA"
 	.byte 9
 	.colu COLBLUE, $8
-	.byte $33, $35
+	.byte $32, $35
 
 	.MiniText "LEGGY "
 	.MiniText "MUTANT"
