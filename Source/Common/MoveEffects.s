@@ -116,7 +116,7 @@ MoveDeltaHP:
           .byte $ff ^ 25
           .byte $ff ^ 50
           .byte $ff ^ 99
-          .byte 15
+          .byte 10
           .byte 0
           .byte 0
           .byte 0
