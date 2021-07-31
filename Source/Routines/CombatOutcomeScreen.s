@@ -71,12 +71,6 @@ AfterHitPoints:
 
 DrawStatusFX:
           lda MoveStatusFX
-          jsr FindHighBit
-          txa
-          asl a
-          sta Temp
-          asl a
-          adc Temp
 
           .BitBit StatusSleep
           bne FXSleep
