@@ -45,7 +45,7 @@ NewRoomTimerRunning:
           lda #ModeMap
           sta GameMode
 
-          ldy #0
+          ldy # 0
 FindSprites:
           ;; Get the map index
           ldx CurrentMap
@@ -67,7 +67,7 @@ SkipRoom:
           ;; Not end of list, so we have to skip 6 bytes
           lda Pointer
           clc
-          adc #6
+          adc # 6
           bcc +
           inc Pointer + 1
 +
@@ -103,7 +103,7 @@ FoundSprites:
 DoneFinding:
           ;; Start with 0 sprites
           ;; There can be up to 4
-          ldx #0                ; XXX this is probably already the case
+          ldx # 0                ; XXX this is probably already the case
           stx SpriteCount
 
 SetUpSprite:
