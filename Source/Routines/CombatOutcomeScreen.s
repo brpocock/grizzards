@@ -80,37 +80,42 @@ DrawStatusFX:
 
           .BitBit StatusSleep
           bne FXSleep
+
           .BitBit StatusAttackDown
           bne FXAttackDown
+
           .BitBit StatusAttackUp
           bne FXAttackUp
+
           .BitBit StatusDefendDown
           bne FXDefendDown
+
           .BitBit StatusDefendUp
           bne FXDefendUp
+
           .BitBit StatusMuddle
           bne FXMuddle
           jmp AfterStatusFX
 
 FXSleep:
           .SetPointer SleepText
-          bne EchoStatus        ; always taken
+          jmp EchoStatus
 
 FXAttackDown:
           .SetPointer AttackDownText
-          bne EchoStatus        ; always taken
+          jmp EchoStatus
 
 FXAttackUp:
           .SetPointer AttackUpText
-          bne EchoStatus        ; always taken
+          jmp EchoStatus
 
 FXDefendDown:
           .SetPointer DefendDownText
-          bne EchoStatus        ; always taken
+          jmp EchoStatus
 
 FXDefendUp:
           .SetPointer DefendUpText
-          bne EchoStatus        ; always taken
+          jmp EchoStatus
 
 FXMuddle:
           .SetPointer MuddleText
