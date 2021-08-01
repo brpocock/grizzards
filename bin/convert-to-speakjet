@@ -62,7 +62,6 @@ print STDERR "$dictfile:Loaded " . (scalar keys %dict) . " words from dictionary
 
 open INFILE, '<', $infile;
 open OUTFILE, '>', $outfile;
-open COMMON, '>', $commonfile;
 
 print OUTFILE <<"END";
 ;;; This is a generated file.
