@@ -59,7 +59,7 @@ Monsters:
 	.MiniText "  BEAR"
 	.byte 7
 	.colu COLBLUE, $8
-	.byte $00, $10
+	.byte $44, $10
 
 ;;; 10
 
@@ -79,13 +79,13 @@ Monsters:
 	.MiniText "MUTANT"
 	.byte 10
 	.colu COLBLUE, $8
-	.byte $00, $10
+	.byte $55, $10
 
 	.MiniText "SKY   "
 	.MiniText "MUTANT"
 	.byte 11
 	.colu COLBLUE, $8
-	.byte $00, $10
+	.byte $55, $10
 
 	.MiniText "WILL-O"
 	.MiniText " -WISP"
@@ -97,13 +97,13 @@ Monsters:
 	.MiniText "   FLY"
 	.byte 13
 	.colu COLBLUE, $8
-	.byte $00, $10
+	.byte $03, $10
 
 	.MiniText "SCARY "
 	.MiniText "   RAT"
 	.byte 1
 	.colu COLBLUE, $8
-	.byte $00, $10
+	.byte $55, $10
 
 	.MiniText "MONSTR"
 	.MiniText "  17  "
