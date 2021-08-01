@@ -20,6 +20,8 @@ Setup:
           beq CheckTunnelVisited
           cpx # 7
           beq CheckTunnelVisited
+          cpx # 13
+          beq CheckShipInPort
 
           jmp IndexReady
 
@@ -65,6 +67,13 @@ Artifact1:
           bne Artifact1Scared
           ;; fall through
 
+CheckShipInPort:
+          lda ProvinceFlags
+          and #$01
+          beq IndexReady
+          ldx # 19
+          bne IndexReady        ; always taken
+          
 IndexReady:
           lda SignH, x
           sta SignpostText + 1

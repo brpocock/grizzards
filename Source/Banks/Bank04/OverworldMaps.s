@@ -279,7 +279,7 @@ SpriteList:
           .byte 0
 
           ;; Room 3
-          .byte $ff              ; not removeable, SpriteFixed     ; fixed position sprite
+          .byte $ff, SpriteFixed              ; not removeable,fixed position sprite
           .byte $7d, $30         ; x, y position
           .byte SpriteDoor, 0   ; action
 
@@ -462,7 +462,11 @@ SpriteList:
           
           .byte $ff, SpriteFixed
           .byte $c0, $2b
-          .byte SpriteSign, 10
+          .if DEMO
+          .byte SpriteSign, 10  ; Spiral Woods closed
+          .else
+          .byte SpriteSign, 18  ; Spiral Woods open
+          .fi
 
 	.byte 0
 

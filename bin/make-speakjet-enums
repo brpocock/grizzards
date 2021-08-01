@@ -3,7 +3,7 @@
 my $bank = shift @ARGV;
 
 # zero pad the input bank which should be specified in hex anyway
-$bank = sprintf '%02x' => hex($bank);
+$bank = sprintf '%02x' => hex("0x$bank");
 
 opendir BANKX, "Source/Banks/Bank$bank" or die;
 

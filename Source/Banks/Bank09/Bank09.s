@@ -1,6 +1,6 @@
-;;; Grizzards Source/Banks/Bank05/Bank05.s
+;;; Grizzards Source/Banks/Bank09/Bank09.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
-          BANK = $05
+          BANK = $09
 
           .include "StartBank.s"
 
@@ -20,10 +20,9 @@ DoLocal:
           .include "DecodeText.s"
 
           .include "SignpostText.s"
-
           .include "SignpostSpeech.s"
           .include "SpeakJetIndex.s"
+
           .include "PlaySpeech.s"
 
           .include "EndBank.s"
-
