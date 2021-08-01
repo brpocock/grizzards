@@ -52,13 +52,24 @@ GoColdStart:
 GoMap:
           ldx #$ff              ; smash the stack
           txs
+          
+          .if DEMO
+          sta BankSwitch0 + Province0MapBank
+          jmp DoLocal
+          .else
           lda CurrentProvince
           bne +
           sta BankSwitch0 + Province0MapBank
           jmp DoLocal
 +
+          cmp #2
+          beq +
           sta BankSwitch0 + Province1MapBank
           jmp DoLocal
++
+          sta BankSwitch0 + Province2MapBank
+          jmp DoLocal
+          .fi
 
 ;;; Go to the current combat memory bank, and jump to DoCombat.
 GoCombat:

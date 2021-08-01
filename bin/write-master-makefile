@@ -56,14 +56,10 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
 
     my $starter_name = (qw[Dirtex Aquax Airex])[$starter];
 
-    my %seen = ();
-
     print "Dist/Grizzards.$starter_name.$tv.a26:\t";
-
     for my $bank (@banks) {
       print "\\\n\tObject/Bank$bank.$starter_name.$tv.o ";
     }
-
     print "
 \tmkdir -p Dist
 \tcat \$^ > \$\@\n\n";
