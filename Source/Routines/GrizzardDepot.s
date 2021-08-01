@@ -13,9 +13,9 @@ GrizzardDepot:    .block
 Loop:     
           .WaitScreenTop
 
-          .ldacolu COLTEAL, $f
+          .ldacolu COLTEAL, $2
           sta COLUBK
-          .ldacolu COLINDIGO, 0
+          .ldacolu COLINDIGO, $a
           sta COLUP0
           sta COLUP1
 
@@ -29,7 +29,7 @@ Loop:
           jsr DrawGrizzard
 
           jsr Prepare48pxMobBlob
-          .ldacolu COLINDIGO, 0
+          .ldacolu COLINDIGO, $a
           sta COLUP0
           sta COLUP1
 

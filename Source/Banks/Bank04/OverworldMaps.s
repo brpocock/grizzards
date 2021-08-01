@@ -238,162 +238,135 @@ MapSides:
 ;;; visible on the screen.
 SpriteList:
           ;; Room 0
-          .byte $ff              ; not removeable
-          .byte SpriteFixed     ; fixed position sprite
+          .byte $ff, SpriteFixed              ; not removeable, fixed position sprite
           .byte $7d, $42         ; x, y position
           .byte SpriteDoor, 3   ; action
 
-          .byte $ff
-          .byte SpriteFixed
+          .byte $ff, SpriteFixed
           .byte $7d, $10         ; x, y
           .byte SpriteGrizzardDepot, 0
 
           .byte 0               ; end of list
 
           ;; Room 1
-          .byte $ff
-          .byte SpriteFixed
+          .byte $ff, SpriteFixed
           .byte $3c, $27
           .byte SpritePerson, 2 ; there are tunnels in the south
 
-          .byte 2
-          .byte SpriteWander
+          .byte 2, SpriteWander
           .byte $bd, $21
           .byte SpriteCombat, 2
 
-          .byte 3
-          .byte SpriteWander
+          .byte 3, SpriteWander
           .byte $7b, $2c
           .byte SpriteCombat, 3
 
-          .byte $ff
-          .byte SpriteFixed
+          .byte $ff, SpriteFixed
           .byte $3c, $20
           .byte SpriteSign, 13  ; Treble Docks to Port Lion
 
           .byte 0               ; end of list
 
           ;; Room 2
-          .byte 5
-          .byte SpriteWander
+          .byte 5, SpriteWander
           .byte 125, 32         ; x, y position
           .byte SpriteCombat, 1
 
-          .byte $ff
-          .byte SpriteFixed
+          .byte $ff, SpriteFixed
           .byte 100, 32
           .byte SpriteSign, 0   ; Beware
 
           .byte 0
 
           ;; Room 3
-          .byte $ff              ; not removeable
-          .byte SpriteFixed     ; fixed position sprite
+          .byte $ff              ; not removeable, SpriteFixed     ; fixed position sprite
           .byte $7d, $30         ; x, y position
           .byte SpriteDoor, 0   ; action
 
-          .byte $ff
-          .byte SpriteFixed
+          .byte $ff, SpriteFixed
           .byte 100, 32
           .byte SpriteSign, 11  ; Treble Village
 
-          .byte 19
-          .byte SpriteWander
+          .byte 19, SpriteWander
           .byte 100, 32
           .byte SpritePerson, 12 ; Fleeing village
 
           .byte 0
 
           ;; Room 4
-          .byte 6
-          .byte SpriteFixed
+          .byte 6, SpriteFixed
           .byte $72, $13
           .byte SpriteCombat, 6
 
-          .byte $ff
-          .byte SpriteRandomEncounter
+          .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 7
 
-          .byte $ff
-          .byte SpriteRandomEncounter
+          .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 8
 
-          .byte $ff
-          .byte SpriteFixed
+          .byte $ff, SpriteFixed
           .byte $48, $30
           .byte SpriteSign, 1   ; Fire Swamp
 
           .byte 0
 
           ;; Room 5
-          .byte 22
-          .byte SpriteWander
+          .byte 22, SpriteWander
           .byte $34, $2c
           .byte SpriteCombat, 9
 
-          .byte $ff
-          .byte SpriteRandomEncounter
+          .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 9
 
-          .byte $ff
-          .byte SpriteRandomEncounter
+          .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 10
 
           .byte 0
 
           ;; Room 6
-          .byte $ff
-          .byte SpriteRandomEncounter
+          .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 8
 
-          .byte $ff
-          .byte SpriteRandomEncounter
+          .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 9
 
-          .byte $ff
-          .byte SpriteRandomEncounter
+          .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 10
 
-          .byte $ff
-          .byte SpriteWander
+          .byte $ff, SpriteWander
           .byte $b9, $28
           .byte SpritePerson, 7 ; Artifact 2
 
           .byte 0
 
           ;; Room 7
-          .byte 7
-          .byte SpriteFixed
+          .byte 7, SpriteFixed
           .byte $7c, $2a
           .byte SpriteCombat, 2
 
           .byte 0
 
           ;; Room 8
-          .byte 8
-          .byte SpriteWander
+          .byte 8, SpriteWander
           .byte $52, $2d
           .byte SpriteCombat, 2
 
-          .byte 9
-          .byte SpriteFixed
+          .byte 9, SpriteFixed
           .byte $c3, $20
           .byte SpriteCombat, 2
 
-          .byte 10
-          .byte SpriteFixed
+          .byte 10, SpriteFixed
           .byte $c3, $2b
           .byte SpriteCombat, 2
 
-          .byte $ff
-          .byte SpriteFixed
+          .byte $ff, SpriteFixed
           .byte $37, $29
           .byte SpriteSign, 9
 
@@ -401,144 +374,135 @@ SpriteList:
 
           ;; Room 9
 
-          .byte 11
-          .byte SpriteWander
+          .byte 11, SpriteWander
           .byte $73, $21
           .byte SpriteCombat, 9
 
-          .byte 12
-          .byte SpriteWander
+          .byte 12, SpriteWander
           .byte $73, $32
           .byte SpriteCombat, 10
 
-          .byte 13
-          .byte SpriteWander
+          .byte 13, SpriteWander
           .byte $88, $21
           .byte SpriteCombat, 11
 
-          .byte 14
-          .byte SpriteWander
+          .byte 14, SpriteWander
           .byte $88, $32
           .byte SpriteCombat, 12
 
           .byte 0
 
           ;; Room 10
-          .byte 20
-          .byte SpriteWander
+          .byte 20, SpriteWander
           .byte $80, $28
           .byte SpriteCombat, 4
           
-          .byte 21
-          .byte SpriteWander
+          .byte 21, SpriteWander
           .byte $80, $28
           .byte SpriteCombat, 4
           
-          .byte $ff
-          .byte SpriteRandomEncounter
+          .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 15
           
-          .byte $ff
-          .byte SpriteWander
+          .byte $ff, SpriteWander
           .byte $80, $28
           .byte SpritePerson, 6 ; artifact 1
 
           .byte 0
 
           ;; Room 11
-          .byte 15
-          .byte SpriteWander
+          .byte 15, SpriteWander
           .byte $7e, $27
           .byte SpriteCombat, 2
 
           .byte 0
 
           ;; Room 12
-          .byte $ff
-          .byte SpriteFixed
+          .byte $ff, SpriteFixed
           .byte $7e, $27
           .byte SpriteSign, 14
           
-          .byte 4
-          .byte SpriteWander
+          .byte 4, SpriteWander
           .byte $7e, $27
           .byte SpriteCombat, 2
 
           .byte 0
 
           ;; Room 13
-          .byte 5
-          .byte SpriteWander
+          .byte 5, SpriteWander
           .byte $7e, $27
           .byte SpriteCombat, 2
 
           .byte 0
 
 	;;Room 14
-          .byte 11
-          .byte SpriteWander
+          .byte 11, SpriteWander
           .byte $73, $21
           .byte SpriteCombat, 9
 
-          .byte 12
-          .byte SpriteWander
+          .byte 12, SpriteWander
           .byte $73, $32
           .byte SpriteCombat, 10
 
-          .byte 13
-          .byte SpriteWander
+          .byte 13, SpriteWander
           .byte $88, $21
           .byte SpriteCombat, 11
 
-          .byte 14
-          .byte SpriteWander
+          .byte 14, SpriteWander
           .byte $88, $32
           .byte SpriteCombat, 12
           
 	.byte 0
 
 	;;Room 15
-          .byte 6
-          .byte SpriteWander
+          .byte 6, SpriteWander
           .byte $af, $2b
           .byte SpriteCombat, 15
           
-          .byte $ff
-          .byte SpriteFixed
+          .byte $ff, SpriteFixed
           .byte $c0, $2b
           .byte SpriteSign, 10
 
 	.byte 0
 
 	;;Room 16
-          .byte 23
-          .byte SpriteFixed
+          .byte 23, SpriteFixed
           .byte $7b, $25
           .byte SpriteCombat, 13
 
-          .byte $ff
-          .byte SpriteRandomEncounter
+          .byte $ff, SpriteRandomEncounter
           .byte $7b, $25
           .byte SpriteCombat, 15
 
-          .byte $ff
-          .byte SpriteRandomEncounter
+          .byte $ff, SpriteRandomEncounter
           .byte $7b, $25
           .byte SpriteCombat, 15
 
-          .byte $ff
-          .byte SpriteRandomEncounter
+          .byte $ff, SpriteRandomEncounter
           .byte $7b, $25
           .byte SpriteCombat, 14
 
 	.byte 0
 
 	;;Room 17
-          .byte $ff
-          .byte SpriteFixed
+          .byte $ff, SpriteFixed
+          .if DEMO
           .byte $7e, $40
-          .byte SpritePerson, 3
+          .else
+          .byte $36, $29
+          .fi
+          .byte SpritePerson, 3 ; tunnel guardian
+
+          .if !DEMO
+          .byte 1, SpriteFixed
+          .byte $32, $20
+          .byte SpriteSign, 17  ; tunnel closed
+
+          .byte 1, SpriteFixed
+          .byte $32, $31
+          .byte SpriteSign, 17
+          .fi
 
 	.byte 0
 
@@ -546,8 +510,7 @@ SpriteList:
 	.byte 0
 
 	;;Room 19
-          .byte $ff
-          .byte SpriteFixed
+          .byte $ff, SpriteFixed
           .byte $3b, $28         ; x, y
           .byte SpriteGrizzardDepot, 0
 
@@ -563,6 +526,14 @@ SpriteList:
 	.byte 0
 
 	;;Room 23
+          .byte 24, SpriteFixed
+          .byte $76, $27
+          .byte SpriteSign, 18
+
+          .byte 24, SpriteFixed
+          .byte $82, $27
+          .byte SpriteSign, 18
+
 	.byte 0
 
 	;;Room 24

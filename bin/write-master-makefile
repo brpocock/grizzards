@@ -19,12 +19,11 @@ DATE=$(shell date +%d)
 JULIAN=$(shell date +%j)
 BUILD=$(shell date +%y.%j)
 PUBLISHER=false # override from command line only
-STARTER=1 # override from caller
 ASFLAGS=--nostart --long-branch --case-sensitive \
 	--ascii -I. -I Source/Common -I Source/Routines -I Source/Generated/Common \
 	-D YEARNOW=${YEAR} -D MONTHNOW=${MONTH} \
 	-D DATENOW=${DATE} -D JULIANDATENOW=${JULIAN} \
-	-D BUILD=${BUILD} -D PUBLISHER=${PUBLISHER} -D STARTER=${STARTER} \
+	-D BUILD=${BUILD} -D PUBLISHER=${PUBLISHER} \
 	-Wall -Wno-shadow -Wno-leading-zeros
 AS2600=64tass ${ASFLAGS} --m6502
 
@@ -45,17 +44,6 @@ Source/Generated/Bank07/SpeakJetIndex.s:	$(shell ls -1 Source/Banks/Bank07/*Spee
 my %rules = ();
 
 for my $tv ('NTSC', 'PAL', 'SECAM') {
-  my %seen = ();
-
-  print "Dist/Grizzards.$tv.a26:\t";
-
-  for my $bank (@banks) {
-    print "\\\n\tObject/Bank$bank.$tv.o ";
-  }
-
-  print "
-\tmkdir -p Dist
-\tcat \$^ > \$\@\n\n";
 
   print "Dist/Grizzards.Demo.$tv.a26:\t";
 
@@ -67,90 +55,109 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
 \tmkdir -p Dist
 \tcat \$^ > \$\@\n\n";
 
-  for my $bank (@banks) {
+  for my $starter (0, 1, 2) {
+
+    my $starter_name = (qw[Dirtex Aquax Airex])[$starter];
+
     my %seen = ();
 
-    my @files = ();
-    {
-      my @todo = ( "Source/Banks/Bank$bank/Bank$bank.s" );
+    print "Dist/Grizzards.$starter_name.$tv.a26:\t";
 
+    for my $bank (@banks) {
+      print "\\\n\tObject/Bank$bank.$starter_name.$tv.o ";
+    }
+
+    print "
+\tmkdir -p Dist
+\tcat \$^ > \$\@\n\n";
+
+    for my $bank (@banks) {
+      my %seen = ();
+
+      my @files = ();
       {
-        opendir my $src, "Source/Banks/Bank$bank/";
-        while (my $file = readdir $src) {
-          next unless $file =~ /\.(s|txt|png|midi)$/;
-          push @todo => "Source/Banks/Bank$bank/$file";
+        my @todo = ( "Source/Banks/Bank$bank/Bank$bank.s" );
+
+        {
+          opendir my $src, "Source/Banks/Bank$bank/";
+          while (my $file = readdir $src) {
+            next unless $file =~ /\.(s|txt|png|midi)$/;
+            push @todo => "Source/Banks/Bank$bank/$file";
+          }
+          closedir $src;
         }
-        closedir $src;
-      }
 
-      while (@todo) {
-        my $path = shift @todo;
-        next unless -f $path;
-        next if $seen{ $path };
-        ++$seen{ $path };
+        while (@todo) {
+          my $path = shift @todo;
+          next unless -f $path;
+          next if $seen{ $path };
+          ++$seen{ $path };
 
-        my $file = ( split '\\/' => $path )[ -1 ];
-        my ($base, $ext) = split '\\.' => $file;
-        if ('txt' eq $ext) {
-          next if $rules{ $path };
-          ++ $rules{ $path };
-          print "Source/Generated/Bank$bank/$base.s:\tSource/Banks/Bank$bank/$base.txt \\
+          my $file = ( split '\\/' => $path )[ -1 ];
+          my ($base, $ext) = split '\\.' => $file;
+          if ('txt' eq $ext) {
+            next if $rules{ $path };
+            ++ $rules{ $path };
+            print "Source/Generated/Bank$bank/$base.s:\tSource/Banks/Bank$bank/$base.txt \\
 \t\tSource/Common/SpeakJet.dic bin/convert-to-speakjet
 \tmkdir -p Source/Generated/Bank$bank
 \tbin/convert-to-speakjet \$< Source/Common/SpeakJet.dic \$\@\n\n";
-          push @files => "Source/Generated/Bank$bank/$base.s";
-        } elsif ('midi' eq $ext) {
-          next if $rules{ $path };
-          ++ $rules{ $path };
-          print "Source/Generated/Bank$bank/$base.s:\tSource/Banks/Bank$bank/$base.midi\\
+            push @files => "Source/Generated/Bank$bank/$base.s";
+          } elsif ('midi' eq $ext) {
+            next if $rules{ $path };
+            ++ $rules{ $path };
+            print "Source/Generated/Bank$bank/$base.s:\tSource/Banks/Bank$bank/$base.midi\\
 \t\tbin/skyline-tool
 \tmkdir -p Source/Generated/Bank$bank
 \tbin/skyline-tool compile-music \$\@ \$<\n\n";
-          push @files => "Source/Generated/Bank$bank/$base.s";
-        } elsif ('png' eq $ext) {
-          next if $rules{ $path };
-          ++ $rules{ $path };
-          print "Source/Generated/Bank$bank/$base.s:\tSource/Banks/Bank$bank/$base.png \\
+            push @files => "Source/Generated/Bank$bank/$base.s";
+          } elsif ('png' eq $ext) {
+            next if $rules{ $path };
+            ++ $rules{ $path };
+            print "Source/Generated/Bank$bank/$base.s:\tSource/Banks/Bank$bank/$base.png \\
 \t\tbin/skyline-tool
 \tmkdir -p Source/Generated/Bank$bank
 \tbin/skyline-tool compile-art \$\@ \$<\n\n";
-          push @files => "Source/Generated/Bank$bank/$base.s";
-        } elsif ('s' eq $ext) {
-          push @files => $path;
-          open my $text, '<', $path;
-          while (my $line = <$text>) {
-            if ($line =~ /\.include "(.+)"/) {
-              my $dep = $1;
-              push @todo => "Source/Banks/Bank$bank/$dep";
-              push @todo => "Source/Common/$dep";
-              push @todo => "Source/Routines/$dep";
-              push @todo => "Source/Generated/Common/$dep";
-              push @todo => "Source/Generated/Banks/Bank$bank/$dep";
+            push @files => "Source/Generated/Bank$bank/$base.s";
+          } elsif ('s' eq $ext) {
+            push @files => $path;
+            open my $text, '<', $path;
+            while (my $line = <$text>) {
+              if ($line =~ /\.include "(.+)"/) {
+                my $dep = $1;
+                push @todo => "Source/Banks/Bank$bank/$dep";
+                push @todo => "Source/Common/$dep";
+                push @todo => "Source/Routines/$dep";
+                push @todo => "Source/Generated/Common/$dep";
+                push @todo => "Source/Generated/Banks/Bank$bank/$dep";
+              }
             }
+            close $text;
+          } else {
+            die "Unhandled extension $ext";
           }
-          close $text;
-        } else {
-          die "Unhandled extension $ext";
         }
       }
-    }
 
-    print "Object/Bank$bank.$tv.o:\t";
-    for my $file (@files) {
-      print "\\\n\t$file";
-    }
-    print "
+      print "Object/Bank$bank.$starter_name.$tv.o:\t";
+      for my $file (@files) {
+        print "\\\n\t$file";
+      }
+      print "
 \tmkdir -p Object
-\t\${AS2600} -DTV=$tv -I Source/Generated/Bank$bank -l \$\@.labels.txt -L \$\@.list.txt \$< -o \$\@\n
+\t\${AS2600} -DSTARTER=$starter -DTV=$tv -I Source/Generated/Bank$bank -l \$\@.labels.txt -L \$\@.list.txt \$< -o \$\@\n
 \tbin/label2sym \$\@.labels.txt\n\n";
 
-      print "Object/Bank$bank.Demo.$tv.o:\t";
-    for my $file (@files) {
-      print "\\\n\t$file";
-    }
-    print "
+      if (1 == $starter) {
+        print "Object/Bank$bank.Demo.$tv.o:\t";
+        for my $file (@files) {
+          print "\\\n\t$file";
+        }
+        print "
 \tmkdir -p Object
 \t\${AS2600} -DTV=$tv -DDEMO=true -I Source/Generated/Bank$bank -l \$\@.labels.txt -L \$\@.list.txt \$< -o \$\@\n
 \tbin/label2sym \$\@.labels.txt\n\n";
-}
-}
+      }
+    }                           # end of bank
+  }                             # end of starter
+}                               # end of TV standard

@@ -46,11 +46,17 @@ uno:	Dist/Grizzards.Demo.NTSC.a26 \
 	fi
 
 Dist/Grizzards.zip: \
-	Dist/Grizzards.NTSC.a26 \
+	Dist/Grizzards.Dirtex.NTSC.a26 \
+	Dist/Grizzards.Dirtex.PAL.a26 \
+	Dist/Grizzards.Dirtex.SECAM.a26 \
+	Dist/Grizzards.Aquax.NTSC.a26 \
+	Dist/Grizzards.Aquax.PAL.a26 \
+	Dist/Grizzards.Aquax.SECAM.a26 \
+	Dist/Grizzards.Airex.NTSC.a26 \
+	Dist/Grizzards.Airex.PAL.a26 \
+	Dist/Grizzards.Airex.SECAM.a26 \
 	Dist/Grizzards.NTSC.pdf \
-	Dist/Grizzards.PAL.a26 \
 	Dist/Grizzards.PAL.pdf \
-	Dist/Grizzards.SECAM.a26 \
 	Dist/Grizzards.SECAM.pdf
 	zip $@ $^
 
@@ -63,33 +69,53 @@ Dist/Grizzards.Demo.zip: \
 	Dist/Grizzards.Demo.SECAM.pdf
 	zip $@ $^
 
-game:	Dist/Grizzards.NTSC.a26 Dist/Grizzards.PAL.a26 Dist/Grizzards.SECAM.a26
+game:	Dist/Grizzards.Dirtex.NTSC.a26 Dist/Grizzards.Dirtex.PAL.a26 Dist/Grizzards.Dirtex.SECAM.a26 \
+	Dist/Grizzards.Aquax.NTSC.a26 Dist/Grizzards.Aquax.PAL.a26 Dist/Grizzards.Aquax.SECAM.a26 \
+	Dist/Grizzards.Airex.NTSC.a26 Dist/Grizzards.Airex.PAL.a26 Dist/Grizzards.Airex.SECAM.a26 \
+	Dist/Grizzards.NTSC.pdf Dist/Grizzards.PAL.pdf Dist/Grizzards.SECAM.pdf
 
-doc:	Dist/Grizzards.NTSC.pdf Dist/Grizzards.PAL.pdf Dist/Grizzards.SECAM.pdf
-
-demo-doc:	Dist/Grizzards.Demo.NTSC.pdf Dist/Grizzards.Demo.PAL.pdf Dist/Grizzards.Demo.SECAM.pdf
+doc:	Dist/Grizzards.NTSC.pdf Dist/Grizzards.PAL.pdf Dist/Grizzards.SECAM.pdf \
+	Dist/Grizzards.Demo.NTSC.pdf Dist/Grizzards.Demo.PAL.pdf Dist/Grizzards.Demo.SECAM.pdf
 
 .PRECIOUS: %.s %.png %.a26 %.txt %.zip %.tar.gz
 
 SOURCES=$(shell find Source -name \*.s -o -name \*.txt -o -name \*.png -o -name \*.midi -a -not -name .\#\*)
 
-Dist/Grizzards.NTSC.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
-	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.NTSC.a26
-
 Dist/Grizzards.Demo.NTSC.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
 	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.Demo.NTSC.a26
-
-Dist/Grizzards.PAL.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
-	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.PAL.a26
 
 Dist/Grizzards.Demo.PAL.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
 	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.Demo.PAL.a26
 
-Dist/Grizzards.SECAM.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
-	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.SECAM.a26
-
 Dist/Grizzards.Demo.SECAM.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
 	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.Demo.SECAM.a26
+
+Dist/Grizzards.Dirtex.NTSC.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
+	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.Dirtex.NTSC.a26
+
+Dist/Grizzards.Dirtex.PAL.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
+	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.Dirtex.PAL.a26
+
+Dist/Grizzards.Dirtex.SECAM.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
+	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.Dirtex.SECAM.a26
+
+Dist/Grizzards.Aquax.NTSC.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
+	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.Aquax.NTSC.a26
+
+Dist/Grizzards.Aquax.PAL.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
+	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.Aquax.PAL.a26
+
+Dist/Grizzards.Aquax.SECAM.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
+	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.Aquax.SECAM.a26
+
+Dist/Grizzards.Airex.NTSC.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
+	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.Airex.NTSC.a26
+
+Dist/Grizzards.Airex.PAL.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
+	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.Airex.PAL.a26
+
+Dist/Grizzards.Airex.SECAM.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
+	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.Airex.SECAM.a26
 
 Source/Generated/Makefile:	bin/write-master-makefile ${SOURCES}
 	mkdir -p Source/Generated
@@ -148,18 +174,6 @@ Object/Grizzards.tex: Manual/Grizzards.tex
 # neither understands 65xx mnemonics nor 64tass macros and things.
 AS=error
 
-Dist/Grizzards.NTSC.sym:	\
-	$(shell bin/banks Object NTSC.sym)
-	cat $^ > $@
-
-Dist/Grizzards.PAL.sym:	\
-	$(shell bin/banks Object PAL.sym)
-	cat $^ > $@
-
-Dist/Grizzards.SECAM.sym:	\
-	$(shell bin/banks Object SECAM.sym)
-	cat $^ > $@
-
 Dist/Grizzards.Demo.NTSC.sym:	\
 	$(shell bin/banks Object Demo.NTSC.sym)
 	cat $^ > $@
@@ -172,17 +186,44 @@ Dist/Grizzards.Demo.SECAM.sym:	\
 	$(shell bin/banks Object Demo.SECAM.sym)
 	cat $^ > $@
 
-Dist/Grizzards.NTSC.pro:	Source/Grizzards.pro Dist/Grizzards.NTSC.a26
-	sed $^ -e s/@@TV@@/NTSC/g \
-		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.NTSC.a26 | cut -d\  -f1)/g > $@
 
-Dist/Grizzards.PAL.pro:	Source/Grizzards.pro Dist/Grizzards.PAL.a26
-	sed $^ -e s/@@TV@@/PAL/g \
-		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.PAL.a26 | cut -d\  -f1)/g > $@
+Dist/Grizzards.Dirtex.NTSC.sym:	\
+	$(shell bin/banks Object Dirtex.NTSC.sym)
+	cat $^ > $@
 
-Dist/Grizzards.SECAM.pro:	Source/Grizzards.pro Dist/Grizzards.SECAM.a26
-	sed $^ -e s/@@TV@@/SECAM/g \
-		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.SECAM.a26 | cut -d\  -f1)/g > $@
+Dist/Grizzards.Dirtex.PAL.sym:	\
+	$(shell bin/banks Object Dirtex.PAL.sym)
+	cat $^ > $@
+
+Dist/Grizzards.Dirtex.SECAM.sym:	\
+	$(shell bin/banks Object Dirtex.SECAM.sym)
+	cat $^ > $@
+
+
+Dist/Grizzards.Aquax.NTSC.sym:	\
+	$(shell bin/banks Object Aquax.NTSC.sym)
+	cat $^ > $@
+
+Dist/Grizzards.Aquax.PAL.sym:	\
+	$(shell bin/banks Object Aquax.PAL.sym)
+	cat $^ > $@
+
+Dist/Grizzards.Aquax.SECAM.sym:	\
+	$(shell bin/banks Object Aquax.SECAM.sym)
+	cat $^ > $@
+
+
+Dist/Grizzards.Airex.NTSC.sym:	\
+	$(shell bin/banks Object Airex.NTSC.sym)
+	cat $^ > $@
+
+Dist/Grizzards.Airex.PAL.sym:	\
+	$(shell bin/banks Object Airex.PAL.sym)
+	cat $^ > $@
+
+Dist/Grizzards.Airex.SECAM.sym:	\
+	$(shell bin/banks Object Airex.SECAM.sym)
+	cat $^ > $@
 
 Dist/Grizzards.Demo.NTSC.pro:	Source/Grizzards.Demo.pro Dist/Grizzards.NTSC.a26
 	sed $^ -e s/@@TV@@/NTSC/g \
@@ -196,19 +237,73 @@ Dist/Grizzards.Demo.SECAM.pro:	Source/Grizzards.Demo.pro Dist/Grizzards.SECAM.a2
 	sed $^ -e s/@@TV@@/SECAM/g \
 		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.SECAM.a26 | cut -d\  -f1)/g > $@
 
-stella:	Dist/Grizzards.Demo.NTSC.a26 Dist/Grizzards.Demo.NTSC.sym Dist/Grizzards.Demo.NTSC.pro
+Dist/Grizzards.Dirtex.NTSC.pro:	Source/Grizzards.pro Dist/Grizzards.Dirtex.NTSC.a26
+	sed $^ -e s/@@TV@@/NTSC/g \
+		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.Dirtex.NTSC.a26 | cut -d\  -f1)/g > $@
+
+Dist/Grizzards.Dirtex.PAL.pro:	Source/Grizzards.pro Dist/Grizzards.Dirtex.PAL.a26
+	sed $^ -e s/@@TV@@/PAL/g \
+		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.Dirtex.PAL.a26 | cut -d\  -f1)/g > $@
+
+Dist/Grizzards.Dirtex.SECAM.pro:	Source/Grizzards.pro Dist/Grizzards.Dirtex.SECAM.a26
+	sed $^ -e s/@@TV@@/SECAM/g \
+		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.Dirtex.SECAM.a26 | cut -d\  -f1)/g > $@
+
+Dist/Grizzards.Aquax.NTSC.pro:	Source/Grizzards.pro Dist/Grizzards.Aquax.NTSC.a26
+	sed $^ -e s/@@TV@@/NTSC/g \
+		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.Aquax.NTSC.a26 | cut -d\  -f1)/g > $@
+
+Dist/Grizzards.Aquax.PAL.pro:	Source/Grizzards.pro Dist/Grizzards.Aquax.PAL.a26
+	sed $^ -e s/@@TV@@/PAL/g \
+		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.Aquax.PAL.a26 | cut -d\  -f1)/g > $@
+
+Dist/Grizzards.Aquax.SECAM.pro:	Source/Grizzards.pro Dist/Grizzards.Aquax.SECAM.a26
+	sed $^ -e s/@@TV@@/SECAM/g \
+		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.Aquax.SECAM.a26 | cut -d\  -f1)/g > $@
+
+Dist/Grizzards.Airex.NTSC.pro:	Source/Grizzards.pro Dist/Grizzards.Airex.NTSC.a26
+	sed $^ -e s/@@TV@@/NTSC/g \
+		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.Airex.NTSC.a26 | cut -d\  -f1)/g > $@
+
+Dist/Grizzards.Airex.PAL.pro:	Source/Grizzards.pro Dist/Grizzards.Airex.PAL.a26
+	sed $^ -e s/@@TV@@/PAL/g \
+		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.Airex.PAL.a26 | cut -d\  -f1)/g > $@
+
+Dist/Grizzards.Airex.SECAM.pro:	Source/Grizzards.pro Dist/Grizzards.Airex.SECAM.a26
+	sed $^ -e s/@@TV@@/SECAM/g \
+		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.Airex.SECAM.a26 | cut -d\  -f1)/g > $@
+
+dstella:	Dist/Grizzards.Demo.NTSC.a26 Dist/Grizzards.Demo.NTSC.sym Dist/Grizzards.Demo.NTSC.pro
 	stella -tv.filter 3 -grabmouse 0 -bs F4 \
 		-lc Joystick -rc AtariVox \
 		-format NTSC -pp Yes \
 		-debug $<
 
-stella-pal:	Dist/Grizzards.Demo.PAL.a26 Dist/Grizzards.Demo.PAL.sym Dist/Grizzards.Demo.PAL.pro
+dstella-pal:	Dist/Grizzards.Demo.PAL.a26 Dist/Grizzards.Demo.PAL.sym Dist/Grizzards.Demo.PAL.pro
 	stella -tv.filter 3 -grabmouse 0 -bs F4 \
 		-lc Joystick -rc AtariVox \
 		-format PAL -pp Yes \
 		-debug $<
 
-stella-secam:	Dist/Grizzards.Demo.SECAM.a26 Dist/Grizzards.Demo.SECAM.sym Dist/Grizzards.Demo.SECAM.pro
+dstella-secam:	Dist/Grizzards.Demo.SECAM.a26 Dist/Grizzards.Demo.SECAM.sym Dist/Grizzards.Demo.SECAM.pro
+	stella -tv.filter 3 -grabmouse 0 -bs F4 \
+		-lc Joystick -rc AtariVox \
+		-format SECAM -pp Yes \
+		-debug $<
+
+stella:	Dist/Grizzards.Aquax.NTSC.a26 Dist/Grizzards.Aquax.NTSC.sym Dist/Grizzards.Aquax.NTSC.pro
+	stella -tv.filter 3 -grabmouse 0 -bs F4 \
+		-lc Joystick -rc AtariVox \
+		-format NTSC -pp Yes \
+		-debug $<
+
+stella-pal:	Dist/Grizzards.Aquax.PAL.a26 Dist/Grizzards.Aquax.PAL.sym Dist/Grizzards.Aquax.PAL.pro
+	stella -tv.filter 3 -grabmouse 0 -bs F4 \
+		-lc Joystick -rc AtariVox \
+		-format PAL -pp Yes \
+		-debug $<
+
+stella-secam:	Dist/Grizzards.Aquax.SECAM.a26 Dist/Grizzards.Aquax.SECAM.sym Dist/Grizzards.Aquax.SECAM.pro
 	stella -tv.filter 3 -grabmouse 0 -bs F4 \
 		-lc Joystick -rc AtariVox \
 		-format SECAM -pp Yes \
