@@ -104,11 +104,11 @@ NPC_TookArtifact:
 Sign_LostMines:
           .colu COLGRAY, 0
           .colu COLBROWN, $6
-          .SignText "  LOST MINE "
-          .SignText " - CLOSED - "
-          .SignText "   DUE TO   "
-          .SignText "  CAVE-IN.  "
-          .SignText "            "
+          .SignText "-LOST  MINE-"
+          .SignText "A MAZE OF   "
+          .SignText "TWISTY      "
+          .SignText "PASSAGES,   "
+          .SignText "ALL ALIKE.  "
           .byte ModeSignpostDone
 ;;; 10
 Sign_SpiralWoods:

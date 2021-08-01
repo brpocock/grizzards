@@ -331,17 +331,30 @@ GoScreen:
           sta DeltaX
           sta DeltaY
 
+          sta Temp
+
           lda #>MapLinks
           sta Pointer + 1
+
           clc
           lda CurrentMap
           rol a
+          rol Temp
+          ;; carry will be clear
           rol a
+          rol Temp
+          ;; carry will be clear
           adc #<MapLinks
           bcc +
           inc Pointer + 1
 +
           sta Pointer
+
+          lda Pointer + 1
+          clc
+          adc Temp
+          sta Pointer + 1
+
           lda (Pointer), y
           cmp #$ff
           beq ScreenBounce

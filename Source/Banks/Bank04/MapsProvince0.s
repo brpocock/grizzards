@@ -2,7 +2,7 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
           ;; How many maps are in these tables?
-MapCount = 47
+MapCount = 73
 ;;; 
 ;;; Foreground and background colors
 ;;; Remember SECAM and don't make these too similar
@@ -179,7 +179,7 @@ MapLinks:
           .byte 68, 69, 70, 66
           .byte 71, 72, 68, 67
           ;; 70
-          .byte 67, 70, 69, 71
+          .byte 71, 70, 69, 67
           .byte 69, 68, 69, 73
           .byte 70, 68, 71, 72
           .byte 68, 68, 68, 68
@@ -275,7 +275,7 @@ MapLinks:
           Map_EWFat,
           Map_Pinch,
           Map_Pinch,
-          Map_Pinch,
+          Map_EWFat,
           ;; 65
           Map_Pinch,
           Map_Pinch,
@@ -300,9 +300,9 @@ MapRLEH:  .byte >MapRLE
 MapSides:
           .byte 0, $80, 0, 0, 0
           .if DEMO
-          .byte 0, $40, $80, $80, 0 ; block off area to left of screen 8
+          .byte 0, $40, 0, $80, 0 ; block off area to left of screen 8
           .else
-          .byte 0, $40, 0, $80, 0
+          .byte 0, $40, 0, 0, 0
           .fi
           ;; 10
           .byte 0, 0, 0, 0, 0
@@ -310,10 +310,10 @@ MapSides:
           ;; block off area to right of screen 15
           .byte $40, $40, $40, 0, $80
           .else
-          .byte 0, $40, $40, 0, $80
+          .byte 0, $40, $40, 0, 0
           .fi
           ;; 20
-          .byte 0, 0, 0, 0, 0
+          .byte $80, 0, 0, 0, 0
           .byte 0, 0, 0, 0, $80
           ;; 30
           .byte 0, 0, 0, 0, 0
@@ -612,13 +612,13 @@ SpriteList:
 	.byte 0
 
 	;;Room 19
+	.byte 0
+
+	;;Room 20
           .byte $ff, SpriteFixed
           .byte $3b, $28         ; x, y
           .byte SpriteGrizzardDepot, 0
 
-	.byte 0
-
-	;;Room 20
 	.byte 0
 
 	;;Room 21
