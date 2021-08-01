@@ -6,6 +6,7 @@
           FirstSignpost = 0
 
           Signs = (Sign_Beware, Sign_FireSwamp, NPC_SouthGate, NPC_TunnelBlocked, NPC_TunnelOpen, NPC_Artifact, NPC_TakeArtifact1, NPC_TakeArtifact2, NPC_TookArtifact, Sign_LostMines, Sign_SpiralWoods, Sign_TrebleVillage, NPC_TrebleVillage, Sign_TrebleDocks, Sign_WesternRoad, NPC_Artifact1Scared, NPC_TunnelOpenFull)
+          ;;; , Sign_TunnelClosed, Sign_SpiralWoodsOpen, Sign_PortLionShip
           
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
@@ -185,3 +186,36 @@ NPC_TunnelOpenFull:
           .SignText "THE TUNNELS "
           .SignText "TO ANCHOR.  "
           .byte ModeSignpostSetFlag, 1
+;; ;;; 17
+;; Sign_TunnelClosed:
+;;           .colu COLGRAY, 0
+;;           .colu COLBROWN, $8
+;;           .SignText "TUNNELS TO  "
+;;           .SignText "SOUTH FIELD "
+;;           .SignText "AND ANCHOR  "
+;;           .SignText "VILLAGE     "
+;;           .SignText "ARE CLOSED. "
+;;           .byte ModeSignpostDone
+          
+;; ;;; 18
+;; Sign_SpiralWoodsOpen:
+;;           .colu COLGRAY, 0
+;;           .colu COLBROWN, $6
+;;           .SignText "NOW ENTERING"
+;;           .SignText "SPIRAL WOODS"
+;;           .SignText "            "
+;;           .SignText "- DANGER ! -"
+;;           .SignText "            "
+;;           .byte ModeSignpostDone
+
+;; ;;; 19
+;; Sign_PortLionShip:
+;;           .colu COLBLUE, $e
+;;           .colu COLCYAN, $2
+;;           .SignText "TREBLE DOCKS"
+;;           .SignText "NEXT SHIP TO"
+;;           .SignText "PORT LION   "
+;;           .SignText "DEPARTING.  "
+;;           .SignText "ALL ABOARD! "
+;;           .byte ModeSignpostDone
+          

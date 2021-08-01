@@ -119,11 +119,24 @@
           TextBank = $02
           FailureBank = $01
           Province0MapBank = $04
+          .if !DEMO
           Province1MapBank = $03
+          Province2MapBank = $05
+          .fi
           CombatBank0To127 = $06
           CombatBank128To255 = $06
           SFXBank = $07
+          .if DEMO
           SignpostBank = $05
+          SignpostBankCount = 1
+          .else
+          SignpostBank = $08
+          SignpostBankCount = 7
+          .fi
+
+          .if !DEMO
+          FinaleBank = $0f
+          .fi
 ;;; 
 ;;; Text bank provides multiple services, selected with .y
 

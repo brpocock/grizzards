@@ -10,11 +10,33 @@ Loop:
           .TimeLines KernelLines - 32
 
           ldx CurrentMap
+
+;;; Special case: If this  is the demo and we're in Bank  4, the RLE has
+;;; to change  depending on whether  the tunnels have  been opened
+;;; yet. If they have not been, we swap out the background for the
+;;; BowClosed one.
+          .if BANK == 4 && !DEMO
+          cpx # 17
+          bne NoChangeRLE
+
+          lda ProvinceFlags
+          and #$02
+          bne NoChangeRLE
+
+          lda #<Map_BowClosed
+          sta pp5l
+          lda #>Map_BowClosed
+           sta pp5h
+          jmp GotRLE
+NoChangeRLE:
+          .fi
+
           lda MapRLEL, x
           sta pp5l
           lda MapRLEH, x
           sta pp5h
 
+GotRLE:
           ldx SpriteCount
           beq NoSprites
 
@@ -309,17 +331,30 @@ GoScreen:
           sta DeltaX
           sta DeltaY
 
+          sta Temp
+
           lda #>MapLinks
           sta Pointer + 1
+
           clc
           lda CurrentMap
           rol a
+          rol Temp
+          ;; carry will be clear
           rol a
+          rol Temp
+          ;; carry will be clear
           adc #<MapLinks
           bcc +
           inc Pointer + 1
 +
           sta Pointer
+
+          lda Pointer + 1
+          clc
+          adc Temp
+          sta Pointer + 1
+
           lda (Pointer), y
           cmp #$ff
           beq ScreenBounce

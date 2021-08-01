@@ -3,7 +3,7 @@
 my $bank = shift @ARGV;
 
 # zero pad the input bank which should be specified in hex anyway
-$bank = sprintf '%02x' => hex($bank);
+$bank = sprintf '%02x' => hex("0x$bank");
 
 opendir BANKX, "Source/Banks/Bank$bank" or die;
 
@@ -32,7 +32,7 @@ SpeechIndex = ($0000';
 $n = 1; # because $00 means "no speech"
 
 while (my $dirent = readdir BANKX) {
-  next unless $dirent =~ /(.*)Speech.txt/;
+  next unless $dirent =~ /(.*)Speech.txt$/;
 
   open INFILE, '<', "Source/Banks/Bank$bank/$dirent";
   while (my $line = <INFILE>) {

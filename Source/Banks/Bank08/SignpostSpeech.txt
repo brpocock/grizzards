@@ -27,10 +27,10 @@ TookArtifact:
 ♂I hope my artifact can help you to defeat all the monsters
 
 LostMines:
-The lost mine is closed due to a cave-in
+Entering the Lost Mine.A maze of twisty passages,all alike
 
-SpiralWoods:
-The spiral woods are closed.No entrance
+Unused1:
+.
 
 TrebleVillage:
 Treble Village.Flee now.The monsters are coming
@@ -47,12 +47,5 @@ To the west, the lost mine.To the east,the spiral woods and Mount Peshon tunnel 
 Artifact1Scared:
 ♂I have the artifact hidden from the monsters. Save me.
 
-TunnelOpenFull:
-♀Now that you brought them I can open the tunnels.
-
-SpiralWoodsOpen:
-Now entering the Spiral Woods.Danger
-
-PortLionShip:
-Treble Docks.Next ship to Port Lion departing.All aboard
-
+BrokenRadio:
+♀If you fix my radio set,I could call for a ship to Port Lion

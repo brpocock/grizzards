@@ -3,7 +3,7 @@
 
 my @banks = ();
 {
-  for (my $bank = 0; $bank < 8; ++$bank) {
+  for (my $bank = 0; $bank < 16; ++$bank) {
     push @banks => sprintf "%02x" => $bank;
   }
 }
@@ -27,19 +27,16 @@ ASFLAGS=--nostart --long-branch --case-sensitive \
 	-Wall -Wno-shadow -Wno-leading-zeros
 AS2600=64tass ${ASFLAGS} --m6502
 
-Source/Generated/Bank05/SpeakJetIDs.s:	$(shell ls -1 Source/Banks/Bank05/*Speech.txt)
-	bin/make-speakjet-enums 5
-
-Source/Generated/Bank05/SpeakJetIndex.s:	$(shell ls -1 Source/Banks/Bank05/*Speech.txt)
-	bin/make-speakjet-enums 5
-
-Source/Generated/Bank07/SpeakJetIDs.s:	$(shell ls -1 Source/Banks/Bank07/*Speech.txt)
-	bin/make-speakjet-enums 7
-
-Source/Generated/Bank07/SpeakJetIndex.s:	$(shell ls -1 Source/Banks/Bank07/*Speech.txt)
-	bin/make-speakjet-enums 7
-
 ';
+
+for my $bank (qw( 05 07 08 09 0a 0b 0c 0d 0e 0f )) {
+  print "Source/Generated/Bank05/SpeakJetIDs.s:	$(shell ls -1 Source/Banks/Bank$bank/*Speech.txt)
+	bin/make-speakjet-enums $bank
+
+Source/Generated/Bank05/SpeakJetIndex.s:	$(shell ls -1 Source/Banks/Bank$bank/*Speech.txt)
+	bin/make-speakjet-enums $bank
+";
+}
 
 my %rules = ();
 
@@ -48,7 +45,7 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
   print "Dist/Grizzards.Demo.$tv.a26:\t";
 
   for my $bank (@banks) {
-    print "\\\n\tObject/Bank$bank.Demo.$tv.o ";
+    print "\\\n\tObject/Bank$bank.Demo.$tv.o " if hex("0x$bank") < 8;
   }
 
   print "
@@ -59,14 +56,10 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
 
     my $starter_name = (qw[Dirtex Aquax Airex])[$starter];
 
-    my %seen = ();
-
     print "Dist/Grizzards.$starter_name.$tv.a26:\t";
-
     for my $bank (@banks) {
       print "\\\n\tObject/Bank$bank.$starter_name.$tv.o ";
     }
-
     print "
 \tmkdir -p Dist
 \tcat \$^ > \$\@\n\n";
@@ -148,7 +141,7 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
 \t\${AS2600} -DSTARTER=$starter -DTV=$tv -I Source/Generated/Bank$bank -l \$\@.labels.txt -L \$\@.list.txt \$< -o \$\@\n
 \tbin/label2sym \$\@.labels.txt\n\n";
 
-      if (1 == $starter) {
+      if (1 == $starter and hex("0x$bank") < 8) {
         print "Object/Bank$bank.Demo.$tv.o:\t";
         for my $file (@files) {
           print "\\\n\t$file";

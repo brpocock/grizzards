@@ -1,0 +1,9 @@
+TunnelClosed:
+Tunnels to south field and Anchor Village are closed
+
+SpiralWoodsOpen:
+Now entering the Spiral Woods.Danger
+
+PortLionShip:
+Treble Docks.Next ship to Port Lion departing.All aboard
+

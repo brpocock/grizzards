@@ -9,8 +9,8 @@ DoLocal:
           ;; falls through to
           .include "Map.s"
 
-          .include "OverworldMaps.s"
-          .include "MapRLE.s"
+          .include "MapsProvince0.s"
+          .include "Maps0RLE.s"
           .include "PlayerSprites.s"
           .include "MapSprites.s"
           .include "SpriteColor.s"

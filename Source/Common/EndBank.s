@@ -52,13 +52,24 @@ GoColdStart:
 GoMap:
           ldx #$ff              ; smash the stack
           txs
+          
+          .if DEMO
+          sta BankSwitch0 + Province0MapBank
+          jmp DoLocal
+          .else
           lda CurrentProvince
           bne +
           sta BankSwitch0 + Province0MapBank
           jmp DoLocal
 +
+          cmp #2
+          beq +
           sta BankSwitch0 + Province1MapBank
           jmp DoLocal
++
+          sta BankSwitch0 + Province2MapBank
+          jmp DoLocal
+          .fi
 
 ;;; Go to the current combat memory bank, and jump to DoCombat.
 GoCombat:
@@ -119,10 +130,29 @@ BitMask:
           
           .fill ($fff7 - * + 1), 0        ; 7800 crypto key (designed to fail)
 
+          .if DEMO
+          
           * = $fff4
           .offs -$f000
 
-          .text "brp", 0
+          .text "grizbrp", 0
+
+          .else
+
+          * = $ffe0
+          .offs -$f000
+
+          .text "grizbrp", 0
+          .switch STARTER
+          .case 0
+          .text "dirtex", 0, 0
+          .case 1
+          .text "aquax", 0, 0, 0
+          .case 2
+          .text "airex", 0, 0, 0
+          .endswitch
+
+          .fi
 
 ;;; The KnownZeroInEveryBank allows pointer to point to a fixed zero,
 ;;; which has proven to be useful on occassion.
@@ -134,6 +164,8 @@ KnownZeroInEveryBank:
           ;; since 0 ≠ 7 we are not a 7800 tape (also true)
 
 ;;; Bank switch hotspots for F4 style bank switching that we're using for now.
+          .if DEMO
+          
           BankSwitch0 = $fff4
           BankSwitch1 = $fff5
           BankSwitch2 = $fff6
@@ -142,6 +174,27 @@ KnownZeroInEveryBank:
           BankSwitch5 = $fff9
           BankSwitch6 = $fffa
           BankSwitch7 = $fffb
+
+          .else
+
+          BankSwitch0 = $ffe0
+          BankSwitch1 = $ffe1
+          BankSwitch2 = $ffe2
+          BankSwitch3 = $ffe3
+          BankSwitch4 = $ffe4
+          BankSwitch5 = $ffe5
+          BankSwitch6 = $ffe6
+          BankSwitch7 = $ffe7
+          BankSwitch8 = $ffe8
+          BankSwitch9 = $ffe9
+          BankSwitchA = $ffea
+          BankSwitchB = $ffeb
+          BankSwitchC = $ffec
+          BankSwitchD = $ffed
+          BankSwitchE = $ffee
+          BankSwitchF = $ffef
+
+          .fi
 
 ;;; 6502 special vectors
 ;;;

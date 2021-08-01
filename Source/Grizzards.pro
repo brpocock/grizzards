@@ -3,7 +3,7 @@
 "Cart.ModelNo" "Griz0.@@TV@@"
 "Cart.Name" "Grizzards"
 "Cart.Rarity" "Homebrew"
-"Cart.Type" "F4"
+"Cart.Type" "X7"
 "Controller.Left" "JOYSTICK"
 "Controller.Right" "ATARIVOX"
 "Display.Format" "@@TV@@"

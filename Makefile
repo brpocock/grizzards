@@ -119,8 +119,7 @@ Dist/Grizzards.Airex.SECAM.a26:	${SOURCES} Source/Generated/Makefile bin/skyline
 
 Source/Generated/Makefile:	bin/write-master-makefile ${SOURCES}
 	mkdir -p Source/Generated
-	bin/make-speakjet-enums 5
-	bin/make-speakjet-enums 7
+	for bank in 5 7 8 9 a b c d e f; do bin/make-speakjet-enums $$bank; done
 	$< > Source/Generated/Makefile
 
 Dist/Grizzards.NTSC.pdf: Object/Grizzards.tex
@@ -225,15 +224,15 @@ Dist/Grizzards.Airex.SECAM.sym:	\
 	$(shell bin/banks Object Airex.SECAM.sym)
 	cat $^ > $@
 
-Dist/Grizzards.Demo.NTSC.pro:	Source/Grizzards.Demo.pro Dist/Grizzards.NTSC.a26
+Dist/Grizzards.Demo.NTSC.pro:	Source/Grizzards.Demo.pro Dist/Grizzards.Demo.NTSC.a26
 	sed $^ -e s/@@TV@@/NTSC/g \
 		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.NTSC.a26 | cut -d\  -f1)/g > $@
 
-Dist/Grizzards.Demo.PAL.pro:	Source/Grizzards.Demo.pro Dist/Grizzards.PAL.a26
+Dist/Grizzards.Demo.PAL.pro:	Source/Grizzards.Demo.pro Dist/Grizzards.Demo.PAL.a26
 	sed $^ -e s/@@TV@@/PAL/g \
 		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.PAL.a26 | cut -d\  -f1)/g > $@
 
-Dist/Grizzards.Demo.SECAM.pro:	Source/Grizzards.Demo.pro Dist/Grizzards.SECAM.a26
+Dist/Grizzards.Demo.SECAM.pro:	Source/Grizzards.Demo.pro Dist/Grizzards.Demo.SECAM.a26
 	sed $^ -e s/@@TV@@/SECAM/g \
 		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.SECAM.a26 | cut -d\  -f1)/g > $@
 
@@ -292,19 +291,19 @@ dstella-secam:	Dist/Grizzards.Demo.SECAM.a26 Dist/Grizzards.Demo.SECAM.sym Dist/
 		-debug $<
 
 stella:	Dist/Grizzards.Aquax.NTSC.a26 Dist/Grizzards.Aquax.NTSC.sym Dist/Grizzards.Aquax.NTSC.pro
-	stella -tv.filter 3 -grabmouse 0 -bs F4 \
+	stella -tv.filter 3 -grabmouse 0 -bs EF \
 		-lc Joystick -rc AtariVox \
 		-format NTSC -pp Yes \
 		-debug $<
 
 stella-pal:	Dist/Grizzards.Aquax.PAL.a26 Dist/Grizzards.Aquax.PAL.sym Dist/Grizzards.Aquax.PAL.pro
-	stella -tv.filter 3 -grabmouse 0 -bs F4 \
+	stella -tv.filter 3 -grabmouse 0 -bs EF \
 		-lc Joystick -rc AtariVox \
 		-format PAL -pp Yes \
 		-debug $<
 
 stella-secam:	Dist/Grizzards.Aquax.SECAM.a26 Dist/Grizzards.Aquax.SECAM.sym Dist/Grizzards.Aquax.SECAM.pro
-	stella -tv.filter 3 -grabmouse 0 -bs F4 \
+	stella -tv.filter 3 -grabmouse 0 -bs EF \
 		-lc Joystick -rc AtariVox \
 		-format SECAM -pp Yes \
 		-debug $<

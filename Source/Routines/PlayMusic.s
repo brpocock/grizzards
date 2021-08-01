@@ -45,6 +45,13 @@ LoopMusic:
           lda #<SongProvince0
           sta CurrentMusic
 
+          .case 5
+
+          lda #>SongProvince2
+          sta CurrentMusic + 1
+          lda #<SongProvince2
+          sta CurrentMusic
+
           .default
           .error "Not expecting to be in bank ", BANK
           .endswitch
