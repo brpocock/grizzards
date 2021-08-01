@@ -1,80 +1,61 @@
 ;;; Grizzards Source/Routines/Signpost.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
+;;; CRITICAL cross-bank alignment.
+;;; This MUST start at the same address in every signpost bank, and
+;;; the code must have the same byte length in every bank
+;;; through the bank up/down switching code near IndexReady.
 Signpost: .block
 
 Setup:
           .WaitScreenTop
-
+          
           .KillMusic
           sta AUDC0
           sta AUDF0
           sta AUDV0
           sta CurrentUtterance + 1  ; zero from KillMusic
 
-          ldx SignpostIndex
+          .if BANK == SignpostBank
+          jsr GetSignpostIndex
+          .else
+          nop
+          nop
+          nop
+          .fi
 
-          cpx # 3
-          beq CheckTunnelBlocked
-          cpx # 6
-          beq CheckTunnelVisited
-          cpx # 7
-          beq CheckTunnelVisited
-          cpx # 13
-          beq CheckShipInPort
-
+IndexReady:
+          .if !DEMO
+          ;; is this index in this memory bank?
+          cpx #FirstSignpost
+          bge NoBankDown
+BankDown:
+          .if BANK > SignpostBank
+          stx BankSwitch0 + BANK - 1
+          .else
+          nop
+          nop
+          brk
+          .fi
           jmp IndexReady
 
-CheckTunnelBlocked:
-          lda ProvinceFlags + 2
-          and # %00000110   ; Do they have both artifacts?
-          cmp # %00000110
-          bne IndexReady        ; no, tunnel blocked
-          .if DEMO
-          inx                   ; yes, tunnel open now — end of demo message
+NoBankDown:
+          cpx #FirstSignpost + len(Signs) - 1
+          blt NoBankUp
+BankUp:
+          .if BANK < SignpostBank + SignpostBankCount - 1
+          stx BankSwitch0 + BANK + 1
           .else
-          ldx #16               ; tunnel open, full game
+          nop
+          nop
+          brk
           .fi
-          bne IndexReady        ; alway taken
+          jmp IndexReady
 
-CheckTunnelVisited:
-          lda ProvinceFlags + 2
-          and # $01
-          bne VisitedTunnel   ; did they visit the tunnel?
-          ldx # 5               ; no, can't have artifact
-          bne IndexReady        ; always taken
+          .fi                   ; end of .if ! DEMO
 
-VisitedTunnel:
-          lda ProvinceFlags + 2
-          cpx # 6
-          beq Artifact1
-          and # $02
-          beq IndexReady        ; get artifact
-TookArtifact:
-          ldx # 8
-          bne IndexReady        ; always taken
-
-Artifact1Scared:
-          ldx # 15
-          bne IndexReady        ; always taken
-          
-Artifact1:
-          and # $04
-          bne TookArtifact
-          lda ProvinceFlags + 2
-          and #$30
-          cmp #$30
-          bne Artifact1Scared
-          ;; fall through
-
-CheckShipInPort:
-          lda ProvinceFlags
-          and #$01
-          beq IndexReady
-          ldx # 19
-          bne IndexReady        ; always taken
-          
-IndexReady:
+NoBankUp:
+;;; Beyond this point, cross-bank alignment does not matter.
           lda SignH, x
           sta SignpostText + 1
           sta SignpostWork + 1
@@ -164,7 +145,7 @@ DrawLeftField:
           .Add16 SignpostWork, #12
 
           jmp AlignedLeft
-          .align $40, $ea
+          .align $100, $ea
 
 AlignedLeft:
           .option allow_branch_across_page = false
@@ -271,7 +252,7 @@ DrawRightField:
           .Add16 SignpostWork, # 6
 
           jmp AlignedRight
-          .align $20, $ea
+          .align $40, $ea
 
 AlignedRight:
           .option allow_branch_across_page = false

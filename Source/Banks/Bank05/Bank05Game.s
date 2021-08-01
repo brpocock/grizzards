@@ -1,4 +1,4 @@
-;;; Grizzards Source/Banks/Bank05Game.s
+;;; Grizzards Source/Banks/Bank05/Bank05Game.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
 

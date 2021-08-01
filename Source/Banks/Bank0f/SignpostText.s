@@ -2,7 +2,9 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
 ;;; Order of sign texts MUST match the texts in SignpostSpeech.txt or it all goes to Hell.
-          
+
+          FirstSignpost = 0
+
           Signs = (Sign_Beware, Sign_FireSwamp, NPC_SouthGate, NPC_TunnelBlocked, NPC_TunnelOpen, NPC_Artifact, NPC_TakeArtifact1, NPC_TakeArtifact2, NPC_TookArtifact, Sign_LostMines, Sign_SpiralWoods, Sign_TrebleVillage, NPC_TrebleVillage, Sign_TrebleDocks, Sign_WesternRoad, NPC_Artifact1Scared, NPC_TunnelOpenFull)
           ;;; , Sign_TunnelClosed, Sign_SpiralWoodsOpen, Sign_PortLionShip
           

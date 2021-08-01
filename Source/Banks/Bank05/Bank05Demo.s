@@ -9,6 +9,7 @@
 
 DoLocal:
           .include "Signpost.s"
+          .include "SignpostIndex.s"
 
           .include "VSync.s"
           .include "VBlank.s"
