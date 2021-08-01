@@ -5,7 +5,7 @@
 
           FirstSignpost = 0
 
-          Signs = (Sign_Beware, Sign_FireSwamp, NPC_SouthGate, NPC_TunnelBlocked, NPC_TunnelOpen, NPC_Artifact, NPC_TakeArtifact1, NPC_TakeArtifact2, NPC_TookArtifact, Sign_LostMines, Sign_SpiralWoods, Sign_TrebleVillage, NPC_TrebleVillage, Sign_TrebleDocks, Sign_WesternRoad, NPC_Artifact1Scared, NPC_BrokenRadio)
+          Signs = (Sign_Beware, Sign_FireSwamp, NPC_SouthGate, NPC_TunnelBlocked, NPC_TunnelOpen, NPC_Artifact, NPC_TakeArtifact1, NPC_TakeArtifact2, NPC_TookArtifact, Sign_LostMines, Sign_Unused1, Sign_TrebleVillage, NPC_TrebleVillage, Sign_TrebleDocks, Sign_WesternRoad, NPC_Artifact1Scared, NPC_BrokenRadio)
           
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
@@ -38,7 +38,7 @@ NPC_SouthGate:
           .SignText "ARE TUNNELS "
           .SignText "TO THE FIELD"
           .SignText "WHERE MANY  "
-          .SignText "PEOPLE LIVE.", Sign_TunnelClosed, Sign_SpiralWoodsOpen
+          .SignText "PEOPLE LIVE."
           .byte ModeSignpostDone
 ;;; 3
 NPC_TunnelBlocked:
@@ -111,13 +111,13 @@ Sign_LostMines:
           .SignText "ALL ALIKE.  "
           .byte ModeSignpostDone
 ;;; 10
-Sign_SpiralWoods:
+Sign_Unused1:
           .colu COLGRAY, 0
           .colu COLBROWN, $6
           .SignText "            "
-          .SignText "SPIRAL WOODS"
-          .SignText " - CLOSED - "
-          .SignText "NO ENTRANCE."
+          .SignText "            "
+          .SignText "            "
+          .SignText "            "
           .SignText "            "
           .byte ModeSignpostDone
 
