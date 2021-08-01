@@ -1,6 +1,9 @@
 ;;; Grizzards Source/Banks/Bank05/SignpostIndex.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
+;;; This version only has  to be smart enough for the  demo, so it won't
+;;; be checking all the things that the version in Bank 08 does.
+
 GetSignpostIndex:      .block
           ldx SignpostIndex
 
