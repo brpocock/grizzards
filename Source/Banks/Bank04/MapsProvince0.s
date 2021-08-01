@@ -714,45 +714,113 @@ SpriteList:
           .byte 0
 
           ;; Room 48
+          .byte $ff, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 16
+
+          .byte $ff, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 15
+
           .byte 0
 
           ;; Room 49
+          .byte $ff, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 15
+
           .byte 0
 
           ;; Room 50
+          .byte $ff, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 15
+
           .byte 0
 
           ;; Room 51
+          .byte $ff, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 15
+
           .byte 0
 
           ;; Room 52
+          .byte $ff, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 15
+
           .byte 0
 
           ;; Room 53
+          .byte $ff, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 15
+
           .byte 0
 
           ;; Room 54
+          .byte $ff, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 15
+
           .byte 0
 
           ;; Room 55
+          .byte $ff, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 15
+
           .byte 0
 
           ;; Room 56
+          .byte $ff, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 15
+
           .byte 0
 
           ;; Room 57
+          .byte $ff, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 15
+
           .byte 0
 
           ;; Room 58
+          .byte $ff, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 15
+
           .byte 0
 
           ;; Room 59
+          .byte $ff, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 15
+
           .byte 0
 
           ;; Room 60
+          .byte $ff, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 15
+
           .byte 0
 
           ;; Room 61
+          .byte $ff, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 15
+
+          .byte $ff, SpriteWander
+          .byte $40, $26
+          .byte SpriteGrizzard, 7
+
+          .byte $ff, SpriteFixed
+          .byte $b9, $28
+          .byte SpriteGrizzardDepot, 0
+
           .byte 0
 
           ;; Room 62
