@@ -5,7 +5,7 @@
 
           FirstSignpost = 0
 
-          Signs = (Sign_Beware, Sign_FireSwamp, NPC_SouthGate, NPC_TunnelBlocked, NPC_TunnelOpen, NPC_Artifact, NPC_TakeArtifact1, NPC_TakeArtifact2, NPC_TookArtifact, Sign_LostMines, Sign_SpiralWoods, Sign_TrebleVillage, NPC_TrebleVillage, Sign_TrebleDocks, Sign_WesternRoad, NPC_Artifact1Scared, NPC_Unused1)
+          Signs = (Sign_Beware, Sign_FireSwamp, NPC_SouthGate, NPC_TunnelBlocked, NPC_TunnelOpen, NPC_Artifact, NPC_TakeArtifact1, NPC_TakeArtifact2, NPC_TookArtifact, Sign_LostMines, Sign_SpiralWoods, Sign_TrebleVillage, NPC_TrebleVillage, Sign_TrebleDocks, Sign_WesternRoad, NPC_Artifact1Scared, NPC_BrokenRadio)
           
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
@@ -176,12 +176,12 @@ NPC_Artifact1Scared:
           .SignText "SAVE ME!    "
           .byte ModeSignpostDone
 ;;; 16
-NPC_Unused1:
+NPC_BrokenRadio:
           .colu COLINDIGO, 0
           .colu COLBLUE, $9
-          .SignText "NOW THAT YOU"
-          .SignText "BROUGHT THEM"
-          .SignText "I CAN OPEN  "
-          .SignText "THE TUNNELS "
-          .SignText "TO ANCHOR.  "
-          .byte ModeSignpostSetFlag, 1
+          .SignText "IF YOU FIX  "
+          .SignText "MY RADIO SET"
+          .SignText "I COULD CALL"
+          .SignText "FOR A SHIP  "
+          .SignText "TO PORT LION"
+          .byte ModeSignpostDone

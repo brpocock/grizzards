@@ -60,6 +60,38 @@ MapColors:
           .colors COLRED, COLBROWN
           .colors COLORANGE, COLBROWN
           .colors COLORANGE, COLBROWN
+          .colors COLGRAY, COLGRAY ; lost mines "lobby"
+          .colors COLGREEN, COLGREEN
+          .colors COLGREEN, COLGREEN
+          ;; 50
+          .colors COLGREEN, COLGREEN
+          .colors COLGREEN, COLGREEN
+          .colors COLGREEN, COLGREEN
+          .colors COLGREEN, COLGREEN
+          .colors COLGREEN, COLGREEN
+          .colors COLGREEN, COLGREEN
+          .colors COLGREEN, COLGREEN
+          .colors COLGREEN, COLGREEN
+          .colors COLGREEN, COLGREEN
+          .colors COLGREEN, COLGREEN
+          ;; 60
+          .colors COLGREEN, COLGREEN
+          .colors COLGREEN, COLGREEN
+          .colors COLGRAY, COLGRAY
+          .colors COLGRAY, COLGRAY
+          .colors COLGRAY, COLGRAY
+          .colors COLGRAY, COLGRAY
+          .colors COLGRAY, COLGRAY
+          .colors COLGRAY, COLGRAY
+          .colors COLGRAY, COLGRAY
+          .colors COLGRAY, COLGRAY
+          ;; 70
+          .colors COLGRAY, COLGRAY
+          .colors COLGRAY, COLGRAY
+          .colors COLGRAY, COLGRAY
+          .colors COLGRAY, COLGRAY
+          ;; ↑ 73
+
 ;;; 
 ;;; Links up, down, left, right are map indices in this bank
 MapLinks:
@@ -72,7 +104,7 @@ MapLinks:
           .byte $ff, 9, 4, 6
           .byte $ff, $ff, 5, $ff
           .byte 1, 8, $ff, $ff
-          .byte 7, $ff, $ff, 11   ; TODO link S
+          .byte 7, 47, 62, 11
           .byte 5, 14, $ff, $ff
           ;; 10
           .byte $ff, 15, $ff, $ff
@@ -81,7 +113,7 @@ MapLinks:
           .byte $ff, $ff, 12, 14
           .byte 9, 17, 13, 15
           ;; 15
-          .byte 10, 16, 14, $ff  ; TODO link E
+          .byte 10, 16, 14, 48
           .byte 15, $ff, $ff, $ff
           .byte 14, $ff, 18, $ff
           .byte $ff, 23, 19, 17
@@ -119,6 +151,38 @@ MapLinks:
           ;; 45
           .byte 44, $ff, $ff, 46
           .byte 43, $ff, 45, 37
+          .byte 8, $ff, $ff, $ff
+          .byte 49, $ff, 15, 60
+          .byte $ff, 48, $ff, 50
+          ;; 50
+          .byte $ff, $ff, 49, 51
+          .byte $ff, $ff, 50, 52
+          .byte $ff, 53, 51, $ff
+          .byte 52, 54, $ff, $ff
+          .byte 53, $ff, 55, $ff
+          ;; 55
+          .byte $ff, $ff, 56, 54
+          .byte $ff, $ff, 57, 55
+          .byte 58, $ff, $ff, 56
+          .byte $ff, 57, $ff, 59
+          .byte $ff, $ff, 58, 60
+          ;; 60
+          .byte $ff, $ff, 59, 61
+          .byte $ff, $ff, 60, $ff
+          .byte $ff, $ff, 63, 8
+          .byte $ff, $ff, 64, 62
+          .byte $ff, $ff, 65, 63
+          ;; 65
+          .byte $ff, $ff, 66, 64
+          .byte $ff, $ff, 68, 67
+          .byte $ff, $ff, 65, 8
+          .byte 68, 69, 70, 66
+          .byte 71, 72, 68, 67
+          ;; 70
+          .byte 67, 70, 69, 71
+          .byte 69, 68, 69, 73
+          .byte 70, 68, 71, 72
+          .byte 68, 68, 68, 68
 ;;; 
 ;;; RLE Map data for each screen.
 
@@ -190,7 +254,39 @@ MapLinks:
           Map_Clear,
           ;; 45
           Map_BottomLine,
-          Map_BottomLine
+          Map_BottomLine,
+          Map_SouthGlobe,
+          Map_Bow,
+          Map_Arc,
+          ;; 50
+          Map_Pinch,
+          Map_Pinch,
+          Map_Arc,
+          Map_Narrow,
+          Map_Bow,
+          ;; 55
+          Map_Pinch,
+          Map_Pinch,
+          Map_Bow,
+          Map_Arc,
+          Map_Pinch,
+          ;; 60
+          Map_EWPassage,
+          Map_EWFat,
+          Map_Pinch,
+          Map_Pinch,
+          Map_Pinch,
+          ;; 65
+          Map_Pinch,
+          Map_Pinch,
+          Map_EWFat,
+          Map_FourWay,
+          Map_FourWay,
+          ;; 70
+          Map_FourWay,
+          Map_FourWay,
+          Map_FourWay,
+          Map_FourWay
           )
 
 MapRLEL:  .byte <MapRLE
@@ -224,7 +320,15 @@ MapSides:
           .byte 0, 0, 0, 0, 0
           ;; 40
           .byte $40, $40, $40, 0, $80
-          .byte $80, 0
+          .byte $80, 0, 0, $40, $80
+          ;; 50
+          .byte 0, 0, $40, 0, $40
+          .byte 0, 0, $80, $80, 0
+          ;; 60
+          .byte 0, $40, 0, 0, 0
+          .byte 0, 0, 0, 0, 0
+          ;; 70
+          .byte 0, 0, 0, 0
 ;;; 
 ;;; The Sprites Lists
 ;;;
@@ -592,6 +696,9 @@ SpriteList:
 	.byte 0
 
 	;;Room 43
+          .byte $ff, SpriteWander
+          .byte $40, $40
+          .byte SpritePerson, 16 ; broken radio
 	.byte 0
 
 	;;Room 44
@@ -603,4 +710,84 @@ SpriteList:
 	;;Room 46
 	.byte 0
 
-          .fill 200
+          ;; Room 47
+          .byte 0
+
+          ;; Room 48
+          .byte 0
+
+          ;; Room 49
+          .byte 0
+
+          ;; Room 50
+          .byte 0
+
+          ;; Room 51
+          .byte 0
+
+          ;; Room 52
+          .byte 0
+
+          ;; Room 53
+          .byte 0
+
+          ;; Room 54
+          .byte 0
+
+          ;; Room 55
+          .byte 0
+
+          ;; Room 56
+          .byte 0
+
+          ;; Room 57
+          .byte 0
+
+          ;; Room 58
+          .byte 0
+
+          ;; Room 59
+          .byte 0
+
+          ;; Room 60
+          .byte 0
+
+          ;; Room 61
+          .byte 0
+
+          ;; Room 62
+          .byte 0
+
+          ;; Room 63
+          .byte 0
+
+          ;; Room 64
+          .byte 0
+
+          ;; Room 65
+          .byte 0
+
+          ;; Room 66
+          .byte 0
+
+          ;; Room 67
+          .byte 0
+
+          ;; Room 68
+          .byte 0
+
+          ;; Room 69
+          .byte 0
+
+          ;; Room 70
+          .byte 0
+
+          ;; Room 71
+          .byte 0
+
+          ;; Room 72
+          .byte 0
+
+          ;; Room 73
+          .byte 0
+
