@@ -1,54 +1,5 @@
-Beware:
-Beware.This route ledes to many evil monsters.Be careful
-
-FireSwamp:
-Now entering the fire bog. Be wary of flame doggos and rodents of unusual size
-
-SouthGate:
-♀To the south are tunnels to the field where many people liv
-
-TunnelBlocked:
-♀I can't open the tunnels with out the two artifacts.Bring them
-
-TunnelOpen:
-♀Now that you brought them I can open the tunnels.
-☿This is the end of the demo area for Grizzards.Thank you for playing
-
-Artifact:
-♂I have one of the two artifacts.Who says you can ¿ take it
-
-TakeArtifact1:
-♂I have one of the two artifacts.Take this to the tunnels
-
-TakeArtifact2:
-♂I have one of the two artifacts.Take this to the tunnels
-
-TookArtifact:
-♂I hope my artifact can help you to defeat all the monsters
-
-LostMines:
-The lost mine is closed due to a cave-in
-
-SpiralWoods:
-The spiral woods are closed.No entrance
-
-TrebleVillage:
-Treble Village.Flee now.The monsters are coming
-
-TrebleVillageNPC:
-♂I'm getting out of here.The monsters keep getting closer to us
-
-TrebleDocks:
-Treble docks.To Port Lion.No ships are in port now
-
-WesternRoad:
-To the west, the lost mine.To the east,the spiral woods and Mount Peshon tunnel complex
-
-Artifact1Scared:
-♂I have the artifact hidden from the monsters. Save me.
-
-TunnelOpenFull:
-♀Now that you brought them I can open the tunnels.
+TunnelClosed:
+Tunnels to south field and Anchor Village are closed
 
 SpiralWoodsOpen:
 Now entering the Spiral Woods.Danger
