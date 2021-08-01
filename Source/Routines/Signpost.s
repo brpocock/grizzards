@@ -9,7 +9,7 @@ Signpost: .block
 
 Setup:
           .WaitScreenTop
-          
+
           .KillMusic
           sta AUDC0
           sta AUDF0
@@ -40,7 +40,7 @@ BankDown:
           jmp IndexReady
 
 NoBankDown:
-          cpx #FirstSignpost + len(Signs) - 1
+          cpx #FirstSignpost + len(Signs)
           blt NoBankUp
 BankUp:
           .if BANK < SignpostBank + SignpostBankCount - 1
@@ -56,6 +56,13 @@ BankUp:
 
 NoBankUp:
 ;;; Beyond this point, cross-bank alignment does not matter.
+          ;; Adjust the index to be relative to this bank
+          txa
+          sec
+          sbc #FirstSignpost
+          tax
+          stx SignpostIndex
+
           lda SignH, x
           sta SignpostText + 1
           sta SignpostWork + 1
@@ -65,7 +72,7 @@ NoBankUp:
 
           inx
           stx CurrentUtterance
-          
+
           ldy # 0
           lda (SignpostWork), y
           sta SignpostFG
@@ -112,7 +119,7 @@ Loop:
 TextLineLoop:
           dec SignpostTextLine
           bmi DoneDrawing
-          
+
           lda ClockFrame
           and #$01
           beq DrawRightField
@@ -219,7 +226,7 @@ LeftLoop:
           bpl LeftLoop
 
           sta WSYNC
-          
+
           jmp DrawCommon
 
 DrawRightField:
@@ -340,7 +347,7 @@ DrawCommon:
           jmp TextLineLoop
 
 ;;; 
-          
+
 DoneDrawing:
           lda # 0
           .SkipLines 3
@@ -376,7 +383,7 @@ ByeBye:
           lda # 0
           sta CurrentUtterance
           sta CurrentUtterance + 1
-          
+
           rts
           .bend
 
@@ -395,4 +402,4 @@ FillOverscan:
 
           sta WSYNC
           rts
-          .bend          
+          .bend

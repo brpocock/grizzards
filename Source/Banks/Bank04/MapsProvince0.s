@@ -126,7 +126,7 @@ MapLinks:
 ;;; in different colors, can appear in several places.
 
           .if DEMO
-          ROOM17MAP = Map_SouthGlobe      ; no exits to east/west in demo
+          ROOM17MAP = Map_BowClosed      ; no exits to east/west in demo
           ROOM8MAP = Map_Bow
           .else
           ROOM17MAP = Map_Bow
@@ -491,14 +491,9 @@ SpriteList:
 
 	;;Room 17
           .byte $ff, SpriteFixed
-          .if DEMO
-          .byte $7e, $40
-          .else
           .byte $36, $29
-          .fi
           .byte SpritePerson, 3 ; tunnel guardian
 
-          .if !DEMO
           .byte 1, SpriteFixed
           .byte $32, $20
           .byte SpriteSign, 17  ; tunnel closed
@@ -506,7 +501,6 @@ SpriteList:
           .byte 1, SpriteFixed
           .byte $32, $31
           .byte SpriteSign, 17
-          .fi
 
 	.byte 0
 
