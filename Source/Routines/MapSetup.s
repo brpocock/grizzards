@@ -120,9 +120,9 @@ SetUpSprite:
 
           tay                   ; has the combat been conquered?
           and #$38
-          ror a
-          ror a
-          ror a
+          lsr a
+          lsr a
+          lsr a
           stx SpriteCount
           tax
           tya
@@ -204,6 +204,22 @@ AddPlacedSprite:
           rts
 
 SpritesDone:
+
+          ;; Remove any Grizzard who is already a companion.
+          ;; New Grizzards must be the last sprite on the list for a room.
+          ldx SpriteCount
+          dex
+
+          lda SpriteAction, x
+          cmp #SpriteGrizzard
+          bne +
+
+          lda SpriteParam, x
+          sta Temp
+          .FarJSR SaveKeyBank, ServicePeekGrizzard
+          bcc +
+          dec SpriteCount
++
 ;;; 
           .WaitScreenBottom
           stx WSYNC
