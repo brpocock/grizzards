@@ -27,6 +27,8 @@ DoLocal:
           beq StartNewGame
           cpy #ServiceLearntMove
           beq LearntMove
+          cpy #ServiceGrizzardDepot
+          beq GrizzardDepot
           brk
 
           .include "CopyPointerText.s"

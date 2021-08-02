@@ -60,7 +60,7 @@ MonstersDisplay:
           sta MoveTarget
 +
 
-          .FarJSR MapServicesBank, ServiceDrawMonsterGroup
+          .FarJSR AnimationsBank, ServiceDrawMonsterGroup
 DelayAfterMonsters:
           .WaitForTimer
 ;;; 
