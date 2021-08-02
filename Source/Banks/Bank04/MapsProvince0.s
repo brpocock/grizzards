@@ -455,6 +455,10 @@ SpriteList:
           .byte $7c, $2a
           .byte SpriteCombat, 2
 
+          .byte $ff, SpriteFixed
+          .byte $7c, $36
+          .byte SpriteGrizzard, 1 ; Aquax
+
           .byte 0
 
           ;; Room 8
@@ -819,7 +823,7 @@ SpriteList:
 
           .byte $ff, SpriteWander
           .byte $40, $26
-          .byte SpriteGrizzard, 7
+          .byte SpriteGrizzard, 7 ; Windoo
 
           .byte 0
 
