@@ -823,7 +823,7 @@ SpriteList:
 
           .byte $ff, SpriteWander
           .byte $40, $26
-          .byte SpriteGrizzard, 7 ; Windoo
+          .byte SpriteGrizzard, 6 ; Windoo
 
           .byte 0
 

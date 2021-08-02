@@ -449,10 +449,11 @@ EnterGrizzardDepot:
           jmp MapSetup
 
 GetNewGrizzard:
-          ldx SpriteFlicker
-          lda SpriteParam, x
+          lda NextMap
           sta Temp
           .FarJSR MapServicesBank, ServiceNewGrizzard
+          lda CurrentMap
+          sta NextMap
           jmp MapSetup
 
           .bend

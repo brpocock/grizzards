@@ -66,6 +66,9 @@ DoorWithSprite:
 GetNewGrizzard:
           lda #ModeNewGrizzard
           sta GameMode
+          ldx SpriteFlicker
+          lda SpriteParam, x
+          sta NextMap
           rts
 
 PlayerMoveOK:
