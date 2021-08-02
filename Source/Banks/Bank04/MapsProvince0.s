@@ -813,13 +813,13 @@ SpriteList:
           .byte 0, 0
           .byte SpriteCombat, 15
 
-          .byte $ff, SpriteWander
-          .byte $40, $26
-          .byte SpriteGrizzard, 7
-
           .byte $ff, SpriteFixed
           .byte $b9, $28
           .byte SpriteGrizzardDepot, 0
+
+          .byte $ff, SpriteWander
+          .byte $40, $26
+          .byte SpriteGrizzard, 7
 
           .byte 0
 
