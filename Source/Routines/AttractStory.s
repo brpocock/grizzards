@@ -156,7 +156,7 @@ NotSix:
           bne -
 +
 
-          .FarJSR TextBank, ServiceDrawGrizzard
+          jsr DrawGrizzard
 
           lda AttractStoryPanel
           cmp # 3

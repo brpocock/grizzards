@@ -25,8 +25,8 @@ Loop:
           .SetPointer DepotText
           jsr ShowPointerText
 
-          jsr ShowGrizzardName
-          jsr DrawGrizzard
+          .FarJSR TextBank, ServiceShowGrizzardName
+          .FarJSR AnimationsBank, ServiceDrawGrizzard
 
           jsr Prepare48pxMobBlob
           .ldacolu COLINDIGO, $a
@@ -142,8 +142,7 @@ HTDdone:
           cld
           stx DeltaX            ; 0
 
-          jsr DecodeText
-          jsr ShowText
+          .FarJSR TextBank, ServiceDecodeAndShowText
 ;;; 
 ;;; End of the hours decode + display routine
 
@@ -154,23 +153,39 @@ HTDdone:
           jsr ShowPointerText
 
           lda NewSWCHA
-          beq NoStick
+          beq DoneStick
           .BitBit P0StickUp
-          bne CheckStickDown
+          bne NoStickUp
+          lda #-1
+          bne SeekGrizzard      ; always taken
 
-          dec CurrentGrizzard
-          bne +
-          lda # 30
-          sta CurrentGrizzard
-+
-          .FarJSR PeekGrizzard
-          ;; TODO continue from here
-
-CheckStickDown:
+NoStickUp:
           .BitBit P0StickDown
-          bne NoStick
-          ;; TODO continue from here
-NoStick:
+          bne DoneStick
+          lda # 1
+SeekGrizzard:
+          sta NextMap
+KeepSeeking:
+          lda CurrentGrizzard
+          clc
+          adc NextMap
+          cmp # 30
+          blt SeekOK
+          lda NextMap
+          cmp # 1
+          beq +
+          lda # 29
+          bne SeekOK            ; always taken
++
+          lda # 0
+SeekOK:
+          sta Temp
+          sta CurrentGrizzard
+          .FarJSR SaveKeyBank, ServicePeekGrizzard 
+          ;; carry is set if found
+          bcc KeepSeeking
+          
+DoneStick:
 
           lda NewSWCHB
           beq SwitchesDone
@@ -210,7 +225,7 @@ ReturnToLoop:
 ;;; 
 ShowPointerText:
           jsr CopyPointerText
-          jmp DecodeAndShowText
+          .FarJMP TextBank, ServiceDecodeAndShowText
 ;;; 
           ;; The table below has high byte first just to
           ;; make it easier to see the number progression.
@@ -220,3 +235,9 @@ DecimalTable:
           .byte    0,2,5,6,  0,5,1,2
 
           .bend
+DepotText:
+          .MiniText "DEPOT "
+PlayTimeText:
+          .MiniText "PLAYED"
+PlayHoursText:
+          .MiniText "HOURS "

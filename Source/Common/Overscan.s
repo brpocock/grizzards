@@ -8,6 +8,11 @@ Overscan: .block
           ldx #SFXBank
           jsr FarCall
 
+          .if DEMO && BANK == 4
+          jsr DoMusic
+          .fi
+
+          .if !DEMO
           .switch BANK
           .case 3
           jsr DoMusic
@@ -15,10 +20,14 @@ Overscan: .block
           .case 4
           jsr DoMusic
 
+          .case 5
+          jsr DoMusic
+
           .default
           ;; no op
 
           .endswitch
+          .fi
           
 FillOverscan:
           lda INSTAT

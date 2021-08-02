@@ -86,7 +86,7 @@ DrawGrizzardName:
           .FarJSR TextBank, ServiceShowGrizzardName
 
 DrawGrizzard:
-          .FarJSR TextBank, ServiceDrawGrizzard
+          .FarJSR AnimationsBank, ServiceDrawGrizzard
 ;;; 
 DrawHealthBar:
           ldx CurrentHP

@@ -8,6 +8,8 @@ my @banks = ();
   }
 }
 
+my %rules = ();
+
 print '# Makefile (generated)
 # -*- makefile -*-
 
@@ -30,10 +32,10 @@ AS2600=64tass ${ASFLAGS} --m6502
 ';
 
 for my $bank (qw( 05 07 08 09 0a 0b 0c 0d 0e 0f )) {
-  print "Source/Generated/Bank05/SpeakJetIDs.s:	$(shell ls -1 Source/Banks/Bank$bank/*Speech.txt)
+  print "Source/Generated/Bank$bank/SpeakJetIDs.s:	\$(shell ls -1 Source/Banks/Bank$bank/*Speech.txt)
 	bin/make-speakjet-enums $bank
 
-Source/Generated/Bank05/SpeakJetIndex.s:	$(shell ls -1 Source/Banks/Bank$bank/*Speech.txt)
+Source/Generated/Bank$bank/SpeakJetIndex.s:	\$(shell ls -1 Source/Banks/Bank$bank/*Speech.txt)
 	bin/make-speakjet-enums $bank
 ";
 }
@@ -64,18 +66,33 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
 \tmkdir -p Dist
 \tcat \$^ > \$\@\n\n";
 
-    for my $bank (@banks) {
+    my @places = @banks;
+    push @places => 'Common';
+    for my $bank (@places) {
+      my $bankdir = "Source/Banks/Bank$bank";
+      my $genrdir = "Source/Generated/Bank$bank";
+      my $bankfile = "Bank$bank.s";
+
+      if ($bank eq 'Common') {
+        $bankdir = 'Source/Common';
+        $genrdir = 'Source/Generated/Common';
+        $bankfile = undef;
+      }
+
       my %seen = ();
 
       my @files = ();
       {
-        my @todo = ( "Source/Banks/Bank$bank/Bank$bank.s" );
+        my @todo = ();
+        if ($bankfile) {
+          push @todo => "$bankdir/$bankfile";
+        }
 
         {
-          opendir my $src, "Source/Banks/Bank$bank/";
+          opendir my $src, "$bankdir/";
           while (my $file = readdir $src) {
             next unless $file =~ /\.(s|txt|png|midi)$/;
-            push @todo => "Source/Banks/Bank$bank/$file";
+            push @todo => "$bankdir/$file";
           }
           closedir $src;
         }
@@ -91,38 +108,40 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
           if ('txt' eq $ext) {
             next if $rules{ $path };
             ++ $rules{ $path };
-            print "Source/Generated/Bank$bank/$base.s:\tSource/Banks/Bank$bank/$base.txt \\
+            print "$genrdir/$base.s:\t$bankdir/$base.txt \\
 \t\tSource/Common/SpeakJet.dic bin/convert-to-speakjet
-\tmkdir -p Source/Generated/Bank$bank
+\tmkdir -p $genrdir
 \tbin/convert-to-speakjet \$< Source/Common/SpeakJet.dic \$\@\n\n";
-            push @files => "Source/Generated/Bank$bank/$base.s";
+            push @files => "$genrdir/$base.s";
           } elsif ('midi' eq $ext) {
             next if $rules{ $path };
             ++ $rules{ $path };
-            print "Source/Generated/Bank$bank/$base.s:\tSource/Banks/Bank$bank/$base.midi\\
+            print "$genrdir/$base.s:\t$bankdir/$base.midi\\
 \t\tbin/skyline-tool
-\tmkdir -p Source/Generated/Bank$bank
+\tmkdir -p $genrdir
 \tbin/skyline-tool compile-music \$\@ \$<\n\n";
-            push @files => "Source/Generated/Bank$bank/$base.s";
+            push @files => "$genrdir/$base.s";
           } elsif ('png' eq $ext) {
             next if $rules{ $path };
             ++ $rules{ $path };
-            print "Source/Generated/Bank$bank/$base.s:\tSource/Banks/Bank$bank/$base.png \\
+            print "$genrdir/$base.s:\t$bankdir/$base.png \\
 \t\tbin/skyline-tool
-\tmkdir -p Source/Generated/Bank$bank
+\tmkdir -p $genrdir
 \tbin/skyline-tool compile-art \$\@ \$<\n\n";
-            push @files => "Source/Generated/Bank$bank/$base.s";
+            push @files => "$genrdir/$base.s";
           } elsif ('s' eq $ext) {
             push @files => $path;
             open my $text, '<', $path;
             while (my $line = <$text>) {
               if ($line =~ /\.include "(.+)"/) {
                 my $dep = $1;
-                push @todo => "Source/Banks/Bank$bank/$dep";
                 push @todo => "Source/Common/$dep";
                 push @todo => "Source/Routines/$dep";
                 push @todo => "Source/Generated/Common/$dep";
-                push @todo => "Source/Generated/Banks/Bank$bank/$dep";
+                if ($bank ne 'Common') {
+                  push @todo => "$bankdir/$dep";
+                  push @todo => "$genrdir/$dep";
+                }
               }
             }
             close $text;
@@ -131,6 +150,8 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
           }
         }
       }
+
+      next if $bank eq 'Common';
 
       print "Object/Bank$bank.$starter_name.$tv.o:\t";
       for my $file (@files) {

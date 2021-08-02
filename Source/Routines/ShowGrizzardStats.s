@@ -8,7 +8,7 @@ ShowGrizzardStats:  .block
           sta COLUP1
 
           jsr ShowGrizzardName
-          jsr DrawGrizzard
+          .FarJSR AnimationsBank, ServiceDrawGrizzard
 
           jsr Prepare48pxMobBlob
 
@@ -34,5 +34,12 @@ ShowGrizzardStats:  .block
           sta Pointer
           lda MaxHP
           jmp AppendDecimalAndPrint
+
+StatsText:
+          .MiniText "ATK 00"
+          .MiniText "DEF 00"
+          .MiniText "HP  00"
+          .MiniText "MAX 00"
+          .NoPageCrossSince StatsText
 
           .bend

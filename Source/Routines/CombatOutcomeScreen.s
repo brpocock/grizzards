@@ -388,7 +388,7 @@ CheckForLoss:
           bne Bye
 
           .WaitScreenBottom
-          .FarJMP MapServicesBank, ServiceDeath
+          .FarJMP AnimationsBank, ServiceDeath
 Bye:
           .WaitScreenBottomTail
 

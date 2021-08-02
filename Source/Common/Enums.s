@@ -115,7 +115,11 @@
           ColdStartBank = $00
           SaveKeyBank = $00
           MapServicesBank = $01
-          AnimationsBank = $01
+          .if DEMO
+          AnimationsBank = $03
+          .else
+          AnimationsBank = $0f
+          .fi
           TextBank = $02
           FailureBank = $01
           Province0MapBank = $04
@@ -143,13 +147,10 @@
           ServiceAppendDecimalAndPrint = $0e
           ServiceCombatOutcome = $14
           ServiceDecodeAndShowText = $01
-          ServiceDrawGrizzard = $05
           ServiceFetchGrizzardMove = $13
-          ServiceGrizzardDepot = $07
           ServiceLearntMove = $18
           ServiceNewGame = $0f
           ServiceShowGrizzardName = $03
-          ServiceShowGrizzardStats = $04
           ServiceShowMove = $06
           ServiceShowMoveDecoded = $17
           ServiceShowText = $02
@@ -159,9 +160,12 @@
           ServiceBottomOfScreen = $09
           ServiceNewGrizzard = $0c
           ServiceTopOfScreen = $08
+          ServiceGrizzardDepot = $07
+          ServiceShowGrizzardStats = $04
 
-;;; Animations share the map services bank in 32k
+;;; Animations services
 
+          ServiceDrawGrizzard = $05
           ServiceAttractStory = $15
           ServiceDeath = $0d
           ServiceDrawMonsterGroup = $0b

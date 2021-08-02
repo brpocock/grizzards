@@ -19,14 +19,10 @@ DoLocal:
           beq CombatOutcomeScreen
           cpy #ServiceShowGrizzardStats
           beq ShowGrizzardStats
-          cpy #ServiceDrawGrizzard
-          beq DrawGrizzard
           cpy #ServiceShowMove
           beq ShowMove
           cpy #ServiceShowMoveDecoded
           beq ShowMoveDecoded
-          cpy #ServiceGrizzardDepot
-          beq GrizzardDepot
           cpy #ServiceAppendDecimalAndPrint
           beq AppendDecimalAndPrintThunk
           cpy #ServiceFetchGrizzardMove
@@ -53,13 +49,10 @@ ShowMoveDecoded:
           .include "Prepare48pxMobBlob.s"
           .include "DecodeText.s"
           .include "ShowMove.s"
-          .include "DrawGrizzard.s"
           .include "AppendDecimalAndPrint.s"
           .include "CopyPointerText.s"
           .include "ShowGrizzardName.s"
           .include "ShowGrizzardStats.s"
-          .include "GrizzardStatsScreen.s"
-          .include "GrizzardDepot.s"
           .include "SetNextAlarm.s"
           .include "FindHighBit.s"
           .include "FetchGrizzardMove.s"
@@ -67,8 +60,6 @@ ShowMoveDecoded:
           .include "CombatOutcomeScreen.s"
 
           .include "GrizzardNames.s"
-          .include "GrizzardImages.s"
-          .include "GrizzardArt.s"
           .include "GrizzardMoves.s"
           .include "MovesTable.s"
           .include "StringsTable.s"

@@ -445,7 +445,7 @@ UnknownMode:
           brk
 
 EnterGrizzardDepot:
-          .FarJSR TextBank, ServiceGrizzardDepot
+          .FarJSR MapServicesBank, ServiceGrizzardDepot
           jmp MapSetup
 
 GetNewGrizzard:
