@@ -19,7 +19,7 @@ SetGrizzardAddress: .block
 
           txa                   ; get back Grizzard ID
 
-          ;; First, figure out which block the current Grizzard
+          ;; First, figure out which block the desired Grizzard
           ;; can be found in.
           cmp # 12
           blt InBlock1

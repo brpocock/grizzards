@@ -16,11 +16,13 @@ PeekGrizzard:       .block
           beq NoGrizzard        ; MaxHP = 0 = no Grizzard
           cmp #$ff
           beq NoGrizzard        ; Garbage read = no Grizzard
+          jsr i2cStopRead
           ;; Grizzard found!
           sec
           rts
 
 NoGrizzard:
+          jsr i2cStopRead
           clc
           rts
 

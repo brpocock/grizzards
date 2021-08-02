@@ -217,7 +217,7 @@ SpritesDone:
           lda SpriteParam, x
           sta Temp
           .FarJSR SaveKeyBank, ServicePeekGrizzard
-          bcc +
+          bcc +                 ; Grizzard not found
           dec SpriteCount
 +
 ;;; 

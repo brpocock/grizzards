@@ -3,8 +3,8 @@
 
 LoadGrizzardData:   .block
           lda CurrentGrizzard
-          jsr SetGrizzardAddress
 
+          jsr SetGrizzardAddress
           jsr i2cStopWrite
           jsr i2cStartRead
 
