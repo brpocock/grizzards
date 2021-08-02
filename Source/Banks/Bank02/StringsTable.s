@@ -1,17 +1,5 @@
 ;;; Grizzards Source/Banks/Bank02/StringsTable.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
-StatsText:
-          .MiniText "ATK 00"
-          .MiniText "DEF 00"
-          .MiniText "HP  00"
-          .MiniText "MAX 00"
-          .NoPageCrossSince StatsText
-DepotText:
-          .MiniText "DEPOT "
-PlayTimeText:
-          .MiniText "PLAYED"
-PlayHoursText:
-          .MiniText "HOURS "
 SleepText:
           .MiniText "SLEEP "    ; sleep
 AttackDownText:

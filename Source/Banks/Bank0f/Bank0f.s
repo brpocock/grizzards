@@ -4,25 +4,38 @@
 
           .include "StartBank.s"
 
-          .include "SpeakJetIDs.s" ; from this bank, not bank 7
+          .include "Source/Generated/Bank07/SpeakJetIDs.s"
 
-          .align $100, "font"
-          .include "Font.s"
-          .include "FontExtended.s"
+          .include "AttractStory.s"
+          .include "Death.s"
+          .include "DrawMonsterGroup.s"
+          .include "WinnerFireworks.s"
+          .include "DrawGrizzard.s"
 
-DoLocal:
-          .include "Signpost.s"
+          .include "MonsterArt.s"
+          .include "GrizzardImages.s"
+          .include "GrizzardArt.s"
+          .include "CombatSpriteTables.s"
 
+          .include "48Pixels.s"
           .include "VSync.s"
           .include "VBlank.s"
+          .include "Overscan.s"
+          .include "Prepare48pxMobBlob.s"
+          .include "SetNextAlarm.s"
           .include "Random.s"
-          .include "48Pixels.s"
-          .include "DecodeText.s"
 
-          .include "SignpostText.s"
-          .include "SignpostSpeech.s"
-          .include "SpeakJetIndex.s"
-
-          .include "PlaySpeech.s"
+DoLocal:
+          cpy #ServiceAttractStory
+          beq AttractStory
+          cpy #ServiceDeath
+          beq Death
+          cpy #ServiceDrawMonsterGroup
+          beq DrawMonsterGroup
+          cpy #ServiceFireworks
+          beq WinnerFireworks
+          cpy #ServiceDrawGrizzard
+          beq DrawGrizzard
+          brk
 
           .include "EndBank.s"

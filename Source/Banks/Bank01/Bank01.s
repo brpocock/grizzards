@@ -21,35 +21,27 @@ DoVBlankWork:
 DoLocal:
           cpy #ServiceTopOfScreen
           beq TopOfScreenService
-          cpy #ServiceFireworks
-          beq WinnerFireworks
-          cpy #ServiceDrawMonsterGroup
-          beq DrawMonsterGroup
           cpy #ServiceNewGrizzard
           beq NewGrizzard
           cpy #ServiceNewGame
           beq StartNewGame
-          cpy #ServiceDeath
-          beq Death
-          cpy #ServiceAttractStory
-          beq AttractStory
           cpy #ServiceLearntMove
           beq LearntMove
+          cpy #ServiceGrizzardDepot
+          beq GrizzardDepot
           brk
 
           .include "CopyPointerText.s"
           .include "MapTopService.s"
-          .include "DrawMonsterGroup.s"
-          .include "WinnerFireworks.s"
           .include "NewGrizzard.s"
           .include "Random.s"
-          .include "Death.s"
-          .include "MonsterArt.s"
-          .include "CombatSpriteTables.s"
           .include "GrizzardStartingStats.s"
           .include "StartNewGame.s"
-          .include "AttractStory.s"
           .include "SetNextAlarm.s"
+
+          .include "GrizzardStatsScreen.s"
+          .include "GrizzardDepot.s"
+
 
           .include "CheckSpriteCollision.s"
           .include "CheckPlayerCollision.s"

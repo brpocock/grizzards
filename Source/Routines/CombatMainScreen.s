@@ -60,7 +60,7 @@ MonstersDisplay:
           sta MoveTarget
 +
 
-          .FarJSR MapServicesBank, ServiceDrawMonsterGroup
+          .FarJSR AnimationsBank, ServiceDrawMonsterGroup
 DelayAfterMonsters:
           .WaitForTimer
 ;;; 
@@ -86,7 +86,7 @@ DrawGrizzardName:
           .FarJSR TextBank, ServiceShowGrizzardName
 
 DrawGrizzard:
-          .FarJSR TextBank, ServiceDrawGrizzard
+          .FarJSR AnimationsBank, ServiceDrawGrizzard
 ;;; 
 DrawHealthBar:
           ldx CurrentHP
