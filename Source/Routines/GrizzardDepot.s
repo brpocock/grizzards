@@ -153,8 +153,24 @@ HTDdone:
           sta Pointer
           jsr ShowPointerText
 
-          lda SWCHA
-          ;; TODO handle stick
+          lda NewSWCHA
+          beq NoStick
+          .BitBit P0StickUp
+          bne CheckStickDown
+
+          dec CurrentGrizzard
+          bne +
+          lda # 30
+          sta CurrentGrizzard
++
+          .FarJSR PeekGrizzard
+          ;; TODO continue from here
+
+CheckStickDown:
+          .BitBit P0StickDown
+          bne NoStick
+          ;; TODO continue from here
+NoStick:
 
           lda NewSWCHB
           beq SwitchesDone
