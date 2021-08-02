@@ -59,6 +59,8 @@ DoLocal:
           beq SaveToSlot
           cpy #ServicePeekGrizzard
           beq PeekGrizzard
+          cpy #ServiceSaveGrizzard
+          beq SaveGrizzard
           brk
 
 	.include "ColdStart.s"

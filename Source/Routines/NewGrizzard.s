@@ -7,8 +7,8 @@ NewGrizzard:        .block
           pha
 
           .FarJSR SaveKeyBank, ServicePeekGrizzard
-
-          bcs CatchEm
+          ;; carry is set if the Grizzard is found
+          bcc CatchEm
           ;; If so, nothing doing, return
           pla                   ; discard stashed ID
 
@@ -17,7 +17,7 @@ NewGrizzard:        .block
 CatchEm:  
           ;; New Grizzard found, save current Grizzard …
           .FarJSR SaveKeyBank, ServiceSaveGrizzard
-          
+
           ;; … and set up this one with default levels
           pla
 
@@ -48,6 +48,6 @@ CatchEm:
           sta MovesKnown
 
           ;; Now, save this guy for good measure
-          .FarJMP SaveKeyBank, ServiceSaveGrizzard
+          .FarJMP SaveKeyBank, ServiceSaveGrizzard ; tail call
 
           .bend
