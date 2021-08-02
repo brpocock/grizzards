@@ -57,6 +57,8 @@ DoLocal:
           beq ColdStart
           cpy #ServiceSaveToSlot
           beq SaveToSlot
+          cpy #ServicePeekGrizzard
+          beq PeekGrizzard
           brk
 
 	.include "ColdStart.s"
@@ -89,6 +91,7 @@ DoLocal:
           .include "CopyPointerText.s"
           .include "SetNextAlarm.s"
           .include "Bank0Strings.s"
+          .include "PeekGrizzard.s"
 
 ShowPointerText:
           jsr CopyPointerText
