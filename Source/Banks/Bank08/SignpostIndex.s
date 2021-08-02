@@ -51,7 +51,7 @@ Artifact1:
           and #$30
           cmp #$30
           bne Artifact1Scared
-          ;; fall through
+          rts
 
 CheckShipInPort:
           lda ProvinceFlags
