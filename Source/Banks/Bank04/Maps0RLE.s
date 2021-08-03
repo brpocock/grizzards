@@ -1,5 +1,5 @@
 ;;; -*- fundamental -*-
-;;; Grizzards Source/Banks/Bank04/MapRLE.s
+;;; Grizzards Source/Banks/Bank04/Maps0RLE.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
 ;;; RLE data for each screen layout

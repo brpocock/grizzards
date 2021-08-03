@@ -1,8 +1,8 @@
-;;; Grizzards Source/Banks/Bank04/OverworldMaps.s
+;;; Grizzards Source/Banks/Bank04/MapsProvince0.so
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
           ;; How many maps are in these tables?
-MapCount = 73
+MapCount = 62
 ;;; 
 ;;; Foreground and background colors
 ;;; Remember SECAM and don't make these too similar
@@ -77,20 +77,6 @@ MapColors:
           ;; 60
           .colors COLGREEN, COLGREEN
           .colors COLGREEN, COLGREEN
-          .colors COLGRAY, COLGRAY
-          .colors COLGRAY, COLGRAY
-          .colors COLGRAY, COLGRAY
-          .colors COLGRAY, COLGRAY
-          .colors COLGRAY, COLGRAY
-          .colors COLGRAY, COLGRAY
-          .colors COLGRAY, COLGRAY
-          .colors COLGRAY, COLGRAY
-          ;; 70
-          .colors COLGRAY, COLGRAY
-          .colors COLGRAY, COLGRAY
-          .colors COLGRAY, COLGRAY
-          .colors COLGRAY, COLGRAY
-          ;; ↑ 73
 
 ;;; 
 ;;; Links up, down, left, right are map indices in this bank
@@ -104,7 +90,7 @@ MapLinks:
           .byte $ff, 9, 4, 6
           .byte $ff, $ff, 5, $ff
           .byte 1, 8, $ff, $ff
-          .byte 7, 47, 62, 11
+          .byte 7, 47, $ff, 11  ; link to province 1 room 2 FIXME
           .byte 5, 14, $ff, $ff
           ;; 10
           .byte $ff, 15, $ff, $ff
@@ -169,20 +155,6 @@ MapLinks:
           ;; 60
           .byte $ff, $ff, 59, 61
           .byte $ff, $ff, 60, $ff
-          .byte $ff, $ff, 63, 8
-          .byte $ff, $ff, 64, 62
-          .byte $ff, $ff, 65, 63
-          ;; 65
-          .byte $ff, $ff, 66, 64
-          .byte $ff, $ff, 68, 67
-          .byte $ff, $ff, 65, 8
-          .byte 68, 69, 70, 66
-          .byte 71, 72, 68, 67
-          ;; 70
-          .byte 71, 70, 69, 67
-          .byte 69, 68, 69, 73
-          .byte 70, 68, 71, 72
-          .byte 68, 68, 68, 68
 ;;; 
 ;;; RLE Map data for each screen.
 
@@ -825,41 +797,5 @@ SpriteList:
           .byte $40, $26
           .byte SpriteGrizzard, 6 ; Windoo
 
-          .byte 0
-
-          ;; Room 62
-          .byte 0
-
-          ;; Room 63
-          .byte 0
-
-          ;; Room 64
-          .byte 0
-
-          ;; Room 65
-          .byte 0
-
-          ;; Room 66
-          .byte 0
-
-          ;; Room 67
-          .byte 0
-
-          ;; Room 68
-          .byte 0
-
-          ;; Room 69
-          .byte 0
-
-          ;; Room 70
-          .byte 0
-
-          ;; Room 71
-          .byte 0
-
-          ;; Room 72
-          .byte 0
-
-          ;; Room 73
           .byte 0
 
