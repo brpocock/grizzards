@@ -8,8 +8,6 @@ my @banks = ();
   }
 }
 
-my %rules = ();
-
 print '# Makefile (generated)
 # -*- makefile -*-
 
@@ -67,7 +65,7 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
 \tcat \$^ > \$\@\n\n";
 
     my @places = @banks;
-    push @places => 'Common';
+    unshift @places => 'Common';
     for my $bank (@places) {
       my $bankdir = "Source/Banks/Bank$bank";
       my $genrdir = "Source/Generated/Bank$bank";
@@ -99,6 +97,18 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
 
         while (@todo) {
           my $path = shift @todo;
+          if ($path =~ m(^Source/Generated)) {
+            my $orig_path = $path;
+            $orig_path =~ s(Generated/Common) (Common);
+            $orig_path =~ s(Generated/Bank) (Banks/Bank);
+            $orig_path =~ s(\.s$) ();
+            if (-f "$orig_path.png" or -f "$orig_path.midi" or -f "$orig_path.txt") {
+              unless ($seen{ $path }) {
+                ++$seen{ $path };
+                push @files => $path;
+              }
+            }
+          }
           next unless -f $path;
           next if $seen{ $path };
           ++$seen{ $path };
@@ -129,19 +139,20 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
 \tmkdir -p $genrdir
 \tbin/skyline-tool compile-art \$\@ \$<\n\n";
             push @files => "$genrdir/$base.s";
+            print STDERR "Pushed $genrdir/$base.s to files\n";
           } elsif ('s' eq $ext) {
             push @files => $path;
             open my $text, '<', $path;
             while (my $line = <$text>) {
-              if ($line =~ /\.include "(.+)"/) {
+              if ($line =~ /\.include "(.+).s"/) {
                 my $dep = $1;
-                push @todo => "Source/Common/$dep";
-                push @todo => "Source/Routines/$dep";
-                push @todo => "Source/Generated/Common/$dep";
                 if ($bank ne 'Common') {
-                  push @todo => "$bankdir/$dep";
-                  push @todo => "$genrdir/$dep";
+                  push @todo => "$bankdir/$dep.s";
+                  push @todo => "$genrdir/$dep.s";
                 }
+                push @todo => "Source/Common/$dep.s";
+                push @todo => "Source/Routines/$dep.s";
+                push @todo => "Source/Generated/Common/$dep.s";
               }
             }
             close $text;
@@ -151,7 +162,9 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
         }
       }
 
-      next if $bank eq 'Common';
+      if ($bank eq 'Common') {
+        next;
+      }
 
       print "Object/Bank$bank.$starter_name.$tv.o:\t";
       for my $file (@files) {
