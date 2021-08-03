@@ -1,5 +1,6 @@
 ;;; Grizzards Source/Routines/SelectSlot.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
+
 SelectSlot:        .block
           ;;
           ;; Select a save game slot
@@ -125,8 +126,7 @@ ShowSaveSlot:
 
           ldx SaveGameSlot
           inx
-          txa
-          sta StringBuffer + 5
+          stx StringBuffer + 5
           
 ShowSlot:
           .FarJSR TextBank, ServiceDecodeAndShowText

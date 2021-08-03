@@ -44,6 +44,7 @@ VBlank: .block
           beq DoneButtons       ; always taken
 
 ButtonsChanged:
+          sta DebounceButtons
           ora #$01              ; guarantee non-zero if it changed
           sta NewButtons
 

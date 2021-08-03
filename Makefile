@@ -1,6 +1,10 @@
-default:	game doc
+default:	game demo
 
 all:	dist demo
+
+unerase:	Dist/Grizzards.Unerase.NTSC.a26 \
+		Dist/Grizzards.Unerase.PAL.a26 \
+		Dist/Grizzards.Unerase.SECAM.a26
 
 publish:	dist demo doc
 	scp Dist/Grizzards.Demo.NTSC.a26 Dist/Grizzards.Demo.PAL.a26 Dist/Grizzards.Demo.SECAM.a26 \
@@ -354,3 +358,21 @@ libraries already compiled. On subsequent runs, though, it'll be much quicker." 
 bin/buildapp:
 	sbcl --load SkylineTool/prepare-system.lisp --eval '(cl-user::quit)'
 
+
+Dist/Grizzards.Unerase.NTSC.a26:	$(shell find Source -name \*.s)
+	64tass --nostart --long-branch --case-sensitive \
+	--ascii -I. -I Source/Common -I Source/Routines \
+	-Wall -Wno-shadow -Wno-leading-zeros --m6502 \
+	Source/Unerase/Unerase.s -DTV=NTSC -o $@
+
+Dist/Grizzards.Unerase.PAL.a26:	$(shell find Source -name \*.s)
+	64tass --nostart --long-branch --case-sensitive \
+	--ascii -I. -I Source/Common -I Source/Routines \
+	-Wall -Wno-shadow -Wno-leading-zeros --m6502 \
+	Source/Unerase/Unerase.s -DTV=PAL -o $@
+
+Dist/Grizzards.Unerase.SECAM.a26:	$(shell find Source -name \*.s)
+	64tass --nostart --long-branch --case-sensitive \
+	--ascii -I. -I Source/Common -I Source/Routines \
+	-Wall -Wno-shadow -Wno-leading-zeros --m6502 \
+	Source/Unerase/Unerase.s -DTV=SECAM -o $@

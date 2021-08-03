@@ -16,13 +16,8 @@ EraseSlotSignature: .block
           lda #<SaveGameSlotPrefix
           jsr i2cTxByte
        
-          ldx # 0
-WriteSignatureLoop:
           lda # 0
           jsr i2cTxByte
-          inx
-          cpx # 5
-          bne WriteSignatureLoop
 
           jsr i2cStopWrite
        
