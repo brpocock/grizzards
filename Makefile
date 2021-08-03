@@ -54,7 +54,10 @@ uno:	Dist/Grizzards.Dirtex.NTSC.a26 \
 	Dist/Grizzards.Airex.SECAM.a26 \
 	Dist/Grizzards.Demo.NTSC.a26 \
 	Dist/Grizzards.Demo.PAL.a26 \
-	Dist/Grizzards.Demo.SECAM.a26
+	Dist/Grizzards.Demo.SECAM.a26 \
+	Dist/Grizzards.Unerase.NTSC.a26 \
+	Dist/Grizzards.Unerase.PAL.a26 \
+	Dist/Grizzards.Unerase.SECAM.a26
 	if [ $$(uname -s) = 'Linux' ] ; then \
 	  mkdir -p $(UNOCART)/GRIZZARDS/ ;\
 	  cp -v Dist/Grizzards.Dirtex.NTSC.a26 $(UNOCART)/GRIZZARDS/DIRTEX.NTSC.EF ;\
@@ -69,6 +72,9 @@ uno:	Dist/Grizzards.Dirtex.NTSC.a26 \
 	  cp -v Dist/Grizzards.Demo.NTSC.a26 $(UNOCART)/GRIZZARDS/DEMO.NTSC.F4 ;\
 	  cp -v Dist/Grizzards.Demo.PAL.a26 $(UNOCART)/GRIZZARDS/DEMO.PAL.F4 ;\
 	  cp -v Dist/Grizzards.Demo.SECAM.a26 $(UNOCART)/GRIZZARDS/DEMO.SECAM.F4 ;\
+	  cp -v Dist/Grizzards.Unerase.NTSC.a26 $(UNOCART)/GRIZZARDS/UNERASE.NTSC.F4 ;\
+	  cp -v Dist/Grizzards.Unerase.PAL.a26 $(UNOCART)/GRIZZARDS/UNERASE.PAL.F4 ;\
+	  cp -v Dist/Grizzards.Unerase.SECAM.a26 $(UNOCART)/GRIZZARDS/UNERASE.SECAM.F4 ;\
 	else \
 	  echo "Patch Makefile for your $$(uname -s) OS" ; \
 	fi
