@@ -139,7 +139,6 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
 \tmkdir -p $genrdir
 \tbin/skyline-tool compile-art \$\@ \$<\n\n";
             push @files => "$genrdir/$base.s";
-            print STDERR "Pushed $genrdir/$base.s to files\n";
           } elsif ('s' eq $ext) {
             push @files => $path;
             open my $text, '<', $path;
