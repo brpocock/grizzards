@@ -23,10 +23,12 @@ ReadLoop:
 	bne SlotEmpty
 	inx
 	cpx # 5
-        bne ReadLoop
+          bne ReadLoop
+
 	jsr i2cStopRead
 	clc			; Yes, it's in use
 	rts
+
 SlotEmpty:           
 	jsr i2cStopRead
 	sec			; Nope, not in use
