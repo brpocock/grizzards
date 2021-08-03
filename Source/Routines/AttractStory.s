@@ -221,7 +221,7 @@ StillStory:
           bne LoopMe
 
 CheckFire:
-          lda NewINPT4
+          lda NewButtons
           beq LoopMe
           and #PRESSED
           bne LoopMe

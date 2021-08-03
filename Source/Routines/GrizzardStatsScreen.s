@@ -20,7 +20,7 @@ Loop:
 ;;; 
           .WaitScreenBottom
 
-          lda NewINPT4
+          lda NewButtons
           beq NoButton
           and #PRESSED
           beq Select

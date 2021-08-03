@@ -40,7 +40,7 @@ LoopFirst:
           
           .SkipLines KernelLines - 159
 
-          lda NewINPT4
+          lda NewButtons
           beq +
           bpl Bye
 +

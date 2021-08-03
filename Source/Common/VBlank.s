@@ -12,7 +12,7 @@ VBlank: .block
           lda # 0
           sta NewSWCHA
           sta NewSWCHB
-          sta NewINPT4
+          sta NewButtons
 
           lda SWCHA
           and #$f0
@@ -29,17 +29,31 @@ VBlank: .block
           sta NewSWCHB
 +
 
-          .if BANK != $02
-          ;; XXX Bank 2 ran out of space, and no routine in bank 2 cares about this.
+          lda INPT1
+          and #PRESSED
+          lsr a
+          sta NewButtons
           lda INPT4
-          and #$80
-          cmp DebounceINPT4
-          beq +
-          sta DebounceINPT4
-          ora #$01              ; guarantee at least one "1" bit
-          sta NewINPT4
-+
-          .fi
+          and #PRESSED
+          ora NewButtons
+
+          cmp DebounceButtons
+          bne ButtonsChanged
+          lda # 0
+          sta NewButtons
+          beq DoneButtons       ; always taken
+
+ButtonsChanged:
+          ora #$01              ; guarantee non-zero if it changed
+          sta NewButtons
+
+          and #$40              ; C button pressed?
+          bne DoneButtons
+          lda NewSWCHB
+          ora #~SWCHBSelect     ; zero = Select button pressed
+          sta NewSWCHB
+          sta DebounceSWCHB
+DoneButtons:
 
           .if DoVBlankWork != 0
           jsr DoVBlankWork

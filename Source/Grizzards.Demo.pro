@@ -4,7 +4,7 @@
 "Cart.Name" "Grizzards Demo"
 "Cart.Rarity" "Homebrew"
 "Cart.Type" "F4"
-"Controller.Left" "JOYSTICK"
+"Controller.Left" "GENESIS"
 "Controller.Right" "ATARIVOX"
 "Display.Format" "@@TV@@"
 "Display.Phosphor" "YES"

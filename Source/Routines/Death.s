@@ -42,7 +42,7 @@ LoopFirst:
           .BitBit SWCHBReset
           beq Leave
 +
-	lda NewINPT4
+	lda NewButtons
           beq +
           .BitBit PRESSED
           beq Leave

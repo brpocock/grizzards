@@ -353,7 +353,7 @@ DoneDrawing:
           .SkipLines 3
           sta COLUBK
 
-          lda NewINPT4
+          lda NewButtons
           beq NoButton
           .BitBit PRESSED
           bne NoButton

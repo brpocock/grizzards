@@ -189,7 +189,7 @@ ShowSelectedMove:
           .SkipLines 3
 	  .fi
 
-          lda NewINPT4
+          lda NewButtons
           beq ScreenDone
           and #PRESSED
           bne ScreenDone

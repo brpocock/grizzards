@@ -274,37 +274,37 @@ Dist/Grizzards.Airex.SECAM.pro:	Source/Grizzards.pro Dist/Grizzards.Airex.SECAM.
 
 dstella:	Dist/Grizzards.Demo.NTSC.a26 Dist/Grizzards.Demo.NTSC.sym Dist/Grizzards.Demo.NTSC.pro
 	stella -tv.filter 3 -grabmouse 0 -bs F4 \
-		-lc Joystick -rc AtariVox \
+		-lc Genesis -rc AtariVox \
 		-format NTSC -pp Yes \
 		-debug $<
 
 dstella-pal:	Dist/Grizzards.Demo.PAL.a26 Dist/Grizzards.Demo.PAL.sym Dist/Grizzards.Demo.PAL.pro
 	stella -tv.filter 3 -grabmouse 0 -bs F4 \
-		-lc Joystick -rc AtariVox \
+		-lc Genesis -rc AtariVox \
 		-format PAL -pp Yes \
 		-debug $<
 
 dstella-secam:	Dist/Grizzards.Demo.SECAM.a26 Dist/Grizzards.Demo.SECAM.sym Dist/Grizzards.Demo.SECAM.pro
 	stella -tv.filter 3 -grabmouse 0 -bs F4 \
-		-lc Joystick -rc AtariVox \
+		-lc Genesis -rc AtariVox \
 		-format SECAM -pp Yes \
 		-debug $<
 
 stella:	Dist/Grizzards.Aquax.NTSC.a26 Dist/Grizzards.Aquax.NTSC.sym Dist/Grizzards.Aquax.NTSC.pro
 	stella -tv.filter 3 -grabmouse 0 -bs EF \
-		-lc Joystick -rc AtariVox \
+		-lc Genesis -rc AtariVox \
 		-format NTSC -pp Yes \
 		-debug $<
 
 stella-pal:	Dist/Grizzards.Aquax.PAL.a26 Dist/Grizzards.Aquax.PAL.sym Dist/Grizzards.Aquax.PAL.pro
 	stella -tv.filter 3 -grabmouse 0 -bs EF \
-		-lc Joystick -rc AtariVox \
+		-lc Genesis -rc AtariVox \
 		-format PAL -pp Yes \
 		-debug $<
 
 stella-secam:	Dist/Grizzards.Aquax.SECAM.a26 Dist/Grizzards.Aquax.SECAM.sym Dist/Grizzards.Aquax.SECAM.pro
 	stella -tv.filter 3 -grabmouse 0 -bs EF \
-		-lc Joystick -rc AtariVox \
+		-lc Genesis -rc AtariVox \
 		-format SECAM -pp Yes \
 		-debug $<
 

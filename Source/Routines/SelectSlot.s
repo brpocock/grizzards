@@ -203,7 +203,7 @@ ThisIsNotAStickUp:
           lda #ModeSelectSlot
           sta GameMode
 
-          lda NewINPT4
+          lda NewButtons
           beq SkipButton
           .BitBit PRESSED
           beq SlotOK

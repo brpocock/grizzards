@@ -139,7 +139,7 @@ DoneKernel:
           and #SWCHBSelect
           beq Leave
 +
-          lda NewINPT4
+          lda NewButtons
           beq +
           and #PRESSED
           beq Leave

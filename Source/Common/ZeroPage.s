@@ -130,13 +130,13 @@ DebounceSWCHA:
           .byte ?
 DebounceSWCHB:
           .byte ?
-DebounceINPT4:
+DebounceButtons:
           .byte ?
 NewSWCHA:
           .byte ?
 NewSWCHB:
           .byte ?
-NewINPT4:
+NewButtons:
           .byte ?
 ;;; XXX  these  should be  moved  into  the  overlay section,  but  that
 ;;; requires some remediation
