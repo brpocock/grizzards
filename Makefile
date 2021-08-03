@@ -29,7 +29,10 @@ cart-secam:	Dist/Grizzards.Demo.SECAM.a26
 
 harmony:	Dist/Grizzards.Demo.NTSC.a26 \
 		Dist/Grizzards.Demo.PAL.a26 \
-		Dist/Grizzards.Demo.SECAM.a26
+		Dist/Grizzards.Demo.SECAM.a26 \
+		Dist/Grizzards.Aquax.NTSC.a26 \
+		Dist/Grizzards.Aquax.PAL.a26 \
+		Dist/Grizzards.Aquax.SECAM.a26
 	if [ $$(uname -s) = 'Linux' ] ; then \
 	  cp $^ /run/media/${USER}/HARMONY/ ; \
 	else \
