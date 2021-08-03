@@ -6,10 +6,13 @@ unerase:	Dist/Grizzards.Unerase.NTSC.a26 \
 		Dist/Grizzards.Unerase.PAL.a26 \
 		Dist/Grizzards.Unerase.SECAM.a26
 
-publish:	dist demo doc
+publish:	dist demo doc unerase
 	scp Dist/Grizzards.Demo.NTSC.a26 Dist/Grizzards.Demo.PAL.a26 Dist/Grizzards.Demo.SECAM.a26 \
 		Dist/Grizzards.Demo.zip Dist/Grizzards.Source.tar.gz \
 		Dist/Grizzards.Demo.NTSC.pdf Dist/Grizzards.Demo.PAL.pdf Dist/Grizzards.Demo.SECAM.pdf \
+		Dist/Grizzards.Unerase.NTSC.a26 \
+		Dist/Grizzards.Unerase.PAL.a26 \
+		Dist/Grizzards.Unerase.SECAM.a26 \
 		star-hope.org:star-hope.org/games/Grizzards/
 
 demo:	Dist/Grizzards.Demo.zip
