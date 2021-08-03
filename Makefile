@@ -33,9 +33,9 @@ harmony:	Dist/Grizzards.Demo.NTSC.a26 \
 		Dist/Grizzards.Demo.PAL.a26 \
 		Dist/Grizzards.Demo.SECAM.a26
 	if [ $$(uname -s) = 'Linux' ] ; then \
-	  cp -v Dist/Grizzards.Demo.NTSC.a26 $(HARMONY)/Grizzards.D.NTSC.F4 \
-	  cp -v Dist/Grizzards.Demo.PAL.a26 $(HARMONY)/Grizzards.D.PAL.F4 \
-	  cp -v Dist/Grizzards.Demo.SECAM.a26 $(HARMONY)/Grizzards.D.SECAM.F4 \
+	  cp -v Dist/Grizzards.Demo.NTSC.a26 $(HARMONY)/Grizzards.D.NTSC.F4 ;\
+	  cp -v Dist/Grizzards.Demo.PAL.a26 $(HARMONY)/Grizzards.D.PAL.F4 ;\
+	  cp -v Dist/Grizzards.Demo.SECAM.a26 $(HARMONY)/Grizzards.D.SECAM.F4 ;\
 	else \
 	  echo "Patch Makefile for your $$(uname -s) OS" ; \
 	fi
@@ -56,18 +56,18 @@ uno:	Dist/Grizzards.Dirtex.NTSC.a26 \
 	Dist/Grizzards.Demo.PAL.a26 \
 	Dist/Grizzards.Demo.SECAM.a26
 	if [ $$(uname -s) = 'Linux' ] ; then \
-	  cp -v Dist/Grizzards.Dirtex.NTSC.a26 $(UNOCART)/GRIZ.0.NTSC.EF \
-	  cp -v Dist/Grizzards.Dirtex.PAL.a26 $(UNOCART)/GRIZ.0.PAL.EF \
-	  cp -v Dist/Grizzards.Dirtex.SECAM.a26 $(UNOCART)/GRIZ.0.SECAM.EF \
-	  cp -v Dist/Grizzards.Aquax.NTSC.a26 $(UNOCART)/GRIZ.1.NTSC.EF \
-	  cp -v Dist/Grizzards.Aquax.PAL.a26 $(UNOCART)/GRIZ.1.PAL.EF \
-	  cp -v Dist/Grizzards.Aquax.SECAM.a26 $(UNOCART)/GRIZ.1.SECAM.EF \
-	  cp -v Dist/Grizzards.Airex.NTSC.a26 $(UNOCART)/GRIZ.2.NTSC.EF \
-	  cp -v Dist/Grizzards.Airex.PAL.a26 $(UNOCART)/GRIZ.2.PAL.EF \
-	  cp -v Dist/Grizzards.Airex.SECAM.a26 $(UNOCART)/GRIZ.2.SECAM.EF \
-	  cp -v Dist/Grizzards.Demo.NTSC.a26 $(UNOCART)/GRIZ.D.NTSC.F4 \
-	  cp -v Dist/Grizzards.Demo.PAL.a26 $(UNOCART)/GRIZ.D.PAL.F4 \
-	  cp -v Dist/Grizzards.Demo.SECAMyay.a26 $(UNOCART)/GRIZ.D.SECAM.F4 \
+	  cp -v Dist/Grizzards.Dirtex.NTSC.a26 $(UNOCART)/GRIZ.0.NTSC.EF ;\
+	  cp -v Dist/Grizzards.Dirtex.PAL.a26 $(UNOCART)/GRIZ.0.PAL.EF ;\
+	  cp -v Dist/Grizzards.Dirtex.SECAM.a26 $(UNOCART)/GRIZ.0.SECAM.EF ;\
+	  cp -v Dist/Grizzards.Aquax.NTSC.a26 $(UNOCART)/GRIZ.1.NTSC.EF ;\
+	  cp -v Dist/Grizzards.Aquax.PAL.a26 $(UNOCART)/GRIZ.1.PAL.EF ;\
+	  cp -v Dist/Grizzards.Aquax.SECAM.a26 $(UNOCART)/GRIZ.1.SECAM.EF ;\
+	  cp -v Dist/Grizzards.Airex.NTSC.a26 $(UNOCART)/GRIZ.2.NTSC.EF ;\
+	  cp -v Dist/Grizzards.Airex.PAL.a26 $(UNOCART)/GRIZ.2.PAL.EF ;\
+	  cp -v Dist/Grizzards.Airex.SECAM.a26 $(UNOCART)/GRIZ.2.SECAM.EF ;\
+	  cp -v Dist/Grizzards.Demo.NTSC.a26 $(UNOCART)/GRIZ.D.NTSC.F4 ;\
+	  cp -v Dist/Grizzards.Demo.PAL.a26 $(UNOCART)/GRIZ.D.PAL.F4 ;\
+	  cp -v Dist/Grizzards.Demo.SECAM.a26 $(UNOCART)/GRIZ.D.SECAM.F4 ;\
 	else \
 	  echo "Patch Makefile for your $$(uname -s) OS" ; \
 	fi
