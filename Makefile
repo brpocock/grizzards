@@ -56,7 +56,7 @@ uno:	Dist/Grizzards.Dirtex.NTSC.a26 \
 	Dist/Grizzards.Demo.PAL.a26 \
 	Dist/Grizzards.Demo.SECAM.a26
 	if [ $$(uname -s) = 'Linux' ] ; then \
-	  mkdir -p $(UNOCART)/GRIZZARDS/
+	  mkdir -p $(UNOCART)/GRIZZARDS/ ;\
 	  cp -v Dist/Grizzards.Dirtex.NTSC.a26 $(UNOCART)/GRIZZARDS/DIRTEX.NTSC.EF ;\
 	  cp -v Dist/Grizzards.Dirtex.PAL.a26 $(UNOCART)/GRIZZARDS/DIRTEX.PAL.EF ;\
 	  cp -v Dist/Grizzards.Dirtex.SECAM.a26 $(UNOCART)/GRIZZARDS/DIRTEX.SECAM.EF ;\
