@@ -27,23 +27,47 @@ cart-pal:	Dist/Grizzards.Demo.PAL.a26
 cart-secam:	Dist/Grizzards.Demo.SECAM.a26
 	minipro -p AT27C256@DIP28 -w $<
 
+# Basic Harmony cart only can handle 32k images
+HARMONY=/run/media/${USER}/HARMONY/
 harmony:	Dist/Grizzards.Demo.NTSC.a26 \
 		Dist/Grizzards.Demo.PAL.a26 \
-		Dist/Grizzards.Demo.SECAM.a26 \
-		Dist/Grizzards.Aquax.NTSC.a26 \
-		Dist/Grizzards.Aquax.PAL.a26 \
-		Dist/Grizzards.Aquax.SECAM.a26
+		Dist/Grizzards.Demo.SECAM.a26
 	if [ $$(uname -s) = 'Linux' ] ; then \
-	  cp $^ /run/media/${USER}/HARMONY/ ; \
+	  cp -v Dist/Grizzards.Demo.NTSC.a26 $(HARMONY)/Grizzards.D.NTSC.F4 \
+	  cp -v Dist/Grizzards.Demo.PAL.a26 $(HARMONY)/Grizzards.D.PAL.F4 \
+	  cp -v Dist/Grizzards.Demo.SECAM.a26 $(HARMONY)/Grizzards.D.SECAM.F4 \
 	else \
 	  echo "Patch Makefile for your $$(uname -s) OS" ; \
 	fi
 
-uno:	Dist/Grizzards.Demo.NTSC.a26 \
-		Dist/Grizzards.Demo.PAL.a26 \
-		Dist/Grizzards.Demo.SECAM.a26
+# Uno needs special extension to detect  us as an EF cartridge and shows
+# fairyl short names only
+UNOCART=/run/media/${USER}/TBA_2600/
+uno:	Dist/Grizzards.Dirtex.NTSC.a26 \
+	Dist/Grizzards.Dirtex.PAL.a26 \
+	Dist/Grizzards.Dirtex.SECAM.a26 \
+	Dist/Grizzards.Aquax.NTSC.a26 \
+	Dist/Grizzards.Aquax.PAL.a26 \
+	Dist/Grizzards.Aquax.SECAM.a26 \
+	Dist/Grizzards.Airex.NTSC.a26 \
+	Dist/Grizzards.Airex.PAL.a26 \
+	Dist/Grizzards.Airex.SECAM.a26 \
+	Dist/Grizzards.Demo.NTSC.a26 \
+	Dist/Grizzards.Demo.PAL.a26 \
+	Dist/Grizzards.Demo.SECAM.a26
 	if [ $$(uname -s) = 'Linux' ] ; then \
-	  cp $^ /run/media/${USER}/TBA_2600/ ; \
+	  cp -v Dist/Grizzards.Dirtex.NTSC.a26 $(UNOCART)/GRIZ.0.NTSC.EF \
+	  cp -v Dist/Grizzards.Dirtex.PAL.a26 $(UNOCART)/GRIZ.0.PAL.EF \
+	  cp -v Dist/Grizzards.Dirtex.SECAM.a26 $(UNOCART)/GRIZ.0.SECAM.EF \
+	  cp -v Dist/Grizzards.Aquax.NTSC.a26 $(UNOCART)/GRIZ.1.NTSC.EF \
+	  cp -v Dist/Grizzards.Aquax.PAL.a26 $(UNOCART)/GRIZ.1.PAL.EF \
+	  cp -v Dist/Grizzards.Aquax.SECAM.a26 $(UNOCART)/GRIZ.1.SECAM.EF \
+	  cp -v Dist/Grizzards.Airex.NTSC.a26 $(UNOCART)/GRIZ.2.NTSC.EF \
+	  cp -v Dist/Grizzards.Airex.PAL.a26 $(UNOCART)/GRIZ.2.PAL.EF \
+	  cp -v Dist/Grizzards.Airex.SECAM.a26 $(UNOCART)/GRIZ.2.SECAM.EF \
+	  cp -v Dist/Grizzards.Demo.NTSC.a26 $(UNOCART)/GRIZ.D.NTSC.F4 \
+	  cp -v Dist/Grizzards.Demo.PAL.a26 $(UNOCART)/GRIZ.D.PAL.F4 \
+	  cp -v Dist/Grizzards.Demo.SECAMyay.a26 $(UNOCART)/GRIZ.D.SECAM.F4 \
 	else \
 	  echo "Patch Makefile for your $$(uname -s) OS" ; \
 	fi
