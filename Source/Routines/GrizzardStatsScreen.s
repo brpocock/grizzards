@@ -15,15 +15,16 @@ Loop:
           .SkipLines 10
           .fi
 
-          .if BANK == TextBank
-          jsr ShowGrizzardStats
-          .else
           .FarJSR TextBank, ServiceShowGrizzardStats
-          .fi
 
 ;;; 
           .WaitScreenBottom
 
+          lda NewINPT4
+          beq NoButton
+          and #PRESSED
+          beq Select
+NoButton:
           lda NewSWCHB
           beq Bouncey1
           .BitBit SWCHBReset
@@ -33,8 +34,11 @@ Loop:
           .BitBit SWCHBSelect
           bne Bouncey1
 
+Select:
           lda DeltaY
           sta GameMode
+          lda # 0
+          sta DeltaY
 
 Bouncey1:
           lda GameMode
@@ -59,6 +63,7 @@ Bouncey1:
           bne +
           jmp GrizzardDepot
 +
+          rts
 
           .fi
 

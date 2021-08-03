@@ -149,8 +149,10 @@
           ServiceDecodeAndShowText = $01
           ServiceFetchGrizzardMove = $13
           ServiceLearntMove = $18
+          ServiceLevelUp = $1a
           ServiceNewGame = $0f
           ServiceShowGrizzardName = $03
+          ServiceShowGrizzardStats = $04
           ServiceShowMove = $06
           ServiceShowMoveDecoded = $17
           ServiceShowText = $02
@@ -158,10 +160,10 @@
 ;;; Map services bank, same
 
           ServiceBottomOfScreen = $09
+          ServiceGrizzardDepot = $07
+          ServiceGrizzardStatsScreen = $19
           ServiceNewGrizzard = $0c
           ServiceTopOfScreen = $08
-          ServiceGrizzardDepot = $07
-          ServiceShowGrizzardStats = $04
 
 ;;; Animations services
 

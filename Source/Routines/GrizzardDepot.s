@@ -154,6 +154,13 @@ HTDdone:
 
           lda NewSWCHA
           beq DoneStick
+
+          eor #$ff
+          and #P0StickLeft | P0StickRight
+          bne Select
+
+NotLeftRight:
+          lda NewSWCHA
           .BitBit P0StickUp
           bne NoStickUp
           lda #-1
@@ -165,6 +172,10 @@ NoStickUp:
           lda # 1
 SeekGrizzard:
           sta NextMap
+          .WaitScreenBottom
+          .WaitScreenTop
+          .ldacolu COLTEAL, $2
+          sta COLUBK
 KeepSeeking:
           lda CurrentGrizzard
           clc
@@ -184,6 +195,7 @@ SeekOK:
           .FarJSR SaveKeyBank, ServicePeekGrizzard 
           ;; carry is set if found
           bcc KeepSeeking
+          .WaitScreenBottom
           
 DoneStick:
 
@@ -195,6 +207,7 @@ DoneStick:
 NoReset:
           .BitBit SWCHBSelect
           bne SwitchesDone
+Select:
           lda #ModeGrizzardStats
           sta GameMode
           lda #ModeGrizzardDepot
