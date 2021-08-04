@@ -26,7 +26,7 @@ Loop:
           lda #<Map_BowClosed
           sta pp5l
           lda #>Map_BowClosed
-           sta pp5h
+          sta pp5h
           jmp GotRLE
 NoChangeRLE:
           .fi
@@ -97,6 +97,9 @@ P1Ready:
           sta PF1
           sta PF2
 
+          lda #>PlayerSprites
+          sta pp0h
+
           lda DeltaX
           ora DeltaY
           beq +        ; always show frame 0 unless moving
@@ -107,11 +110,11 @@ P1Ready:
           stx NextSound
 +
           clc
-P0Frame0:
           adc #<PlayerSprites
+          bcc +
+          inc pp0h
++
           sta pp0l
-          lda #>PlayerSprites
-          sta pp0h
 
           ldx CurrentMap
           lda MapColors, x
