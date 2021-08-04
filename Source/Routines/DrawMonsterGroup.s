@@ -34,12 +34,14 @@ PrepareTopCursor:
 
 PrepareCursor2:
           ldx MoveTarget
+          beq ZeroTarget
           cpx # 4
-          blt +
+          blt TopTarget
+ZeroTarget:
           lda # 0
           sta pp3l
           beq PrepareTopMonsters ; always taken
-+
+TopTarget:
           dex
 
 PositionTopCursor:
