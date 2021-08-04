@@ -27,6 +27,8 @@ DoLocal:
           beq AppendDecimalAndPrintThunk
           cpy #ServiceFetchGrizzardMove
           beq FetchGrizzardMove
+          cpy #ServiceLevelUp
+          beq LevelUp
           brk
 
 DecodeAndShowText:
@@ -58,6 +60,7 @@ ShowMoveDecoded:
           .include "FetchGrizzardMove.s"
           .include "Random.s"
           .include "CombatOutcomeScreen.s"
+          .include "LevelUp.s"
 
           .include "GrizzardNames.s"
           .include "GrizzardMoves.s"

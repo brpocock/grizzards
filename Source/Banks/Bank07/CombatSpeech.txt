@@ -70,3 +70,8 @@ five
 Six:
 six
 
+LevelUp:
+Level up
+
+MaxHP:
+maximum hit points

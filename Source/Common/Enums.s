@@ -34,6 +34,7 @@
           ModeDeath = $44
           ModeCombatNextTurn = $45
           ModeLearntMove = $46
+          ModeLevelUp = $47
 
           ModeGrizzardDepot = $50
 
@@ -70,6 +71,10 @@
 ;;; 
           MoveEffectsToEnemy = $1f
           MoveEffectsToSelf = $e0
+;;; 
+          LevelUpAttack = $01
+          LevelUpDefend = $02
+          LevelUpMaxHP = $04
 ;;; 
 ;;; Sprite types
           RandomEncounter = $80
