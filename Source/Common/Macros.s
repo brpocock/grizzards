@@ -331,3 +331,10 @@ SetBitFlag:         .macro flag
           ora ProvinceFlags, y
           sta ProvinceFlags, y
           .endm
+;;; 
+SetUtterance:       .macro constant
+          lda #>\constant
+          sta CurrentUtterance + 1
+          lda #<\constant
+          sta CurrentUtterance
+          .endm
