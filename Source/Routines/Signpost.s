@@ -160,7 +160,7 @@ AlignedLeft:
           sta WSYNC
           ldy # 4
           sty SignpostScanline
-          .SleepX 48
+          .SleepX 49
 LeftLoop:
 	ldy SignpostScanline
 	lda (PixelPointers + 0), y
