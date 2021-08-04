@@ -342,7 +342,7 @@ HPLevelUpDone:
           lda DeltaX
           beq NoLevelUp
 
-          .FarJSR TextBank, ServiceLevelUp
+          jsr LevelUp
 
 NoLevelUp:
 
