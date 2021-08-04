@@ -152,10 +152,7 @@ ScheduleSpeech:
           bne SomethingHappened
 
 NothingHappened:
-          lda #>Phrase_NoEffect
-          sta CurrentUtterance + 1
-          lda #<Phrase_NoEffect
-          sta CurrentUtterance
+          .SetUtterance Phrase_NoEffect
           lda # $ff
           sta SpeechSegment
           bne SpeechDone        ; always taken
@@ -167,10 +164,7 @@ SaySubjectMonsterTurn:
           lda MoveHP
           bmi SayMonster
 SayPlayer:
-          lda #>Phrase_Grizzard
-          sta CurrentUtterance + 1
-          lda #<Phrase_Grizzard
-          sta CurrentUtterance
+          .SetUtterance Phrase_Grizzard
 
           bne SpeechQueued        ; always taken
 
@@ -178,10 +172,7 @@ SaySubjectPlayerTurn:
           lda MoveHP
           bmi SayPlayer
 SayMonster:
-          lda #>Phrase_Monster
-          sta CurrentUtterance + 1
-          lda #<Phrase_Monster
-          sta CurrentUtterance
+          .SetUtterance Phrase_Monster
 
           bne SpeechQueued        ; always taken
 
@@ -196,18 +187,12 @@ Speech1:
           beq SpeechQueued
           bmi SayHealed
 SayInjured:
-          lda #>Phrase_IsInjured
-          sta CurrentUtterance + 1
-          lda #<Phrase_IsInjured
-          sta CurrentUtterance
+          .SetUtterance Phrase_IsInjured
 
           bne SpeechQueued        ; always taken
 
 SayMissed:
-          lda #>Phrase_Missed
-          sta CurrentUtterance + 1
-          lda #<Phrase_Missed
-          sta CurrentUtterance
+          .SetUtterance Phrase_Missed
 
           inc SpeechSegment
           bne SpeechDone        ; always taken
@@ -215,10 +200,7 @@ SayMissed:
 SayHealed:
           eor #$ff
           beq SpeechQueued
-          lda #>Phrase_IsHealed
-          sta CurrentUtterance + 1
-          lda #<Phrase_IsHealed
-          sta CurrentUtterance
+          .SetUtterance Phrase_IsHealed
           bne SpeechQueued      ; always taken
 
 Speech2:
@@ -233,10 +215,7 @@ Speech2:
           beq SpeechQueued      ; always taken
 
 SayAnd:
-          lda #>Phrase_And
-          sta CurrentUtterance + 1
-          lda #<Phrase_And
-          sta CurrentUtterance
+          .SetUtterance Phrase_And
 
           bne SpeechQueued        ; always taken
 
@@ -258,32 +237,20 @@ Speech3:
           beq SpeechQueued      ; always taken
 
 SaySleep:
-          lda #>Phrase_StatusFXSleep
-          sta CurrentUtterance + 1
-          lda #<Phrase_StatusFXSleep
-          sta CurrentUtterance
+          .SetUtterance Phrase_StatusFXSleep
 
           bne SpeechQueued        ; always taken
 
 SayMuddle:          
-          lda #>Phrase_StatusFXMuddle
-          sta CurrentUtterance + 1
-          lda #<Phrase_StatusFXMuddle
-          sta CurrentUtterance
+          .SetUtterance Phrase_StatusFXMuddle
           bne SpeechQueued      ; always taken
 
 SayAttack:
-          lda #>Phrase_StatusFXAttack
-          sta CurrentUtterance + 1
-          lda #<Phrase_StatusFXAttack
-          sta CurrentUtterance
+          .SetUtterance Phrase_StatusFXAttack
           bne SpeechQueued        ; always taken
 
 SayDefend:
-          lda #>Phrase_StatusFXDefend
-          sta CurrentUtterance + 1
-          lda #<Phrase_StatusFXDefend
-          sta CurrentUtterance
+          .SetUtterance Phrase_StatusFXDefend
           bne SpeechQueued        ; always taken
 
 Speech4:
@@ -295,10 +262,7 @@ Speech4:
           and #StatusAttackDown | StatusDefendDown
           beq Speech4NotDown
 Speech4Down:
-          lda #>Phrase_StatusFXLower
-          sta CurrentUtterance + 1
-          lda #<Phrase_StatusFXLower
-          sta CurrentUtterance
+          .SetUtterance Phrase_StatusFXLower
           bne SpeechQueued        ; always taken
 
 Speech4NotDown:
@@ -306,10 +270,7 @@ Speech4NotDown:
           and #StatusAttackUp | StatusDefendUp
           beq SpeechQueued
 
-          lda #>Phrase_StatusFXRaise
-          sta CurrentUtterance + 1
-          lda #<Phrase_StatusFXRaise
-          sta CurrentUtterance
+          .SetUtterance Phrase_StatusFXRaise
           ;; fall through to common
 SpeechQueued:
           inc SpeechSegment
@@ -335,6 +296,10 @@ WonBattle:
           .SetBitFlag CurrentCombatIndex
           ;; Did the player level up their stats by this victory?
           ;; The likelihood decreases the higher that stat is.
+          ;; Use DeltaX to store which level(s) was (were) raised
+          lda # 0
+          sta DeltaX
+
           jsr Random
           sta Temp
           lda GrizzardAttack
@@ -344,6 +309,8 @@ WonBattle:
           and Temp
           bne AttackLevelUpDone
           inc GrizzardAttack
+          lda # LevelUpAttack
+          sta DeltaX
 AttackLevelUpDone:
           jsr Random
           sta Temp
@@ -354,6 +321,9 @@ AttackLevelUpDone:
           and Temp
           bne DefendLevelUpDone
           inc GrizzardDefense
+          lda # LevelUpDefend
+          ora DeltaX
+          sta DeltaX
 DefendLevelUpDone:
           jsr Random
           sta Temp
@@ -364,7 +334,17 @@ DefendLevelUpDone:
           and Temp
           bne HPLevelUpDone
           inc MaxHP
+          lda # LevelUpMaxHP
+          ora DeltaX
+          sta DeltaX
 HPLevelUpDone:
+
+          lda DeltaX
+          beq NoLevelUp
+
+          .FarJSR TextBank, ServiceLevelUp
+
+NoLevelUp:
 
 ;;; TODO Check if they have won the game
           .fill $30, $ea        ; pad with some NOPs to reserve space
@@ -373,10 +353,7 @@ WonReturnToMap:
           lda #SoundVictory
           sta NextSound
 
-          lda #>Phrase_Victory
-          sta CurrentUtterance + 1
-          lda #<Phrase_Victory
-          sta CurrentUtterance
+          .SetUtterance Phrase_Victory
           
           lda #ModeMap
           sta GameMode
