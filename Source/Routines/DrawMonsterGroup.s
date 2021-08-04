@@ -212,9 +212,16 @@ DrawNothing:
             .SkipLines 24
           .fi
           rts
-
+;;; 
 SetCursorColor:
           sta HMCLR
+
+          .if TV == SECAM
+
+          lda #COLWHITE
+          sta COLUP1
+
+          .else
 
           ldx MoveTarget
           bne +
@@ -231,6 +238,9 @@ SetCursorColor:
 SetColor:
           sta COLUP1
 CursorColored:
+
+          .fi
+
           rts
 
           .bend
