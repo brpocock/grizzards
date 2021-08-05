@@ -67,6 +67,8 @@ DoLocal:
           ;; falls through to
           .include "DetectConsole.s"
           ;; falls through to
+          .include "DetectGenesis.s"
+          ;; falls through to
           .include "Attract.s"
 
           .include "SaveToSlot.s"

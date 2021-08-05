@@ -41,14 +41,17 @@ confirmFlashed:
         bne is2600         ; if not $00 then loaded via Harmony Menu on 2600
         ldy $80             ; else get the value saved by the CDFJ driver
 
-is2600:
-          lda # SWCHBGenuine2600
-          bne SetSWCHBFlags     ; always taken
-is7800:
-          lda # 0
-SetSWCHBFlags:    
-          sta SWCHB
-
 ;;; end of console detection routine, y contains results
-          ;; fall through to Attract
+
+is2600:
+          lda SWCHB
+          and #~SWCHB7800
+          jmp End
+
+is7800:
+          lda SWCHB
+          ora #SWCHB7800
+End:
+          sta SWCHB
+          ;; fall through to DetectGenesis
           .bend

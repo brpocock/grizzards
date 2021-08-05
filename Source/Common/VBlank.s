@@ -29,10 +29,18 @@ VBlank: .block
           sta NewSWCHB
 +
 
+          lda SWCHB
+          .BitBit SWCHBP0Genesis
+          beq NotGenesis
           lda INPT1
           and #PRESSED
           lsr a
           sta NewButtons
+          jmp FireButton
+NotGenesis:
+          lda #$40
+          sta NewButtons
+FireButton:
           lda INPT4
           and #PRESSED
           ora NewButtons

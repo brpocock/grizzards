@@ -53,10 +53,12 @@
           ;; Console
           SWCHBReset = $01
           SWCHBSelect = $02
-          SWCHBGenuine2600 = $04 ; this is something we set ourselves
+          SWCHB7800 = $04 ; this is something we set ourselves
           .if TV != SECAM
             SWCHBColor = $08
           .fi
+          SWCHBP0Genesis = $04
+          SWCHBP1Genesis = $08
           SWCHBP0Advanced = $40
           SWCHBP1Advanced = $80
 

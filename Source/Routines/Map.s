@@ -395,8 +395,8 @@ NoReset:
           lda DebounceSWCHB
           .BitBit SWCHBColor
           bne NoPause
-          .BitBit SWCHBGenuine2600
-          bne +
+          .BitBit SWCHB7800
+          beq +
           lda Pause
           eor #$ff
 +
