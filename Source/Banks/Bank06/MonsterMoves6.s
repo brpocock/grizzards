@@ -6,9 +6,9 @@ MonsterMoves:
           ;; 0
           .byte 2, 2, 27, 29    ; Wicked Slime
           .byte 2, 27, 26, 29   ; Horrid Slime
-          .byte 35, 35, 29, 23  ; Vorpal Bunny
+          .byte 35, 12, 29, 23  ; Vorpal Bunny
           .byte 35, 30, 17, 14  ; ROUS
-          .byte 35, 3, 30, 9    ; Lectro Sheet
+          .byte 35, 3, 30, 9    ; Lectro Sheep
           .byte 9, 14, 23, 31   ; VIking Turtle
           .byte 17, 18, 19, 20  ; Crazy Fox
           .byte 1, 2, 3, 4      ; WaterKitty
