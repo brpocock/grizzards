@@ -22,7 +22,7 @@ Monsters:
           .MiniText "R.O.  "
           .MiniText "  U.S."
           .byte 1
-          .colu COLGOLD, $0
+          .colu COLBROWN, $8
           .byte $32, $15
 
 	.MiniText "LECTRO"
@@ -34,31 +34,31 @@ Monsters:
 	.MiniText "VIKING"
 	.MiniText "TURTLE"
 	.byte 3
-	.colu COLBLUE, $8
+	.colu COLTURQUOISE, $8
 	.byte $33, $15
 
 	.MiniText "CRAZY "
 	.MiniText "   FOX"
 	.byte 4
-	.colu COLBLUE, $8
+	.colu COLRED, $e
 	.byte $44, $50
 
 	.MiniText "WATER "
 	.MiniText " KITTY"
 	.byte 5
-	.colu COLBLUE, $8
+	.colu COLBLUE, $e
 	.byte $00, $20
 ;;; 8
 	.MiniText "FLAME "
 	.MiniText " DOGGO"
 	.byte 6
-	.colu COLRED, $d
+	.colu COLRED, $c
 	.byte $32, $35
 
 	.MiniText "FUZZIE"
 	.MiniText "  BEAR"
 	.byte 7
-	.colu COLBLUE, $8
+	.colu COLBROWN, $8
 	.byte $44, $10
 
 ;;; 10
@@ -66,13 +66,13 @@ Monsters:
 	.MiniText "METAL "
 	.MiniText " MOUSE"
 	.byte 8
-	.colu COLBLUE, $8
+	.colu COLGRAY, $f
 	.byte $44, $10
 
 	.MiniText "FIRE  "
 	.MiniText " PANDA"
 	.byte 9
-	.colu COLBLUE, $8
+	.colu COLORANGE, $e
 	.byte $32, $35
 
 	.MiniText "LEGGY "
@@ -90,7 +90,7 @@ Monsters:
 	.MiniText "WILL-O"
 	.MiniText " -WISP"
 	.byte 12
-	.colu COLBLUE, $8
+	.colu COLCYAN, $e
 	.byte $41, $10
 
 	.MiniText "BUTTER"
