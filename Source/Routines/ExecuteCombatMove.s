@@ -466,7 +466,7 @@ AfterTryingToLearn:
 
           lda pp1l
           sta Temp
-          .FarJSR AnimationsBank, ServiceLearntMove
+          .FarJSR MapServicesBank, ServiceLearntMove
 ;;; 
 NextTurn:
           inc WhoseTurn
