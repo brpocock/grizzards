@@ -55,84 +55,11 @@ All image files with draft PDF manuals
 https://star-hope.org/games/Grizzards/Grizzards.Demo.zip
 
 
-Major Bugs
------------
-
-* Combat moves after  the first move do not work  properly. If you don't
-  "one-hit" a  monster you'll  probably end up  in a  weird, error-prone
-  loop until you're killed.
-  
-* Combat Moves  are not associated correctly with  the player's Grizzard
-  or  monsters,  and  the  outcomes  of  those  Moves  need  to  be  set
-  up properly.
-
-* There  may still be  screen line count  issues with some  screens that
-  will  cause rolling,  flickering,  or even  blanking  (or blue  screen
-  blanking) on modern (digital) TVs. Please report them if you find such
-  a bug: support@star-hope.orgsup
-
 
 How to Play
 ------------
 
-From the  title screen, press  Game Select to  choose a save  game slot.
-If you don't  have a SaveKey connected (or configured  in Stella) you'll
-get  a  "red sad  face"  screen  —  it's  not optional,  it's  required.
-There are 3 "slots" to choose from, each of which takes up 4 "blocks" on
-the SaveKey. Press Game Reset to start.
-
-On  the  map screen,  navigate  with  the  joystick. You  may  encounter
-a Grizzard  Depot, a (party  of) monster(s), a  door, or a  new Grizzard
-(not in this demo). Just walk into them to engage.
-
-A Grizzard Depot restores your Grizzard's hit points to its maximum, and
-saves your  game. Press Fire to  leave. (Later you'll be  able to switch
-between Grizzard  companions there.)  Press Game  Select to  review your
-Grizzard's stats.
-
-A door just  leads you to another  room. In the demo,  there's a one-way
-door in the first room.
-
-A new Grizzard will join you (replacing your current Grizzard companion)
-if you run into  it (not in this demo). Unlike  Pokémon, you don't catch
-the monsters that you fight against.
-
-Monsters bring up the combat screen.  On the map, all monsters appear as
-a  Slime;  you won't  know  what  actual  monsters  you face  until  you
-encounter them.
-
-From the  combat screen,  press Up and  Down to select  a Move  for your
-Grizzard to perform.  RUN AWAY is a  special move that takes  you out of
-combat,  but does  not  heal your  Grizzard. Other  moves  may hurt  the
-monsters, or  apply status effects that  might make them lose  attack or
-defense points, or even heal your Grizzard or “buff” your own attack and
-defend stats.
-
-Moves that you can  perform appear in color (blue for  RUN AWAY, red for
-other  moves); moves  that  your Grizzard  does not  (yet)  know how  to
-perform appear in black. Moves that  target the enemy will display a box
-under the monster's image; when facing multiple monsters, press Left and
-Right on the joystick to target a monster.
-
-Press  Fire  to  execute  the   move  you've  selected.  You'll  see  an
-announcement  of  the  move,  and  then the  outcome  of  it.  Then  the
-monster(s) take their turn(s), and you'll see them announced as well.
-
-If you're defeated, you'll be sent to  the GAME OVER screen. If you win,
-you'll return  to the  Map Screen.  Your Grizzard  may also  improve its
-stats slightly with each victory.
-
-There is a chance that seeing a  monster execute a Move will teach it to
-your Grizzard, if  it has that Move  in its collection. This  is how the
-“moves in black” can turn to “moves in red” over time.
-
-In  this Demo  you can  only wander  around a  small area  and encounter
-a few monsters.
-
-Pausing  is  the Color/B&W  switch  on  NTSC  or  PAL systems,  or  Left
-Difficulty Switch on SECAM.
-
-The Difficulty Switches don't affect the game play itself.
+Check the Manual for full detailed instructions.
 
 
 Erasing a game
@@ -142,7 +69,10 @@ To erase a save game slot  (to start over), set both Difficulty Switches
 to A/expert/hard  mode, then pull  back on  the joystick, hold  down the
 fire  button,  and  press  forward. This  is  intentionally  obscure  to
 avoid accidents.  Once you hear  the “toilet  flush” sound, the  game is
-basically gone forever.
+basically gone.
+
+To recover, there's a separate utility program that can immediately
+"Un-erase" a slot if you have not started a new game in it yet.
 
 
 Testing
