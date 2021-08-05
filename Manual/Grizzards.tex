@@ -179,15 +179,26 @@ facing up) into the cartridge slot, and turn the Power On.
 \ifdefined\TVSECAM
 \else
 
+\ifdefined\TVPAL
+\subsection{Colour/B\&W Switch (Pause)}
+
+On an  Atari 2600  (or Sears Arcade)  you can pause  the game  using the
+\textbf{Colour/B\&W Switch}.  Push the \textbf{Colour/B\&W}  switch into
+the \textbf{Colour} position  to play, or the  \textbf{B\&W} position to
+pause the game.
+
+\else
+
 \subsection{Color/B\&W Switch (Pause)}
 
 On an  Atari 2600  (or Sears Arcade)  you can pause  the game  using the
-Color/B\&W Switch. Push the Color/B\&W switch into the Color position to
-play, or the B\&W position to pause the game.
+\textbf{Color/B\&W Switch}. Push the \textbf{Color/B\&W} switch into the
+\textbf{Color} position to play, or the \textbf{B\&W} position to pause the game.
 
-On the Atari  7800, press the Pause  button once to pause  the game, and
-again to resume playing.
+On the  Atari 7800, press  the \textbf{Pause}  button once to  pause the
+game, and again to resume playing.
 
+\fi
 \fi
 
 \subsection{Game Select}
@@ -224,9 +235,6 @@ The Left Difficulty Switch  can be used to pause game  play. When in the
 playing  until  you  toggle  the   switch  to  the  ``B''  (Beginner  or
 Novice) position.
 
-You cannot delete a game in progress unless both Difficulty Switches are
-in the ``A'' (Advanced or Expert) position.
-
 \else
 
 This  game does  not  make  use of  the  Difficulty  Switches while  you
@@ -236,10 +244,13 @@ are playing.
 
 \section{Using a Gamepad}
 
-A SEGA Genesis  gamepad or other compatible controller may  also be used
+A SEGA Genesis gamepad (or other compatible controller) may also be used
 with \textit{Grizzards}. Use  the \textbf{B} button as  the Fire button.
 Use  the  \textbf{C}   button  as  an  alternative  way   to  press  the
 \textbf{Game Select} switch.
+
+Your gamepad must be plugged in before you turn on the power if you want
+to use it. Otherwise, the \textbf{C} button will be ignored.
 
 \vfill
 
@@ -605,9 +616,11 @@ Novice) position, then you can't erase  a game slot. \emph{Tip: When you
   connect your memory device, check the position of those switches.}
 
 \ifdefined\TVSECAM
-Remember,  the  Left  Difficult  Switch  is  used  to  pause  the  game.
+
+Remember,  the  Left  Difficulty  Switch  is used  to  pause  the  game.
 After deleting your save game slot, return the Left Difficulty Switch to
 the ``B'' position.
+
 \fi
 
 \chapter{Grizzards and Moves}
@@ -634,7 +647,7 @@ Grizzard will be featured on the title screen of the game.
 
 \section{Dirtex}
 
-\includegraphics[width=\columnwidth]{../Manual/Dirtex\TV.png}
+\includegraphics[width=\columnwidth]{../Manual/Dirtex.png}
 
 The green Dirtex Grizzard lives in the grass. It can learn these Moves:
 
@@ -657,7 +670,7 @@ The green Dirtex Grizzard lives in the grass. It can learn these Moves:
 
 \section{Aquax}
 
-\includegraphics[width=\columnwidth]{../Manual/Aquax\TV.png}
+\includegraphics[width=\columnwidth]{../Manual/Aquax.png}
 
 Aquax is a brown Grizzard which lives  in the swamps. It can learn these
 Moves:
@@ -681,7 +694,7 @@ Moves:
 
 \section{Airex}
 
-\includegraphics[width=\columnwidth]{../Manual/Airex\TV.png}
+\includegraphics[width=\columnwidth]{../Manual/Airex.png}
 
 Airex is a teal Grizzard which lives in the trees. It can learn these Moves:
 
