@@ -4,7 +4,7 @@ GrizzardStatsScreen: .block
           lda #ModeGrizzardStats
           sta GameMode
 
-          lda # 0
+          .KillMusic
           sta NewSWCHB
 ;;; 
 Loop:
