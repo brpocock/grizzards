@@ -14,6 +14,7 @@ DoVBlankWork:
           .include "CombatVBlank.s"
 DoLocal:  
           .include "CombatSetup.s"
+          .include "CombatIntroScreen.s"
           .include "CombatMainScreen.s"
           .include "GrizzardStatsScreen.s"
           .include "CombatAnnouncementScreen.s"
@@ -29,6 +30,9 @@ DoLocal:
           .include "Random.s"
           .include "48Pixels.s"
           .include "MoveEffects.s"
+
+CombatText:
+          .MiniText "COMBAT"
 
           .include "Combat6.s"
           .include "Monsters6.s"          
