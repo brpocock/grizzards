@@ -217,6 +217,7 @@ Select:
 
 SwitchesDone:
           lda NewButtons
+          beq TriggerDone
           .BitBit PRESSED
           bne TriggerDone
           lda #ModeMap
