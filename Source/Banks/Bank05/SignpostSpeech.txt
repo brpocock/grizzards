@@ -46,13 +46,3 @@ To the west, the lost mine.To the east,the spiral woods and Mount Peshon tunnel 
 
 Artifact1Scared:
 ♂I have the artifact hidden from the monsters. Save me.
-
-TunnelOpenFull:
-♀Now that you brought them I can open the tunnels.
-
-SpiralWoodsOpen:
-Now entering the Spiral Woods.Danger
-
-PortLionShip:
-Treble Docks.Next ship to Port Lion departing.All aboard
-
