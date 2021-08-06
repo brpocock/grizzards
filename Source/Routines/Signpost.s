@@ -141,15 +141,86 @@ DrawLeftField:
 
           .option allow_branch_across_page = true
 
-          ldy # 6
--
+UnpackLeft:
+          ;; Unpack 6-bits-per-character packed text
+          ;; This saves 25% of string storage space at the cost of
+          ;; this increased complexity here.
+          ldy # 0
           lda (SignpostWork), y
-          sta StringBuffer, y
-          dey
-          bpl -
+          tax
+          and #$fc
+          lsr a
+          lsr a
+          sta StringBuffer + 0
+
+          txa
+          and #$03
+          asl a
+          asl a
+          asl a
+          asl a
+          sta Temp
+          iny
+          lda (SignpostWork), y
+          tax
+          and #$f0
+          lsr a
+          lsr a
+          lsr a
+          lsr a
+          ora Temp
+          sta StringBuffer + 1
+
+          txa
+          and #$0f
+          asl a
+          asl a
+          sta Temp
+          iny
+          lda (SignpostWork), y
+          tax
+          and #$c0
+          lsr a
+          lsr a
+          lsr a
+          lsr a
+          lsr a
+          lsr a
+          ora Temp
+          sta StringBuffer + 2
+
+          txa
+          and #$3f
+          sta StringBuffer + 3
+
+          iny
+          lda (SignpostWork), y
+          tax
+          and #$fc
+          lsr a
+          lsr a
+          sta StringBuffer + 4
+
+          txa
+          and #$03
+          asl a
+          asl a
+          asl a
+          asl a
+          sta Temp
+          iny
+          lda (SignpostWork), y
+          and #$f0
+          lsr a
+          lsr a
+          lsr a
+          lsr a
+          ora Temp
+          sta StringBuffer + 5
+
           jsr DecodeText
 
-          .Add16 SignpostWork, #12
+          .Add16 SignpostWork, #9
 
           jmp AlignedLeft
           .align $100, $ea
@@ -230,7 +301,6 @@ LeftLoop:
           jmp DrawCommon
 
 DrawRightField:
-          .Add16 SignpostWork, #6
 
           .option allow_branch_across_page = false
 
@@ -248,15 +318,81 @@ DrawRightField:
 
           .option allow_branch_across_page = true
 
-          ldy # 6
--
+UnpackRight:
+          ldy # 4
           lda (SignpostWork), y
-          sta StringBuffer, y
-          dey
-          bpl -
+          and #$0f
+          asl a
+          asl a
+          sta Temp
+          iny
+          lda (SignpostWork), y
+          tax
+          and #$c0
+          lsr a
+          lsr a
+          lsr a
+          lsr a
+          lsr a
+          lsr a
+          ora Temp
+          sta StringBuffer + 0
+
+          txa
+          and #$3f
+          sta StringBuffer + 1
+
+          iny
+          lda (SignpostWork), y
+          tax
+          and #$fc
+          lsr a
+          lsr a
+          sta StringBuffer + 2
+
+          txa
+          and #$03
+          asl a
+          asl a
+          asl a
+          asl a
+          sta Temp
+          iny
+          lda (SignpostWork), y
+          tax
+          and #$f0
+          lsr a
+          lsr a
+          lsr a
+          lsr a
+          ora Temp
+          sta StringBuffer + 3
+
+          txa
+          and #$0f
+          asl a
+          asl a
+          sta Temp
+          iny
+          lda (SignpostWork), y
+          tax
+          and #$c0
+          lsr a
+          lsr a
+          lsr a
+          lsr a
+          lsr a
+          lsr a
+          ora Temp
+          sta StringBuffer + 4
+
+          txa
+          and #$3f
+          sta StringBuffer + 5
+
           jsr DecodeText
 
-          .Add16 SignpostWork, # 6
+          .Add16 SignpostWork, #9
 
           jmp AlignedRight
           .align $40, $ea
