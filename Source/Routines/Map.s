@@ -377,12 +377,17 @@ ScreenBounce:
 CheckSwitches:
 
           lda NewSWCHB
-          beq NoReset
+          beq NoSwitches
           .BitBit SWCHBReset
           bne NoReset
           jmp GoQuit
 
 NoReset:
+          .BitBit SWCHBSelect
+          bne NoSwitches
+          lda #ModeGrizzardStats
+          sta GameMode
+NoSwitches:
 ;;; 
           .if TV == SECAM
 
@@ -436,6 +441,8 @@ Leave:
           beq GoCombat
           cmp #ModeNewGrizzard
           beq GetNewGrizzard
+          cmp #ModeGrizzardStats
+          beq ShowStats
           cmp #ModeSignpost
           bne UnknownMode
           ldx #SignpostBank
@@ -457,6 +464,10 @@ GetNewGrizzard:
           .FarJSR MapServicesBank, ServiceNewGrizzard
           lda CurrentMap
           sta NextMap
+          jmp MapSetup
+
+ShowStats:
+          .FarJSR MapServicesBank, ServiceGrizzardStatsScreen
           jmp MapSetup
 
           .bend

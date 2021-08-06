@@ -230,11 +230,11 @@ TriggerDone:
 ;;; 
           lda GameMode
           cmp #ModeGrizzardDepot
-          bne +
+          bne Leave
 ReturnToLoop:
           .WaitScreenBottom
           jmp Loop
-+
+Leave:
           cmp #ModeGrizzardStats
           jmp GrizzardStatsScreen
 ;;; 
