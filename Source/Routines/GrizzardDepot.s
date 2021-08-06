@@ -208,6 +208,7 @@ NoReset:
           .BitBit SWCHBSelect
           bne SwitchesDone
 Select:
+          .WaitScreenBottom
           lda #ModeGrizzardStats
           sta GameMode
           lda #ModeGrizzardDepot
@@ -215,7 +216,7 @@ Select:
           bne TriggerDone       ; always taken
 
 SwitchesDone:
-          lda INPT4
+          lda NewButtons
           .BitBit PRESSED
           bne TriggerDone
           lda #ModeMap
