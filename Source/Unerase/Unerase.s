@@ -209,6 +209,9 @@ ErasedText:
           .include "CopyPointerText.s"
           .include "DecodeText.s"
           .include "ShowText.s"
+
+BitMask:
+          .byte 1, 2, 4, 8, $10, $20, $40, $80
           
 ;;; End of ROM vectors
           * = NMIVEC
