@@ -1,7 +1,7 @@
 ;;; Grizzards Source/Common/48Pixels.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
 ;;; Macros for setting up 48px graphics and text
-          
+
 
 SetUpFortyEight:	.macro Graphics
 	lda #<(\Graphics + \Graphics.Height * 0 - 1)
@@ -28,7 +28,7 @@ SetUpFortyEight:	.macro Graphics
 	sta pp5l
 	lda #>(\Graphics + \Graphics.Height * 5 - 1)
 	sta pp5h
-	
+
 	.endm
 
 	.enc "minifont"
@@ -71,26 +71,23 @@ MiniText:	.macro String
 	.enc "none"
 	.endm
 
-SignText: .macro String
+Pack6:   .macro byteA, byteB, byteC, byteD
+          .byte ((\byteA & $3f) << 2) | ((\byteB & $30) >> 4)
+          .byte ((\byteB & $0f) << 4) | ((\byteC & $3c) >> 2)
+          .byte ((\byteC & $03) << 6) | (\byteD & $3f)
+          .endm
+
+SignText: .macro string
           .enc "minifont-extended"
-          .if len(\String) != 12
-          .error "String length for .SignText must be 12 ", \String, " is ", len(\String)
+          .if len(\string) != 12
+          .error "String length for .SignText must be 12 ", \string, " is ", len(\string)
           .fi
-	.byte \String[0]
-	.byte \String[1]
-	.byte \String[2]
-	.byte \String[3]
-	.byte \String[4]
-	.byte \String[5]
-	.byte \String[6]
-	.byte \String[7]
-	.byte \String[8]
-	.byte \String[9]
-	.byte \String[10]
-	.byte \String[11]
+          .Pack6 \string[0], \string[1], \string[2], \string[3]
+          .Pack6 \string[4], \string[5], \string[6], \string[7]
+          .Pack6 \string[8], \string[9], \string[10], \string[11]
 	.enc "none"
 	.endm
-	
+
 LoadString:	.macro String
 	.enc "minifont"
           .if len(\String) != 6
@@ -109,7 +106,7 @@ LoadString:	.macro String
 	lda #\String[5]
           sta StringBuffer + 5
 	.enc "none"
-	
-	.endm	
+
+	.endm
 
 	.enc "none"
