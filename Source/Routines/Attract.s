@@ -5,6 +5,7 @@ Attract:  .block
           ;; Title screen and attract sequence
           ;;
 
+          .WaitScreenTop
           ldx #$80
           lda #0
 ZeroRAM:
@@ -26,6 +27,7 @@ ZeroRAM:
 
           lda # 4
           jsr SetNextAlarm
+          .WaitScreenBottom
 ;;; 
 Loop:
           .WaitScreenTop
