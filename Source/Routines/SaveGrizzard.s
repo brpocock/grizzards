@@ -23,6 +23,8 @@ SaveGrizzard:       .block
           bne -
 
           jsr i2cStopWrite
+
+          .WaitScreenBottom
           rts
    
           .bend
