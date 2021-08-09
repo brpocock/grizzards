@@ -6,19 +6,19 @@ CheckPlayerCollision:         .block
           and #$c0              ; hit playfield or ball
           beq NoBumpWall
           jsr BumpWall
-          jmp DonePlayerMove
+          rts
 
 NoBumpWall:
           lda CXPPMM
           .BitBit $80              ; hit other sprite
-          beq PlayerMoveOK
+          beq PlayerMoveOK         ; did not hit
 
 BumpSprite:
           jsr BumpWall
 
           lda BumpCooldown
-          bne PlayerMoveOK
-          
+          bne DonePlayerMove
+
           ldx SpriteFlicker
           lda SpriteAction, x
           cmp #SpriteDoor
@@ -35,7 +35,7 @@ BumpSprite:
           beq ReadSign
           and #SpriteProvinceDoor
           beq PlayerMoveOK      ; No action
-          jmp ProvinceChange
+          bne ProvinceChange    ; always taken
 
 ReadSign:
           lda SpriteParam, x
@@ -72,12 +72,19 @@ GetNewGrizzard:
           rts
 
 PlayerMoveOK:
+          lda BumpCooldown
+          beq +
+          dec BumpCooldown
+          rts
++
+          lda ClockFrame
+          and #$03
+          bne DonePlayerMove
           lda PlayerX
           sta BlessedX
           lda PlayerY
           sta BlessedY
 DonePlayerMove:
-          ldy #$00
           rts
 
 EnterDepot:
@@ -122,7 +129,8 @@ ShoveX:
           clc
           adc PlayerX
           sta PlayerX
-BumpY:    
+
+BumpY:
           lda BlessedY
           cmp PlayerY
           beq +
@@ -140,7 +148,11 @@ ShoveY:
           clc
           adc PlayerY
           sta PlayerY
-DoneBump:           
+
+          lda # 0
+          sta PlayerXFraction
+          sta PlayerYFraction
+DoneBump:
           lda #SoundBump
           sta NextSound
 
