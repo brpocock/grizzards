@@ -375,7 +375,6 @@ ScreenBounce:
           sta PlayerY
 
 CheckSwitches:
-
           lda NewSWCHB
           beq NoSwitches
           .BitBit SWCHBReset

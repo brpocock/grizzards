@@ -25,11 +25,13 @@ MapSetup: .block
           jmp NewRoomTimerRunning
 ;;; 
 NewRoom:
+          stx WSYNC
           .WaitForTimer
           .if TV != NTSC
           stx WSYNC
           .fi
           stx WSYNC
+
           lda NextMap
           sta CurrentMap
           jsr Overscan
