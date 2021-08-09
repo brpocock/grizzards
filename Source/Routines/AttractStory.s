@@ -207,6 +207,8 @@ StoryDone:
 
           lda # 30
           jsr SetNextAlarm
+          lda # 0
+          sta DeltaY
           lda #ModeAttractTitle
           sta GameMode
           rts
