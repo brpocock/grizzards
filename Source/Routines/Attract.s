@@ -163,9 +163,10 @@ PrepareFillAttractBottom:
           .case 1
 
           jsr Random
-          and #$07
+          tax
+          and #$70
           bne +
-          jsr Random
+          txa
           and #$0f
           adc # 3
           sta DeltaY
