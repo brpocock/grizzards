@@ -33,5 +33,6 @@ DoLocal:
           .include "Combat6.s"
           .include "Monsters6.s"          
           .include "MonsterMoves6.s"
+          .include "WaitScreenBottom.s"
 
           .include "EndBank.s"

@@ -25,6 +25,7 @@
           .include "Prepare48pxMobBlob.s"
           .include "SetNextAlarm.s"
           .include "Random.s"
+          .include "WaitScreenBottom.s"
           
 DoLocal:
           cpy #ServiceAttractStory
@@ -57,6 +58,7 @@ DoLocal:
           .include "PlayMusic.s"
           rts
 
+          .include "WaitScreenBottom.s"
           .fi
 
           .include "EndBank.s"

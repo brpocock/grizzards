@@ -66,5 +66,6 @@ ShowMoveDecoded:
           .include "GrizzardMoves.s"
           .include "MovesTable.s"
           .include "StringsTable.s"
+          .include "WaitScreenBottom.s"
 
 	.include "EndBank.s"

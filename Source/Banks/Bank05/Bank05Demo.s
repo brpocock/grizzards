@@ -22,4 +22,5 @@ DoLocal:
           .include "SignpostSpeech.s"
           .include "SpeakJetIndex.s"
           .include "PlaySpeech.s"
+          .include "WaitScreenBottom.s"
 

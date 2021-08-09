@@ -25,4 +25,5 @@ DoLocal:
           .include "PlayMusic.s"
           rts
 
+          .include "WaitScreenBottom.s"
           .include "EndBank.s"

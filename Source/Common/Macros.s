@@ -212,19 +212,11 @@ WaitForTimer:       .macro
           .endm
 
 WaitScreenBottom:      .macro
-          .WaitForTimer
-          .if TV != NTSC
-          .SkipLines 11
-          .fi
-          jsr Overscan
+          jsr WaitScreenBottomSub
           .endm
 
 WaitScreenBottomTail:      .macro
-          .WaitForTimer
-          .if TV != NTSC
-          .SkipLines 11
-          .fi
-          jmp Overscan          ; tail call
+          jmp WaitScreenBottomSub
           .endm
 
 KillMusic:          .macro
@@ -270,19 +262,12 @@ SkipLines:          .macro length
 
           .else
 
-          .if \length == 11 && TV != NTSC
-
-          jsr Skip11Lines
-
-          .else
-
           ldx # \length
 -
           stx WSYNC
           dex
           bne -
 
-          .fi
           .fi
           .endm
 
