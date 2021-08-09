@@ -85,7 +85,7 @@ SetUpOtherCombatVars:
           dex
           bne -
 
-          lda #$ff
+          lda # 1
           sta MoveTarget        ; figure out based on first Move
 
           .WaitScreenBottom
