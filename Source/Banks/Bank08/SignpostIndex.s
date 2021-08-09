@@ -42,7 +42,7 @@ TookArtifact:
 
 Artifact1Scared:
           ldx # 15
-          rtrs
+          rts
           
 Artifact1:
           and # $04
