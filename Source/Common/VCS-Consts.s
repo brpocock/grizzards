@@ -108,9 +108,9 @@
           COLBLUE = 2
           COLINDIGO = COLBLUE
           COLRED = 4
-          COLPURPLE = COLRED
           COLBROWN = COLRED
           COLMAGENTA = 6
+          COLPURPLE = COLMAGENTA
           COLGREEN = 8
           COLSPRINGGREEN = COLGREEN
           COLSEAFOAM = COLGREEN
