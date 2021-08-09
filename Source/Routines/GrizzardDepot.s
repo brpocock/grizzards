@@ -234,9 +234,13 @@ TriggerDone:
 ReturnToLoop:
           .WaitScreenBottom
           jmp Loop
+
 Leave:
           cmp #ModeGrizzardStats
+          bne +
           jmp GrizzardStatsScreen
++
+          brk
 ;;; 
 ShowPointerText:
           jsr CopyPointerText

@@ -12,11 +12,6 @@ GrizzardStatsScreen: .block
 Loop:
           .WaitScreenTop
 FirstLoop:
-          .if TV == NTSC
-          ;; XXX would be nice in PAL, but we can't spare the bytes of ROM
-          .SkipLines 10
-          .fi
-
           .FarJSR TextBank, ServiceShowGrizzardStats
 
 ;;; 
@@ -65,7 +60,8 @@ Bouncey1:
 
           cmp #ModeGrizzardDepot
           bne +
-          jmp GrizzardDepot
+          .WaitScreenBottom
+          jmp GrizzardDepot.Loop
 +
           .WaitScreenBottom
           rts
