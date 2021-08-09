@@ -24,5 +24,6 @@ DoLocal:
           .include "SpeakJetIndex.s"
 
           .include "PlaySpeech.s"
+          .include "WaitScreenBottom.s"
 
           .include "EndBank.s"
