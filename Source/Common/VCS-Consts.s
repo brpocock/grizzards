@@ -129,10 +129,6 @@
 ;;;
 ;;; Color + Luminance → COLU values
 ;;;
-;;; These are kinda lousy, because you're  not going to get good results
-;;; in a lot of cases, but may  be useful for quick demo bits, text-like
-;;; screens, scores, and things like that.
-;;;
 ;;; If  nothing else,  you can  get correct  basic colors  on all  three
 ;;; models, in particular since SECAM is weird.
 
