@@ -455,8 +455,7 @@ UnknownMode:
           brk
 
 EnterGrizzardDepot:
-          .FarJSR MapServicesBank, ServiceGrizzardDepot
-          jmp MapSetup
+          .FarJMP MapServicesBank, ServiceGrizzardDepot
 
 GetNewGrizzard:
           lda NextMap

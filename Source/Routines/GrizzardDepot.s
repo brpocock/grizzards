@@ -4,6 +4,9 @@ GrizzardDepot:    .block
           ldx MaxHP
           stx CurrentHP
 
+          ldx #$ff              ; blow away the stack
+          txs
+
           .WaitScreenBottom
           .FarJSR SaveKeyBank, ServiceSaveToSlot
           .WaitScreenTop
@@ -224,7 +227,7 @@ SwitchesDone:
           sta GameMode
 
           .WaitScreenBottom
-          rts
+          jmp GoMap
 
 TriggerDone:
 ;;; 
