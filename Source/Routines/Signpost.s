@@ -505,12 +505,10 @@ DoneDrawing:
           sta GameMode
 
 NoButton:
-
-          .WaitScreenBottom
-
           lda GameMode
           cmp #ModeSignpost
           bne Leave
+          .WaitScreenBottom
           jmp Loop
 
 Leave:
@@ -525,7 +523,6 @@ ByeBye:
           lda # 0
           sta CurrentUtterance
           sta CurrentUtterance + 1
-
           rts
           .bend
 

@@ -449,6 +449,7 @@ Leave:
           jsr FarCall
           lda #ModeMap
           sta GameMode
+          .WaitScreenBottom
           jmp MapSetup
 
 UnknownMode:
