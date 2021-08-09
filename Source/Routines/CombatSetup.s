@@ -77,7 +77,6 @@ SetUpOtherCombatVars:
           lda # 0
           sta MoveSelection     ; RUN AWAY
           sta WhoseTurn         ; Player's turn
-          sta MoveTarget        ; no target selected
           sta MoveAnnouncement
           sta StatusFX
           ldx #6
@@ -85,6 +84,9 @@ SetUpOtherCombatVars:
           sta EnemyStatusFX - 1, x
           dex
           bne -
+
+          lda #$ff
+          sta MoveTarget        ; figure out based on first Move
 
           .WaitScreenBottom
 
