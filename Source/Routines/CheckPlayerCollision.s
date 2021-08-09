@@ -60,7 +60,6 @@ DoorWithSprite:
           sta NextMap
           ldy #ModeMapNewRoom
           sty GameMode
-          .WaitForTimer
           rts
 
 GetNewGrizzard:
