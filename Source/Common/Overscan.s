@@ -2,8 +2,7 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
 Overscan: .block
-          lda # ( 76 * OverscanLines ) / 64 - 1
-          sta TIM64T
+          .TimeLines OverscanLines
 
           ldx #SFXBank
           jsr FarCall
@@ -28,10 +27,8 @@ Overscan: .block
 
           .endswitch
           .fi
-          
-FillOverscan:
-          lda INSTAT
-          bpl FillOverscan
+
+          .WaitForTimer
 
           sta WSYNC
           rts

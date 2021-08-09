@@ -533,14 +533,11 @@ ByeBye:
 ;;; Overscan is different, we don't have  sound effects nor music and we
 ;;; don't want Bank 7 to get confused by our speech.
 Overscan: .block
-          lda # ( 76 * OverscanLines ) / 64 - 1
-          sta TIM64T
+          .TimeLines OverscanLines
 
           jsr PlaySpeech
 
-FillOverscan:
-          lda INSTAT
-          bpl FillOverscan
+          .WaitForTimer
 
           sta WSYNC
           rts
