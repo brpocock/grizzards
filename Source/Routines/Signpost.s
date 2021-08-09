@@ -494,7 +494,7 @@ DoneDrawing:
           .BitBit PRESSED
           bne NoButton
 
-          ldy # (12 * 5)
+          ldy # (9 * 5)
           lda (SignpostText), y
           sta GameMode
 
@@ -510,7 +510,7 @@ NoButton:
 Leave:
           cmp #ModeSignpostSetFlag
           bne ByeBye
-          ldy # (12 * 5) + 1
+          ldy # (9 * 5) + 1
           lda (SignpostText), y
           sta Temp
           .SetBitFlag Temp
