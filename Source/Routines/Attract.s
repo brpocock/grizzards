@@ -6,6 +6,7 @@ Attract:  .block
           ;;
 
           .WaitScreenTop
+          jsr SeedRandom
           ldx #$80
           lda #0
 ZeroRAM:
@@ -26,6 +27,7 @@ ZeroRAM:
           sta GameMode
 
           lda # 4
+          sta DeltaY
           jsr SetNextAlarm
           .WaitScreenBottom
 ;;; 
@@ -80,12 +82,39 @@ DoneTitleSpeech:
           sta COLUP0
           sta COLUP1
 
+          .ldacolu COLTURQUOISE, $e
+          sta COLUBK
+
           .SetUpFortyEight Title1
           ldy #Title1.Height
           sty LineCounter
           jsr ShowPicture
 
-          .SkipLines 42
+          .switch STARTER
+
+          .case 0
+
+          .SkipLines 20
+          .ldacolu COLORANGE, $a
+          sta COLUBK
+          .SkipLines 10
+
+          .case 1
+
+          .SkipLines 30
+          .ldacolu COLSPRINGGREEN, $4
+          sta COLUBK
+
+          .case 2
+
+          .SkipLines 20
+          .ldacolu COLGREEN, $4
+          sta COLUBK
+          .SkipLines 10
+
+          .endswitch
+
+          .SkipLines 12
 
           .switch STARTER
           .case 0
@@ -93,7 +122,11 @@ DoneTitleSpeech:
           .case 1
           .ldacolu COLBROWN, $6
           .case 2
+          .if TV == SECAM
+          lda #COLBLUE
+          .else
           .ldacolu COLTEAL, $e
+          .fi
           .default
           .error "STARTER ∈ (0 1 2), ¬ ", STARTER
           .endswitch
@@ -124,6 +157,37 @@ DrawTitle3:
           sty PF2
 
 PrepareFillAttractBottom:
+
+          .switch STARTER
+
+          .case 1
+
+          jsr Random
+          and #$07
+          bne +
+          jsr Random
+          and #$0f
+          adc # 3
+          sta DeltaY
++
+          ldx DeltaY
+-
+          stx WSYNC
+          dex
+          bne -
+
+          .ldacolu COLBLUE, $e
+          sta COLUBK
+
+          .case 2
+
+          .ldacolu COLBROWN, $4
+          sta COLUBK
+          .SkipLines 10
+          .ldacolu COLTURQUOISE, $e
+          sta COLUBK
+
+          .endswitch
 
           lda ClockSeconds
           cmp AlarmSeconds
