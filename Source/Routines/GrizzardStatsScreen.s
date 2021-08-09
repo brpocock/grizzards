@@ -1,15 +1,17 @@
 ;;; Grizzards Source/Common/GrizzardStatsScreen.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
 GrizzardStatsScreen: .block
+          .WaitScreenTop
           lda #ModeGrizzardStats
           sta GameMode
 
           .KillMusic
           sta NewSWCHB
+          beq FirstLoop          ; always taken
 ;;; 
 Loop:
           .WaitScreenTop
-
+FirstLoop:
           .if TV == NTSC
           ;; XXX would be nice in PAL, but we can't spare the bytes of ROM
           .SkipLines 10
@@ -18,7 +20,6 @@ Loop:
           .FarJSR TextBank, ServiceShowGrizzardStats
 
 ;;; 
-          .WaitScreenBottom
 
           lda NewButtons
           beq NoButton
@@ -37,14 +38,16 @@ NoButton:
 Select:
           lda DeltaY
           sta GameMode
-          lda # 0
-          sta DeltaY
+          ldy # 0
+          sty DeltaY
 
 Bouncey1:
           lda GameMode
           cmp #ModeGrizzardStats
-          beq Loop
-
+          bne +
+          .WaitScreenBottom
+          jmp Loop
++
           ldy # 0
           sty NewSWCHB
 
@@ -54,6 +57,7 @@ Bouncey1:
           bne +
           lda # 1
           jsr SetNextAlarm
+          .WaitScreenBottom
           jmp CombatMainScreen
 +
 
@@ -63,6 +67,7 @@ Bouncey1:
           bne +
           jmp GrizzardDepot
 +
+          .WaitScreenBottom
           rts
 
           .fi

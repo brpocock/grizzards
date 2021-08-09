@@ -4,9 +4,9 @@ GrizzardDepot:    .block
           ldx MaxHP
           stx CurrentHP
 
-          .WaitForTimer
-          jsr Overscan
+          .WaitScreenBottom
           .FarJSR SaveKeyBank, ServiceSaveToSlot
+          .WaitScreenTop
           .KillMusic
           jmp ReturnToLoop
 ;;; 
