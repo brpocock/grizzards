@@ -201,8 +201,6 @@ StoryDone:
 
           jsr Prepare48pxMobBlob
 
-          .WaitScreenBottom
-
           lda AttractStoryPanel
           cmp # 8
           blt StillStory
@@ -232,6 +230,7 @@ SelectSlot:
           rts
 
 LoopMe:
+          .WaitScreenBottom
           jmp Loop
 
           .bend
