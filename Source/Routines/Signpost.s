@@ -376,6 +376,7 @@ Leave:
           bne ByeBye
           sed
           lda Score
+          clc
           adc #$03
           sta Score
           lda Score + 1
@@ -384,7 +385,6 @@ Leave:
           bcc NCar0
           inc Score + 2
 NCar0:
-          sta Score
           cld
           ldy # (9 * 5) + 1
           lda (SignpostText), y
