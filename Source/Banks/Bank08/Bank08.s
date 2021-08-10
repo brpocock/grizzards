@@ -13,7 +13,7 @@
 
 DoLocal:
           .include "Signpost.s"
-          .include "SignpostIndex.s"
+          .include "SignpostIndex.s" ; only in bank 8
 
           .include "VSync.s"
           .include "VBlank.s"
