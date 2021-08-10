@@ -374,6 +374,18 @@ NoButton:
 Leave:
           cmp #ModeSignpostSetFlag
           bne ByeBye
+          sed
+          lda Score
+          adc #$03
+          sta Score
+          lda Score + 1
+          adc # 0
+          sta Score + 1
+          bcc NCar0
+          inc Score + 2
+NCar0:
+          sta Score
+          cld
           ldy # (9 * 5) + 1
           lda (SignpostText), y
           sta Temp
