@@ -247,8 +247,8 @@ SlotOK:
 
 FinishScreenAndProceed:
           sty Temp
-          ldy Temp
           .WaitScreenBottom
+          ldy Temp
           bne LoadSaveSlot      ; located immediately after this in memory
                                 ; (so, reachable by branch)
 
