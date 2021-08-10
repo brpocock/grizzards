@@ -194,7 +194,8 @@ NoBalls:
 DoneBall:
           stx WSYNC
           sta HMOVE
-
+;;; 
+          ;; Prepare for the DrawMap loop
           lda MapColors, x
           and #$0f
           .if TV != SECAM
@@ -214,6 +215,7 @@ DoneBall:
           sta PF2
 ;;; 
 DrawMap:
+          ;; Actually draw each line of the map
           dec RunLength
           bne DrawLine
 
@@ -265,6 +267,7 @@ NoP1:
           sta GRP1
 P1Done:
           .if TV != NTSC
+          ;; extend every even line on PAL/SECAM
           lda #$01
           bit LineCounter
           beq +
@@ -286,19 +289,19 @@ FillBottomScreen:
           sta GRP0
           sta GRP1
           sta ENABL
-
+;;; 
 ScreenJumpLogic:
           lda PlayerY
           cmp #ScreenTopEdge
-          bmi GoScreenUp
+          blt GoScreenUp
           cmp #ScreenBottomEdge
-          bpl GoScreenDown
+          bge GoScreenDown
 
           lda PlayerX
           cmp #ScreenLeftEdge
-          beq GoScreenLeft
+          blt GoScreenLeft
           cmp #ScreenRightEdge
-          beq GoScreenRight
+          bge GoScreenRight
 
           bne CheckSwitches     ; always taken
 
