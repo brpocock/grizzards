@@ -5,7 +5,7 @@
 	.include "StartBank.s"
           .include "Source/Generated/Bank07/SpeakJetIDs.s"
 
-          .align $100, "font"
+          
           .include "Font.s"
 
 DoLocal:

@@ -7,7 +7,7 @@
 
           .include "SpeakJetIDs.s" ; from this bank, not bank 7
 
-          .align $100, "font"
+          
           .include "Font.s"
           .include "FontExtended.s"
 
