@@ -21,16 +21,8 @@ MonsterMove:
           bmi MonsterHeals
 
 MonsterAttacks:
-          ldy #MonsterLevelsIndex
+          ldy #MonsterAttackIndex
           lda (CurrentMonsterPointer), y
-          and #$f0
-          clc
-          ror a
-          ror a
-          ror a
-          ror a
-          tax
-          lda LevelTable, x     ; effective attack value
           tay                   ; Attack score
           ldx WhoseTurn
           lda EnemyStatusFX - 1, x
@@ -62,16 +54,8 @@ MonsterAttackPositiveRandom:
 MonsterAttackNegativeRandom:
           and Temp
           sta Temp
-          ldy # MonsterLevelsIndex
+          ldy # MonsterAttackIndex
           lda (CurrentMonsterPointer), y
-          and #$f0
-          clc
-          ror a
-          ror a
-          ror a
-          ror a
-          tax
-          lda LevelTable, x     ; effective attack value
           sec
           sbc Temp
           ;; fall through
@@ -246,14 +230,8 @@ PlayerAttackNegativeRandom:
           ;; fall through
 PlayerAttackHitMissP:
           tax                   ; stash effective attack strength
-          ldy # MonsterLevelsIndex
-          lda (CurrentMonsterPointer), y
-          and #$0f              ; DEF class
-          tay
-          lda LevelTable, y     ; effective defend value
-          sta Temp
-          txa
-          cmp Temp
+          ldy # MonsterDefendIndex
+          cmp (CurrentMonsterPointer), y
           blt PlayerAttackMiss
           ;; fall through
 ;;; 
@@ -487,12 +465,5 @@ BackToMain:
           .WaitScreenBottom
 
           jmp CombatMainScreen
-;;; 
-          ;; (also referenced by CombatSetup.s)
-LevelTable:
-          ;; monsters have levels 0…$b for each of their stats
-          ;; this table maps those to actual values
-          .byte 1, 2, 5, 10,  15, 25, 35, 50
-          .byte 60, 70, 80, 90, 99, 99, 99, 99
 ;;; 
           .bend

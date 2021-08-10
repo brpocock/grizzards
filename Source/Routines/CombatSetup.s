@@ -43,11 +43,8 @@ AnnounceMonsterSpeech:
           sta CurrentUtterance
           
 SetUpMonsterHP:     
-          ldy # MonsterLevelsIndex
+          ldy # MonsterHPIndex
           lda (CurrentMonsterPointer), y
-          and #$0f
-          tay
-          lda ExecuteCombatMove.LevelTable, y     ; effective defend value
           sta Temp
           
           lda EncounterQuantity, x

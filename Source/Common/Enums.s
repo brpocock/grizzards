@@ -204,11 +204,14 @@
           LangFra = $0f
 ;;; 
 ;;; Indices into the monster table
-          MonsterNameIndex = $00
-          MonsterArtIndex = 12
-          MonsterColorIndex = 13
-          MonsterLevelsIndex = 14
-          MonsterPointsIndex = 15
+          MonsterNameIndex = 0
+          MonsterArtIndex = 9
+          MonsterColorIndex = 10
+          MonsterAttackIndex = 11
+          MonsterDefendIndex = 12
+          MonsterHPIndex = 13
+          MonsterPointsIndex = 14
+          MonsterSpareValueIndex = 15
 ;;; 
 ;;; MapFlags values
           MapFlagFacing = $08   ; matches REFP0 REFLECTED bit

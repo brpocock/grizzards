@@ -1,304 +1,280 @@
 ;;; Grizzards Source/Banks/Bank06/Monsters6.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
 Monsters: 
-          .MiniText "WICKED"
-          .MiniText "SLIME "
+          .SignText "WICKEDSLIME "
           .byte 14               ; art
           .colu COLGREEN, $f
-          .byte $20, $6         ; ATK/DEF, + score for defeating (BCD)
-          
-          .MiniText "HORRID"
-          .MiniText "SLIME "
+          .byte 2, 1, 2, $6         ; ATK, DEF, HP, + score for defeating (BCD)
+          .byte 0
+
+          .SignText "HORRIDSLIME "
           .byte 14               ; art
           .colu COLRED, $f
-          .byte $21, $6        ; ATK/DEF, score
+          .byte 3, 2, 3, $6        ; ATK, DEF, HP, score
+          .byte 0
           
-          .MiniText "VORPAL"
-          .MiniText "BUNNY "
+          .SignText "VORPALBUNNY "
           .byte 0
           .colu COLGOLD, $4
-          .byte $22, $6
+          .byte 2, 2, 5, $6
+          .byte 0
           
-          .MiniText "R.O.  "
-          .MiniText "  U.S."
+          .SignText "R.O.    U.S."
           .byte 1
           .colu COLBROWN, $8
-          .byte $32, $15
+          .byte 2, 2, 6, $15
+          .byte 0
 
-          .MiniText "LECTRO"
-          .MiniText " SHEEP"
+          .SignText "LECTRO SHEEP"
           .byte 2
           .colu COLBLUE, $8
-          .byte $22, $15
+          .byte 2, 5, 7, $15
+          .byte 0
 
-          .MiniText "VIKING"
-          .MiniText "TURTLE"
+          .SignText "VIKINGTURTLE"
           .byte 3
           .colu COLTURQUOISE, $8
-          .byte $33, $15
+          .byte 5, 15, 9, $15
+          .byte 0
 
-          .MiniText "CRAZY "
-          .MiniText "   FOX"
+          .SignText "CRAZY    FOX"
           .byte 4
           .colu COLRED, $e
-          .byte $44, $50
+          .byte 15, 15, 15, $50
+          .byte 0
 
-          .MiniText "WATER "
-          .MiniText " KITTY"
+          .SignText "WATER  KITTY"
           .byte 5
           .colu COLBLUE, $e
-          .byte $00, $20
+          .byte 10, 6, 9, $20
+          .byte 0
 ;;; 8
-          .MiniText "FLAME "
-          .MiniText " DOGGO"
+          .SignText "FLAME  DOGGO"
           .byte 6
           .colu COLRED, $c
-          .byte $32, $35
+          .byte 15, 6, 8, $35
+          .byte 0
 
-          .MiniText "FUZZIE"
-          .MiniText "  BEAR"
+          .SignText "FUZZIE  BEAR"
           .byte 7
           .colu COLBROWN, $8
-          .byte $44, $10
+          .byte 12, 12, 12, $10
+          .byte 0
 
 ;;; 10
 
-          .MiniText "METAL "
-          .MiniText " MOUSE"
+          .SignText "METAL  MOUSE"
           .byte 8
           .colu COLGRAY, $f
-          .byte $44, $10
+          .byte 12, 20, 10, $10
+          .byte 0
 
-          .MiniText "FIRE  "
-          .MiniText " PANDA"
+          .SignText "FIRE   PANDA"
           .byte 9
           .colu COLORANGE, $e
-          .byte $32, $35
+          .byte 15, 10, 10, $35
+          .byte 0
 
-          .MiniText "LEGGY "
-          .MiniText "MUTANT"
+          .SignText "LEGGY MUTANT"
           .byte 10
           .colu COLBLUE, $8
-          .byte $55, $10
+          .byte $05, $05, $05, $10
+          .byte 0
 
-          .MiniText "SKY   "
-          .MiniText "MUTANT"
+          .SignText "SKY   MUTANT"
           .byte 11
           .colu COLBLUE, $8
-          .byte $55, $10
+          .byte $05, $05, $05, $10
+          .byte 0
 
-          .MiniText "WILL-O"
-          .MiniText " -WISP"
+          .SignText "WILL-O -WISP"
           .byte 12
           .colu COLCYAN, $e
-          .byte $41, $10
+          .byte 20, 5, 1, $10
+          .byte 0
 
-          .MiniText "BUTTER"
-          .MiniText "   FLY"
+          .SignText "BUTTER   FLY"
           .byte 13
           .colu COLBLUE, $8
-          .byte $03, $10
+          .byte 0, $03, $03, $10
+          .byte 0
 
-          .MiniText "SCARY "
-          .MiniText "   RAT"
+          .SignText "SCARY    RAT"
           .byte 1
           .colu COLBLUE, $8
-          .byte $55, $10
+          .byte $05, $05, $05, $10
+          .byte 0
 
-          .MiniText "MONSTR"
-          .MiniText "  17  "
+          .SignText "MONSTR  17  "
           .byte 2
           .colu COLBLUE, $8
-          .byte $00, $10
+          .byte 0, 0, 0, $10
+          .byte 0
 
-          .MiniText "MONSTR"
-          .MiniText "  18  "
+          .SignText "MONSTR  18  "
           .byte 2
           .colu COLBLUE, $8
-          .byte $00, $10
+          .byte 0, 0, 0, $10
+          .byte 0
 
-          .MiniText "MONSTR"
-          .MiniText "  19  "
+          .SignText "MONSTR  19  "
           .byte 2
           .colu COLBLUE, $8
-          .byte $00, $10
+          .byte 0, 0, 0, $10
+          .byte 0
 
-          .MiniText "MONSTR"
-          .MiniText "  20  "
+          .SignText "MONSTR  20  "
           .byte 2
           .colu COLBLUE, $8
-          .byte $00, $10
+          .byte 0, 0, 0, $10
+          .byte 0
 
-          .MiniText "MONSTR"
-          .MiniText "  21  "
+          .SignText "MONSTR  21  "
           .byte 2
           .colu COLBLUE, $8
-          .byte $00, $10
+          .byte 0, 0, 0, $10
+          .byte 0
 
-          .MiniText "MONSTR"
-          .MiniText "  22  "
+          .SignText "MONSTR  22  "
           .byte 2
           .colu COLBLUE, $8
-          .byte $00, $10
+          .byte 0, 0, 0, $10
+          .byte 0
 
-          .MiniText "MONSTR"
-          .MiniText "  23  "
+          .SignText "MONSTR  23  "
           .byte 2
           .colu COLBLUE, $8
-          .byte $00, $10
+          .byte 0, 0, 0, $10
+          .byte 0
 
-          .MiniText "MONSTR"
-          .MiniText "  24  "
+          .SignText "MONSTR  24  "
           .byte 2
           .colu COLBLUE, $8
-          .byte $00, $10
+          .byte 0, 0, 0, $10
+          .byte 0
 
-          .MiniText "MONSTR"
-          .MiniText "  25  "
+          .SignText "MONSTR  25  "
           .byte 2
           .colu COLBLUE, $8
-          .byte $00, $10
+          .byte 0, 0, 0, $10
+          .byte 0
 
-          .MiniText "MONSTR"
-          .MiniText "  26  "
+          .SignText "MONSTR  26  "
           .byte 2
           .colu COLBLUE, $8
-          .byte $00, $10
+          .byte 0, 0, 0, $10
+          .byte 0
 
-          .MiniText "MONSTR"
-          .MiniText "  27  "
+          .SignText "MONSTR  27  "
           .byte 2
           .colu COLBLUE, $8
-          .byte $00, $10
+          .byte 0, 0, 0, $10
+          .byte 0
 
-          .MiniText "MONSTR"
-          .MiniText "  28  "
+          .SignText "MONSTR  28  "
           .byte 2
           .colu COLBLUE, $8
-          .byte $00, $10
+          .byte 0, 0, 0, $10
+          .byte 0
 
-          .MiniText "MONSTR"
-          .MiniText "  29  "
+          .SignText "MONSTR  29  "
           .byte 2
           .colu COLBLUE, $8
-          .byte $00, $10
+          .byte 0, 0, 0, $10
+          .byte 0
 
-          .MiniText "MONSTR"
-          .MiniText "  30  "
+          .SignText "MONSTR  30  "
           .byte 2
           .colu COLBLUE, $8
-          .byte $00, $10
+          .byte 0, 0, 0, $10
+          .byte 0
 
-          .MiniText "MONSTR"
-          .MiniText "  31  "
+          .SignText "MONSTR  31  "
           .byte 2
           .colu COLBLUE, $8
-          .byte $00, $10
+          .byte 0, 0, 0, $10
+          .byte 0
 
-          .MiniText "MONSTR"
-          .MiniText "  32  "
+          .SignText "MONSTR  32  "
           .byte 2
           .colu COLBLUE, $8
-          .byte $00, $10
+          .byte 0, 0, 0, $10
+          .byte 0
 
-          .MiniText "MONSTR"
-          .MiniText "  33  "
+          .SignText "MONSTR  33  "
           .byte 2
           .colu COLBLUE, $8
-          .byte $00, $10
+          .byte 0, 0, 0, $10
+          .byte 0
 
-          .MiniText "MONSTR"
-          .MiniText "  34  "
+          .SignText "MONSTR  34  "
           .byte 2
           .colu COLBLUE, $8
-          .byte $00, $10
+          .byte 0, 0, 0, $10
+          .byte 0
 
-          .MiniText "MONSTR"
-          .MiniText "  35  "
+          .SignText "MONSTR  35  "
           .byte 2
           .colu COLBLUE, $8
-          .byte $00, $10
+          .byte 0, 0, 0, $10
+          .byte 0
 
-          .MiniText "MONSTR"
-          .MiniText "  36  "
+          .SignText "MONSTR  36  "
           .byte 2
           .colu COLBLUE, $8
-          .byte $00, $10
+          .byte 0, 0, 0, $10
+          .byte 0
 
-          .MiniText "MONSTR"
-          .MiniText "  37  "
+          .SignText "MONSTR  37  "
           .byte 2
           .colu COLBLUE, $8
-          .byte $00, $10
+          .byte 0, 0, 0, $10
+          .byte 0
 
-          .MiniText "MONSTR"
-          .MiniText "  38  "
+          .SignText "MONSTR  38  "
           .byte 2
           .colu COLBLUE, $8
-          .byte $00, $10
+          .byte 0, 0, 0, $10
+          .byte 0
 
-          .MiniText "MONSTR"
-          .MiniText "  39  "
+          .SignText "MONSTR  39  "
           .byte 2
           .colu COLBLUE, $8
-          .byte $00, $10
+          .byte 0, 0, 0, $10
+          .byte 0
 
-          .MiniText "MONSTR"
-          .MiniText "  40  "
+          .SignText "MONSTR  40  "
           .byte 2
           .colu COLBLUE, $8
-          .byte $00, $10
+          .byte 0, 0, 0, $10
+          .byte 0
 
-          .MiniText "MONSTR"
-          .MiniText "  41  "
+          .SignText "MONSTR  41  "
           .byte 2
           .colu COLBLUE, $8
-          .byte $00, $10
+          .byte 0, 0, 0, $10
+          .byte 0
 
-          .MiniText "MONSTR"
-          .MiniText "  42  "
+          .SignText "MONSTR  42  "
           .byte 2
           .colu COLBLUE, $8
-          .byte $00, $10
+          .byte 0, 0, 0, $10
+          .byte 0
 
-          .MiniText "MONSTR"
-          .MiniText "  43  "
+          .SignText "MONSTR  43  "
           .byte 2
           .colu COLBLUE, $8
-          .byte $00, $10
+          .byte 0, 0, 0, $10
+          .byte 0
 
-          .MiniText "MONSTR"
-          .MiniText "  44  "
+          .SignText "MONSTR  44  "
           .byte 2
           .colu COLBLUE, $8
-          .byte $00, $10
+          .byte 0, 0, 0, $10
+          .byte 0
 
-          .MiniText "MONSTR"
-          .MiniText "  45  "
+          .SignText "MONSTR  45  "
           .byte 2
           .colu COLBLUE, $8
-          .byte $00, $10
-
-          .MiniText "MONSTR"
-          .MiniText "  46  "
-          .byte 2
-          .colu COLBLUE, $8
-          .byte $00, $10
-
-          .MiniText "MONSTR"
-          .MiniText "  47  "
-          .byte 2
-          .colu COLBLUE, $8
-          .byte $00, $10
-
-          .MiniText "MONSTR"
-          .MiniText "  48  "
-          .byte 2
-          .colu COLBLUE, $8
-          .byte $00, $10
-
-          .MiniText "MONSTR"
-          .MiniText "  49  "
-          .byte 2
-          .colu COLBLUE, $8
-          .byte $00, $10
+          .byte 0, 0, 0, $10
+          .byte 0

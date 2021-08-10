@@ -37,7 +37,7 @@ PausedOrNot:
 MonstersDisplay:
           jsr ShowMonsterName
 
-          ldy # 13              ; offset of monster color
+          ldy # MonsterColorIndex
           lda (CurrentMonsterPointer), y
 
           .if TV == SECAM
