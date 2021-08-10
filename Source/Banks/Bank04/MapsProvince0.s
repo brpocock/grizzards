@@ -424,7 +424,7 @@ SpriteList:
 
           ;; Room 7
           .byte 7, SpriteFixed
-          .byte $7c, $2a
+          .byte $7c, $28
           .byte SpriteCombat, 2
 
           .byte $ff, SpriteFixed
