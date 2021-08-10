@@ -24,11 +24,9 @@ MoveSprites:
           cmp #$ff
           beq +
           rts
-
 +
-
           lda SpriteMotion, x
-          beq SpriteMoveDone
+          beq NextSprite
           cmp #SpriteRandomEncounter
           bne SpriteXMove
           jsr Random            ; Is there a random encounter?
@@ -142,7 +140,7 @@ SpriteMoveDone:
           sta SpriteMotion, x
           inc SpriteX, x
 LeftOK:
-          cmp #ScreenRightEdge
+          cmp #ScreenRightEdge + 10
           blt RightOK
           lda SpriteMotion, x
           eor # SpriteMoveLeft | SpriteMoveRight
@@ -165,6 +163,7 @@ TopOK:
           dec SpriteY, x
 BottomOK:
 
+NextSprite:
           dex
           bpl MoveSprites
           ;; fall through

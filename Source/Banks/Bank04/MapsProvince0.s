@@ -439,11 +439,11 @@ SpriteList:
           .byte SpriteCombat, 2
 
           .byte 9, SpriteFixed
-          .byte $c3, $20
+          .byte $c8, $24
           .byte SpriteCombat, 2
 
           .byte 10, SpriteFixed
-          .byte $c3, $2b
+          .byte $c8, $2c
           .byte SpriteCombat, 2
 
           .byte $ff, SpriteFixed
