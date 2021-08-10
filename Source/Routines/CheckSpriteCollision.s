@@ -21,6 +21,7 @@ CheckSpriteCollision:         .block
 
           ldx SpriteFlicker
           lda SpriteMotion, x
+          beq Bye
 CheckLeft:
           .BitBit SpriteMoveLeft
           beq CheckRight

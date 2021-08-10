@@ -60,8 +60,6 @@ CheckForAlarm:
           lda ClockSeconds
           cmp AlarmSeconds
           bne AlarmDone
-
-          .WaitScreenBottom
           
           rts
 
@@ -81,7 +79,6 @@ SwitchesDone:
           cmp #ModeColdStart
           beq GoColdStart
 
-          .WaitScreenBottom
           rts
 
 +

@@ -4,9 +4,12 @@ GrizzardDepot:    .block
           ldx MaxHP
           stx CurrentHP
 
-          .WaitForTimer
-          jsr Overscan
+          ldx #$ff              ; blow away the stack
+          txs
+
+          .WaitScreenBottom
           .FarJSR SaveKeyBank, ServiceSaveToSlot
+          .WaitScreenTop
           .KillMusic
           jmp ReturnToLoop
 ;;; 
@@ -172,11 +175,17 @@ NoStickUp:
           lda # 1
 SeekGrizzard:
           sta NextMap
+SeekScreen:
+          ldy # 8
+          sty AlarmSeconds
           .WaitScreenBottom
           .WaitScreenTop
+
           .ldacolu COLTEAL, $2
           sta COLUBK
 KeepSeeking:
+          dec AlarmSeconds
+          beq SeekScreen
           lda CurrentGrizzard
           clc
           adc NextMap
@@ -196,7 +205,10 @@ SeekOK:
           ;; carry is set if found
           bcc KeepSeeking
           .WaitScreenBottom
-          
+          .WaitScreenTop
+          .ldacolu COLTEAL, $2
+          sta COLUBK
+
 DoneStick:
 
           lda NewSWCHB
@@ -224,7 +236,7 @@ SwitchesDone:
           sta GameMode
 
           .WaitScreenBottom
-          rts
+          jmp GoMap
 
 TriggerDone:
 ;;; 
@@ -234,9 +246,13 @@ TriggerDone:
 ReturnToLoop:
           .WaitScreenBottom
           jmp Loop
+
 Leave:
           cmp #ModeGrizzardStats
+          bne +
           jmp GrizzardStatsScreen
++
+          brk
 ;;; 
 ShowPointerText:
           jsr CopyPointerText

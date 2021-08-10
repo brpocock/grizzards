@@ -57,8 +57,8 @@
           .if TV != SECAM
             SWCHBColor = $08
           .fi
-          SWCHBP0Genesis = $04
-          SWCHBP1Genesis = $08
+          SWCHBP0Genesis = $10
+          SWCHBP1Genesis = $20
           SWCHBP0Advanced = $40
           SWCHBP1Advanced = $80
 
@@ -108,9 +108,9 @@
           COLBLUE = 2
           COLINDIGO = COLBLUE
           COLRED = 4
-          COLPURPLE = COLRED
           COLBROWN = COLRED
           COLMAGENTA = 6
+          COLPURPLE = COLMAGENTA
           COLGREEN = 8
           COLSPRINGGREEN = COLGREEN
           COLSEAFOAM = COLGREEN
@@ -128,10 +128,6 @@
 
 ;;;
 ;;; Color + Luminance → COLU values
-;;;
-;;; These are kinda lousy, because you're  not going to get good results
-;;; in a lot of cases, but may  be useful for quick demo bits, text-like
-;;; screens, scores, and things like that.
 ;;;
 ;;; If  nothing else,  you can  get correct  basic colors  on all  three
 ;;; models, in particular since SECAM is weird.

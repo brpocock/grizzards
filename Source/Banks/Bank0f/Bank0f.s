@@ -38,4 +38,6 @@ DoLocal:
           beq DrawGrizzard
           brk
 
+          .include "WaitScreenBottom.s"
+
           .include "EndBank.s"

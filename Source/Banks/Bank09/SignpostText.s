@@ -5,7 +5,7 @@
 
           FirstSignpost = 17
 
-          Signs = (Sign_TunnelClosed, Sign_SpiralWoodsOpen, Sign_PortLionShip)
+          Signs = (Sign_TunnelClosed, Sign_SpiralWoodsOpen, Sign_PortLionShip, Sign_TunnelMazeBlocked)
           
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
@@ -42,4 +42,14 @@ Sign_PortLionShip:
           .SignText "DEPARTING.  "
           .SignText "ALL ABOARD! "
           .byte ModeSignpostDone
-          
+
+;;; 20
+Sign_TunnelMazeBlocked:
+          .colu COLINDIGO, $4
+          .colu COLBLUE, $e
+          .SignText "BLOCKADE IS "
+          .SignText "LOCKED DUE  "
+          .SignText "TO DANGER OF"
+          .SignText "A CAVE GRUE."
+          .SignText "NO ENTRY.   "
+          .byte ModeSignpostDone

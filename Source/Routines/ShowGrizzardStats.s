@@ -1,11 +1,14 @@
 ;;; Grizzards Source/Routines/ShowGrizzardStats.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
 ShowGrizzardStats:  .block
+          stx WSYNC
           .ldacolu COLTURQUOISE, 8
           sta COLUBK
           .ldacolu COLINDIGO, 0
           sta COLUP0
           sta COLUP1
+
+          .SkipLines 30
 
           jsr ShowGrizzardName
           .FarJSR AnimationsBank, ServiceDrawGrizzard
@@ -33,8 +36,9 @@ ShowGrizzardStats:  .block
           lda #< StatsText + 18 ; high byte unchanged
           sta Pointer
           lda MaxHP
-          jmp AppendDecimalAndPrint
+          jmp AppendDecimalAndPrint ; tail call
 
+          .align $20
 StatsText:
           .MiniText "ATK 00"
           .MiniText "DEF 00"

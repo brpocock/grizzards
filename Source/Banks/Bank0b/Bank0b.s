@@ -3,10 +3,11 @@
           BANK = $0b
 
           .include "StartBank.s"
+          .include "6BitCompression.s"
 
           .include "SpeakJetIDs.s" ; from this bank, not bank 7
 
-          .align $100, "font"
+          
           .include "Font.s"
           .include "FontExtended.s"
 
@@ -24,5 +25,6 @@ DoLocal:
           .include "SpeakJetIndex.s"
 
           .include "PlaySpeech.s"
+          .include "WaitScreenBottom.s"
 
           .include "EndBank.s"

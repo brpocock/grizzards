@@ -6,18 +6,10 @@ ShowMonsterName:
           lda CurrentMonsterPointer + 1
           sta Pointer + 1
 
-          jsr ShowPointerText
+          ldy #0
+          .UnpackLeft CurrentMonsterPointer
+          .FarJSR TextBank, ServiceDecodeAndShowText
 
-          lda Pointer
-          clc
-          adc # 6
-          bcc +
-          inc Pointer + 1
-+
-          sta Pointer
-
-          ;; tail call, fall through
-          
-ShowPointerText:
-          jsr CopyPointerText
-          .FarJMP TextBank, ServiceDecodeAndShowText ; tail call
+          ldy #4
+          .UnpackRight CurrentMonsterPointer
+          .FarJMP TextBank, ServiceDecodeAndShowText

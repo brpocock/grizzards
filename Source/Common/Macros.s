@@ -1,64 +1,65 @@
+;;; Macros.s
 ;;;
 ;;; Copyright © 2016,2017,2020,2021 Bruce-Robert Pocock (brpocock@star-hope.org)
 ;;;
 ;;;
 Sleep:    .macro Cycles
-        .if \Cycles < 0
-        .error "Can't sleep back-in-time for ", \Cycles, " cycles"
-        .else
-        .switch \Cycles
+          .if \Cycles < 0
+          .error "Can't sleep back-in-time for ", \Cycles, " cycles"
+          .else
+          .switch \Cycles
         
-        .case 0
+          .case 0
         
-        .case 1
-        .error "Cannot sleep 1 cycle (must be 2+)"
+          .case 1
+          .error "Cannot sleep 1 cycle (must be 2+)"
 
-        .case 2
-        nop
+          .case 2
+          nop
 
-        .case 3
-        nop $ea
+          .case 3
+          nop $ea
 
-        .case 4
-        nop
-        nop
+          .case 4
+          nop
+          nop
 
-        .case 5
-        dec $2d
+          .case 5
+          dec $2d
 
-        .case 6
-        nop $ea
-        nop $ea
+          .case 6
+          nop $ea
+          nop $ea
 
-        .case 7
-        dec $2d
-        nop
+          .case 7
+          dec $2d
+          nop
 
-        .case 8
-        dec $2d
-        nop $ea
-        .case 9
-        dec $2d
-        nop
-        nop
+          .case 8
+          dec $2d
+          nop $ea
+          .case 9
+          dec $2d
+          nop
+          nop
 
-        .default
-        .if 1 == \Cycles & 1
-        ;; make sure we can't end up trying to sleep 1
-        .Sleep 9
-        .Sleep \Cycles - 9
-        .else
-        .Sleep 8
-        .Sleep \Cycles - 8
-        .fi
-        .endswitch
-        .fi
-        .endm
+          .default
+          .if 1 == \Cycles & 1
+          ;; make sure we can't end up trying to sleep 1
+          .Sleep 9
+          .Sleep \Cycles - 9
+          .else
+          .Sleep 8
+          .Sleep \Cycles - 8
+          .fi
+          .endswitch
+          .fi
+          .endm
 
         ;; Alternate sleep macro, which will use .x as a
         ;; countdown register. Exits with .x = 0
 SleepX: .macro Cycles
-        .block
+          .block
         
           .if \Cycles < 10
           .Sleep \Cycles
@@ -212,19 +213,11 @@ WaitForTimer:       .macro
           .endm
 
 WaitScreenBottom:      .macro
-          .WaitForTimer
-          .if TV != NTSC
-          .SkipLines 11
-          .fi
-          jsr Overscan
+          jsr WaitScreenBottomSub
           .endm
 
 WaitScreenBottomTail:      .macro
-          .WaitForTimer
-          .if TV != NTSC
-          .SkipLines 11
-          .fi
-          jmp Overscan          ; tail call
+          jmp WaitScreenBottomSub
           .endm
 
 KillMusic:          .macro
@@ -270,19 +263,12 @@ SkipLines:          .macro length
 
           .else
 
-          .if \length == 11 && TV != NTSC
-
-          jsr Skip11Lines
-
-          .else
-
           ldx # \length
 -
           stx WSYNC
           dex
           bne -
 
-          .fi
           .fi
           .endm
 

@@ -5,7 +5,7 @@
 	.include "StartBank.s"
           .include "Source/Generated/Bank07/SpeakJetIDs.s"
 
-          .align $100, "font"
+          
           .include "Font.s"
 
 DoLocal:
@@ -66,5 +66,6 @@ ShowMoveDecoded:
           .include "GrizzardMoves.s"
           .include "MovesTable.s"
           .include "StringsTable.s"
+          .include "WaitScreenBottom.s"
 
 	.include "EndBank.s"

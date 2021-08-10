@@ -51,5 +51,6 @@ DoLocal:
           .include "UserInput.s"
 
           .include "AtariVox-EEPROM-Driver.s"
+          .include "WaitScreenBottom.s"
 
 	.include "EndBank.s"

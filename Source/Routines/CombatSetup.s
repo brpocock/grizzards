@@ -43,11 +43,8 @@ AnnounceMonsterSpeech:
           sta CurrentUtterance
           
 SetUpMonsterHP:     
-          ldy # MonsterLevelsIndex
+          ldy # MonsterHPIndex
           lda (CurrentMonsterPointer), y
-          and #$0f
-          tay
-          lda ExecuteCombatMove.LevelTable, y     ; effective defend value
           sta Temp
           
           lda EncounterQuantity, x
@@ -77,7 +74,6 @@ SetUpOtherCombatVars:
           lda # 0
           sta MoveSelection     ; RUN AWAY
           sta WhoseTurn         ; Player's turn
-          sta MoveTarget        ; no target selected
           sta MoveAnnouncement
           sta StatusFX
           ldx #6
@@ -85,6 +81,9 @@ SetUpOtherCombatVars:
           sta EnemyStatusFX - 1, x
           dex
           bne -
+
+          lda # 1
+          sta MoveTarget        ; figure out based on first Move
 
           .WaitScreenBottom
 

@@ -50,7 +50,7 @@ Monster6_16:
 Scary Rat
 
 Monster6_17:
-Monster
+Cave Grue
 
 Monster6_18:
 Monster

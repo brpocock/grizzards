@@ -201,14 +201,14 @@ StoryDone:
 
           jsr Prepare48pxMobBlob
 
-          .WaitScreenBottom
-
           lda AttractStoryPanel
           cmp # 8
           blt StillStory
 
           lda # 30
           jsr SetNextAlarm
+          lda # 0
+          sta DeltaY
           lda #ModeAttractTitle
           sta GameMode
           rts
@@ -232,6 +232,7 @@ SelectSlot:
           rts
 
 LoopMe:
+          .WaitScreenBottom
           jmp Loop
 
           .bend

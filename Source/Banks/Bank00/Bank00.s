@@ -96,6 +96,7 @@ DoLocal:
           .include "SetNextAlarm.s"
           .include "Bank0Strings.s"
           .include "PeekGrizzard.s"
+          .include "WaitScreenBottom.s"
 
 ShowPointerText:
           jsr CopyPointerText

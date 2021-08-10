@@ -424,7 +424,7 @@ SpriteList:
 
           ;; Room 7
           .byte 7, SpriteFixed
-          .byte $7c, $2a
+          .byte $7c, $28
           .byte SpriteCombat, 2
 
           .byte $ff, SpriteFixed
@@ -439,11 +439,11 @@ SpriteList:
           .byte SpriteCombat, 2
 
           .byte 9, SpriteFixed
-          .byte $c3, $20
+          .byte $c8, $24
           .byte SpriteCombat, 2
 
           .byte 10, SpriteFixed
-          .byte $c3, $2b
+          .byte $c8, $2c
           .byte SpriteCombat, 2
 
           .byte $ff, SpriteFixed
@@ -516,7 +516,7 @@ SpriteList:
 
           .byte 0
 
-	;;Room 14
+	;; Room 14
           .byte 11, SpriteWander
           .byte $73, $21
           .byte SpriteCombat, 9
@@ -535,7 +535,7 @@ SpriteList:
           
 	.byte 0
 
-	;;Room 15
+	;; Room 15
           .byte 6, SpriteWander
           .byte $af, $2b
           .byte SpriteCombat, 15
@@ -550,7 +550,7 @@ SpriteList:
 
 	.byte 0
 
-	;;Room 16
+	;; Room 16
           .byte 23, SpriteFixed
           .byte $7b, $25
           .byte SpriteCombat, 13
@@ -569,7 +569,7 @@ SpriteList:
 
 	.byte 0
 
-	;;Room 17
+	;; Room 17
           .byte $ff, SpriteFixed
           .byte $36, $29
           .byte SpritePerson, 3 ; tunnel guardian
@@ -586,106 +586,110 @@ SpriteList:
 
 	.byte 0
 
-	;;Room 18
+	;; Room 18
 	.byte 0
 
-	;;Room 19
+	;; Room 19
 	.byte 0
 
-	;;Room 20
+	;; Room 20
           .byte $ff, SpriteFixed
           .byte $3b, $28         ; x, y
           .byte SpriteGrizzardDepot, 0
 
 	.byte 0
 
-	;;Room 21
+	;; Room 21
+          .byte 24, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 24
+
 	.byte 0
 
-	;;Room 22
+	;; Room 22
 	.byte 0
 
-	;;Room 23
+	;; Room 23
           .byte 24, SpriteFixed
-          .byte $76, $27
-          .byte SpriteSign, 18
+          .byte $77, $27
+          .byte SpriteSign, 20  ; beware of grue
 
           .byte 24, SpriteFixed
-          .byte $82, $27
-          .byte SpriteSign, 18
+          .byte $80, $27
+          .byte SpriteSign, 20
 
 	.byte 0
 
-	;;Room 24
+	;; Room 24
 	.byte 0
 
-	;;Room 25
+	;; Room 25
 	.byte 0
 
-	;;Room 26
+	;; Room 26
 	.byte 0
 
-	;;Room 27
+	;; Room 27
 	.byte 0
 
-	;;Room 28
+	;; Room 28
 	.byte 0
 
-	;;Room 29
+	;; Room 29
 	.byte 0
 
-	;;Room 30
+	;; Room 30
 	.byte 0
 
-	;;Room 31
+	;; Room 31
 	.byte 0
 
-	;;Room 32
+	;; Room 32
 	.byte 0
 
-	;;Room 33
+	;; Room 33
 	.byte 0
 
-	;;Room 34
+	;; Room 34
 	.byte 0
 
-	;;Room 35
+	;; Room 35
 	.byte 0
 
-	;;Room 36
+	;; Room 36
 	.byte 0
 
-	;;Room 37
+	;; Room 37
 	.byte 0
 
-	;;Room 38
+	;; Room 38
 	.byte 0
 
-	;;Room 39
+	;; Room 39
 	.byte 0
 
-	;;Room 40
+	;; Room 40
 	.byte 0
 
-	;;Room 41
+	;; Room 41
 	.byte 0
 
-	;;Room 42
+	;; Room 42
 	.byte 0
 
-	;;Room 43
+	;; Room 43
           .byte $ff, SpriteWander
           .byte $40, $40
           .byte SpritePerson, 16 ; broken radio
 	.byte 0
 
-	;;Room 44
+	;; Room 44
 	.byte 0
 
-	;;Room 45
+	;; Room 45
 	.byte 0
 
-	;;Room 46
+	;; Room 46
 	.byte 0
 
           ;; Room 47

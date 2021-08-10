@@ -2,10 +2,6 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
 UserInput: .block
-          lda BumpCooldown
-          beq HandleStick
-          dec BumpCooldown
-
 HandleStick:
           lda #0
           sta DeltaX

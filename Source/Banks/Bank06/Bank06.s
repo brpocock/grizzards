@@ -6,6 +6,7 @@
 
           .include "StartBank.s"
           .include "Prepare48pxMobBlob.s"
+          .include "6BitCompression.s"
           .include "Source/Generated/Bank07/SpeakJetIDs.s"
 
           MonsterPhrase = Phrase_Monster6_0
@@ -37,5 +38,6 @@ CombatText:
           .include "Combat6.s"
           .include "Monsters6.s"          
           .include "MonsterMoves6.s"
+          .include "WaitScreenBottom.s"
 
           .include "EndBank.s"

@@ -82,6 +82,9 @@ NoBankUp:
 
           .Add16 SignpostText, #2
 
+          lda ClockSeconds
+          sta AlarmSeconds
+
           .WaitScreenBottom
 ;;; 
 Loop:
@@ -141,15 +144,15 @@ DrawLeftField:
 
           .option allow_branch_across_page = true
 
-          ldy # 6
--
-          lda (SignpostWork), y
-          sta StringBuffer, y
-          dey
-          bpl -
+          ;; Unpack 6-bits-per-character packed text
+          ;; This saves 25% of string storage space at the cost of
+          ;; this increased complexity here.
+          ldy # 0
+          .UnpackLeft SignpostWork
+
           jsr DecodeText
 
-          .Add16 SignpostWork, #12
+          .Add16 SignpostWork, #9
 
           jmp AlignedLeft
           .align $100, $ea
@@ -230,7 +233,6 @@ LeftLoop:
           jmp DrawCommon
 
 DrawRightField:
-          .Add16 SignpostWork, #6
 
           .option allow_branch_across_page = false
 
@@ -248,15 +250,12 @@ DrawRightField:
 
           .option allow_branch_across_page = true
 
-          ldy # 6
--
-          lda (SignpostWork), y
-          sta StringBuffer, y
-          dey
-          bpl -
+          ldy # 4
+          .UnpackRight SignpostWork
+
           jsr DecodeText
 
-          .Add16 SignpostWork, # 6
+          .Add16 SignpostWork, #9
 
           jmp AlignedRight
           .align $40, $ea
@@ -353,28 +352,41 @@ DoneDrawing:
           .SkipLines 3
           sta COLUBK
 
+          lda AlarmSeconds      ; require 1s to tick before accepting button press
+          cmp ClockSeconds      ; see #140
+          beq NoButton
           lda NewButtons
           beq NoButton
           .BitBit PRESSED
           bne NoButton
 
-          ldy # (12 * 5)
+          ldy # (9 * 5)
           lda (SignpostText), y
           sta GameMode
 
 NoButton:
-
-          .WaitScreenBottom
-
           lda GameMode
           cmp #ModeSignpost
           bne Leave
+          .WaitScreenBottom
           jmp Loop
 
 Leave:
           cmp #ModeSignpostSetFlag
           bne ByeBye
-          ldy # (12 * 5) + 1
+          sed
+          lda Score
+          clc
+          adc #$03
+          sta Score
+          lda Score + 1
+          adc # 0
+          sta Score + 1
+          bcc NCar0
+          inc Score + 2
+NCar0:
+          cld
+          ldy # (9 * 5) + 1
           lda (SignpostText), y
           sta Temp
           .SetBitFlag Temp
@@ -383,7 +395,6 @@ ByeBye:
           lda # 0
           sta CurrentUtterance
           sta CurrentUtterance + 1
-
           rts
           .bend
 
@@ -391,14 +402,11 @@ ByeBye:
 ;;; Overscan is different, we don't have  sound effects nor music and we
 ;;; don't want Bank 7 to get confused by our speech.
 Overscan: .block
-          lda # ( 76 * OverscanLines ) / 64 - 1
-          sta TIM64T
+          .TimeLines OverscanLines
 
           jsr PlaySpeech
 
-FillOverscan:
-          lda INSTAT
-          bpl FillOverscan
+          .WaitForTimer
 
           sta WSYNC
           rts

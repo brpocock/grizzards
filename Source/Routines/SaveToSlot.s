@@ -2,6 +2,7 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 SaveToSlot:	.block
           .WaitScreenTop
+
 WriteMasterBlock:
           ;; OK, now we're going to actually write the Master block,
           ;; this is a 5 byte signature, then the Global vars space
