@@ -600,6 +600,10 @@ SpriteList:
 	.byte 0
 
 	;; Room 21
+          .byte 24, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 24
+
 	.byte 0
 
 	;; Room 22
@@ -607,12 +611,12 @@ SpriteList:
 
 	;; Room 23
           .byte 24, SpriteFixed
-          .byte $76, $27
-          .byte SpriteSign, 18
+          .byte $77, $27
+          .byte SpriteSign, 20  ; beware of grue
 
           .byte 24, SpriteFixed
-          .byte $82, $27
-          .byte SpriteSign, 18
+          .byte $80, $27
+          .byte SpriteSign, 20
 
 	.byte 0
 
