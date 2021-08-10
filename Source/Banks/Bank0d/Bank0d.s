@@ -3,6 +3,7 @@
           BANK = $0d
 
           .include "StartBank.s"
+          .include "6BitCompression.s"
 
           .include "SpeakJetIDs.s" ; from this bank, not bank 7
 
