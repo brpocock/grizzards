@@ -25,8 +25,11 @@ missed
 IsInjured:
 is injured
 
+IsKilled:
+is killed
+
 IsHealed:
-is healed
+has healed them self
 
 StatusFXSleep:
 goes to sleep

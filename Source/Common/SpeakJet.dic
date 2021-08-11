@@ -1310,6 +1310,7 @@ seen = \SE \IY \IY \NE
 seesaw = \SE \IY \SE \Slow \OH
 select = \SE \UX \LE \EK \TT
 selected = \SE \EH \LE \EK \TT \Fast \EH \OD
+self = \SE \EH \LE \FF
 set = \SE \EH \TT
 send = \SE \EH \NE \OD
 sensitive = \Slow \SE \Fast \EH \NE \SE \IH \TT \Fast \IH \Slow \VV
