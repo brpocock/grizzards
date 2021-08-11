@@ -72,7 +72,9 @@ CheckForSpeech:
           beq +
           .SetUtterance Phrase_StatusFXAttack
           inc DeltaY
+          bne CheckForAlarm     ; always taken
 +
+          inc DeltaY
 PassAttack:
           lda DeltaY
           cmp # 2
@@ -83,7 +85,9 @@ PassAttack:
           beq +
           .SetUtterance Phrase_StatusFXDefend
           inc DeltaY
+          bne CheckForAlarm     ; always taken
 +
+          inc DeltaY
 PassDefend:
           lda DeltaY
           cmp # 3
@@ -93,8 +97,8 @@ PassDefend:
           .BitBit LevelUpMaxHP
           beq +
           .SetUtterance Phrase_MaxHP
-          inc DeltaY
 +
+          inc DeltaY
 
 CheckForAlarm:
           lda ClockSeconds
