@@ -161,6 +161,8 @@
           ServiceShowMove = $06
           ServiceShowMoveDecoded = $17
           ServiceShowText = $02
+          ServiceCombatIntro = $1b
+          ServiceCombatVictory = $1c
 
 ;;; Map services bank, same
 

@@ -8,7 +8,7 @@ CombatIntroScreen:  .block
           lda #SoundSweepUp
           sta NextSound
 
-          lda # 1
+          lda # 2
           jsr SetNextAlarm
 Loop:
           .WaitScreenTop
@@ -24,7 +24,7 @@ Loop:
           .SetPointer CombatText
           jsr CopyPointerText
           jsr Prepare48pxMobBlob
-          .FarJSR TextBank, ServiceDecodeAndShowText
+          jsr DecodeAndShowText
 
           .WaitScreenBottom
 
@@ -32,6 +32,7 @@ Loop:
           cmp ClockSeconds
           bne Loop
 
+          rts
           .bend
 
           ;; falls through to CombatMainScreen
