@@ -102,6 +102,8 @@ FarReturn:
 ;;; BRK vector jumps to the routine Failure
 ;;; (the Sad Face routine)
 Break:
+          lda # BANK
+          pha
           BankJump Failure, FailureBank
 
 ;;; Save and Quit

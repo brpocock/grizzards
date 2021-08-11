@@ -1,6 +1,28 @@
 ;;; Grizzards Source/Routines/Failure.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
 Failure:	.block
+          tsx
+          cpx #$fd
+          bge NoStack
+
+          pla
+          sta Score + 2
+          pla                   ; discard junk
+          pla
+          sta Score
+          pla
+          sta Score + 1
+
+          jmp DoneWithStack
+
+NoStack:
+          lda # 0
+          sta Score
+          sta Score + 1
+          sta Score + 2
+
+DoneWithStack:
+Loop:
           .WaitScreenTop
 
           lda # 0
@@ -15,8 +37,8 @@ Failure:	.block
           lda GameMode
           cmp #ModeNoAtariVox
           bne WhiteSadFace
-          
-          lda #COLRED
+
+          .ldacolu COLRED, $6
           jmp CommonSadness
 
 WhiteSadFace:
@@ -24,6 +46,9 @@ WhiteSadFace:
 
 CommonSadness:      
           sta COLUPF
+          .ldacolu COLRED, $a
+          sta COLUP0
+          sta COLUP1
           lda #CTRLPFREF
           sta CTRLPF
 
@@ -40,31 +65,27 @@ DrawSadFace:
           tya
           .SkipLines 20
 
-          .if TV != SECAM
-          lda #COLGRAY|$4
-          sta COLUBK
-          lda #COLGRAY|$a
-          sta COLUPF
-          .fi
+          lda GameMode
+          cmp #ModeNoAtariVox
+          bne Crashed
+NoVoxMessage:
+          .SetPointer MemoryText
+          jsr DrawPointerText
+          .SetPointer DeviceText
+          jsr DrawPointerText
+          .SetPointer NeededText
+          jsr DrawPointerText
+          jmp ShowReturnAddress
+
+Crashed:
+          .SetPointer ErrorText
+          jsr DrawPointerText
           
-          ldx #0
-DumpBits:
-          lda $80, x
-          sta PF1
-          inx
-          lda $80, x
-          sta PF2
-          sta WSYNC
-          .if TV != NTSC
-          txa
-          and #$02
-          beq +
-          sta WSYNC
-+
-          .fi
-          inx
-          cpx #$80
-          bne DumpBits
+ShowReturnAddress:
+          jsr DecodeScore
+          .FarJSR TextBank, ServiceDecodeAndShowText
+
+          .SkipLines 4
 
           lda #0
           sta PF1
@@ -79,12 +100,27 @@ DumpBits:
           beq Reset
 SkipSwitches:	
 
-          jmp Failure
+          jmp Loop
 
 Reset:
           jmp GoColdStart
-          
 
+;;; 
+
+DrawPointerText:
+          jsr CopyPointerText
+          .FarJMP TextBank, ServiceDecodeAndShowText
+
+;;; 
+
+MemoryText:
+          .MiniText "MEMORY"
+DeviceText:
+          .MiniText "DEVICE"
+NeededText:
+          .MiniText "NEEDED"
+ErrorText:
+          .MiniText "ERROR "
 SadFace:
           .byte %11111100
           .byte %00000010
@@ -94,5 +130,5 @@ SadFace:
           .byte %00110001
           .byte %00000010
           .byte %11111100
-          
+
           .bend
