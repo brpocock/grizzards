@@ -27,7 +27,7 @@ Loop:
           .ldacolu COLTURQUOISE, $f
           sta COLUBK
 
-          .SkipLines KernelLines / 3
+          .SkipLines KernelLines / 4
 
           .SetPointer LevelText
           jsr ShowPointerText
@@ -57,28 +57,44 @@ Loop:
 
 CheckForSpeech:
           lda DeltaY
-          bne CheckForAlarm
+          cmp # 4
+          bge CheckForAlarm
 
           lda CurrentUtterance + 1
           bne CheckForAlarm
+
+          lda DeltaY
+          cmp # 1
+          bge PassAttack
 
           lda DeltaX
           .BitBit LevelUpAttack
           beq +
           .SetUtterance Phrase_StatusFXAttack
+          inc DeltaY
 +
+PassAttack:
+          lda DeltaY
+          cmp # 2
+          bge PassDefend
+
           lda DeltaX
           .BitBit LevelUpDefend
           beq +
           .SetUtterance Phrase_StatusFXDefend
+          inc DeltaY
 +
+PassDefend:
+          lda DeltaY
+          cmp # 3
+          bge CheckForAlarm
+
           lda DeltaX
           .BitBit LevelUpMaxHP
           beq +
           .SetUtterance Phrase_MaxHP
+          inc DeltaY
 +
-          lda # 1
-          sta DeltaY
 
 CheckForAlarm:
           lda ClockSeconds
