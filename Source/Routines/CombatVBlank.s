@@ -18,11 +18,7 @@ CombatLogic:
           cmp AlarmSeconds
           beq DoAutoMove
 
-          ldx # KernelLines - 180
--
-          stx WSYNC
-          dex
-          bne -
+          .SkipLines KernelLines - 180
           jmp CheckSwitches
 ;;; 
 DoAutoMove:
@@ -32,13 +28,12 @@ MaybeDoPlayerMove:
           lda StatusFX
           .BitBit StatusSleep
           bne DoPlayerSleep
-          .BitBit StatusMuddle
+          and #StatusMuddle
           bne DoPlayerMuddled
           beq CheckStick        ; always taken
 
 DoPlayerSleep:
           jsr Random
-          bpl +
           bpl +
           lda StatusFX
           ora #~StatusSleep
