@@ -48,6 +48,10 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
     print "\\\n\tObject/Bank$bank.Demo.$tv.o " if hex("0x$bank") < 8;
   }
 
+  print "
+\tmkdir -p Dist
+\tcat \$^ > \$\@\n\n";
+
   print "\n\nDist/Grizzards.NoSave.$tv.a26:\t";
 
   for my $bank (@banks) {
