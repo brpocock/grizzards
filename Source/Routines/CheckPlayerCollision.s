@@ -16,11 +16,15 @@ NoBumpWall:
 BumpSprite:
           jsr BumpWall
 
-          lda BumpCooldown
-          bne DonePlayerMove
-
           ldx SpriteFlicker
           lda SpriteAction, x
+
+          cmp #SpriteDoor       ; Doors ignore cooldown timer
+          beq DoorWithSprite
+
+          ldy BumpCooldown
+          bne DonePlayerMove
+
           cmp #SpriteDoor
           beq DoorWithSprite
           cmp #SpriteCombat
@@ -58,7 +62,7 @@ FightWithSpriteX:
 DoorWithSprite:
           lda SpriteParam, x
           sta NextMap
-          ldy #ModeMapNewRoom
+          ldy #ModeMapNewRoomDoor
           sty GameMode
           rts
 

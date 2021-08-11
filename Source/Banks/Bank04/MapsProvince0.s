@@ -315,7 +315,7 @@ MapSides:
 SpriteList:
           ;; Room 0
           .byte $ff, SpriteFixed              ; not removeable, fixed position sprite
-          .byte $7d, $42         ; x, y position
+          .byte $7d, $30         ; x, y position
           .byte SpriteDoor, 3   ; action
 
           .byte $ff, SpriteFixed

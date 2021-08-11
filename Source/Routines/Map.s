@@ -429,6 +429,9 @@ Leave:
           cmp #ModeMapNewRoom
           beq MapSetup.NewRoom
 
+          cmp #ModeMapNewRoomDoor
+          beq MapSetup.NewRoom
+
           ldx # 0
           stx CurrentMusic + 1
 

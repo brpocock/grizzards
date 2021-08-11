@@ -27,6 +27,7 @@
 
           ModeMap = $30
           ModeMapNewRoom = $31
+          ModeMapNewRoomDoor = $32
 
           ModeCombat = $40
           ModeCombatAnnouncement = $41
