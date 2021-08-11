@@ -15,6 +15,7 @@ DoVBlankWork:
           .include "CombatVBlank.s"
 DoLocal:  
           .include "CombatSetup.s"
+          .FarJSR TextBank, ServiceCombatIntro
           .include "CombatMainScreen.s"
           .include "GrizzardStatsScreen.s"
           .include "CombatAnnouncementScreen.s"

@@ -29,6 +29,8 @@ DoLocal:
           beq FetchGrizzardMove
           cpy #ServiceLevelUp
           beq LevelUp
+          cpy #ServiceCombatIntro
+          beq CombatIntroScreen
           brk
 
 DecodeAndShowText:
@@ -60,6 +62,7 @@ ShowMoveDecoded:
           .include "FetchGrizzardMove.s"
           .include "Random.s"
           .include "CombatOutcomeScreen.s"
+          .include "CombatIntroScreen.s"
           .include "LevelUp.s"
 
           .include "GrizzardNames.s"
@@ -67,5 +70,8 @@ ShowMoveDecoded:
           .include "MovesTable.s"
           .include "StringsTable.s"
           .include "WaitScreenBottom.s"
+
+CombatText:
+          .MiniText "COMBAT"
 
 	.include "EndBank.s"

@@ -87,5 +87,5 @@ SetUpOtherCombatVars:
 
           .WaitScreenBottom
 
-          ;; MUST be followed by CombatMainScreen directly
+          ;; MUST be followed by CombatIntroScreen directly
           .bend
