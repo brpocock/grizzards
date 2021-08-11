@@ -370,20 +370,12 @@ HPLevelUpDone:
           jsr LevelUp
 
 NoLevelUp:
-
-;;; TODO Check if they have won the game
-          .fill $30, $ea        ; pad with some NOPs to reserve space
-
 WonReturnToMap:
           lda #SoundVictory
           sta NextSound
 
-          .SetUtterance Phrase_Victory
-          
-          lda #ModeMap
-          sta GameMode
           .WaitScreenBottom
-          jmp GoMap
+          jmp CombatVictoryScreen
 
 CheckForLoss:
           lda CurrentHP

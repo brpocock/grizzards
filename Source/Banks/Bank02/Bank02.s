@@ -31,6 +31,8 @@ DoLocal:
           beq LevelUp
           cpy #ServiceCombatIntro
           beq CombatIntroScreen
+          cpy #ServiceCombatVictory
+          beq CombatVictoryScreen
           brk
 
 DecodeAndShowText:
@@ -63,6 +65,7 @@ ShowMoveDecoded:
           .include "Random.s"
           .include "CombatOutcomeScreen.s"
           .include "CombatIntroScreen.s"
+          .include "CombatVictoryScreen.s"
           .include "LevelUp.s"
 
           .include "GrizzardNames.s"
@@ -73,5 +76,7 @@ ShowMoveDecoded:
 
 CombatText:
           .MiniText "COMBAT"
+Victory2Text:
+          .MiniText "  WON "
 
 	.include "EndBank.s"
