@@ -18,3 +18,5 @@ HealedText:
           .MiniText "HEAL00"
 MissedText:
           .MiniText "MISSED"
+KilledText:
+          .MiniText "KILLED"

@@ -39,6 +39,22 @@ LoopFirst:
           beq SkipHitPoints
           sta Temp              ; for later decoding
 
+CheckForPulse:
+          ldx WhoseTurn
+          beq CheckMonsterPulse2
+          lda CurrentHP
+          bne PrintInjured
+PrintKilled:
+          .SetPointer KilledText
+          jsr CopyPointerText
+          jsr DecodeAndShowText
+          jmp AfterHitPoints
+
+CheckMonsterPulse2:
+          ldx MoveTarget
+          lda MonsterHP - 1, x
+          beq PrintKilled
+PrintInjured:
           .SetPointer HPLostText
           jmp DrawHitPoints
 
@@ -59,10 +75,7 @@ DrawHitPoints:
           jmp AfterHitPoints
 
 SkipHitPoints:
-          .if TV == NTSC
-          ;; XXX PAL ran out of space
           .SkipLines 34
-          .fi
 ;;; 
 AfterHitPoints:
           lda MoveAnnouncement
@@ -186,9 +199,21 @@ Speech1:
           lda MoveHP
           beq SpeechQueued
           bmi SayHealed
+SayInjuredOrKilled:
+          ldx WhoseTurn
+          beq CheckMonsterPulse
+          lda CurrentHP
+          bne SayInjured
+SayKilled:
+          .SetUtterance Phrase_IsKilled
+          bne SpeechQueued      ; always taken
+
+CheckMonsterPulse:
+          ldx MoveTarget
+          lda MonsterHP - 1, x
+          beq SayKilled
 SayInjured:
           .SetUtterance Phrase_IsInjured
-
           bne SpeechQueued        ; always taken
 
 SayMissed:

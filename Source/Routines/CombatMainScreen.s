@@ -68,7 +68,7 @@ BeginPlayerSection:
           .if TV == NTSC
           .TimeLines KernelLines - 101
           .else
-          .TimeLines KernelLines - 110
+          .TimeLines KernelLines - 112
           .fi
 
           sta WSYNC
