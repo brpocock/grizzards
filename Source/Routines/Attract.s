@@ -6,7 +6,7 @@ Attract:  .block
           ;;
 
           .WaitScreenTop
-          jsr SeedRandom
+
           ldx #$80
           lda #0
 ZeroRAM:
@@ -14,6 +14,9 @@ ZeroRAM:
           dex
           bne ZeroRAM
 
+WarmStart:
+          ldx #$ff
+          txs
           jsr SeedRandom
 
           lda # SoundAtariToday
@@ -218,6 +221,10 @@ Leave:
           lda #ModeSelectSlot
           sta GameMode
           .WaitScreenBottom
+          .if NOSAVE
+          jmp BeginOrResume
+          .else
           jmp SelectSlot
+          .fi
 ;;; 
           .bend

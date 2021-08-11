@@ -61,6 +61,8 @@ DoLocal:
           beq PeekGrizzard
           cpy #ServiceSaveGrizzard
           beq SaveGrizzard
+          cpy #ServiceAttract
+          beq Attract.WarmStart
           brk
 
 	.include "ColdStart.s"
@@ -71,16 +73,30 @@ DoLocal:
           ;; falls through to
           .include "Attract.s"
 
-          .include "SaveToSlot.s"
+          .if NOSAVE
 
-          .include "Random.s"
+          ;; Dummy out SaveKey routines
+SaveToSlot:
+SaveGrizzard:
+          rts
+PeekGrizzard:
+          lda Temp
+          cmp # 1
+          beq +
+          clc
+          rts
++
+          sec
+          rts
+
+          .include "BeginOrResume.s"
+
+          .else
+          
+          .include "SaveToSlot.s"
+          .include "PeekGrizzard.s"
           .include "SelectSlot.s"
           .include "LoadSaveSlot.s"
-          .include "48Pixels.s"
-          .include "Prepare48pxMobBlob.s"
-          .include "VSync.s"
-          .include "VBlank.s"
-          .include "Overscan.s"
           .include "AtariVox-EEPROM-Driver.s"
           .include "CheckSaveSlot.s"
           .include "LoadGrizzardData.s"
@@ -89,13 +105,21 @@ DoLocal:
           .include "EraseSlotSignature.s"
           .include "SetGrizzardAddress.s"
           .include "SaveGrizzard.s"
+
+          .fi
+
+          .include "Random.s"
+          .include "48Pixels.s"
+          .include "Prepare48pxMobBlob.s"
+          .include "VSync.s"
+          .include "VBlank.s"
+          .include "Overscan.s"
           .include "PreambleAttracts.s"
           .include "AttractCopyright.s"
           .include "Credits.s"
           .include "CopyPointerText.s"
           .include "SetNextAlarm.s"
           .include "Bank0Strings.s"
-          .include "PeekGrizzard.s"
           .include "WaitScreenBottom.s"
 
 ShowPointerText:

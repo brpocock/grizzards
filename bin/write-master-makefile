@@ -29,7 +29,7 @@ AS2600=64tass ${ASFLAGS} --m6502
 
 ';
 
-for my $bank (qw( 05 07 08 09 0a 0b 0c 0d 0e 0f )) {
+for my $bank (qw( 05 07 08 09 0a 0b 0c 0d 0e )) {
   print "Source/Generated/Bank$bank/SpeakJetIDs.s:	\$(shell ls -1 Source/Banks/Bank$bank/*Speech.txt)
 	bin/make-speakjet-enums $bank
 
@@ -42,10 +42,16 @@ my %rules = ();
 
 for my $tv ('NTSC', 'PAL', 'SECAM') {
 
-  print "Dist/Grizzards.Demo.$tv.a26:\t";
+  print "\n\nDist/Grizzards.Demo.$tv.a26:\t";
 
   for my $bank (@banks) {
     print "\\\n\tObject/Bank$bank.Demo.$tv.o " if hex("0x$bank") < 8;
+  }
+
+  print "\n\nDist/Grizzards.NoSave.$tv.a26:\t";
+
+  for my $bank (@banks) {
+    print "\\\n\tObject/Bank$bank.NoSave.$tv.o " if hex("0x$bank") < 8;
   }
 
   print "
@@ -175,13 +181,22 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
 \tbin/label2sym \$\@.labels.txt\n\n";
 
       if (1 == $starter and hex("0x$bank") < 8) {
-        print "Object/Bank$bank.Demo.$tv.o:\t";
+        print "\n\nObject/Bank$bank.Demo.$tv.o:\t";
         for my $file (@files) {
           print "\\\n\t$file";
         }
         print "
 \tmkdir -p Object
 \t\${AS2600} -DTV=$tv -DDEMO=true -I Source/Generated/Bank$bank -l \$\@.labels.txt -L \$\@.list.txt \$< -o \$\@\n
+\tbin/label2sym \$\@.labels.txt\n\n";
+
+        print "\n\nObject/Bank$bank.NoSave.$tv.o:\t";
+        for my $file (@files) {
+          print "\\\n\t$file";
+        }
+        print "
+\tmkdir -p Object
+\t\${AS2600} -DTV=$tv -DDEMO=true -DNOSAVE=true -I Source/Generated/Bank$bank -l \$\@.labels.txt -L \$\@.list.txt \$< -o \$\@\n
 \tbin/label2sym \$\@.labels.txt\n\n";
       }
     }                           # end of bank

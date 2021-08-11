@@ -58,6 +58,6 @@ LoopFirst:
           jmp Loop
 
 Leave:
-          jmp GoColdStart
+          .FarJMP SaveKeyBank, ServiceAttract
 
           .bend

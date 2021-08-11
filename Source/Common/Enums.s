@@ -186,6 +186,7 @@
           ServicePeekGrizzard = $12
           ServiceSaveGrizzard = $11
           ServiceSaveToSlot = $10
+          ServiceAttract = $1f
 ;;; 
 ;;; Maximum number of Grizzards allowed
 ;;; The save/load routines should handle up to 36
@@ -195,7 +196,7 @@
 ;;; Screen boundaries for popping to the next screen
 
           ScreenLeftEdge = 32
-          ScreenRightEdge = 170
+          ScreenRightEdge = $c8
           ScreenTopEdge = 8
           ScreenBottomEdge = 75
 ;;; 

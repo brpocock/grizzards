@@ -53,12 +53,20 @@ InitGameVars:
 
           .WaitScreenBottom
 
+          .if NOSAVE
+
+          lda #$ff
+          sta ProvinceFlags + 4
+
+          .else
+
 Loop:
           .WaitScreenTopMinus 1, 2
 
           lda StartGameWipeBlock
           cmp #$ff
           beq Leave
+
 
           jsr i2cStartWrite
           bcc LetsStart
@@ -108,9 +116,13 @@ WaitForScreenEnd:
           beq Leave
           .WaitScreenBottom
           jmp Loop
+
 Leave:
           .WaitScreenBottom
           .FarJSR SaveKeyBank, ServiceSaveToSlot
+
+          .fi       ; NOSAVE off
+
           jmp GoMap
 
           .bend

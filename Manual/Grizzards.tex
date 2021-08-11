@@ -109,8 +109,8 @@ Copyright \copyright{} 2021, Bruce-Robert Pocock
 
 This  version is  for systems  in \REGION{}  using the  \TV{} television
 standard. For Atari  Video Computer System CX-2600  (or Sears Tele-Games
-Video  Arcade or  Atari 7800  ProSystem) with  AtariVox (or  MemCard, or
-SaveKey) device.
+Video Arcade  or Atari  7800 ProSystem) \ifdefined\NOSAVE  without \else
+with \fi AtariVox (or MemCard, or SaveKey) device.
 
 \bigskip
 
@@ -143,17 +143,21 @@ To play \textit{Grizzards}, you will need:
 \item A TV or video display
 \item        A        joystick         controller        (or        SEGA
   \ifdefined\TVNTSC{Genesis/}\fi{}MegaDrive gamepad)
+  \ifdefined\NOSAVE\else
 \item A  memory device: an  AtariVox device with (optional)  speakers or
   headphones, or a MemCard or SaveKey device.
+  \fi
 \item The \textit{Grizzards} game cartridge
 \end{itemize}
 
+\ifdefined\NOSAVE\else
 \begin{figure*}[b]
   \begin{center}
     \includegraphics[width=\columnwidth]{../Manual/AtariVox.jpeg}
     \includegraphics[width=\columnwidth]{../Manual/SaveKey.jpeg}
   \end{center}
 \end{figure*}
+\fi
 
 Set up  your console with your  TV or video display.  Connect a joystick
 controller (or SEGA  \ifdefined\TVNTSC{Genesis/}\fi{}MegaDrive gamepad) to
@@ -205,7 +209,11 @@ game, and again to resume playing.
 \subsection{Game Select}
 
 When  viewing the  Title Screen,  you can  use the  \textbf{Game Select}
-switch to choose the Slot you wish to use to save your progress.
+switch to \ifdefined\NOSAVE
+begin your game or start over
+\else
+choose the Slot you wish to use to save your progress.
+\fi
 
 While you  are playing the  game, you  can use the  \textbf{Game Select}
 switch to review your Grizzard's  statistics from the Map screen, Combat
@@ -245,7 +253,7 @@ are playing.
 
 A   SEGA  \ifdefined\TVNTSC{Genesis/}\fi{}MegaDrive   gamepad  (or   other
 compatible controller) may also be used with \textit{Grizzards}. Use the
-\textbf{B} button  as the Fire button.  Use the \textbf{C} button  as an
+\textbf{B} button  as the \textbf{Fire} button.  Use the \textbf{C} button  as an
 alternative way to press the \textbf{Game Select} switch.
 
 Your gamepad must be plugged in before you turn on the power if you want
@@ -266,7 +274,16 @@ AtariVox device, you'll also hear the title spoken.
   \includegraphics[width=\columnwidth]{../Manual/SelectSlot\TV.png}
 \end{center}
 
-Press the  \textbf{Game Select}  switch or  Fire button  to move  to the
+Press the \textbf{Game Select} switch or \textbf{Fire} button to move to
+the
+\ifdefined\NOSAVE
+Start Game screen.
+
+Press the  joystick left or  right to choose whether  to \texttt{RESUME}
+your current game  in progress or \texttt{BEGIN} a new  game, then press
+\textbf{Game Reset} or the \textbf{Fire} button.
+
+\else
 Select Slot screen.
 
 Press  the \textbf{Game  Select} switch  or move  the joystick  left and
@@ -290,10 +307,12 @@ not have a private area reserved for it yet.
 \fi
 
 When you have selected the slot you want to begin (or resume), press the
-\textbf{Game Reset} switch or Fire button to start.
+\textbf{Game Reset} switch or \textbf{Fire} button to start.
+
+\fi
 
 You'll begin in the ruins of  Treble Village after the monsters invaded.
-You know that to the east are  the extremely dangerous Fire Bog, so your
+You know that to the east are  the extremely dangerous \textbf{Fire} Bog, so your
 best  bet   is  to  head   west  (left)  and   see  if  there   are  any
 other survivors.
 
@@ -384,7 +403,9 @@ Touch the Grizzard Depot on the map screen to enter it.
   \end{center}
 \end{figure*}
 
+\ifdefined\NOSAVE\else
 Your progress will \emph{immediately} be saved to your memory device.
+\fi
 
 At  a  Grizzard  Depot  your  Grizzard partner  will  be  fully  healed.
 \ifdefined\DEMO\else You can then use the joystick to choose a different
@@ -404,7 +425,7 @@ which  Grizzard will  be  your  companion. Press  up  (forward) or  down
 Grizzards.
 \fi
 
-When you're ready to return to your adventure, press the Fire button.
+When you're ready to return to your adventure, press the \textbf{Fire} button.
 
 
 \section{Battling Monsters}
@@ -437,7 +458,7 @@ Most  Moves will  target one  monster  that you're  facing. (Some  Moves
 instead affect yourself.) Press left or right on the joystick controller
 to select a target if you're facing multiple monsters.
 
-When you  see the selection  you want, press  the Fire button.  You must
+When you  see the selection  you want, press  the \textbf{Fire} button.  You must
 select a move that your Grizzard knows how to perform.
 
 To review the statistics of your Grizzard, press \textbf{Game Select}.
@@ -463,10 +484,14 @@ reduce in  length. When your Grizzard  is nearly out of  hit points, the
 bar will change to a red color to draw attention to that fact.
 
 If your  Grizzard is defeated, the  monsters will surely eat  you alive.
-Your adventure  will end there, and  you'll return to the  title screen.
+Your adventure will end there, and you'll return to the title screen.
+\ifdefined\NOSAVE
+You can  resume your  game from  the Start Game  screen, or  start over.
+\else
 Don't worry, though;  you can continue from the last  Grizzard Depot you
 visited by  resuming your  game's saved progress.  Just choose  the same
 game slot and resume and try again.
+\if
 
 If you  defeat all of  the monsters, victory  is yours! Your  score will
 increase, and you'll return to the World Map screen victorious.
@@ -489,7 +514,7 @@ black on the Combat display.
 You can  also press  the \textbf{Game Select}  switch while  viewing the
 Map, Combat, or a Grizzard Depot to review your Grizzard's statistics.
 
-Once  you've reviewed  them,  press the  Fire button  to  return to  the
+Once  you've reviewed  them,  press the  \textbf{Fire} button  to  return to  the
 previous screen.
 
 Each Grizzard companion has a few statistics:
@@ -583,13 +608,20 @@ Your ``final'' score will appear above the fireworks display.
 
 \section{Starting Over}\label{Starting Your Adventure Over}
 
+\ifdefined\NOSAVE
+
+When  you  start  the  game,  you can  \texttt{BEGIN}  a  new  game,  or
+\texttt{RESUME} your existing game.
+
+\else
+
 When you choose a  slot with no game record in  it already, you'll begin
 a new adventure.
 
 If you want to delete your adventure  and start again, it's a little bit
 tricky. This is to make sure you don't accidentally lose your progress!
 
-From the  Title Screen, press  \textbf{Game Select} or the  Fire button.
+From the  Title Screen, press  \textbf{Game Select} or the  \textbf{Fire} button.
 Then, press  \textbf{Game Select}  or move the  joystick left  and right
 until the slot you want to erase is shown.
 
@@ -599,7 +631,7 @@ Here's the tricky part. You'll need to:
 \item Make sure that both of the Difficulty Switches on your console
   are set to the ``A'' (Advanced or Expert) position.
 \item With your joystick controller, pull down (toward you) on the
-  joystick and hold down the Fire button.
+  joystick and hold down the \textbf{Fire} button.
 \end{itemize}
 
 The screen  will change from  saying ``\texttt{SELECT SLOT}''  to saying
@@ -607,7 +639,7 @@ The screen  will change from  saying ``\texttt{SELECT SLOT}''  to saying
 your attention.
 
 If  you're  \emph{sure}   you  want  to  erase  your   game  data,  then
-\emph{without}  letting go  of the  Fire  button, move  the joystick  up
+\emph{without}  letting go  of the  \textbf{Fire}  button, move  the joystick  up
 (toward  the TV).  You'll see  that the  slot changes  from ``\texttt{IN
   USE}'' to ``\texttt{VACANT}'' \emph{immediately}.
 
@@ -628,6 +660,7 @@ the ``B'' position.
 
 \fi
 
+\if % not-nosave
 \chapter{Grizzards and Moves}
 
 There are  30 Grizzards in  the game world,  each with their  own unique
@@ -755,6 +788,8 @@ there is a problem.
 From here, you can press the \textbf{Game Reset} switch to return to the
 Title Screen.
 
+\ifdefined\NOSAVE\else
+
 \subsection{Red Sad Face Screen}
 
 \includegraphics[width=\columnwidth]{../Manual/RedSadFace\TV.png}
@@ -763,6 +798,8 @@ The red  sad face screen  means that your  memory device was  not found.
 Turn off  your console and connect  an AtariVox, SaveKey, or  MemCard to
 the right  controller port. You  may plug  in speakers or  headphones to
 your AtariVox so that you can hear the game voices.
+
+\fi
 
 \subsection{White Sad Face Screen}
 
@@ -773,10 +810,12 @@ and cannot continue.
 
 You  should   not  be  able   to  reach  this  screen.   Please  contact
 \href{mailto:support@star-hope.org}{support@star-hope.org}           for
-additional assistance.
+additional assistance. Send the code  number that appears on this screen
+with your email.
 
+\ifdefined\NOSAVE\else
 
-\section{TV goes blank when saving}
+\section{TV goes blank when entering Grizzard Depot}
 
 Make sure your memory device is  connected. If your memory device is not
 connected when the game tries to save, you may see the TV picture remain
@@ -784,7 +823,6 @@ blank while the game tries to record your progress.
 
 \section{No voices}
 
-Make sure  that you have  speakers plugged  in to your  AtariVox device.
 When the game first starts the title screen, after a brief pause, you'll
 hear the AtariVox announce the name of the game. If you don't, make sure
 that  the AtariVox  is connected  and the  speakers (or  headphones) are
@@ -792,6 +830,8 @@ connected, powered on, and turned up.
 
 Naturally,  there  are  no  voices   when  playing  with  a  MemCard  or
 SaveKey device. 
+
+\fi
 
 \chapter{Technical Notes}
 
@@ -803,6 +843,16 @@ understand anything in this section to play \textit{Grizzards}.
 The \textit{Grizzards} source code and development tools are available from
 \href{https://Star-Hope.org/games/Grizzards/}{https://Star-Hope\-.org/\-games/\-Grizzards/} 
 the \textit{Grizzards} web site.
+
+\ifdefined\NOSAVE
+
+\section{No-Save Version}
+
+This special No-Save demo does not  allow you to save your progress, but
+it can  be used without  a memory device  (such as SaveKey,  MemCard, or
+AtariVox). When you turn off power to your console, all progress is erased.
+
+\else
 
 \section{Game Record Slots}
 
@@ -872,6 +922,8 @@ ones that will be used in the final game.
 
 \fi
 
+\fi % not no-save
+
 \chapter{Credits}
 
 {\small
@@ -914,6 +966,11 @@ James Earl O'Brien,
 Darcy Troy Paulin,
 Philip
 
+An early  (alpha) version of the  game's demo was featured  on Zero Page
+Homebrew     on     Twitch     on    Friday,     6     August,     2021.
+\href{https://twitch.tv/zeropagehomebrew}{https://twitch.tv/\-zero\-page\-homebrew}
+\href{https://youtu.be/yCFDxUqdP-k?t=4200}{https://youtu.be/\-yCFDxUqdP-k?t=4200}
+
 This section will list anyone who helps to playtest this game. ***
 
 }
@@ -928,10 +985,7 @@ The \textit{Grizzards} videogame software has not yet been published.
 It is ``alpha'' quality software.
 
 A demo  version was  created in July  and August,  2021. \ifdefined\DEMO
-This manual describes  that demo. \fi This demo is  going to be featured
-on Zero Page Homebrew on Twitch on Friday, 6 August, 2021.
-
-\href{https://twitch.tv/zeropagehomebrew}{https://twitch.tv/\-zero\-page\-homebrew}
+This manual describes that demo. \fi
 
 \subsection{License}
 

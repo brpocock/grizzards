@@ -13,6 +13,7 @@
           DEMO := false
           PUBLISHER := false
           TV := NTSC
+          NOSAVE := false
           .endweak
 
           .weak

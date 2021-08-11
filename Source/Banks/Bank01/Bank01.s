@@ -51,7 +51,11 @@ DoLocal:
           .include "SpriteMovement.s"
           .include "UserInput.s"
 
+          .if NOSAVE
+          .else
           .include "AtariVox-EEPROM-Driver.s"
+          .fi
+
           .include "WaitScreenBottom.s"
 
 	.include "EndBank.s"
