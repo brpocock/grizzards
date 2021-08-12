@@ -12,7 +12,7 @@ Loop:
 
           ;; drawing the monsters seems to sometimes be a little variable in its timing, so we'll use a timer.
           .if TV == NTSC
-          .TimeLines 96
+          .TimeLines 93
           .else
           .TimeLines 104
           .fi
@@ -66,7 +66,7 @@ DelayAfterMonsters:
 ;;; 
 BeginPlayerSection:
           .if TV == NTSC
-          .TimeLines KernelLines - 101
+          .TimeLines KernelLines - 104
           .else
           .TimeLines KernelLines - 112
           .fi
