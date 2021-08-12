@@ -462,8 +462,6 @@ NotLastMonster:
           lda # 6
           sta AlarmCountdown
 BackToMain:
-          .WaitScreenBottom
-
           jmp CombatMainScreen
 ;;; 
           .bend

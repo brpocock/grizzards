@@ -154,7 +154,7 @@ DoneHealth:
           .WaitForTimer
 
           .if TV == NTSC
-          .SkipLines 2
+          .SkipLines 8
           .fi
           jmp ScreenDone
 
@@ -224,10 +224,13 @@ RunAway:
 
           lda #ModeMap
           sta GameMode
-          ;; fall through
+          bne RunningAway                 ; always taken
 ;;; 
 ScreenDone:
-          .SkipLines 3
+          stx WSYNC
+RunningAway:
+          stx WSYNC
+          stx WSYNC
           jsr Overscan
 
           lda GameMode
