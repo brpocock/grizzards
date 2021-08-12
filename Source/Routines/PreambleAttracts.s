@@ -6,10 +6,10 @@ Preamble: .block
           .if PUBLISHER
 
 PublisherPresentsMode:
-          .SetUpFortyEight PublisherCredit
+          .SetUpFortyEight AtariAgeLogo
           .ldacolu COLGRAY, $f
           sta COLUBK
-          ldy # PublisherCredit.Height
+          ldy # AtariAgeLogo.Height
           .ldacolu COLTURQUOISE, $8
 
           .else
@@ -43,9 +43,10 @@ SingleGraphicAttract:
           jsr ShowPicture
 
           .if PUBLISHER
-            .SetUpFortyEight PublisherName
-            ldy #PublisherName.Height
-            sty LineCounter
+            .SetUpFortyEight AtariAgeText
+            ldy #AtariAgeText.Height
+          sty LineCounter
+          sty WSYNC
             jsr ShowPicture
           .fi
 
