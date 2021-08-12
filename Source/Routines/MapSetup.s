@@ -210,53 +210,8 @@ AddPlacedSprite:
           rts
 
 SpritesDone:
-
-          ;; Remove any Grizzard who is already a companion.
-          ;; New Grizzards must be the last sprite on the list for a room.
-          ldx SpriteCount
-          dex
-
-          lda SpriteAction, x
-          cmp #SpriteGrizzard
-          bne +
-
-          lda SpriteParam, x
-          sta Temp
-          .FarJSR SaveKeyBank, ServicePeekGrizzard
-          bcc +                 ; Grizzard not found
-          dec SpriteCount
-+
-
-          lda GameMode
-          cmp #ModeMapNewRoomDoor
-          bne DonePlacing
-PlacePlayerUnderDoor:
-          ldx SpriteCount
-          beq DonePlacing
-
-          ldx #0
-CheckNextSpriteForDoor:
-          lda SpriteAction, x
-          cmp #SpriteDoor
-          bne NotADoor
-
-          lda SpriteX, x
-          sta PlayerX
-          sta BlessedX
-
-          lda SpriteY, x
-          clc
-          adc #12
-          sta PlayerY
-          sta BlessedY
-
-          bne DonePlacing       ; always taken
-
-NotADoor:
-          inx
-          cmp SpriteCount
-          bne CheckNextSpriteForDoor
-DonePlacing:
+;;; 
+          .FarJSR MapServicesBank, ServiceValidateMap
 ;;; 
           .WaitScreenBottom
           stx WSYNC

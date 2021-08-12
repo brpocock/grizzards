@@ -31,6 +31,8 @@ DoLocal:
           beq GrizzardDepot
           cpy #ServiceGrizzardStatsScreen
           beq GrizzardStatsScreen
+          cpy #ServiceValidateMap
+          beq ValidateMap
           brk
 
           .include "CopyPointerText.s"
@@ -43,7 +45,7 @@ DoLocal:
 
           .include "GrizzardStatsScreen.s"
           .include "GrizzardDepot.s"
-
+          .include "ValidateMap.s"
 
           .include "CheckSpriteCollision.s"
           .include "CheckPlayerCollision.s"

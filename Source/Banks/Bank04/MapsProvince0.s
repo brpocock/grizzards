@@ -604,12 +604,44 @@ SpriteList:
           .byte 0, 0
           .byte SpriteCombat, 24
 
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 25
+
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 25
+
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 25
+
 	.byte 0
 
 	;; Room 22
+          .byte 24, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 24
+
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 25
+
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 25
+
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 25
+
 	.byte 0
 
 	;; Room 23
+          .byte 24, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 24
+
           .byte 24, SpriteFixed
           .byte $77, $27
           .byte SpriteSign, 20  ; beware of grue
@@ -617,6 +649,10 @@ SpriteList:
           .byte 24, SpriteFixed
           .byte $80, $27
           .byte SpriteSign, 20
+
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 25
 
 	.byte 0
 

@@ -170,6 +170,7 @@ NextSprite:
 MovementLogicDone:
           lda #MapFlagSprite1Moved | MapFlagSprite2Moved | MapFlagSprite3Moved | MapFlagSprite4Moved
           ora MapFlags
+          and # ~MapFlagRandomSpawn
           sta MapFlags
 
           rts

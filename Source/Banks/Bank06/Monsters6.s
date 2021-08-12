@@ -111,10 +111,10 @@ Monsters:
           .byte 3, 3, 30, $45
           .byte 0
 
-          .SignText "MONSTR  18  "
-          .byte 2
-          .colu COLBLUE, $8
-          .byte 0, 0, 0, $10
+          .SignText "CAVE  BAT   "
+          .byte 20
+          .colu COLGRAY, $8
+          .byte 2, 2, 10, $10
           .byte 0
 
           .SignText "MONSTR  19  "

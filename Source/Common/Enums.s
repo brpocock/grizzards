@@ -172,6 +172,7 @@
           ServiceGrizzardStatsScreen = $19
           ServiceNewGrizzard = $0c
           ServiceTopOfScreen = $08
+          ServiceValidateMap = $1d
 
 ;;; Animations services
 
@@ -187,7 +188,7 @@
           ServicePeekGrizzard = $12
           ServiceSaveGrizzard = $11
           ServiceSaveToSlot = $10
-          ServiceAttract = $1f
+          ServiceAttract = $1e
 ;;; 
 ;;; Maximum number of Grizzards allowed
 ;;; The save/load routines should handle up to 36
@@ -218,6 +219,7 @@
           MonsterSpareValueIndex = 15
 ;;; 
 ;;; MapFlags values
+          MapFlagRandomSpawn = $04
           MapFlagFacing = $08   ; matches REFP0 REFLECTED bit
           MapFlagSprite1Moved = $10
           MapFlagSprite2Moved = $20

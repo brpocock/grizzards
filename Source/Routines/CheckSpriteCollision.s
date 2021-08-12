@@ -7,6 +7,16 @@ CheckSpriteCollision:         .block
           beq Bye
 
           ldx SpriteFlicker
+
+          lda MapFlags
+          .BitBit MapFlagRandomSpawn
+          bne +
+          lda # 0
+          sta SpriteX, x
+          jsr ValidateMap.CheckSpriteSpawn
+          jmp Bye
+
++ 
           lda # $08
 -
           asl

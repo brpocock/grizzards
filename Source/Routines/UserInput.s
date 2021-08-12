@@ -30,7 +30,7 @@ DoneStickDown:
           bne DoneStickLeft
 
           lda MapFlags
-          and # ~ MapFlagFacing
+          and # ~MapFlagFacing
           sta MapFlags
           lda SWCHA
 
