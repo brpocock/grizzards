@@ -25,6 +25,7 @@ VSync: .block
 
           inc ClockFrame
           lda ClockFrame
+          cmp # FramesPerSecond
           bne FrameNZero
           ldy AlarmCountdown
           beq FrameNZero
@@ -64,8 +65,8 @@ NoTime:
 
           sta WSYNC                    ; VSYNC line 2/3
           sta WSYNC                    ; VSYNC line 3/3
-
-          sty VSYNC                    ; .y = 0
+          ldy # 0
+          sty VSYNC
 
           ;; MUST be followed by VBlank directly
           .bend
