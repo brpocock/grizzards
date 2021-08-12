@@ -13,11 +13,11 @@ DecodeText:	.block
           ldx # 6
           ldy # 11
 StringTimes5:
-          lda StringBuffer, x
+          lda StringBuffer - 1, x
           asl a
           asl a
-          adc StringBuffer, x
-          sta PixelPointers, y
+          adc StringBuffer - 1, x
+          sta PixelPointers - 1, y
           dey
           dey
           dex
