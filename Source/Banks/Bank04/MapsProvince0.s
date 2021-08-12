@@ -455,19 +455,19 @@ SpriteList:
           ;; Room 9
 
           .byte 11, SpriteWander
-          .byte $73, $21
+          .byte 0,0
           .byte SpriteCombat, 9
 
           .byte 12, SpriteWander
-          .byte $73, $32
+          .byte 0,0
           .byte SpriteCombat, 10
 
           .byte 13, SpriteWander
-          .byte $88, $21
+          .byte 0,0
           .byte SpriteCombat, 11
 
           .byte 14, SpriteWander
-          .byte $88, $32
+          .byte 0,0
           .byte SpriteCombat, 12
 
           .byte 0
@@ -518,19 +518,19 @@ SpriteList:
 
 	;; Room 14
           .byte 11, SpriteWander
-          .byte $73, $21
+          .byte 0,0
           .byte SpriteCombat, 9
 
           .byte 12, SpriteWander
-          .byte $73, $32
+          .byte 0,0
           .byte SpriteCombat, 10
 
           .byte 13, SpriteWander
-          .byte $88, $21
+          .byte 0,0
           .byte SpriteCombat, 11
 
           .byte 14, SpriteWander
-          .byte $88, $32
+          .byte 0,0
           .byte SpriteCombat, 12
           
 	.byte 0

@@ -45,6 +45,12 @@ GotRLE:
           sta pp1h
           clc
           lda SpriteAction, x
+          ldy AlarmCountdown
+          beq +
+          cmp #SpriteCombat
+          bne +
+          lda #SpriteCombatPuff
++
           and #$07
           .rept 4
           asl a

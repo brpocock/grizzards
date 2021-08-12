@@ -220,5 +220,8 @@ SpritesDone:
           lda #ModeMap
           sta GameMode
 
+          lda # 2
+          sta AlarmCountdown
+
           ;; fall through to Map
           .bend

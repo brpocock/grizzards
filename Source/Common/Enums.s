@@ -97,6 +97,8 @@
           SpriteDoor = $03
           SpriteSign = $04
           SpritePerson = $05
+          SpriteMajorCombat = $06
+          SpriteCombatPuff = $07
           SpriteProvinceDoor = $07
 ;;; 
           ;; Save game slot address.
@@ -221,7 +223,7 @@
 ;;; MapFlags values
           MapFlagRandomSpawn = $04
           MapFlagFacing = $08   ; matches REFP0 REFLECTED bit
-          MapFlagSprite1Moved = $10
-          MapFlagSprite2Moved = $20
-          MapFlagSprite3Moved = $40
-          MapFlagSprite4Moved = $80
+          MapFlagSprite0Moved = $10
+          MapFlagSprite1Moved = $20
+          MapFlagSprite2Moved = $40
+          MapFlagSprite3Moved = $80

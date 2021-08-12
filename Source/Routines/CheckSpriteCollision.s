@@ -10,21 +10,19 @@ CheckSpriteCollision:         .block
 
           lda MapFlags
           .BitBit MapFlagRandomSpawn
-          bne +
+          bne NoRePosition
+          lda AlarmCountdown
+          bne NoRePosition
           lda # 0
           sta SpriteX, x
           jsr ValidateMap.CheckSpriteSpawn
           jmp Bye
 
-+ 
-          lda # $08
--
-          asl
-          dex
-          bpl -
+NoRePosition
+          lda BitMask + 4, x   ; $10 … $80 = MapFlagSprite✗Moved
 
           bit MapFlags
-          beq Bye
+          beq Bye               ; sprite did not move since last check?
           eor #$ff
           and MapFlags
           sta MapFlags
