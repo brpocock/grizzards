@@ -196,7 +196,7 @@
 ;;; 
 ;;; Screen boundaries for popping to the next screen
 
-          ScreenLeftEdge = 32
+          ScreenLeftEdge = $30
           ScreenRightEdge = $c8
           ScreenTopEdge = 8
           ScreenBottomEdge = 75
