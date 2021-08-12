@@ -25,8 +25,6 @@ BumpSprite:
           ldy BumpCooldown
           bne DonePlayerMove
 
-          cmp #SpriteDoor
-          beq DoorWithSprite
           cmp #SpriteCombat
           beq FightWithSprite
           cmp #SpriteGrizzardDepot
