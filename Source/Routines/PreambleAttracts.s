@@ -26,12 +26,11 @@ BRPPreambleMode:
 
           sta WSYNC
 
-          lda ClockSeconds
-          cmp AlarmSeconds
+          lda AlarmCountdown
           bne StillPresenting
 
-          lda # 30
-          jsr SetNextAlarm
+          lda # 60
+          sta AlarmCountdown
           lda #ModeAttractTitle
           sta GameMode
           

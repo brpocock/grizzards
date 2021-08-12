@@ -40,7 +40,6 @@ DoLocal:
           .include "GrizzardStartingStats.s"
           .include "StartNewGame.s"
           .include "DecodeScore.s"
-          .include "SetNextAlarm.s"
 
           .include "GrizzardStatsScreen.s"
           .include "GrizzardDepot.s"

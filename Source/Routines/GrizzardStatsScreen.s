@@ -50,8 +50,8 @@ Bouncey1:
 
           cmp #ModeCombat
           bne +
-          lda # 1
-          jsr SetNextAlarm
+          lda # 2
+          sta AlarmCountdown
           .WaitScreenBottom
           jmp CombatMainScreen
 +

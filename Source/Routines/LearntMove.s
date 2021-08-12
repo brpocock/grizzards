@@ -10,8 +10,8 @@ LearntMove:        .block
           lda Temp
           sta DeltaX
 
-          lda # 4
-          jsr SetNextAlarm
+          lda # 8
+          sta AlarmCountdown
 
           lda #>Phrase_Learnt
           sta CurrentUtterance + 1
@@ -57,8 +57,7 @@ CheckForSpeech:
           sta DeltaY
 
 CheckForAlarm:
-          lda ClockSeconds
-          cmp AlarmSeconds
+          lda AlarmCountdown
           bne AlarmDone
           
           rts

@@ -14,8 +14,7 @@ CombatLogic:
           lda WhoseTurn
           beq CheckStick
 
-          lda ClockSeconds
-          cmp AlarmSeconds
+          lda AlarmCountdown
           beq DoAutoMove
 
           .SkipLines KernelLines - 180

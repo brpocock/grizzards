@@ -135,13 +135,12 @@ EchoStatus:
 SkipStatusFX:
 AfterStatusFX:
 ;;; 
-          lda ClockSeconds
-          cmp AlarmSeconds
+          lda AlarmCountdown
           bne AlarmDone
 
           inc MoveAnnouncement
-          lda #2
-          jsr SetNextAlarm
+          lda # 4
+          sta AlarmCountdown
 
           lda MoveAnnouncement
           cmp # 6

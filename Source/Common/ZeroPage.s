@@ -117,8 +117,8 @@ MovesKnown:
 NextMap:
           .byte ?
 ;;; An alarm can be set for various in-game special events.
-;;; This happens in real time.
-AlarmSeconds:
+;;; This happens in real time. The units are ½ seconds.
+AlarmCountdown:
           .byte ?
 
 ;;; String Buffer for text displays of composed text,

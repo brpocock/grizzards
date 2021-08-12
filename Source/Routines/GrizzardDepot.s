@@ -181,15 +181,15 @@ NoStickUp:
 SeekGrizzard:
           sta NextMap
 SeekScreen:
-          ldy # 8
-          sty AlarmSeconds
+          ldy # 16
+          sty AlarmCountdown      ; Abusing this register! XXX
           .WaitScreenBottom
           .WaitScreenTop
 
           .ldacolu COLTEAL, $2
           sta COLUBK
 KeepSeeking:
-          dec AlarmSeconds
+          dec AlarmCountdown
           beq SeekScreen
           lda CurrentGrizzard
           clc

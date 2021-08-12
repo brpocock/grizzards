@@ -82,8 +82,7 @@ NoBankUp:
 
           .Add16 SignpostText, #2
 
-          lda ClockSeconds
-          sta AlarmSeconds
+          lda AlarmCountdown
 
           .WaitScreenBottom
 ;;; 
@@ -352,8 +351,7 @@ DoneDrawing:
           .SkipLines 3
           sta COLUBK
 
-          lda AlarmSeconds      ; require 1s to tick before accepting button press
-          cmp ClockSeconds      ; see #140
+          lda AlarmCountdown      ; require 1s to tick before accepting button press; see #140
           beq NoButton
           lda NewButtons
           beq NoButton

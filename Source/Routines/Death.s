@@ -19,8 +19,8 @@ Death:    .block
           ldx #SoundGameOver
           stx NextSound
 
-          lda # 59
-          jsr SetNextAlarm
+          lda # 120
+          sta AlarmCountdown
 
           jmp LoopFirst
 
@@ -52,8 +52,7 @@ LoopFirst:
           .BitBit PRESSED
           beq Leave
 +
-          lda ClockSeconds
-          cmp AlarmSeconds
+          lda AlarmCountdown
           beq Leave
           jmp Loop
 

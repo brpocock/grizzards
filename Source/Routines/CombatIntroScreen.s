@@ -8,8 +8,8 @@ CombatIntroScreen:  .block
           lda #SoundSweepUp
           sta NextSound
 
-          lda # 2
-          jsr SetNextAlarm
+          lda # 4
+          sta AlarmCountdown
 Loop:
           .WaitScreenTop
           .ldacolu COLRED, $6
@@ -28,8 +28,7 @@ Loop:
 
           .WaitScreenBottom
 
-          lda AlarmSeconds
-          cmp ClockSeconds
+          lda AlarmCountdown
           bne Loop
 
           rts

@@ -23,7 +23,6 @@
           .include "VBlank.s"
           .include "Overscan.s"
           .include "Prepare48pxMobBlob.s"
-          .include "SetNextAlarm.s"
           .include "Random.s"
           .include "WaitScreenBottom.s"
           

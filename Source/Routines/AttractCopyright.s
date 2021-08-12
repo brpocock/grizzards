@@ -31,12 +31,11 @@ DoneCopyrightSpeech:
           .SetPointer PocockText
           jsr ShowPointerText
 
-          lda ClockSeconds
-          cmp AlarmSeconds
+          lda AlarmCountdown
           bne StillCopyright
 
-          lda # 30
-          jsr SetNextAlarm
+          lda # 60
+          sta AlarmCountdown
           lda #ModeAttractStory
           sta GameMode
 ;;; 

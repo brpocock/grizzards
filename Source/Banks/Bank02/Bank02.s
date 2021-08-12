@@ -59,7 +59,6 @@ ShowMoveDecoded:
           .include "CopyPointerText.s"
           .include "ShowGrizzardName.s"
           .include "ShowGrizzardStats.s"
-          .include "SetNextAlarm.s"
           .include "FindHighBit.s"
           .include "FetchGrizzardMove.s"
           .include "Random.s"

@@ -118,7 +118,6 @@ PeekGrizzard:
           .include "AttractCopyright.s"
           .include "Credits.s"
           .include "CopyPointerText.s"
-          .include "SetNextAlarm.s"
           .include "Bank0Strings.s"
           .include "WaitScreenBottom.s"
 

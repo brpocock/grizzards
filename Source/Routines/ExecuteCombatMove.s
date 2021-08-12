@@ -459,8 +459,8 @@ NotLastMonster:
           lda MonsterHP, x
           beq NextTurn
 
-          lda #3
-          jsr SetNextAlarm
+          lda # 6
+          sta AlarmCountdown
 BackToMain:
           .WaitScreenBottom
 

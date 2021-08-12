@@ -10,8 +10,8 @@ LevelUp:        .block
           lda Temp
           sta DeltaX
 
-          lda # 4
-          jsr SetNextAlarm
+          lda # 8
+          sta AlarmCountdown
 
           .SetUtterance Phrase_LevelUp
 
@@ -101,8 +101,7 @@ PassDefend:
           inc DeltaY
 
 CheckForAlarm:
-          lda ClockSeconds
-          cmp AlarmSeconds
+          lda AlarmCountdown
           bne AlarmDone
           rts
 

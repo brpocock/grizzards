@@ -10,8 +10,8 @@ CombatVictoryScreen:  .block
           lda #SoundVictory
           sta NextSound
 
-          lda # 4
-          jsr SetNextAlarm
+          lda # 8
+          sta AlarmCountdown
 Loop:
           .WaitScreenTop
           .ldacolu COLGREEN, $6
@@ -35,8 +35,7 @@ Loop:
 
           .WaitScreenBottom
 
-          lda AlarmSeconds
-          cmp ClockSeconds
+          lda AlarmCountdown
           bne Loop
 
           lda #ModeMap

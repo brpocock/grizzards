@@ -44,8 +44,8 @@ MoveFound:
           lda MoveDeltaHP, x
           sta CombatMoveDeltaHP
 
-          lda # 1
-          jsr SetNextAlarm
+          lda # 2
+          sta AlarmCountdown
 
           .WaitScreenBottom
 ;;; 
@@ -250,13 +250,12 @@ SpeechQueued:
 SpeechDone:
 ;;; 
 CheckForAlarm:
-          lda ClockSeconds
-          cmp AlarmSeconds
+          lda AlarmCountdown
           bne KeepWaiting
 
           inc MoveAnnouncement
-          lda # 1
-          jsr SetNextAlarm
+          lda # 2
+          sta AlarmCountdown
 
 KeepWaiting:
           .WaitScreenBottom

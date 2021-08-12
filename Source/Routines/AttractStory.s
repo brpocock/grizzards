@@ -206,7 +206,7 @@ StoryDone:
           blt StillStory
 
           lda # 30
-          jsr SetNextAlarm
+          sta AlarmCountdown
           lda # 0
           sta DeltaY
           lda #ModeAttractTitle

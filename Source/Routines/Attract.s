@@ -31,7 +31,8 @@ WarmStart:
 
           lda # 4
           sta DeltaY
-          jsr SetNextAlarm
+          lda # 8
+          sta AlarmCountdown
           .WaitScreenBottom
 ;;; 
 Loop:
@@ -193,12 +194,11 @@ PrepareFillAttractBottom:
 
           .endswitch
 
-          lda ClockSeconds
-          cmp AlarmSeconds
+          lda AlarmCountdown
           bne DoneKernel
 
-          lda # 4
-          jsr SetNextAlarm
+          lda # 16
+          sta AlarmCountdown
           lda #ModeAttractCopyright
           sta GameMode
           ;; fall through
