@@ -82,7 +82,8 @@ NoBankUp:
 
           .Add16 SignpostText, #2
 
-          lda AlarmCountdown
+          lda # 2
+          sta AlarmCountdown
 
           .WaitScreenBottom
 ;;; 
@@ -352,7 +353,7 @@ DoneDrawing:
           sta COLUBK
 
           lda AlarmCountdown      ; require 1s to tick before accepting button press; see #140
-          beq NoButton
+          bne NoButton
           lda NewButtons
           beq NoButton
           .BitBit PRESSED
