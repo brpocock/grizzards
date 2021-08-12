@@ -805,12 +805,18 @@ Once your Attack score is high enough to hit them, they go down quickly.
 
 \ifdefined\DEMO
 
-\section{Screen ``Jitters,'' freezes, or flashes blue}
+\section{Screen ``Jitters,'' freezes,  \ifdefined\TVPAL appears in black
+  \& white,\fi or flashes blue}
 
 These may  be signs that  a screen  (or the transition  between screens)
 does not have the correct ``scan line'' count. This is a technical error
 by the game's  developer (that's me!) and must be  corrected in the next
 version of the game.
+
+\ifdefined\TVPAL
+If the  picture is in  black-and-white throughout, make sure  you're not
+running the SECAM version.
+\fi
 
 If you see these effects (or if you are running in Stella, if you notice
 that the scan  line count is not \ifdefined\TVNTSC 262  \else 312 \fi at
