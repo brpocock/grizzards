@@ -85,7 +85,5 @@ SetUpOtherCombatVars:
           lda # 1
           sta MoveTarget        ; figure out based on first Move
 
-          .WaitScreenBottom
-
-          ;; MUST be followed by CombatIntroScreen directly
+          ;; fall through to CombatIntroScreen, which does WaitScreenBottom
           .bend

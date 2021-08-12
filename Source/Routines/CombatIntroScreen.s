@@ -1,8 +1,6 @@
 ;;; Grizzards Source/Routines/CombatIntroScreen.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
-          ;; follows CombatSetup
-
 CombatIntroScreen:  .block
 
           lda #SoundSweepUp
@@ -10,8 +8,11 @@ CombatIntroScreen:  .block
 
           lda # 4
           sta AlarmCountdown
+
 Loop:
+          .WaitScreenBottom
           .WaitScreenTop
+
           .ldacolu COLRED, $6
           sta COLUBK
 
@@ -26,12 +27,8 @@ Loop:
           jsr Prepare48pxMobBlob
           jsr DecodeAndShowText
 
-          .WaitScreenBottom
-
           lda AlarmCountdown
           bne Loop
 
           rts
           .bend
-
-          ;; falls through to CombatMainScreen
