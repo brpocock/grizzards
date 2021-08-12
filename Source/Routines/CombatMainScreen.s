@@ -187,7 +187,7 @@ ShowSelectedMove:
 	
           .if TV != NTSC
           .SkipLines 3
-	  .fi
+          .fi
 
           lda NewButtons
           beq ScreenDone
