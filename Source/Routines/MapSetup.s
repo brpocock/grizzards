@@ -8,6 +8,7 @@ MapSetup: .block
           and #$4f
           ora #$20
           sta BumpCooldown
+          sta CXCLR
 
           lda # 0
           sta SpriteFlicker
