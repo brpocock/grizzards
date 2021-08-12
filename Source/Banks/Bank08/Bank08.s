@@ -6,7 +6,6 @@
           .include "6BitCompression.s"
 
           .include "SpeakJetIDs.s" ; from this bank, not bank 7
-
           
           .include "Font.s"
           .include "FontExtended.s"

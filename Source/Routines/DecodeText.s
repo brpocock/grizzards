@@ -10,13 +10,18 @@ DecodeText:	.block
 	sta pp5h
 
           clc
-	.for i := 0, i < 6, i += 1
-	lda StringBuffer + i
+          ldx # 6
+          ldy # 11
+StringTimes5:
+          lda StringBuffer, x
           asl a
           asl a
-          adc StringBuffer + i
-	sta PixelPointers + i * 2
-	.next
+          adc StringBuffer, x
+          sta PixelPointers, y
+          dey
+          dey
+          dex
+          bne StringTimes5
 
 	rts
 	.bend
