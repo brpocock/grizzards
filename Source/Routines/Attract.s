@@ -87,6 +87,7 @@ DoneTitleSpeech:
           sta COLUP1
 
           .ldacolu COLTURQUOISE, $e
+          sta WSYNC
           sta COLUBK
 
           .SetUpFortyEight Title1
