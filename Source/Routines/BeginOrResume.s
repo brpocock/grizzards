@@ -35,7 +35,6 @@ ShowBegin:
 ShowBeginOrResume:  
           jsr ShowPointerText
 
-          .WaitScreenBottom
 ;;; 
           lda NewSWCHB
           beq SkipSwitches
@@ -60,6 +59,7 @@ SkipStick:
           beq SlotOK
 SkipButton:
 
+          .WaitScreenBottom
           jmp Loop
 ;;; 
 SwitchSelectSlot:
@@ -70,6 +70,7 @@ GoBack:
           lda #SoundChirp
           sta NextSound
 
+          .WaitScreenBottom
           jmp Loop
 ;;; 
 SlotOK:
