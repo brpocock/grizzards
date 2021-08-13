@@ -44,9 +44,11 @@
           .align $100, 0
           .if PUBLISHER
             .include "AtariAgeLogo.s"
+            .align $100, 0
             .include "AtariAgeText.s"
           .else
             .include "BRPCredit.s"
+            .align $100, 0
             .fill 66, 0            ; leave space for publisher name
           .fi
 
