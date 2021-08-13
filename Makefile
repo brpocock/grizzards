@@ -61,43 +61,19 @@ harmony:	Dist/Grizzards.Demo.NTSC.a26 \
 # fairyl short names only
 UNOCART=/run/media/${USER}/TBA_2600/
 uno:	Dist/Grizzards.Dirtex.NTSC.a26 \
-	Dist/Grizzards.Dirtex.PAL.a26 \
-	Dist/Grizzards.Dirtex.SECAM.a26 \
 	Dist/Grizzards.Aquax.NTSC.a26 \
-	Dist/Grizzards.Aquax.PAL.a26 \
-	Dist/Grizzards.Aquax.SECAM.a26 \
 	Dist/Grizzards.Airex.NTSC.a26 \
-	Dist/Grizzards.Airex.PAL.a26 \
-	Dist/Grizzards.Airex.SECAM.a26 \
 	Dist/Grizzards.Demo.NTSC.a26 \
-	Dist/Grizzards.Demo.PAL.a26 \
-	Dist/Grizzards.Demo.SECAM.a26 \
 	Dist/Grizzards.NoSave.NTSC.a26 \
-	Dist/Grizzards.NoSave.PAL.a26 \
-	Dist/Grizzards.NoSave.SECAM.a26 \
-	Dist/Grizzards.Unerase.NTSC.a26 \
-	Dist/Grizzards.Unerase.PAL.a26 \
-	Dist/Grizzards.Unerase.SECAM.a26
+	Dist/Grizzards.Unerase.NTSC.a26
 	if [ $$(uname -s) = 'Linux' ] ; then \
 	  mkdir -p $(UNOCART)/GRIZZARDS/ ;\
 	  cp -v Dist/Grizzards.Dirtex.NTSC.a26 $(UNOCART)/GRIZZARDS/DIRTEX.NTSC.EF ;\
-	  cp -v Dist/Grizzards.Dirtex.PAL.a26 $(UNOCART)/GRIZZARDS/DIRTEX.PAL.EF ;\
-	  cp -v Dist/Grizzards.Dirtex.SECAM.a26 $(UNOCART)/GRIZZARDS/DIRTEX.SECAM.EF ;\
 	  cp -v Dist/Grizzards.Aquax.NTSC.a26 $(UNOCART)/GRIZZARDS/AQUAX.NTSC.EF ;\
-	  cp -v Dist/Grizzards.Aquax.PAL.a26 $(UNOCART)/GRIZZARDS/AQUAX.PAL.EF ;\
-	  cp -v Dist/Grizzards.Aquax.SECAM.a26 $(UNOCART)/GRIZZARDS/AQUAX.SECAM.EF ;\
 	  cp -v Dist/Grizzards.Airex.NTSC.a26 $(UNOCART)/GRIZZARDS/AIREX.NTSC.EF ;\
-	  cp -v Dist/Grizzards.Airex.PAL.a26 $(UNOCART)/GRIZZARDS/AIREX.PAL.EF ;\
-	  cp -v Dist/Grizzards.Airex.SECAM.a26 $(UNOCART)/GRIZZARDS/AIREX.SECAM.EF ;\
 	  cp -v Dist/Grizzards.Demo.NTSC.a26 $(UNOCART)/GRIZZARDS/DEMO.NTSC.F4 ;\
-	  cp -v Dist/Grizzards.Demo.PAL.a26 $(UNOCART)/GRIZZARDS/DEMO.PAL.F4 ;\
-	  cp -v Dist/Grizzards.Demo.SECAM.a26 $(UNOCART)/GRIZZARDS/DEMO.SECAM.F4 ;\
 	  cp -v Dist/Grizzards.NoSave.NTSC.a26 $(UNOCART)/GRIZZARDS/NOSAVE.NTSC.F4 ;\
-	  cp -v Dist/Grizzards.NoSave.PAL.a26 $(UNOCART)/GRIZZARDS/NOSAVE.PAL.F4 ;\
-	  cp -v Dist/Grizzards.NoSave.SECAM.a26 $(UNOCART)/GRIZZARDS/NOSAVE.SECAM.F4 ;\
 	  cp -v Dist/Grizzards.Unerase.NTSC.a26 $(UNOCART)/GRIZZARDS/UNERASE.NTSC.F4 ;\
-	  cp -v Dist/Grizzards.Unerase.PAL.a26 $(UNOCART)/GRIZZARDS/UNERASE.PAL.F4 ;\
-	  cp -v Dist/Grizzards.Unerase.SECAM.a26 $(UNOCART)/GRIZZARDS/UNERASE.SECAM.F4 ;\
 	else \
 	  echo "Patch Makefile for your $$(uname -s) OS" ; \
 	fi
