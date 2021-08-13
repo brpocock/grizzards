@@ -2,7 +2,7 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
 MapSetup: .block
-          .WaitScreenTopMinus 3, 0
+          .WaitScreenTopMinus 2, 0
 
           jsr Random
           and #$4f
@@ -26,12 +26,13 @@ MapSetup: .block
           jmp NewRoomTimerRunning
 ;;; 
 NewRoom:
-          stx WSYNC
           .WaitForTimer
+          stx WSYNC
+          stx WSYNC
+
           .if TV != NTSC
           stx WSYNC
           .fi
-          stx WSYNC
 
           lda NextMap
           sta CurrentMap
@@ -41,7 +42,7 @@ NewRoom:
           bne +
           stx WSYNC
 +
-          .WaitScreenTopMinus 3, 0
+          .WaitScreenTopMinus 2, 0
           
 NewRoomTimerRunning:
           ;; Got to figure out the sprites
@@ -214,8 +215,6 @@ SpritesDone:
           .FarJSR MapServicesBank, ServiceValidateMap
 ;;; 
           .WaitScreenBottom
-          stx WSYNC
-          stx WSYNC
 
           lda #ModeMap
           sta GameMode

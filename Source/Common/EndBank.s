@@ -54,9 +54,12 @@ GoMap:
           txs
           
           .if DEMO
+
           sta BankSwitch0 + Province0MapBank
           jmp DoLocal
+
           .else
+
           lda CurrentProvince
           bne +
           sta BankSwitch0 + Province0MapBank
@@ -69,6 +72,7 @@ GoMap:
 +
           sta BankSwitch0 + Province2MapBank
           jmp DoLocal
+
           .fi
 
 ;;; Go to the current combat memory bank, and jump to DoCombat.

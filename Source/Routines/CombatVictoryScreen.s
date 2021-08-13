@@ -12,7 +12,10 @@ CombatVictoryScreen:  .block
 
           lda # 8
           sta AlarmCountdown
+          jmp FirstTime
 Loop:
+          .WaitScreenBottom
+FirstTime:
           .WaitScreenTop
           .ldacolu COLGREEN, $6
           sta COLUBK
@@ -33,13 +36,14 @@ Loop:
           jsr CopyPointerText
           jsr DecodeAndShowText
 
-          .WaitScreenBottom
-
           lda AlarmCountdown
           bne Loop
 
           lda #ModeMap
           sta GameMode
+
+          .WaitScreenBottom
+
           jmp GoMap
 
           .bend
