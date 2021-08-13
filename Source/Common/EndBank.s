@@ -1,7 +1,5 @@
 ;;; Common logic at the end of every ROM bank.
 
-          .include "Skip11Lines.s" ; only needed for PAL/SECAM, does nothing on NTSC
-          
 EndBank:
 
           BankEndAddress = $ff34      ; keep this as high as possible
