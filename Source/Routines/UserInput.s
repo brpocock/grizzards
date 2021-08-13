@@ -2,6 +2,46 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
 UserInput: .block
+CheckSwitches:
+          lda NewSWCHB
+          beq NoSwitches
+          .BitBit SWCHBReset
+          bne NoReset
+          jmp GoQuit
+
+NoReset:
+          and # SWCHBSelect
+          bne NoSelect
+          lda #ModeGrizzardStats
+          sta GameMode
+NoSelect:
+          .if TV == SECAM
+
+          lda DebounceSWCHB
+          and # SWCHBP0Advanced
+          sta Pause
+
+          .else
+
+          lda DebounceSWCHB
+          .BitBit SWCHBColor
+          bne NoPause
+          .BitBit SWCHB7800
+          beq +
+          lda Pause
+          eor #$ff
++
+          sta Pause
+          jmp SkipSwitches
+
+NoPause:
+          lda # 0
+          sta Pause
+
+          .fi
+SkipSwitches:
+;;; 
+
 HandleStick:
           lda #0
           sta DeltaX

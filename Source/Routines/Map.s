@@ -309,7 +309,7 @@ ScreenJumpLogic:
           cmp #ScreenRightEdge
           bge GoScreenRight
 
-          bne CheckSwitches     ; always taken
+          bne ShouldIStayOrShouldIGo     ; always taken
 
 GoScreenUp:
           lda #ScreenBottomEdge - 1
@@ -374,7 +374,7 @@ GoScreen:
 
           lda #ModeMapNewRoom
           sta GameMode
-          bne CheckSwitches     ; always taken
+          bne ShouldIStayOrShouldIGo     ; always taken
 
 ScreenBounce:
           ;; stuff the player into the middle of the screen
@@ -383,47 +383,7 @@ ScreenBounce:
           lda #$21
           sta PlayerY
 
-CheckSwitches:
-          lda NewSWCHB
-          beq NoSwitches
-          .BitBit SWCHBReset
-          bne NoReset
-          jmp GoQuit
-
-NoReset:
-          and # SWCHBSelect
-          bne NoSwitches
-          lda #ModeGrizzardStats
-          sta GameMode
-NoSwitches:
-;;; 
-          .if TV == SECAM
-
-          lda DebounceSWCHB
-          and # SWCHBP0Advanced
-          sta Pause
-
-          .else
-
-          lda DebounceSWCHB
-          .BitBit SWCHBColor
-          bne NoPause
-          .BitBit SWCHB7800
-          beq +
-          lda Pause
-          eor #$ff
-+
-          sta Pause
-          jmp SkipSwitches
-
-NoPause:
-          lda # 0
-          sta Pause
-
-          .fi
-;;; 
-SkipSwitches:
-
+ShouldIStayOrShouldIGo:
           lda GameMode
           cmp #ModeMap
           bne Leave
