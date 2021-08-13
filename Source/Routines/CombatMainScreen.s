@@ -78,7 +78,7 @@ BeginPlayerSection:
           .if TV == SECAM
           lda #COLMAGENTA
           .else
-          .ldacolu COLINDIGO, $8
+          .ldacolu COLINDIGO, $4
           .fi
           sta COLUBK
 
@@ -99,12 +99,12 @@ DrawHealthBar:
           bne DrawHealthPF      ; always taken
 
 AtMaxHP:
-          .ldacolu COLGREEN, $f
+          .ldacolu COLGREEN, $8
           sta COLUPF
           bne DrawHealthPF      ; always taken
 
 AtMinHP:
-          .ldacolu COLRED, $f
+          .ldacolu COLRED, $8
           sta COLUPF
 
 DrawHealthPF:
@@ -170,7 +170,7 @@ NotRunAway:
           lda BitMask - 1, x
           bit MovesKnown
           beq NotMoveKnown
-          .ldacolu COLRED, 4
+          .ldacolu COLRED, $a
           bne ShowSelectedMove  ; always taken
 
 NotMoveKnown:
