@@ -4,7 +4,7 @@
           
 EndBank:
 
-          BankEndAddress = $ff33      ; keep this as high as possible
+          BankEndAddress = $ff34      ; keep this as high as possible
           ;; The magic number  above: you can just raise it  to, say,
           ;; $ff70,  and then  the assembler  will bitch  at you  about its
           ;; being too high, and tell you  what to lower it to. Careful,
@@ -117,7 +117,7 @@ GoQuit:
 ;;; End of wired memory
 WiredEnd:
           .if $ff80 < WiredEnd
-          .error "Wired ROM ends at ", *, " ; must end before $ff80. Adjust start of wired ROM at top of EndBank.s to ", format("$%x", (Wired + $ff80 - *))
+          .error "Wired ROM ends at ", *, " ; must end before $ff80. Adjust start of wired ROM at top of EndBank.s to ", format("$%x", (Wired + ($ff80 - WiredEnd)))
           .fi
 
           .if $ff70 > WiredEnd
