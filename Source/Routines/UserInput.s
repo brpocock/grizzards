@@ -4,7 +4,7 @@
 UserInput: .block
 CheckSwitches:
           lda NewSWCHB
-          beq NoSwitches
+          beq NoSelect
           .BitBit SWCHBReset
           bne NoReset
           jmp GoQuit
