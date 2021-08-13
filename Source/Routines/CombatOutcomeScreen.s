@@ -364,8 +364,10 @@ DefendLevelUpDone:
 HPLevelUpDone:
 
           lda DeltaX
+
           beq NoLevelUp
 
+          sta Temp
           jsr LevelUp
 
 NoLevelUp:
