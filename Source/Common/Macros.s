@@ -66,7 +66,7 @@ SleepX: .macro Cycles
           .else
           
           Loopable = \Cycles - 1
-          .if ((* % $100) >= $fb) && ((* % 100) <= $fd)
+          .if ((* % $100) > $fe)
           ;; going to cross page boundary on branch
           ;; so each loop takes 6 cycles instead of 5
           LoopCycles = Loopable / 6
