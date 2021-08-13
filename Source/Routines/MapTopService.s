@@ -68,7 +68,7 @@ P0HPos:
           sta REFP0
 
           ldx SpriteCount
-          beq TheEnd
+          beq NoSprites
 
           stx CXCLR
           ldx SpriteFlicker

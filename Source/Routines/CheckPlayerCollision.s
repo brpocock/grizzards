@@ -95,7 +95,7 @@ EnterDepot:
 
 ProvinceChange:
           lda SpriteAction, x
-          and #$70
+          and #$f0
           clc
           ror a
           ror a
