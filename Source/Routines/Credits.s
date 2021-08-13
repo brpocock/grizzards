@@ -8,14 +8,13 @@ Credits:  .block
           lda #<Phrase_Credits
           sta CurrentUtterance
           sta AttractHasSpoken
-          ldx # 15
-          bne LoopFirst         ; always taken
 Loop:
+          .WaitScreenTop
           ldx # 21
-LoopFirst:
+-
           stx WSYNC
           dex
-          bne LoopFirst
+          bne -
 
           .ldacolu COLINDIGO, $e
           sta COLUP0
@@ -38,8 +37,6 @@ LoopFirst:
           .LoadString DateString6
           jsr ShowText
           
-          .SkipLines KernelLines - 159
-
           lda NewButtons
           beq +
           bpl Bye
@@ -56,9 +53,7 @@ Bye:
 
 StayCredits:
 
-          jsr Overscan
-          jsr VSync
-
+          .WaitScreenBottom
           jmp Loop
 
           .bend
