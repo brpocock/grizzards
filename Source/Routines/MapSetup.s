@@ -107,7 +107,7 @@ FoundSprites:
 DoneFinding:
           ;; Start with 0 sprites
           ;; There can be up to 4
-          ldx # 0                ; XXX this is probably already the case
+          ;;; ldx # 0                ; this is already the case
           stx SpriteCount
           stx SpriteFlicker
 

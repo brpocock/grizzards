@@ -164,12 +164,12 @@ P1Ready:
 ;;; 
 BeforeKernel:
           ldy # 72              ; 72 × 2 lines = 144 lines total
-          sty LineCounter
+          sty LineCounter       ; (72 × 2½ lines = 180 lines on PAL/SECAM)
 
           ldx CurrentMap
           lda MapSides, x
           bmi LeftBall
-          .BitBit $40
+          and #$40
           bne RightBall
           beq NoBalls           ; always taken
 
@@ -391,7 +391,7 @@ CheckSwitches:
           jmp GoQuit
 
 NoReset:
-          .BitBit SWCHBSelect
+          and # SWCHBSelect
           bne NoSwitches
           lda #ModeGrizzardStats
           sta GameMode
