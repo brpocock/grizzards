@@ -76,7 +76,7 @@ P0HPos:
 NextFlickerCandidate:
           inx
           cpx SpriteCount
-          bmi FlickerOK
+          blt FlickerOK
           ldx #0
 FlickerOK:
           dey

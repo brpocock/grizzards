@@ -21,8 +21,6 @@ MapSetup: .block
           sta PlayerX
           lda BlessedY
           sta PlayerY
-          lda CurrentMap
-          sta NextMap
           jmp NewRoomTimerRunning
 ;;; 
 NewRoom:
@@ -32,6 +30,11 @@ NewRoom:
           .if TV != NTSC
           stx WSYNC
           .fi
+          jsr Overscan
+
+          .WaitScreenTopMinus 2, 0
+          
+NewRoomTimerRunning:
 
           lda CurrentProvince
 
@@ -45,20 +48,16 @@ NewRoom:
           .endswitch
 
           beq +
+          .WaitScreenBottom
           jmp GoMap
 +
           lda NextMap
           sta CurrentMap
-          jsr Overscan
-          lda GameMode
 
-          .WaitScreenTopMinus 2, 0
-          
-NewRoomTimerRunning:
           ;; Got to figure out the sprites
           ;; Start at the head of the sprite list
           lda #<SpriteList
-          sta Pointer
+          sta Pointer         
           lda #>SpriteList
           sta Pointer + 1
 

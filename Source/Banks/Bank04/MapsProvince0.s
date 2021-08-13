@@ -421,8 +421,12 @@ SpriteList:
 
           ;; Room 8
           .byte 8, SpriteWander
-          .byte $52, $2d
+          .byte $38, $30
           .byte SpriteProvinceDoor | $10, 2
+
+          .byte $ff, SpriteFixed
+          .byte $38, $20
+          .byte SpriteSign, 9
 
           .byte 9, SpriteFixed
           .byte $c8, $24
@@ -431,10 +435,6 @@ SpriteList:
           .byte 10, SpriteFixed
           .byte $c8, $2c
           .byte SpriteCombat, 2
-
-          .byte $ff, SpriteFixed
-          .byte $37, $29
-          .byte SpriteSign, 9
 
           .byte 0
 
