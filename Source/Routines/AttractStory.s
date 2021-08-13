@@ -81,7 +81,7 @@ StoryPhase0:
 
           lda DeltaY
           clc
-          adc # ( $40 * ( FramesPerSecond / 24.0 ) )
+          adc # ceil( $40 * ( FramesPerSecond / 24.0 ) )
           sta DeltaY
           cmp #$40
           blt StoryDone
@@ -103,7 +103,7 @@ Six:
           bne NotSix
 
           lda DeltaY
-          cmp # ceil(.33333 * FramesPerSecond)
+          cmp # ceil(FramesPerSecond / 3.0)
           bne NotSix
 
           lda # 0
@@ -164,7 +164,7 @@ NotSix:
 StoryPhase1a:       
           lda DeltaY
           clc
-          adc # ( $40 * ( FramesPerSecond / 30.0 ) )
+          adc # ceil( $40 * ( FramesPerSecond / 30.0 ) )
           sta DeltaY
           cmp #$40
           blt StoryDone
