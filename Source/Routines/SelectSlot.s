@@ -9,6 +9,7 @@ SelectSlot:        .block
           jsr VSync
 
           .KillMusic
+          jsr Prepare48pxMobBlob
 
           lda #SoundChirp
           sta NextSound
