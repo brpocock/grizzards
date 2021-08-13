@@ -38,10 +38,7 @@ NewRoom:
           sta CurrentMap
           jsr Overscan
           lda GameMode
-          cmp #ModeMapNewRoomDoor
-          bne +
-          stx WSYNC
-+
+
           .WaitScreenTopMinus 2, 0
           
 NewRoomTimerRunning:
