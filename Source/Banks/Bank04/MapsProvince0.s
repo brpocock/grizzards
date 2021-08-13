@@ -90,7 +90,7 @@ MapLinks:
           .byte $ff, 9, 4, 6
           .byte $ff, $ff, 5, $ff
           .byte 1, 8, $ff, $ff
-          .byte 7, 47, $ff, 11  ; link to province 1 room 2 FIXME
+          .byte 7, 47, $ff, 11
           .byte 5, 14, $ff, $ff
           ;; 10
           .byte $ff, 15, $ff, $ff
@@ -271,11 +271,7 @@ MapRLEH:  .byte >MapRLE
 ;;; $80 = left, $40 = right ball.
 MapSides:
           .byte 0, $80, 0, 0, 0
-          .if DEMO
-          .byte 0, $40, 0, $80, 0 ; block off area to left of screen 8
-          .else
-          .byte 0, $40, 0, 0, 0
-          .fi
+          .byte 0, $40, 0, $80, 0
           ;; 10
           .byte 0, 0, 0, 0, 0
           .if DEMO
@@ -302,16 +298,6 @@ MapSides:
           ;; 70
           .byte 0, 0, 0, 0
 ;;; 
-;;; The Sprites Lists
-;;;
-;;; Each screen can have a list of sprites here, ending with a zero
-;;; byte. Each sprite is a 5-byte structure, with its type, X, Y,
-;;; action, and action-parameter listed.
-;;;
-;;; A fixed sprite appears at the given position and stays there.
-;;; Moving sprites wander the screen, obeying walls.
-;;; Random encounters occupy a sprite data slot but are not actually
-;;; visible on the screen.
 SpriteList:
           ;; Room 0
           .byte $ff, SpriteFixed              ; not removeable, fixed position sprite
@@ -436,7 +422,7 @@ SpriteList:
           ;; Room 8
           .byte 8, SpriteWander
           .byte $52, $2d
-          .byte SpriteCombat, 2
+          .byte SpriteProvinceDoor | $10, 2
 
           .byte 9, SpriteFixed
           .byte $c8, $24

@@ -77,7 +77,7 @@ MapRLEH:  .byte >MapRLE
 ;;; reflected mode
 ;;; $80 = left, $40 = right ball.
 MapSides:
-          .byte 0, $80, 0, 0, 0
+          .byte 0, $80, $40, 0, 0
           .byte 0, $40, 0, $80, 0
           ;; 10
           .byte 0, 0, 0, 0, 0
@@ -92,51 +92,52 @@ MapSides:
           .byte $40, $40, $40, 0, $80
           .byte $80, 0
 
-;;; The Sprites Lists
-;;;
-;;; Each screen can have a list of sprites here, ending with a zero
-;;; byte. Each sprite is a 5-byte structure, with its type, X, Y,
-;;; action, and action-parameter listed.
-;;;
-;;; A fixed sprite appears at the given position and stays there.
-;;; Moving sprites wander the screen, obeying walls.
-;;; Random encounters occupy a sprite data slot but are not actually
-;;; visible on the screen.
+;;; 
 SpriteList:
-          ;; Room 62
+          ;; Room 0
           .byte 0
 
-          ;; Room 63
+          ;; Room 1
           .byte 0
 
-          ;; Room 64
+          ;; Room 2
+          .byte $ff, SpriteFixed
+          .byte $b6, $20
+          .byte SpriteProvinceDoor | $00, 8
+
           .byte 0
 
-          ;; Room 65
+          ;; Room 3
           .byte 0
 
-          ;; Room 66
+          ;; Room 4
           .byte 0
 
-          ;; Room 67
+          ;; Room 5
           .byte 0
 
-          ;; Room 68
+          ;; Room 6
           .byte 0
 
-          ;; Room 69
+          ;; Room 7
           .byte 0
 
-          ;; Room 70
+          ;; Room 8
           .byte 0
 
-          ;; Room 71
+          ;; Room 9
           .byte 0
 
-          ;; Room 72
+          ;; Room 10
           .byte 0
 
-          ;; Room 73
+          ;; Room 11
+          .byte 0
+
+          ;; Room 12
+          .byte 0
+
+          ;; Room 13
           .byte 0
 
           .fill 200
