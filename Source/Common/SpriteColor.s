@@ -2,7 +2,7 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
 SpriteColor:
-          .colu COLGREEN, $a    ; monster
+          .colu COLGREEN, $6    ; monster
           .colu COLRED, $e      ; Grizzard Depot
           .colu COLSPRINGGREEN, $e ; new Grizzard
           .colu COLBLUE, $8        ; door
@@ -16,5 +16,5 @@ SpriteColor:
 
           .colu COLGOLD, $8     ; NPC
 
-          .byte 0               ; unused
-          .byte COLTURQUOISE, $8 ; province door
+          .colu COLGREEN, $4    ; big monster
+          .colu COLGRAY, $8     ; monster materializing

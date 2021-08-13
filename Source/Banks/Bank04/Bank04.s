@@ -4,6 +4,9 @@
 
           .include "StartBank.s"
 
+          ;; The addresses of these must be known to the Map Services bank
+          .include "PlayerSprites.s"
+          .include "MapSprites.s"
 DoLocal:
           .include "MapSetup.s"
           ;; falls through to
@@ -11,9 +14,6 @@ DoLocal:
 
           .include "MapsProvince0.s"
           .include "Maps0RLE.s"
-          .include "PlayerSprites.s"
-          .include "MapSprites.s"
-          .include "SpriteColor.s"
 
           .include "Province0.s"
 

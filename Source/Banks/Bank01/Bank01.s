@@ -59,4 +59,6 @@ DoLocal:
 
           .include "WaitScreenBottom.s"
 
+          .include "SpriteColor.s"
+
 	.include "EndBank.s"
