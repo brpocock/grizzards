@@ -108,6 +108,10 @@ SetUpSprites:
           ldx SpriteFlicker
           lda SpriteAction, x
           and #$07
+          cmp # SpriteProvinceDoor
+          bne +
+          lda # SpriteDoor
++
           tax
           lda SpriteColor, x
           sta COLUP1
@@ -117,6 +121,11 @@ SetUpSprites:
           sta pp1h
           clc
           lda SpriteAction, x
+          and #$07
+          cmp # SpriteProvinceDoor
+          bne +
+          lda # SpriteDoor
++
           ldy AlarmCountdown
           beq +
           cmp #SpriteCombat
@@ -125,7 +134,6 @@ SetUpSprites:
           sta COLUP1
           lda #SpriteCombatPuff
 +
-          and #$07
           .rept 4
           asl a
           .next

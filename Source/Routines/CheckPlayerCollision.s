@@ -97,15 +97,14 @@ ProvinceChange:
           lda SpriteAction, x
           and #$f0
           clc
-          ror a
-          ror a
-          ror a
-          ror a
+          lsr a
+          lsr a
+          lsr a
+          lsr a
           sta CurrentProvince
           lda SpriteParam, x
           sta NextMap
-          jsr Overscan
-          ldy #ModeMapNewRoom
+          ldy #ModeMapNewRoomDoor
           sty GameMode
           rts
 

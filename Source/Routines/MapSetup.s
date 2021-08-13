@@ -34,6 +34,20 @@ NewRoom:
           stx WSYNC
           .fi
 
+          lda CurrentProvince
+
+          .switch BANK
+          .case 4
+          cmp # 0
+          .case 3
+          cmp # 1
+          .case 5
+          cmp # 2
+          .endswitch
+
+          beq +
+          jmp GoMap
++
           lda NextMap
           sta CurrentMap
           jsr Overscan
