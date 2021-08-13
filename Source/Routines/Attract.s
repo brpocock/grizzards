@@ -34,6 +34,9 @@ WarmStart:
           sta PlayerYFraction
           .fi
 
+          lda # CTRLPFREF
+          sta CTRLPF
+
           lda # 4
           sta DeltaY
           lda # 8
@@ -102,25 +105,49 @@ DoneTitleSpeech:
 
           .switch STARTER
 
-          .case 0
+          .case 0               ; Dirtex
 
           .SkipLines 20
           .ldacolu COLORANGE, $a
           sta COLUBK
           .SkipLines 10
 
-          .case 1
+          .case 1               ; Aquax
 
           .SkipLines 30
           .ldacolu COLSPRINGGREEN, $4
           sta COLUBK
 
-          .case 2
+          .case 2               ; Airex
 
           .SkipLines 20
           .ldacolu COLGREEN, $4
           sta COLUBK
-          .SkipLines 10
+          .ldacolu COLTURQUOISE, $e
+          sta COLUPF
+
+          lda #$ff
+          sta PF0
+          lda #$f0
+          sta PF1
+          .SkipLines 2
+
+          lda #$ff
+          sta PF0
+          lda #$d5
+          sta PF1
+          .SkipLines 4
+
+          lda #$aa
+          sta PF0
+          lda #$88
+          sta PF1
+          .SkipLines 6
+
+          lda # 0
+          sta PF0
+          sta PF1
+          sta PF2
 
           .endswitch
 
@@ -219,6 +246,26 @@ SetWaveLevel:
           .ldacolu COLBROWN, $4
           sta COLUBK
           .SkipLines 10
+
+          stx WSYNC
+          .SleepX $18
+          sta RESP0
+          nop
+          nop
+          nop
+          nop
+          sta RESP1
+          lda # NUSIZQuad
+          sta NUSIZ0
+          sta NUSIZ1
+          stx WSYNC
+          .ldacolu COLBROWN, $4
+          sta COLUP0
+          sta COLUP1
+          lda #$ff
+          sta GRP0
+          sta GRP1
+
           .ldacolu COLTURQUOISE, $e
           sta COLUBK
 
@@ -245,6 +292,13 @@ DoneKernel:
           beq Leave
 +
           .WaitScreenBottom
+
+          .if STARTER == 2
+          lda # 0
+          sta GRP0
+          sta GRP1
+          .fi
+
           jmp Loop
 
 Leave:
