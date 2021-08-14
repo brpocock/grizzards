@@ -3,52 +3,37 @@
 
 Credits:  .block
 
-          lda #>Phrase_Credits
-          sta CurrentUtterance + 1
-          lda #<Phrase_Credits
-          sta CurrentUtterance
+          .SetUtterance Phrase_Credits
           sta AttractHasSpoken
 Loop:
           .WaitScreenTop
-          ldx # 21
--
-          stx WSYNC
-          dex
-          bne -
+          .SkipLines 21
 
           .ldacolu COLINDIGO, $e
           sta COLUP0
           sta COLUP1
 
-          .LoadString " WITH "
-          jsr ShowText
-          .LoadString " LOVE "
-          jsr ShowText
-          .LoadString "  TO  "
-          jsr ShowText
-          .LoadString "ZEPHYR"
-          jsr ShowText
+          .SetPointer WithText
+          jsr ShowPointerText
+          .SetPointer LoveText
+          jsr ShowPointerText
+          .SetPointer ToText
+          jsr ShowPointerText
+          .SetPointer ZephyrText
+          jsr ShowPointerText
 
           .SkipLines 40
 
-          DateString = format("%04d%02d%02d", YEARNOW, MONTHNOW, DATENOW)
-          DateString6 = DateString[2:]
-
-          .LoadString DateString6
-          jsr ShowText
+          .SetPointer DatestampText
+          jsr ShowPointerText
           
           lda NewButtons
-          beq +
-          bpl Bye
-+
+          beq StayCredits
+          bmi StayCredits
 
-          lda NewSWCHB
-          beq StayCredits
-          .BitBit SWCHBReset
-          beq StayCredits
+Bye:
           lda #ModeAttractCopyright
           sta GameMode
-Bye:
           jmp Attract.DoneKernel
 
 StayCredits:
@@ -56,4 +41,17 @@ StayCredits:
           .WaitScreenBottom
           jmp Loop
 
+WithText:
+          .MiniText " WITH "
+LoveText:
+          .MiniText " LOVE "
+ToText:
+          .MiniText "  TO  "
+ZephyrText:
+          .MiniText "ZEPHYR"
+
+          DateString = format("%04d%02d%02d", YEARNOW, MONTHNOW, DATENOW)
+          DateString6 = DateString[2:]
+DatestampText:
+          .MiniText DateString6
           .bend
