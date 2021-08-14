@@ -55,7 +55,9 @@ BankUp:
           .fi                   ; end of .if ! DEMO
 
 NoBankUp:
+;;; 
 ;;; Beyond this point, cross-bank alignment does not matter.
+
           ;; Adjust the index to be relative to this bank
           txa
           sec
