@@ -7,17 +7,16 @@ unerase:	Dist/Grizzards.Unerase.NTSC.a26 \
 		Dist/Grizzards.Unerase.SECAM.a26
 
 publish:	demo game no-save doc unerase
-	scp Dist/Grizzards.Demo.NTSC.a26 Dist/Grizzards.Demo.PAL.a26 Dist/Grizzards.Demo.SECAM.a26 \
+	rsync -essh --progress \
+		Dist/Grizzards.Demo.NTSC.a26 Dist/Grizzards.Demo.PAL.a26 Dist/Grizzards.Demo.SECAM.a26 \
 		Dist/Grizzards.Demo.zip Dist/Grizzards.Source.tar.gz \
 		Dist/Grizzards.Demo.NTSC.pdf Dist/Grizzards.Demo.PAL.pdf Dist/Grizzards.Demo.SECAM.pdf \
 		Dist/Grizzards.NoSave.NTSC.a26 Dist/Grizzards.NoSave.PAL.a26 Dist/Grizzards.NoSave.SECAM.a26 \
 		Dist/Grizzards.NoSave.NTSC.pdf Dist/Grizzards.NoSave.PAL.pdf Dist/Grizzards.NoSave.SECAM.pdf \
 		Dist/Grizzards.Dirtex.NTSC.a26 Dist/Grizzards.Dirtex.PAL.a26 Dist/Grizzards.Dirtex.SECAM.a26 \
-		Dist/Grizzards.Dirtex.NTSC.pdf Dist/Grizzards.Dirtex.PAL.pdf Dist/Grizzards.Dirtex.SECAM.pdf \
 		Dist/Grizzards.Aquax.NTSC.a26 Dist/Grizzards.Aquax.PAL.a26 Dist/Grizzards.Aquax.SECAM.a26 \
-		Dist/Grizzards.Aquax.NTSC.pdf Dist/Grizzards.Aquax.PAL.pdf Dist/Grizzards.Aquax.SECAM.pdf \
 		Dist/Grizzards.Airex.NTSC.a26 Dist/Grizzards.Airex.PAL.a26 Dist/Grizzards.Airex.SECAM.a26 \
-		Dist/Grizzards.Airex.NTSC.pdf Dist/Grizzards.Airex.PAL.pdf Dist/Grizzards.Airex.SECAM.pdf \
+		Dist/Grizzards.NTSC.pdf Dist/Grizzards.PAL.pdf Dist/Grizzards.SECAM.pdf \
 		Dist/Grizzards.Unerase.NTSC.a26 \
 		Dist/Grizzards.Unerase.PAL.a26 \
 		Dist/Grizzards.Unerase.SECAM.a26 \
