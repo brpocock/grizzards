@@ -6,12 +6,18 @@ unerase:	Dist/Grizzards.Unerase.NTSC.a26 \
 		Dist/Grizzards.Unerase.PAL.a26 \
 		Dist/Grizzards.Unerase.SECAM.a26
 
-publish:	demo no-save doc unerase
+publish:	demo game no-save doc unerase
 	scp Dist/Grizzards.Demo.NTSC.a26 Dist/Grizzards.Demo.PAL.a26 Dist/Grizzards.Demo.SECAM.a26 \
 		Dist/Grizzards.Demo.zip Dist/Grizzards.Source.tar.gz \
 		Dist/Grizzards.Demo.NTSC.pdf Dist/Grizzards.Demo.PAL.pdf Dist/Grizzards.Demo.SECAM.pdf \
 		Dist/Grizzards.NoSave.NTSC.a26 Dist/Grizzards.NoSave.PAL.a26 Dist/Grizzards.NoSave.SECAM.a26 \
 		Dist/Grizzards.NoSave.NTSC.pdf Dist/Grizzards.NoSave.PAL.pdf Dist/Grizzards.NoSave.SECAM.pdf \
+		Dist/Grizzards.Dirtex.NTSC.a26 Dist/Grizzards.Dirtex.PAL.a26 Dist/Grizzards.Dirtex.SECAM.a26 \
+		Dist/Grizzards.Dirtex.NTSC.pdf Dist/Grizzards.Dirtex.PAL.pdf Dist/Grizzards.Dirtex.SECAM.pdf \
+		Dist/Grizzards.Aquax.NTSC.a26 Dist/Grizzards.Aquax.PAL.a26 Dist/Grizzards.Aquax.SECAM.a26 \
+		Dist/Grizzards.Aquax.NTSC.pdf Dist/Grizzards.Aquax.PAL.pdf Dist/Grizzards.Aquax.SECAM.pdf \
+		Dist/Grizzards.Airex.NTSC.a26 Dist/Grizzards.Airex.PAL.a26 Dist/Grizzards.Airex.SECAM.a26 \
+		Dist/Grizzards.Airex.NTSC.pdf Dist/Grizzards.Airex.PAL.pdf Dist/Grizzards.Airex.SECAM.pdf \
 		Dist/Grizzards.Unerase.NTSC.a26 \
 		Dist/Grizzards.Unerase.PAL.a26 \
 		Dist/Grizzards.Unerase.SECAM.a26 \
@@ -174,72 +180,95 @@ Source/Generated/Makefile:	bin/write-master-makefile ${SOURCES}
 	for bank in 5 7 8 9 a b c d e; do bin/make-speakjet-enums $$bank; done
 	$< > Source/Generated/Makefile
 
-Dist/Grizzards.NTSC.pdf: Object/Grizzards.tex
-	-cd Object ; xelatex -interaction=batchmode "\def\TVNTSC{}\input{Grizzards}"
-	-cd Object ; xelatex -interaction=batchmode "\def\TVNTSC{}\input{Grizzards}"
-	-cd Object ; xelatex -interaction=batchmode "\def\TVNTSC{}\input{Grizzards}"
+Dist/Grizzards.NTSC.pdf: Manual/Grizzards.tex
+	mkdir -p Object/NTSC.pdf
+	cp $< Object/NTSC.pdf/
+	ln -sf ../Manual Object/
+	-cd Object/NTSC.pdf ; xelatex -interaction=batchmode "\def\TVNTSC{}\input{Grizzards}"
+	-cd Object/NTSC.pdf ; xelatex -interaction=batchmode "\def\TVNTSC{}\input{Grizzards}"
+	-cd Object/NTSC.pdf ; xelatex -interaction=batchmode "\def\TVNTSC{}\input{Grizzards}"
 	mkdir -p Dist
-	mv Object/Grizzards.pdf Dist/Grizzards.NTSC.pdf
+	mv Object/NTSC.pdf/Grizzards.pdf Dist/Grizzards.NTSC.pdf
 
-Dist/Grizzards.PAL.pdf: Object/Grizzards.tex
-	-cd Object ; xelatex -interaction=batchmode "\def\TVPAL{}\input{Grizzards}"
-	-cd Object ; xelatex -interaction=batchmode "\def\TVPAL{}\input{Grizzards}"
-	-cd Object ; xelatex -interaction=batchmode "\def\TVPAL{}\input{Grizzards}"
+Dist/Grizzards.PAL.pdf: Manual/Grizzards.tex
+	mkdir -p Object/PAL.pdf
+	cp $< Object/PAL.pdf/
+	ln -sf ../Manual Object/
+	-cd Object/PAL.pdf ; xelatex -interaction=batchmode "\def\TVPAL{}\input{Grizzards}"
+	-cd Object/PAL.pdf ; xelatex -interaction=batchmode "\def\TVPAL{}\input{Grizzards}"
+	-cd Object/PAL.pdf ; xelatex -interaction=batchmode "\def\TVPAL{}\input{Grizzards}"
 	mkdir -p Dist
-	mv Object/Grizzards.pdf Dist/Grizzards.PAL.pdf
+	mv Object/PAL.pdf/Grizzards.pdf Dist/Grizzards.PAL.pdf
 
-Dist/Grizzards.SECAM.pdf: Object/Grizzards.tex
-	-cd Object ; xelatex -interaction=batchmode "\def\TVSECAM{}\input{Grizzards}"
-	-cd Object ; xelatex -interaction=batchmode "\def\TVSECAM{}\input{Grizzards}"
-	-cd Object ; xelatex -interaction=batchmode "\def\TVSECAM{}\input{Grizzards}"
+Dist/Grizzards.SECAM.pdf: Manual/Grizzards.tex
+	mkdir -p Object/SECAM.pdf
+	cp $< Object/SECAM.pdf/
+	ln -sf ../Manual Object/
+	-cd Object/SECAM.pdf ; xelatex -interaction=batchmode "\def\TVSECAM{}\input{Grizzards}"
+	-cd Object/SECAM.pdf ; xelatex -interaction=batchmode "\def\TVSECAM{}\input{Grizzards}"
+	-cd Object/SECAM.pdf ; xelatex -interaction=batchmode "\def\TVSECAM{}\input{Grizzards}"
 	mkdir -p Dist
-	mv Object/Grizzards.pdf Dist/Grizzards.SECAM.pdf
+	mv Object/SECAM.pdf/Grizzards.pdf Dist/Grizzards.SECAM.pdf
 
-Dist/Grizzards.Demo.NTSC.pdf: Object/Grizzards.tex
-	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{}\def\TVNTSC{}\input{Grizzards}"
-	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{}\def\TVNTSC{}\input{Grizzards}"
-	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{}\def\TVNTSC{}\input{Grizzards}"
+Dist/Grizzards.Demo.NTSC.pdf: Manual/Grizzards.tex
+	mkdir -p Object/Demo.NTSC.pdf
+	cp $< Object/Demo.NTSC.pdf/
+	ln -sf ../Manual Object/
+	-cd Object/Demo.NTSC.pdf ; xelatex -interaction=batchmode "\def\TVNTSC{}\def\DEMO{}\input{Grizzards}"
+	-cd Object/Demo.NTSC.pdf ; xelatex -interaction=batchmode "\def\TVNTSC{}\def\DEMO{}\input{Grizzards}"
+	-cd Object/Demo.NTSC.pdf ; xelatex -interaction=batchmode "\def\TVNTSC{}\def\DEMO{}\input{Grizzards}"
 	mkdir -p Dist
-	mv Object/Grizzards.pdf Dist/Grizzards.Demo.NTSC.pdf
+	mv Object/Demo.NTSC.pdf/Grizzards.pdf Dist/Grizzards.Demo.NTSC.pdf
 
-Dist/Grizzards.Demo.PAL.pdf: Object/Grizzards.tex
-	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{}\def\TVPAL{}\input{Grizzards}"
-	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{}\def\TVPAL{}\input{Grizzards}"
-	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{}\def\TVPAL{}\input{Grizzards}"
+Dist/Grizzards.Demo.PAL.pdf: Manual/Grizzards.tex
+	mkdir -p Object/Demo.PAL.pdf
+	cp $< Object/Demo.PAL.pdf/
+	ln -sf ../Manual Object/
+	-cd Object/Demo.PAL.pdf ; xelatex -interaction=batchmode "\def\TVPAL{}\def\DEMO{}\input{Grizzards}"
+	-cd Object/Demo.PAL.pdf ; xelatex -interaction=batchmode "\def\TVPAL{}\def\DEMO{}\input{Grizzards}"
+	-cd Object/Demo.PAL.pdf ; xelatex -interaction=batchmode "\def\TVPAL{}\def\DEMO{}\input{Grizzards}"
 	mkdir -p Dist
-	mv Object/Grizzards.pdf Dist/Grizzards.Demo.PAL.pdf
+	mv Object/Demo.PAL.pdf/Grizzards.pdf Dist/Grizzards.Demo.PAL.pdf
 
-Dist/Grizzards.Demo.SECAM.pdf: Object/Grizzards.tex
-	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{}\def\TVSECAM{}\input{Grizzards}"
-	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{}\def\TVSECAM{}\input{Grizzards}"
-	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{}\def\TVSECAM{}\input{Grizzards}"
+Dist/Grizzards.Demo.SECAM.pdf: Manual/Grizzards.tex
+	mkdir -p Object/Demo.SECAM.pdf
+	cp $< Object/Demo.SECAM.pdf/
+	ln -sf ../Manual Object/
+	-cd Object/Demo.SECAM.pdf ; xelatex -interaction=batchmode "\def\TVSECAM{}\def\DEMO{}\input{Grizzards}"
+	-cd Object/Demo.SECAM.pdf ; xelatex -interaction=batchmode "\def\TVSECAM{}\def\DEMO{}\input{Grizzards}"
+	-cd Object/Demo.SECAM.pdf ; xelatex -interaction=batchmode "\def\TVSECAM{}\def\DEMO{}\input{Grizzards}"
 	mkdir -p Dist
-	mv Object/Grizzards.pdf Dist/Grizzards.Demo.SECAM.pdf
+	mv Object/Demo.SECAM.pdf/Grizzards.pdf Dist/Grizzards.Demo.SECAM.pdf
 
-Dist/Grizzards.NoSave.NTSC.pdf: Object/Grizzards.tex
-	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{}\def\NOSAVE{}\def\TVNTSC{}\input{Grizzards}"
-	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{}\def\NOSAVE{}\def\TVNTSC{}\input{Grizzards}"
-	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{}\def\NOSAVE{}\def\TVNTSC{}\input{Grizzards}"
+Dist/Grizzards.NoSave.NTSC.pdf: Manual/Grizzards.tex
+	mkdir -p Object/NoSave.NTSC.pdf
+	cp $< Object/NoSave.NTSC.pdf/
+	ln -sf ../Manual Object/
+	-cd Object/NoSave.NTSC.pdf ; xelatex -interaction=batchmode "\def\TVNTSC{}\def\DEMO{}\def\NOSAVE{}\input{Grizzards}"
+	-cd Object/NoSave.NTSC.pdf ; xelatex -interaction=batchmode "\def\TVNTSC{}\def\DEMO{}\def\NOSAVE{}\input{Grizzards}"
+	-cd Object/NoSave.NTSC.pdf ; xelatex -interaction=batchmode "\def\TVNTSC{}\def\DEMO{}\def\NOSAVE{}\input{Grizzards}"
 	mkdir -p Dist
-	mv Object/Grizzards.pdf Dist/Grizzards.NoSave.NTSC.pdf
+	mv Object/NoSave.NTSC.pdf/Grizzards.pdf Dist/Grizzards.NoSave.NTSC.pdf
 
-Dist/Grizzards.NoSave.PAL.pdf: Object/Grizzards.tex
-	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{}\def\NOSAVE{}\def\TVPAL{}\input{Grizzards}"
-	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{}\def\NOSAVE{}\def\TVPAL{}\input{Grizzards}"
-	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{}\def\NOSAVE{}\def\TVPAL{}\input{Grizzards}"
+Dist/Grizzards.NoSave.PAL.pdf: Manual/Grizzards.tex
+	mkdir -p Object/NoSave.PAL.pdf
+	cp $< Object/NoSave.PAL.pdf/
+	ln -sf ../Manual Object/
+	-cd Object/NoSave.PAL.pdf ; xelatex -interaction=batchmode "\def\TVPAL{}\def\DEMO{}\def\NOSAVE{}\input{Grizzards}"
+	-cd Object/NoSave.PAL.pdf ; xelatex -interaction=batchmode "\def\TVPAL{}\def\DEMO{}\def\NOSAVE{}\input{Grizzards}"
+	-cd Object/NoSave.PAL.pdf ; xelatex -interaction=batchmode "\def\TVPAL{}\def\DEMO{}\def\NOSAVE{}\input{Grizzards}"
 	mkdir -p Dist
-	mv Object/Grizzards.pdf Dist/Grizzards.NoSave.PAL.pdf
+	mv Object/NoSave.PAL.pdf/Grizzards.pdf Dist/Grizzards.NoSave.PAL.pdf
 
-Dist/Grizzards.NoSave.SECAM.pdf: Object/Grizzards.tex
-	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{}\def\NOSAVE{}\def\TVSECAM{}\input{Grizzards}"
-	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{}\def\NOSAVE{}\def\TVSECAM{}\input{Grizzards}"
-	-cd Object ; xelatex -interaction=batchmode "\def\DEMO{}\def\NOSAVE{}\def\TVSECAM{}\input{Grizzards}"
+Dist/Grizzards.NoSave.SECAM.pdf: Manual/Grizzards.tex
+	mkdir -p Object/NoSave.SECAM.pdf
+	cp $< Object/NoSave.SECAM.pdf/
+	ln -sf ../Manual Object/
+	-cd Object/NoSave.SECAM.pdf ; xelatex -interaction=batchmode "\def\TVSECAM{}\def\DEMO{}\def\NOSAVE{}\input{Grizzards}"
+	-cd Object/NoSave.SECAM.pdf ; xelatex -interaction=batchmode "\def\TVSECAM{}\def\DEMO{}\def\NOSAVE{}\input{Grizzards}"
+	-cd Object/NoSave.SECAM.pdf ; xelatex -interaction=batchmode "\def\TVSECAM{}\def\DEMO{}\def\NOSAVE{}\input{Grizzards}"
 	mkdir -p Dist
-	mv Object/Grizzards.pdf Dist/Grizzards.NoSave.SECAM.pdf
-
-Object/Grizzards.tex: Manual/Grizzards.tex
-	mkdir -p Object
-	cp $< $@
+	mv Object/NoSave.SECAM.pdf/Grizzards.pdf Dist/Grizzards.NoSave.SECAM.pdf
 
 # If Make tries to second-guess us, let the default assembler be “error,”
 # because the default assembler (probably GNU gas) almost certainly

@@ -18,12 +18,11 @@ MONTH=$(shell date +%m)
 DATE=$(shell date +%d)
 JULIAN=$(shell date +%j)
 BUILD=$(shell date +%y.%j)
-PUBLISHER=false # override from command line only
 ASFLAGS=--nostart --long-branch --case-sensitive \
 	--ascii -I. -I Source/Common -I Source/Routines -I Source/Generated/Common \
 	-D YEARNOW=${YEAR} -D MONTHNOW=${MONTH} \
 	-D DATENOW=${DATE} -D JULIANDATENOW=${JULIAN} \
-	-D BUILD=${BUILD} -D PUBLISHER=${PUBLISHER} \
+	-D BUILD=${BUILD} \
 	-Wall -Wno-shadow -Wno-leading-zeros
 AS2600=64tass ${ASFLAGS} --m6502
 
@@ -181,7 +180,7 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
       }
       print "
 \tmkdir -p Object
-\t\${AS2600} -DSTARTER=$starter -DTV=$tv -I Source/Generated/Bank$bank -l \$\@.labels.txt -L \$\@.list.txt \$< -o \$\@\n
+\t\${AS2600} -DSTARTER=$starter -DPUBLISHER=true -DTV=$tv -I Source/Generated/Bank$bank -l \$\@.labels.txt -L \$\@.list.txt \$< -o \$\@\n
 \tbin/label2sym \$\@.labels.txt\n\n";
 
       if (1 == $starter and hex("0x$bank") < 8) {
