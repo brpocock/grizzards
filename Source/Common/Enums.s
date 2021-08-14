@@ -107,10 +107,8 @@
           .if DEMO
           SaveGameSlotPrefix = $3000
           .else
-          ;; TODO allocate the appropriate number of pages with AtariAge
-          ;;
           ;; https://atariage.com/atarivox/atarivox_mem_list.html
-          SaveGameSlotPrefix = $1700
+          SaveGameSlotPrefix = $1100
           .fi
           
           ;; Must be exactly 5 bytes for the driver routines to work
