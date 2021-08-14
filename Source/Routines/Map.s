@@ -11,7 +11,7 @@ Loop:
 
           ldx CurrentMap
 
-;;; Special case: If this  is the demo and we're in Bank  4, the RLE has
+;;; Special case: If this  is not the demo and we're in Bank  4, the RLE has
 ;;; to change  depending on whether  the tunnels have  been opened
 ;;; yet. If they have not been, we swap out the background for the
 ;;; BowClosed one.
