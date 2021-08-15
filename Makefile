@@ -6,7 +6,7 @@ unerase:	Dist/Grizzards.Unerase.NTSC.a26 \
 		Dist/Grizzards.Unerase.PAL.a26 \
 		Dist/Grizzards.Unerase.SECAM.a26
 
-publish:	demo game no-save doc unerase
+publish:	demo game no-save doc unerase Dist/Grizzards.Source.tar.gz
 	rsync -essh --progress \
 		Dist/Grizzards.Demo.NTSC.a26 Dist/Grizzards.Demo.PAL.a26 Dist/Grizzards.Demo.SECAM.a26 \
 		Dist/Grizzards.Demo.zip Dist/Grizzards.Source.tar.gz \
