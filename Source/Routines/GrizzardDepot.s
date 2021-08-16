@@ -11,6 +11,7 @@ GrizzardDepot:    .block
           stx WSYNC
           .WaitScreenTop
           .FarJSR SaveKeyBank, ServiceSaveToSlot
+          stx WSYNC
           .WaitScreenTop
           .KillMusic
           jmp ReturnToLoop

@@ -2,7 +2,7 @@
 ;;; Copyright © Bruce-Robert Pocock
 
 SaveGrizzard:       .block
-          .WaitScreenTopMinus 2,0
+          .WaitScreenTopMinus 2, 0
           ;; Now we have 3 more blocks to write.
 
           ;; We have 30 potential Grizzards, which make up 5 bytes each.
