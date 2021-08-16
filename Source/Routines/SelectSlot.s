@@ -20,7 +20,7 @@ SelectSlot:        .block
           sta CurrentUtterance
 
           .if TV == NTSC
-          .TimeLines KernelLines * 2/3 - 2
+          .TimeLines KernelLines * 2/3 - 4
           .else
           .TimeLines KernelLines / 2 - 2
           .fi
