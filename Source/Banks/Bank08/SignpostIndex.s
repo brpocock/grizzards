@@ -10,8 +10,6 @@ GetSignpostIndex:      .block
           beq CheckTunnelVisited
           cpx # 7
           beq CheckTunnelVisited
-          cpx # 13
-          beq CheckShipInPort
 Return:
           rts
 
@@ -51,12 +49,5 @@ Artifact1:
           and #$30
           cmp #$30
           bne Artifact1Scared
-          rts
-
-CheckShipInPort:
-          lda ProvinceFlags
-          and #$01
-          beq Return
-          ldx # 19
           rts
           .bend

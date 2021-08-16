@@ -76,14 +76,45 @@ NoBankUp:
           stx CurrentUtterance
 
           ldy # 0
-          lda (SignpostWork), y
+          lda (SignpostWork), y ; FG color
           sta SignpostFG
           iny
-          lda (SignpostWork), y
+          lda (SignpostWork), y ; BG color
           sta SignpostBG
+          iny
+          lda (SignpostWork), y ; conditional?
+          cmp #$ff
+          bne Unconditional
 
+          iny
+          lda (SignpostWork), y ; bit flag upon which it's conditional
+          tay
+          and #$38
+          lsr a
+          lsr a
+          lsr a
+          tax
+          lda ProvinceFlags, x
+          sta Temp
+          tya
+          and #$07
+          tax
+          lda BitMask, x
+          and Temp
+          beq ConditionFailed
+
+          ldy # 4               ; jump to which alternative
+          lda (SignpostWork), y
+          tax
+          jmp IndexReady
+
+ConditionFailed:
+          .Add16 SignpostText, #5
+          jmp ReadyToDraw
+
+Unconditional:
           .Add16 SignpostText, #2
-
+ReadyToDraw:
           lda # 2
           sta AlarmCountdown
 

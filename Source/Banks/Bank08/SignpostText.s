@@ -147,6 +147,7 @@ NPC_TrebleVillage:
 Sign_TrebleDocks:
           .colu COLBLUE, $e
           .colu COLCYAN, $2
+          .byte $ff, 0, 19
           .SignText "TREBLE DOCKS"
           .SignText "TO PORT LION"
           .SignText "            "
