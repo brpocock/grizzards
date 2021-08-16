@@ -248,13 +248,13 @@ SlotOK:
 
 FinishScreenAndProceed:
           sty Temp
-          .WaitScreenBottom
           ldy Temp
           bne LoadSaveSlot      ; located immediately after this in memory
                                 ; (so, reachable by branch)
 
           lda #ModeStartGame
           sta GameMode
+          .WaitScreenBottom
           .FarJMP MapServicesBank, ServiceNewGame
 
           .bend

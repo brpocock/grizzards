@@ -1,6 +1,8 @@
 ;;; Grizzards Source/Routines/LoadSaveSlot.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
 LoadSaveSlot: .block
+          .WaitScreenBottom
+          stx WSYNC
           .WaitScreenTop
           jsr CheckSaveSlot
           bcc ReallyLoadIt
