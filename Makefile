@@ -7,7 +7,7 @@ unerase:	Dist/Grizzards.Unerase.NTSC.a26 \
 		Dist/Grizzards.Unerase.SECAM.a26
 
 publish:	demo game no-save doc unerase Dist/Grizzards.Source.tar.gz
-	rsync -essh --progress \
+	until rsync -essh --progress \
 		Dist/Grizzards.Demo.NTSC.a26 Dist/Grizzards.Demo.PAL.a26 Dist/Grizzards.Demo.SECAM.a26 \
 		Dist/Grizzards.Demo.zip Dist/Grizzards.Source.tar.gz \
 		Dist/Grizzards.Demo.NTSC.pdf Dist/Grizzards.Demo.PAL.pdf Dist/Grizzards.Demo.SECAM.pdf \
@@ -20,7 +20,8 @@ publish:	demo game no-save doc unerase Dist/Grizzards.Source.tar.gz
 		Dist/Grizzards.Unerase.NTSC.a26 \
 		Dist/Grizzards.Unerase.PAL.a26 \
 		Dist/Grizzards.Unerase.SECAM.a26 \
-		star-hope.org:star-hope.org/games/Grizzards/
+		star-hope.org:star-hope.org/games/Grizzards/ ; \
+	do sleep 1; done
 
 demo:	Dist/Grizzards.Demo.zip
 
