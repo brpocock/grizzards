@@ -1,6 +1,7 @@
 ;;; Grizzards Source/Routines/SaveToSlot.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
 SaveToSlot:	.block
+          .WaitScreenBottom
           .WaitScreenTop
 
 WriteMasterBlock:

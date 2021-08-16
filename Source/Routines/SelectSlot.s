@@ -234,7 +234,7 @@ GoBack:
 ;;; 
 SlotOK:
           sta WSYNC
-          .WaitScreenTopMinus 1, 0
+          .WaitScreenTopMinus 2, 0
           lda #SoundHappy
           sta NextSound
 
