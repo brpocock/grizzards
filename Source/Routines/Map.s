@@ -4,9 +4,7 @@ Map:    .block
 
 Loop:
           .FarJSR MapServicesBank, ServiceTopOfScreen
-          .if TV != NTSC
-          sta WSYNC
-          .fi
+
           .TimeLines KernelLines - 34
 
           ldx CurrentMap

@@ -22,7 +22,7 @@ SelectSlot:        .block
           .if TV == NTSC
           .TimeLines KernelLines * 2/3 - 4
           .else
-          .TimeLines KernelLines / 2 - 2
+          .TimeLines KernelLines / 2 - 3
           .fi
 
           jmp LoopFirst
@@ -253,6 +253,9 @@ FinishScreenAndProceed:
                                 ; (so, reachable by branch)
 
           .WaitScreenBottom
+          .if TV != NTSC
+          stx WSYNC
+          .fi
           .FarJMP MapServicesBank, ServiceNewGame
 
           .bend

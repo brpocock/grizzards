@@ -1,7 +1,7 @@
 ;;; Grizzards Source/Routines/StartNewGame.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
 StartNewGame:          .block
-          .WaitScreenTopMinus 1, 0
+          .WaitScreenTopMinus 1, -1
 
           lda #ModeStartGame
           sta GameMode
@@ -51,6 +51,9 @@ InitGameVars:
           sta StartGameWipeBlock
 
           .WaitScreenBottom
+          .if TV != NTSC
+          stx WSYNC
+          .fi
 
           .if NOSAVE
 
@@ -60,12 +63,11 @@ InitGameVars:
           .else
 
 Loop:
-          .WaitScreenTopMinus 1, 2
+          .WaitScreenTopMinus 1, -1
 
           lda StartGameWipeBlock
           cmp #$ff
           beq Leave
-
 
           jsr i2cStartWrite
           bcc LetsStart
@@ -116,6 +118,9 @@ WaitForScreenEnd:
           cmp #ModeStartGame
           beq Leave
           .WaitScreenBottom
+          .if TV != NTSC
+          stx WSYNC
+          .fi
           jmp Loop
 
 Leave:
