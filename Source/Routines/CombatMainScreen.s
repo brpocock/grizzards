@@ -227,8 +227,8 @@ RunAway:
           bne RunningAway                 ; always taken
 ;;; 
 ScreenDone:
-          stx WSYNC
 RunningAway:
+          stx WSYNC
           stx WSYNC
           stx WSYNC
           jsr Overscan
