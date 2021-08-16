@@ -27,6 +27,12 @@ NewRoom:
           .WaitForTimer
           stx WSYNC
 
+          lda GameMode
+          cmp #ModeMapNewRoomDoor
+          bne +
+          stx WSYNC
++
+
           .if TV != NTSC
           stx WSYNC
           .fi

@@ -1,8 +1,7 @@
 ;;; Grizzards Source/Routines/StartNewGame.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
 StartNewGame:          .block
-          .WaitScreenBottom
-          .WaitScreenTopMinus 1, 0
+          .WaitScreenTopMinus 2, 0
 
           lda #ModeStartGame
           sta GameMode
