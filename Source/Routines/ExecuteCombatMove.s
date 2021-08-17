@@ -413,7 +413,7 @@ CheckMove:
 
           sta pp1l
           jsr Random
-          and #$07
+          and #$01
           bne DidNotLearn
 
           ldx pp1h
