@@ -52,6 +52,9 @@ ReadGlobalLoop:
 
           jsr i2cStopRead
 
+          lda CurrentMap
+          sta NextMap
+
           .WaitScreenBottom
           .WaitScreenTop
 
