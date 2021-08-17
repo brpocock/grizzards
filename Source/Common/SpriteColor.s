@@ -3,8 +3,8 @@
 
 SpriteColor:
           .colu COLGREEN, $6    ; monster
-          .colu COLRED, $e      ; Grizzard Depot
-          .colu COLSPRINGGREEN, $e ; new Grizzard
+          .colu COLMAGENTA, $6      ; Grizzard Depot
+          .colu COLSPRINGGREEN, $6 ; new Grizzard
           .colu COLBLUE, $8        ; door
 
           ;; Signpost
