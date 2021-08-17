@@ -480,25 +480,25 @@ SpriteList:
           ;; Room 11
           .byte 15, SpriteWander
           .byte $7e, $27
-          .byte SpriteCombat, 2
+          .byte SpriteCombat, 9
 
           .byte 0
 
           ;; Room 12
           .byte $ff, SpriteFixed
           .byte $7e, $27
-          .byte SpriteSign, 14
+          .byte SpriteSign, 14  ; western road sign
           
           .byte 4, SpriteWander
           .byte $7e, $27
-          .byte SpriteCombat, 2
+          .byte SpriteCombat, 9
 
           .byte 0
 
           ;; Room 13
           .byte 5, SpriteWander
           .byte $7e, $27
-          .byte SpriteCombat, 2
+          .byte SpriteCombat, 9
 
           .byte 0
 
