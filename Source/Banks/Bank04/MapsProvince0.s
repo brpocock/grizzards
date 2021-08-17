@@ -420,13 +420,15 @@ SpriteList:
           .byte 0
 
           ;; Room 8
-          .byte 8, SpriteWander
+          .if !DEMO
+          .byte 8, SpriteFixed
           .byte $38, $30
           .byte SpriteProvinceDoor | $10, 2
+          .fi
 
           .byte $ff, SpriteFixed
           .byte $38, $20
-          .byte SpriteSign, 9
+          .byte SpriteSign, 9   ; lost mine
 
           .byte 9, SpriteFixed
           .byte $c8, $24
