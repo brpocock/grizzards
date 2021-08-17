@@ -25,21 +25,14 @@ ReallyLoadIt:
           jsr i2cStartRead
 
 DiscardSignature:
+          ldx # 0
+-
           jsr i2cRxByte
-          cmp #SaveGameSignature[0]
+          cmp SaveGameSignatureString, x
           bne LoadFailed
-          jsr i2cRxByte
-          cmp #SaveGameSignature[1]
-          bne LoadFailed
-          jsr i2cRxByte
-          cmp #SaveGameSignature[2]
-          bne LoadFailed
-          jsr i2cRxByte
-          cmp #SaveGameSignature[3]
-          bne LoadFailed
-          jsr i2cRxByte
-          cmp #SaveGameSignature[4]
-          bne LoadFailed
+          inx
+          cpx # 5
+          blt -
 
           ldx # 0
 ReadGlobalLoop:
