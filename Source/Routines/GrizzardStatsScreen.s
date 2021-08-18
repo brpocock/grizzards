@@ -52,7 +52,7 @@ Bouncey1:
           bne +
           lda # 2
           sta AlarmCountdown
-          .WaitScreenBottom
+
           jmp CombatMainScreen
 +
 
