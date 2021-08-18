@@ -123,6 +123,7 @@ game:	Dist/Grizzards.Dirtex.NTSC.a26 Dist/Grizzards.Dirtex.PAL.a26 Dist/Grizzard
 	Dist/Grizzards.NTSC.pdf Dist/Grizzards.PAL.pdf Dist/Grizzards.SECAM.pdf
 
 doc:	Dist/Grizzards.NTSC.pdf Dist/Grizzards.PAL.pdf Dist/Grizzards.SECAM.pdf \
+	Dist/Grizzards.NTSC-book.pdf Dist/Grizzards.PAL-book.pdf Dist/Grizzards.SECAM-book.pdf \
 	Dist/Grizzards.Demo.NTSC.pdf Dist/Grizzards.Demo.PAL.pdf Dist/Grizzards.Demo.SECAM.pdf \
 	Dist/Grizzards.NoSave.NTSC.pdf Dist/Grizzards.NoSave.PAL.pdf Dist/Grizzards.NoSave.SECAM.pdf
 
@@ -179,6 +180,15 @@ Source/Generated/Makefile:	bin/write-master-makefile ${SOURCES}
 	mkdir -p Source/Generated
 	for bank in 5 7 8 9 a b c d e; do bin/make-speakjet-enums $$bank; done
 	$< > Source/Generated/Makefile
+
+Dist/Grizzards.NTSC-book.pdf:	Dist/Grizzards.NTSC.pdf
+	pdfbook2 --paper=letterpaper -o 0 -i 0 -t 0 -b 0 $<
+
+Dist/Grizzards.PAL-book.pdf:	Dist/Grizzards.PAL.pdf
+	pdfbook2 --paper=letterpaper -o 0 -i 0 -t 0 -b 0 $<
+
+Dist/Grizzards.SECAM-book.pdf:	Dist/Grizzards.SECAM.pdf
+	pdfbook2 --paper=letterpaper -o 0 -i 0 -t 0 -b 0 $<
 
 Dist/Grizzards.NTSC.pdf: Manual/Grizzards.tex
 	mkdir -p Object/NTSC.pdf
