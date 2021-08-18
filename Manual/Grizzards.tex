@@ -5,10 +5,10 @@
 %
 % If you're a human, skip to "\mainmatter" to skip over the preamble.
 %
-\documentclass[10pt,twocolumn,openany,article]{memoir}
+\documentclass[10pt,twocolumn,showtrims,openany,article]{memoir}
 
-\setstocksize{9in}{6in}
-\settrimmedsize{\stockheight}{\dimexpr 6in-15mm}{*}
+\setstocksize{8.5in}{5.5in}
+\settrimmedsize{7in}{5in}{*}
 
 \setlrmarginsandblock{.5cm}{1.5cm}{*}
 \setulmarginsandblock{1.5cm}{*}{1}
@@ -73,7 +73,7 @@
 \begin{document}
 \frontmatter
 %%%\let\cleardoublepage\clearpage
-\includepdf[height=9in,width=6in,fitpaper=true]{../Manual/Cover.png}
+\includepdf[height=7in,width=5in]{../Manual/Cover.png}
 
 % \clearpage
 
@@ -1044,6 +1044,6 @@ requires a license.
 
 \clearpage
 \addcontentsline{toc}{chapter}{Map of Syrex}
-\includepdf[height=9in,width=6in,fitpaper=true]{../Manual/SyrexMap.pdf}
+\includepdf[height=7in,width=5in]{../Manual/SyrexMap.pdf}
 
 \end{document}
