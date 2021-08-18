@@ -2,7 +2,7 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
 Credits:  .block
-
+          .WaitScreenBottom
           .SetUtterance Phrase_Credits
           sta AttractHasSpoken
 Loop:
