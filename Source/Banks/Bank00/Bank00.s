@@ -65,6 +65,12 @@ DoLocal:
           beq SaveGrizzard
           cpy #ServiceAttract
           beq Attract.WarmStart
+          .if !DEMO
+          cpy #ServiceSaveProvinceData
+          beq SaveProvinceData
+          cpy #ServiceLoadProvinceData
+          beq LoadProvinceData
+          .fi
           brk
 
 	.include "ColdStart.s"

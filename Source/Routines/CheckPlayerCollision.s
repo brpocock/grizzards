@@ -94,6 +94,11 @@ EnterDepot:
           rts
 
 ProvinceChange:
+          stx DeltaX
+          .WaitScreenBottom
+          .FarJSR SaveKeyBank, ServiceSaveProvinceData
+          .WaitScreenTop
+          ldx DeltaX
           lda SpriteAction, x
           and #$f0
           clc
@@ -106,7 +111,7 @@ ProvinceChange:
           sta NextMap
           ldy #ModeMapNewRoomDoor
           sty GameMode
-          rts
+          .FarJMP SaveKeyBank, ServiceLoadProvinceData  ; tail call
 
 ;;; 
 BumpWall:

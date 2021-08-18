@@ -189,6 +189,8 @@
           ServiceSaveGrizzard = $11
           ServiceSaveToSlot = $10
           ServiceAttract = $1e
+          ServiceSaveProvinceData = $20
+          ServiceLoadProvinceData = $21
 ;;; 
 ;;; Maximum number of Grizzards allowed
 ;;; The save/load routines should handle up to 36
