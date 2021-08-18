@@ -421,7 +421,7 @@ SpriteList:
 
           ;; Room 8
           .if !DEMO
-          .byte 8, SpriteFixed
+          .byte $ff, SpriteFixed
           .byte $38, $30
           .byte SpriteProvinceDoor | $10, 2
           .fi
