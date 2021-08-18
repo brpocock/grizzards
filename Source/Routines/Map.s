@@ -116,12 +116,15 @@ DoneBall:
           sta HMOVE
 ;;; 
           ;; Prepare for the DrawMap loop
+          ldx CurrentMap
+
           lda MapColors, x
           and #$0f
           .if TV != SECAM
-          .rept 4
           asl a
-          .next
+          asl a
+          asl a
+          asl a
           ora #$0e
           .fi
 
