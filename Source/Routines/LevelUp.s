@@ -2,6 +2,7 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
 LevelUp:        .block
+          .WaitScreenBottom
           .WaitScreenTop
           ;; Call with the level raised in Temp
           lda #ModeLevelUp
