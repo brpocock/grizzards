@@ -2,9 +2,6 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 SaveToSlot:	.block
           .WaitScreenBottom
-          .if TV != NTSC
-          stx WSYNC
-          .fi
           .WaitScreenTop
 
 WriteMasterBlock:

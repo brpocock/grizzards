@@ -2,7 +2,7 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
 CombatOutcomeScreen:          .block
-          .WaitScreenTopMinus 1, 0
+          .WaitScreenTopMinus 1, -2
 
           lda # 0
           sta SpeechSegment

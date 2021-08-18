@@ -3,6 +3,9 @@
 LoadSaveSlot: .block
           .WaitScreenBottom
           stx WSYNC
+          .if TV != NTSC
+          stx WSYNC
+          .fi
           .WaitScreenTop
           jsr CheckSaveSlot
           bcc ReallyLoadIt

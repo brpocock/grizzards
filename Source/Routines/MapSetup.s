@@ -26,14 +26,13 @@ MapSetup: .block
 NewRoom:
           .WaitForTimer
           stx WSYNC
-          stx WSYNC
-
-          .if TV != NTSC
+          .if TV == NTSC
           stx WSYNC
           .fi
+          
           jsr Overscan
 
-          .WaitScreenTopMinus 2, 0
+          .WaitScreenTopMinus 2, -1
           
 NewRoomTimerRunning:
 

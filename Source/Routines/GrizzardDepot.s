@@ -7,7 +7,13 @@ GrizzardDepot:    .block
           ldx #$ff              ; blow away the stack
           txs
 
+          .if TV == NTSC
           .WaitScreenBottom
+          .else
+          .WaitForTimer
+          jsr Overscan
+          .fi
+
           stx WSYNC
           .WaitScreenTop
           .FarJSR SaveKeyBank, ServiceSaveToSlot
