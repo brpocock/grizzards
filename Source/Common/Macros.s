@@ -179,7 +179,7 @@ sound:    .macro volume, control, frequency, duration, end
 
 TimeLines:          .macro lines
           SkipCycles = 76 * (\lines)
-          .if ( (SkipCycles/64) < $100 )
+          .if ( (SkipCycles/64) <= $100 )
           lda # (SkipCycles/64) - 1
           sta TIM64T
           .else
