@@ -48,7 +48,7 @@ PrintKilled:
           .SetPointer KilledText
           jsr CopyPointerText
           jsr DecodeAndShowText
-          jmp AfterHitPoints
+          jmp AfterStatusFX
 
 CheckMonsterPulse2:
           ldx MoveTarget
