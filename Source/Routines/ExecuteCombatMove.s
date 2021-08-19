@@ -452,8 +452,7 @@ NextTurn:
           bne NotLastMonster
           ldx #0
           stx WhoseTurn
-          stx WSYNC
-          jmp BackToMain
+          jmp CombatMainScreen.BackToPlayer
 NotLastMonster:
           lda MonsterHP, x
           beq NextTurn

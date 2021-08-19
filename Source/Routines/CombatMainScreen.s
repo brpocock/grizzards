@@ -7,16 +7,40 @@ CombatMainScreen:   .block
           lda #ModeCombat
           sta GameMode
           .WaitScreenBottom
+          jmp Loop
+;;; 
+BackToPlayer:
+          lda #1
+          sta MoveSelection
+          ldx #0
+-
+          lda MonsterHP, x
+          bne TargetFirst
+          inx
+          cpx # 5
+          bne -
+TargetFirst:
+          stx MoveTarget
+          .WaitScreenBottom
+          jsr VSync
+          jmp InMediaRes
+
 ;;; 
 Loop:
           jsr VSync
-          ;; drawing the monsters seems to sometimes be a little variable in its timing, so we'll use a timer.
+          ;; drawing  the  monsters  seems  to  sometimes  be  a  little
+	;; variable in its timing, so we'll use a timer.
+InMediaRes:          
+          ;; even worse, it varies depending on whose turn it is by just
+	;; enough to notice.  When we're returning from  a monster's turn
+	;; to the player's  turn, the first frame comes up  one scan line
+	;; short for no good reason I can determine — and it does not
+          ;; happen every time, just often enough to notice.
           .if TV == NTSC
-          .TimeLines 93
+          .TimeLines 94
           .else
           .TimeLines 104
           .fi
-
           jsr Prepare48pxMobBlob
 
           .switch TV
