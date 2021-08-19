@@ -452,6 +452,11 @@ NextTurn:
           bne NotLastMonster
           ldx #0
           stx WhoseTurn
+          .if TV != NTSC
+          ldx INTIM
+          dex
+          stx TIM64T
+          .fi
           jmp CombatMainScreen.BackToPlayer
 NotLastMonster:
           lda MonsterHP, x
@@ -459,6 +464,13 @@ NotLastMonster:
 
           lda # 6
           sta AlarmCountdown
+          .if TV != NTSC
+          ;; stuff a few cycles onto the clock here
+          ldx INTIM
+          inx
+          inx
+          stx TIM64T
+          .fi
 BackToMain:
           jmp CombatMainScreen
 ;;; 

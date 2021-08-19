@@ -5,6 +5,9 @@ CombatAnnouncementScreen:     .block
 ;;; Set up for the combat move announcement & execution
 ;;; (this whole first page is really a separate step from the announcement screen)
           .WaitScreenBottom
+          .if TV != NTSC
+          .SkipLines 5
+          .fi
           .WaitScreenTop
 
           lda # 0

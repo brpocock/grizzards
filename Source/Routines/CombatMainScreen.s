@@ -6,7 +6,8 @@ CombatMainScreen:   .block
           sta MoveSelection
           lda #ModeCombat
           sta GameMode
-          jmp Loop
+          .WaitScreenBottom
+          jmp LoopFirst
 ;;; 
 BackToPlayer:
           lda #1
@@ -14,11 +15,20 @@ BackToPlayer:
           lda #ModeCombat
           sta GameMode
           jsr TargetFirstMonster
+          .WaitScreenBottom
+          jmp LoopFirst
 ;;; 
 Loop:
           .WaitScreenBottom
-          .WaitScreenTop
-
+          .if TV != NTSC
+          lda WhoseTurn
+          bne +
+          .SkipLines 3
++
+          .SkipLines 2
+          .fi
+LoopFirst:
+          .WaitScreenTopMinus 0, 3
           jsr Prepare48pxMobBlob
 
           .switch TV
@@ -210,7 +220,9 @@ RunAway:
 ;;; 
 ScreenDone:
 RunningAway:
+          .if TV == NTSC
           .SkipLines 3
+          .fi
 
           lda GameMode
           cmp #ModeCombat
@@ -229,7 +241,7 @@ Leave:
           jmp GrizzardStatsScreen
 +
           cmp #ModeCombatAnnouncement
-          jmp CombatAnnouncementScreen
+          beq CombatAnnouncementScreen
           brk
 ;;; 
 HealthyPF2:
