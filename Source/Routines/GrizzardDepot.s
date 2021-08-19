@@ -185,7 +185,7 @@ NoStickUp:
 SeekGrizzard:
           sta NextMap
 SeekScreen:
-          ldy # 16
+          ldy # 8
           sty AlarmCountdown      ; Abusing this register! XXX
           .WaitScreenBottom
           .WaitScreenTop
@@ -202,10 +202,11 @@ KeepSeeking:
           blt SeekOK
           lda NextMap
           cmp # 1
-          beq +
+          beq SeekWrapped
           lda # 29
           bne SeekOK            ; always taken
-+
+
+SeekWrapped:
           lda # 0
 SeekOK:
           sta Temp
@@ -243,6 +244,8 @@ SwitchesDone:
           bne TriggerDone
           lda #ModeMap
           sta GameMode
+          lda CurrentMap
+          sta NextMap           ; may have been overwritten
 
           .WaitScreenBottom
           jmp GoMap
