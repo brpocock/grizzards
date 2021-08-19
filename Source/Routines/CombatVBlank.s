@@ -107,7 +107,7 @@ SelfTarget:
 ChooseTarget:
           ldx MoveTarget
           bne +
-          ldx # 1
+          jsr CombatMainScreen.TargetFirstMonster
 +
           cpx # 7
           blt +
