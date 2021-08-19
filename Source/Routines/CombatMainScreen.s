@@ -6,12 +6,14 @@ CombatMainScreen:   .block
           sta MoveSelection
           lda #ModeCombat
           sta GameMode
-          .WaitScreenBottom
           jmp Loop
 ;;; 
 BackToPlayer:
           lda #1
           sta MoveSelection
+          lda #ModeCombat
+          sta GameMode
+TargetFirstMonster:
           ldx #0
 -
           lda MonsterHP, x
@@ -20,27 +22,14 @@ BackToPlayer:
           cpx # 5
           bne -
 TargetFirst:
+          inx
           stx MoveTarget
-          .WaitScreenBottom
-          jsr VSync
-          jmp InMediaRes
 
 ;;; 
 Loop:
-          jsr VSync
-          ;; drawing  the  monsters  seems  to  sometimes  be  a  little
-	;; variable in its timing, so we'll use a timer.
-InMediaRes:          
-          ;; even worse, it varies depending on whose turn it is by just
-	;; enough to notice.  When we're returning from  a monster's turn
-	;; to the player's  turn, the first frame comes up  one scan line
-	;; short for no good reason I can determine — and it does not
-          ;; happen every time, just often enough to notice.
-          .if TV == NTSC
-          .TimeLines 94
-          .else
-          .TimeLines 104
-          .fi
+          .WaitScreenBottom
+          .WaitScreenTop
+
           jsr Prepare48pxMobBlob
 
           .switch TV
@@ -86,16 +75,9 @@ MonstersDisplay:
 
           .FarJSR AnimationsBank, ServiceDrawMonsterGroup
 DelayAfterMonsters:
-          .WaitForTimer
+          ;; no actual delay now
 ;;; 
 BeginPlayerSection:
-          .if TV == NTSC
-          .TimeLines KernelLines - 104
-          .else
-          .TimeLines KernelLines - 114
-          .fi
-
-          sta WSYNC
           .ldacolu COLBLUE, $f
           sta COLUP0
           sta COLUP1
@@ -104,6 +86,7 @@ BeginPlayerSection:
           .else
           .ldacolu COLINDIGO, $4
           .fi
+          stx WSYNC
           sta COLUBK
 
 DrawGrizzardName:
@@ -166,7 +149,7 @@ FullPF1:                        ; ∈ 8…12
           ;; fall through
 
 DoneHealth:
-          .SkipLines 4
+          .SkipLines 3
           lda # 0
           sta PF0
           sta PF1
@@ -175,11 +158,6 @@ DoneHealth:
           lda WhoseTurn
           beq PlayerChooseMove
 
-          .WaitForTimer
-
-          .if TV == NTSC
-          .SkipLines 8
-          .fi
           jmp ScreenDone
 
 PlayerChooseMove:
@@ -187,14 +165,14 @@ PlayerChooseMove:
 
           ldx MoveSelection
           bne NotRunAway
-          .ldacolu COLTURQUOISE, $f
+          .ldacolu COLRED , $a
           bne ShowSelectedMove  ; always taken
 
 NotRunAway:
           lda BitMask - 1, x
           bit MovesKnown
           beq NotMoveKnown
-          .ldacolu COLRED, $a
+          .ldacolu COLTURQUOISE, $e
           bne ShowSelectedMove  ; always taken
 
 NotMoveKnown:
@@ -203,15 +181,8 @@ NotMoveKnown:
 ShowSelectedMove:
           sta COLUP0
           sta COLUP1
-          sta WSYNC
 
           .FarJSR TextBank, ServiceShowMove
-
-          .WaitForTimer
-	
-          .if TV != NTSC
-          .SkipLines 3
-          .fi
 
           lda NewButtons
           beq ScreenDone
@@ -238,8 +209,6 @@ DoUseMove:
 MoveOK:
           lda #SoundChirp
           sta NextSound
-          .SkipLines 3
-          jsr Overscan
           jmp CombatAnnouncementScreen
 
 RunAway:
@@ -252,10 +221,7 @@ RunAway:
 ;;; 
 ScreenDone:
 RunningAway:
-          stx WSYNC
-          stx WSYNC
-          stx WSYNC
-          jsr Overscan
+          .SkipLines 3
 
           lda GameMode
           cmp #ModeCombat
@@ -286,6 +252,7 @@ HealthyPF2:
           .byte %11111000
           .byte %11111100
           .byte %11111110
+          .byte %11111111
 
 HealthyPF1:
           .byte %00000000
@@ -296,5 +263,6 @@ HealthyPF1:
           .byte %00011111
           .byte %00111111
           .byte %01111111
+          .byte %11111111
 
           .bend
