@@ -440,8 +440,6 @@ AfterTryingToLearn:
           cpy # 0
           beq NextTurn
 
-          .WaitScreenBottom
-
           lda pp1l
           sta Temp
           .FarJSR MapServicesBank, ServiceLearntMove
@@ -454,6 +452,7 @@ NextTurn:
           bne NotLastMonster
           ldx #0
           stx WhoseTurn
+          stx WSYNC
           jmp BackToMain
 NotLastMonster:
           lda MonsterHP, x
