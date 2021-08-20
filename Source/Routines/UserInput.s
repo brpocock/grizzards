@@ -7,6 +7,15 @@ CheckSwitches:
           beq NoSelect
           .BitBit SWCHBReset
           bne NoReset
+          .WaitForTimer
+          ldx # 0
+          stx VBLANK
+          .if TV == NTSC
+          .TimeLines KernelLines - 1
+          .else
+          lda #$ff
+          sta TIM64T
+          .fi
           jmp GoQuit
 
 NoReset:
