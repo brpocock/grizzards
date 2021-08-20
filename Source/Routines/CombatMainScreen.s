@@ -252,7 +252,6 @@ HealthyPF2:
           .byte %11111000
           .byte %11111100
           .byte %11111110
-          .byte %11111111
 
 HealthyPF1:
           .byte %00000000
@@ -263,7 +262,6 @@ HealthyPF1:
           .byte %00011111
           .byte %00111111
           .byte %01111111
-          .byte %11111111
 
 TargetFirstMonster:
           ldx #0
