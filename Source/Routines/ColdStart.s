@@ -14,6 +14,10 @@ ColdStart:
           ;; on a 7800, or some knockoffs maybe, .S = $ff. By
           ;; stashing the low bit, we can adjust things for
           ;; the 2600 or not. Stash the stack pointer in .X here…
+          ;; 
+          ;; Note:  we're not  actually  using that  now, the  zero-page
+	;; console detection routine should be more reliable according to
+	;; common wisdom around the AtariAge boards.
           tsx
           lda #ENABLED          ; turn off display, and
           sta VSYNC
