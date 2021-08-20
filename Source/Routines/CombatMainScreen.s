@@ -2,13 +2,6 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 CombatMainScreen:   .block
 
-          lda #1
-          sta MoveSelection
-          lda #ModeCombat
-          sta GameMode
-          .WaitScreenBottom
-          jmp LoopFirst
-;;; 
 BackToPlayer:
           lda #1
           sta MoveSelection
@@ -20,7 +13,12 @@ BackToPlayer:
 ;;; 
 Loop:
           .WaitScreenBottom
-          .if TV != NTSC
+          .if TV == NTSC
+          lda WhoseTurn
+          beq +
+          stx WSYNC
++
+          .else
           lda WhoseTurn
           bne +
           .SkipLines 3
@@ -28,7 +26,7 @@ Loop:
           .SkipLines 2
           .fi
 LoopFirst:
-          .WaitScreenTopMinus 0, 3
+          .WaitScreenTopMinus 2, 3
           jsr Prepare48pxMobBlob
 
           .switch TV
@@ -164,6 +162,9 @@ PlayerChooseMove:
           ldx MoveSelection
           bne NotRunAway
           .ldacolu COLRED , $a
+          .if TV == NTSC
+          stx WSYNC
+          .fi
           bne ShowSelectedMove  ; always taken
 
 NotRunAway:

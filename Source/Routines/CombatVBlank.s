@@ -72,10 +72,7 @@ CheckStick:
           lda NewSWCHA
           beq StickDone
 
-          lda #SoundChirp
-          sta NextSound
-
-          .BitBit P0StickUp
+          and #P0StickUp
           bne DoneStickUp
           dex
           bpl DoneStickUp
@@ -83,7 +80,7 @@ CheckStick:
 
 DoneStickUp:
           lda NewSWCHA
-          .BitBit P0StickDown
+          and #P0StickDown
           bne DoneStickDown
           inx
           cpx #9              ; max moves = 8
