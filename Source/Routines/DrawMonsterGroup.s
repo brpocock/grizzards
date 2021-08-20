@@ -119,6 +119,7 @@ PositionBottomMonsters:
 
 DrawBottomMonsters:
           jsr DrawMonsters
+          stx WSYNC
 
 FinishUp:
           sty GRP0
