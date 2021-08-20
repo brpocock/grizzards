@@ -216,7 +216,7 @@ RunAway:
 
           lda #ModeMap
           sta GameMode
-          bne RunningAway                 ; always taken
+          ;; fall through ;; bne RunningAway                 ; always taken
 ;;; 
 ScreenDone:
 RunningAway:
@@ -232,12 +232,14 @@ RunningAway:
 Leave:
           cmp #ModeMap
           bne +
+          .SkipLines 30
           jmp GoMap
 +
           cmp #ModeGrizzardStats
           bne +
           lda #ModeCombat
           sta DeltaY
+          .SkipLines 30
           jmp GrizzardStatsScreen
 +
           cmp #ModeCombatAnnouncement
