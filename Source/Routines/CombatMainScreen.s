@@ -125,10 +125,9 @@ FullPF2:
           sta PF2
           txa                   ; ∈ 8…99
           clc
+          and #$f8
           ror a                  ; ∈ 4…50
-          clc
           ror a                  ; ∈ 2…25
-          clc
           ror a                  ; ∈ 1…12
           tax
           cpx # 8
