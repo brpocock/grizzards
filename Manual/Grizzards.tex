@@ -7,12 +7,39 @@
 %
 \documentclass[10pt,twocolumn,showtrims,openany,article]{memoir}
 
+\ifdefined\DEMO
+
+\ifdefined\TVNTSC
+
+\setstocksize{8.5in}{5.5in}
+\settrimmedsize{8.5in}{5.5in}{*}
+\settrims{0}{0}
+
+\setlrmarginsandblock{.75in}{.25in}{*}
+\setulmarginsandblock{.5in}{.75in}{*}
+
+\else
+
+\setstocksize{210mm}{148.5mm}
+\settrimmedsize{210mm}{148.5mm}{*}
+\settrims{0}{0}
+
+\setlrmarginsandblock{.75in}{.25in}{*}
+\setulmarginsandblock{.5in}{.75in}{*}
+
+\fi
+
+\else
+
 \setstocksize{8.5in}{5.5in}
 \settrimmedsize{7in}{5in}{*}
 \settrims{.75in}{.5in}
 
 \setlrmarginsandblock{.75in}{.25in}{*}
 \setulmarginsandblock{.5in}{.75in}{*}
+
+\fi
+
 \checkandfixthelayout
 
 
@@ -74,7 +101,7 @@
 \begin{document}
 \frontmatter
 %%%\let\cleardoublepage\clearpage
-\includepdf[height=7in,width=5in]{../Manual/Cover.png}
+\includepdf[height=\paperheight,width=\paperwidth]{../Manual/Cover.png}
 
 % \clearpage
 
@@ -1059,6 +1086,6 @@ requires a license.
 
 \clearpage
 \addcontentsline{toc}{chapter}{Map of Syrex}
-\includepdf[height=7in,width=5in]{../Manual/SyrexMap.pdf}
+\includepdf[height=\paperheight,width=\paperwidth]{../Manual/SyrexMap.pdf}
 
 \end{document}

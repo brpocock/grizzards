@@ -11,6 +11,12 @@ publish:	demo game no-save doc unerase Dist/Grizzards.Source.tar.gz
 		Dist/Grizzards.Demo.NTSC.a26 Dist/Grizzards.Demo.PAL.a26 Dist/Grizzards.Demo.SECAM.a26 \
 		Dist/Grizzards.Demo.zip Dist/Grizzards.Source.tar.gz \
 		Dist/Grizzards.Demo.NTSC.pdf Dist/Grizzards.Demo.PAL.pdf Dist/Grizzards.Demo.SECAM.pdf \
+		Dist/Grizzards.Demo.NTSC-book.pdf \
+		Dist/Grizzards.Demo.PAL-book.pdf \
+		Dist/Grizzards.Demo.SECAM-book.pdf \
+		Dist/Grizzards.NoSave.NTSC-book.pdf \
+		Dist/Grizzards.NoSave.PAL-book.pdf \
+		Dist/Grizzards.NoSave.SECAM-book.pdf \
 		Dist/Grizzards.NoSave.NTSC.a26 Dist/Grizzards.NoSave.PAL.a26 Dist/Grizzards.NoSave.SECAM.a26 \
 		Dist/Grizzards.NoSave.NTSC.pdf Dist/Grizzards.NoSave.PAL.pdf Dist/Grizzards.NoSave.SECAM.pdf \
 		Dist/Grizzards.Dirtex.NTSC.a26 Dist/Grizzards.Dirtex.PAL.a26 Dist/Grizzards.Dirtex.SECAM.a26 \
@@ -125,6 +131,12 @@ game:	Dist/Grizzards.Dirtex.NTSC.a26 Dist/Grizzards.Dirtex.PAL.a26 Dist/Grizzard
 doc:	Dist/Grizzards.NTSC.pdf Dist/Grizzards.PAL.pdf Dist/Grizzards.SECAM.pdf \
 	Dist/Grizzards.NTSC-book.pdf Dist/Grizzards.PAL-book.pdf Dist/Grizzards.SECAM-book.pdf \
 	Dist/Grizzards.Demo.NTSC.pdf Dist/Grizzards.Demo.PAL.pdf Dist/Grizzards.Demo.SECAM.pdf \
+	Dist/Grizzards.Demo.NTSC-book.pdf \
+	Dist/Grizzards.Demo.PAL-book.pdf \
+	Dist/Grizzards.Demo.SECAM-book.pdf \
+	Dist/Grizzards.NoSave.NTSC-book.pdf \
+	Dist/Grizzards.NoSave.PAL-book.pdf \
+	Dist/Grizzards.NoSave.SECAM-book.pdf \
 	Dist/Grizzards.NoSave.NTSC.pdf Dist/Grizzards.NoSave.PAL.pdf Dist/Grizzards.NoSave.SECAM.pdf
 
 .PRECIOUS: %.s %.png %.a26 %.txt %.zip %.tar.gz
@@ -189,6 +201,24 @@ Dist/Grizzards.PAL-book.pdf:	Dist/Grizzards.PAL.pdf
 
 Dist/Grizzards.SECAM-book.pdf:	Dist/Grizzards.SECAM.pdf
 	pdfbook2 --paper=letterpaper -o 0 -i 0 -t 0 -b 0 $<
+
+Dist/Grizzards.Demo.NTSC-book.pdf:	Dist/Grizzards.Demo.NTSC.pdf
+	pdfbook2 --paper=letterpaper -o 0 -i 0 -t 0 -b 0 $<
+
+Dist/Grizzards.Demo.PAL-book.pdf:	Dist/Grizzards.Demo.PAL.pdf
+	pdfbook2 --paper=a4paper -o 0 -i 0 -t 0 -b 0 $<
+
+Dist/Grizzards.Demo.SECAM-book.pdf:	Dist/Grizzards.Demo.SECAM.pdf
+	pdfbook2 --paper=a4paper -o 0 -i 0 -t 0 -b 0 $<
+
+Dist/Grizzards.NoSave.NTSC-book.pdf:	Dist/Grizzards.NoSave.NTSC.pdf
+	pdfbook2 --paper=letterpaper -o 0 -i 0 -t 0 -b 0 $<
+
+Dist/Grizzards.NoSave.PAL-book.pdf:	Dist/Grizzards.NoSave.PAL.pdf
+	pdfbook2 --paper=a4paper -o 0 -i 0 -t 0 -b 0 $<
+
+Dist/Grizzards.NoSave.SECAM-book.pdf:	Dist/Grizzards.NoSave.SECAM.pdf
+	pdfbook2 --paper=a4paper -o 0 -i 0 -t 0 -b 0 $<
 
 Dist/Grizzards.NTSC.pdf: Manual/Grizzards.tex
 	mkdir -p Object/NTSC.pdf
