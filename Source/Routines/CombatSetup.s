@@ -17,14 +17,14 @@ SetUpMonsterPointer:
           
           ;; × 16
           ldx #4
--
+Mul16:
           clc
           asl a
           bcc +
           inc CurrentMonsterPointer + 1
 +
           dex
-          bne -
+          bne Mul16
 
           clc
           adc #<Monsters
@@ -72,7 +72,6 @@ SetUpMonsterArt:
                     
 SetUpOtherCombatVars:         
           lda # 0
-          sta MoveSelection     ; RUN AWAY
           sta WhoseTurn         ; Player's turn
           sta MoveAnnouncement
           sta StatusFX
