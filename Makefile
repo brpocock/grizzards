@@ -206,19 +206,19 @@ Dist/Grizzards.Demo.NTSC-book.pdf:	Dist/Grizzards.Demo.NTSC.pdf
 	pdfbook2 --paper=letterpaper -o 0 -i 0 -t 0 -b 0 $<
 
 Dist/Grizzards.Demo.PAL-book.pdf:	Dist/Grizzards.Demo.PAL.pdf
-	pdfbook2 --paper=a4paper -o 0 -i 0 -t 0 -b 0 $<
+	pdfbook2 --paper=a4 -o 0 -i 0 -t 0 -b 0 $<
 
 Dist/Grizzards.Demo.SECAM-book.pdf:	Dist/Grizzards.Demo.SECAM.pdf
-	pdfbook2 --paper=a4paper -o 0 -i 0 -t 0 -b 0 $<
+	pdfbook2 --paper=a4 -o 0 -i 0 -t 0 -b 0 $<
 
 Dist/Grizzards.NoSave.NTSC-book.pdf:	Dist/Grizzards.NoSave.NTSC.pdf
 	pdfbook2 --paper=letterpaper -o 0 -i 0 -t 0 -b 0 $<
 
 Dist/Grizzards.NoSave.PAL-book.pdf:	Dist/Grizzards.NoSave.PAL.pdf
-	pdfbook2 --paper=a4paper -o 0 -i 0 -t 0 -b 0 $<
+	pdfbook2 --paper=a4 -o 0 -i 0 -t 0 -b 0 $<
 
 Dist/Grizzards.NoSave.SECAM-book.pdf:	Dist/Grizzards.NoSave.SECAM.pdf
-	pdfbook2 --paper=a4paper -o 0 -i 0 -t 0 -b 0 $<
+	pdfbook2 --paper=a4 -o 0 -i 0 -t 0 -b 0 $<
 
 Dist/Grizzards.NTSC.pdf: Manual/Grizzards.tex
 	mkdir -p Object/NTSC.pdf

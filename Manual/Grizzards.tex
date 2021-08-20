@@ -216,9 +216,9 @@ facing up) into the cartridge slot, and turn the Power On.
 
 \vfill
 
-\ifdefined\DEMO
+\ifdefined\DEMO\ifdefined\NOSAVE\else
 \clearpage
-\fi
+\fi\fi
 
 \chapter{How To Play}
 
@@ -715,9 +715,9 @@ the ``B'' position.
 
 \fi % not-nosave
 
-\ifdefined\DEMO
+\ifdefined\DEMO\ifdefined\NOSAVE\else
 \clearpage
-\fi
+\fi\fi
 
 \chapter{Grizzards and Moves}
 
@@ -817,9 +817,9 @@ Your  Grizzard will  not be  healed if  you run  away (unless  you visit
 a  Grizzard Depot);  however, the  monsters  that you  were facing  will
 be healed immediately.
 
-\ifdefined\DEMO
+\ifdefined\DEMO\ifdefined\NOSAVE\else
 \clearpage
-\fi
+\fi\fi
 
 \chapter{Monsters}
 
@@ -851,9 +851,9 @@ A danger of the Fire Bogs, these beasts roam in packs.
 These  bright, floating  sparks are  known  to travel  in large  groups.
 Once your Attack score is high enough to hit them, they go down quickly.
 
-\ifdefined\DEMO
+\ifdefined\DEMO\ifdefined\NOSAVE\else
 \clearpage
-\fi
+\fi\fi
 
 \chapter{Troubleshooting}
 
@@ -943,9 +943,9 @@ SaveKey device.
 
 \fi
 
-\ifdefined\DEMO
+\ifdefined\DEMO\ifdefined\NOSAVE\else
 \clearpage
-\fi
+\fi\fi
 
 \chapter{Technical Notes}
 
@@ -1027,9 +1027,9 @@ ones that will be used in the final game.
 
 \fi % not no-save
 
-\ifdefined\DEMO
+\ifdefined\DEMO\ifdefined\NOSAVE\else
 \clearpage
-\fi
+\fi\fi
 
 \chapter{Credits}
 
@@ -1108,11 +1108,9 @@ videogame software for \emph{non-commercial personal use}.
 Redistribution not for profit is allowed, but sales of this software
 requires a license.
 
-\ifdefined\DEMO
 \clearpage
 \addcontentsline{toc}{chapter}{Notes}
 \chapter*{Notes}
-\fi
 
 \clearpage
 \addcontentsline{toc}{chapter}{Map of Syrex}
