@@ -151,7 +151,7 @@ NoSelect:
           .if TV == SECAM
 
           lda DebounceSWCHB
-          .BitBit SWCHBP0Advanced
+          and #SWCHBP0Advanced
           sta Pause
 
           .else
@@ -159,7 +159,7 @@ NoSelect:
           lda DebounceSWCHB
           .BitBit SWCHBColor
           bne NoPause
-          .BitBit SWCHB7800
+          and #SWCHB7800
           beq +
           lda Pause
           eor #$ff
