@@ -6,7 +6,7 @@ unerase:	Dist/Grizzards.Unerase.NTSC.a26 \
 		Dist/Grizzards.Unerase.PAL.a26 \
 		Dist/Grizzards.Unerase.SECAM.a26
 
-publish:	demo game no-save doc unerase Dist/Grizzards.Source.tar.gz
+publish:	demo game no-save doc unerase plus Dist/Grizzards.Source.tar.gz
 	until rsync -essh --progress \
 		Dist/Grizzards.Demo.NTSC.a26 Dist/Grizzards.Demo.PAL.a26 Dist/Grizzards.Demo.SECAM.a26 \
 		Dist/Grizzards.Demo.zip Dist/Grizzards.Source.tar.gz \
@@ -28,6 +28,15 @@ publish:	demo game no-save doc unerase Dist/Grizzards.Source.tar.gz
 		Dist/Grizzards.Unerase.SECAM.a26 \
 		star-hope.org:star-hope.org/games/Grizzards/ ; \
 	do sleep 1; done
+
+plus:	demo no-save
+	echo 'put Dist/Grizzards.Demo.NTSC.a26 DEMO.NTSC.F4' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
+	echo 'put Dist/Grizzards.Demo.PAL.a26 DEMO.PAL.F4' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
+	echo 'put Dist/Grizzards.Demo.SECAM.a26 DEMO.SECAM.F4' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
+	echo 'put Dist/Grizzards.NoSave.NTSC.a26 NO-SAVE.NTSC.F4' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
+	echo 'put Dist/Grizzards.NoSave.PAL.a26 NO-SAVE.PAL.F4' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
+	echo 'put Dist/Grizzards.NoSave.SECAM.a26 NO-SAVE.SECAM.F4' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
+
 
 demo:	Dist/Grizzards.Demo.zip
 
