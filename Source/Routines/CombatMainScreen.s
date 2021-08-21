@@ -13,12 +13,7 @@ BackToPlayer:
 ;;; 
 Loop:
           .WaitScreenBottom
-          .if TV == NTSC
-          lda WhoseTurn
-          beq +
-          stx WSYNC
-+
-          .else
+          .if TV != NTSC
           lda WhoseTurn
           bne +
           .SkipLines 3
@@ -26,16 +21,16 @@ Loop:
           .SkipLines 2
           .fi
 LoopFirst:
-          .WaitScreenTopMinus 2, 3
+          .WaitScreenTopMinus 1, 3
           jsr Prepare48pxMobBlob
 
           .switch TV
           .case NTSC
-          .ldacolu COLRED, 0
+            .ldacolu COLRED, 0
           .case PAL
-          .ldacolu COLRED, $2
+            .ldacolu COLRED, $2
           .case SECAM
-          lda #COLBLACK
+            lda #COLBLACK
           .endswitch
           sta COLUBK
           .ldacolu COLYELLOW, $f
@@ -145,7 +140,7 @@ FullPF1:                        ; ∈ 8…12
           ;; fall through
 
 DoneHealth:
-          .SkipLines 3
+          .SkipLines 2
           lda # 0
           sta PF0
           sta PF1
@@ -162,9 +157,6 @@ PlayerChooseMove:
           ldx MoveSelection
           bne NotRunAway
           .ldacolu COLRED , $a
-          .if TV == NTSC
-          stx WSYNC
-          .fi
           bne ShowSelectedMove  ; always taken
 
 NotRunAway:
@@ -232,14 +224,14 @@ RunningAway:
 Leave:
           cmp #ModeMap
           bne +
-          .SkipLines 30
+          .SkipLines 32
           jmp GoMap
 +
           cmp #ModeGrizzardStats
           bne +
           lda #ModeCombat
           sta DeltaY
-          .SkipLines 30
+          .SkipLines 32
           jmp GrizzardStatsScreen
 +
           cmp #ModeCombatAnnouncement

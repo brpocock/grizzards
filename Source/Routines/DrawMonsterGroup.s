@@ -40,6 +40,7 @@ PrepareCursor2:
 ZeroTarget:
           lda # 0
           sta pp3l
+          stx WSYNC
           beq PrepareTopMonsters ; always taken
 TopTarget:
           dex
@@ -75,6 +76,7 @@ DrawTopMonsters:
 
 NoTopMonsters:
           jsr DrawNothing
+          ;; fall through
 ;;; 
 PrepareBottomCursor:
           lda # 0
@@ -83,14 +85,15 @@ PrepareBottomCursor:
 
           jsr SetCursorColor
 
-PrepareCursor2B:
+PrepareCursor2Bottom:
           ldx MoveTarget
           cpx # 4
-          bge +
+          bge HasBottomCursor
           lda # 0
           sta pp3l
           beq PrepareBottomMonsters ; always taken
-+
+
+HasBottomCursor:
           .rept 4
           dex
           .next
@@ -131,7 +134,6 @@ FinishUp:
 
 NoBottomMonsters:
           jsr DrawNothing
-          stx WSYNC
           jmp FinishUp
 
 ;;; 
