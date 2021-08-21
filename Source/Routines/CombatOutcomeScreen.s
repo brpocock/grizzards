@@ -382,6 +382,9 @@ CheckForLoss:
           lda CurrentHP
           bne Bye
 
+          ldx INTIM
+          dex
+          stx TIM64T
           .WaitScreenBottom
           .FarJMP AnimationsBank, ServiceDeath
 Bye:
