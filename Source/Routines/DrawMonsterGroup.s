@@ -48,6 +48,7 @@ PositionTopCursor:
           jsr PositionCursor
 
 PrepareTopMonsters:
+          stx WSYNC
           lda # 0
           ldx MonsterHP + 0
           beq +
@@ -126,16 +127,16 @@ FinishUp:
           sty GRP1
 
           sta WSYNC
-          sta WSYNC
           rts
 
 NoBottomMonsters:
           jsr DrawNothing
+          stx WSYNC
           jmp FinishUp
 
 ;;; 
 PositionCursor:
-          sta WSYNC
+          stx WSYNC
           .Sleep 13
           lda CursorPosition, x
           and #$0f
@@ -152,6 +153,7 @@ CursorPosGross:
           lda #$ff
           sta pp3l
 
+          stx WSYNC
           rts
 ;;; 
 PositionMonsters:
@@ -208,7 +210,7 @@ DrawNothing:
           lda pp3l
           sta GRP1
           .if TV == NTSC
-            .SkipLines 18
+            .SkipLines 17
           .else
             .SkipLines 24
           .fi
