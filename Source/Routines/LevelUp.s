@@ -22,11 +22,12 @@ LevelUp:        .block
 Loop:
           .WaitScreenTop
 
+          .ldacolu COLTURQUOISE, $f
+          sta COLUBK
+
           .ldacolu COLGRAY, 0
           sta COLUP0
           sta COLUP1
-          .ldacolu COLTURQUOISE, $f
-          sta COLUBK
 
           .SkipLines KernelLines / 4
 
