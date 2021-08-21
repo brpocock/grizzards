@@ -29,7 +29,16 @@ publish:	demo game no-save doc unerase plus Dist/Grizzards.Source.tar.gz
 		star-hope.org:star-hope.org/games/Grizzards/ ; \
 	do sleep 1; done
 
-plus:	demo no-save
+plus:	game demo no-save
+	echo 'put Dist/Grizzards.Aquax.NTSC.a26 AQUAX.NTSC.EF' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
+	echo 'put Dist/Grizzards.Aquax.PAL.a26 AQUAX.PAL.EF' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
+	echo 'put Dist/Grizzards.Aquax.SECAM.a26 AQUAX.SECAM.EF' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
+	echo 'put Dist/Grizzards.Airex.NTSC.a26 AIREX.NTSC.EF' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
+	echo 'put Dist/Grizzards.Airex.PAL.a26 AIREX.PAL.EF' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
+	echo 'put Dist/Grizzards.Airex.SECAM.a26 AIREX.SECAM.EF' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
+	echo 'put Dist/Grizzards.Dirtex.NTSC.a26 DIRTEX.NTSC.EF' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
+	echo 'put Dist/Grizzards.Dirtex.PAL.a26 DIRTEX.PAL.EF' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
+	echo 'put Dist/Grizzards.Dirtex.SECAM.a26 DIRTEX.SECAM.EF' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
 	echo 'put Dist/Grizzards.Demo.NTSC.a26 DEMO.NTSC.F4' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
 	echo 'put Dist/Grizzards.Demo.PAL.a26 DEMO.PAL.F4' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
 	echo 'put Dist/Grizzards.Demo.SECAM.a26 DEMO.SECAM.F4' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
