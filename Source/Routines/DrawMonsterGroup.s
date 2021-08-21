@@ -201,6 +201,7 @@ DrawMonsters:
           sty GRP1
           rts
 
+          .align $10, $20       ; avoid page crossing before HMOVE
 DrawNothing:
           lda # 0
           sta GRP0
