@@ -6,8 +6,8 @@ unerase:	Dist/Grizzards.Unerase.NTSC.a26 \
 		Dist/Grizzards.Unerase.PAL.a26 \
 		Dist/Grizzards.Unerase.SECAM.a26
 
-publish:	demo game no-save doc unerase plus Dist/Grizzards.Source.tar.gz
-	until rsync -essh --progress \
+publish:	demo game no-save doc unerase Dist/Grizzards.Source.tar.gz
+	@until rsync -essh --progress \
 		Dist/Grizzards.Demo.NTSC.a26 Dist/Grizzards.Demo.PAL.a26 Dist/Grizzards.Demo.SECAM.a26 \
 		Dist/Grizzards.Demo.zip Dist/Grizzards.Source.tar.gz \
 		Dist/Grizzards.Demo.NTSC.pdf Dist/Grizzards.Demo.PAL.pdf Dist/Grizzards.Demo.SECAM.pdf \
@@ -30,22 +30,21 @@ publish:	demo game no-save doc unerase plus Dist/Grizzards.Source.tar.gz
 	do sleep 1; done
 
 plus:	game demo no-save
-	echo 'put Dist/Grizzards.Aquax.NTSC.a26 AQUAX.NTSC.EF' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
-	echo 'put Dist/Grizzards.Aquax.PAL.a26 AQUAX.PAL.EF' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
-	echo 'put Dist/Grizzards.Aquax.SECAM.a26 AQUAX.SECAM.EF' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
-	echo 'put Dist/Grizzards.Airex.NTSC.a26 AIREX.NTSC.EF' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
-	echo 'put Dist/Grizzards.Airex.PAL.a26 AIREX.PAL.EF' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
-	echo 'put Dist/Grizzards.Airex.SECAM.a26 AIREX.SECAM.EF' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
-	echo 'put Dist/Grizzards.Dirtex.NTSC.a26 DIRTEX.NTSC.EF' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
-	echo 'put Dist/Grizzards.Dirtex.PAL.a26 DIRTEX.PAL.EF' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
-	echo 'put Dist/Grizzards.Dirtex.SECAM.a26 DIRTEX.SECAM.EF' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
-	echo 'put Dist/Grizzards.Demo.NTSC.a26 DEMO.NTSC.F4' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
-	echo 'put Dist/Grizzards.Demo.PAL.a26 DEMO.PAL.F4' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
-	echo 'put Dist/Grizzards.Demo.SECAM.a26 DEMO.SECAM.F4' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
-	echo 'put Dist/Grizzards.NoSave.NTSC.a26 NO-SAVE.NTSC.F4' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
-	echo 'put Dist/Grizzards.NoSave.PAL.a26 NO-SAVE.PAL.F4' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
-	echo 'put Dist/Grizzards.NoSave.SECAM.a26 NO-SAVE.SECAM.F4' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
-
+	@echo 'put Dist/Grizzards.Aquax.NTSC.a26 AQUAX.NTSC.F4' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
+	@echo 'put Dist/Grizzards.Aquax.PAL.a26 AQUAX.PAL.F4' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
+	@echo 'put Dist/Grizzards.Aquax.SECAM.a26 AQUAX.SECAM.F4' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
+	@echo 'put Dist/Grizzards.Airex.NTSC.a26 AIREX.NTSC.F4' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
+	@echo 'put Dist/Grizzards.Airex.PAL.a26 AIREX.PAL.F4' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
+	@echo 'put Dist/Grizzards.Airex.SECAM.a26 AIREX.SECAM.F4' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
+	@echo 'put Dist/Grizzards.Dirtex.NTSC.a26 DIRTEX.NTSC.F4' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
+	@echo 'put Dist/Grizzards.Dirtex.PAL.a26 DIRTEX.PAL.F4' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
+	@echo 'put Dist/Grizzards.Dirtex.SECAM.a26 DIRTEX.SECAM.F4' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
+	@echo 'put Dist/Grizzards.Demo.NTSC.a26 DEMO.NTSC.F4' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
+	@echo 'put Dist/Grizzards.Demo.PAL.a26 DEMO.PAL.F4' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
+	@echo 'put Dist/Grizzards.Demo.SECAM.a26 DEMO.SECAM.F4' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
+	@echo 'put Dist/Grizzards.NoSave.NTSC.a26 NO-SAVE.NTSC.F4' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
+	@echo 'put Dist/Grizzards.NoSave.PAL.a26 NO-SAVE.PAL.F4' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
+	@echo 'put Dist/Grizzards.NoSave.SECAM.a26 NO-SAVE.SECAM.F4' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/My%20ROMs/Grizzards
 
 demo:	Dist/Grizzards.Demo.zip
 
@@ -96,7 +95,7 @@ uno:	Dist/Grizzards.Dirtex.NTSC.a26 \
 	Dist/Grizzards.Demo.NTSC.a26 \
 	Dist/Grizzards.NoSave.NTSC.a26 \
 	Dist/Grizzards.Unerase.NTSC.a26
-	if [ $$(uname -s) = 'Linux' ] ; then \
+	@if [ $$(uname -s) = 'Linux' ] ; then \
 	  mkdir -p $(UNOCART)/GRIZZARDS/ ;\
 	  cp -v Dist/Grizzards.Dirtex.NTSC.a26 $(UNOCART)/GRIZZARDS/DIRTEX.NTSC.EF ;\
 	  cp -v Dist/Grizzards.Aquax.NTSC.a26 $(UNOCART)/GRIZZARDS/AQUAX.NTSC.EF ;\
