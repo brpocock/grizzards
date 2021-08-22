@@ -53,7 +53,7 @@ Monster6_17:
 Cave Grue
 
 Monster6_18:
-Monster
+Cave Bat
 
 Monster6_19:
 Monster
