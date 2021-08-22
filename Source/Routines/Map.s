@@ -17,6 +17,9 @@ Loop:
           cpx # 17
           bne NoChangeRLE
 
+          lda CurrentProvince
+          bne NoChangeRLE
+
           lda ProvinceFlags
           and #$02
           bne NoChangeRLE
@@ -33,6 +36,7 @@ NoChangeRLE:
           sta pp5l
           lda MapRLEH, x
           sta pp5h
+GotRLE:
 
           ldx CurrentMap
           lda MapColors, x
@@ -73,7 +77,6 @@ NoChangeRLE:
           inc pp5h
 +
           sta pp5l
-GotRLE:
           
 ;;; 
 BeforeKernel:
