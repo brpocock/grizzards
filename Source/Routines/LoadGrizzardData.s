@@ -13,8 +13,8 @@ LoadGrizzardData:   .block
           jsr i2cRxByte
           sta MaxHP, x
           inx
-          cpx # 5
-          bne -
+          cpx # 6
+          blt -
           
           jsr i2cStopRead
 
