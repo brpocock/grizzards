@@ -53,10 +53,11 @@ Loop:
 +
           lda DeltaX
           .BitBit LevelUpMaxHP
-          
+          beq +
+
           .SetPointer MaxHPText
           jsr ShowPointerText
-
++
 CheckForSpeech:
           lda DeltaY
           cmp # 4
