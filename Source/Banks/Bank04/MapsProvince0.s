@@ -559,17 +559,13 @@ SpriteList:
 
 	;; Room 17
           .byte $ff, SpriteFixed
-          .byte $36, $29
+          .byte $48, $29
           .byte SpritePerson, 3 ; tunnel guardian
 
           .if !DEMO             ; no room for these signs' text in demo
           .byte 1, SpriteFixed
-          .byte $32, $20
+          .byte $48, $20
           .byte SpriteSign, 17  ; tunnel closed
-
-          .byte 1, SpriteFixed
-          .byte $32, $31
-          .byte SpriteSign, 17
           .fi
 
 	.byte 0
