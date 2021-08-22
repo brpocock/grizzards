@@ -51,7 +51,7 @@ InitGameVars:
           bne -
 
           lda #$ff
-          sta ProvinceFlags +
+          sta ProvinceFlags + 7
 
           lda # 10
           sta MaxHP
