@@ -216,6 +216,7 @@ SeekOK:
           bcc KeepSeeking
           .WaitScreenBottom
           .WaitScreenTop
+          .FarJSR SaveKeyBank, ServiceLoadGrizzard
           .ldacolu COLTEAL, $2
           sta COLUBK
 

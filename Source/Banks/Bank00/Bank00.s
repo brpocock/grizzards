@@ -63,6 +63,8 @@ DoLocal:
           beq PeekGrizzard
           cpy #ServiceSaveGrizzard
           beq SaveGrizzard
+          cpy #ServiceLoadGrizzard
+          beq LoadGrizzardData
           cpy #ServiceAttract
           beq Attract.WarmStart
           .if !DEMO

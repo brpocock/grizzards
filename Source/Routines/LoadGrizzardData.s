@@ -13,7 +13,7 @@ LoadGrizzardData:   .block
           jsr i2cRxByte
           sta MaxHP, x
           inx
-          cpx # 6
+          cpx # 5
           blt -
           
           jsr i2cStopRead
@@ -26,8 +26,6 @@ LoadGrizzardData:   .block
           sta DebounceSWCHB
 
           ;; Return to place last blessed
-          lda #ModeMap
-          sta GameMode
           lda BlessedX
           sta PlayerX
           lda BlessedY
