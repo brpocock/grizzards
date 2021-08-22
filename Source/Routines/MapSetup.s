@@ -15,6 +15,9 @@ MapSetup: .block
           sta SpriteCount
           sta DeltaX
           sta DeltaY
+          sta PlayerXFraction
+          sta PlayerYFraction
+          sta MapFlags
           sta CurrentMusic + 1
 
           lda BlessedX
