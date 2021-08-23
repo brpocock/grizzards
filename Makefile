@@ -1,6 +1,6 @@
-default:	game demo
+default:	all
 
-all:	dist demo no-save
+all:	game demo no-save doc
 
 unerase:	Dist/Grizzards.Unerase.NTSC.a26 \
 		Dist/Grizzards.Unerase.PAL.a26 \
@@ -53,8 +53,6 @@ plus:	game demo no-save
 demo:	Dist/Grizzards.Demo.zip
 
 no-save:	Dist/Grizzards.NoSave.zip
-
-dist:	Dist/Grizzards.zip Dist/Grizzards.Source.tar.gz
 
 Dist/Grizzards.Source.tar.gz:	game
 	find Source Manual -name \*~ -exec rm {} \;
@@ -158,11 +156,15 @@ doc:	Dist/Grizzards.NTSC.pdf Dist/Grizzards.PAL.pdf Dist/Grizzards.SECAM.pdf \
 	Dist/Grizzards.NoSave.NTSC-book.pdf \
 	Dist/Grizzards.NoSave.PAL-book.pdf \
 	Dist/Grizzards.NoSave.SECAM-book.pdf \
+	Dist/Grizzards.Manual.txt \
 	Dist/Grizzards.NoSave.NTSC.pdf Dist/Grizzards.NoSave.PAL.pdf Dist/Grizzards.NoSave.SECAM.pdf
 
 .PRECIOUS: %.s %.png %.a26 %.txt %.zip %.tar.gz
 
 SOURCES=$(shell find Source -name \*.s -o -name \*.txt -o -name \*.png -o -name \*.midi -a -not -name .\#\*)
+
+Dist/Grizzards.Manual.txt:	Manual/Manual.txt
+	cp Manual/Manual.txt Dist/Grizzards.Manual.txt
 
 Dist/Grizzards.Demo.NTSC.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
 	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.Demo.NTSC.a26
