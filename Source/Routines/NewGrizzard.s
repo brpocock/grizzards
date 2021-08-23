@@ -6,6 +6,10 @@ NewGrizzard:        .block
           lda Temp
           pha
 
+          .KillMusic
+          .WaitScreenBottom
+          .WaitScreenTop
+
           .FarJSR SaveKeyBank, ServicePeekGrizzard
           ;; carry is set if the Grizzard is found
           bcc CatchEm
@@ -48,6 +52,38 @@ CatchEm:
           sta MovesKnown
 
           ;; Now, save this guy for good measure
-          .FarJMP SaveKeyBank, ServiceSaveGrizzard ; tail call
+          .FarJSR SaveKeyBank, ServiceSaveGrizzard
+
+          lda #SoundHappy
+          sta NextSound
+          lda # 7
+          sta AlarmCountdown
+Loop:
+          .WaitScreenBottom
+          .WaitScreenTop
+          .ldacolu COLSPRINGGREEN, $e
+          sta COLUBK
+          .ldacolu COLGRAY, $0
+          sta COLUP0
+          sta COLUP1
+
+          jsr Prepare48pxMobBlob
+
+          .SkipLines KernelLines / 3
+
+          .SetPointer CaughtText
+          jsr ShowPointerText
+
+          .FarJSR TextBank, ServiceShowGrizzardName
+          .FarJSR AnimationsBank, ServiceDrawGrizzard
+
+          lda AlarmCountdown
+          beq +
+          jmp Loop
++
+          rts
+
+CaughtText:
+          .MiniText "CAUGHT"
 
           .bend

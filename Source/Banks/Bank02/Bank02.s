@@ -78,4 +78,8 @@ CombatText:
 Victory2Text:
           .MiniText "  WON "
 
+ShowPointerText:
+          jsr CopyPointerText
+          jmp DecodeAndShowText ; tail call
+
 	.include "EndBank.s"

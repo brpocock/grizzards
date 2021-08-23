@@ -130,10 +130,6 @@ SwitchesDone:
           .WaitScreenBottom
           jmp Loop
 
-ShowPointerText:
-          jsr CopyPointerText
-          jmp DecodeAndShowText ; tail call
-          
 LevelText:
           .MiniText "LEVEL "
 UpText:
