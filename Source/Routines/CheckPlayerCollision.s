@@ -38,7 +38,7 @@ BumpSprite:
           and #SpriteProvinceDoor
           cmp #SpriteProvinceDoor
           bne PlayerMoveOK      ; No action
-          beq ProvinceChange    ; always taken
+          geq ProvinceChange    
 
 ReadSign:
           lda SpriteParam, x

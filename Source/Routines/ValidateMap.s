@@ -44,7 +44,7 @@ CheckNextSpriteForDoor:
           sta PlayerY
           sta BlessedY
 
-          bne DonePlacing       ; always taken
+          gne DonePlacing
 
 NotADoor:
           inx

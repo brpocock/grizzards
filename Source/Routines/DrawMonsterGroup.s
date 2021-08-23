@@ -41,7 +41,7 @@ ZeroTarget:
           lda # 0
           sta pp3l
           stx WSYNC
-          beq PrepareTopMonsters ; always taken
+          geq PrepareTopMonsters
 TopTarget:
           dex
 
@@ -72,7 +72,7 @@ PositionTopMonsters:
 DrawTopMonsters:
           jsr DrawMonsters
 
-          beq PrepareBottomCursor ; always taken
+          geq PrepareBottomCursor
 
 NoTopMonsters:
           jsr DrawNothing
@@ -91,7 +91,7 @@ PrepareCursor2Bottom:
           bge HasBottomCursor
           lda # 0
           sta pp3l
-          beq PrepareBottomMonsters ; always taken
+          geq PrepareBottomMonsters
 
 HasBottomCursor:
           .rept 4
@@ -233,12 +233,12 @@ SetCursorColor:
           bne +
           stx WSYNC
           stx WSYNC
-          beq CursorColored ; always taken
+          geq CursorColored
 +
           lda MonsterHP - 1, x
           beq +
           .ldacolu COLGRAY, $f
-          bne SetColor ; always taken
+          gne SetColor
 +
           .ldacolu COLGRAY, 0
 SetColor:

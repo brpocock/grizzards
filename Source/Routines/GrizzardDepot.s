@@ -22,7 +22,7 @@ GrizzardDepot:    .block
           .KillMusic
           jmp ReturnToLoop
 ;;; 
-Loop:     
+Loop:
           .WaitScreenTop
 
           .ldacolu COLTEAL, $2
@@ -118,7 +118,7 @@ HTDloop:
           lda StringBuffer+4
           and #$0f
           sta StringBuffer+4
-+          
++
           lda StringBuffer+3    ; then middle byte, etc
           adc DecimalTable+2, x
           sta StringBuffer+3
@@ -128,7 +128,7 @@ HTDloop:
           lda StringBuffer+3
           and #$0f
           sta StringBuffer+3
-+          
++
           lda StringBuffer+2
           adc DecimalTable+1, x
           sta StringBuffer+2
@@ -142,7 +142,7 @@ HTDloop:
           lda StringBuffer+1
           adc DecimalTable, x
           sta StringBuffer+1
-          
+
 HTDnext:
           dex
           dex             ; By taking X in steps of 4, we don't have to
@@ -150,7 +150,7 @@ HTDnext:
           dex             ; table.
           bpl HTDloop
 
-HTDdone:  
+HTDdone:
           cld
           stx DeltaX            ; 0
 
@@ -176,7 +176,7 @@ NotLeftRight:
           .BitBit P0StickUp
           bne NoStickUp
           lda #-1
-          bne SeekGrizzard      ; always taken
+          gne SeekGrizzard
 
 NoStickUp:
           .BitBit P0StickDown
@@ -204,14 +204,14 @@ KeepSeeking:
           cmp # 1
           beq SeekWrapped
           lda # 29
-          bne SeekOK            ; always taken
+          gne SeekOK
 
 SeekWrapped:
           lda # 0
 SeekOK:
           sta Temp
           sta CurrentGrizzard
-          .FarJSR SaveKeyBank, ServicePeekGrizzard 
+          .FarJSR SaveKeyBank, ServicePeekGrizzard
           ;; carry is set if found
           bcc KeepSeeking
           .WaitScreenBottom
@@ -236,7 +236,7 @@ Select:
           sta GameMode
           lda #ModeGrizzardDepot
           sta DeltaY            ; where to return after stats display
-          bne TriggerDone       ; always taken
+          gne TriggerDone
 
 SwitchesDone:
           lda NewButtons

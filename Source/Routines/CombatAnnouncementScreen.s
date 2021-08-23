@@ -117,7 +117,7 @@ DrawObject:
 ObjectSelf:
           lda WhoseTurn
           beq PlayerObject
-          bne MonsterTargetObject ; always taken
+          gne MonsterTargetObject
 
 ObjectOther:
           lda WhoseTurn
@@ -164,7 +164,7 @@ Speech1:
           clc
           adc WhoseTurn
           sta CurrentUtterance
-          bne SpeechQueued      ; always taken
+          gne SpeechQueued
 
 Speech2:
           cmp # 3
@@ -174,7 +174,7 @@ Speech2:
           sta CurrentUtterance + 1
           lda #<Phrase_UsesMove
           sta CurrentUtterance
-          bne SpeechQueued      ; always taken
+          gne SpeechQueued
 
 Speech3:
           cmp # 4
@@ -187,7 +187,7 @@ Speech3:
           adc CombatMoveSelected
           sta CurrentUtterance
 
-          bne SpeechQueued      ; always taken
+          gne SpeechQueued
 
 Speech4:
           cmp # 5
@@ -198,7 +198,7 @@ Speech4:
           lda #<Phrase_On
           sta CurrentUtterance
 
-          bne SpeechQueued      ; always taken
+          gne SpeechQueued
 
 Speech5:
           cmp # 6
@@ -235,7 +235,7 @@ Speech6:
 SayObjectNumberOnMonstersTurn:
           lda MoveDeltaHP, x
           bpl SpeechQueued
-          bmi SayThatObjectNumber ; always taken
+          gmi SayThatObjectNumber
 
 SayObjectNumberOnPlayersTurn:
           lda MoveDeltaHP, x

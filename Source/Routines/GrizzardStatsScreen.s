@@ -7,7 +7,7 @@ GrizzardStatsScreen: .block
 
           .KillMusic
           sta NewSWCHB
-          beq FirstLoop          ; always taken
+          geq FirstLoop
 ;;; 
 Loop:
           .WaitScreenTop

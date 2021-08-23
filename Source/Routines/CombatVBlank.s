@@ -29,7 +29,7 @@ MaybeDoPlayerMove:
           bne DoPlayerSleep
           and #StatusMuddle
           bne DoPlayerMuddled
-          beq CheckStick        ; always taken
+          geq CheckStick
 
 DoPlayerSleep:
           jsr Random
@@ -40,7 +40,7 @@ DoPlayerSleep:
 +
           lda #ModeCombatNextTurn
           sta GameMode
-          bne CheckStick        ; always taken
+          gne CheckStick
 
 DoPlayerMuddled:
           jsr Random

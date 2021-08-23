@@ -75,7 +75,7 @@ CheckForSpeech:
           beq +
           .SetUtterance Phrase_StatusFXAttack
           inc DeltaY
-          bne CheckForAlarm     ; always taken
+          gne CheckForAlarm
 +
           inc DeltaY
 PassAttack:
@@ -88,7 +88,7 @@ PassAttack:
           beq +
           .SetUtterance Phrase_StatusFXDefend
           inc DeltaY
-          bne CheckForAlarm     ; always taken
+          gne CheckForAlarm
 +
           inc DeltaY
 PassDefend:

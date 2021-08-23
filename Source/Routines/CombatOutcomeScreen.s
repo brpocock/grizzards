@@ -16,7 +16,7 @@ SoundForMiss:
 +
           sta NextSound
 
-          bne LoopFirst         ; always taken
+          gne LoopFirst
 ;;; 
 Loop:
           .WaitScreenTop
@@ -167,7 +167,7 @@ NothingHappened:
           .SetUtterance Phrase_NoEffect
           lda # $ff
           sta SpeechSegment
-          bne SpeechDone        ; always taken
+          gne SpeechDone
 
 SomethingHappened:
           lda WhoseTurn
@@ -178,7 +178,7 @@ SaySubjectMonsterTurn:
 SayPlayer:
           .SetUtterance Phrase_Grizzard
 
-          bne SpeechQueued        ; always taken
+          gne SpeechQueued
 
 SaySubjectPlayerTurn:
           lda MoveHP
@@ -186,7 +186,7 @@ SaySubjectPlayerTurn:
 SayMonster:
           .SetUtterance Phrase_Monster
 
-          bne SpeechQueued        ; always taken
+          gne SpeechQueued
 
 Speech1:
           cmp # 2
@@ -205,7 +205,7 @@ SayInjuredOrKilled:
           bne SayInjured
 SayKilled:
           .SetUtterance Phrase_IsKilled
-          bne SpeechQueued      ; always taken
+          gne SpeechQueued
 
 CheckMonsterPulse:
           ldx MoveTarget
@@ -213,19 +213,19 @@ CheckMonsterPulse:
           beq SayKilled
 SayInjured:
           .SetUtterance Phrase_IsInjured
-          bne SpeechQueued        ; always taken
+          gne SpeechQueued
 
 SayMissed:
           .SetUtterance Phrase_Missed
 
           inc SpeechSegment
-          bne SpeechDone        ; always taken
-          
+          gne SpeechDone
+
 SayHealed:
           eor #$ff
           beq SpeechQueued
           .SetUtterance Phrase_IsHealed
-          bne SpeechQueued      ; always taken
+          gne SpeechQueued
 
 Speech2:
           cmp # 3
@@ -236,12 +236,12 @@ Speech2:
           eor #$ff
           beq SpeechQueued
           lda MoveStatusFX
-          beq SpeechQueued      ; always taken
+          geq SpeechQueued
 
 SayAnd:
           .SetUtterance Phrase_And
 
-          bne SpeechQueued        ; always taken
+          gne SpeechQueued
 
 Speech3:
           cmp # 4
@@ -258,24 +258,24 @@ Speech3:
           lda MoveStatusFX
           and # StatusDefendUp | StatusDefendDown
           bne SayDefend
-          beq SpeechQueued      ; always taken
+          geq SpeechQueued
 
 SaySleep:
           .SetUtterance Phrase_StatusFXSleep
 
-          bne SpeechQueued        ; always taken
+          gne SpeechQueued
 
-SayMuddle:          
+SayMuddle:
           .SetUtterance Phrase_StatusFXMuddle
-          bne SpeechQueued      ; always taken
+          gne SpeechQueued
 
 SayAttack:
           .SetUtterance Phrase_StatusFXAttack
-          bne SpeechQueued        ; always taken
+          gne SpeechQueued
 
 SayDefend:
           .SetUtterance Phrase_StatusFXDefend
-          bne SpeechQueued        ; always taken
+          gne SpeechQueued
 
 Speech4:
           lda SpeechSegment
@@ -287,7 +287,7 @@ Speech4:
           beq Speech4NotDown
 Speech4Down:
           .SetUtterance Phrase_StatusFXLower
-          bne SpeechQueued        ; always taken
+          gne SpeechQueued
 
 Speech4NotDown:
           lda MoveStatusFX

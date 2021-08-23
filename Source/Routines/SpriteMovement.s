@@ -41,7 +41,7 @@ NoRandom:
           bne MoveSprites
           rts
 
-SpriteXMove:        
+SpriteXMove:
           cmp #SpriteMoveIdle
           beq SpriteMoveNext
           lda SpriteMotion, x
@@ -61,7 +61,7 @@ SpriteXMove:
           bne +
           inc SpriteY, x
 +
-          
+
 SpriteMoveNext:
           ;; Possibly change movement randomly
           jsr Random
@@ -78,7 +78,7 @@ SpriteMoveNext:
 
           lda #SpriteMoveIdle
           sta SpriteMotion, x
-          bne SpriteMoveDone    ; always taken
+          gne SpriteMoveDone
 
 ChasePlayer:
           lda SpriteX, x
@@ -87,12 +87,12 @@ ChasePlayer:
           bge ChaseRight
           lda #SpriteMoveLeft
           sta SpriteMotion, x
-          bne SpriteMoveDone    ; always taken
+          gne SpriteMoveDone
 
 ChaseRight:
           lda #SpriteMoveRight
           sta SpriteMotion, x
-          bne SpriteMoveDone    ; always taken
+          gne SpriteMoveDone
 
 ChaseUpDown:
           lda SpriteY, x
@@ -100,12 +100,12 @@ ChaseUpDown:
           bge ChaseDown
           lda #SpriteMoveUp
           sta SpriteMotion, x
-          bne SpriteMoveDone    ; always taken
+          gne SpriteMoveDone
 
 ChaseDown:
           lda #SpriteMoveDown
           sta SpriteMotion, x
-          bne SpriteMoveDone    ; always taken
+          gne SpriteMoveDone
 
 RandomlyMove:
           jsr Random

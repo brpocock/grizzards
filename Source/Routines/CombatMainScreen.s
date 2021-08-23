@@ -95,12 +95,12 @@ DrawHealthBar:
           blt AtMinHP
           .ldacolu COLYELLOW, $f
           sta COLUPF
-          bne DrawHealthPF      ; always taken
+          gne DrawHealthPF
 
 AtMaxHP:
           .ldacolu COLGREEN, $8
           sta COLUPF
-          bne DrawHealthPF      ; always taken
+          gne DrawHealthPF
 
 AtMinHP:
           .ldacolu COLRED, $8
@@ -111,7 +111,7 @@ DrawHealthPF:
           bge FullPF2
           lda HealthyPF2, x
           sta PF2
-          bne DoneHealth        ; always taken
+          gne DoneHealth
 
 FullPF2:
           lda #$ff
@@ -127,7 +127,7 @@ FullPF2:
           bge FullPF1
           lda HealthyPF1, x
           sta PF1
-          bne DoneHealth        ; always taken
+          gne DoneHealth
 
 FullPF1:                        ; ∈ 8…12
           sec
@@ -157,14 +157,14 @@ PlayerChooseMove:
           ldx MoveSelection
           bne NotRunAway
           .ldacolu COLRED , $a
-          bne ShowSelectedMove  ; always taken
+          gne ShowSelectedMove
 
 NotRunAway:
           lda BitMask - 1, x
           bit MovesKnown
           beq NotMoveKnown
           .ldacolu COLTURQUOISE, $e
-          bne ShowSelectedMove  ; always taken
+          gne ShowSelectedMove
 
 NotMoveKnown:
           .ldacolu COLGRAY, 0
@@ -190,7 +190,7 @@ MoveNotOK:
           lda #SoundBump
           sta NextSound
 
-          bne ScreenDone        ; always taken
+          gne ScreenDone
 
 DoUseMove:
           ldx MoveTarget
@@ -208,7 +208,7 @@ RunAway:
 
           lda #ModeMap
           sta GameMode
-          ;; fall through ;; bne RunningAway                 ; always taken
+          ;; fall through ;; gne RunningAway
 ;;; 
 ScreenDone:
 RunningAway:

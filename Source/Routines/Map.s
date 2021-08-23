@@ -77,7 +77,7 @@ GotRLE:
           inc pp5h
 +
           sta pp5l
-          
+
 ;;; 
 BeforeKernel:
           ldy # 72              ; 72 × 2 lines = 144 lines total
@@ -88,7 +88,7 @@ BeforeKernel:
           bmi LeftBall
           and #$40
           bne RightBall
-          beq NoBalls           ; always taken
+          geq NoBalls
 
 LeftBall:
           sta WSYNC
@@ -97,7 +97,7 @@ LeftBall:
           sta HMBL
           lda #ENABLED
           sta ENABL
-          bne DoneBall          ; always taken
+          gne DoneBall
 
 RightBall:
           sta WSYNC
@@ -107,7 +107,7 @@ RightBall:
           sta HMBL
           lda #ENABLED
           sta ENABL
-          bne DoneBall          ; always taken
+          gne DoneBall
 
 NoBalls:
           lda # 0
@@ -229,28 +229,28 @@ ScreenJumpLogic:
           cmp #ScreenRightEdge
           bge GoScreenRight
 
-          bne ShouldIStayOrShouldIGo     ; always taken
+          gne ShouldIStayOrShouldIGo
 
 GoScreenUp:
           lda #ScreenBottomEdge - 1
           sta BlessedY
           sta PlayerY
           ldy #0
-          beq GoScreen          ; always taken
+          geq GoScreen
 
 GoScreenDown:
           lda #ScreenTopEdge + 1
           sta BlessedY
           sta PlayerY
           ldy #1
-          bne GoScreen          ; always taken
+          gne GoScreen
 
 GoScreenLeft:
           lda #ScreenRightEdge - 1
           sta BlessedX
           sta PlayerX
           ldy #2
-          bne GoScreen          ; always taken
+          gne GoScreen
 
 GoScreenRight:
           lda #ScreenLeftEdge + 1
@@ -294,7 +294,7 @@ GoScreen:
 
           lda #ModeMapNewRoom
           sta GameMode
-          bne ShouldIStayOrShouldIGo     ; always taken
+          gne ShouldIStayOrShouldIGo
 
 ScreenBounce:
           ;; stuff the player into the middle of the screen

@@ -58,7 +58,7 @@ LoopFirst:
           sta AttractStoryProgress
           lda # 1
           sta AttractStoryPanel
-          bne -                 ; always taken
+          gne -
 
 StoryPhase0:
           cmp # 2
@@ -161,7 +161,7 @@ NotSix:
           lda AttractStoryPanel
           cmp # 3
           bge StoryPhase1b
-StoryPhase1a:       
+StoryPhase1a:
           lda DeltaY
           clc
           adc # ceil( $40 * ( FramesPerSecond / 30.0 ) )
@@ -183,7 +183,7 @@ StoryPhase1a:
           lda #<Phrase_Story
           sta CurrentUtterance
           sta AttractHasSpoken
-          bne StoryDone         ; always taken
+          gne StoryDone
 
 StoryPhase1b:
           inc DeltaY
@@ -193,7 +193,7 @@ StoryPhase1b:
           inc AttractStoryPanel
           lda # 0
           sta DeltaY
-          bne StoryDone         ; always taken
+          gne StoryDone
 
 StoryDone:
           ;; fall through
