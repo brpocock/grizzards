@@ -56,6 +56,14 @@ CatchEm:
 
           lda #SoundHappy
           sta NextSound
+
+          lda #>Phrase_Grizzard0
+          sta CurrentUtterance + 1
+          lda #<Phrase_Grizzard0
+          clc
+          adc CurrentGrizzard
+          sta CurrentUtterance
+
           lda # 7
           sta AlarmCountdown
 Loop:
