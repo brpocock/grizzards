@@ -501,6 +501,18 @@ stella:	Dist/Grizzards.Aquax.NTSC.a26 Dist/Grizzards.Aquax.NTSC.sym Dist/Grizzar
 		-format NTSC -pp Yes \
 		-debug $<
 
+stella-airex:	Dist/Grizzards.Airex.NTSC.a26 Dist/Grizzards.Airex.NTSC.sym Dist/Grizzards.Airex.NTSC.pro
+	stella -tv.filter 3 -grabmouse 0 -bs EF \
+		-lc Genesis -rc AtariVox \
+		-format NTSC -pp Yes \
+		-debug $<
+
+stella-dirtex:	Dist/Grizzards.Dirtex.NTSC.a26 Dist/Grizzards.Dirtex.NTSC.sym Dist/Grizzards.Dirtex.NTSC.pro
+	stella -tv.filter 3 -grabmouse 0 -bs EF \
+		-lc Genesis -rc AtariVox \
+		-format NTSC -pp Yes \
+		-debug $<
+
 stella-pal:	Dist/Grizzards.Aquax.PAL.a26 Dist/Grizzards.Aquax.PAL.sym Dist/Grizzards.Aquax.PAL.pro
 	stella -tv.filter 3 -grabmouse 0 -bs EF \
 		-lc Genesis -rc AtariVox \
