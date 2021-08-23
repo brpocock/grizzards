@@ -16,7 +16,7 @@ Monsters:
           .SignText "VORPALBUNNY "
           .byte 0
           .colu COLGOLD, $4
-          .byte 4, 2, 5, $6
+          .byte 6, 4, 5, $10
           .byte 0
           
           .SignText "R.O.    U.S."
