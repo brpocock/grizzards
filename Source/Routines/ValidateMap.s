@@ -51,7 +51,7 @@ NotADoor:
           cmp SpriteCount
           bne CheckNextSpriteForDoor
 DonePlacing:
-;;; 
+;;; 
 CheckForRandomSpawns:
           ldx SpriteCount
           beq Bye
