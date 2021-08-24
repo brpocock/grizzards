@@ -237,6 +237,16 @@ Dist/Grizzards.NoSave.PAL-book.pdf:	Dist/Grizzards.NoSave.PAL.pdf
 Dist/Grizzards.NoSave.SECAM-book.pdf:	Dist/Grizzards.NoSave.SECAM.pdf
 	pdfbook2 --paper=a4 -o 0 -i 0 -t 0 -b 0 $<
 
+Dist/Grizzards.Unerase.pdf:	Manual/Unerase.tex
+	mkdir -p Object/Unerase.pdf
+	cp $< Object/Unerase.pdf/
+	ln -sf ../Manual Object/
+	-cd Object/Unerase.pdf ; xelatex -interaction=batchmode Unerase.tex
+	-cd Object/Unerase.pdf ; xelatex -interaction=batchmode Unerase.tex
+	-cd Object/Unerase.pdf ; xelatex -interaction=batchmode Unerase.tex
+	mkdir -p Dist
+	mv Object/Unerase.pdf/Unerase.pdf Dist/Grizzards.Unerase.pdf
+
 Dist/Grizzards.NTSC.pdf: Manual/Grizzards.tex
 	mkdir -p Object/NTSC.pdf
 	cp $< Object/NTSC.pdf/
