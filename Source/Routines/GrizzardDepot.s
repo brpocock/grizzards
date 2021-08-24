@@ -173,7 +173,7 @@ HTDdone:
 
 NotLeftRight:
 
-          .if !NOSAVE
+          .if !NOSAVE && !DEMO
           lda NewSWCHA
           .BitBit P0StickUp
           bne NoStickUp
