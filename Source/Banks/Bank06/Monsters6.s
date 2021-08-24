@@ -108,7 +108,7 @@ Monsters:
           .SignText "CAVE    GRUE"
           .byte 1
           .colu COLBLUE, $8
-          .byte 3, 3, 30, $45
+          .byte 6, 5, 30, $45
           .byte 0
 
           .SignText "CAVE  BAT   "
