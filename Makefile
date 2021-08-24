@@ -112,6 +112,7 @@ Dist/Grizzards.AtariAge.zip:	\
 	Dist/Grizzards.Aquax.NTSC.a26 Dist/Grizzards.Aquax.PAL.a26 Dist/Grizzards.Aquax.SECAM.a26 \
 	Dist/Grizzards.Airex.NTSC.a26 Dist/Grizzards.Airex.PAL.a26 Dist/Grizzards.Airex.SECAM.a26 \
 	Dist/Grizzards.NTSC-book.pdf Dist/Grizzards.PAL-book.pdf Dist/Grizzards.SECAM-book.pdf
+	zip $@ $^
 
 Dist/Grizzards.Unerase.zip: Dist/Grizzards.Unerase.NTSC.a26 \
 		Dist/Grizzards.Unerase.PAL.a26 \
@@ -569,18 +570,33 @@ Dist/Grizzards.Unerase.SECAM.a26:	$(shell find Source -name \*.s)
 	-Wall -Wno-shadow -Wno-leading-zeros --m6502 \
 	Source/Unerase/Unerase.s -DTV=SECAM -o $@
 
-RELEASE=x
+RELEASE=noreleasenamegiven
 release:	all
-	@if [ $(RELEASE) = x ]; then echo "Usage: make RELEASE=ident release" >&2; exit 1; fi
+	@if [ $(RELEASE) = noreleasenamegiven ]; then echo "Usage: make RELEASE=ident release" >&2; exit 1; fi
 	mkdir -p Dist/$(RELEASE)
-	-cp -v Dist/Grizzards.{Demo,Airex,Aquax,Dirtex,NoSave,Unerase}.{NTSC,PAL,SECAM}{,-book}.{a26,pdf,pro} Dist/$(RELEASE) 2>/dev/null
+	-rm Dist/$(RELEASE)/*
+	-cp -v Dist/Grizzards.{Demo,Airex,Aquax,Dirtex,NoSave,Unerase}.{NTSC,PAL,SECAM}{,-book}.{a26,pdf,pro} \
+		Dist/$(RELEASE) 2>/dev/null
+	cp -v Dist/Grizzards.{NTSC,PAL,SECAM}{,-book}.pdf Dist/$(RELEASE)
 	cp -v Dist/Grizzards.Manual.txt Dist/$(RELEASE)
 	@cd Dist/$(RELEASE) ; \
 	for file in Grizzards.*.{zip,a26,pdf}; do \
 		mv -v $$file $$(echo $$file | perl -pne 's(Grizzards.([^.]+).(.*)) (Grizzards.\1.$(RELEASE).\2)'); \
 	done
-	@cd Dist/$(RELEASE) ; \
-	zip Grizzards.AtariAge.$(RELEASE).zip Grizzards.{Airex,Aquax,Dirtex}.*
-	zip Grizzards.Demo.$(RELEASE).zip Grizzards.Demo.*
-	zip Grizzards.NoSave.$(RELEASE).zip Grizzards.NoSave.*
-	zip Grizzards.Unerase.$(RELEASE).zip Grizzards.Unerase.*
+	@echo "AtariAge Release $(RELEASE) of Grizzards for the Atari 2600. © 2021 Bruce-Robert Pocock." | \
+		zip -9 Dist/$(RELEASE)/Grizzards.AtariAge.$(RELEASE).zip \
+		Dist/$(RELEASE)/Grizzards.{Airex,Aquax,Dirtex}.* Dist/$(RELEASE)/Grizzards.{NTSC,PAL,SECAM}*pdf
+	@echo "Demo Release $(RELEASE) of Grizzards for the Atari 2600. © 2021 Bruce-Robert Pocock." | \
+		zip -9 Dist/$(RELEASE)/Grizzards.Demo.$(RELEASE).zip \
+		Dist/$(RELEASE)/Grizzards.Demo.*{a26,pdf,pro}
+	@echo "No-Save Demo Release $(RELEASE) of Grizzards for the Atari 2600. © 2021 Bruce-Robert Pocock." | \
+		zip -9 Dist/$(RELEASE)/Grizzards.NoSave.$(RELEASE).zip \
+		Dist/$(RELEASE)/Grizzards.NoSave.*{a26,pdf,pro}
+	@echo "Unerase Tool Release $(RELEASE) of Grizzards for the Atari 2600. © 2021 Bruce-Robert Pocock." | \
+		zip -9 Dist/$(RELEASE)/Grizzards.Unerase.$(RELEASE).zip \
+		Dist/$(RELEASE)/Grizzards.Unerase.*{a26,pdf,pro}
+
+publish-release:	release
+	until rsync -essh -v Dist/$(RELEASE)/*$(RELEASE)* \
+		star-hope.org:star-hope.org/games/Grizzards ; \
+		sleep 1 ; done
