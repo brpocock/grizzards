@@ -1,10 +1,8 @@
 default:	all
 
-all:	game demo no-save doc
+all:	game demo no-save unerase doc
 
-unerase:	Dist/Grizzards.Unerase.NTSC.a26 \
-		Dist/Grizzards.Unerase.PAL.a26 \
-		Dist/Grizzards.Unerase.SECAM.a26
+unerase:	Dist/Grizzards.Unerase.zip
 
 publish:	demo game no-save doc unerase Dist/Grizzards.Source.tar.gz
 	@until rsync -essh --progress \
@@ -109,28 +107,27 @@ uno:	Dist/Grizzards.Dirtex.NTSC.a26 \
 	  echo "Patch Makefile for your $$(uname -s) OS" ; \
 	fi
 
-Dist/Grizzards.zip: \
-	Dist/Grizzards.Dirtex.NTSC.a26 \
-	Dist/Grizzards.Dirtex.PAL.a26 \
-	Dist/Grizzards.Dirtex.SECAM.a26 \
-	Dist/Grizzards.Aquax.NTSC.a26 \
-	Dist/Grizzards.Aquax.PAL.a26 \
-	Dist/Grizzards.Aquax.SECAM.a26 \
-	Dist/Grizzards.Airex.NTSC.a26 \
-	Dist/Grizzards.Airex.PAL.a26 \
-	Dist/Grizzards.Airex.SECAM.a26 \
-	Dist/Grizzards.NTSC.pdf \
-	Dist/Grizzards.PAL.pdf \
-	Dist/Grizzards.SECAM.pdf
+Dist/Grizzards.AtariAge.zip:	\
+	Dist/Grizzards.Dirtex.NTSC.a26 Dist/Grizzards.Dirtex.PAL.a26 Dist/Grizzards.Dirtex.SECAM.a26 \
+	Dist/Grizzards.Aquax.NTSC.a26 Dist/Grizzards.Aquax.PAL.a26 Dist/Grizzards.Aquax.SECAM.a26 \
+	Dist/Grizzards.Airex.NTSC.a26 Dist/Grizzards.Airex.PAL.a26 Dist/Grizzards.Airex.SECAM.a26 \
+	Dist/Grizzards.NTSC-book.pdf Dist/Grizzards.PAL-book.pdf Dist/Grizzards.SECAM-book.pdf
+
+Dist/Grizzards.Unerase.zip: Dist/Grizzards.Unerase.NTSC.a26 \
+		Dist/Grizzards.Unerase.PAL.a26 \
+		Dist/Grizzards.Unerase.SECAM.a26
 	zip $@ $^
 
 Dist/Grizzards.Demo.zip: \
 	Dist/Grizzards.Demo.NTSC.a26 \
-	Dist/Grizzards.Demo.NTSC.pdf \
 	Dist/Grizzards.Demo.PAL.a26 \
-	Dist/Grizzards.Demo.PAL.pdf \
 	Dist/Grizzards.Demo.SECAM.a26 \
-	Dist/Grizzards.Demo.SECAM.pdf
+	Dist/Grizzards.Demo.NTSC.pdf \
+	Dist/Grizzards.Demo.PAL.pdf \
+	Dist/Grizzards.Demo.SECAM.pdf \
+	Dist/Grizzards.Demo.NTSC-book.pdf \
+	Dist/Grizzards.Demo.PAL-book.pdf \
+	Dist/Grizzards.Demo.SECAM-book.pdf
 	zip $@ $^
 
 Dist/Grizzards.NoSave.zip: \
@@ -142,10 +139,7 @@ Dist/Grizzards.NoSave.zip: \
 	Dist/Grizzards.NoSave.SECAM.pdf
 	zip $@ $^
 
-game:	Dist/Grizzards.Dirtex.NTSC.a26 Dist/Grizzards.Dirtex.PAL.a26 Dist/Grizzards.Dirtex.SECAM.a26 \
-	Dist/Grizzards.Aquax.NTSC.a26 Dist/Grizzards.Aquax.PAL.a26 Dist/Grizzards.Aquax.SECAM.a26 \
-	Dist/Grizzards.Airex.NTSC.a26 Dist/Grizzards.Airex.PAL.a26 Dist/Grizzards.Airex.SECAM.a26 \
-	Dist/Grizzards.NTSC.pdf Dist/Grizzards.PAL.pdf Dist/Grizzards.SECAM.pdf
+game:	Dist/Grizzards.AtariAge.zip
 
 doc:	Dist/Grizzards.NTSC.pdf Dist/Grizzards.PAL.pdf Dist/Grizzards.SECAM.pdf \
 	Dist/Grizzards.NTSC-book.pdf Dist/Grizzards.PAL-book.pdf Dist/Grizzards.SECAM-book.pdf \
@@ -564,3 +558,19 @@ Dist/Grizzards.Unerase.SECAM.a26:	$(shell find Source -name \*.s)
 	--ascii -I. -I Source/Common -I Source/Routines \
 	-Wall -Wno-shadow -Wno-leading-zeros --m6502 \
 	Source/Unerase/Unerase.s -DTV=SECAM -o $@
+
+RELEASE=x
+release:	all
+	@if [ $(RELEASE) = x ]; then echo "Usage: make RELEASE=ident release" >&2; exit 1; fi
+	mkdir -p Dist/$(RELEASE)
+	-cp -v Dist/Grizzards.{Demo,Airex,Aquax,Dirtex,NoSave,Unerase}.{NTSC,PAL,SECAM}{,-book}.{a26,pdf,pro} Dist/$(RELEASE) 2>/dev/null
+	cp -v Dist/Grizzards.Manual.txt Dist/$(RELEASE)
+	@cd Dist/$(RELEASE) ; \
+	for file in Grizzards.*.{zip,a26,pdf}; do \
+		mv -v $$file $$(echo $$file | perl -pne 's(Grizzards.([^.]+).(.*)) (Grizzards.\1.$(RELEASE).\2)'); \
+	done
+	@cd Dist/$(RELEASE) ; \
+	zip Grizzards.AtariAge.$(RELEASE).zip Grizzards.{Airex,Aquax,Dirtex}.*
+	zip Grizzards.Demo.$(RELEASE).zip Grizzards.Demo.*
+	zip Grizzards.NoSave.$(RELEASE).zip Grizzards.NoSave.*
+	zip Grizzards.Unerase.$(RELEASE).zip Grizzards.Unerase.*
