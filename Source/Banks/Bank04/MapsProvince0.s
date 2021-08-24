@@ -398,9 +398,9 @@ SpriteList:
           .byte 0, 0
           .byte SpriteCombat, 9
 
-          .byte $ff, SpriteRandomEncounter
-          .byte 0, 0
-          .byte SpriteCombat, 10
+          .byte $ff, SpriteWander
+          .byte $7c, $28
+          .byte SpriteGrizzard, 0 ; Dirtex
 
           .byte $ff, SpriteWander
           .byte $b9, $28
