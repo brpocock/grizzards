@@ -172,6 +172,8 @@ HTDdone:
           bne Select
 
 NotLeftRight:
+
+          .if !NOSAVE && !DEMO
           lda NewSWCHA
           .BitBit P0StickUp
           bne NoStickUp
@@ -219,6 +221,8 @@ SeekOK:
           .FarJSR SaveKeyBank, ServiceLoadGrizzard
           .ldacolu COLTEAL, $2
           sta COLUBK
+
+          .fi                   ; end of block disabled for NoSave
 
 DoneStick:
 
