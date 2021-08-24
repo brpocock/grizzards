@@ -111,6 +111,10 @@ Dist/Grizzards.AtariAge.zip:	\
 	Dist/Grizzards.Dirtex.NTSC.a26 Dist/Grizzards.Dirtex.PAL.a26 Dist/Grizzards.Dirtex.SECAM.a26 \
 	Dist/Grizzards.Aquax.NTSC.a26 Dist/Grizzards.Aquax.PAL.a26 Dist/Grizzards.Aquax.SECAM.a26 \
 	Dist/Grizzards.Airex.NTSC.a26 Dist/Grizzards.Airex.PAL.a26 Dist/Grizzards.Airex.SECAM.a26 \
+	Dist/Grizzards.Dirtex.NTSC.pro Dist/Grizzards.Dirtex.PAL.pro Dist/Grizzards.Dirtex.SECAM.pro \
+	Dist/Grizzards.Aquax.NTSC.pro Dist/Grizzards.Aquax.PAL.pro Dist/Grizzards.Aquax.SECAM.pro \
+	Dist/Grizzards.Airex.NTSC.pro Dist/Grizzards.Airex.PAL.pro Dist/Grizzards.Airex.SECAM.pro \
+	Dist/Grizzards.NTSC.pdf Dist/Grizzards.PAL.pdf Dist/Grizzards.SECAM.pdf \
 	Dist/Grizzards.NTSC-book.pdf Dist/Grizzards.PAL-book.pdf Dist/Grizzards.SECAM-book.pdf
 	zip $@ $^
 
@@ -123,6 +127,9 @@ Dist/Grizzards.Demo.zip: \
 	Dist/Grizzards.Demo.NTSC.a26 \
 	Dist/Grizzards.Demo.PAL.a26 \
 	Dist/Grizzards.Demo.SECAM.a26 \
+	Dist/Grizzards.Demo.NTSC.pro \
+	Dist/Grizzards.Demo.PAL.pro \
+	Dist/Grizzards.Demo.SECAM.pro \
 	Dist/Grizzards.Demo.NTSC.pdf \
 	Dist/Grizzards.Demo.PAL.pdf \
 	Dist/Grizzards.Demo.SECAM.pdf \
@@ -134,10 +141,13 @@ Dist/Grizzards.Demo.zip: \
 Dist/Grizzards.NoSave.zip: \
 	Dist/Grizzards.NoSave.NTSC.a26 \
 	Dist/Grizzards.NoSave.NTSC.pdf \
+	Dist/Grizzards.NoSave.NTSC.pro \
 	Dist/Grizzards.NoSave.PAL.a26 \
 	Dist/Grizzards.NoSave.PAL.pdf \
+	Dist/Grizzards.NoSave.PAL.pro \
 	Dist/Grizzards.NoSave.SECAM.a26 \
-	Dist/Grizzards.NoSave.SECAM.pdf
+	Dist/Grizzards.NoSave.SECAM.pdf \
+	Dist/Grizzards.NoSave.SECAM.pro
 	zip $@ $^
 
 game:	Dist/Grizzards.AtariAge.zip
@@ -409,63 +419,63 @@ Dist/Grizzards.Airex.SECAM.sym:	\
 
 Dist/Grizzards.Demo.NTSC.pro:	Source/Grizzards.Demo.pro Dist/Grizzards.Demo.NTSC.a26
 	sed $< -e s/@@TV@@/NTSC/g \
-		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.NTSC.a26 | cut -d\  -f1)/g > $@
+		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.Demo.NTSC.a26 | cut -d\  -f1)/g > $@
 
 Dist/Grizzards.Demo.PAL.pro:	Source/Grizzards.Demo.pro Dist/Grizzards.Demo.PAL.a26
 	sed $< -e s/@@TV@@/PAL/g \
-		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.PAL.a26 | cut -d\  -f1)/g > $@
+		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.Demo.PAL.a26 | cut -d\  -f1)/g > $@
 
 Dist/Grizzards.Demo.SECAM.pro:	Source/Grizzards.Demo.pro Dist/Grizzards.Demo.SECAM.a26
 	sed $< -e s/@@TV@@/SECAM/g \
-		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.SECAM.a26 | cut -d\  -f1)/g > $@
+		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.Demo.SECAM.a26 | cut -d\  -f1)/g > $@
 
 Dist/Grizzards.NoSave.NTSC.pro:	Source/Grizzards.NoSave.pro Dist/Grizzards.NoSave.NTSC.a26
 	sed $< -e s/@@TV@@/NTSC/g \
-		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.NTSC.a26 | cut -d\  -f1)/g > $@
+		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.NoSave.NTSC.a26 | cut -d\  -f1)/g > $@
 
 Dist/Grizzards.NoSave.PAL.pro:	Source/Grizzards.NoSave.pro Dist/Grizzards.NoSave.PAL.a26
 	sed $< -e s/@@TV@@/PAL/g \
-		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.PAL.a26 | cut -d\  -f1)/g > $@
+		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.NoSave.PAL.a26 | cut -d\  -f1)/g > $@
 
 Dist/Grizzards.NoSave.SECAM.pro:	Source/Grizzards.NoSave.pro Dist/Grizzards.NoSave.SECAM.a26
 	sed $< -e s/@@TV@@/SECAM/g \
-		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.SECAM.a26 | cut -d\  -f1)/g > $@
+		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.NoSave.SECAM.a26 | cut -d\  -f1)/g > $@
 
 Dist/Grizzards.Dirtex.NTSC.pro:	Source/Grizzards.pro Dist/Grizzards.Dirtex.NTSC.a26
 	sed $< -e s/@@TV@@/NTSC/g \
-		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.Dirtex.NTSC.a26 | cut -d\  -f1)/g > $@
+		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.Dirtex.NTSC.a26 | cut -d\  -f1)/g > $@
 
 Dist/Grizzards.Dirtex.PAL.pro:	Source/Grizzards.pro Dist/Grizzards.Dirtex.PAL.a26
 	sed $< -e s/@@TV@@/PAL/g \
-		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.Dirtex.PAL.a26 | cut -d\  -f1)/g > $@
+		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.Dirtex.PAL.a26 | cut -d\  -f1)/g > $@
 
 Dist/Grizzards.Dirtex.SECAM.pro:	Source/Grizzards.pro Dist/Grizzards.Dirtex.SECAM.a26
 	sed $< -e s/@@TV@@/SECAM/g \
-		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.Dirtex.SECAM.a26 | cut -d\  -f1)/g > $@
+		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.Dirtex.SECAM.a26 | cut -d\  -f1)/g > $@
 
 Dist/Grizzards.Aquax.NTSC.pro:	Source/Grizzards.pro Dist/Grizzards.Aquax.NTSC.a26
 	sed $< -e s/@@TV@@/NTSC/g \
-		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.Aquax.NTSC.a26 | cut -d\  -f1)/g > $@
+		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.Aquax.NTSC.a26 | cut -d\  -f1)/g > $@
 
 Dist/Grizzards.Aquax.PAL.pro:	Source/Grizzards.pro Dist/Grizzards.Aquax.PAL.a26
 	sed $< -e s/@@TV@@/PAL/g \
-		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.Aquax.PAL.a26 | cut -d\  -f1)/g > $@
+		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.Aquax.PAL.a26 | cut -d\  -f1)/g > $@
 
 Dist/Grizzards.Aquax.SECAM.pro:	Source/Grizzards.pro Dist/Grizzards.Aquax.SECAM.a26
 	sed $< -e s/@@TV@@/SECAM/g \
-		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.Aquax.SECAM.a26 | cut -d\  -f1)/g > $@
+		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.Aquax.SECAM.a26 | cut -d\  -f1)/g > $@
 
 Dist/Grizzards.Airex.NTSC.pro:	Source/Grizzards.pro Dist/Grizzards.Airex.NTSC.a26
 	sed $< -e s/@@TV@@/NTSC/g \
-		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.Airex.NTSC.a26 | cut -d\  -f1)/g > $@
+		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.Airex.NTSC.a26 | cut -d\  -f1)/g > $@
 
 Dist/Grizzards.Airex.PAL.pro:	Source/Grizzards.pro Dist/Grizzards.Airex.PAL.a26
 	sed $< -e s/@@TV@@/PAL/g \
-		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.Airex.PAL.a26 | cut -d\  -f1)/g > $@
+		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.Airex.PAL.a26 | cut -d\  -f1)/g > $@
 
 Dist/Grizzards.Airex.SECAM.pro:	Source/Grizzards.pro Dist/Grizzards.Airex.SECAM.a26
 	sed $< -e s/@@TV@@/SECAM/g \
-		-e s/@@MD5@@/$(shell md5sum Dist/Grizzards.Airex.SECAM.a26 | cut -d\  -f1)/g > $@
+		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.Airex.SECAM.a26 | cut -d\  -f1)/g > $@
 
 dstella:	Dist/Grizzards.Demo.NTSC.a26 Dist/Grizzards.Demo.NTSC.sym Dist/Grizzards.Demo.NTSC.pro
 	stella -tv.filter 3 -grabmouse 0 -bs F4 \
