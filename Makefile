@@ -152,6 +152,7 @@ doc:	Dist/Grizzards.NTSC.pdf Dist/Grizzards.PAL.pdf Dist/Grizzards.SECAM.pdf \
 	Dist/Grizzards.NoSave.PAL-book.pdf \
 	Dist/Grizzards.NoSave.SECAM-book.pdf \
 	Dist/Grizzards.Manual.txt \
+	Dist/Grizzards.Unerase.pdf \
 	Dist/Grizzards.NoSave.NTSC.pdf Dist/Grizzards.NoSave.PAL.pdf Dist/Grizzards.NoSave.SECAM.pdf
 
 .PRECIOUS: %.s %.png %.a26 %.txt %.zip %.tar.gz
