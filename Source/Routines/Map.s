@@ -352,10 +352,7 @@ EnterGrizzardDepot:
 GetNewGrizzard:
           lda NextMap
           sta Temp
-          .FarJSR MapServicesBank, ServiceNewGrizzard
-          lda CurrentMap
-          sta NextMap
-          jmp MapSetup
+          .FarJSR MapServicesBank, ServiceNewGrizzard ; does not return
 
 ShowStats:
           .FarJSR MapServicesBank, ServiceGrizzardStatsScreen

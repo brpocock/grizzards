@@ -81,7 +81,6 @@ WriteCurrentProvince:
           jsr i2cStopWrite
 
 WriteCurrentGrizzard:
-          .WaitScreenBottom
           jmp SaveGrizzard      ; tail call
 
 SaveRetry:

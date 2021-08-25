@@ -415,7 +415,7 @@ SpriteList:
 
           .byte $ff, SpriteFixed
           .byte $7c, $36
-          .byte SpriteGrizzard, 1 ; Aquax
+          .byte SpriteGrizzard, 5 ; Wetnas
 
           .byte 0
 

@@ -2,26 +2,30 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
 NewGrizzard:        .block
+          .WaitScreenTop
+
+          ldx #$ff
+          stx s
+
           ;; Call with new Grizzard in Temp
           lda Temp
           pha
 
           .KillMusic
-          .WaitScreenBottom
-          .WaitScreenTop
 
           .FarJSR SaveKeyBank, ServicePeekGrizzard
           ;; carry is set if the Grizzard is found
           bcc CatchEm
           ;; If so, nothing doing, return
           pla                   ; discard stashed ID
-
+          .WaitScreenBottom
           rts
 
-CatchEm:  
+CatchEm:
           ;; New Grizzard found, save current Grizzard …
           .FarJSR SaveKeyBank, ServiceSaveGrizzard
-
+          stx WSYNC
+          .WaitScreenTop
           ;; … and set up this one with default levels
           pla
 
@@ -54,6 +58,8 @@ CatchEm:
           ;; Now, save this guy for good measure
           .FarJSR SaveKeyBank, ServiceSaveGrizzard
 
+          stx WSYNC
+          .WaitScreenTop
           lda #SoundHappy
           sta NextSound
 
@@ -69,9 +75,9 @@ CatchEm:
 Loop:
           .WaitScreenBottom
           .WaitScreenTop
-          .ldacolu COLSPRINGGREEN, $e
-          sta COLUBK
           .ldacolu COLGRAY, $0
+          sta COLUBK
+          .ldacolu COLSPRINGGREEN, $e
           sta COLUP0
           sta COLUP1
 
@@ -89,7 +95,10 @@ Loop:
           beq +
           jmp Loop
 +
-          rts
+          .WaitScreenBottom
+          lda CurrentMap
+          sta NextMap
+          jmp GoMap
 
 CaughtText:
           .MiniText "CAUGHT"

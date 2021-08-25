@@ -2,6 +2,7 @@
 ;;; Copyright © Bruce-Robert Pocock
 
 SaveGrizzard:       .block
+          .WaitScreenBottom
           .WaitScreenTopMinus 2, -1
           ;; Now we have 3 more blocks to write.
 
@@ -24,7 +25,6 @@ SaveGrizzard:       .block
 
           jsr i2cStopWrite
 
-          .WaitScreenBottom
-          rts
+          jmp WaitScreenBottomSub ; tail call
    
           .bend
