@@ -44,14 +44,14 @@ CheckNextSpriteForDoor:
           sta PlayerY
           sta BlessedY
 
-          bne DonePlacing       ; always taken
+          gne DonePlacing
 
 NotADoor:
           inx
           cmp SpriteCount
           bne CheckNextSpriteForDoor
 DonePlacing:
-;;; 
+;;; 
 CheckForRandomSpawns:
           ldx SpriteCount
           beq Bye

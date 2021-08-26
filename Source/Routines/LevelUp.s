@@ -2,6 +2,7 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
 LevelUp:        .block
+          .WaitScreenBottom
           .WaitScreenTop
           ;; Call with the level raised in Temp
           lda #ModeLevelUp
@@ -21,11 +22,12 @@ LevelUp:        .block
 Loop:
           .WaitScreenTop
 
+          .ldacolu COLTURQUOISE, $f
+          sta COLUBK
+
           .ldacolu COLGRAY, 0
           sta COLUP0
           sta COLUP1
-          .ldacolu COLTURQUOISE, $f
-          sta COLUBK
 
           .SkipLines KernelLines / 4
 
@@ -51,10 +53,11 @@ Loop:
 +
           lda DeltaX
           .BitBit LevelUpMaxHP
-          
+          beq +
+
           .SetPointer MaxHPText
           jsr ShowPointerText
-
++
 CheckForSpeech:
           lda DeltaY
           cmp # 4
@@ -72,7 +75,7 @@ CheckForSpeech:
           beq +
           .SetUtterance Phrase_StatusFXAttack
           inc DeltaY
-          bne CheckForAlarm     ; always taken
+          gne CheckForAlarm
 +
           inc DeltaY
 PassAttack:
@@ -85,7 +88,7 @@ PassAttack:
           beq +
           .SetUtterance Phrase_StatusFXDefend
           inc DeltaY
-          bne CheckForAlarm     ; always taken
+          gne CheckForAlarm
 +
           inc DeltaY
 PassDefend:
@@ -127,10 +130,6 @@ SwitchesDone:
           .WaitScreenBottom
           jmp Loop
 
-ShowPointerText:
-          jsr CopyPointerText
-          jmp DecodeAndShowText ; tail call
-          
 LevelText:
           .MiniText "LEVEL "
 UpText:

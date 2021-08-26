@@ -11,8 +11,7 @@ TunnelBlocked:
 ♀I can't open the tunnels with out the two artifacts.Bring them
 
 TunnelOpen:
-♀Now that you brought them I can open the tunnels.
-☿This is the end of the demo area for Grizzards.Thank you for playing
+♀Now that you brought them I can open the tunnels to Anchor Village
 
 Artifact:
 ♂I have one of the two artifacts.Who says you can ¿ take it

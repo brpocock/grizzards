@@ -7,7 +7,7 @@ GrizzardStatsScreen: .block
 
           .KillMusic
           sta NewSWCHB
-          beq FirstLoop          ; always taken
+          geq FirstLoop
 ;;; 
 Loop:
           .WaitScreenTop
@@ -52,7 +52,7 @@ Bouncey1:
           bne +
           lda # 2
           sta AlarmCountdown
-          .WaitScreenBottom
+
           jmp CombatMainScreen
 +
 

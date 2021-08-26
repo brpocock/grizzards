@@ -7,7 +7,7 @@ TopOfScreenService: .block
 
           PlayerSprites = $f000
           MapSprites = PlayerSprites + 16
-          
+
           jsr VSync
           .TimeLines 32
           jsr Prepare48pxMobBlob
@@ -43,7 +43,7 @@ AfterScore:
 
           .ldacolu COLGOLD, $8
           ora BumpCooldown
-          
+
           sta COLUP0
 
           sta HMCLR
@@ -157,7 +157,7 @@ Flippy:
           bne NoFlip
           lda # 0
           sta REFP1
-          beq FindAnimationFrame ; always taken
+          geq FindAnimationFrame
 
 NoFlip:
           lda # REFLECTED

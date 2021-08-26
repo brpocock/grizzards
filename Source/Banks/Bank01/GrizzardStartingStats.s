@@ -6,38 +6,38 @@ GrizzardStartingStats:        .block
           ;; Max HP, ATK, DEF, (unused), and MovesKnown
 
           ;; 0
-          .byte 10, 1, 1, 1, $f0
-          .byte 10, 1, 1, 1, $f0
-          .byte 10, 1, 1, 1, $f0
-          .byte 10, 1, 1, 1, $f0
-          .byte 10, 1, 1, 1, $f0
-          .byte 10, 1, 1, 1, $f0
-          .byte 10, 1, 1, 1, $f0
-          .byte 10, 1, 1, 1, $f0
-          .byte 10, 1, 1, 1, $f0
-          .byte 10, 1, 1, 1, $f0
+          .byte 10, 1, 1, 1, $0f
+          .byte 10, 1, 1, 1, $0f
+          .byte 10, 1, 1, 1, $0f
+          .byte 12, 4, 4, 4, $0f
+          .byte 12, 4, 4, 4, $0f
+          .byte 12, 4, 4, 4, $0f
+          .byte 10, 1, 1, 1, $0f
+          .byte 10, 1, 1, 1, $0f
+          .byte 10, 1, 1, 1, $0f
+          .byte 10, 1, 1, 1, $0f
           ;; 10
-          .byte 10, 1, 1, 1, $f0
-          .byte 10, 1, 1, 1, $f0
-          .byte 10, 1, 1, 1, $f0
-          .byte 10, 1, 1, 1, $f0
-          .byte 10, 1, 1, 1, $f0
-          .byte 10, 1, 1, 1, $f0
-          .byte 10, 1, 1, 1, $f0
-          .byte 10, 1, 1, 1, $f0
-          .byte 10, 1, 1, 1, $f0
-          .byte 10, 1, 1, 1, $f0
+          .byte 10, 1, 1, 1, $0f
+          .byte 10, 1, 1, 1, $0f
+          .byte 10, 1, 1, 1, $0f
+          .byte 10, 1, 1, 1, $0f
+          .byte 10, 1, 1, 1, $0f
+          .byte 10, 1, 1, 1, $0f
+          .byte 10, 1, 1, 1, $0f
+          .byte 10, 1, 1, 1, $0f
+          .byte 10, 1, 1, 1, $0f
+          .byte 10, 1, 1, 1, $0f
           ;; 20
-          .byte 10, 1, 1, 1, $f0
-          .byte 10, 1, 1, 1, $f0
-          .byte 10, 1, 1, 1, $f0
-          .byte 10, 1, 1, 1, $f0
-          .byte 10, 1, 1, 1, $f0
-          .byte 10, 1, 1, 1, $f0
-          .byte 10, 1, 1, 1, $f0
-          .byte 10, 1, 1, 1, $f0
-          .byte 10, 1, 1, 1, $f0
-          .byte 10, 1, 1, 1, $f0
+          .byte 10, 1, 1, 1, $0f
+          .byte 10, 1, 1, 1, $0f
+          .byte 10, 1, 1, 1, $0f
+          .byte 10, 1, 1, 1, $0f
+          .byte 10, 1, 1, 1, $0f
+          .byte 10, 1, 1, 1, $0f
+          .byte 10, 1, 1, 1, $0f
+          .byte 10, 1, 1, 1, $0f
+          .byte 10, 1, 1, 1, $0f
+          .byte 10, 1, 1, 1, $0f
           ;; ↑ 29
           
           .bend

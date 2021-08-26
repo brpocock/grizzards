@@ -29,7 +29,7 @@ MaybeDoPlayerMove:
           bne DoPlayerSleep
           and #StatusMuddle
           bne DoPlayerMuddled
-          beq CheckStick        ; always taken
+          geq CheckStick
 
 DoPlayerSleep:
           jsr Random
@@ -40,7 +40,7 @@ DoPlayerSleep:
 +
           lda #ModeCombatNextTurn
           sta GameMode
-          bne CheckStick        ; always taken
+          gne CheckStick
 
 DoPlayerMuddled:
           jsr Random
@@ -71,20 +71,17 @@ CheckStick:
 
           lda NewSWCHA
           beq StickDone
-          .BitBit P0StickUp
+
+          and #P0StickUp
           bne DoneStickUp
-          lda #SoundChirp
-          sta NextSound
           dex
           bpl DoneStickUp
           ldx #8
 
 DoneStickUp:
           lda NewSWCHA
-          .BitBit P0StickDown
+          and #P0StickDown
           bne DoneStickDown
-          lda #SoundChirp
-          sta NextSound
           inx
           cpx #9              ; max moves = 8
           blt DoneStickDown
@@ -107,7 +104,7 @@ SelfTarget:
 ChooseTarget:
           ldx MoveTarget
           bne +
-          ldx # 1
+          jsr CombatMainScreen.TargetFirstMonster
 +
           cpx # 7
           blt +
@@ -151,7 +148,7 @@ NoSelect:
           .if TV == SECAM
 
           lda DebounceSWCHB
-          .BitBit SWCHBP0Advanced
+          and #SWCHBP0Advanced
           sta Pause
 
           .else
@@ -159,7 +156,7 @@ NoSelect:
           lda DebounceSWCHB
           .BitBit SWCHBColor
           bne NoPause
-          .BitBit SWCHB7800
+          and #SWCHB7800
           beq +
           lda Pause
           eor #$ff

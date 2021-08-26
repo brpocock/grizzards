@@ -36,8 +36,9 @@ BumpSprite:
           cmp #SpritePerson
           beq ReadSign
           and #SpriteProvinceDoor
-          beq PlayerMoveOK      ; No action
-          bne ProvinceChange    ; always taken
+          cmp #SpriteProvinceDoor
+          bne PlayerMoveOK      ; No action
+          geq ProvinceChange    
 
 ReadSign:
           lda SpriteParam, x
@@ -94,6 +95,23 @@ EnterDepot:
           rts
 
 ProvinceChange:
+          stx DeltaX
+          ldx #$ff              ; smash the stack
+          txs
+          .WaitForTimer         ; finish up VBlank cycle
+          ldx # 0
+          stx VBLANK
+          ;; WaitScreenTop without VSync/VBlank
+          .if TV == NTSC
+          .TimeLines KernelLines - 2
+          .else
+          lda #$fe
+          sta TIM64T
+          .fi
+          .WaitScreenBottom
+          .FarJSR SaveKeyBank, ServiceSaveProvinceData
+          .WaitScreenTop
+          ldx DeltaX
           lda SpriteAction, x
           and #$f0
           clc
@@ -106,7 +124,9 @@ ProvinceChange:
           sta NextMap
           ldy #ModeMapNewRoomDoor
           sty GameMode
-          rts
+          .FarJSR SaveKeyBank, ServiceLoadProvinceData  ; tail call
+          .WaitScreenBottom
+          jmp GoMap
 
 ;;; 
 BumpWall:

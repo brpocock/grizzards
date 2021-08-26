@@ -2,6 +2,8 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
 LearntMove:        .block
+          .WaitScreenBottom
+
           .WaitScreenTop
           ;; Call with the move ID stashed in Temp
           lda #ModeLearntMove

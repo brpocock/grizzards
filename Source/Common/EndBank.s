@@ -114,7 +114,7 @@ Break:
 
 ;;; Save and Quit
 GoQuit:
-          BankJump Quit, ColdStartBank
+          BankJump Attract.WarmStart, ColdStartBank
 
 ;;; End of wired memory
 WiredEnd:

@@ -15,6 +15,9 @@ MapSetup: .block
           sta SpriteCount
           sta DeltaX
           sta DeltaY
+          sta PlayerXFraction
+          sta PlayerYFraction
+          sta MapFlags
           sta CurrentMusic + 1
 
           lda BlessedX
@@ -26,14 +29,14 @@ MapSetup: .block
 NewRoom:
           .WaitForTimer
           stx WSYNC
-
-          .if TV != NTSC
+          .if TV == NTSC
           stx WSYNC
           .fi
+
           jsr Overscan
 
-          .WaitScreenTopMinus 2, 0
-          
+          .WaitScreenTopMinus 2, -1
+
 NewRoomTimerRunning:
 
           lda CurrentProvince
@@ -57,7 +60,7 @@ NewRoomTimerRunning:
           ;; Got to figure out the sprites
           ;; Start at the head of the sprite list
           lda #<SpriteList
-          sta Pointer         
+          sta Pointer
           lda #>SpriteList
           sta Pointer + 1
 
@@ -155,14 +158,14 @@ SpriteAbsent:
           clc
           adc # 5               ; already been incremented once
           tay
-          bne SetUpSprite       ; always taken
+          gne SetUpSprite
 
 MoreSprites:
           sta SpriteMotion, x
           iny
           inc SpriteCount
           inx
-          bne SetUpSprite       ; always taken
+          gne SetUpSprite
 
 SpritePresent:
           ldy Temp
@@ -188,21 +191,21 @@ AddRandomEncounter:
           lda (Pointer), y         ; .y = .x × 6 + 5
           sta SpriteParam, x
           lda # SpriteRandomEncounter
-          bne MoreSprites       ; always taken
+          gne MoreSprites
 
 AddFixedSprite:
           jsr AddPlacedSprite
           lda # 0
           ;; .y = .x⁺¹ × 6   (start of next entry)
           ;; Go back looking for more sprites
-          beq MoreSprites       ; always taken
+          geq MoreSprites
 
 AddWanderingSprite:
           jsr AddPlacedSprite
           lda # SpriteMoveIdle
           ;; .y = .x⁺¹ × 6   (start of next entry)
           ;; Go back looking for more sprites
-          bne MoreSprites                 ; always taken
+          gne MoreSprites
 
 AddPlacedSprite:
           iny

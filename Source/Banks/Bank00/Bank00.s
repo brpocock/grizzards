@@ -65,8 +65,21 @@ DoLocal:
           beq SaveGrizzard
           cpy #ServiceAttract
           beq Attract.WarmStart
+          .if !NOSAVE
+          cpy #ServiceLoadGrizzard
+          beq LoadGrizzardData
+          .fi
+          .if !DEMO
+          cpy #ServiceSaveProvinceData
+          beq SaveProvinceData
+          cpy #ServiceLoadProvinceData
+          beq LoadProvinceData
+          .fi
           brk
 
+Quit:
+          ldy #ServiceColdStart
+          ;; falls through to
 	.include "ColdStart.s"
           ;; falls through to
           .include "DetectConsole.s"
@@ -128,8 +141,5 @@ ShowPointerText:
           ;; fall through
 ShowText:
           .FarJMP TextBank, ServiceDecodeAndShowText
-Quit:
-          ldy #ServiceColdStart
-          jmp ColdStart
 
           .include "EndBank.s"

@@ -13,12 +13,16 @@ GrizzardDepot:    .block
           .WaitForTimer
           jsr Overscan
           .fi
+
+          stx WSYNC
+          .WaitScreenTop
           .FarJSR SaveKeyBank, ServiceSaveToSlot
+          stx WSYNC
           .WaitScreenTop
           .KillMusic
           jmp ReturnToLoop
 ;;; 
-Loop:     
+Loop:
           .WaitScreenTop
 
           .ldacolu COLTEAL, $2
@@ -114,7 +118,7 @@ HTDloop:
           lda StringBuffer+4
           and #$0f
           sta StringBuffer+4
-+          
++
           lda StringBuffer+3    ; then middle byte, etc
           adc DecimalTable+2, x
           sta StringBuffer+3
@@ -124,7 +128,7 @@ HTDloop:
           lda StringBuffer+3
           and #$0f
           sta StringBuffer+3
-+          
++
           lda StringBuffer+2
           adc DecimalTable+1, x
           sta StringBuffer+2
@@ -138,7 +142,7 @@ HTDloop:
           lda StringBuffer+1
           adc DecimalTable, x
           sta StringBuffer+1
-          
+
 HTDnext:
           dex
           dex             ; By taking X in steps of 4, we don't have to
@@ -146,7 +150,7 @@ HTDnext:
           dex             ; table.
           bpl HTDloop
 
-HTDdone:  
+HTDdone:
           cld
           stx DeltaX            ; 0
 
@@ -168,11 +172,13 @@ HTDdone:
           bne Select
 
 NotLeftRight:
+
+          .if !NOSAVE
           lda NewSWCHA
           .BitBit P0StickUp
           bne NoStickUp
           lda #-1
-          bne SeekGrizzard      ; always taken
+          gne SeekGrizzard
 
 NoStickUp:
           .BitBit P0StickDown
@@ -181,7 +187,7 @@ NoStickUp:
 SeekGrizzard:
           sta NextMap
 SeekScreen:
-          ldy # 16
+          ldy # 8
           sty AlarmCountdown      ; Abusing this register! XXX
           .WaitScreenBottom
           .WaitScreenTop
@@ -198,21 +204,25 @@ KeepSeeking:
           blt SeekOK
           lda NextMap
           cmp # 1
-          beq +
+          beq SeekWrapped
           lda # 29
-          bne SeekOK            ; always taken
-+
+          gne SeekOK
+
+SeekWrapped:
           lda # 0
 SeekOK:
           sta Temp
           sta CurrentGrizzard
-          .FarJSR SaveKeyBank, ServicePeekGrizzard 
+          .FarJSR SaveKeyBank, ServicePeekGrizzard
           ;; carry is set if found
           bcc KeepSeeking
           .WaitScreenBottom
           .WaitScreenTop
+          .FarJSR SaveKeyBank, ServiceLoadGrizzard
           .ldacolu COLTEAL, $2
           sta COLUBK
+
+          .fi                   ; end of block disabled for NoSave
 
 DoneStick:
 
@@ -230,7 +240,7 @@ Select:
           sta GameMode
           lda #ModeGrizzardDepot
           sta DeltaY            ; where to return after stats display
-          bne TriggerDone       ; always taken
+          gne TriggerDone
 
 SwitchesDone:
           lda NewButtons
@@ -239,6 +249,8 @@ SwitchesDone:
           bne TriggerDone
           lda #ModeMap
           sta GameMode
+          lda CurrentMap
+          sta NextMap           ; may have been overwritten
 
           .WaitScreenBottom
           jmp GoMap

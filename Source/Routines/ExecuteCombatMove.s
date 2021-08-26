@@ -49,7 +49,7 @@ MonsterAttackPositiveRandom:
           and Temp
           clc
           adc MoveHP            ; temporarily effective Attack score
-          jmp MonsterAttackHitMissP ;always taken
+          jmp MonsterAttackHitMissP
 
 MonsterAttackNegativeRandom:
           and Temp
@@ -77,7 +77,7 @@ MonsterAttackHitPlus:
           and Temp
           clc
           adc CombatMoveDeltaHP
-          bne MonsterAttackHitCommon ; always taken
+          gne MonsterAttackHitCommon
 
 MonsterAttackHitMinus:
           and Temp
@@ -95,12 +95,12 @@ MonsterAttackHitCommon:
           sec
           sbc MoveHP
           sta CurrentHP
-          bne MonsterDidNotKillGrizzard ; always taken
+          gne MonsterDidNotKillGrizzard
 
 MonsterKilledGrizzard:
           lda # 0
           sta CurrentHP
-          beq MonsterAttackNoStatusFX ; always taken
+          geq MonsterAttackNoStatusFX
 
 MonsterDidNotKillGrizzard:
           ;; OK, also, what is the effect on the player's status?
@@ -150,7 +150,7 @@ MonsterHealsPlusHP:
           clc
           adc MoveHP
           sta MoveHP
-          bne MonsterHealsCommon ; always taken
+          gne MonsterHealsCommon
 
 MonsterHealsMinusHP:
           and Temp
@@ -219,7 +219,7 @@ PlayerAttackPositiveRandom:
           and Temp
           clc
           adc MoveHP               ; temporarily effective Attack score
-          bne PlayerAttackHitMissP ; always taken
+          gne PlayerAttackHitMissP
 
 PlayerAttackNegativeRandom:
           and Temp
@@ -247,7 +247,7 @@ PlayerAttackHitPlus:
           and Temp
           clc
           adc CombatMoveDeltaHP
-          bne PlayerAttackHitCommon ; always taken
+          gne PlayerAttackHitCommon
 
 PlayerAttackHitMinus:
           and Temp
@@ -288,7 +288,7 @@ ScoreNoCarry:
           cld
 
           lda # 0               ; zero on negative
-          beq +                 ; always taken
+          geq +
 
 PlayerDidNotKillMonster:
           lda MonsterHP - 1, x
@@ -342,7 +342,7 @@ PlayerHealsPlusHP:
           clc
           adc MoveHP
           sta MoveHP
-          bne PlayerHealsCommon ; always taken
+          gne PlayerHealsCommon
 
 PlayerHealsMinusHP:
           and Temp
@@ -382,7 +382,7 @@ WaitOutScreen:
           lda MoveHitMiss
           beq SoundForMiss
           lda #SoundHit
-          bne +                 ; always taken
+          gne +
 SoundForMiss:
           lda #SoundMiss
 +
@@ -413,7 +413,7 @@ CheckMove:
 
           sta pp1l
           jsr Random
-          and #$07
+          and #$01
           bne DidNotLearn
 
           ldx pp1h
@@ -425,7 +425,7 @@ LearntMove:
           ora MovesKnown
           sta MovesKnown
           ldy # 1
-          bne AfterTryingToLearn ; always taken
+          gne AfterTryingToLearn
 
 CheckNextMove:
           inc pp1h
@@ -440,8 +440,6 @@ AfterTryingToLearn:
           cpy # 0
           beq NextTurn
 
-          .WaitScreenBottom
-
           lda pp1l
           sta Temp
           .FarJSR MapServicesBank, ServiceLearntMove
@@ -454,13 +452,25 @@ NextTurn:
           bne NotLastMonster
           ldx #0
           stx WhoseTurn
-          jmp BackToMain
+          .if TV != NTSC
+          ldx INTIM
+          dex
+          stx TIM64T
+          .fi
+          jmp CombatMainScreen.BackToPlayer
 NotLastMonster:
           lda MonsterHP, x
           beq NextTurn
 
           lda # 6
           sta AlarmCountdown
+          .if TV != NTSC
+          ;; stuff a few cycles onto the clock here
+          ldx INTIM
+          inx
+          inx
+          stx TIM64T
+          .fi
 BackToMain:
           jmp CombatMainScreen
 ;;; 

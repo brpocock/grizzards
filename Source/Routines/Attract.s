@@ -1,5 +1,6 @@
 ;;; Grizzards Source/Routines/Attract.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
+
 Attract:  .block
           ;;
           ;; Title screen and attract sequence
@@ -41,9 +42,9 @@ WarmStart:
           sta DeltaY
           lda # 8
           sta AlarmCountdown
-          .WaitScreenBottom
 ;;; 
 Loop:
+          .WaitScreenBottom
           .WaitScreenTop
 
           lda GameMode
@@ -72,6 +73,7 @@ Loop:
 ;;; 
 StoryMode:
           .FarJSR AnimationsBank, ServiceAttractStory
+
           lda GameMode
           cmp #ModeAttractStory
           beq Loop
@@ -291,7 +293,6 @@ DoneKernel:
           and #PRESSED
           beq Leave
 +
-          .WaitScreenBottom
 
           .if STARTER == 2
           lda # 0

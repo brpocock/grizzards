@@ -1,6 +1,10 @@
 ;;; Grizzards Source/Routines/SaveToSlot.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
 SaveToSlot:	.block
+          .WaitScreenBottom
+          .if TV != NTSC
+          stx WSYNC
+          .fi
           .WaitScreenTop
 
 WriteMasterBlock:
@@ -77,7 +81,6 @@ WriteCurrentProvince:
           jsr i2cStopWrite
 
 WriteCurrentGrizzard:
-          .WaitScreenBottom
           jmp SaveGrizzard      ; tail call
 
 SaveRetry:

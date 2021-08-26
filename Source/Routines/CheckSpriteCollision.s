@@ -37,7 +37,7 @@ CheckLeft:
           inc SpriteX, x
           inc SpriteX, x
           eor # SpriteMoveLeft | SpriteMoveRight
-          bne CheckUp           ; always taken
+          gne CheckUp
 
 CheckRight:
           .BitBit SpriteMoveRight
@@ -54,7 +54,7 @@ CheckUp:
           inc SpriteY, x
           inc SpriteY, x
           eor # SpriteMoveUp | SpriteMoveDown
-          bne Done              ; always taken
+          gne Done
 
 CheckDown:
           .BitBit SpriteMoveDown

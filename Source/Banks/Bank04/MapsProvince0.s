@@ -398,9 +398,9 @@ SpriteList:
           .byte 0, 0
           .byte SpriteCombat, 9
 
-          .byte $ff, SpriteRandomEncounter
-          .byte 0, 0
-          .byte SpriteCombat, 10
+          .byte $ff, SpriteWander
+          .byte $7c, $28
+          .byte SpriteGrizzard, 0 ; Dirtex
 
           .byte $ff, SpriteWander
           .byte $b9, $28
@@ -415,18 +415,20 @@ SpriteList:
 
           .byte $ff, SpriteFixed
           .byte $7c, $36
-          .byte SpriteGrizzard, 1 ; Aquax
+          .byte SpriteGrizzard, 5 ; Wetnas
 
           .byte 0
 
           ;; Room 8
-          .byte 8, SpriteWander
+          .if !DEMO
+          .byte $ff, SpriteFixed
           .byte $38, $30
           .byte SpriteProvinceDoor | $10, 2
+          .fi
 
           .byte $ff, SpriteFixed
           .byte $38, $20
-          .byte SpriteSign, 9
+          .byte SpriteSign, 9   ; lost mine
 
           .byte 9, SpriteFixed
           .byte $c8, $24
@@ -480,25 +482,25 @@ SpriteList:
           ;; Room 11
           .byte 15, SpriteWander
           .byte $7e, $27
-          .byte SpriteCombat, 2
+          .byte SpriteCombat, 9
 
           .byte 0
 
           ;; Room 12
           .byte $ff, SpriteFixed
           .byte $7e, $27
-          .byte SpriteSign, 14
+          .byte SpriteSign, 14  ; western road sign
           
           .byte 4, SpriteWander
           .byte $7e, $27
-          .byte SpriteCombat, 2
+          .byte SpriteCombat, 9
 
           .byte 0
 
           ;; Room 13
           .byte 5, SpriteWander
           .byte $7e, $27
-          .byte SpriteCombat, 2
+          .byte SpriteCombat, 9
 
           .byte 0
 
@@ -557,17 +559,13 @@ SpriteList:
 
 	;; Room 17
           .byte $ff, SpriteFixed
-          .byte $36, $29
+          .byte $48, $29
           .byte SpritePerson, 3 ; tunnel guardian
 
           .if !DEMO             ; no room for these signs' text in demo
           .byte 1, SpriteFixed
-          .byte $32, $20
+          .byte $48, $20
           .byte SpriteSign, 17  ; tunnel closed
-
-          .byte 1, SpriteFixed
-          .byte $32, $31
-          .byte SpriteSign, 17
           .fi
 
 	.byte 0

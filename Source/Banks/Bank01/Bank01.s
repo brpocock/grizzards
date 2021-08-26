@@ -61,4 +61,8 @@ DoLocal:
 
           .include "SpriteColor.s"
 
+ShowPointerText:
+          jsr CopyPointerText
+          .FarJMP TextBank, ServiceDecodeAndShowText ; tail call
+
 	.include "EndBank.s"

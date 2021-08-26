@@ -2,30 +2,35 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 CombatMainScreen:   .block
 
+BackToPlayer:
           lda #1
           sta MoveSelection
           lda #ModeCombat
           sta GameMode
+          jsr TargetFirstMonster
           .WaitScreenBottom
+          jmp LoopFirst
 ;;; 
 Loop:
-          jsr VSync
-          ;; drawing the monsters seems to sometimes be a little variable in its timing, so we'll use a timer.
-          .if TV == NTSC
-          .TimeLines 93
-          .else
-          .TimeLines 104
+          .WaitScreenBottom
+          .if TV != NTSC
+          lda WhoseTurn
+          bne +
+          .SkipLines 3
++
+          .SkipLines 2
           .fi
-
+LoopFirst:
+          .WaitScreenTopMinus 1, 3
           jsr Prepare48pxMobBlob
 
           .switch TV
           .case NTSC
-          .ldacolu COLRED, 0
+            .ldacolu COLRED, 0
           .case PAL
-          .ldacolu COLRED, $2
+            .ldacolu COLRED, $2
           .case SECAM
-          lda #COLBLACK
+            lda #COLBLACK
           .endswitch
           sta COLUBK
           .ldacolu COLYELLOW, $f
@@ -62,16 +67,9 @@ MonstersDisplay:
 
           .FarJSR AnimationsBank, ServiceDrawMonsterGroup
 DelayAfterMonsters:
-          .WaitForTimer
+          ;; no actual delay now
 ;;; 
 BeginPlayerSection:
-          .if TV == NTSC
-          .TimeLines KernelLines - 104
-          .else
-          .TimeLines KernelLines - 112
-          .fi
-
-          sta WSYNC
           .ldacolu COLBLUE, $f
           sta COLUP0
           sta COLUP1
@@ -80,6 +78,7 @@ BeginPlayerSection:
           .else
           .ldacolu COLINDIGO, $4
           .fi
+          stx WSYNC
           sta COLUBK
 
 DrawGrizzardName:
@@ -96,12 +95,12 @@ DrawHealthBar:
           blt AtMinHP
           .ldacolu COLYELLOW, $f
           sta COLUPF
-          bne DrawHealthPF      ; always taken
+          gne DrawHealthPF
 
 AtMaxHP:
           .ldacolu COLGREEN, $8
           sta COLUPF
-          bne DrawHealthPF      ; always taken
+          gne DrawHealthPF
 
 AtMinHP:
           .ldacolu COLRED, $8
@@ -112,24 +111,23 @@ DrawHealthPF:
           bge FullPF2
           lda HealthyPF2, x
           sta PF2
-          bne DoneHealth        ; always taken
+          gne DoneHealth
 
 FullPF2:
           lda #$ff
           sta PF2
           txa                   ; ∈ 8…99
           clc
+          and #$f8
           ror a                  ; ∈ 4…50
-          clc
           ror a                  ; ∈ 2…25
-          clc
           ror a                  ; ∈ 1…12
           tax
           cpx # 8
           bge FullPF1
           lda HealthyPF1, x
           sta PF1
-          bne DoneHealth        ; always taken
+          gne DoneHealth
 
 FullPF1:                        ; ∈ 8…12
           sec
@@ -142,7 +140,7 @@ FullPF1:                        ; ∈ 8…12
           ;; fall through
 
 DoneHealth:
-          .SkipLines 4
+          .SkipLines 2
           lda # 0
           sta PF0
           sta PF1
@@ -151,11 +149,6 @@ DoneHealth:
           lda WhoseTurn
           beq PlayerChooseMove
 
-          .WaitForTimer
-
-          .if TV == NTSC
-          .SkipLines 8
-          .fi
           jmp ScreenDone
 
 PlayerChooseMove:
@@ -163,15 +156,15 @@ PlayerChooseMove:
 
           ldx MoveSelection
           bne NotRunAway
-          .ldacolu COLTURQUOISE, $f
-          bne ShowSelectedMove  ; always taken
+          .ldacolu COLRED , $a
+          gne ShowSelectedMove
 
 NotRunAway:
           lda BitMask - 1, x
           bit MovesKnown
           beq NotMoveKnown
-          .ldacolu COLRED, $a
-          bne ShowSelectedMove  ; always taken
+          .ldacolu COLTURQUOISE, $e
+          gne ShowSelectedMove
 
 NotMoveKnown:
           .ldacolu COLGRAY, 0
@@ -179,15 +172,8 @@ NotMoveKnown:
 ShowSelectedMove:
           sta COLUP0
           sta COLUP1
-          sta WSYNC
 
           .FarJSR TextBank, ServiceShowMove
-
-          .WaitForTimer
-	
-          .if TV != NTSC
-          .SkipLines 3
-          .fi
 
           lda NewButtons
           beq ScreenDone
@@ -204,7 +190,7 @@ MoveNotOK:
           lda #SoundBump
           sta NextSound
 
-          bne ScreenDone        ; always taken
+          gne ScreenDone
 
 DoUseMove:
           ldx MoveTarget
@@ -214,8 +200,6 @@ DoUseMove:
 MoveOK:
           lda #SoundChirp
           sta NextSound
-          .SkipLines 3
-          jsr Overscan
           jmp CombatAnnouncementScreen
 
 RunAway:
@@ -224,14 +208,13 @@ RunAway:
 
           lda #ModeMap
           sta GameMode
-          bne RunningAway                 ; always taken
+          ;; fall through ;; gne RunningAway
 ;;; 
 ScreenDone:
-          stx WSYNC
 RunningAway:
-          stx WSYNC
-          stx WSYNC
-          jsr Overscan
+          .if TV == NTSC
+          .SkipLines 3
+          .fi
 
           lda GameMode
           cmp #ModeCombat
@@ -241,16 +224,18 @@ RunningAway:
 Leave:
           cmp #ModeMap
           bne +
+          .SkipLines 32
           jmp GoMap
 +
           cmp #ModeGrizzardStats
           bne +
           lda #ModeCombat
           sta DeltaY
+          .SkipLines 32
           jmp GrizzardStatsScreen
 +
           cmp #ModeCombatAnnouncement
-          jmp CombatAnnouncementScreen
+          beq CombatAnnouncementScreen
           brk
 ;;; 
 HealthyPF2:
@@ -272,5 +257,19 @@ HealthyPF1:
           .byte %00011111
           .byte %00111111
           .byte %01111111
+
+TargetFirstMonster:
+          ldx #0
+-
+          lda MonsterHP, x
+          bne TargetFirst
+          inx
+          cpx # 5
+          bne -
+TargetFirst:
+          inx
+          stx MoveTarget
+
+          rts
 
           .bend

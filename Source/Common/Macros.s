@@ -179,7 +179,7 @@ sound:    .macro volume, control, frequency, duration, end
 
 TimeLines:          .macro lines
           SkipCycles = 76 * (\lines)
-          .if ( (SkipCycles/64) < $100 )
+          .if ( (SkipCycles/64) <= $100 )
           lda # (SkipCycles/64) - 1
           sta TIM64T
           .else
@@ -219,7 +219,7 @@ WaitScreenBottom:      .macro
 WaitScreenBottomTail:      .macro
           jmp WaitScreenBottomSub
           .endm
-
+;;; 
 KillMusic:          .macro
           lda # 0
           sta AUDC1
@@ -227,7 +227,7 @@ KillMusic:          .macro
           sta AUDF1
           sta NoteTimer
           .endm
-
+;;; 
 FarJSR:   .macro bank, service
           .if \bank == BANK
           .error "Don't do FarJSR for the local bank for ", \service
@@ -245,14 +245,14 @@ FarJMP:   .macro bank, service
           ldx #\bank
           jmp FarCall
           .endm
-
+;;; 
 SetPointer:         .macro value
           lda #>\value
           sta Pointer + 1
           lda #<\value
           sta Pointer
           .endm
-
+;;; 
 SkipLines:          .macro length
 
           .if \length < 5
@@ -271,7 +271,7 @@ SkipLines:          .macro length
 
           .fi
           .endm
-
+;;; 
 BitBit:   .macro constant
           .switch \constant
 

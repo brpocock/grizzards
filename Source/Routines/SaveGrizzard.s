@@ -2,7 +2,8 @@
 ;;; Copyright © Bruce-Robert Pocock
 
 SaveGrizzard:       .block
-          .WaitScreenTop
+          .WaitScreenBottom
+          .WaitScreenTopMinus 2, -1
           ;; Now we have 3 more blocks to write.
 
           ;; We have 30 potential Grizzards, which make up 5 bytes each.
@@ -24,7 +25,6 @@ SaveGrizzard:       .block
 
           jsr i2cStopWrite
 
-          .WaitScreenBottom
-          rts
+          jmp WaitScreenBottomSub ; tail call
    
           .bend

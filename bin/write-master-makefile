@@ -24,7 +24,7 @@ ASFLAGS=--nostart --long-branch --case-sensitive \
 	-D DATENOW=${DATE} -D JULIANDATENOW=${JULIAN} \
 	-D BUILD=${BUILD} \
 	-Wall -Wno-shadow -Wno-leading-zeros
-AS2600=64tass ${ASFLAGS} --m6502
+AS2600=64tass ${ASFLAGS} --m6502 -m --tab-size=1 --verbose-list
 
 ';
 

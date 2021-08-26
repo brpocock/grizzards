@@ -1,0 +1,70 @@
+Grizzards
+
+For full manual:
+
+https://star-hope.org/
+games/Grizzards/
+
+Program:
+Bruce-Robert Pocock
+
+Music + Add'l Art:
+Zephyr Salz
+Controller:
+
+Joystick or Genesis gamepad in
+left port. Genesis B button is
+FIRE, C button is SELECT.
+
+SaveKey or AtariVox in right
+port. (NoSave demo works without
+SaveKey/AtariVox.)
+
+
+
+Press FIRE to leave title screen
+and start.
+
+Select Slot (SaveKey/AtariVox):
+Use left/right to choose a slot,
+FIRE to begin/resume a game.
+
+Begin/Resume (NoSave): Press
+left/right to BEGIN or RESUME.
+RESUME is only available
+immediately after GAME OVER.
+FIRE to select.
+Map: Walk (8 ways) with
+joystick. Stats with SELECT.
+Run into objects to interact.
+
+Green slime: Monster or group
+of monsters.
+
+Black signpost: Signpost.
+Gold person: Person.
+Purple building: Grizzard Depot.
+Green "lizard": wild Grizzard
+
+Combat: Select move with
+up/down. Black moves have not
+been learnt yet. Select target
+monster with left/right.
+SELECT for your stats. FIRE to
+use move. Monsters take their
+turns next.
+
+Sign/Person: FIRE to exit after
+you read sign or listen to
+person speak.
+
+Grizzard Depot: FIRE to exit.
+SELECT for stats of current
+Grizzard. Up/down to change
+Grizzard companion.
+
+--------------------------------
+
+Hint: When you first begin, head
+left until the docks.
+

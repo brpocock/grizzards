@@ -49,7 +49,7 @@ FireButton:
           bne ButtonsChanged
           lda # 0
           sta NewButtons
-          beq DoneButtons       ; always taken
+          geq DoneButtons
 
 ButtonsChanged:
           sta DebounceButtons

@@ -40,7 +40,8 @@ PrepareCursor2:
 ZeroTarget:
           lda # 0
           sta pp3l
-          beq PrepareTopMonsters ; always taken
+          stx WSYNC
+          geq PrepareTopMonsters
 TopTarget:
           dex
 
@@ -48,6 +49,7 @@ PositionTopCursor:
           jsr PositionCursor
 
 PrepareTopMonsters:
+          stx WSYNC
           lda # 0
           ldx MonsterHP + 0
           beq +
@@ -70,10 +72,11 @@ PositionTopMonsters:
 DrawTopMonsters:
           jsr DrawMonsters
 
-          beq PrepareBottomCursor ; always taken
+          geq PrepareBottomCursor
 
 NoTopMonsters:
           jsr DrawNothing
+          ;; fall through
 ;;; 
 PrepareBottomCursor:
           lda # 0
@@ -82,14 +85,15 @@ PrepareBottomCursor:
 
           jsr SetCursorColor
 
-PrepareCursor2B:
+PrepareCursor2Bottom:
           ldx MoveTarget
           cpx # 4
-          bge +
+          bge HasBottomCursor
           lda # 0
           sta pp3l
-          beq PrepareBottomMonsters ; always taken
-+
+          geq PrepareBottomMonsters
+
+HasBottomCursor:
           .rept 4
           dex
           .next
@@ -119,12 +123,12 @@ PositionBottomMonsters:
 
 DrawBottomMonsters:
           jsr DrawMonsters
+          stx WSYNC
 
 FinishUp:
           sty GRP0
           sty GRP1
 
-          sta WSYNC
           sta WSYNC
           rts
 
@@ -134,7 +138,7 @@ NoBottomMonsters:
 
 ;;; 
 PositionCursor:
-          sta WSYNC
+          stx WSYNC
           .Sleep 13
           lda CursorPosition, x
           and #$0f
@@ -151,6 +155,7 @@ CursorPosGross:
           lda #$ff
           sta pp3l
 
+          stx WSYNC
           rts
 ;;; 
 PositionMonsters:
@@ -198,6 +203,7 @@ DrawMonsters:
           sty GRP1
           rts
 
+          .align $10, $20       ; avoid page crossing before HMOVE
 DrawNothing:
           lda # 0
           sta GRP0
@@ -207,7 +213,7 @@ DrawNothing:
           lda pp3l
           sta GRP1
           .if TV == NTSC
-            .SkipLines 18
+            .SkipLines 17
           .else
             .SkipLines 24
           .fi
@@ -227,12 +233,12 @@ SetCursorColor:
           bne +
           stx WSYNC
           stx WSYNC
-          beq CursorColored ; always taken
+          geq CursorColored
 +
           lda MonsterHP - 1, x
           beq +
           .ldacolu COLGRAY, $f
-          bne SetColor ; always taken
+          gne SetColor
 +
           .ldacolu COLGRAY, 0
 SetColor:

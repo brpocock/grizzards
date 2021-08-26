@@ -65,6 +65,8 @@ DrawSadFace:
           tya
           .SkipLines 20
 
+          jsr Prepare48pxMobBlob
+
           lda GameMode
           cmp #ModeNoAtariVox
           bne Crashed

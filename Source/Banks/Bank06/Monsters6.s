@@ -16,7 +16,7 @@ Monsters:
           .SignText "VORPALBUNNY "
           .byte 0
           .colu COLGOLD, $4
-          .byte 2, 2, 5, $6
+          .byte 6, 4, 5, $10
           .byte 0
           
           .SignText "R.O.    U.S."
@@ -108,7 +108,7 @@ Monsters:
           .SignText "CAVE    GRUE"
           .byte 1
           .colu COLBLUE, $8
-          .byte 3, 3, 30, $45
+          .byte 6, 5, 30, $45
           .byte 0
 
           .SignText "CAVE  BAT   "

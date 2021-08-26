@@ -1,8 +1,7 @@
 ;;; Grizzards Source/Routines/StartNewGame.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
 StartNewGame:          .block
-          .WaitScreenBottom
-          .WaitScreenTopMinus 1, 0
+          .WaitScreenTopMinus 1, -1
 
           lda #ModeStartGame
           sta GameMode
@@ -44,6 +43,16 @@ InitGameVars:
           lda #$0f              ; learn 4 moves to start TODO
           sta MovesKnown
 
+          ldx # 7
+          lda # 0
+-
+          sta ProvinceFlags - 1, x
+          dex
+          bne -
+
+          lda #$ff
+          sta ProvinceFlags + 7
+
           lda # 10
           sta MaxHP
           sta CurrentHP
@@ -52,6 +61,9 @@ InitGameVars:
           sta StartGameWipeBlock
 
           .WaitScreenBottom
+          .if TV != NTSC
+          stx WSYNC
+          .fi
 
           .if NOSAVE
 
@@ -61,12 +73,11 @@ InitGameVars:
           .else
 
 Loop:
-          .WaitScreenTopMinus 1, 2
+          .WaitScreenTopMinus 1, -1
 
           lda StartGameWipeBlock
           cmp #$ff
           beq Leave
-
 
           jsr i2cStartWrite
           bcc LetsStart
@@ -110,18 +121,22 @@ DoneWiping:
           lda #$ff
           sta StartGameWipeBlock
 
+          sta ProvinceFlags + 7
+
 WaitForScreenEnd:
           lda GameMode
           cmp #ModeStartGame
           beq Leave
           .WaitScreenBottom
+          .if TV != NTSC
+          stx WSYNC
+          .fi
           jmp Loop
 
 Leave:
-          .WaitScreenBottom
           .FarJSR SaveKeyBank, ServiceSaveToSlot
 
-          .fi       ; NOSAVE off
+          .fi       ; end of not-NOSAVE
 
           jmp GoMap
 
