@@ -46,7 +46,7 @@ plus:	game demo no-save
 	@echo 'put Dist/Grizzards.Unerase.NTSC.a26 Grizzards.Unerase.NTSC.a26' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/Grizzards
 	@echo 'put Dist/Grizzards.Unerase.PAL.a26 Grizzards.Unerase.PAL.a26' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/Grizzards
 	@echo 'put Dist/Grizzards.Unerase.SECAM.a26 Grizzards.Unerase.SECAM.a26' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/Grizzards
-	@echo 'put Manual/Manual.txt Grizzards.Manual.txt' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/Grizzards
+	@echo 'put Dist/Grizzards.Manual.txt Grizzards.Manual.txt' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/Grizzards
 
 demo:	Dist/Grizzards.Demo.zip
 
