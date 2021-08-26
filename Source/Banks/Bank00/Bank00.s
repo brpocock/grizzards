@@ -65,8 +65,10 @@ DoLocal:
           beq SaveGrizzard
           cpy #ServiceAttract
           beq Attract.WarmStart
+          .if !NOSAVE
           cpy #ServiceLoadGrizzard
           beq LoadGrizzardData
+          .fi
           .if !DEMO
           cpy #ServiceSaveProvinceData
           beq SaveProvinceData
