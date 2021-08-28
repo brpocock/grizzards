@@ -400,7 +400,7 @@ SpriteList:
 
           .byte $ff, SpriteWander
           .byte $7c, $28
-          .byte SpriteGrizzard, 0 ; Dirtex
+          .byte SpriteGrizzard, 3 ; Flamex
 
           .byte $ff, SpriteWander
           .byte $b9, $28

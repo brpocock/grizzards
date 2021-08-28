@@ -18,8 +18,8 @@ NewGrizzard:        .block
           bcc CatchEm
           ;; If so, nothing doing, return
           pla                   ; discard stashed ID
-          .WaitScreenBottom
-          rts
+          jsr WaitScreenBottomSub ; tail call
+          jmp GoMap
 
 CatchEm:
           ;; New Grizzard found, save current Grizzard …

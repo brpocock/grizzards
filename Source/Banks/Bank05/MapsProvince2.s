@@ -2,123 +2,158 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
           ;; How many maps are in these tables?
-MapCount = 47
+MapCount = 61
 
 ;;; Foreground and background colors
 ;;; Remember SECAM and don't make these too similar
 
 MapColors:
           ;; 0
-          .colors COLINDIGO, COLSPRINGGREEN
-          .colors COLGREEN, COLSPRINGGREEN
-          .colors COLGREEN, COLSPRINGGREEN
-          .colors COLGREEN, COLSPRINGGREEN
-          .colors COLTEAL, COLSPRINGGREEN
-          .colors COLCYAN, COLSPRINGGREEN
-          .colors COLCYAN, COLSPRINGGREEN
-          .colors COLGREEN, COLGRAY
-          .colors COLGREEN, COLGRAY
-          .colors COLCYAN, COLGRAY
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
           ;; 10
-          .colors COLTURQUOISE, COLGRAY
-          .colors COLGREEN, COLGRAY
-          .colors COLTEAL, COLGRAY
-          .colors COLCYAN, COLGRAY
-          .colors COLCYAN, COLGRAY
-          .colors COLTURQUOISE, COLGRAY
-          .colors COLTURQUOISE, COLGRAY
-          .colors COLTURQUOISE, COLGRAY
-          .colors COLTURQUOISE, COLGRAY
-          .colors COLBLUE, COLGRAY
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
           ;; 20
-          .colors COLBLUE, COLGRAY
-          .colors COLINDIGO, COLBLUE
-          .colors COLINDIGO, COLBLUE
-          .colors COLBLUE, COLBLUE
-          .colors COLPURPLE, COLGRAY
-          .colors COLPURPLE, COLGRAY
-          .colors COLPURPLE, COLGRAY
-          .colors COLPURPLE, COLGRAY
-          .colors COLPURPLE, COLGRAY
-          .colors COLMAGENTA, COLGOLD
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
           ;; 30
-          .colors COLMAGENTA, COLGOLD
-          .colors COLMAGENTA, COLGOLD
-          .colors COLMAGENTA, COLGOLD
-          .colors COLMAGENTA, COLGOLD
-          .colors COLRED, COLGOLD
-          .colors COLRED, COLGOLD
-          .colors COLRED, COLGOLD
-          .colors COLORANGE, COLGOLD
-          .colors COLORANGE, COLGOLD
-          .colors COLORANGE, COLGOLD
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
           ;; 40
-          .colors COLMAGENTA, COLGOLD
-          .colors COLRED, COLGOLD
-          .colors COLORANGE, COLGOLD
-          .colors COLRED, COLGOLD
-          .colors COLRED, COLGOLD
-          .colors COLORANGE, COLGOLD
-          .colors COLORANGE, COLGOLD
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          ;; 50
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
+          ;; 60
+          .colors COLYELLOW, COLBROWN
+          .colors COLYELLOW, COLBROWN
 
 ;;; Links up, down, left, right are map indices in this bank
 MapLinks:
-          .byte 0, 3, 0, 0      ; TODO links N, W, E
-          .byte $ff, 7, $ff, 2
-          .byte $ff, $ff, 1, 3
-          .byte $ff, $ff, 2, 4
-          .byte $ff, $ff, 3, 5
+          .byte $ff, $ff, 1, $ff
+          .byte 18, $ff, 14, 0
+          .byte $ff, $ff, $ff, $ff
+          .byte $ff, $ff, $ff, $ff
+          .byte $ff, $ff, $ff, $ff
           ;; 5
-          .byte $ff, 9, 4, 6
-          .byte $ff, $ff, 5, $ff
-          .byte 1, 8, $ff, $ff
-          .byte 7, $ff, $ff, 11   ; TODO link S
-          .byte 5, 14, $ff, $ff
+          .byte $ff, $ff, $ff, $ff
+          .byte $ff, $ff, $ff, $ff
+          .byte $ff, $ff, $ff, $ff
+          .byte $ff, $ff, $ff, $ff
+          .byte $ff, $ff, $ff, $ff
           ;; 10
-          .byte $ff, 15, $ff, $ff
-          .byte $ff, $ff, 8, 12
-          .byte $ff, $ff, 11, 13
-          .byte $ff, $ff, 12, 14
-          .byte 9, 17, 13, 15
+          .byte $ff, $ff, $ff, $ff
+          .byte $ff, $ff, $ff, $ff
+          .byte $ff, $ff, $ff, $ff
+          .byte $ff, $ff, $ff, $ff
+          .byte 19, $ff, 15, 1
           ;; 15
-          .byte 10, 16, 14, $ff  ; TODO link E
-          .byte 15, $ff, $ff, $ff
-          .byte 14, $ff, 18, 16
-          .byte $ff, 23, 19, 17
-          .byte $ff, $ff, 20, 18
+          .byte 20, $ff, 16, 14
+          .byte 21, $ff, 17, 15
+          .byte 22, $ff, $ff, 16
+          .byte 24, 1, 19, $ff
+          .byte 25, 17, 20, 18
           ;; 20
-          .byte $ff, $ff, $ff, 19
-          .byte $ff, 24, 23, 22
-          .byte $ff, $ff, 21, 23
-          .byte 18, 26, 22, 21
-          .byte 21, $ff, $ff, $ff
+          .byte 26, 15, 21, 19
+          .byte 27, 16, 22, 20
+          .byte 28, 17, 23, 21
+          .byte 29, $ff, $ff, 22
+          .byte 30, 18, 25, $ff
           ;; 25
-          .byte $ff, $ff, 28, 26
-          .byte 23, 32, 25, 27
-          .byte $ff, $ff, 26, 28
-          .byte $ff, $ff, 27, 25
-          .byte $ff, 44, $ff, 30
+          .byte 31, 19, 26, 24
+          .byte 32, 20, 27, 25
+          .byte 33, 21, 28, 26
+          .byte 34, 22, 29, 27
+          .byte $ff, 23, $ff, 28
           ;; 30
-          .byte $ff, 43, 29, 31
-          .byte $ff, 34, 30, 32
-          .byte 26, 35, 31, 33
-          .byte $ff, 36, 32, 40
-          .byte 31, 37, 43, 35
+          .byte 35, 24, 31, $ff
+          .byte 36, 25, 32, 30
+          .byte 37, 26, 27, 25
+          .byte 38, 27, 34, 32
+          .byte 39, 28, $ff, 33
           ;; 35
-          .byte 32, 38, 34, 36
-          .byte 33, 39, 35, 41
-          .byte 34, $ff, 46, 38
-          .byte 35, $ff, 37, 39
-          .byte 36, $ff, 38, 42
+          .byte 40, 30, 36, $ff
+          .byte 41, 31, 37, 35
+          .byte 42, 32, 38, 36
+          .byte 43, 33, 39, 37
+          .byte $ff, 34, $44, 33
           ;; 40
-          .byte $ff, 41, 33, $ff
-          .byte 40, 42, 36, $ff
-          .byte 41, $ff, 39, $ff
-          .byte 30, 46, 44, 34
-          .byte 29, 45, $ff, 43
+          .byte 44, 30, 36, $ff
+          .byte 45, 36, 42, 40
+          .byte 46, 37, 43, 41
+          .byte 47, 38, $ff, 42
+          .byte $ff, 40, 45, $ff
           ;; 45
-          .byte 44, $ff, $ff, 46
-          .byte 43, $ff, 45, 37
+          .byte 48, 41, 46, 44
+          .byte 49, 42, 47, 45
+          .byte 50, 43, $ff, 46
+          .byte 51, 45, 49, $ff
+          .byte 52, 46, 50, 48
+          ;; 50
+          .byte 53, 47, $ff, 49
+          .byte $ff, 48, 52, $ff
+          .byte $ff, 49, 53, 51
+          .byte $ff, 50, $ff, 52
+          .byte $ff, $ff, $ff, $ff
+          ;; 55
+          .byte $ff, $ff, $ff, $ff
+          .byte $ff, $ff, $ff, $ff
+          .byte $ff, $ff, $ff, $ff
+          .byte $ff, $ff, $ff, $ff
+          .byte $ff, $ff, $ff, $ff
+          ;; 60
+          .byte $ff, $ff, $ff, $ff
+          .byte $ff, $ff, $ff, $ff
 
 ;;; RLE Map data for each screen.
 
@@ -126,62 +161,79 @@ MapLinks:
 ;;; in different colors, can appear in several places.
           MapRLE = (
           ;; 0
-          Map_Closed,
-          Map_Arc,
-          Map_EWPassage,
-          Map_EWFat,
-          Map_Wiggle,
+          Map_SouthDock,
+          Map_SouthShoreCorner,
+          Map_FourWay,
+          Map_FourWay,
+          Map_FourWay,
           ;; 5
-          Map_Arc,
-          Map_EWPassage,
-          Map_Narrow,
           Map_FourWay,
-          Map_Bulge,
+          Map_FourWay,
+          Map_FourWay,
+          Map_FourWay,
+          Map_FourWay,
           ;; 10
-          Map_NorthGlobe,
-          Map_EWPassage,
-          Map_EWPassage,
-          Map_EWPassage,
           Map_FourWay,
+          Map_FourWay,
+          Map_FourWay,
+          Map_FourWay,
+          Map_SouthShore,
           ;; 15
-          Map_FourWay,
-          Map_SouthGlobe,
-          Map_Bow,
-          Map_Arc,
-          Map_EWPassage,
+          Map_SouthShore,
+          Map_SouthShore,
+          Map_SouthShore,
+          Map_NorthGate,
+          Map_NorthWall,
           ;; 20
-          Map_EWFat,
-          Map_Split,
-          Map_SplitBoxes,
-          Map_SplitMaze,
-          Map_SouthGlobe,
-          ;; 25
-          Map_EWFat,
+          Map_NorthWall,
+          Map_NorthGate,
+          Map_NorthWall,
+          Map_NorthWall,
           Map_FourWay,
-          Map_EWFat,
-          Map_EWFat,
-          Map_FullTop,
+          ;; 25
+          Map_EWPassage,
+          Map_EWPassage,
+          Map_FourWay,
+          Map_EWLarge,
+          Map_EWLarge,
           ;; 30
-          Map_FullTop,
-          Map_ClosedNorth,
-          Map_OpenNorth,
-          Map_ClosedNorth,
-          Map_Island,
+          Map_HouseSouthWall,
+          Map_HouseSouthWall,
+          Map_HouseSouthWall,
+          Map_HouseSouthGate,
+          Map_SouthWallCorners,
           ;; 35
-          Map_Clear,
-          Map_Clear,
-          Map_BottomLine,
-          Map_BottomLine,
-          Map_BottomLine,
+          Map_House,
+          Map_House,
+          Map_House,
+          Map_House,
+          Map_NorthWallCorners,
           ;; 40
-          Map_FullTop,
-          Map_Clear,
-          Map_BottomLine,
-          Map_Clear,
-          Map_Clear,
+          Map_NorthWallCorners,
+          Map_NorthWallCorners,
+          Map_NorthGateCorners,
+          Map_NorthWallCorners,
+          Map_EWLarge,
           ;; 45
-          Map_BottomLine,
-          Map_BottomLine
+          Map_EWPassage,
+          Map_FourWay,
+          Map_EWLarge,
+          Map_SouthWall,
+          Map_SouthGate,
+          ;; 50
+          Map_SouthWall,
+          Map_NorthShore,
+          Map_NorthShore,
+          Map_NorthShore,
+          Map_InHouse,
+          ;; 55
+          Map_InHouse,
+          Map_InHouse,
+          Map_InHouse,
+          Map_InHouse,
+          Map_InHouse,
+          ;; 60
+          Map_InHouse
           )
 
 MapRLEL:  .byte <MapRLE
@@ -193,20 +245,25 @@ MapRLEH:  .byte >MapRLE
 ;;; reflected mode
 ;;; $80 = left, $40 = right ball.
 MapSides:
-          .byte 0, $80, 0, 0, 0
-          .byte 0, $40, 0, $80, 0
+          .byte $40, 0, 0, 0, 0
+          .byte 0, 0, 0, 0, 0
           ;; 10
           .byte 0, 0, 0, 0, 0
-          .byte 0, $40, $40, 0, $80
+          .byte 0, 0, $80, $40, 0
           ;; 20
-          .byte 0, 0, 0, 0, 0
+          .byte 0, 0, $80, 0, $40
           .byte 0, 0, 0, 0, $80
           ;; 30
-          .byte 0, 0, 0, 0, 0
-          .byte 0, 0, 0, 0, 0
+          .byte $40, 0, 0, 0, $80
+          .byte $40, 0, 0, 0, $80
           ;; 40
-          .byte $40, $40, $40, 0, $80
-          .byte $80, 0
+          .byte $40, 0, 0, $80, $40
+          .byte 0, 0, $80, $40, 0
+          ;; 50
+          .byte $80, $40, 0, $80, 0
+          .byte 0, 0, 0, 0, 0
+          ;; 60
+          .byte 0, 0
 
 ;;; The Sprites Lists
 ;;;
@@ -220,65 +277,20 @@ MapSides:
 ;;; visible on the screen.
 SpriteList:
           ;; Room 0
-          .byte $ff              ; not removeable
-          .byte SpriteFixed     ; fixed position sprite
-          .byte $7d, $42         ; x, y position
-          .byte SpriteDoor, 1   ; action
-
-          .byte $ff
-          .byte SpriteFixed
-          .byte $b5, $26
-          .byte SpriteProvinceDoor | $10, 0
-
-          .byte $ff
-          .byte SpriteFixed
-          .byte $43, $26
-          .byte SpriteProvinceDoor | $20, 0
-
-          .byte $ff
-          .byte SpriteFixed
-          .byte $7d, $0f
-          .byte SpriteProvinceDoor | $30, 0
-          
-          .byte 0               ; end of list
+          .byte 0
 
           ;; Room 1
-          .byte $ff
-          .byte SpriteWander
-          .byte 75, 65         ; x, y position
-          .byte SpriteCombat, 3
-
-          .byte $ff
-          .byte SpriteWander
-          .byte 100, 65         ; x, y position
-          .byte SpriteCombat, 0
-
-          .byte $ff
-          .byte SpriteWander
-          .byte 100, 25         ; x, y position
-          .byte SpriteCombat, 1
-
-          .byte 0               ; end of list
+          .byte 0
 
           ;; Room 2
-          .byte $ff
-          .byte SpriteFixed
-          .byte $7d, $31         ; x, y
-          .byte SpriteGrizzardDepot, 0
-
           .byte 0
-          
+
           ;; Room 3
-          .byte $ff
-          .byte SpriteWander
-          .byte 150, 65
-          .byte SpriteGrizzard, 2
-
           .byte 0
-          
+
           ;; Room 4
           .byte 0
-          
+
           ;; Room 5
           .byte 0
 
@@ -286,11 +298,6 @@ SpriteList:
           .byte 0
 
           ;; Room 7
-          .byte $ff
-          .byte SpriteFixed
-          .byte $7c, $2a
-          .byte SpriteCombat, 2
-
           .byte 0
 
           ;; Room 8
@@ -310,7 +317,6 @@ SpriteList:
 
           ;; Room 13
           .byte 0
-          
 
 	;;Room 14
 	.byte 0
@@ -411,4 +417,48 @@ SpriteList:
 	;;Room 46
 	.byte 0
 
+          ;; Room 47
+          .byte 0
+
+          ;; Room 48
+          .byte 0
+
+          ;; Room 49
+          .byte 0
+
+          ;; Room 50
+          .byte 0
+
+          ;; Room 51
+          .byte 0
+
+          ;; Room 52
+          .byte 0
+
+          ;; Room 53
+          .byte 0
+
+          ;; Room 54
+          .byte 0
+
+          ;; Room 55
+          .byte 0
+
+          ;; Room 56
+          .byte 0
+
+          ;; Room 57
+          .byte 0
+
+          ;; Room 58
+          .byte 0
+
+          ;; Room 59
+          .byte 0
+
+          ;; Room 60
+          .byte 0
+
+          ;; Room 61
+          .byte 0
           .fill 200
