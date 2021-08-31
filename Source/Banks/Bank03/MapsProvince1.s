@@ -2,7 +2,7 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
           ;; How many maps are in these tables?
-MapCount = 47
+MapCount = 13
 
 ;;; Foreground and background colors
 ;;; Remember SECAM and don't make these too similar
@@ -24,25 +24,25 @@ MapColors:
           .colors COLGRAY, COLGRAY
           .colors COLGRAY, COLGRAY
           .colors COLGRAY, COLGRAY
-          ;; ↑ 73
+          ;; ↑ 13
 
 ;;; Links up, down, left, right are map indices in this bank
 MapLinks:
           .byte $ff, $ff, $ff, $ff
           .byte $ff, $ff, $ff, $ff
-          .byte $ff, $ff, 3, $ff ; link back to province 0 room 8 FIXME
+          .byte $ff, $ff, 3, $ff
           .byte $ff, $ff, 4, 2
           .byte $ff, $ff, 5, 3
           ;; 5
           .byte $ff, $ff, 6, 4
           .byte $ff, $ff, 8, 7
-          .byte $ff, $ff, 5, 8
-          .byte 8, 9, 10, 6
-          .byte 11, 12, 8, 7
+          .byte $ff, $ff, 6, 2
+          .byte 11, 9, 10, 6
+          .byte 10, 12, 8, 7
           ;; 10
-          .byte 11, 10, 9, 7
-          .byte 9, 8, 9, 13
-          .byte 10, 8, 11, 12
+          .byte 11, 12, 9, 7
+          .byte 9, 8, 10, 13
+          .byte 10, 8, 11, 13
           .byte 8, 8, 8, 8
 
 ;;; RLE Map data for each screen.
@@ -77,20 +77,10 @@ MapRLEH:  .byte >MapRLE
 ;;; reflected mode
 ;;; $80 = left, $40 = right ball.
 MapSides:
-          .byte 0, $80, $40, 0, 0
-          .byte 0, $40, 0, $80, 0
+          .byte 0, 0, $40, 0, 0
+          .byte 0, 0, 0, 0, 0
           ;; 10
-          .byte 0, 0, 0, 0, 0
-          .byte 0, $40, $40, 0, $80
-          ;; 20
-          .byte 0, 0, 0, 0, 0
-          .byte 0, 0, 0, 0, $80
-          ;; 30
-          .byte 0, 0, 0, 0, 0
-          .byte 0, 0, 0, 0, 0
-          ;; 40
-          .byte $40, $40, $40, 0, $80
-          .byte $80, 0
+          .byte 0, 0, 0, 0
 
 ;;; 
 SpriteList:
@@ -138,6 +128,14 @@ SpriteList:
           .byte 0
 
           ;; Room 13
+          .byte $ff, SpriteFixed
+          .byte $ac, $3c
+          .byte SpriteGrizzardDepot, 0
+
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteGrizzard, 8 ; Lander
+
           .byte 0
 
           .fill 200
