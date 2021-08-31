@@ -160,6 +160,9 @@ BitMask:
           .text "airex", 0, 0, 0
           .endswitch
 
+          ;; magic cookie for Stella
+          nop $1fe0
+
           .fi
 
 ;;; The KnownZeroInEveryBank allows pointer to point to a fixed zero,
