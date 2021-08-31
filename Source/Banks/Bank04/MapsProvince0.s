@@ -399,12 +399,12 @@ SpriteList:
           .byte SpriteCombat, 9
 
           .byte $ff, SpriteWander
-          .byte $7c, $28
-          .byte SpriteGrizzard, 3 ; Flamex
-
-          .byte $ff, SpriteWander
           .byte $b9, $28
           .byte SpritePerson, 7 ; Artifact 2
+
+          .byte $ff, SpriteWander
+          .byte $7c, $28
+          .byte SpriteGrizzard, 3 ; Flamex
 
           .byte 0
 
