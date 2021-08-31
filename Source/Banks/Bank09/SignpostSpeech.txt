@@ -10,3 +10,15 @@ Treble Docks.Next ship to Port Lion departing.All aboard
 BlockadeLocked:
 Blockade is locked due to danger of a cave grue.No entry
 
+LostPendant:
+♀I used to be a trainer too.I lost a pendant in the mine
+
+FoundPendant:
+You have found a pendant in the dust of the mine
+
+ReturnPendant:
+♀You're great.That's my pendant.You can have this key
+
+HaveKey:
+♀That key can open my save to the north with trainer supplies
+

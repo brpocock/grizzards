@@ -5,7 +5,7 @@
 
           FirstSignpost = 17
 
-          Signs = (Sign_TunnelClosed, Sign_SpiralWoodsOpen, Sign_PortLionShip, Sign_TunnelMazeBlocked)
+          Signs = (Sign_TunnelClosed, Sign_SpiralWoodsOpen, Sign_PortLionShip, Sign_TunnelMazeBlocked, NPC_LostPendant, Random_FoundPendant, NPC_ReturnPendant, NPC_HaveKey)
           
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
@@ -53,3 +53,51 @@ Sign_TunnelMazeBlocked:
           .SignText "A CAVE GRUE."
           .SignText "NO ENTRY.   "
           .byte ModeSignpostDone
+
+;;; 21
+NPC_LostPendant:
+          .colu COLINDIGO, 0
+          .colu COLTURQUOISE, $9
+          .byte $ff, 28, 22
+          .SignText "I USED TO   "
+          .SignText "BE A TRAINER"
+          .SignText "TOO. I LOST "
+          .SignText "A PENDANT   "
+          .SignText "IN THE MINE."
+          .byte ModeSignpostDone
+
+;;; 22
+Random_FoundPendant:
+          .colu COLGRAY, $f
+          .colu COLGRAY, $0
+          .SignText "YOU HAVE    "
+          .SignText "FOUND A     "
+          .SignText "PENDANT     "
+          .SignText "IN THE DUST "
+          .SignText "OF THE MINE."
+          .byte ModeSignpostSetFlag, 28
+
+;;; 23
+NPC_ReturnPendant:
+          .colu COLINDIGO, 0
+          .colu COLTURQUOISE, $9
+          .byte $ff, 63, 24
+          .SignText "YOU'RE GREAT"
+          .SignText "THAT'S MY   "
+          .SignText "PENDANT. YOU"
+          .SignText "CAN HAVE    "
+          .SignText "THIS KEY.   "
+          .byte ModeSignpostClearFlag, 63
+
+;;; 24
+NPC_HaveKey:       
+          .colu COLINDIGO, 0
+          .colu COLTURQUOISE, $9
+          .SignText "THAT KEY CAN"
+          .SignText "OPEN MY CAVE"
+          .SignText "TO THE NORTH"
+          .SignText "WITH TRAINER"
+          .SignText "SUPPLIES.   "
+          .byte ModeSignpostDone
+
+;;; 25
