@@ -12,12 +12,12 @@ GrizzardStartingStats:        .block
           .byte 12, 4, 4, 4, $0f
           .byte 12, 4, 4, 4, $0f
           .byte 12, 4, 4, 4, $0f
-          .byte 10, 1, 1, 1, $0f
-          .byte 10, 1, 1, 1, $0f
-          .byte 10, 1, 1, 1, $0f
-          .byte 10, 1, 1, 1, $0f
+          .byte 12, 4, 4, 4, $0f
+          .byte 14, 6, 6, 6, $0f
+          .byte 14, 6, 6, 6, $0f
+          .byte 14, 6, 6, 6, $0f
           ;; 10
-          .byte 10, 1, 1, 1, $0f
+          .byte 14, 6, 6, 6, $0f
           .byte 10, 1, 1, 1, $0f
           .byte 10, 1, 1, 1, $0f
           .byte 10, 1, 1, 1, $0f
