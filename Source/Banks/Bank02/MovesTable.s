@@ -1,6 +1,7 @@
 ;;; Grizzards Source/Banks/Bank02/MovesTable.s
 ;;; Copyright © 2021 Bruce-Robert Pocock
 MovesTable:
+          ;; 0
           .MiniText " RUN  "
           .MiniText " AWAY "
 
@@ -12,7 +13,7 @@ MovesTable:
 
           .MiniText "MILD  "
           .MiniText " SHOCK"
-
+          ;; 4
           .MiniText "HOT   "
           .MiniText " SPARK"
 
@@ -38,7 +39,7 @@ MovesTable:
 
           .MiniText "QUICK "
           .MiniText "  FOOT"
-
+          ;; 12
           .MiniText "GREAT "
           .MiniText "  MOJO"
 
@@ -64,7 +65,7 @@ MovesTable:
 
           .MiniText "ROGUE "
           .MiniText " FLARE"
-
+          ;; 20
           .MiniText "DOUBLE"
           .MiniText "FLARES"
 
@@ -90,7 +91,7 @@ MovesTable:
 
           .MiniText "SLIMY "
           .MiniText " TRICK"
-
+          ;; 28
           .MiniText "GUARD "
           .MiniText "  DOWN"
 
@@ -116,7 +117,7 @@ MovesTable:
 
           .MiniText "NIBBLE"
           .MiniText "      "
-
+          ;; 36
           .MiniText "MUDDLE"
           .MiniText "  MIND"
 
@@ -126,8 +127,8 @@ MovesTable:
           .MiniText "SCARE "
           .MiniText "  AWAY"
 
-          .MiniText " MOVE "
-          .MiniText "  39  "
+          .MiniText "WET   "
+          .MiniText "NOODLE"
 
           ;; 40
           
@@ -142,7 +143,7 @@ MovesTable:
 
           .MiniText " MOVE "
           .MiniText "  43  "
-
+          ;; 44
           .MiniText " MOVE "
           .MiniText "  44  "
 
@@ -168,7 +169,7 @@ MovesTable:
 
           .MiniText " MOVE "
           .MiniText "  51  "
-
+          ;; 52
           .MiniText " MOVE "
           .MiniText "  52  "
 
@@ -194,7 +195,7 @@ MovesTable:
 
           .MiniText " MOVE "
           .MiniText "  59  "
-
+          ;; 60
           .MiniText " MOVE "
           .MiniText "  60  "
 

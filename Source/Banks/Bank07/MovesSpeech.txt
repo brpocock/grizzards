@@ -116,7 +116,7 @@ Move38:
 Scare Away
 
 Move39:
-A Move
+Wet Noodle
 
 Move40:
 A Move
