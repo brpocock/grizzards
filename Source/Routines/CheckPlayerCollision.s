@@ -95,7 +95,7 @@ EnterDepot:
           rts
 
 ProvinceChange:
-          stx DeltaX
+          stx P0LineCounter
           ldx #$ff              ; smash the stack
           txs
           .WaitForTimer         ; finish up VBlank cycle
@@ -111,7 +111,7 @@ ProvinceChange:
           .WaitScreenBottom
           .FarJSR SaveKeyBank, ServiceSaveProvinceData
           .WaitScreenTop
-          ldx DeltaX
+          ldx P0LineCounter
           lda SpriteAction, x
           and #$f0
           clc
