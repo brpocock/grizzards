@@ -5,41 +5,13 @@
 %
 % If you're a human, skip to "\mainmatter" to skip over the preamble.
 %
-\documentclass[10pt,twocolumn,showtrims,openany,article]{memoir}
+\documentclass[10pt,twocolumn,openany,article]{memoir}
 
-\ifdefined\DEMO
+\setstocksize{9in}{6in}
+\settrimmedsize{\stockheight}{\dimexpr 6in-15mm}{*}
 
-\ifdefined\TVNTSC
-
-\setstocksize{8.5in}{5.5in}
-\settrimmedsize{8.5in}{5.5in}{*}
-\settrims{0}{0}
-
-\setlrmarginsandblock{.75in}{.25in}{*}
-\setulmarginsandblock{.5in}{.75in}{*}
-
-\else
-
-\setstocksize{210mm}{148.5mm}
-\settrimmedsize{210mm}{148.5mm}{*}
-\settrims{0}{0}
-
-\setlrmarginsandblock{.75in}{.25in}{*}
-\setulmarginsandblock{.5in}{.75in}{*}
-
-\fi
-
-\else
-
-\setstocksize{8.5in}{5.5in}
-\settrimmedsize{7in}{5in}{*}
-\settrims{.75in}{.5in}
-
-\setlrmarginsandblock{.75in}{.25in}{*}
-\setulmarginsandblock{.5in}{.75in}{*}
-
-\fi
-
+\setlrmarginsandblock{.5cm}{1.5cm}{*}
+\setulmarginsandblock{1.5cm}{*}{1}
 \checkandfixthelayout
 
 
@@ -47,7 +19,7 @@
 
 \ifdefined\TVNTSC
 \newcommand\TV{NTSC}
-\newcommand\REGION{US, Canada, Mexico, Brazil, Korea, and Japan}
+\newcommand\REGION{US, Canada, Mexico, Brazil, and Japan}
 \else
 \ifdefined\TVPAL
 \newcommand\TV{PAL}
@@ -101,7 +73,7 @@
 \begin{document}
 \frontmatter
 %%%\let\cleardoublepage\clearpage
-\includepdf[height=\paperheight,width=\paperwidth]{../Manual/Cover.png}
+\includepdf[height=9in,width=6in,fitpaper=true]{../Manual/Cover.png}
 
 % \clearpage
 
@@ -127,9 +99,7 @@ Monsters may  surprise you as  you travel, or  you may see  them coming.
 When faced  with terrifying beasts,  you'll direct your Grizzard  to use
 its moves to defend you and attack the monsters.
 
-\vspace{1in}\vfill
-
-\footnotesize{
+\vspace{2in}\vfill
 
 This is the \textit{Grizzards} \ifdefined\NOSAVE No-Save \fi\ifdefined\DEMO Demo \fi Player's Guide
 
@@ -138,29 +108,21 @@ Copyright \copyright{} 2021, Bruce-Robert Pocock
 \bigskip
 
 This  version is  for systems  in \REGION{}  using the  \TV{} television
-standard.   For  Atari   Video   Computer  System   CX-2600  (or   Atari
-2600\textit{jr},  Sears   Tele-Games  Video  Arcade  ,   or  Atari  7800
-ProSystem)  \ifdefined\NOSAVE  without  \else   with  \fi  AtariVox  (or
-MemCard, or SaveKey) device.
+standard. For Atari  Video Computer System CX-2600  (or Sears Tele-Games
+Video Arcade  or Atari  7800 ProSystem) \ifdefined\NOSAVE  without \else
+with \fi AtariVox (or MemCard, or SaveKey) device.
 
 \bigskip
 
 This videogame software was not created, published, or licensed by Atari
 or its successors.
 
-\bigskip
-
 \ifdefined\DEMO
+\bigskip
 
 This manual describes a \ifdefined\NOSAVE No-Save \fi DEMO version of the game. The full version may
 be different.
-
-\else
-
-This game is published by AtariAge. \href{https://atariage.com/}{https://atariage.com}
-
 \fi
-}
 
 ]
 
@@ -176,8 +138,8 @@ To play \textit{Grizzards}, you will need:
 
 \begin{itemize}
 \item An Atari  console: the Atari Video Computer  System CX-2600, Sears
-  Tele-Games Video  Arcade, Atari 2600\textit{jr} game  system, or Atari
-  7800 ProSystem
+  Tele-Games  Video Arcade,  Atari  2600jr game  system,  or Atari  7800
+  ProSystem
 \item A TV or video display
 \item        A        joystick         controller        (or        SEGA
   \ifdefined\TVNTSC{Genesis/}\fi{}MegaDrive gamepad)
@@ -216,13 +178,9 @@ facing up) into the cartridge slot, and turn the Power On.
 
 \vfill
 
-\ifdefined\DEMO\ifdefined\NOSAVE\else
-\clearpage
-\fi\fi
-
 \chapter{How To Play}
 
-\section*{Console Controls}
+\section{Console Controls}
 
 \ifdefined\TVSECAM
 \else
@@ -292,9 +250,9 @@ are playing.
 
 \fi
 
-\section*{Using a Gamepad}
+\section{Using a Gamepad}
 
-A SEGA \ifdefined\TVNTSC{Genesis or }\fi{}MegaDrive gamepad (or other
+A   SEGA  \ifdefined\TVNTSC{Genesis/}\fi{}MegaDrive   gamepad  (or   other
 compatible controller) may also be used with \textit{Grizzards}. Use the
 \textbf{B} button  as the \textbf{Fire} button.  Use the \textbf{C} button  as an
 alternative way to press the \textbf{Game Select} switch.
@@ -302,7 +260,7 @@ alternative way to press the \textbf{Game Select} switch.
 Your gamepad must be plugged in before you turn on the power if you want
 to use it. Otherwise, the \textbf{C} button will be ignored.
 
-\section*{Start a Game}
+\section{Start a Game}
 
 \begin{center}
   \includegraphics[width=\columnwidth]{../Manual/TitleAquax\TV.png}
@@ -359,7 +317,7 @@ You know that to the east are  the extremely dangerous \textbf{Fire} Bog, so you
 best  bet   is  to  head   west  (left)  and   see  if  there   are  any
 other survivors.
 
-\section*{Roaming The World}
+\section{Roaming The World}
 
 The   World   Map   screen   shows   your   current   score   (initially
 \texttt{000000}) at  the top of the  screen. In the map  display, you'll
@@ -373,7 +331,7 @@ To   review  your   Grizzard's   statistics,   press  the   \textbf{Game
   \includegraphics[width=\columnwidth]{../Manual/Map\TV.png}
 \end{center}
 
-As   you  travel,   you   may  encounter   monsters,\ifdefined\DEMO\else
+As  you   travel,  you  may   encounter  monsters,\ifdefined\NOSAVE\else
 Grizzards,  \fi  Grizzard Depots,  other  people,  signposts, or  doors.
 To interact with them, simply walk into them.
 
@@ -395,17 +353,18 @@ A Grizzard Depot looks like this:
   \end{center}
 \end{figure}
 
-\ifdefined\DEMO
-In this demo,  you will have one Grizzard companion,  Aquax. In the full
-game, you  may encounter other Grizzards  that you can convince  to join
-your party.
+\ifdefined\NOSAVE
+
+In  this no-save  demo, you  will  have one  Grizzard companion,  Aquax.
+With a  memory device, you  may encounter  other Grizzards that  you can
+convince to join your party.
 
 \else
 
 You may also  encounter Grizzards in the world that  you can convince to
 join your party. A wild Grizzard looks like this:
 
-***
+***(WILD GRIZZARD ART HERE)***
 
 At a  Grizzard Depot, you'll have  the option to swap  Grizzards in your
 party,  with up  to  30 total  Grizzards saved  in  your memory  device.
@@ -431,9 +390,9 @@ A person looks like this:
   \includegraphics[width=1in]{../Manual/Person\TV.png}
 \end{center}
 
-\section*{Grizzard Depots}
+\section{Grizzard Depots}
 
-To \ifdefined\DEMO\else  swap which  Grizzard you're using,  or to  \fi heal
+To \ifdefined\NOSAVE\else  swap which  Grizzard you're using,  or to  \fi heal
 your current Grizzard partner, you'll need to find a Grizzard Depot.
 
 \includegraphics[width=\columnwidth]{../Manual/DepotScreenshot\TV.png}
@@ -451,7 +410,7 @@ Your progress will \emph{immediately} be saved to your memory device.
 \fi
 
 At  a  Grizzard  Depot  your  Grizzard partner  will  be  fully  healed.
-\ifdefined\DEMO\else You can then use the joystick to choose a different
+\ifdefined\NOSAVE\else You can then use the joystick to choose a different
 Grizzard to travel with you. \fi
 
 Here,  you'll  see  the   word  \texttt{DEPOT},  your  current  Grizzard
@@ -461,7 +420,7 @@ since you first started in this slot).
 To   review  your   Grizzard's   statistics,   press  the   \textbf{Game
   Select} switch or move the joystick left or right.
 
-\ifdefined\DEMO\else
+\ifdefined\NOSAVE\else
 If you  have more than one  Grizzard in your collection,  you can choose
 which  Grizzard will  be  your  companion. Press  up  (forward) or  down
 (backward)  on  the  joystick  controller  to  cycle  through  available
@@ -471,7 +430,7 @@ Grizzards.
 When you're ready to return to your adventure, press the \textbf{Fire} button.
 
 
-\section*{Battling Monsters}
+\section{Battling Monsters}
 
 Monsters plague the world of Syrex. If you're caught by monsters without
 a Grizzard partner, they're sure to eat you alive! Luckily your Grizzard
@@ -619,7 +578,7 @@ you earn will increase as you defeat more difficult monsters.
 
 Your score begins at \texttt{000000} when you start your adventure.
 
-\section*{Game Over}
+\section{Game Over}
 
 If  you fail  in your  mission,  your game  is over.  However, you  have
 another chance to continue.
@@ -640,7 +599,7 @@ visiting a Grizzard Depot, you'll return to the original starting point.
 Just  choose   your  game   slot  from  the   Title  Screen   to  resume
 your adventure.
 
-\section*{Winning the Campaign}\label{Winning the Campaign}
+\section{Winning the Campaign}\label{Winning the Campaign}
 
 \ifdefined\DEMO
 
@@ -659,7 +618,7 @@ Your ``final'' score will appear above the fireworks display.
 
 \fi
 
-\section*{Starting Over}\label{Starting Your Adventure Over}
+\section{Starting Over}\label{Starting Your Adventure Over}
 
 \ifdefined\NOSAVE
 
@@ -714,20 +673,15 @@ the ``B'' position.
 \fi
 
 \fi % not-nosave
-
-\ifdefined\DEMO\ifdefined\NOSAVE\else
-\clearpage
-\fi\fi
-
 \chapter{Grizzards and Moves}
 
 There are  30 Grizzards in  the game world,  each with their  own unique
 starting attributes and sets of Moves.
 
-\ifdefined\DEMO
+\ifdefined\NOSAVE
 
-In this  demo, you  can play  with only Aquax.  Other Grizzards  will be
-available in the full game.
+In  this  demo, you  can  play  with  only  Aquax. Other  Grizzards  are
+available with a memory device.
 
 \fi
 
@@ -741,7 +695,7 @@ Depending on which edition of  \textit{Grizzards} you have, you'll start
 with  one  of  three  different Grizzard  companions.  Your  ``starter''
 Grizzard will be featured on the title screen of the game.
 
-\section*{Dirtex}
+\section{Dirtex}
 
 \includegraphics[width=\columnwidth]{../Manual/Dirtex.png}
 
@@ -764,7 +718,7 @@ The green Dirtex Grizzard lives in the grass. It can learn these Moves:
 
 \fi
 
-\section*{Aquax}
+\section{Aquax}
 
 \includegraphics[width=\columnwidth]{../Manual/Aquax.png}
 
@@ -788,7 +742,7 @@ Moves:
 
 \ifdefined\DEMO\else
 
-\section*{Airex}
+\section{Airex}
 
 \includegraphics[width=\columnwidth]{../Manual/Airex.png}
 
@@ -809,7 +763,7 @@ Airex is a teal Grizzard which lives in the trees. It can learn these Moves:
 
 \fi
 
-\section*{Run Away}
+\section{Run Away}
 
 This Move lets you escape from a battle.
 
@@ -817,9 +771,6 @@ Your  Grizzard will  not be  healed if  you run  away (unless  you visit
 a  Grizzard Depot);  however, the  monsters  that you  were facing  will
 be healed immediately.
 
-\ifdefined\DEMO\ifdefined\NOSAVE\else
-\clearpage
-\fi\fi
 
 \chapter{Monsters}
 
@@ -828,7 +779,7 @@ of them are described here.
 
 \section*{Wicked Slime}
 These are weak slime monsters that  your Grizzard can kill fairly easily
---- but beware when they travel  in large packs. Like many creatures, they
+… but beware when they travel  in large packs. Like many creatures, they
 know some healing Moves that might be useful to learn. Wicked Slimes are
 now found near Treble Village and the Lost Mine.
 
@@ -851,15 +802,11 @@ A danger of the Fire Bogs, these beasts roam in packs.
 These  bright, floating  sparks are  known  to travel  in large  groups.
 Once your Attack score is high enough to hit them, they go down quickly.
 
-\ifdefined\DEMO\ifdefined\NOSAVE\else
-\clearpage
-\fi\fi
-
 \chapter{Troubleshooting}
 
 \ifdefined\DEMO
 
-\section*{Screen ``Jitters,'' freezes,  \ifdefined\TVPAL appears in black
+\section{Screen ``Jitters,'' freezes,  \ifdefined\TVPAL appears in black
   \& white,\fi or flashes blue}
 
 These may  be signs that  a screen  (or the transition  between screens)
@@ -880,7 +827,7 @@ can be corrected before the game is finished.
 
 \fi
 
-\section*{Sad Face Screen}
+\section{Sad Face Screen}
 
 If you  see the Sad  Face screen,  the game is  trying to tell  you that
 there is a problem.
@@ -890,7 +837,7 @@ Title Screen.
 
 \ifdefined\NOSAVE\else
 
-\subsection*{Red Sad Face Screen}
+\subsection{Red Sad Face Screen}
 
 \includegraphics[width=\columnwidth]{../Manual/RedSadFace\TV.png}
 
@@ -901,7 +848,7 @@ your AtariVox so that you can hear the game voices.
 
 \fi
 
-\subsection*{White Sad Face Screen}
+\subsection{White Sad Face Screen}
 
 \includegraphics[width=\columnwidth]{../Manual/WhiteSadFace\TV.png}
 
@@ -913,7 +860,7 @@ You  should   not  be  able   to  reach  this  screen.   Please  contact
 additional assistance. Send the code  number that appears on this screen
 with your email.
 
-\section*{Pause button must be held down (7800)}
+\section{Pause button must be held down (7800)}
 
 This  is believed  to  be  a side  effect  of  certain multi-carts,  eg.
 PlusCart.   If  you   are  encountering   this  problem,   please  check
@@ -925,13 +872,13 @@ stats and effectively pause the game as well.
 
 \ifdefined\NOSAVE\else
 
-\section*{TV goes blank when entering Grizzard Depot}
+\section{TV goes blank when entering Grizzard Depot}
 
 Make sure your memory device is  connected. If your memory device is not
 connected when the game tries to save, you may see the TV picture remain
 blank while the game tries to record your progress.
 
-\section*{No voices}
+\section{No voices}
 
 When the game first starts the title screen, after a brief pause, you'll
 hear the AtariVox announce the name of the game. If you don't, make sure
@@ -943,16 +890,12 @@ SaveKey device.
 
 \fi
 
-\ifdefined\DEMO\ifdefined\NOSAVE\else
-\clearpage
-\fi\fi
-
 \chapter{Technical Notes}
 
 The following notes are of interest to hackers only. You don't need to
 understand anything in this section to play \textit{Grizzards}.
 
-\section*{Development Tools}
+\section{Development Tools}
 
 The \textit{Grizzards} source code and development tools are available from
 \href{https://Star-Hope.org/games/Grizzards/}{https://Star-Hope\-.org/\-games/\-Grizzards/} 
@@ -960,15 +903,16 @@ the \textit{Grizzards} web site.
 
 \ifdefined\NOSAVE
 
-\section*{No-Save Version}
+\section{No-Save Version}
 
-This special No-Save demo does not  allow you to save your progress, but
-it can  be used without  a memory device  (such as SaveKey,  MemCard, or
-AtariVox). When you turn off power to your console, all progress is erased.
+This special  No-Save demo does not  allow you to save  your progress or
+catch Grizzards,  but it can  be used without  a memory device  (such as
+SaveKey, MemCard, or AtariVox). When you turn off power to your console,
+all progress is erased.
 
 \else
 
-\section*{Game Record Slots}
+\section{Game Record Slots}
 
 There are 3  logical game slots that  you can choose from  for the game.
 Each save game  slot takes up 4  blocks (256 bytes) of  storage space on
@@ -1011,7 +955,7 @@ your game's progress, you can probably recover it.
 \fi
 
 
-\subsection*{Portability}
+\subsection{Portability}
 
 The save game records are in the same format for all \textit{Grizzards} game
 cartridges, regardless of the region for which they were saved.  This means
@@ -1026,10 +970,6 @@ ones that will be used in the final game.
 \fi
 
 \fi % not no-save
-
-\ifdefined\DEMO\ifdefined\NOSAVE\else
-\clearpage
-\fi\fi
 
 \chapter{Credits}
 
@@ -1070,9 +1010,9 @@ making this game possible.
 
 \subsection{Testers}
 
-Philip Clark,
 James Earl O'Brien,
 Darcy Troy Paulin,
+Philip,
 \texttt{vitoco}
 
 An early  (alpha) version of the  game's demo was featured  on Zero Page
@@ -1089,11 +1029,7 @@ This section will list anyone who helps to playtest this game. ***
 
 \chapter*{Publication History}
 
-\ifdefined\DEMO
 The \textit{Grizzards} videogame software has not yet been published.
-\else
-\textit{Grizzards} is published by AtariAge. \href{https://atariage.com/}{https://atariage.com/}
-\fi
 
 It is ``alpha'' quality software.
 
@@ -1109,11 +1045,7 @@ Redistribution not for profit is allowed, but sales of this software
 requires a license.
 
 \clearpage
-\addcontentsline{toc}{chapter}{Notes}
-\chapter*{Notes}
-
-\clearpage
 \addcontentsline{toc}{chapter}{Map of Syrex}
-\includepdf[height=\paperheight,width=\paperwidth]{../Manual/SyrexMap.pdf}
+\includepdf[height=9in,width=6in,fitpaper=true]{../Manual/SyrexMap.pdf}
 
 \end{document}
