@@ -73,7 +73,7 @@ FindSprites:
           beq DoneFinding
 
           ;; Crash early if the map ID is out of range for this province (bank)
-          cpx #MapCount
+          cpx #MapCount + 1
           blt SkipRoom
 BadMap:
           brk
