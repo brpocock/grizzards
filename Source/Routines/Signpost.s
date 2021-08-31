@@ -404,6 +404,27 @@ NoButton:
           jmp Loop
 
 Leave:
+          cmp #ModeSignpostClearFlag
+          bne NotClearFlag
+          sed
+          lda Score
+          clc
+          adc #$04
+          sta Score
+          lda Score + 1
+          adc # 0
+          sta Score + 1
+          bcc NCar1
+          inc Score + 2
+NCar1:
+          cld
+          ldy # (9 * 5) + 1
+          lda (SignpostText), y
+          sta Temp
+          .ClearBitFlag Temp
+          jmp ByeBye
+
+NotClearFlag:
           cmp #ModeSignpostSetFlag
           bne ByeBye
           sed

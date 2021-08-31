@@ -317,6 +317,21 @@ SetBitFlag:         .macro flag
           ora ProvinceFlags, y
           sta ProvinceFlags, y
           .endm
+
+ClearBitFlag:       .macro flag
+          lda \flag
+          lsr a
+          lsr a
+          lsr a
+          tay
+          lda \flag
+          and #$07
+          tax
+          lda BitMask, x
+          eor #$ff
+          and ProvinceFlags, y
+          sta ProvinceFlags, y
+          .endm
 ;;; 
 SetUtterance:       .macro constant
           lda #>\constant
