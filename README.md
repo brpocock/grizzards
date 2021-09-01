@@ -146,7 +146,9 @@ music, title graphics, and phoneme tables for speech synthesis.
 Credits
 ---------
 
-Program, art, music, etc. — Bruce-Robert Pocock.
+Program, art, etc. — Bruce-Robert Pocock.
+
+Music, manual cover and additional artwork — Zephyr Salz
 
 
 
