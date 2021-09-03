@@ -47,6 +47,7 @@
           ModeSignpostDone = $81
           ModeSignpostSetFlag = $82
           ModeSignpostClearFlag = $83
+          ModeSignpostWarp = $84
 ;;; 
 ;;; Sounds in the library (index values)
           SoundDrone = 1

@@ -425,6 +425,18 @@ NCar1:
           jmp ByeBye
 
 NotClearFlag:
+          cmp #ModeSignpostWarp
+          bne NotWarp
+          ldy # (9 * 5) + 1
+          lda (SignpostText), y
+          sta CurrentProvince
+          iny
+          lda (SignpostText), y
+          sta NextMap
+          lda #ModeMapNewRoom
+          jmp GoMap
+
+NotWarp:
           cmp #ModeSignpostSetFlag
           bne ByeBye
           sed
