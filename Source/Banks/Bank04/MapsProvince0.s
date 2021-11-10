@@ -169,97 +169,38 @@ MapLinks:
           ROOM8MAP = Map_FourWay
           .fi
 
-          MapRLE = (
           ;; 0
-          Map_Closed,
-          Map_Arc,
-          Map_EWPassage,
-          Map_EWFat,
-          Map_Wiggle,
+          _ := (Map_Closed, Map_Arc, Map_EWPassage, Map_EWFat, Map_Wiggle)
           ;; 5
-          Map_Arc,
-          Map_EWPassage,
-          Map_Narrow,
-          ROOM8MAP,
-          Map_Bulge,
+          _ ..= (Map_Arc, Map_EWPassage, Map_Narrow, ROOM8MAP, Map_Bulge)
           ;; 10
-          Map_NorthGlobe,
-          Map_EWPassage,
-          Map_EWPassage,
-          Map_EWPassage,
-          Map_FourWay,
+          _ ..= (Map_NorthGlobe, Map_EWPassage, Map_EWPassage, Map_EWPassage, Map_FourWay)
           ;; 15
-          Map_FourWay,
-          Map_SouthGlobe,
-          ROOM17MAP,
-          Map_Arc,
-          Map_EWPassage,
+          _ ..= (Map_FourWay, Map_SouthGlobe, ROOM17MAP, Map_Arc, Map_EWPassage)
           ;; 20
-          Map_EWFat,
-          Map_Split,
-          Map_SplitBoxes,
-          Map_SplitMaze,
-          Map_SouthGlobe,
+          _ ..= (Map_EWFat, Map_Split, Map_SplitBoxes, Map_SplitMaze, Map_SouthGlobe)
           ;; 25
-          Map_EWFat,
-          Map_FourWay,
-          Map_EWFat,
-          Map_EWFat,
-          Map_FullTop,
+          _ ..= (Map_EWFat, Map_FourWay, Map_EWFat, Map_EWFat, Map_FullTop)
           ;; 30
-          Map_FullTop,
-          Map_ClosedNorth,
-          Map_OpenNorth,
-          Map_ClosedNorth,
-          Map_Island,
+          _ ..= (Map_FullTop, Map_ClosedNorth, Map_OpenNorth, Map_ClosedNorth, Map_Island)
           ;; 35
-          Map_Clear,
-          Map_Clear,
-          Map_BottomLine,
-          Map_BottomLine,
-          Map_BottomLine,
+          _ ..= (Map_Clear, Map_Clear, Map_BottomLine, Map_BottomLine, Map_BottomLine)
           ;; 40
-          Map_FullTop,
-          Map_Clear,
-          Map_BottomLine,
-          Map_Clear,
-          Map_Clear,
+          _ ..= (Map_FullTop, Map_Clear, Map_BottomLine, Map_Clear, Map_Clear)
           ;; 45
-          Map_BottomLine,
-          Map_BottomLine,
-          Map_SouthGlobe,
-          Map_Bow,
-          Map_Arc,
+          _ ..= (Map_BottomLine, Map_BottomLine, Map_SouthGlobe, Map_Bow, Map_Arc)
           ;; 50
-          Map_Pinch,
-          Map_Pinch,
-          Map_Arc,
-          Map_Narrow,
-          Map_Bow,
+          _ ..= (Map_Pinch, Map_Pinch, Map_Arc, Map_Narrow, Map_Bow)
           ;; 55
-          Map_Pinch,
-          Map_Pinch,
-          Map_Bow,
-          Map_Arc,
-          Map_Pinch,
+          _ ..= (Map_Pinch, Map_Pinch, Map_Bow, Map_Arc, Map_Pinch)
           ;; 60
-          Map_EWPassage,
-          Map_EWFat,
-          Map_Pinch,
-          Map_Pinch,
-          Map_EWFat,
+          _ ..= (Map_EWPassage, Map_EWFat, Map_Pinch, Map_Pinch, Map_EWFat)
           ;; 65
-          Map_Pinch,
-          Map_Pinch,
-          Map_EWFat,
-          Map_FourWay,
-          Map_FourWay,
+          _ ..= (Map_Pinch, Map_Pinch, Map_EWFat, Map_FourWay, Map_FourWay)
           ;; 70
-          Map_FourWay,
-          Map_FourWay,
-          Map_FourWay,
-          Map_FourWay
-          )
+          _ ..= (Map_FourWay, Map_FourWay, Map_FourWay, Map_FourWay)
+
+          MapRLE = _
 
 MapRLEL:  .byte <MapRLE
 MapRLEH:  .byte >MapRLE

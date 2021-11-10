@@ -159,82 +159,33 @@ MapLinks:
 
 ;;; Note that it can be reused, so the same basic layout, potentially
 ;;; in different colors, can appear in several places.
-          MapRLE = (
           ;; 0
-          Map_SouthDock,
-          Map_SouthShoreCorner,
-          Map_FourWay,
-          Map_FourWay,
-          Map_FourWay,
+          _ := (Map_SouthDock, Map_SouthShoreCorner, Map_FourWay, Map_FourWay, Map_FourWay)
           ;; 5
-          Map_FourWay,
-          Map_FourWay,
-          Map_FourWay,
-          Map_FourWay,
-          Map_FourWay,
+          _ ..= (Map_FourWay, Map_FourWay, Map_FourWay, Map_FourWay, Map_FourWay)
           ;; 10
-          Map_FourWay,
-          Map_FourWay,
-          Map_FourWay,
-          Map_FourWay,
-          Map_SouthShore,
+          _ ..= (Map_FourWay, Map_FourWay, Map_FourWay, Map_FourWay, Map_SouthShore)
           ;; 15
-          Map_SouthShore,
-          Map_SouthShore,
-          Map_SouthShore,
-          Map_NorthGate,
-          Map_NorthWall,
+          _ ..= (Map_SouthShore, Map_SouthShore, Map_SouthShore, Map_NorthGate, Map_NorthWall)
           ;; 20
-          Map_NorthWall,
-          Map_NorthGate,
-          Map_NorthWall,
-          Map_NorthWall,
-          Map_FourWay,
+          _ ..= (Map_NorthWall, Map_NorthGate, Map_NorthWall, Map_NorthWall, Map_FourWay)
           ;; 25
-          Map_EWPassage,
-          Map_EWPassage,
-          Map_FourWay,
-          Map_EWLarge,
-          Map_EWLarge,
+          _ ..= (Map_EWPassage, Map_EWPassage, Map_FourWay, Map_EWLarge, Map_EWLarge)
           ;; 30
-          Map_HouseSouthWall,
-          Map_HouseSouthWall,
-          Map_HouseSouthWall,
-          Map_HouseSouthGate,
-          Map_SouthWallCorners,
+          _ ..= (Map_HouseSouthWall, Map_HouseSouthWall, Map_HouseSouthWall, Map_HouseSouthGate, Map_SouthWallCorners)
           ;; 35
-          Map_House,
-          Map_House,
-          Map_House,
-          Map_House,
-          Map_NorthWallCorners,
+          _ ..= (Map_House, Map_House, Map_House, Map_House, Map_NorthWallCorners)
           ;; 40
-          Map_NorthWallCorners,
-          Map_NorthWallCorners,
-          Map_NorthGateCorners,
-          Map_NorthWallCorners,
-          Map_EWLarge,
+          _ ..= (Map_NorthWallCorners, Map_NorthWallCorners, Map_NorthGateCorners, Map_NorthWallCorners, Map_EWLarge)
           ;; 45
-          Map_EWPassage,
-          Map_FourWay,
-          Map_EWLarge,
-          Map_SouthWall,
-          Map_SouthGate,
+          _ ..= (Map_EWPassage, Map_FourWay, Map_EWLarge, Map_SouthWall, Map_SouthGate)
           ;; 50
-          Map_SouthWall,
-          Map_NorthShore,
-          Map_NorthShore,
-          Map_NorthShore,
-          Map_InHouse,
+          _ ..= (Map_SouthWall, Map_NorthShore, Map_NorthShore, Map_NorthShore, Map_InHouse)
           ;; 55
-          Map_InHouse,
-          Map_InHouse,
-          Map_InHouse,
-          Map_InHouse,
-          Map_InHouse,
+          _ ..= (Map_InHouse, Map_InHouse, Map_InHouse, Map_InHouse, Map_InHouse)
           ;; 60
-          Map_InHouse
-          )
+          _ ..= (Map_InHouse)
+          MapRLE = _
 
 MapRLEL:  .byte <MapRLE
 MapRLEH:  .byte >MapRLE

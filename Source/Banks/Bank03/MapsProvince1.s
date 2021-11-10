@@ -49,24 +49,10 @@ MapLinks:
 
 ;;; Note that it can be reused, so the same basic layout, potentially
 ;;; in different colors, can appear in several places.
-          MapRLE = (
-          Map_EWPassage,
-          Map_EWFat,
-          Map_Pinch,
-          Map_Pinch,
-          Map_EWFat,
-          ;; 5
-          Map_Pinch,
-          Map_Pinch,
-          Map_EWFat,
-          Map_FourWay,
-          Map_FourWay,
-          ;; 10
-          Map_FourWay,
-          Map_FourWay,
-          Map_FourWay,
-          Map_FourWay
-          )
+          _ := ( Map_EWPassage, Map_EWFat, Map_Pinch, Map_Pinch, Map_EWFat )
+          _ ..= ( Map_Pinch, Map_Pinch, Map_EWFat, Map_FourWay, Map_FourWay)
+          _ ..= ( Map_FourWay, Map_FourWay, Map_FourWay, Map_FourWay)
+          MapRLE = _
 
 MapRLEL:  .byte <MapRLE
 MapRLEH:  .byte >MapRLE
