@@ -67,42 +67,41 @@ cart-pal:	Dist/Grizzards.Demo.PAL.a26
 cart-secam:	Dist/Grizzards.Demo.SECAM.a26
 	minipro -p AT27C256@DIP28 -w $<
 
+USBMOUNT=$(shell echo \"$$(mount | grep /run/media/$$USER | grep vfat | head -n 1 | perl -pne 's#^/dev/.+ on (.+) type vfat (.*)#$$1#g')\")
+
+
 # Basic Harmony cart only can handle 32k images
-HARMONY=/run/media/${USER}/HARMONY/
 harmony:	Dist/Grizzards.Demo.NTSC.a26 \
 		Dist/Grizzards.Demo.PAL.a26 \
 		Dist/Grizzards.Demo.SECAM.a26 \
 		Dist/Grizzards.NoSave.NTSC.a26 \
 		Dist/Grizzards.NoSave.PAL.a26 \
 		Dist/Grizzards.NoSave.SECAM.a26 \
-	if [ $$(uname -s) = 'Linux' ] ; then \
-	  cp -v Dist/Grizzards.Demo.NTSC.a26 $(HARMONY)/Grizzards.D.NTSC.F4 ;\
-	  cp -v Dist/Grizzards.Demo.PAL.a26 $(HARMONY)/Grizzards.D.PAL.F4 ;\
-	  cp -v Dist/Grizzards.Demo.SECAM.a26 $(HARMONY)/Grizzards.D.SECAM.F4 ;\
-	  cp -v Dist/Grizzards.NoSave.NTSC.a26 $(HARMONY)/Grizzards.NS.NTSC.F4 ;\
-	  cp -v Dist/Grizzards.NoSave.PAL.a26 $(HARMONY)/Grizzards.NS.PAL.F4 ;\
-	  cp -v Dist/Grizzards.NoSave.SECAM.a26 $(HARMONY)/Grizzards.NS.SECAM.F4 ;\
+	[ "$(USBMOUNT)" != "" ]
+	@if [ $$(uname -s) = 'Linux' ] ; then \
+	  cp -v Dist/Grizzards.Demo.NTSC.a26 $(USBMOUNT)/Grizzards.D.NTSC.F4 ;\
+	  cp -v Dist/Grizzards.NoSave.NTSC.a26 $(USBMOUNT)/Grizzards.NS.NTSC.F4 ;\
 	else \
 	  echo "Patch Makefile for your $$(uname -s) OS" ; \
 	fi
 
 # Uno needs special extension to detect  us as an EF cartridge and shows
 # fairyl short names only
-UNOCART=/run/media/${USER}/TBA_2600/
 uno:	Dist/Grizzards.Dirtex.NTSC.a26 \
 	Dist/Grizzards.Aquax.NTSC.a26 \
 	Dist/Grizzards.Airex.NTSC.a26 \
 	Dist/Grizzards.Demo.NTSC.a26 \
 	Dist/Grizzards.NoSave.NTSC.a26 \
 	Dist/Grizzards.Unerase.NTSC.a26
+	[ "$(USBMOUNT)" != "" ]
 	@if [ $$(uname -s) = 'Linux' ] ; then \
-	  mkdir -p $(UNOCART)/GRIZZARDS/ ;\
-	  cp -v Dist/Grizzards.Dirtex.NTSC.a26 $(UNOCART)/GRIZZARDS/DIRTEX.NTSC.EF ;\
-	  cp -v Dist/Grizzards.Aquax.NTSC.a26 $(UNOCART)/GRIZZARDS/AQUAX.NTSC.EF ;\
-	  cp -v Dist/Grizzards.Airex.NTSC.a26 $(UNOCART)/GRIZZARDS/AIREX.NTSC.EF ;\
-	  cp -v Dist/Grizzards.Demo.NTSC.a26 $(UNOCART)/GRIZZARDS/DEMO.NTSC.F4 ;\
-	  cp -v Dist/Grizzards.NoSave.NTSC.a26 $(UNOCART)/GRIZZARDS/NOSAVE.NTSC.F4 ;\
-	  cp -v Dist/Grizzards.Unerase.NTSC.a26 $(UNOCART)/GRIZZARDS/UNERASE.NTSC.F4 ;\
+	  mkdir -p $(USBMOUNT)/GRIZZARDS/ ;\
+	  cp -v Dist/Grizzards.Dirtex.NTSC.a26 $(USBMOUNT)/GRIZZARDS/DIRTEX.NTSC.EF ;\
+	  cp -v Dist/Grizzards.Aquax.NTSC.a26 $(USBMOUNT)/GRIZZARDS/AQUAX.NTSC.EF ;\
+	  cp -v Dist/Grizzards.Airex.NTSC.a26 $(USBMOUNT)/GRIZZARDS/AIREX.NTSC.EF ;\
+	  cp -v Dist/Grizzards.Demo.NTSC.a26 $(USBMOUNT)/GRIZZARDS/DEMO.NTSC.F4 ;\
+	  cp -v Dist/Grizzards.NoSave.NTSC.a26 $(USBMOUNT)/GRIZZARDS/NOSAVE.NTSC.F4 ;\
+	  cp -v Dist/Grizzards.Unerase.NTSC.a26 $(USBMOUNT)/GRIZZARDS/UNERASE.NTSC.F4 ;\
 	else \
 	  echo "Patch Makefile for your $$(uname -s) OS" ; \
 	fi
