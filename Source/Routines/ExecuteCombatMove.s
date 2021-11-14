@@ -452,11 +452,6 @@ NextTurn:
           bne NotLastMonster
           ldx #0
           stx WhoseTurn
-          .if TV != NTSC
-          ldx INTIM
-          dex
-          stx TIM64T
-          .fi
           jmp CombatMainScreen.BackToPlayer
 NotLastMonster:
           lda MonsterHP, x

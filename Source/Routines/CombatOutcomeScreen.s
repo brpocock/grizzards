@@ -382,9 +382,11 @@ CheckForLoss:
           lda CurrentHP
           bne Bye
 
+          .if TV == NTSC
           ldx INTIM
           dex
           stx TIM64T
+          .fi
           .WaitScreenBottom
           .FarJMP AnimationsBank, ServiceDeath
 Bye:
