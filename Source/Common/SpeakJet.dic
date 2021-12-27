@@ -1632,6 +1632,7 @@ trick = \Slow \TT \Fast \RR \IH \KO
 trip = \Slow \TT \Fast \RR \Slow \IH \PE
 triple = \Slow \TT \Fast \RR \IH \PO \Slow \LE
 troubled = \Slow \TT \Fast \RR \UX \BO \Fast \AX \LE \DE
+troubling = \Slow \TT \Fast \RR \UX \BO \Fast \UX \LE \IH \NGE
 trousers = \Slow \TT \Fast \RR \AYWW \ZZ \Fast \AXRR \Fast \ZZ
 truck = \Slow \TT \Fast \RR \UX \OK
 trusts = \Slow \TT \Fast \RR \UX \SE \TS
