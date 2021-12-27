@@ -196,7 +196,7 @@ Monsters:
           .word $0010
 
           .SignText "DESERT EAGLE"
-          .byte Monter_Eagle
+          .byte Monster_Eagle
           .colu COLBLUE, $8
           .byte 0, 0, 0
           .word $0010
