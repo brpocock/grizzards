@@ -267,7 +267,7 @@ PlayerReduceMonsterHP:
 PlayerKilledMonster:
           ;; add to score the amount for that monster
           ldy # MonsterPointsIndex
-          lda (CurrentMonsterPointer) ,y
+          lda (CurrentMonsterPointer), y
           sed
           clc
           adc Score
@@ -279,11 +279,24 @@ PlayerKilledMonster:
           inc Score + 2
           bcc ScoreNoCarry
           lda #$99
-          sta Score
           sta Score + 1
           sta Score + 2
 ScoreNoCarry:
           sta Score
+
+          iny
+          lda (CurrentMonsterPointer), y
+          clc
+          adc Score + 1
+          bcc ScoreNoCarry2
+          clc
+          inc Score + 2
+          bcc ScoreNoCarry2
+          lda #$99
+          sta Score
+          sta Score + 2
+ScoreNoCarry2:
+          sta Score + 1
 
           cld
 
