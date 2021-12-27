@@ -5,7 +5,7 @@
 
           FirstSignpost = 0
 
-          Signs = (Sign_Beware, Sign_FireSwamp, NPC_SouthGate, NPC_TunnelBlocked, NPC_TunnelOpen, NPC_Artifact, NPC_TakeArtifact1, NPC_TakeArtifact2, NPC_TookArtifact, Sign_LostMines, Sign_Unused1, Sign_TrebleVillage, NPC_TrebleVillage, Sign_TrebleDocks, Sign_WesternRoad, NPC_Artifact1Scared, NPC_BrokenRadio)
+          Signs = (Sign_Beware, Sign_FireSwamp, NPC_SouthGate, NPC_TunnelBlocked, NPC_TunnelOpen, NPC_Artifact, NPC_TakeArtifact1, NPC_TakeArtifact2, NPC_TookArtifact, Sign_LostMines, NPC_RandomVillager, Sign_TrebleVillage, NPC_TrebleVillage, Sign_TrebleDocks, Sign_WesternRoad, NPC_Artifact1Scared)
           
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
@@ -111,13 +111,13 @@ Sign_LostMines:
           .SignText "ALL ALIKE.  "
           .byte ModeSignpostDone
 ;;; 10
-Sign_Unused1:
-          .colu COLGRAY, 0
-          .colu COLBROWN, $6
-          .SignText "            "
-          .SignText "            "
-          .SignText "            "
-          .SignText "            "
+NPC_RandomVillager:
+          .colu COLINDIGO, 0
+          .colu COLTURQUOISE, $9
+          .SignText "THE MONSTERS"
+          .SignText "HAVE BEEN   "
+          .SignText "TROUBLING   "
+          .SignText "OUR VILLAGE."
           .SignText "            "
           .byte ModeSignpostDone
 
@@ -175,14 +175,4 @@ NPC_Artifact1Scared:
           .SignText "HIDDEN FROM "
           .SignText "THE MONSTERS"
           .SignText "SAVE ME!    "
-          .byte ModeSignpostDone
-;;; 16
-NPC_BrokenRadio:
-          .colu COLINDIGO, 0
-          .colu COLBLUE, $9
-          .SignText "IF YOU FIX  "
-          .SignText "MY RADIO SET"
-          .SignText "I COULD CALL"
-          .SignText "FOR A SHIP  "
-          .SignText "TO PORT LION"
           .byte ModeSignpostDone

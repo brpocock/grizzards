@@ -5,11 +5,22 @@
 
           FirstSignpost = 17
 
-          Signs = (Sign_TunnelClosed, Sign_SpiralWoodsOpen, Sign_PortLionShip, Sign_TunnelMazeBlocked, NPC_LostPendant, Random_FoundPendant, NPC_ReturnPendant, NPC_HaveKey)
+          Signs = (NPC_BrokenRadio, Sign_TunnelClosed, Sign_SpiralWoodsOpen, Sign_PortLionShip, Sign_TunnelMazeBlocked, NPC_LostPendant, Random_FoundPendant, NPC_ReturnPendant, NPC_HaveKey)
           
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
 
+;;; 16
+NPC_BrokenRadio:
+          .colu COLINDIGO, 0
+          .colu COLBLUE, $9
+          .SignText "IF YOU FIX  "
+          .SignText "MY RADIO SET"
+          .SignText "I COULD CALL"
+          .SignText "FOR A SHIP  "
+          .SignText "TO PORT LION"
+          .byte ModeSignpostDone
+          
 ;;; 17
 Sign_TunnelClosed:
           .colu COLGRAY, 0

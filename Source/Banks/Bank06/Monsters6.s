@@ -97,7 +97,7 @@ Monsters:
           .colu COLBLUE, $8
           .byte 0, $03, $03
           .word $0010
-
+;;; 16
           .SignText "SCARY    RAT"
           .byte Monster_Rodent
           .colu COLBLUE, $8
@@ -121,22 +121,22 @@ Monsters:
           .colu COLGREEN, $f
           .byte 9, 4, 50
           .word $0035
-
+;;; 20
           .SignText "1 EYEDCYCLOP"
           .byte Monster_Cyclops
-          .colu COLBLUE, $8
-          .byte 0, 0, 0
-          .word $0010
+          .colu COLPURPLE, $8
+          .byte 20, 20, 60
+          .word $0120
 
           .SignText "FIERCERAPTOR"
           .byte Monster_Raptor
-          .colu COLBLUE, $8
+          .colu COLORANGE, $8
           .byte 0, 0, 0
           .word $0010
 
           .SignText "DEVIL  EAGLE"
           .byte Monster_Eagle
-          .colu COLBLUE, $8
+          .colu COLRED, $8
           .byte 0, 0, 0
           .word $0010
 
@@ -148,50 +148,50 @@ Monsters:
 
           .SignText "GIANT  CRAB "
           .byte Monster_Crab
-          .colu COLBLUE, $8
+          .colu COLTURQUOISE, $8
           .byte 0, 0, 0
           .word $0010
 
           .SignText "BIGGER CRAB "
           .byte Monster_Crab
-          .colu COLBLUE, $8
+          .colu COLCYAN, $8
           .byte 0, 0, 0
           .word $0010
 
           .SignText " MEAN ROBBER"
           .byte Monster_Human
-          .colu COLBLUE, $8
+          .colu COLBROWN, $f
           .byte 0, 0, 0
           .word $0010
 
           .SignText "GIANT SLIME "
           .byte Monster_SlimeBig
-          .colu COLBLUE, $8
+          .colu COLINDIGO, $8
           .byte 0, 0, 0
           .word $0010
 
           .SignText "DRAGON FRED "
           .byte Monster_Dragon
-          .colu COLBLUE, $8
+          .colu COLRED, $0
           .byte 50, 50, 200
           .word $1000
 
 
           .SignText "DRAGONANDREW"
           .byte Monster_Dragon
-          .colu COLBLUE, $8
+          .colu COLRED, $4
           .byte 0, 0, 0
           .word $1000
 
           .SignText "DRAGON TIMMY"
           .byte Monster_Dragon
-          .colu COLBLUE, $8
+          .colu COLRED, $8
           .byte 0, 0, 0
           .word $1000
 
           .SignText " UBER  SLIME"
           .byte Monster_SlimeBig
-          .colu COLBLUE, $8
+          .colu COLBROWN, $f
           .byte 0, 0, 0
           .word $0010
 

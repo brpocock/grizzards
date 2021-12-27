@@ -28,8 +28,8 @@ TookArtifact:
 LostMines:
 Entering the Lost Mine.A maze of twisty passages,all alike
 
-Unused1:
-.
+RandomVillager:
+♂The monsters have been troubling our village
 
 TrebleVillage:
 Treble Village.Flee now.The monsters are coming
@@ -45,6 +45,3 @@ To the west, the lost mine.To the east,the spiral woods and Mount Peshon tunnel 
 
 Artifact1Scared:
 ♂I have the artifact hidden from the monsters. Save me.
-
-BrokenRadio:
-♀If you fix my radio set,I could call for a ship to Port Lion

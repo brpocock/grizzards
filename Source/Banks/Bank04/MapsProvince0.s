@@ -279,6 +279,10 @@ SpriteList:
           .byte 100, 32
           .byte SpriteSign, 0   ; Beware
 
+          .byte $ff, SpriteWander
+          .byte 120, 32
+          .byte SpritePerson, 10 ; Random villager
+
           .byte 0
 
           ;; Room 3
@@ -293,6 +297,10 @@ SpriteList:
           .byte 19, SpriteWander
           .byte 100, 32
           .byte SpritePerson, 12 ; Fleeing village
+
+          .byte $ff, SpriteWander
+          .byte 120, 45
+          .byte SpritePerson, 10 ; Random villager
 
           .byte 0
 
@@ -531,15 +539,15 @@ SpriteList:
 
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 25
+          .byte SpriteCombat, 28
 
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 25
+          .byte SpriteCombat, 28
 
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 25
+          .byte SpriteCombat, 28
 
 	.byte 0
 
@@ -550,15 +558,15 @@ SpriteList:
 
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 25
+          .byte SpriteCombat, 28
 
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 25
+          .byte SpriteCombat, 28
 
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 25
+          .byte SpriteCombat, 28
 
 	.byte 0
 
@@ -577,7 +585,7 @@ SpriteList:
 
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 25
+          .byte SpriteCombat, 28
 
 	.byte 0
 
@@ -585,15 +593,79 @@ SpriteList:
 	.byte 0
 
 	;; Room 25
+          .byte 30, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 25
+
+          .byte 31, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 26
+
+          .byte $ff, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 25
+
+          .byte $ff, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 27
+
 	.byte 0
 
 	;; Room 26
+          .byte 32, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 25
+
+          .byte 33, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 26
+
+          .byte $ff, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 25
+
+          .byte $ff, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 27
+
 	.byte 0
 
 	;; Room 27
+          .byte 34, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 25
+
+          .byte 35, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 26
+
+          .byte $ff, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 25
+
+          .byte $ff, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 27
+
 	.byte 0
 
 	;; Room 28
+          .byte 36, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 25
+
+          .byte 37, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 26
+
+          .byte $ff, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 25
+
+          .byte $ff, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 27
+
 	.byte 0
 
 	;; Room 29
