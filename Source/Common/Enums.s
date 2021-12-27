@@ -220,8 +220,8 @@
           MonsterAttackIndex = 11
           MonsterDefendIndex = 12
           MonsterHPIndex = 13
-          MonsterPointsIndex = 14
-          MonsterSpareValueIndex = 15
+          MonsterPointsIndex = 14 ; two bytes, low byte, high byte order
+
 ;;; 
 ;;; MapFlags values
           MapFlagRandomSpawn = $04
@@ -230,3 +230,30 @@
           MapFlagSprite1Moved = $20
           MapFlagSprite2Moved = $40
           MapFlagSprite3Moved = $80
+;;; 
+;;; Monster art types
+          Monster_Bunny = 0
+          Monster_Rodent = 1
+          Monster_Sheep = 2
+          Monster_Turtle = 3
+          Monster_Fox = 4
+          Monster_Cat = 5
+          Monster_Dog = 6
+          Monster_Bear = 7
+          Monster_Mouse = 8
+          Monster_Firefox = 9
+          Monster_TwoLegs = 10
+          Monster_Mutant = 11
+          Monster_WillOWisp = 12
+          Monster_Butterfly = 13
+          Monster_SlimeSmall = 14
+          Monster_Serpent = 15
+          Monster_Bird = 16
+          Monster_Crab = 17
+          Monster_Raptor = 18
+          Monster_Human = 19
+          Monster_Bat = 20
+          Monster_Eagle = 21
+          Monster_Dragon = 22
+          Monster_SlimeBig = 23
+          Monster_Cyclops = 24
