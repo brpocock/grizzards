@@ -3,14 +3,33 @@
 
 GetSignpostIndex:      .block
           ldx SignpostIndex
-          
+
           cpx # 3
           beq CheckTunnelBlocked
           cpx # 6
           beq CheckTunnelVisited
           cpx # 7
           beq CheckTunnelVisited
+          cpx # 13
+          beq CheckShipInPort
+          cpx # 21
+          beq CheckFoundPendant
 Return:
+          rts
+
+CheckFoundPendant:
+          lda ProvinceFlags + 3 ; flag 28 = found pendant in mine
+          and # %00010000
+          beq Return
+          ;; have you returned it yet?
+          lda ProvinceFlags + 7
+          and # %10000000
+          bne ReturnPendantNow
+          ldx # 24              ; already have key
+          rts
+
+ReturnPendantNow:
+          ldx # 23              ; return pendant
           rts
 
 CheckTunnelBlocked:
@@ -49,5 +68,13 @@ Artifact1:
           and #$30
           cmp #$30
           bne Artifact1Scared
+          ;; fall through
+
+CheckShipInPort:
+          lda ProvinceFlags
+          and #$01
+          beq Return
+          ldx # 19
           rts
+
           .bend

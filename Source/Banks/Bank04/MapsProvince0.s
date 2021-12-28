@@ -109,7 +109,7 @@ MapLinks:
           .byte $ff, 24, 23, 22
           .byte $ff, $ff, 21, 23
           .byte 18, 26, 22, 21
-          .byte 21, $ff, $ff, $ff
+          .byte $ff, 31, $ff, $ff
           ;; 25
           .byte $ff, $ff, 28, 26
           .byte 23, 32, 25, 27
@@ -178,7 +178,7 @@ MapLinks:
           ;; 15
           _ ..= (Map_FourWay, Map_SouthGlobe, ROOM17MAP, Map_Arc, Map_EWPassage)
           ;; 20
-          _ ..= (Map_EWFat, Map_Split, Map_SplitBoxes, Map_SplitMaze, Map_SouthGlobe)
+          _ ..= (Map_EWFat, Map_Split, Map_SplitBoxes, Map_SplitMaze, Map_NorthGlobe)
           ;; 25
           _ ..= (Map_EWFat, Map_FourWay, Map_EWFat, Map_EWFat, Map_FullTop)
           ;; 30
@@ -590,6 +590,22 @@ SpriteList:
 	.byte 0
 
 	;; Room 24
+          .byte $ff, SpriteFixed
+          .byte $7d, $10
+          .byte SpriteGrizzardDepot, 0
+          
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteGrizzard, 16
+
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteGrizzard, 17
+
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteGrizzard, 18
+
 	.byte 0
 
 	;; Room 25
@@ -675,6 +691,10 @@ SpriteList:
 	.byte 0
 
 	;; Room 31
+          .byte 63, SpriteFixed
+          .byte $53, $1f
+          .byte SpriteDoor, 24
+
 	.byte 0
 
 	;; Room 32
@@ -714,7 +734,20 @@ SpriteList:
           .byte $ff, SpriteWander
           .byte $40, $40
           .byte SpritePerson, 16 ; broken radio
-	.byte 0
+
+          .byte $ff, SpriteWander
+          .byte 128, 32
+          .byte SpritePerson, 21 ; lost pendant
+
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpritePerson, 10 ; random villager
+
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpritePerson, 10 ; random villager
+
+          .byte 0
 
 	;; Room 44
 	.byte 0
@@ -785,6 +818,10 @@ SpriteList:
           .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 15
+
+          .byte 28, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteSign, 22  ; found pendant
 
           .byte 0
 

@@ -14,14 +14,25 @@ BlockadeLocked:
 Blockade is locked due to danger of a cave grue.No entry
 
 LostPendant:
-♀I used to be a trainer too.I lost a pendant in the mine
+♀I trained Grizzards too.I lost a pendant in the woods
 
 FoundPendant:
-You have found a pendant in the dust of the mine
+You have found a pendant on a leaf on the ground
 
 ReturnPendant:
 ♀You're great.That's my pendant.You can have this key
 
 HaveKey:
-♀That key can open my save to the north with trainer supplies
+♀That key can open my cave to the north where I left my Grizzards
 
+LostChild:
+♂O no.My son Pete has run off to see the Lost Mine.Help
+
+IAmLost:
+♀I'm Peter.I came from Port Lion and got lost.Take me home
+
+ReturnChild:
+♂Peter,you are home...♀Daddy,I'm safe now
+
+ChildReward:
+♂Thank you for saving Peter.Have this as a reward

@@ -112,7 +112,7 @@ SpriteList:
 
           ;; Room 12
           .byte 0
-
+ 
           ;; Room 13
           .byte $ff, SpriteFixed
           .byte $ac, $3c

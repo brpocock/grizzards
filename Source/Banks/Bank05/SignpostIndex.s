@@ -13,8 +13,7 @@ GetSignpostIndex:      .block
           beq CheckTunnelVisited
           cpx # 7
           beq CheckTunnelVisited
-          cpx # 13
-          beq CheckShipInPort
+
 Return:
           rts
 
@@ -23,11 +22,7 @@ CheckTunnelBlocked:
           and # %00000110   ; Do they have both artifacts?
           cmp # %00000110
           bne Return
-          .if DEMO
           inx                   ; yes, tunnel open now — end of demo message
-          .else
-          ldx #16               ; tunnel open, full game
-          .fi
           rts
 
 CheckTunnelVisited:

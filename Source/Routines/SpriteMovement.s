@@ -31,10 +31,8 @@ MoveSprites:
           bne SpriteXMove
           jsr Random            ; Is there a random encounter?
           bne NoRandom
-          jsr Random
-          and #1
-          bne NoRandom
-          jmp CheckPlayerCollision.FightWithSpriteX
+          lda SpriteAction, x
+          jmp CheckPlayerCollision.ActionWithSpriteX
 
 NoRandom:
           dex

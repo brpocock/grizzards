@@ -48,6 +48,7 @@
           ModeSignpostSetFlag = $82
           ModeSignpostClearFlag = $83
           ModeSignpostWarp = $84
+          ModeSignpostSet0And63 = $85 ; when Peter is found.
 ;;; 
 ;;; Sounds in the library (index values)
           SoundDrone = 1

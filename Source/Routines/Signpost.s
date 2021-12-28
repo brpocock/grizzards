@@ -404,6 +404,27 @@ NoButton:
           jmp Loop
 
 Leave:
+          cmp #ModeSignpostSet0And63
+          bne NotSet0And63
+
+          sed
+          lda Score + 1
+          clc
+          adc # 1
+          sta Score + 1
+          bcc NCar100
+          inc Score + 2
+NCar100:
+          cld
+          lda ProvinceFlags + 0
+          ora #$01
+          sta ProvinceFlags + 0
+          lda ProvinceFlags + 7
+          ora #$80
+          sta ProvinceFlags + 7
+          gne ByeBye
+
+NotSet0And63:
           cmp #ModeSignpostClearFlag
           bne NotClearFlag
           sed
