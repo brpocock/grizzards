@@ -1,5 +1,5 @@
 ;;; Grizzards Source/Routines/LoadGrizzardData.s
-;;; Copyright © 2021 Bruce-Robert Pocock
+;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 LoadGrizzardData:   .block
           lda CurrentGrizzard

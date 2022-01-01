@@ -1,5 +1,5 @@
 ;;; Grizzards Source/Banks/Bank05/Bank05Game.s
-;;; Copyright © 2021 Bruce-Robert Pocock
+;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
           ;; The addresses of these must be known to the Map Services bank
           .include "PlayerSprites.s"

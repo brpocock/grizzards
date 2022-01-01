@@ -1,5 +1,5 @@
 ;;; Grizzards Source/Routines/PlaySpeech.s
-;;; Copyright © 2021 Bruce-Robert Pocock
+;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 ;;; The following  subroutine based upon  AtariVox Speech Synth  Driver, by
 ;;; Alex Herbert, 2004; altered by Bruce-Robert Pocock, 2017, 2020

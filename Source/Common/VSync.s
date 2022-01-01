@@ -1,5 +1,5 @@
 ;;; Grizzards Source/Common/VSync.s
-;;; Copyright © 2021 Bruce-Robert Pocock
+;;; Copyright © 2021-2022 Bruce-Robert Pocock
 ;;; Vertical sync, blanking, and overscan routines.
 ;;;
 ;;; Currently, these are replicated in each bank as needed.

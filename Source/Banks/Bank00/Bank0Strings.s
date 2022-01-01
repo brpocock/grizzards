@@ -1,5 +1,5 @@
 ;;; Grizzards Source/Banks/Bank00/Bank0Strings.s
-;;; Copyright © 2021 Bruce-Robert Pocock
+;;; Copyright © 2021-2022 Bruce-Robert Pocock
 SelectText:
           .MiniText "SELECT"
 EraseText:
@@ -21,7 +21,7 @@ CopyText:
 RightText:
           .MiniText "RIGHT "
 Text2021:
-          .MiniText " 2021 "
+          .MiniText " 2022 "
 BruceText:
           .MiniText "BRUCE-"
 RobertText:

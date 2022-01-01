@@ -1,5 +1,5 @@
 ;;; Grizzards Source/Routines/ShowMove.s
-;;; Copyright © 2021 Bruce-Robert Pocock
+;;; Copyright © 2021-2022 Bruce-Robert Pocock
 ShowMove: .block
 
 ;;; Default entry point is only useful for the player, used for the menu.

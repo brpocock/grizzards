@@ -1,5 +1,5 @@
 ;;; Grizzards Source/Routines/FetchGrizzardMove.s
-;;; Copyright © 2021 Bruce-Robert Pocock
+;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
           ;; Call with MoveSelection set to the move index within the set of moves for this Grizzard
 FetchGrizzardMove:

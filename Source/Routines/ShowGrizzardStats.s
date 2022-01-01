@@ -1,5 +1,5 @@
 ;;; Grizzards Source/Routines/ShowGrizzardStats.s
-;;; Copyright © 2021 Bruce-Robert Pocock
+;;; Copyright © 2021-2022 Bruce-Robert Pocock
 ShowGrizzardStats:  .block
           stx WSYNC
           .ldacolu COLTURQUOISE, 8

@@ -1,5 +1,5 @@
 ;;; Grizzards Source/Common/CombatMainScreen.s
-;;; Copyright © 2021 Bruce-Robert Pocock
+;;; Copyright © 2021-2022 Bruce-Robert Pocock
 CombatMainScreen:   .block
 
 BackToPlayer:

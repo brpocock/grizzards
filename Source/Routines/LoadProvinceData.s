@@ -1,5 +1,5 @@
 ;;; Grizzards Source/Routines/ReadProvinceData.s
-;;; Copyright © 2021 Bruce-Robert Pocock
+;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 LoadProvinceData:   .block
           ;; Province data are 8 bytes blocks starting at $20

@@ -1,5 +1,5 @@
 ;;; Grizzards Source/Routines/Random.s
-;;; Copyright © 2021 Bruce-Robert Pocock
+;;; Copyright © 2021-2022 Bruce-Robert Pocock
 SeedRandom:
 
           .if BANK == 0

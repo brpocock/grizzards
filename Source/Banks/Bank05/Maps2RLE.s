@@ -1,6 +1,6 @@
 ;;; -*- fundamental -*-
 ;;; Grizzards Source/Banks/Bank04/MapRLE.s
-;;; Copyright © 2021 Bruce-Robert Pocock
+;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 ;;; RLE data for each screen layout
 ;;;

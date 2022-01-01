@@ -1,5 +1,5 @@
 ;;; Grizzards Source/Banks/Bank06/MonsterMoves6.s
-;;; Copyright © 2021 Bruce-Robert Pocock
+;;; Copyright © 2021-2022 Bruce-Robert Pocock
 MonsterMoves:
           ;; Each monster type can know 4 moves
 

@@ -1,5 +1,5 @@
 ;;; Grizzards Source/Routines/CombatSetup.s
-;;; Copyright © 2021 Bruce-Robert Pocock
+;;; Copyright © 2021-2022 Bruce-Robert Pocock
 ;;; Common combat routines called from multiple banks
 DoCombat:          .block
           stx WSYNC

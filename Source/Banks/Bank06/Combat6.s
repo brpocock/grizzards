@@ -1,5 +1,5 @@
 ;;; Grizzards Source/Banks/Bank06/Combat6.s
-;;; Copyright © 2021 Bruce-Robert Pocock
+;;; Copyright © 2021-2022 Bruce-Robert Pocock
 EncounterMonster:
           ;; 0
           .byte 0, 0, 0, 1, 2, 0, 3, 3

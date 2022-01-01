@@ -594,16 +594,16 @@ release:	all
 	for file in Grizzards.*.{zip,a26,pdf}; do \
 		mv -v $$file $$(echo $$file | perl -pne 's(Grizzards.([^.]+).(.*)) (Grizzards.\1.$(RELEASE).\2)'); \
 	done
-	@echo "AtariAge Release $(RELEASE) of Grizzards for the Atari 2600. © 2021 Bruce-Robert Pocock." | \
+	@echo "AtariAge Release $(RELEASE) of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
 		zip -9 Dist/$(RELEASE)/Grizzards.AtariAge.$(RELEASE).zip \
 		Dist/$(RELEASE)/Grizzards.{Airex,Aquax,Dirtex}.* Dist/$(RELEASE)/Grizzards.{NTSC,PAL,SECAM}*pdf
-	@echo "Demo Release $(RELEASE) of Grizzards for the Atari 2600. © 2021 Bruce-Robert Pocock." | \
+	@echo "Demo Release $(RELEASE) of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
 		zip -9 Dist/$(RELEASE)/Grizzards.Demo.$(RELEASE).zip \
 		Dist/$(RELEASE)/Grizzards.Demo.*{a26,pdf,pro}
-	@echo "No-Save Demo Release $(RELEASE) of Grizzards for the Atari 2600. © 2021 Bruce-Robert Pocock." | \
+	@echo "No-Save Demo Release $(RELEASE) of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
 		zip -9 Dist/$(RELEASE)/Grizzards.NoSave.$(RELEASE).zip \
 		Dist/$(RELEASE)/Grizzards.NoSave.*{a26,pdf,pro}
-	@echo "Unerase Tool Release $(RELEASE) of Grizzards for the Atari 2600. © 2021 Bruce-Robert Pocock." | \
+	@echo "Unerase Tool Release $(RELEASE) of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
 		zip -9 Dist/$(RELEASE)/Grizzards.Unerase.$(RELEASE).zip \
 		Dist/$(RELEASE)/Grizzards.Unerase.*{a26,pdf,pro}
 

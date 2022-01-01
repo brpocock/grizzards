@@ -1,5 +1,5 @@
 ;;; Grizzards Source/Common/CombatAnnouncementScreen.s
-;;; Copyright © 2021 Bruce-Robert Pocock
+;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 CombatAnnouncementScreen:     .block
 ;;; Set up for the combat move announcement & execution

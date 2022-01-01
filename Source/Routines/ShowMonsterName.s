@@ -1,5 +1,5 @@
 ;;; Grizzards Source/Routines/ShowMonsterName.s
-;;; Copyright © 2021 Bruce-Robert Pocock
+;;; Copyright © 2021-2022 Bruce-Robert Pocock
 ShowMonsterName:    
           lda CurrentMonsterPointer
           sta Pointer

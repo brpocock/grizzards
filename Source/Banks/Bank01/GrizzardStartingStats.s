@@ -1,5 +1,5 @@
 ;;; Grizzards Source/Banks/Bank01/GrizzardStartingStats.s
-;;; Copyright © 2021 Bruce-Robert Pocock
+;;; Copyright © 2021-2022 Bruce-Robert Pocock
 GrizzardStartingStats:        .block
           ;; For each Grizzard there are 5 bytes
           ;; the order of which is the same as ZeroPage:

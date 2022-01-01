@@ -1,5 +1,5 @@
 ;;; Grizzards Source/Common/Enums.s
-;;; Copyright © 2021 Bruce-Robert Pocock
+;;; Copyright © 2021-2022 Bruce-Robert Pocock
 ;;;
 ;;; Enumerated values used in various places.
 ;;; 

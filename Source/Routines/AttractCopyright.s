@@ -1,5 +1,5 @@
 ;;; Grizzards Source/Routines/AttractCopyright.s
-;;; Copyright © 2021 Bruce-Robert Pocock
+;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 CopyrightMode:      .block
           lda AttractHasSpoken
@@ -22,7 +22,7 @@ DoneCopyrightSpeech:
           jsr ShowPointerText
           .SetPointer RightText
           jsr ShowPointerText
-          .SetPointer Text2021
+          .SetPointer Text2022
           jsr ShowPointerText
           .SetPointer BruceText
           jsr ShowPointerText

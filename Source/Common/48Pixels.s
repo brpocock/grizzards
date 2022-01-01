@@ -1,5 +1,5 @@
 ;;; Grizzards Source/Common/48Pixels.s
-;;; Copyright © 2021 Bruce-Robert Pocock
+;;; Copyright © 2021-2022 Bruce-Robert Pocock
 ;;; Macros for setting up 48px graphics and text
 
 

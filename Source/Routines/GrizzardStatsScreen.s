@@ -1,5 +1,5 @@
 ;;; Grizzards Source/Common/GrizzardStatsScreen.s
-;;; Copyright © 2021 Bruce-Robert Pocock
+;;; Copyright © 2021-2022 Bruce-Robert Pocock
 GrizzardStatsScreen: .block
           .WaitScreenTop
           lda #ModeGrizzardStats

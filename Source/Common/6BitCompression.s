@@ -1,5 +1,5 @@
 ;;; Grizzards Source/Common/6BitCompression.s
-;;; Copyright © 2021 Bruce-Robert Pocock
+;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 UnpackLeft:         .macro workPointer
           lda (\workPointer), y

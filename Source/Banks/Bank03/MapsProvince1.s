@@ -1,5 +1,5 @@
 ;;; Grizzards Source/Banks/Bank03/MapsProvince1.s
-;;; Copyright © 2021 Bruce-Robert Pocock
+;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
           ;; How many maps are in these tables?
 MapCount = 69

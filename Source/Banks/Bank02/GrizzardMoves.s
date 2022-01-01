@@ -1,5 +1,5 @@
 ;;; Grizzards Source/Banks/Bank02/GrizzardMoves.s
-;;; Copyright © 2021 Bruce-Robert Pocock
+;;; Copyright © 2021-2022 Bruce-Robert Pocock
 GrizzardMoves:
           ;; 0
           ;; Dirtex

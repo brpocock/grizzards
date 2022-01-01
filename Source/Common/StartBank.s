@@ -2,7 +2,7 @@
 ;;;
 ;;; Grizzards
 ;;;
-;;; Copyright © 2021, Bruce-Robert Pocock <brpocock@star-hope.org>
+;;; Copyright © 2021-2022, Bruce-Robert Pocock <brpocock@star-hope.org>
 ;;;
 ;;; Most rights reserved. (See COPYING for details.)
 ;;;

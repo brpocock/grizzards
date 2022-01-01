@@ -1,5 +1,5 @@
 ;;; Grizzards Source/Routines/FindHighBit.s
-;;; Copyright © 2021 Bruce-Robert Pocock
+;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 ;;; XXX These two routines are nearly identical
 ;;; is it worth it to factor out a common prefix subroutine?

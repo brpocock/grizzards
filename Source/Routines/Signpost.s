@@ -1,5 +1,5 @@
 ;;; Grizzards Source/Routines/Signpost.s
-;;; Copyright © 2021 Bruce-Robert Pocock
+;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 ;;; CRITICAL cross-bank alignment.
 ;;; This MUST start at the same address in every signpost bank, and

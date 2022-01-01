@@ -1,5 +1,5 @@
 ;;; Grizzards Source/Routines/PlayMusic.s
-;;; Copyright © 2021 Bruce-Robert Pocock
+;;; Copyright © 2021-2022 Bruce-Robert Pocock
 DoMusic:
           lda CurrentMusic + 1
           bne PlayMusic

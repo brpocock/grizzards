@@ -1,5 +1,5 @@
 ;;; Grizzards Source/Routines/ColdStart.s
-;;; Copyright © 2021 Bruce-Robert Pocock
+;;; Copyright © 2021-2022 Bruce-Robert Pocock
 ;;; Cold start routines
 ;;;
 ;;; This routine is called once at startup, and must be in Bank 0.

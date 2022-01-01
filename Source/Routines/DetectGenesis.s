@@ -1,5 +1,5 @@
 ;;; Grizzards Source/Routines/DetectGenesis.s
-;;; Copyright © 2021 Bruce-Robert Pocock
+;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 DetectGenesis:      .block
           ;; Look for a Genesis game pad by assuming that the C button is
