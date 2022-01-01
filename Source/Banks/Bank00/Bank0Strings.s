@@ -20,7 +20,7 @@ CopyText:
           .MiniText "COPY  "
 RightText:
           .MiniText "RIGHT "
-Text2021:
+Text2022:
           .MiniText " 2022 "
 BruceText:
           .MiniText "BRUCE-"
