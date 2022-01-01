@@ -2,7 +2,7 @@ TitleIntro:
 Grizzards
 
 TitleCopyright:
-Copyright twenty-twenty-one Bruce-Robert Pocock
+Copyright twenty-twenty-two Bruce-Robert Pocock
 
 SelectSlot:
 Select a save game slot.
