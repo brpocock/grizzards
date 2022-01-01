@@ -196,7 +196,7 @@ MapLinks:
           ;; 35
           _ ..= ( Map_DE, Map_BCDEF, Map_AG, Map_ADG, Map_AD )
           ;; 40
-          _ ..= ( Map_ABCF, Map_BEF, Map_ABEF, Map_ABE, Map_ABDE )
+          _ ..= ( Map_ABCF, Map_BEF, Map_ABEF, Map_ABE, Map_BDE )
           ;; 45
           _ ..= ( Map_BCEF, Map_BCDE, Map_BCDEF, Map_ABCF, Map_BEF )
           ;; 50
