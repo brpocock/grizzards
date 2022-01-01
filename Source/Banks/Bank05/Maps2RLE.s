@@ -119,5 +119,34 @@ Map_SouthGate:
           .byte 70, %00000000, %00000000, %00000000
           .byte 4,  %11111111, %11111111, %00000000
 
+Map_EWOval:
+
+Map_OpenTopDoorSides:
+
+Map_ClosedTop:
+
+Map_OpenBottomDoorTop:
+
+Map_DoorBottom:
+
+Map_DoorTopBottom:
+
+Map_DoorTop:
+
+Map_DoorBottomSplit:
+
+Map_DoorTopSplit:
+
+Map_OpenRightSplitLeft:
+
+Map_OpenSidesDoorTop:
+
+Map_OpenSides:
+
+Map_DoorLeftOpenTopRight:
+
+Map_Open:
+
+
           .byte 100, 0, 0, 0
 

@@ -2,7 +2,7 @@
 ;;; Copyright © 2021 Bruce-Robert Pocock
 
           ;; How many maps are in these tables?
-MapCount = 61
+MapCount = 66
 
 ;;; Foreground and background colors
 ;;; Remember SECAM and don't make these too similar
@@ -82,20 +82,20 @@ MapColors:
 MapLinks:
           .byte $ff, $ff, 1, $ff
           .byte 18, $ff, 14, 0
-          .byte $ff, $ff, $ff, $ff
-          .byte $ff, $ff, $ff, $ff
-          .byte $ff, $ff, $ff, $ff
+          .byte $ff, 3, $ff, $ff
+          .byte 2, 4, $ff, $ff
+          .byte 3, $ff, $ff, $ff
           ;; 5
-          .byte $ff, $ff, $ff, $ff
-          .byte $ff, $ff, $ff, $ff
-          .byte $ff, $ff, $ff, $ff
-          .byte $ff, $ff, $ff, $ff
-          .byte $ff, $ff, $ff, $ff
+          .byte $ff, 6, $ff, $ff
+          .byte 5, 7, $ff, $ff
+          .byte 6, 8, $ff, $ff
+          .byte 7, $ff, $ff, 9
+          .byte $ff, $ff, 8, $ff
           ;; 10
-          .byte $ff, $ff, $ff, $ff
-          .byte $ff, $ff, $ff, $ff
-          .byte $ff, $ff, $ff, $ff
-          .byte $ff, $ff, $ff, $ff
+          .byte $ff, 12, $ff, $ff
+          .byte $ff, 62, $ff, 12
+          .byte 10, 63, 11, 13
+          .byte $ff, 64, 12, $ff
           .byte 19, $ff, 15, 1
           ;; 15
           .byte 20, $ff, 16, 14
@@ -154,6 +154,12 @@ MapLinks:
           ;; 60
           .byte $ff, $ff, $ff, $ff
           .byte $ff, $ff, $ff, $ff
+          .byte 11, $ff, $ff, 63
+          .byte 12, $ff, 62, 64
+          .byte 13, 66, 63, $ff
+          ;; 65
+          .byte $ff, $ff, $ff, 66
+          .byte 54, $ff, 65, $ff
 
 ;;; RLE Map data for each screen.
 
@@ -185,6 +191,25 @@ MapLinks:
           _ ..= (Map_InHouse, Map_InHouse, Map_InHouse, Map_InHouse, Map_InHouse)
           ;; 60
           _ ..= (Map_InHouse)
+
+          _ ..= ( Map_EWOval )
+          _ ..= ( Map_OpenTopDoorSides )
+          _ ..= ( Map_ClosedTop )
+          _ ..= ( Map_OpenBottomDoorTop )
+          ;; 65
+          _ ..= ( Map_DoorBottom )
+          _ ..= ( Map_DoorTopBottom )
+          _ ..= ( Map_DoorTop )
+          _ ..= ( Map_DoorBottomSplit )
+          _ ..= ( Map_DoorTopSplit )
+          ;; 70
+          _ ..= ( Map_OpenRightSplitLeft )
+          _ ..= ( Map_OpenSidesDoorTop )
+          _ ..= ( Map_OpenSides )
+          _ ..= ( Map_DoorLeftOpenTopRight )
+          _ ..= ( Map_Open )
+          ;;  75
+
           MapRLE = _
 
 MapRLEL:  .byte <MapRLE
