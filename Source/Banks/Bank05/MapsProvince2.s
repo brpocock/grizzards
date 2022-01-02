@@ -172,7 +172,7 @@ MapLinks:
 ;;; Note that it can be reused, so the same basic layout, potentially
 ;;; in different colors, can appear in several places.
           ;; 0
-          _ := ( Map_SouthDock, Map_SouthShoreCorner, Map_DoorTop, Map_DoorTopBottom, Map_DoorBottom )
+          _ := ( Map_SouthDock, Map_SouthShoreCorner, Map_DoorBottom, Map_DoorTopBottom, Map_DoorTop )
           ;; 5
           _ ..= ( Map_DoorBottom, Map_OpenBottomDoorTop, Map_ClosedSides, Map_OpenTopDoorSides, Map_EWOval )
           ;; 10
@@ -250,30 +250,30 @@ SpriteList:
           .byte 0
 
           ;; Room 2
-          .byte 1, SpriteWander
+          .byte 50, SpriteWander
           .byte 0, 0
-          .byte SpriteMajorCombat, 125
+          .byte SpriteMajorCombat, 125 ; Fred
 
           .byte 0
 
           ;; Room 3
           .byte $ff, SpriteFixed
-          .byte $20, $10
+          .byte $b3, $35
           .byte SpriteGrizzardDepot, 0
 
           .byte 0
 
           ;; Room 4
           .byte $ff, SpriteFixed
-          .byte $78, $10
-          .byte SpriteProvinceDoor | $10, 46
+          .byte $7a, $36
+          .byte SpriteProvinceDoor | $10, 57
 
           .byte 0
 
           ;; Room 5
-          .byte 2, SpriteWander
+          .byte 51, SpriteWander
           .byte 0, 0
-          .byte SpriteMajorCombat, 126
+          .byte SpriteMajorCombat, 126 ; Andrew
 
           .byte 0
 
@@ -298,9 +298,9 @@ SpriteList:
           .byte 0
 
           ;; Room 10
-          .byte 3, SpriteWander
+          .byte 52, SpriteWander
           .byte 0, 0
-          .byte SpriteMajorCombat, 127
+          .byte SpriteMajorCombat, 127 ; Timmy
 
           .byte 0
 

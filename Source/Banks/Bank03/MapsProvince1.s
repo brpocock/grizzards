@@ -193,7 +193,7 @@ MapLinks:
           ;; 25
           _ ..= ( Map_BCDE, Map_BCE, Map_BCEG, Map_BCDE, Map_ACEF )
           ;; 30
-          _ ..= ( Map_CDEF, Map_EF, Map_AF, Map_DE, Map_DG )
+          _ ..= ( Map_CDEF, Map_EF, Map_AF, Map_DE, Map_ADG )
           ;; 35
           _ ..= ( Map_DE, Map_BCDEF, Map_AG, Map_ADG, Map_AD )
           ;; 40
@@ -342,8 +342,8 @@ SpriteList:
 
           ;; Room 25
           .byte $ff, SpriteFixed
-          .byte $bc, $38
-          .byte SpriteSign, 29  ; labyrinth sign
+          .byte $6c, $30
+          .byte SpriteSign, 32  ; Timmy lever
 
           .byte 0
 
@@ -387,12 +387,17 @@ SpriteList:
 
           ;; Room 36
           .byte $ff, SpriteFixed
+          .byte $6b, $31
+          .byte SpriteGrizzardDepot, 0
+
+          .byte $ff, SpriteFixed
           .byte $bf, $38
           .byte SpriteProvinceDoor | $20, 29
+
           .byte 0
 
           ;; Room 37
-          .byte $ff, SpriteFixed
+          .byte 61, SpriteFixed
           .byte $3a, $0e
           .byte SpriteProvinceDoor | $20, 9
 
@@ -431,7 +436,7 @@ SpriteList:
           .byte 0
 
           ;; Room 46
-          .byte $ff, SpriteFixed
+          .byte 62, SpriteFixed
           .byte $88, $31
           .byte SpriteProvinceDoor | $20, 65
 
@@ -447,7 +452,7 @@ SpriteList:
 
           .byte $ff, SpriteFixed
           .byte $80, $10
-          .byte SpriteSign, 29  ; labyrinth sign
+          .byte SpriteSign, 31  ; Andrew lever
 
           .byte 0
 
@@ -484,17 +489,13 @@ SpriteList:
           .byte 0
 
           ;; Room 57
-          .byte $ff, SpriteFixed
+          .byte 60, SpriteFixed
           .byte $7d, $31
           .byte SpriteProvinceDoor | $20, 4
 
           .byte 0
 
           ;; Room 58
-          .byte $ff, SpriteFixed
-          .byte $6c, $30
-          .byte SpriteSign, 29  ; labyrinth sign
-
           .byte 0
 
           ;; Room 59
@@ -522,8 +523,8 @@ SpriteList:
 
           ;; Room 64
           .byte $ff, SpriteFixed
-          .byte $6c, $16
-          .byte SpriteSign, 29  ; labyrinth sign
+          .byte $bc, $38
+          .byte SpriteSign, 30  ; Fred lever
 
           .byte 0
 

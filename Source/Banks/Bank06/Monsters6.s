@@ -172,19 +172,19 @@ Monsters:
 ;;; 28
           .SignText "DRAGON FRED "
           .byte Monster_Dragon
-          .colu COLRED, $0
+          .colu COLBLUE, $0
           .byte 50, 50, 200
           .word $1000
 
           .SignText "DRAGONANDREW"
           .byte Monster_Dragon
-          .colu COLRED, $4
+          .colu COLCYAN, $4
           .byte 50, 50, 200
           .word $1000
 ;;; 30
           .SignText "DRAGON TIMMY"
           .byte Monster_Dragon
-          .colu COLRED, $8
+          .colu COLGREEN, $8
           .byte 50, 50, 200
           .word $1000
 

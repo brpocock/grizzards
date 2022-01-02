@@ -36,3 +36,15 @@ ReturnChild:
 
 ChildReward:
 ♂Thank you for saving Peter.Have this as a reward
+
+Labyrinth:
+To do.I need to write something here.
+
+KeyFred:
+This lever unlocks the door to the dreaded dragon Fred
+
+KeyAndrew:
+This lever unlocks the door to the evil dragon Andrew
+
+KeyTimmy:
+This lever unlocks the door to the wicked dragon Timmy

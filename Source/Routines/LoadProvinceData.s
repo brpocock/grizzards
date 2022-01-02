@@ -29,6 +29,18 @@ LoadProvinceData:   .block
           cpx # 8
           bne -
 
-          jmp i2cStopRead       ; tail call
+          jsr i2cStopRead
+
+          ;; Fill last byte with $ff if flag 55 = 0
+          lda ProvinceFlags + 6
+          bmi +
+
+          ora #$80
+          sta ProvinceFlags + 6
+          lda #$ff
+          sta ProvinceFlags + 7
+
++
+          rts
 
           .bend

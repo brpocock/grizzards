@@ -5,7 +5,7 @@
 
           FirstSignpost = 16
 
-          Signs = (NPC_BrokenRadio, Sign_TunnelClosed, Sign_SpiralWoodsOpen, Sign_PortLionShip, Sign_TunnelMazeBlocked, NPC_LostPendant, Random_FoundPendant, NPC_ReturnPendant, NPC_HaveKey, NPC_LostChild, NPC_IAmLost, NPC_ReturnChild, NPC_ChildReward, Sign_Labyrinth)
+          Signs = (NPC_BrokenRadio, Sign_TunnelClosed, Sign_SpiralWoodsOpen, Sign_PortLionShip, Sign_TunnelMazeBlocked, NPC_LostPendant, Random_FoundPendant, NPC_ReturnPendant, NPC_HaveKey, NPC_LostChild, NPC_IAmLost, NPC_ReturnChild, NPC_ChildReward, Sign_Labyrinth, Sign_KeyFred, Sign_KeyAndrew, Sign_KeyTimmy)
           
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
@@ -153,6 +153,7 @@ NPC_ChildReward:
           .SignText "PETER. HAVE "
           .SignText "THIS -FIXME-"
           .SignText "AS A REWARD."
+          .byte ModeSignpostSetFlag, 1
 
 ;;; 29
 Sign_Labyrinth:
@@ -163,3 +164,38 @@ Sign_Labyrinth:
           .SignText "            "
           .SignText "TODO        "
           .SignText "            "
+          .byte ModeSignpostDone
+
+;;; 30
+Sign_KeyFred:
+          .colu COLBROWN, 0          
+          .colu COLBLUE, $f
+          .SignText "THIS LEVER  "
+          .SignText "UNLOCKS THE "
+          .SignText "DOOR TO THE "
+          .SignText "DREADED     "
+          .SignText "DRAGON FRED."
+          .byte ModeSignpostClearFlag, 60
+
+;;; 31
+Sign_KeyAndrew:
+          .colu COLGREEN, 0
+          .colu COLYELLOW, $f
+          .SignText "THIS LEVER  "
+          .SignText "UNLOCKS THE "
+          .SignText "DOOR TO THE "
+          .SignText "EVIL DRAGON "
+          .SignText "ANDREW.     "
+          .byte ModeSignpostClearFlag, 61
+
+;;; 32
+Sign_KeyTimmy:
+          .colu COLCYAN, 0
+          .colu COLCYAN, $f
+          .SignText "THIS LEVER  "
+          .SignText "UNLOCKS THE "
+          .SignText "DOOR TO THE "
+          .SignText "WICKED      "
+          .SignText "DRAGON TIMMY"
+          .byte ModeSignpostClearFlag, 62
+
