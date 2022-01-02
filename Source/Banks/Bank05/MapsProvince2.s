@@ -2,7 +2,7 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
           ;; How many maps are in these tables?
-MapCount = 66
+MapCount = 67
 
 ;;; Foreground and background colors
 ;;; Remember SECAM and don't make these too similar
@@ -11,19 +11,19 @@ MapColors:
           ;; 0
           .colors COLYELLOW, COLBROWN
           .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
+          .colors COLBROWN, COLBLUE
+          .colors COLBROWN, COLBLUE
+          .colors COLBROWN, COLBLUE
+          .colors COLGREEN, COLYELLOW
+          .colors COLGREEN, COLYELLOW
+          .colors COLGREEN, COLYELLOW
+          .colors COLGREEN, COLYELLOW
+          .colors COLGREEN, COLYELLOW
           ;; 10
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
+          .colors COLCYAN, COLCYAN
+          .colors COLCYAN, COLCYAN
+          .colors COLCYAN, COLCYAN
+          .colors COLCYAN, COLCYAN
           .colors COLYELLOW, COLBROWN
           .colors COLYELLOW, COLBROWN
           .colors COLYELLOW, COLBROWN
@@ -77,6 +77,12 @@ MapColors:
           ;; 60
           .colors COLYELLOW, COLBROWN
           .colors COLYELLOW, COLBROWN
+          .colors COLCYAN, COLCYAN
+          .colors COLCYAN, COLCYAN
+          .colors COLCYAN, COLCYAN
+          .colors COLCYAN, COLCYAN
+          .colors COLCYAN, COLCYAN
+          ;; ↑ 66
 
 ;;; Links up, down, left, right are map indices in this bank
 MapLinks:
@@ -262,15 +268,27 @@ SpriteList:
           .byte 0
 
           ;; Room 3
+          .byte $ff, SpriteFixed
+          .byte $20, $10
+          .byte SpriteGrizzardDepot, 0
+
           .byte 0
 
           ;; Room 4
+          .byte $ff, SpriteFixed
+          .byte $78, $10
+          .byte SpriteProvinceDoor | $10, 46
+
           .byte 0
 
           ;; Room 5
           .byte 0
 
           ;; Room 6
+          .byte $ff, SpriteFixed
+          .byte $20, $30
+          .byte SpriteGrizzardDepot, 0
+
           .byte 0
 
           ;; Room 7
@@ -280,12 +298,20 @@ SpriteList:
           .byte 0
 
           ;; Room 9
+          .byte $ff, SpriteFixed
+          .byte $80, $10
+          .byte SpriteProvinceDoor | $10, 37
+
           .byte 0
 
           ;; Room 10
           .byte 0
 
           ;; Room 11
+          .byte $ff, SpriteFixed
+          .byte $20, $10
+          .byte SpriteGrizzardDepot, 0
+
           .byte 0
 
           ;; Room 12
@@ -340,6 +366,10 @@ SpriteList:
 	.byte 0
 
 	;;Room 29
+          .byte 62, SpriteFixed
+          .byte $30, $30
+          .byte SpriteProvinceDoor | $10, 36
+
 	.byte 0
 
 	;;Room 30
@@ -437,4 +467,23 @@ SpriteList:
 
           ;; Room 61
           .byte 0
+
+          ;; Room 62
+          .byte 0
+
+          ;; Room 63
+          .byte 0
+
+          ;; Room 64
+          .byte 0
+
+          ;; Room 65
+          .byte $ff, SpriteFixed
+          .byte $30, $10
+          .byte SpriteProvinceDoor | $10, 46
+          .byte 0
+
+          ;; Room 66
+          .byte 0
+
           .fill 200

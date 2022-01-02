@@ -168,12 +168,13 @@ MapLinks:
           .byte 56, $ff, 59, $ff
           .byte $ff, 63, $ff, $ff
           .byte $ff, 65, $ff, 63
-          .byte 61, 56, 62, 54
+          .byte 61, 66, 62, 54
           .byte $ff, 67, 63, $ff
           ;; 65
           .byte 62, $ff, $ff, 66
           .byte 63, $ff, 65, 67
           .byte 64, $ff, 66, $ff
+          .byte $ff, 17, $ff, 14
 
 ;;; RLE Map data for each screen.
 
@@ -188,7 +189,7 @@ MapLinks:
           ;; 15
           _ ..= ( Map_ACEF, Map_ABCF, Map_BEF, Map_BEFG, Map_BFG )
           ;; 20
-          _ ..= ( Map_EF, Map_EF, Map_EF, Map_EF, Map_EF )
+          _ ..= ( Map_BEF, Map_EF, Map_EF, Map_EF, Map_EF )
           ;; 25
           _ ..= ( Map_BCDE, Map_BCE, Map_BCEG, Map_BCDE, Map_ACEF )
           ;; 30
@@ -198,9 +199,9 @@ MapLinks:
           ;; 40
           _ ..= ( Map_ABCF, Map_BEF, Map_ABEF, Map_ABE, Map_BDE )
           ;; 45
-          _ ..= ( Map_BCEF, Map_BCDE, Map_BCDEF, Map_ABCF, Map_BEF )
+          _ ..= ( Map_BCEF, Map_BCFG, Map_BCDEF, Map_ABCF, Map_BEF )
           ;; 50
-          _ ..= ( Map_ABFG, Map_ABDEF, Map_BEF, Map_BCEF, Map_BCEF )
+          _ ..= ( Map_BFG, Map_ABDEF, Map_BEF, Map_BCEF, Map_BCEF )
           ;; 55
           _ ..= ( Map_ACEF, Map_CEF, Map_BCDE, Map_DEF, Map_DE )
           ;; 60
@@ -333,21 +334,37 @@ SpriteList:
           .byte 0
 
           ;; Room 24
+          .byte $ff, SpriteFixed
+          .byte $70, $30
+          .byte SpriteDoor, 48
+
           .byte 0
 
           ;; Room 25
+          .byte $ff, SpriteFixed
+          .byte $bc, $38
+          .byte SpriteSign, 29  ; labyrinth sign
+
           .byte 0
 
           ;; Room 26
           .byte 0
 
           ;; Room 27
+          .byte $ff, SpriteFixed
+          .byte $6e, $0f
+          .byte SpriteDoor, 51
+
           .byte 0
 
           ;; Room 28
           .byte 0
 
           ;; Room 29
+          .byte $ff, SpriteFixed
+          .byte $6f, $12
+          .byte SpriteDoor, 62
+
           .byte 0
 
           ;; Room 30
@@ -369,9 +386,16 @@ SpriteList:
           .byte 0
 
           ;; Room 36
+          .byte $ff, SpriteFixed
+          .byte $bf, $38
+          .byte SpriteProvinceDoor | $20, 29
           .byte 0
 
           ;; Room 37
+          .byte $ff, SpriteFixed
+          .byte $3a, $0e
+          .byte SpriteProvinceDoor | $20, 9
+
           .byte 0
 
           ;; Room 38
@@ -407,21 +431,41 @@ SpriteList:
           .byte 0
 
           ;; Room 46
+          .byte $ff, SpriteFixed
+          .byte $7d, $31
+          .byte SpriteProvinceDoor | $20, 65
+
           .byte 0
 
           ;; Room 47
           .byte 0
 
           ;; Room 48
+          .byte $ff, SpriteFixed
+          .byte $70, $30
+          .byte SpriteDoor, 24
+
+          .byte $ff, SpriteFixed
+          .byte $80, $10
+          .byte SpriteSign, 29  ; labyrinth sign
+
           .byte 0
 
           ;; Room 49
           .byte 0
 
           ;; Room 50
+          .byte $ff, SpriteFixed
+          .byte $7c, $0d
+          .byte SpriteDoor, 61
+
           .byte 0
 
           ;; Room 51
+          .byte $ff, SpriteFixed
+          .byte $6e, $0f
+          .byte SpriteDoor, 27
+
           .byte 0
 
           ;; Room 52
@@ -440,9 +484,17 @@ SpriteList:
           .byte 0
 
           ;; Room 57
+          .byte $ff, SpriteFixed
+          .byte $7d, $31
+          .byte SpriteProvinceDoor | $20, 4
+
           .byte 0
 
           ;; Room 58
+          .byte $ff, SpriteFixed
+          .byte $6c, $30
+          .byte SpriteSign, 29  ; labyrinth sign
+
           .byte 0
 
           ;; Room 59
@@ -452,15 +504,27 @@ SpriteList:
           .byte 0
 
           ;; Room 61
+          .byte $ff, SpriteFixed
+          .byte $7c, $0d
+          .byte SpriteDoor, 50
+
           .byte 0
 
           ;; Room 62
+          .byte $ff, SpriteFixed
+          .byte $6f, $12
+          .byte SpriteDoor, 29
+
           .byte 0
 
           ;; Room 63
           .byte 0
 
           ;; Room 64
+          .byte $ff, SpriteFixed
+          .byte $6c, $16
+          .byte SpriteSign, 29  ; labyrinth sign
+
           .byte 0
 
           ;; Room 65

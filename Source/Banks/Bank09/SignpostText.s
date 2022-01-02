@@ -5,7 +5,7 @@
 
           FirstSignpost = 16
 
-          Signs = (NPC_BrokenRadio, Sign_TunnelClosed, Sign_SpiralWoodsOpen, Sign_PortLionShip, Sign_TunnelMazeBlocked, NPC_LostPendant, Random_FoundPendant, NPC_ReturnPendant, NPC_HaveKey, NPC_LostChild, NPC_IAmLost, NPC_ReturnChild, NPC_ChildReward)
+          Signs = (NPC_BrokenRadio, Sign_TunnelClosed, Sign_SpiralWoodsOpen, Sign_PortLionShip, Sign_TunnelMazeBlocked, NPC_LostPendant, Random_FoundPendant, NPC_ReturnPendant, NPC_HaveKey, NPC_LostChild, NPC_IAmLost, NPC_ReturnChild, NPC_ChildReward, Sign_Labyrinth)
           
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
@@ -153,3 +153,13 @@ NPC_ChildReward:
           .SignText "PETER. HAVE "
           .SignText "THIS -FIXME-"
           .SignText "AS A REWARD."
+
+;;; 29
+Sign_Labyrinth:
+          .colu COLRED, $f
+          .colu COLGRAY, 0
+          .SignText "LABYRINTH   "
+          .SignText "SIGNPOST    "
+          .SignText "            "
+          .SignText "TODO        "
+          .SignText "            "
