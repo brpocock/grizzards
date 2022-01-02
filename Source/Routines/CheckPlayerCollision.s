@@ -28,6 +28,8 @@ BumpSprite:
 ActionWithSpriteX:
           cmp #SpriteCombat
           beq FightWithSprite
+          cmp #SpriteMajorCombat
+          beq FightWithSprite
           cmp #SpriteGrizzardDepot
           beq EnterDepot
           cmp #SpriteGrizzard

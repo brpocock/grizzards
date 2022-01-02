@@ -145,13 +145,13 @@ Monsters:
           .colu COLBLUE, $8
           .byte 0, 0, 0
           .word $0010
-
+;;; 24
           .SignText "GIANT  CRAB "
           .byte Monster_Crab
           .colu COLTURQUOISE, $8
           .byte 0, 0, 0
           .word $0010
-
+;;; 25
           .SignText "BIGGER CRAB "
           .byte Monster_Crab
           .colu COLCYAN, $8
@@ -169,24 +169,23 @@ Monsters:
           .colu COLINDIGO, $8
           .byte 0, 0, 0
           .word $0010
-
+;;; 28
           .SignText "DRAGON FRED "
           .byte Monster_Dragon
           .colu COLRED, $0
           .byte 50, 50, 200
           .word $1000
 
-
           .SignText "DRAGONANDREW"
           .byte Monster_Dragon
           .colu COLRED, $4
-          .byte 0, 0, 0
+          .byte 50, 50, 200
           .word $1000
 
           .SignText "DRAGON TIMMY"
           .byte Monster_Dragon
           .colu COLRED, $8
-          .byte 0, 0, 0
+          .byte 50, 50, 200
           .word $1000
 
           .SignText " UBER  SLIME"

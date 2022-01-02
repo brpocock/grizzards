@@ -20,7 +20,7 @@ EncounterMonster:
           .byte 0, 1, 2, 3, 4, 5, 6, 7
           .byte 0, 1, 2, 3, 4, 5, 6, 7
           .byte 0, 1, 2, 3, 4, 5, 6, 7
-          .byte 0, 1, 2, 3, 4, 5, 6, 7
+          .byte 0, 1, 2, 3, 4, 28, 29, 30
           ;; ↑ 127
 
 EncounterQuantity:

@@ -172,49 +172,33 @@ MapLinks:
 ;;; Note that it can be reused, so the same basic layout, potentially
 ;;; in different colors, can appear in several places.
           ;; 0
-          _ := (Map_SouthDock, Map_SouthShoreCorner, Map_FourWay, Map_FourWay, Map_FourWay)
+          _ := ( Map_SouthDock, Map_SouthShoreCorner, Map_DoorTop, Map_DoorTopBottom, Map_DoorBottom )
           ;; 5
-          _ ..= (Map_FourWay, Map_FourWay, Map_FourWay, Map_FourWay, Map_FourWay)
+          _ ..= ( Map_DoorBottom, Map_OpenBottomDoorTop, Map_ClosedSides, Map_OpenTopDoorSides, Map_EWOval )
           ;; 10
-          _ ..= (Map_FourWay, Map_FourWay, Map_FourWay, Map_FourWay, Map_SouthShore)
+          _ ..= ( Map_DoorBottom, Map_DoorBottomSplit, Map_DoorTopSplit, Map_OpenSidesSplit, Map_SouthShore )
           ;; 15
-          _ ..= (Map_SouthShore, Map_SouthShore, Map_SouthShore, Map_NorthGate, Map_NorthWall)
+          _ ..= ( Map_SouthShore, Map_SouthShore, Map_SouthShore, Map_NorthGate, Map_NorthWall )
           ;; 20
-          _ ..= (Map_NorthWall, Map_NorthGate, Map_NorthWall, Map_NorthWall, Map_FourWay)
+          _ ..= ( Map_NorthWall, Map_NorthGate, Map_NorthWall, Map_NorthSouthWall, Map_FourWay )
           ;; 25
-          _ ..= (Map_EWPassage, Map_EWPassage, Map_FourWay, Map_EWLarge, Map_EWLarge)
+          _ ..= ( Map_EWPassage, Map_EWPassage, Map_FourWay, Map_EWLarge, Map_EWLarge )
           ;; 30
-          _ ..= (Map_HouseSouthWall, Map_HouseSouthWall, Map_HouseSouthWall, Map_HouseSouthGate, Map_SouthWallCorners)
+          _ ..= ( Map_HouseSouthWall, Map_HouseSouthWall, Map_HouseSouthWall, Map_HouseSouthGate, Map_SouthWallCorners )
           ;; 35
-          _ ..= (Map_House, Map_House, Map_House, Map_House, Map_NorthWallCorners)
+          _ ..= ( Map_House, Map_House, Map_House, Map_House, Map_NorthWallCorners )
           ;; 40
-          _ ..= (Map_NorthWallCorners, Map_NorthWallCorners, Map_NorthGateCorners, Map_NorthWallCorners, Map_EWLarge)
+          _ ..= ( Map_NorthWallCorners, Map_NorthWallCorners, Map_NorthGateCorners, Map_NorthWallCorners, Map_EWLarge )
           ;; 45
-          _ ..= (Map_EWPassage, Map_FourWay, Map_EWLarge, Map_SouthWall, Map_SouthGate)
+          _ ..= ( Map_EWPassage, Map_FourWay, Map_EWLarge, Map_SouthWall, Map_SouthGate )
           ;; 50
-          _ ..= (Map_SouthWall, Map_NorthShore, Map_NorthShore, Map_NorthShore, Map_InHouse)
+          _ ..= ( Map_SouthWall, Map_NorthShore, Map_NorthShore, Map_NorthShore, Map_InHouse )
           ;; 55
-          _ ..= (Map_InHouse, Map_InHouse, Map_InHouse, Map_InHouse, Map_InHouse)
+          _ ..= ( Map_InHouse, Map_InHouse, Map_InHouse, Map_InHouse, Map_InHouse )
           ;; 60
-          _ ..= (Map_InHouse)
-
-          _ ..= ( Map_EWOval )
-          _ ..= ( Map_OpenTopDoorSides )
-          _ ..= ( Map_ClosedTop )
-          _ ..= ( Map_OpenBottomDoorTop )
+          _ ..= ( Map_InHouse, Map_InHouse, Map_DoorTop, Map_OpenSides, Map_ClosedTop )
           ;; 65
-          _ ..= ( Map_DoorBottom )
-          _ ..= ( Map_DoorTopBottom )
-          _ ..= ( Map_DoorTop )
-          _ ..= ( Map_DoorBottomSplit )
-          _ ..= ( Map_DoorTopSplit )
-          ;; 70
-          _ ..= ( Map_OpenRightSplitLeft )
-          _ ..= ( Map_OpenSidesDoorTop )
-          _ ..= ( Map_OpenSides )
-          _ ..= ( Map_DoorLeftOpenTopRight )
-          _ ..= ( Map_Open )
-          ;;  75
+          _ ..= ( Map_EWOval, Map_OpenTopDoorSides )
 
           MapRLE = _
 
@@ -228,10 +212,10 @@ MapRLEH:  .byte >MapRLE
 ;;; $80 = left, $40 = right ball.
 MapSides:
           .byte $40, 0, 0, 0, 0
-          .byte 0, 0, 0, 0, 0
+          .byte 0, 0, 0, $80, $40
           ;; 10
           .byte 0, 0, 0, 0, 0
-          .byte 0, 0, $80, $40, 0
+          .byte 0, 0, 0, 0, 0
           ;; 20
           .byte 0, 0, $80, 0, $40
           .byte 0, 0, 0, 0, $80
@@ -245,7 +229,8 @@ MapSides:
           .byte $80, $40, 0, $80, 0
           .byte 0, 0, 0, 0, 0
           ;; 60
-          .byte 0, 0
+          .byte 0, 0, $80, 0, $40
+          .byte $80, $40
 
 ;;; The Sprites Lists
 ;;;
@@ -265,6 +250,10 @@ SpriteList:
           .byte 0
 
           ;; Room 2
+          .byte 1, SpriteWander
+          .byte 0, 0
+          .byte SpriteMajorCombat, 125
+
           .byte 0
 
           ;; Room 3
@@ -282,11 +271,15 @@ SpriteList:
           .byte 0
 
           ;; Room 5
+          .byte 2, SpriteWander
+          .byte 0, 0
+          .byte SpriteMajorCombat, 126
+
           .byte 0
 
           ;; Room 6
           .byte $ff, SpriteFixed
-          .byte $20, $30
+          .byte $3e, $1d
           .byte SpriteGrizzardDepot, 0
 
           .byte 0
@@ -305,6 +298,10 @@ SpriteList:
           .byte 0
 
           ;; Room 10
+          .byte 3, SpriteWander
+          .byte 0, 0
+          .byte SpriteMajorCombat, 127
+
           .byte 0
 
           ;; Room 11
