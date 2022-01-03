@@ -404,6 +404,15 @@ NoButton:
           jmp Loop
 
 Leave:
+          cmp #ModeTrainLastMove
+          bne NotTrainLastMove
+
+          lda MovesKnown
+          ora #$f0
+          sta MovesKnown
+          jmp Leave
+
+NotTrainLastMove:
           cmp #ModeSignpostSet0And63
           bne NotSet0And63
 

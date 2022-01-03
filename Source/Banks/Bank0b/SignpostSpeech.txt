@@ -1,58 +1,26 @@
-Beware:
-Beware.This route ledes to many evil monsters.Be careful
+Miranda1:
+♀I'm Miranda.I've lost my favorite mirror,if you see it
 
-FireSwamp:
-Now entering the fire bog. Be wary of flame doggos and rodents of unusual size
+SueMirror:
+♀O,Miranda left that old mirror here again.Take it
 
-SouthGate:
-♀To the south are tunnels to the field where many people liv
+Sue:
+♀I'm Sue.My friend is an expert at legends,Miranda
 
-TunnelBlocked:
-♀I can't open the tunnels with out the two artifacts.Bring them
+MirandaMirror:
+♀You've found my mirror.Let's talk about those old legends
 
-TunnelOpen:
-♀Now that you brought them I can open the tunnels.
-☿This is the end of the demo area for Grizzards.Thank you for playing
+MirandaTip1:
+♀They say you can find the bosses of the monsters in Hell
 
-Artifact:
-♂I have one of the two artifacts.Who says you can ¿ take it
+MirandaTip2:
+♀They say if you want to go into Hell it's through a labyrinth
 
-TakeArtifact1:
-♂I have one of the two artifacts.Take this to the tunnels
+MirandaTip3:
+♀Maybe Fat Tony can show you the labyrinth's entrance
 
-TakeArtifact2:
-♂I have one of the two artifacts.Take this to the tunnels
+NeedRing:
+♂In the old stories a magic ring opens the labyrinth
 
-TookArtifact:
-♂I hope my artifact can help you to defeat all the monsters
-
-LostMines:
-The lost mine is closed due to a cave-in
-
-SpiralWoods:
-The spiral woods are closed.No entrance
-
-TrebleVillage:
-Treble Village.Flee now.The monsters are coming
-
-TrebleVillageNPC:
-♂I'm getting out of here.The monsters keep getting closer to us
-
-TrebleDocks:
-Treble docks.To Port Lion.No ships are in port now
-
-WesternRoad:
-To the west, the lost mine.To the east,the spiral woods and Mount Peshon tunnel complex
-
-Artifact1Scared:
-♂I have the artifact hidden from the monsters. Save me.
-
-TunnelOpenFull:
-♀Now that you brought them I can open the tunnels.
-
-SpiralWoodsOpen:
-Now entering the Spiral Woods.Danger
-
-PortLionShip:
-Treble Docks.Next ship to Port Lion departing.All aboard
-
+GotRing:
+♂With this magic ring,I will now reveal the labyrinth

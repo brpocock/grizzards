@@ -1,58 +1,51 @@
-Beware:
-Beware.This route ledes to many evil monsters.Be careful
+TrainEm:
+♀Grizzards can defeat monsters if you train them well
 
-FireSwamp:
-Now entering the fire bog. Be wary of flame doggos and rodents of unusual size
+Gary1:
+♂Miranda talks too much about old stuff.How boring
 
-SouthGate:
-♀To the south are tunnels to the field where many people liv
+GaryBad:
+♂Gary doesn't like Miranda very much.They fight often
 
-TunnelBlocked:
-♀I can't open the tunnels with out the two artifacts.Bring them
+Slacker:
+♀Gary livs just south of me.Such a grouchy slacker
 
-TunnelOpen:
-♀Now that you brought them I can open the tunnels.
-☿This is the end of the demo area for Grizzards.Thank you for playing
+LastMove:
+♂I can train any of your Grizzards their last move
 
-Artifact:
-♂I have one of the two artifacts.Who says you can ¿ take it
+GaryMirror:
+♂No,I don't know where Miranda's dumb mirror has got to
 
-TakeArtifact1:
-♂I have one of the two artifacts.Take this to the tunnels
+GaryVindicated:
+♂So she's got her mirror back.See if she'll ever apologize
 
-TakeArtifact2:
-♂I have one of the two artifacts.Take this to the tunnels
+Fishing:
+♂I fish here whenever the monsters let me be,which is not often
 
-TookArtifact:
-♂I hope my artifact can help you to defeat all the monsters
+FoundRing:
+♂You looking for a ¿ magic ring♂I found this in the sea
 
-LostMines:
-The lost mine is closed due to a cave-in
+TrebleRefugee:
+♂Port Lion is pretty safe,not like my home town,Treble
 
-SpiralWoods:
-The spiral woods are closed.No entrance
+HowLong:
+♀People flee here from other towns.How long is ? it safe
 
-TrebleVillage:
-Treble Village.Flee now.The monsters are coming
+FatTony:
+♀Fat Tony was raised here,and knows all about our island
 
-TrebleVillageNPC:
-♂I'm getting out of here.The monsters keep getting closer to us
+WelcomePortLion:
+♂I'm Fat Tony.Welcome to Port Lion.I'm the best at geography
 
-TrebleDocks:
-Treble docks.To Port Lion.No ships are in port now
+LookUpCliff:
+♂It's me,Fat Tony.Did you ever see a cliff so ¿ very tall
 
-WesternRoad:
-To the west, the lost mine.To the east,the spiral woods and Mount Peshon tunnel complex
+Hellmouth:
+♂It's me,Fat Tony.In an old story,this was the road to Hell
 
-Artifact1Scared:
-♂I have the artifact hidden from the monsters. Save me.
+CanYouSwim:
+♂It's me,Fat Tony.Can ¿ you swim♂If not,the sea is dangerous
 
-TunnelOpenFull:
-♀Now that you brought them I can open the tunnels.
-
-SpiralWoodsOpen:
-Now entering the Spiral Woods.Danger
-
-PortLionShip:
-Treble Docks.Next ship to Port Lion departing.All aboard
+Allen:
+♂I'm Allen.They say in legends the monsters are from Hell
 

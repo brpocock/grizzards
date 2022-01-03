@@ -115,22 +115,22 @@ NPC_HaveKey:
 NPC_LostChild:
           .colu COLINDIGO, 0
           .colu COLTURQUOISE, $9
-          .SignText "OH NO! MY   "
-          .SignText "SON PETE HAS"
-          .SignText "RUN OFF TO  "
-          .SignText "SEE THE LOST"
-          .SignText "MINE! HELP! "
+          .SignText "MY SON PETER"
+          .SignText "HAS GONE    "
+          .SignText "MISSING NEAR"
+          .SignText "THE TOP OF  "
+          .SignText "THE CLIFFS! "
           .byte ModeSignpostClearFlag,  63
 
 ;;; 26
 NPC_IAmLost:
           .colu COLINDIGO, $4
           .colu COLTURQUOISE, $f
-          .SignText "I'M PETER.  "
-          .SignText "I CAME FROM "
-          .SignText "PORT LION   "
-          .SignText "AND GOT LOST"
-          .SignText "TAKE ME HOME"
+          .SignText "MY NAME IS  "
+          .SignText "PETER. I    "
+          .SignText "WANT TO GO  "
+          .SignText "HOME TO PORT"
+          .SignText "LION NOW.   "
           .byte ModeSignpostSet0And63
 
 ;;; 27
@@ -198,4 +198,5 @@ Sign_KeyTimmy:
           .SignText "WICKED      "
           .SignText "DRAGON TIMMY"
           .byte ModeSignpostClearFlag, 62
+
 

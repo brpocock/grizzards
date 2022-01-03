@@ -26,16 +26,16 @@ HaveKey:
 ♀That key can open my cave to the north where I left my Grizzards
 
 LostChild:
-♂O no.My son Pete has run off to see the Lost Mine.Help
+♂My son Peter has gone missing near the top of the cliffs
 
 IAmLost:
-♀I'm Peter.I came from Port Lion and got lost.Take me home
+♀My name is Peter.I want to go home to Port Lion now
 
 ReturnChild:
 ♂Peter,you are home...♀Daddy,I'm safe now
 
 ChildReward:
-♂Thank you for saving Peter.Have this as a reward
+♂Thank you for saving Peter.Have this as a reward.To do
 
 Labyrinth:
 To do.I need to write something here.
@@ -48,3 +48,6 @@ This lever unlocks the door to the evil dragon Andrew
 
 KeyTimmy:
 This lever unlocks the door to the wicked dragon Timmy
+
+
+

@@ -363,7 +363,7 @@ SpriteList:
 	.byte 0
 
 	;;Room 29
-          .byte 62, SpriteFixed
+          .byte 56, SpriteFixed
           .byte $30, $30
           .byte SpriteProvinceDoor | $10, 36
 
