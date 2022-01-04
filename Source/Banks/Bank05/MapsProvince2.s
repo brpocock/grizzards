@@ -248,7 +248,6 @@ SpriteList:
           .byte $4d, $1a
           .byte SpritePerson, 45 ; Fat Tony is best at geography
 
-
           .byte $ff, SpriteFixed
           .byte $ba, $25
           .byte SpriteSign, 66  ; docks to Treble

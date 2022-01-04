@@ -310,12 +310,17 @@ SpriteList:
           .byte $ff, SpriteFixed
           .byte $8a, $30
           .byte SpriteDoor, 40
+
           .byte 0
 
           ;; Room 17
           .byte 0
 
           ;; Room 18
+          .byte $ff, SpriteFixed
+          .byte $53, $1d
+          .byte SpriteSign, 67  ; find Andrew
+
           .byte 0
 
           ;; Room 19
@@ -355,6 +360,10 @@ SpriteList:
           .byte $6e, $0f
           .byte SpriteDoor, 51
 
+          .byte $ff, SpriteFixed
+          .byte $bb, $1d
+          .byte SpriteSign, 71  ; read runes
+
           .byte 0
 
           ;; Room 28
@@ -368,6 +377,10 @@ SpriteList:
           .byte 0
 
           ;; Room 30
+          .byte $ff, SpriteFixed
+          .byte $b0, $40
+          .byte SpriteSign, 69  ; find TImmy
+
           .byte 0
 
           ;; Room 31
@@ -535,6 +548,10 @@ SpriteList:
           .byte 0
 
           ;; Room 67
+          .byte $ff, SpriteFixed
+          .byte $89, $31
+          .byte SpriteSign, 68  ; find Fred
+
           .byte 0
 
           ;; Room 67

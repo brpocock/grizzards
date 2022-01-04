@@ -1,58 +1,18 @@
-Beware:
-Beware.This route ledes to many evil monsters.Be careful
+FindAndrew:
+The evil dragon Andrew is in the north-west corner
 
-FireSwamp:
-Now entering the fire bog. Be wary of flame doggos and rodents of unusual size
+FindFred:
+The dreaded dragon Fred livs in the south-west corner
 
-SouthGate:
-♀To the south are tunnels to the field where many people liv
+FindTimmy:
+The wicked dragon Timmy has a lair at the very center
 
-TunnelBlocked:
-♀I can't open the tunnels with out the two artifacts.Bring them
+DragonHints:
+All three of the dragons liv on the second level under-ground
 
-TunnelOpen:
-♀Now that you brought them I can open the tunnels.
-☿This is the end of the demo area for Grizzards.Thank you for playing
+GetDragonHints:
+Now you can understand the ancient carvings on the walls
 
-Artifact:
-♂I have one of the two artifacts.Who says you can ¿ take it
-
-TakeArtifact1:
-♂I have one of the two artifacts.Take this to the tunnels
-
-TakeArtifact2:
-♂I have one of the two artifacts.Take this to the tunnels
-
-TookArtifact:
-♂I hope my artifact can help you to defeat all the monsters
-
-LostMines:
-The lost mine is closed due to a cave-in
-
-SpiralWoods:
-The spiral woods are closed.No entrance
-
-TrebleVillage:
-Treble Village.Flee now.The monsters are coming
-
-TrebleVillageNPC:
-♂I'm getting out of here.The monsters keep getting closer to us
-
-TrebleDocks:
-Treble docks.To Port Lion.No ships are in port now
-
-WesternRoad:
-To the west, the lost mine.To the east,the spiral woods and Mount Peshon tunnel complex
-
-Artifact1Scared:
-♂I have the artifact hidden from the monsters. Save me.
-
-TunnelOpenFull:
-♀Now that you brought them I can open the tunnels.
-
-SpiralWoodsOpen:
-Now entering the Spiral Woods.Danger
-
-PortLionShip:
-Treble Docks.Next ship to Port Lion departing.All aboard
+Ancient:
+There are old runes carved here,but you can not read it
 
