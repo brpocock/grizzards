@@ -56,64 +56,64 @@ Monster6_18:
 Cave Bat
 
 Monster6_19:
-Monster
+Venom Sheep
 
 Monster6_20:
-Monster
+One-eyed Cyclops
 
 Monster6_21:
-Monster
+Fierce raptor
 
 Monster6_22:
-Monster
+Devil Eagle
 
 Monster6_23:
-Monster
+Round Robin
 
 Monster6_24:
-Monster
+Giant Crab
 
 Monster6_25:
-Monster
+Bigger Crab
 
 Monster6_26:
-Monster
+Mean Robber
 
 Monster6_27:
-Monster
+Giant Slime
 
 Monster6_28:
-Monster
+Dreaded Dragon Fred
 
 Monster6_29:
-Monster
+Evil Dragon Andrew
 
 Monster6_30:
-Monster
+Wicked Dragon Timmy
 
 Monster6_31:
-Monster
+Uber Slime
 
 Monster6_32:
-Monster
+Desert Eagle
 
 Monster6_33:
-Monster
+Crazed robber
 
 Monster6_34:
-Monster
+Great Worm
 
 Monster6_35:
-Monster
+Poison Asp
 
 Monster6_36:
-Monster
+Grabby Crabby
 
 Monster6_37:
-Monster
+Giant Bat
 
 Monster6_38:
-Monster
+Maze Puma
 
 Monster6_39:
 Monster

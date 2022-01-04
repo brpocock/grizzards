@@ -224,14 +224,14 @@ Monsters:
           .byte 0, 0, 0
           .word $0010
 
-          .SignText "MONSTR  37  "
-          .byte Monster_Bunny
-          .colu COLBLUE, $8
+          .SignText "GIANT  BAT  "
+          .byte Monster_Bat
+          .colu COLGRAY, $4
           .byte 0, 0, 0
-          .word $0010
+          .word $0100
 
-          .SignText "MONSTR  38  "
-          .byte Monster_Bunny
+          .SignText " MAZE  PUMA "
+          .byte Monster_Cat
           .colu COLBLUE, $8
           .byte 0, 0, 0
           .word $0010
