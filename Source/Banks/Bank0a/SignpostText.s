@@ -26,6 +26,7 @@ NPC_TrainEm:
 NPC_Gary1:
           .colu COLINDIGO, 2
           .colu COLTURQUOISE, $f
+          .byte $ff, 7, 38      ; looking for mirror
           .SignText "MIRANDA     "
           .SignText "TALKS TOO   "
           .SignText "MUCH ABOUT  "
@@ -69,6 +70,7 @@ NPC_LastMove:
 NPC_GaryMirror:
           .colu COLINDIGO, 2
           .colu COLTURQUOISE, $f
+          .byte $ff, 8, 61      ; have mirror, haven't returned
           .SignText "NO, I DON'T "
           .SignText "KNOW WHERE  "
           .SignText "MIRANDA'S   "
@@ -91,6 +93,7 @@ NPC_GaryVindicated:
 NPC_Fishing:
           .colu COLINDIGO, 0
           .colu COLCYAN, $9
+          .byte $ff, 15, 41     ; looking for ring?
           .SignText "I FISH HERE "
           .SignText "WHENEVER THE"
           .SignText "MONSTERS LET"
@@ -102,6 +105,7 @@ NPC_Fishing:
 NPC_FoundRing:
           .colu COLINDIGO, 0
           .colu COLCYAN, $9
+          .byte $ff, 13, 63     ; already got the ring
           .SignText "YOU LOOKING "
           .SignText "FOR A MAGIC "
           .SignText "RING? I     "
@@ -158,16 +162,17 @@ NPC_LookUpCliff:
           .colu COLINDIGO, $f
           .colu COLTURQUOISE, 2
           .SignText "IT'S ME, FAT"
-          .SignText "TONY. DID   "
-          .SignText "YOU EVER SEE"
-          .SignText "CLIFFS SO   "
-          .SignText "VERY TALL?  "
+          .SignText "TONY. LOOK  "
+          .SignText "UP AT HOW   "
+          .SignText "TALL THE    "
+          .SignText "CLIFFS ARE! "
           .byte ModeSignpostDone
 
 ;;; 47
 NPC_Hellmouth:
           .colu COLINDIGO, $f
           .colu COLTURQUOISE, 2
+          .byte $ff, 12, 57     ; need ring
           .SignText "IT'S ME, FAT"
           .SignText "TONY. IN AN "
           .SignText "OLD STORY,  "

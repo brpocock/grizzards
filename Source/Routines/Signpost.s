@@ -85,7 +85,7 @@ NoBankUp:
           lda (SignpostWork), y ; conditional?
           cmp #$ff
           bne Unconditional
-
+Conditional:
           iny
           lda (SignpostWork), y ; bit flag upon which it's conditional
           tay
@@ -408,7 +408,7 @@ Leave:
           bne NotTrainLastMove
 
           lda MovesKnown
-          ora #$f0
+          ora #$80
           sta MovesKnown
           jmp Leave
 

@@ -9,8 +9,8 @@ MapCount = 67
 
 MapColors:
           ;; 0
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
+          .colors COLBLUE, COLBROWN
+          .colors COLBLUE, COLBROWN
           .colors COLBROWN, COLBLUE
           .colors COLBROWN, COLBLUE
           .colors COLBROWN, COLBLUE
@@ -24,59 +24,59 @@ MapColors:
           .colors COLCYAN, COLCYAN
           .colors COLCYAN, COLCYAN
           .colors COLCYAN, COLCYAN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
+          .colors COLBLUE, COLBROWN
+          .colors COLBLUE, COLBROWN
+          .colors COLBLUE, COLBROWN
+          .colors COLBLUE, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
           ;; 20
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
           ;; 30
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
           ;; 40
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
           ;; 50
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLBLUE, COLBROWN
+          .colors COLBLUE, COLBROWN
+          .colors COLBLUE, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
           ;; 60
-          .colors COLYELLOW, COLBROWN
-          .colors COLYELLOW, COLBROWN
+          .colors COLRED, COLBROWN
+          .colors COLRED, COLBROWN
           .colors COLCYAN, COLCYAN
           .colors COLCYAN, COLCYAN
           .colors COLCYAN, COLCYAN
@@ -124,7 +124,7 @@ MapLinks:
           ;; 30
           .byte 35, 24, 31, $ff
           .byte 36, 25, 32, 30
-          .byte 37, 26, 27, 25
+          .byte 37, 26, 33, 31
           .byte 38, 27, 34, 32
           .byte 39, 28, $ff, 33
           ;; 35
@@ -132,7 +132,7 @@ MapLinks:
           .byte 41, 31, 37, 35
           .byte 42, 32, 38, 36
           .byte 43, 33, 39, 37
-          .byte $ff, 34, $44, 33
+          .byte $ff, 34, $ff, 38
           ;; 40
           .byte 44, 30, 36, $ff
           .byte 45, 36, 42, 40
@@ -244,6 +244,15 @@ MapSides:
 ;;; visible on the screen.
 SpriteList:
           ;; Room 0
+          .byte $ff, SpriteWander
+          .byte $4d, $1a
+          .byte SpritePerson, 45 ; Fat Tony is best at geography
+
+
+          .byte $ff, SpriteFixed
+          .byte $ba, $25
+          .byte SpriteSign, 66  ; docks to Treble
+          
           .byte 0
 
           ;; Room 1
@@ -260,6 +269,10 @@ SpriteList:
           .byte $ff, SpriteFixed
           .byte $b3, $35
           .byte SpriteGrizzardDepot, 0
+
+          .byte 0, SpriteWander
+          .byte $52, $34
+          .byte SpritePerson, 26 ; Peter (found now)
 
           .byte 0
 
@@ -364,36 +377,72 @@ SpriteList:
 
 	;;Room 29
           .byte 56, SpriteFixed
-          .byte $30, $30
+          .byte $6f, $12
           .byte SpriteProvinceDoor | $10, 36
+
+          .byte $ff, SpriteWander
+          .byte $6f, $3c
+          .byte SpritePerson, 47 ; road to Hades
 
 	.byte 0
 
 	;;Room 30
+          .byte $ff, SpriteFixed
+          .byte $7c, $2f
+          .byte SpriteDoor, 54
+
 	.byte 0
 
 	;;Room 31
+          .byte $ff, SpriteFixed
+          .byte $7c, $2f
+          .byte SpriteDoor, 55
+
 	.byte 0
 
 	;;Room 32
+          .byte $ff, SpriteFixed
+          .byte $7c, $2f
+          .byte SpriteDoor, 56
+
 	.byte 0
 
 	;;Room 33
+          .byte $ff, SpriteFixed
+          .byte $7c, $2f
+          .byte SpriteDoor, 57
+
 	.byte 0
 
 	;;Room 34
 	.byte 0
 
 	;;Room 35
+          .byte $ff, SpriteFixed
+          .byte $7c, $2f
+          .byte SpriteDoor, 58
+
 	.byte 0
 
 	;;Room 36
+          .byte $ff, SpriteFixed
+          .byte $7c, $2f
+          .byte SpriteDoor, 59
+
 	.byte 0
 
 	;;Room 37
+          .byte $ff, SpriteFixed
+          .byte $7c, $2f
+          .byte SpriteDoor, 60
+
 	.byte 0
 
 	;;Room 38
+          .byte $ff, SpriteFixed
+          .byte $7c, $2f
+          .byte SpriteDoor, 61
+
 	.byte 0
 
 	;;Room 39
@@ -433,6 +482,10 @@ SpriteList:
           .byte 0
 
           ;; Room 51
+          .byte $ff, SpriteFixed
+          .byte $b0, $27
+          .byte SpritePerson, 40 ; fishing
+
           .byte 0
 
           ;; Room 52
@@ -442,27 +495,99 @@ SpriteList:
           .byte 0
 
           ;; Room 54
+          .byte $ff, SpriteFixed
+          .byte $7c, $2f
+          .byte SpriteDoor, 30
+
+          .byte $ff, SpriteWander
+          .byte $7c, $18
+          .byte SpritePerson, 33 ; Train 'em
+
           .byte 0
 
           ;; Room 55
+          .byte $ff, SpriteFixed
+          .byte $7c, $2f
+          .byte SpriteDoor, 31
+
+          .byte $ff, SpriteWander
+          .byte $7c, $18
+          .byte SpritePerson, 25 ; Peter's dad
+
           .byte 0
 
           ;; Room 56
+          .byte $ff, SpriteFixed
+          .byte $7c, $2f
+          .byte SpriteDoor, 32
+
+          .byte $ff, SpriteWander
+          .byte $7c, $18
+          .byte SpritePerson, 34 ; Gary
+
           .byte 0
 
           ;; Room 57
+          .byte $ff, SpriteFixed
+          .byte $7c, $2f
+          .byte SpriteDoor, 33
+
+          .byte $ff, SpriteWander
+          .byte $7c, $18
+          .byte SpritePerson, 50 ; Miranda
+
           .byte 0
 
           ;; Room 58
+          .byte $ff, SpriteFixed
+          .byte $7c, $2f
+          .byte SpriteDoor, 35
+
+          .byte $ff, SpriteWander
+          .byte $7c, $18
+          .byte SpritePerson, 35 ; They fight
+
           .byte 0
 
           ;; Room 59
+          .byte $ff, SpriteFixed
+          .byte $7c, $2f
+          .byte SpriteDoor, 36
+
+          .byte $ff, SpriteWander
+          .byte $7c, $18
+          .byte SpritePerson, 52 ; Sue
+
+          .byte $ff, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpritePerson, 51 ; Sue (Mirror)
+
           .byte 0
 
           ;; Room 60
+          .byte $ff, SpriteFixed
+          .byte $7c, $2f
+          .byte SpriteDoor, 37
+
+          .byte $ff, SpriteWander
+          .byte $7c, $18
+          .byte SpritePerson, 36 ; Gary's a slacker
+
           .byte 0
 
           ;; Room 61
+          .byte $ff, SpriteFixed
+          .byte $7c, $2f
+          .byte SpriteDoor, 38
+
+          .byte $ff, SpriteWander
+          .byte $7c, $18
+          .byte SpritePerson, 37 ; Last Move guy
+
+          .byte $ff, SpriteFixed
+          .byte $93, $3d
+          .byte SpriteGrizzardDepot, 0
+
           .byte 0
 
           ;; Room 62

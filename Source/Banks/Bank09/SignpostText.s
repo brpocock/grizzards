@@ -14,6 +14,7 @@ SignL:    .byte <(Signs)
 NPC_BrokenRadio:
           .colu COLINDIGO, 0
           .colu COLBLUE, $9
+          .byte $ff, 25, 19
           .SignText "IF YOU FIX  "
           .SignText "MY RADIO SET"
           .SignText "I COULD CALL"
@@ -52,7 +53,7 @@ Sign_PortLionShip:
           .SignText "PORT LION   "
           .SignText "DEPARTING.  "
           .SignText "ALL ABOARD! "
-          .byte ModeSignpostDone
+          .byte ModeSignpostWarp, 2, 0
 
 ;;; 20
 Sign_TunnelMazeBlocked:
@@ -92,7 +93,6 @@ Random_FoundPendant:
 NPC_ReturnPendant:
           .colu COLINDIGO, 0
           .colu COLTURQUOISE, $9
-          .byte $ff, 63, 24
           .SignText "YOU'RE GREAT"
           .SignText "THAT'S MY   "
           .SignText "PENDANT. YOU"
@@ -115,6 +115,7 @@ NPC_HaveKey:
 NPC_LostChild:
           .colu COLINDIGO, 0
           .colu COLTURQUOISE, $9
+          .byte $ff, 0, 27      ; found Peter already
           .SignText "MY SON PETER"
           .SignText "HAS GONE    "
           .SignText "MISSING NEAR"
@@ -137,6 +138,7 @@ NPC_IAmLost:
 NPC_ReturnChild:
           .colu COLINDIGO, $0
           .colu COLTURQUOISE, $f
+          .byte $ff, 1, 28      ; already returned Peter
           .SignText "PETER! YOU  "
           .SignText "ARE HOME!   "
           .SignText "    -  -    "
@@ -148,12 +150,13 @@ NPC_ReturnChild:
 NPC_ChildReward:
           .colu COLINDIGO, 0
           .colu COLTURQUOISE, $9
+          .byte $ff, 2, 60      ; already been rewarded
           .SignText "THANK YOU   "
           .SignText "FOR SAVING  "
           .SignText "PETER. HAVE "
           .SignText "THIS -FIXME-"
           .SignText "AS A REWARD."
-          .byte ModeSignpostSetFlag, 1
+          .byte ModeSignpostSetFlag, 2
 
 ;;; 29
 Sign_Labyrinth:

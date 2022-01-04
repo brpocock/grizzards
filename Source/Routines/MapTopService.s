@@ -127,13 +127,16 @@ SetUpSprites:
           lda # SpriteDoor
 +
           ldy AlarmCountdown
-          beq +
+          beq NoPuff
+          cmp #SpriteMajorCombat
+          beq Puff
           cmp #SpriteCombat
-          bne +
+          bne NoPuff
+Puff:
           lda SpriteColor + SpriteCombatPuff
           sta COLUP1
           lda #SpriteCombatPuff
-+
+NoPuff:
           .rept 4
           asl a
           .next
