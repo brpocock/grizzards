@@ -759,6 +759,10 @@ SpriteList:
 	.byte 0
 
           ;; Room 47
+          .byte 29, SpriteFixed
+          .byte $44, $1d
+          .byte SpritePerson, 73 ; Radio shack
+
           .byte 0
 
           ;; Room 48

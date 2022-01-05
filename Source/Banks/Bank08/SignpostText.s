@@ -64,8 +64,8 @@ NPC_TunnelOpen:
 NPC_Artifact:
           .colu COLINDIGO, 0
           .colu COLTURQUOISE, $9
-          .SignText "I HAVE 1 OF "
-          .SignText "THE TWO     "
+          .SignText "I HAVE ONE  "
+          .SignText "OF THE TWO  "
           .SignText "ARTIFACTS.  "
           .SignText "WHO SAYS YOU"
           .SignText "CAN TAKE IT?"
@@ -74,8 +74,8 @@ NPC_Artifact:
 NPC_TakeArtifact1:
           .colu COLINDIGO, 0
           .colu COLTURQUOISE, $9
-          .SignText "I HAVE 1 OF "
-          .SignText "THE TWO     "
+          .SignText "I HAVE ONE  "
+          .SignText "OF THE TWO  "
           .SignText "ARTIFACTS.  "
           .SignText "TAKE THIS TO"
           .SignText "THE TUNNELS."
@@ -84,8 +84,8 @@ NPC_TakeArtifact1:
 NPC_TakeArtifact2:
           .colu COLINDIGO, 0
           .colu COLTURQUOISE, $9
-          .SignText "I HAVE 1 OF "
-          .SignText "THE TWO     "
+          .SignText "I HAVE ONE  "
+          .SignText "OF THE TWO  "
           .SignText "ARTIFACTS.  "
           .SignText "TAKE THIS TO"
           .SignText "THE TUNNELS."
@@ -147,7 +147,7 @@ NPC_TrebleVillage:
 Sign_TrebleDocks:
           .colu COLBLUE, $e
           .colu COLCYAN, $2
-          .byte $ff, 0, 19
+          .byte $ff, 26, 19
           .SignText "TREBLE DOCKS"
           .SignText "TO PORT LION"
           .SignText "            "

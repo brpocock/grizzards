@@ -14,13 +14,13 @@ SignL:    .byte <(Signs)
 NPC_BrokenRadio:
           .colu COLINDIGO, 0
           .colu COLBLUE, $9
-          .byte $ff, 25, 19
+          .byte $ff, 27, 59     ; radio fixed
           .SignText "IF YOU FIX  "
           .SignText "MY RADIO SET"
           .SignText "I COULD CALL"
           .SignText "FOR A SHIP  "
           .SignText "TO PORT LION"
-          .byte ModeSignpostDone
+          .byte ModeSignpostSetFlag, 25
           
 ;;; 17
 Sign_TunnelClosed:

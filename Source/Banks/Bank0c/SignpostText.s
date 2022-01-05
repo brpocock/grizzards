@@ -5,7 +5,7 @@
 
           FirstSignpost = 67
 
-          Signs = ( Sign_FindAndrew, Sign_FindFred, Sign_FindTimmy, Sign_DragonHints, Sign_GetDragonHints, Sign_Ancient )
+          Signs = ( Sign_FindAndrew, Sign_FindFred, Sign_FindTimmy, Sign_DragonHints, Sign_GetDragonHints, Sign_Ancient, NPC_Radio, NPC_RadioFix, NPC_RadioDone )
           
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
@@ -80,3 +80,38 @@ Sign_Ancient:
           .SignText "NOT READ IT."
           .byte ModeSignpostDone
 
+;;; 73
+NPC_Radio:
+          .colu COLYELLOW, $f
+          .colu COLBLUE, $4
+          .byte $ff, 25, 74     ; asked to fix radio
+          .SignText "MY RADIO    "
+          .SignText "REPAIR SHOP "
+          .SignText "IS GOING TO "
+          .SignText "HAVE TO SHUT"
+          .SignText "FOR MONSTERS"
+          .byte ModeSignpostDone
+
+;;; 74
+NPC_RadioFix:
+          .colu COLYELLOW, $f
+          .colu COLBLUE, $4
+          .byte $ff, 27, 75     ; already fixed
+          .SignText "OH! I CAN   "
+          .SignText "TOTALLY FIX "
+          .SignText "THAT RADIO  "
+          .SignText "FOR YOU. NO "
+          .SignText "PROBLEM!    "
+          .byte ModeSignpostSetFlag, 27
+
+;;; 75
+NPC_RadioDone:
+          .colu COLYELLOW, $f
+          .colu COLBLUE, $4
+          .SignText "I GUESS I   "
+          .SignText "OUGHT TO RUN"
+          .SignText "AWAY FROM   "
+          .SignText "MONSTERS TOO"
+          .SignText " - BYE!     "
+          .byte ModeSignpostSetFlag, 29
+          
