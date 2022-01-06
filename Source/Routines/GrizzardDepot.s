@@ -25,7 +25,11 @@ GrizzardDepot:    .block
 Loop:
           .WaitScreenTop
 
-          .ldacolu COLTEAL, $2
+          .if TV == SECAM
+            lda #COLBLACK
+          .else
+            .ldacolu COLTEAL, $2
+          .fi
           sta COLUBK
           .ldacolu COLINDIGO, $a
           sta COLUP0

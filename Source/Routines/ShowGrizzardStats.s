@@ -2,9 +2,15 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 ShowGrizzardStats:  .block
           stx WSYNC
-          .ldacolu COLTURQUOISE, 8
-          sta COLUBK
-          .ldacolu COLINDIGO, 0
+          .if TV == SECAM
+            lda #COLWHITE
+            sta COLUBK
+            lda #COLBLUE
+          .else
+            .ldacolu COLTURQUOISE, 8
+            sta COLUBK
+            .ldacolu COLINDIGO, 0
+          .fi
           sta COLUP0
           sta COLUP1
 
