@@ -260,7 +260,7 @@ SpriteList:
           ;; Room 2
           .byte 50, SpriteWander
           .byte 0, 0
-          .byte SpriteMajorCombat, 125 ; Fred
+          .byte SpriteMajorCombat, 109 ; Fred
 
           .byte 0
 
@@ -285,7 +285,7 @@ SpriteList:
           ;; Room 5
           .byte 51, SpriteWander
           .byte 0, 0
-          .byte SpriteMajorCombat, 126 ; Andrew
+          .byte SpriteMajorCombat, 110 ; Andrew
 
           .byte 0
 
@@ -312,7 +312,7 @@ SpriteList:
           ;; Room 10
           .byte 52, SpriteWander
           .byte 0, 0
-          .byte SpriteMajorCombat, 127 ; Timmy
+          .byte SpriteMajorCombat, 111 ; Timmy
 
           .byte 0
 
