@@ -88,21 +88,33 @@ USBMOUNT=$(shell echo \"$$(mount | grep /run/media/$$USER | grep vfat | head -n 
 
 # Basic Harmony cart only can handle 32k images
 harmony:	Dist/Grizzards.Demo.NTSC.a26 \
-		Dist/Grizzards.Demo.PAL.a26 \
-		Dist/Grizzards.Demo.SECAM.a26 \
-		Dist/Grizzards.NoSave.NTSC.a26 \
-		Dist/Grizzards.NoSave.PAL.a26 \
-		Dist/Grizzards.NoSave.SECAM.a26 \
+		Dist/Grizzards.NoSave.NTSC.a26
 	[ "$(USBMOUNT)" != "" ]
 	@if [ $$(uname -s) = 'Linux' ] ; then \
-	  cp -v Dist/Grizzards.Demo.NTSC.a26 $(USBMOUNT)/Grizzards.D.NTSC.F4 ;\
-	  cp -v Dist/Grizzards.NoSave.NTSC.a26 $(USBMOUNT)/Grizzards.NS.NTSC.F4 ;\
+	  cp -v Dist/Grizzards.Demo.NTSC.a26 $(USBMOUNT)/Grizzards.Demo.F4 ;\
+	  cp -v Dist/Grizzards.NoSave.NTSC.a26 $(USBMOUNT)/Grizzards.NoSave.F4 ;\
+	else \
+	  echo "Patch Makefile for your $$(uname -s) OS" ; \
+	fi
+
+encore:	Dist/Grizzards.Demo.NTSC.a26 \
+	Dist/Grizzards.NoSave.NTSC.a26 \
+	Dist/Grizzards.Airex.NTSC.a26 \
+	Dist/Grizzards.Dirtex.NTSC.a26 \
+	Dist/Grizzards.Aquax.NTSC.a26
+	[ "$(USBMOUNT)" != "" ]
+	@if [ $$(uname -s) = 'Linux' ] ; then \
+	  cp -v Dist/Grizzards.Demo.NTSC.a26 $(USBMOUNT)/Grizzards.Demo.F4 ;\
+	  cp -v Dist/Grizzards.NoSave.NTSC.a26 $(USBMOUNT)/Grizzards.NoSave.F4 ;\
+	  cp -v Dist/Grizzards.Airex.NTSC.a26 $(USBMOUNT)/Grizzards.Airex.F4 ;\
+	  cp -v Dist/Grizzards.Dirtex.NTSC.a26 $(USBMOUNT)/Grizzards.Dirtex.F4 ;\
+	  cp -v Dist/Grizzards.Aquax.NTSC.a26 $(USBMOUNT)/Grizzards.Aquax.F4 ;\
 	else \
 	  echo "Patch Makefile for your $$(uname -s) OS" ; \
 	fi
 
 # Uno needs special extension to detect  us as an EF cartridge and shows
-# fairyl short names only
+# fairly short names only
 uno:	Dist/Grizzards.Dirtex.NTSC.a26 \
 	Dist/Grizzards.Aquax.NTSC.a26 \
 	Dist/Grizzards.Airex.NTSC.a26 \
