@@ -27,7 +27,23 @@ publish:	demo game no-save doc unerase Dist/Grizzards.Source.tar.gz
 		star-hope.org:star-hope.org/games/Grizzards/ ; \
 	do sleep 1; done
 
-plus:	game demo no-save
+plus:	Dist/Grizzards.Aquax.NTSC.a26 \
+	Dist/Grizzards.Aquax.PAL.a26 \
+	Dist/Grizzards.Aquax.SECAM.a26 \
+	Dist/Grizzards.Dirtex.NTSC.a26 \
+	Dist/Grizzards.Dirtex.PAL.a26 \
+	Dist/Grizzards.Dirtex.SECAM.a26 \
+	Dist/Grizzards.Airex.NTSC.a26 \
+	Dist/Grizzards.Airex.PAL.a26 \
+	Dist/Grizzards.Airex.SECAM.a26 \
+	Dist/Grizzards.Demo.NTSC.a26 \
+	Dist/Grizzards.Demo.PAL.a26 \
+	Dist/Grizzards.Demo.SECAM.a26 \
+	Dist/Grizzards.NoSave.NTSC.a26 \
+	Dist/Grizzards.NoSave.PAL.a26 \
+	Dist/Grizzards.NoSave.SECAM.a26 \
+	Dist/Grizzards.Manual.txt
+
 	@echo 'put Dist/Grizzards.Aquax.NTSC.a26 Grizzards.Aquax.NTSC.EF' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/Grizzards
 	@echo 'put Dist/Grizzards.Aquax.PAL.a26 Grizzards.Aquax.PAL.EF' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/Grizzards
 	@echo 'put Dist/Grizzards.Aquax.SECAM.a26 Grizzards.Aquax.SECAM.EF' | cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/Grizzards
