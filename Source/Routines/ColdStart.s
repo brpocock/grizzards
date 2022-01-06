@@ -19,17 +19,17 @@ ColdStart:
 	;; console detection routine should be more reliable according to
 	;; common wisdom around the AtariAge boards.
           tsx
+
+          lda # 0
+          ldy #$2c              ; reset TIA
+-
+          sta 0,y
+          dey
+          bne -
+
           lda #ENABLED          ; turn off display, and
           sta VSYNC
           sta VBLANK
-          ldy #0                ; clear sound so we don't squeak
-          sty AUDC0
-          sty AUDC1
-          sty AUDV0             ; (I hear it's really bad squeaky on SECAM?)
-          sty AUDV1
-          sty VDELBL
-          sty ENAM0
-          sty ENAM1
 
           sty SWACNT
           
