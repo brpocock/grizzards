@@ -279,9 +279,11 @@ SpriteList:
           .byte 100, 32
           .byte SpriteSign, 0   ; Beware
 
+          .if !DEMO
           .byte $ff, SpriteWander
           .byte 120, 32
           .byte SpritePerson, 10 ; Random villager
+          .fi
 
           .byte 0
 
@@ -298,9 +300,11 @@ SpriteList:
           .byte 100, 32
           .byte SpritePerson, 12 ; Fleeing village
 
+          .if !DEMO
           .byte $ff, SpriteWander
-          .byte 120, 45
+          .byte 140, 45
           .byte SpritePerson, 10 ; Random villager
+          .fi
 
           .byte 0
 
@@ -739,6 +743,7 @@ SpriteList:
           .byte 128, 32
           .byte SpritePerson, 21 ; lost pendant
 
+          .if !DEMO
           .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpritePerson, 10 ; random villager
@@ -746,6 +751,7 @@ SpriteList:
           .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpritePerson, 10 ; random villager
+          .fi
 
           .byte 0
 
@@ -759,9 +765,11 @@ SpriteList:
 	.byte 0
 
           ;; Room 47
+          .if !DEMO
           .byte 29, SpriteFixed
           .byte $44, $1d
           .byte SpritePerson, 73 ; Radio shack
+          .fi
 
           .byte 0
 
