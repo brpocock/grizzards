@@ -27,6 +27,9 @@ ColdStart:
           sty AUDC1
           sty AUDV0             ; (I hear it's really bad squeaky on SECAM?)
           sty AUDV1
+          sty VDELBL
+          sty ENAM0
+          sty ENAM1
 
           sty SWACNT
           
