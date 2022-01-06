@@ -78,6 +78,10 @@ $label_file_name.labels.txt\n";
         ++$skipped;
         next;
       }
+      if ($line =~ /\bMode/) {
+        ++$skipped;
+        next;
+      }
       printf $sym_file "%-21s %04x ???? ; %s" =>
         $label, $value, $line;
       ++$count;
