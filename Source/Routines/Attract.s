@@ -132,13 +132,11 @@ DoneTitleSpeech:
           sta PF0
           lda #$f0
           sta PF1
-          .SkipLines 2
+          .SkipLines 6
 
-          lda #$ff
-          sta PF0
-          lda #$d5
-          sta PF1
-          .SkipLines 4
+          ;; lda #$d5
+          ;; sta PF1
+          ;; .SkipLines 4
 
           lda #$aa
           sta PF0
