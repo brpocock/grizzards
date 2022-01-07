@@ -58,6 +58,7 @@
   }
 \usepackage{caption}
 \captionsetup{labelformat=empty}
+\usepackage{lettrine}
 \usepackage[protrusion=true,expansion=true]{microtype}
 \fontfamily{pnc}
 \chapterstyle{komalike}
@@ -122,6 +123,11 @@ or its successors.
 
 This manual describes a \ifdefined\NOSAVE No-Save \fi DEMO version of the game. The full version may
 be different.
+
+\else
+
+Published by AtariAge.
+
 \fi
 
 ]
@@ -347,11 +353,9 @@ them when you're ready to face them.
 
 A Grizzard Depot looks like this:
 
-\begin{figure}[t]
-  \begin{center}
-    \includegraphics[width=1in]{../Manual/Depot\TV.png}
-  \end{center}
-\end{figure}
+\begin{center}
+  \includegraphics[width=1in]{../Manual/Depot\TV.png}
+\end{center}
 
 \ifdefined\NOSAVE
 
@@ -364,7 +368,10 @@ convince to join your party.
 You may also  encounter Grizzards in the world that  you can convince to
 join your party. A wild Grizzard looks like this:
 
-***(WILD GRIZZARD ART HERE)***
+\begin{center}
+  \includegraphics[width=1in]{../Manual/WildGrizzard\TV.png}
+  *** WRITEME missing art
+\end{center}
 
 At a  Grizzard Depot, you'll have  the option to swap  Grizzards in your
 party,  with up  to  30 total  Grizzards saved  in  your memory  device.
@@ -548,7 +555,14 @@ They may go up a bit after each monster that you defeat.
 
 Your  Grizzard may  also  be  subject to  one  or  more Status  Effects.
 These  will  alter your  Grizzard's  status  temporarily (only  for  the
-duration of  one battle).
+duration of one battle).
+
+\begin{figure*}[b]
+  \begin{center}
+    \includegraphics[width=2\columnwidth]{../Manual/GrizzardDepot.png}
+    *** WRITEME wrong art piece
+  \end{center}
+\end{figure*}
 
 
 \subsection{Status Effects}
@@ -765,11 +779,13 @@ Airex is a teal Grizzard which lives in the trees. It can learn these Moves:
 
 \section{Run Away}
 
-This Move lets you escape from a battle.
+This Move lets you try to escape from a battle.
 
-Your  Grizzard will  not be  healed if  you run  away (unless  you visit
-a  Grizzard Depot);  however, the  monsters  that you  were facing  will
+Your Grizzard  will \emph{not}  be healed  if you  run away  (unless you
+visit a Grizzard Depot); however, the monsters that you were facing will
 be healed immediately.
+
+Certain monsters are too terrifying to escape from.
 
 
 \chapter{Monsters}
@@ -777,55 +793,98 @@ be healed immediately.
 Terrible monsters are  arriving in Syrex, terrorizing the  people. A few
 of them are described here.
 
-\section*{Wicked Slime}
-These are weak slime monsters that  your Grizzard can kill fairly easily
+\vspace{14pt}
+
+\lettrine[image=true,       lines=5, findent=3pt, nindent=3pt]{../Manual/Wicked-Slime.png}{Wicked}
+Slimes are weak slime monsters that your Grizzard can kill fairly easily
 … but beware when they travel  in large packs. Like many creatures, they
 know some healing Moves that might be useful to learn. Wicked Slimes are
 now found near Treble Village and the Lost Mine.
 
-\section*{Horrid Slime}
-More dangerous  than a  Wicked Slime,  a Horrid  Slime may  survive your
-attacks until you've learned some new moves.
+\vspace{14pt}
 
-\section*{Vorpal Bunny}
-A powerful monster that  will take a few hits to  kill, they're the only
-way for  Aquax to learn Great  Mojo. Beware their attack  Moves, though!
-You may find Vorpal Bunnies near the Spiral Woods.
+\lettrine[image=true,       lines=5, findent=3pt, nindent=3pt]{../Manual/Horrid-Slime.png}{Horrid}
+Slimes  are more  dangerous  than a  Wicked Slime.  A  Horrid Slime  may
+survive your attacks until you've learned some new moves.
 
-\section*{Rodents of Unusual Size}
-One of the dangers of the Fire Bog, but I don't think they really exist.
+\vspace{14pt}
 
-\section*{Flame Doggo}
-A danger of the Fire Bogs, these beasts roam in packs.
+\lettrine[image=true,       lines=5, findent=3pt, nindent=3pt]{../Manual/Vorpal-Bunny.png}{Vorpal}
+Bunnies are a  powerful monster that will  take a few hits  to kill, but
+they're the only way for Aquax  to learn Great Mojo. Beware their attack
+Moves, though! You may find Vorpal Bunnies near the Spiral Woods.
 
-\section*{Will-O-Wisp}
-These  bright, floating  sparks are  known  to travel  in large  groups.
-Once your Attack score is high enough to hit them, they go down quickly.
+\vspace{14pt}
 
-\section*{Lectro Sheep}
-These dangerous sheep are full of static electricity.
+\lettrine[image=true,    lines=5, findent=3pt, nindent=3pt]{../Manual/R.O.U.S..png}{Rodents}    of
+Unusual Size are one  of the dangers of the Fire Bog  (but I don't think
+they   really   exist).   They're    known   to   attack   pirates   and
+princesses alike.
 
-\section*{Viking Turtle}
-WRITEME
+\vspace{14pt}
 
-\section*{Crazy Fox}
-WRITEME
+\lettrine[image=true,  lines=5, findent=3pt, nindent=3pt]{../Manual/Flame-Doggo.png}{Flame Doggos}
+are a  danger of the  Fire Bogs. These beasts  often roam in  packs, and
+their fur is on fire. Avoid the  Fire Bogs until you have begun to train
+your Grizzard to have a higher Attack stat.
 
-\section*{Water Kitty}
-WRITEME
+\vspace{14pt}
 
-\section*{Fuzzie Bear}
-WRITEME
+\lettrine[image=true, lines=5, findent=3pt, nindent=3pt]{../Manual/Will-O-Wisp.png}{Will-O-Wisps}
+are bright,  floating sparks that are  known to travel in  large groups.
+Once your Attack score is high enough to hit them, they go down quickly,
+but they have very strong defenses!
 
-\section*{Metal Mouse}
-WRITEME
+\vspace{14pt}
 
-\section*{Fire Panda}
-WRITEME
+\lettrine[image=true, lines=5, findent=3pt, nindent=3pt]{../Manual/Lectro-Sheep.png}{Lectro Sheep}
+are dangerous sheep  that are full of static electricity.  They roam the
+countryside, as sheep will do.
+
+\pagebreak
+
+\lettrine[image=true,       lines=5, findent=3pt, nindent=3pt]{../Manual/Viking-Turtle.png}{Viking
+  Turtles} are dangerous waterfront creatures that can be very dangerous
+to encounter.
+
+\vspace{14pt}
+
+\lettrine[image=true, lines=5, findent=3pt, nindent=3pt]{../Manual/Crazy-Fox.png}{Crazy Foxes} are
+likely to unleash a  great deal of pain. It's said  that they were never
+actually foxes to begin with, but are created already crazy.
+
+\vspace{14pt}
+
+\lettrine[image=true, lines=5, findent=3pt, nindent=3pt]{../Manual/Water-Kitty.png}{Water Kitties}
+are a special kind of cat that  likes to swim, and to dish out punishing
+water-based attacks on anyone who comes near them.
+
+\vspace{14pt}
+
+\lettrine[image=true,  lines=5, findent=3pt, nindent=3pt]{../Manual/Fuzzie-Bear.png}{Fuzzie Bears}
+sound like  a cute and cuddly  creature, but they're really  a lumbering
+tower of teeth and claws looking for someone to eat.
+
+\vspace{14pt}
+
+\lettrine[image=true,   lines=5, findent=3pt, nindent=3pt]{../Manual/Metal-Mouse.png}{Metal  Mice}
+are extremely durable, so it can take  a while to chip away at their hit
+points, but the rewards in points earned may well be worth it.
+
+\vspace{14pt}
+
+\lettrine[image=true,   lines=5, findent=3pt, nindent=3pt]{../Manual/Fire-Panda.png}{Fire  Pandas}
+are a bit  like Red Pandas, a  bit like Firefoxes, and quite  a bit more
+dangerous. Unlike a  firefox, these beasts actually  dish out fire-based
+attacks on their victims.
 
 \section*{and many more...}
-There  are  many other  monsters  roaming  the countryside  that  you'll
-discover as you travel across Syrex.
+
+There  are many  other monsters  roaming the  countryside across  Syrex.
+You'll have to discover the others on your own. Here's a hint: There are
+more than 40 types of monsters that you can face.
+
+}
 
 \chapter{Troubleshooting}
 
@@ -955,8 +1014,8 @@ slots. The following blocks are used:
 These blocks are in the Scratchpad  area. This means that other programs
 might potentially disrupt or destroy your saved game record.
 
-The  future version  of this  game will  use a  different set  of memory
-blocks  that are  reserved for  its own  private use,  so this  won't be
+The final version of this game will use a different set of memory blocks
+that  are  reserved   for  its  own  private  use,  so   this  won't  be
 a problem then.
 
 \else
@@ -971,11 +1030,13 @@ The addresses used by the Save  Game Slots are registered with AtariAge,
 so they won't conflict with any other games you might play.
 
 A deleted game can  sometimes be recovered if you have  a Harmony or Uno
-cartridge, or a similar cartridge to which you can upload a ROM file.
+cartridge, or  a similar cartridge to  which you can upload  a ROM file.
 Visit the Grizzards web site at
 \href{https://Star-Hope.org/games/Grizzards/}{https://Star-Hope\-.org/\-games/\-Grizzards/}
-and  download the Unerase utility  program. If you have  just erased
-your game's progress, you can probably recover it.
+and download the  Unerase utility program. If you have  just erased your
+game's progress, you can probably recover it.
+
+You will also be able to find the Unerase utility in the PlusCart library.
 
 \fi
 
@@ -1041,7 +1102,8 @@ Philip Clark,
 \texttt{vitoco}
 
 An early  (alpha) version of the  game's demo was featured  on Zero Page
-Homebrew     on     Twitch     on    Friday,     6     August,     2021.
+Homebrew on Twitch on Friday, 6 August, 2021.
+
 \href{https://twitch.tv/zeropagehomebrew}{https://twitch.tv/\-zero\-page\-homebrew}
 \href{https://youtu.be/yCFDxUqdP-k?t=4200}{https://youtu.be/\-yCFDxUqdP-k?t=4200}
 
