@@ -3,8 +3,9 @@
 
 ValidateMap:        .block
           ;; Remove any Grizzard who is already a companion.
-          ;; New Grizzards must be the last sprite on the list for a room.
+          ;; New Grizzards must be the last sprite(s) on the list for a room.
           ldx SpriteCount
+CheckForGrizzard:
           dex
 
           lda SpriteAction, x
@@ -16,6 +17,8 @@ ValidateMap:        .block
           .FarJSR SaveKeyBank, ServicePeekGrizzard
           bcc +                 ; Grizzard not found
           dec SpriteCount
+
+          bne CheckForGrizzard
 +
 ;;; 
           lda GameMode
