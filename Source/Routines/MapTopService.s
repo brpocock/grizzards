@@ -120,24 +120,26 @@ SetUpSprites:
           lda #>MapSprites
           sta pp1h
           clc
+          lda MapFlags
+          .BitBit MapFlagRandomSpawn
+          tay
           lda SpriteAction, x
           and #$07
           cmp # SpriteProvinceDoor
           bne +
           lda # SpriteDoor
 +
-          .BitBit MapFlagRandomSpawn
-          bne +                 ; keep puffs until stabilized
+          cpy #MapFlagRandomSpawn
+          beq +                 ; keep puffs until stabilized
           ldy AlarmCountdown
           beq NoPuff            ; otherwise just for countdown time
 +
-          lda MapFlags
           cmp #SpriteMajorCombat
           beq Puff
           cmp #SpriteCombat
           bne NoPuff
 Puff:
-          lda SpriteColor + SpriteCombatPuff
+          lda SpriteColor + SpriteCombatPuff ; get color for puffs
           sta COLUP1
           lda #SpriteCombatPuff
 NoPuff:

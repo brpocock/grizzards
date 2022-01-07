@@ -17,13 +17,13 @@ MapSetup: .block
           sta DeltaY
           sta PlayerXFraction
           sta PlayerYFraction
-          sta MapFlags
           sta CurrentMusic + 1
 
           lda BlessedX
           sta PlayerX
           lda BlessedY
           sta PlayerY
+
           jmp NewRoomTimerRunning
 ;;; 
 NewRoom:
@@ -43,7 +43,7 @@ NewRoomTimerRunning:
 
           .switch BANK
           .case 4
-          cmp # 0
+          ;; no op (province 0)
           .case 3
           cmp # 1
           .case 5
@@ -220,6 +220,9 @@ AddPlacedSprite:
           iny
           lda (Pointer), y         ; .y = .x × 6 + 5
           sta SpriteParam, x
+          lda BitMask + 4, x    ; MapFlagSprite𝑥Moved
+          ora MapFlags
+          sta MapFlags
           rts
 
 SpritesDone:

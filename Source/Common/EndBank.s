@@ -129,12 +129,15 @@ WiredEnd:
 ;;; 
 ;;; This stuff is just set to make sure the ProSystem will drop to VCS
 ;;; compatibility mode for sure.
-
           * = $ff80
           .offs -$f000
 
+          ;; Useful constants to save time bit-shifting. Used all over.
 BitMask:
           .byte $01, $02, $04, $08, $10, $20, $40, $80
+          ;; Also fairly useful.
+InvertedBitMask:
+          .byte ~$01, ~$02, ~$04, ~$08, ~$10, ~$20, ~$40, ~$80
 
           ;; a tiny little routine that's used all over the place.
           ;; free up from some wasted space here.
