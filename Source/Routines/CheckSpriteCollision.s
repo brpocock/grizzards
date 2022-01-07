@@ -19,7 +19,7 @@ CheckSpriteCollision:         .block
           jmp Bye
 
 NoRePosition
-          lda BitMask + 4, x   ; $10 … $80 = MapFlagSprite✗Moved
+          lda BitMask + 4, x   ; $10 … $80 = MapFlagSprite𝑥Moved
 
           bit MapFlags
           beq Bye               ; sprite did not move since last check?
