@@ -241,6 +241,8 @@ SayObjectNumberOnPlayersTurn:
           lda MoveDeltaHP, x
           bmi SpeechQueued
 SayThatObjectNumber:
+          lda CombatMajorP
+          bne SpeechQueued
           lda #>(Phrase_One - 1)
           sta CurrentUtterance + 1
           lda #<(Phrase_One - 1)

@@ -353,6 +353,11 @@ MoveHP:
 MoveStatusFX:
           .byte ?
 
+;;; Non-zero if this is a Major Combat in stead of a regular one
+;;; (only differences are how the enemy is drawn and numbers are omitted)
+CombatMajorP:
+          .byte ?
+
           CombatEnd = * - 1
 ;;; 
 ;;; Scratchpad for Map mode

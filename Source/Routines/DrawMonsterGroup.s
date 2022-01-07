@@ -28,6 +28,9 @@ PrepareToDrawMonsters:
           sta NUSIZ0
           sta NUSIZ1
           sta pp3l
+
+          lda CombatMajorP
+          bne DrawMajorMonster
 ;;; 
 PrepareTopCursor:
           jsr SetCursorColor
@@ -135,6 +138,43 @@ FinishUp:
 NoBottomMonsters:
           jsr DrawNothing
           jmp FinishUp
+
+;;; 
+
+DrawMajorMonster:
+
+PositionMajorMonster:
+          sta WSYNC
+          lda # NUSIZQuad
+          sta NUSIZ0
+          nop
+          nop
+          nop
+          ldy #$70
+
+GrossPositionMajorMonster:
+          dey
+          bne GrossPositionMajorMonster
+          sta RESP0
+
+DrawMajorMonsterLines:
+          ldy # 7
+-
+          lda (CombatSpritePointer), y
+          sta GRP0
+          .if TV == NTSC
+          .SkipLines 4
+          .else
+          .SkipLines 6
+          .fi
+          dey
+          bpl -
+
+          ldy # 0
+          sty GRP0
+          sty GRP1
+
+          .SkipLines 2
 
 ;;; 
 PositionCursor:

@@ -27,9 +27,9 @@ BumpSprite:
 
 ActionWithSpriteX:
           cmp #SpriteCombat
-          beq FightWithSprite
+          beq FightWithSpriteMinor
           cmp #SpriteMajorCombat
-          beq FightWithSprite
+          beq FightWithSpriteMajor
           cmp #SpriteGrizzardDepot
           beq EnterDepot
           cmp #SpriteGrizzard
@@ -50,6 +50,16 @@ ReadSign:
           sta GameMode
           rts
 
+FightWithSpriteMinor:
+          lda # 0
+          sta CombatMajorP
+          geq FightWithSprite
+
+FightWithSpriteMajor:
+          lda #$80
+          sta CombatMajorP
+          ;; fall through
+          
 FightWithSprite:
           ldx SpriteFlicker     ; ? Seems unnecessary XXX
 FightWithSpriteX:
