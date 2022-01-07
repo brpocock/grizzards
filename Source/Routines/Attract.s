@@ -197,7 +197,7 @@ PrepareFillAttractBottom:
 
           .switch STARTER
 
-          .case 1
+          .case 1               ; Aquax
 
           jsr Random
           and # 7
@@ -241,11 +241,18 @@ SetWaveLevel:
           .ldacolu COLBLUE, $8
           sta COLUBK
 
-          .case 2
+          .case 2               ; Airex
 
           .ldacolu COLBROWN, $4
           sta COLUBK
           .SkipLines 10
+
+          lda # NUSIZQuad
+          sta NUSIZ0
+          sta NUSIZ1
+          .ldacolu COLBROWN, $4
+          sta COLUP0
+          sta COLUP1
 
           stx WSYNC
           .SleepX $18
@@ -255,19 +262,14 @@ SetWaveLevel:
           nop
           nop
           sta RESP1
-          lda # NUSIZQuad
-          sta NUSIZ0
-          sta NUSIZ1
+
           stx WSYNC
-          .ldacolu COLBROWN, $4
-          sta COLUP0
-          sta COLUP1
+          .ldacolu COLTURQUOISE, $e
+          sta COLUBK
+
           lda #$ff
           sta GRP0
           sta GRP1
-
-          .ldacolu COLTURQUOISE, $e
-          sta COLUBK
 
           .endswitch
 
