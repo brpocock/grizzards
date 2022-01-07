@@ -75,8 +75,15 @@ CheckStick:
           and #P0StickUp
           bne DoneStickUp
           dex
+          lda CombatMajorP
+          beq CanSelectMoveUp
+          cpx # 0
+          beq WrapMoveForUp
+
+CanSelectMoveUp:
           bpl DoneStickUp
-          ldx #8
+WrapMoveForUp:
+          ldx # 8
 
 DoneStickUp:
           lda NewSWCHA
@@ -85,7 +92,12 @@ DoneStickUp:
           inx
           cpx #9              ; max moves = 8
           blt DoneStickDown
-          ldx #0
+          ldy CombatMajorP
+          beq CanRunAwayDown
+          ldx # 1
+          gne DoneStickDown
+CanRunAwayDown:
+          ldx # 0
 
 DoneStickDown:
           stx MoveSelection
