@@ -4,6 +4,8 @@ all:	game demo no-save unerase doc
 
 unerase:	Dist/Grizzards.Unerase.zip
 
+atariage:	Dist/Grizzards.AtariAge.zip
+
 publish:	demo game no-save doc unerase Dist/Grizzards.Source.tar.gz
 	@until rsync -essh --progress \
 		Dist/Grizzards.Demo.NTSC.a26 Dist/Grizzards.Demo.PAL.a26 Dist/Grizzards.Demo.SECAM.a26 \
@@ -126,9 +128,9 @@ Dist/Grizzards.AtariAge.zip:	\
 	Dist/Grizzards.Dirtex.NTSC.pro Dist/Grizzards.Dirtex.PAL.pro Dist/Grizzards.Dirtex.SECAM.pro \
 	Dist/Grizzards.Aquax.NTSC.pro Dist/Grizzards.Aquax.PAL.pro Dist/Grizzards.Aquax.SECAM.pro \
 	Dist/Grizzards.Airex.NTSC.pro Dist/Grizzards.Airex.PAL.pro Dist/Grizzards.Airex.SECAM.pro \
-	Dist/Grizzards.NTSC.pdf Dist/Grizzards.PAL.pdf Dist/Grizzards.SECAM.pdf \
-	Dist/Grizzards.NTSC-book.pdf Dist/Grizzards.PAL-book.pdf Dist/Grizzards.SECAM-book.pdf
-	zip $@ $^
+	Dist/Grizzards.NTSC-book.pdf Dist/Grizzards.PAL-book.pdf Dist/Grizzards.SECAM-book.pdf \
+	Package/Box.svg Package/EndLabel.png Package/FrontLabel.png
+	zip "$@" $^
 
 Dist/Grizzards.Unerase.zip: Dist/Grizzards.Unerase.NTSC.a26 \
 		Dist/Grizzards.Unerase.PAL.a26 \
