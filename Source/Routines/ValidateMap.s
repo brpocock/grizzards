@@ -43,7 +43,7 @@ CheckNextSpriteForDoor:
 
           lda SpriteY, x
           clc
-          adc #12
+          adc # 12
           sta PlayerY
           sta BlessedY
 
