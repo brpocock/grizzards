@@ -64,7 +64,7 @@ Monsters:
 
           .SignText "METAL  MOUSE"
           .byte Monster_Mouse
-          .colu COLGRAY, $f
+          .colu COLGRAY, $6
           .byte 12, 20, 10
           .word $0010
 
