@@ -91,8 +91,9 @@ harmony:	Dist/Grizzards.Demo.NTSC.a26 \
 		Dist/Grizzards.NoSave.NTSC.a26
 	[ "$(USBMOUNT)" != "" ]
 	@if [ $$(uname -s) = 'Linux' ] ; then \
-	  cp -v Dist/Grizzards.Demo.NTSC.a26 $(USBMOUNT)/Grizzards.Demo.F4 ;\
-	  cp -v Dist/Grizzards.NoSave.NTSC.a26 $(USBMOUNT)/Grizzards.NoSave.F4 ;\
+	  mkdir $(USBMOUNT)/Grizzards ;\
+	  cp -v Dist/Grizzards.Demo.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.Demo.F4 ;\
+	  cp -v Dist/Grizzards.NoSave.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.NoSave.F4 ;\
 	else \
 	  echo "Patch Makefile for your $$(uname -s) OS" ; \
 	fi
@@ -104,11 +105,12 @@ encore:	Dist/Grizzards.Demo.NTSC.a26 \
 	Dist/Grizzards.Aquax.NTSC.a26
 	[ "$(USBMOUNT)" != "" ]
 	@if [ $$(uname -s) = 'Linux' ] ; then \
-	  cp -v Dist/Grizzards.Demo.NTSC.a26 $(USBMOUNT)/Grizzards.Demo.F4 ;\
-	  cp -v Dist/Grizzards.NoSave.NTSC.a26 $(USBMOUNT)/Grizzards.NoSave.F4 ;\
-	  cp -v Dist/Grizzards.Airex.NTSC.a26 $(USBMOUNT)/Grizzards.Airex.F4 ;\
-	  cp -v Dist/Grizzards.Dirtex.NTSC.a26 $(USBMOUNT)/Grizzards.Dirtex.F4 ;\
-	  cp -v Dist/Grizzards.Aquax.NTSC.a26 $(USBMOUNT)/Grizzards.Aquax.F4 ;\
+	  mkdir $(USBMOUNT)/Grizzards ;\
+	  cp -v Dist/Grizzards.Demo.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.Demo.F4 ;\
+	  cp -v Dist/Grizzards.NoSave.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.NoSave.F4 ;\
+	  cp -v Dist/Grizzards.Airex.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.Airex.EF ;\
+	  cp -v Dist/Grizzards.Dirtex.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.Dirtex.EF ;\
+	  cp -v Dist/Grizzards.Aquax.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.Aquax.EF ;\
 	else \
 	  echo "Patch Makefile for your $$(uname -s) OS" ; \
 	fi
