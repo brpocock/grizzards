@@ -57,7 +57,7 @@ DoLocal:
           .include "AtariVox-EEPROM-Driver.s"
           .fi
 
-          .include "WaitScreenBottom.s"
+          
 
           .include "SpriteColor.s"
 

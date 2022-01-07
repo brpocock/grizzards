@@ -134,7 +134,7 @@ PeekGrizzard:
           .include "Credits.s"
           .include "CopyPointerText.s"
           .include "Bank0Strings.s"
-          .include "WaitScreenBottom.s"
+          
 
 ShowPointerText:
           jsr CopyPointerText

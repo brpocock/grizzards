@@ -135,6 +135,12 @@ WiredEnd:
 
 BitMask:
           .byte $01, $02, $04, $08, $10, $20, $40, $80
+
+          ;; a tiny little routine that's used all over the place.
+          ;; free up from some wasted space here.
+          .if BANK != 7
+          .include "WaitScreenBottom.s"
+          .fi
           
           .fill ($fff7 - * + 1), 0        ; 7800 crypto key (designed to fail)
 

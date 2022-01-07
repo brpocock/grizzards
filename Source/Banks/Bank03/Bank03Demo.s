@@ -19,7 +19,7 @@
           .include "Overscan.s"
           .include "Prepare48pxMobBlob.s"
           .include "Random.s"
-          .include "WaitScreenBottom.s"
+          
           
 DoLocal:
           cpy #ServiceAttractStory
