@@ -102,6 +102,11 @@ SelfTarget:
           jmp StickDone
 
 ChooseTarget:
+          lda CombatMajorP
+          beq +
+          ldx # 0
+          stx MoveTarget
++
           ldx MoveTarget
           bne +
           jsr CombatMainScreen.TargetFirstMonster

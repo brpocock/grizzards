@@ -30,7 +30,8 @@ PrepareToDrawMonsters:
           sta pp3l
 
           lda CombatMajorP
-          bne DrawMajorMonster
+          beq PrepareTopCursor
+          jmp DrawMajorMonster
 ;;; 
 PrepareTopCursor:
           jsr SetCursorColor
@@ -151,7 +152,6 @@ PositionMajorMonster:
           nop
           nop
           ldy #$70
-
 GrossPositionMajorMonster:
           dey
           bne GrossPositionMajorMonster
@@ -202,9 +202,7 @@ PositionMonsters:
           sta WSYNC
           lda SpritePresence, x
           sta NUSIZ0
-          nop
-          nop
-          nop
+          .Sleep 4
           lda SpritePosition, x
           and #$0f
           tay

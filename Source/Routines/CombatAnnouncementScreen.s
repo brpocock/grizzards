@@ -278,6 +278,12 @@ CombatMoveDone:
 ShowMonsterNameAndNumber:
           jsr ShowMonsterName
 
+          lda CombatMajorP
+          beq +
+          ;; major combat, no number
+          rts
+
++
           lda #40               ; blank space
           sta StringBuffer + 0
           sta StringBuffer + 1
