@@ -1,4 +1,4 @@
-default:	all
+default:	game unerase doc
 
 all:	game demo no-save unerase doc
 
