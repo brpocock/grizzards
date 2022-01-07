@@ -126,8 +126,12 @@ SetUpSprites:
           bne +
           lda # SpriteDoor
 +
+          .BitBit MapFlagRandomSpawn
+          bne +                 ; keep puffs until stabilized
           ldy AlarmCountdown
-          beq NoPuff
+          beq NoPuff            ; otherwise just for countdown time
++
+          lda MapFlags
           cmp #SpriteMajorCombat
           beq Puff
           cmp #SpriteCombat
