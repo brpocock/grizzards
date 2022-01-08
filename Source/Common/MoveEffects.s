@@ -181,18 +181,18 @@ SlimyTrick:
 GuardDown:
           .byte 0
 FirstAid:
-          .byte ~2
+          .byte $ff ^ 2
 SimpleCure:
-          .byte ~5
+          .byte $ff ^ 5
 CommonCure:
-          .byte ~10
+          .byte $ff ^ 10
           ;; 32
 GreatCure:
-          .byte ~25
+          .byte $ff ^ 25
 HealWound:
-          .byte ~50
+          .byte $ff ^ 50
 LifeReturn:
-          .byte ~99
+          .byte $ff ^ 99
 Nibble:
           .byte 10
 MuddleMind:
