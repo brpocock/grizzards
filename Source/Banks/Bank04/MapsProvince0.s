@@ -689,6 +689,18 @@ SpriteList:
 	.byte 0
 
 	;; Room 29
+          .byte 39, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 16 ; one fox
+
+          .byte $ff, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 16 ; one fox
+
+          .byte $ff, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 70 ; 2 foxes
+
 	.byte 0
 
 	;; Room 30
@@ -705,6 +717,10 @@ SpriteList:
 	.byte 0
 
 	;; Room 33
+          .byte 45, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 70 ; two foxes
+
 	.byte 0
 
 	;; Room 34
@@ -714,6 +730,10 @@ SpriteList:
 	.byte 0
 
 	;; Room 36
+          .byte 46, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 70 ; two foxes
+
 	.byte 0
 
 	;; Room 37
@@ -723,15 +743,31 @@ SpriteList:
 	.byte 0
 
 	;; Room 39
+          .byte 47, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 70 ; two foxes
+
 	.byte 0
 
 	;; Room 40
+          .byte 42, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 70 ; two foxes
+
 	.byte 0
 
 	;; Room 41
+          .byte 43, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 70 ; two foxes
+
 	.byte 0
 
 	;; Room 42
+          .byte 44, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 70 ; two foxes
+
 	.byte 0
 
 	;; Room 43
@@ -743,22 +779,24 @@ SpriteList:
           .byte 128, 32
           .byte SpritePerson, 21 ; lost pendant
 
-          .if !DEMO
           .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpritePerson, 10 ; random villager
-
-          .byte $ff, SpriteWander
-          .byte 0, 0
-          .byte SpritePerson, 10 ; random villager
-          .fi
 
           .byte 0
 
 	;; Room 44
+          .byte 40, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 71 ; three foxes
+          
 	.byte 0
 
 	;; Room 45
+          .byte 41, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 71 ; three foxes
+
 	.byte 0
 
 	;; Room 46
