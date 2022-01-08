@@ -27,7 +27,7 @@ GrizzardMoves:
           .byte 1, 2, 3, 4, 5, 6, 7, 8
           ;; Burner
           .byte 1, 2, 3, 4, 5, 6, 7, 8
-          ;; Iguana
+          ;; Splodo
           .byte 1, 2, 3, 4, 5, 6, 7, 8
           ;; Tyrant
           .byte 1, 2, 3, 4, 5, 6, 7, 8
