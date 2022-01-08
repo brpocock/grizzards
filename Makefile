@@ -137,6 +137,11 @@ Dist/Grizzards.Unerase.zip: Dist/Grizzards.Unerase.NTSC.a26 \
 		Dist/Grizzards.Unerase.SECAM.a26
 	zip $@ $^
 
+Dist/Grizzards.Cheater.zip: Dist/Grizzards.Cheater.NTSC.a26 \
+		Dist/Grizzards.Cheater.PAL.a26 \
+		Dist/Grizzards.Cheater.SECAM.a26
+	zip $@ $^
+
 Dist/Grizzards.Demo.zip: \
 	Dist/Grizzards.Demo.NTSC.a26 \
 	Dist/Grizzards.Demo.PAL.a26 \
@@ -594,6 +599,24 @@ Dist/Grizzards.Unerase.SECAM.a26:	$(shell find Source -name \*.s)
 	--ascii -I. -I Source/Common -I Source/Routines \
 	-Wall -Wno-shadow -Wno-leading-zeros --m6502 \
 	Source/Unerase/Unerase.s -DTV=SECAM -o $@
+
+Dist/Grizzards.Cheater.NTSC.a26:	$(shell find Source -name \*.s)
+	64tass --nostart --long-branch --case-sensitive \
+	--ascii -I. -I Source/Common -I Source/Routines \
+	-Wall -Wno-shadow -Wno-leading-zeros --m6502 \
+	Source/Cheater/Cheater.s -DTV=NTSC -o $@
+
+Dist/Grizzards.Cheater.PAL.a26:	$(shell find Source -name \*.s)
+	64tass --nostart --long-branch --case-sensitive \
+	--ascii -I. -I Source/Common -I Source/Routines \
+	-Wall -Wno-shadow -Wno-leading-zeros --m6502 \
+	Source/Cheater/Cheater.s -DTV=PAL -o $@
+
+Dist/Grizzards.Cheater.SECAM.a26:	$(shell find Source -name \*.s)
+	64tass --nostart --long-branch --case-sensitive \
+	--ascii -I. -I Source/Common -I Source/Routines \
+	-Wall -Wno-shadow -Wno-leading-zeros --m6502 \
+	Source/Cheater/Cheater.s -DTV=SECAM -o $@
 
 RELEASE=noreleasenamegiven
 release:	all
