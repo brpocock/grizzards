@@ -292,13 +292,15 @@ SignpostTextLine:
 
           * = Scratchpad
 
-;;; What type (index) of enemy are we battling?
+;;; Reference to current combat scenario
 CurrentCombatEncounter:
           .byte ?
 
+;;; What flag do we set if victorious?
 CurrentCombatIndex:
           .byte ?
 
+;;; Which monster specifically are we fighting?
 CurrentMonsterPointer:
           .word ?
 
