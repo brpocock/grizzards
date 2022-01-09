@@ -128,7 +128,7 @@ PeekGrizzard:
           .include "Prepare48pxMobBlob.s"
           .include "VSync.s"
           .include "VBlank.s"
-          .include "Overscan.s"
+          
           .include "PreambleAttracts.s"
           .include "AttractCopyright.s"
           .include "Credits.s"

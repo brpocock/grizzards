@@ -96,6 +96,7 @@ FarCall:
           pha
           sta BankSwitch0, x
           jsr DoLocal
+          ;; fall through after rts
 
 ;;; Return from a FarCall. In fact, jump to any address in any
 ;;; memory bank by stuffing the stack.
@@ -143,6 +144,12 @@ InvertedBitMask:
           ;; free up from some wasted space here.
           .if BANK != 7
           .include "WaitScreenBottom.s"
+          .fi
+
+          .if BANK != 7
+          .if BANK < 8 || BANK == 15
+          .include "Overscan.s"
+          .fi
           .fi
           
           .fill ($fff7 - * + 1), 0        ; 7800 crypto key (designed to fail)

@@ -26,6 +26,9 @@ publish:	demo game no-save doc unerase Dist/Grizzards.Source.tar.gz
 		Dist/Grizzards.Unerase.NTSC.a26 \
 		Dist/Grizzards.Unerase.PAL.a26 \
 		Dist/Grizzards.Unerase.SECAM.a26 \
+		Dist/Grizzards.Cheater.NTSC.a26 \
+		Dist/Grizzards.Cheater.PAL.a26 \
+		Dist/Grizzards.Cheater.SECAM.a26 \
 		star-hope.org:star-hope.org/games/Grizzards/ ; \
 	do sleep 1; done
 
@@ -44,9 +47,15 @@ plus:	Dist/Grizzards.Aquax.NTSC.a26 \
 	Dist/Grizzards.NoSave.NTSC.a26 \
 	Dist/Grizzards.NoSave.PAL.a26 \
 	Dist/Grizzards.NoSave.SECAM.a26 \
+	Dist/Grizzards.Unerase.NTSC.a26 \
+	Dist/Grizzards.Unerase.PAL.a26 \
+	Dist/Grizzards.Unerase.SECAM.a26 \
+	Dist/Grizzards.Cheater.NTSC.a26 \
+	Dist/Grizzards.Cheater.PAL.a26 \
+	Dist/Grizzards.Cheater.SECAM.a26 \
 	Dist/Grizzards.Manual.txt
 
-	@echo -e 'put Dist/Grizzards.Aquax.NTSC.a26 Grizzards.Aquax.NTSC.EF\nput Dist/Grizzards.Aquax.PAL.a26 Grizzards.Aquax.PAL.EF\nput Dist/Grizzards.Aquax.SECAM.a26 Grizzards.Aquax.SECAM.EF\nput Dist/Grizzards.Airex.NTSC.a26 Grizzards.Airex.NTSC.EF\nput Dist/Grizzards.Airex.PAL.a26 Grizzards.Airex.PAL.EF\nput Dist/Grizzards.Airex.SECAM.a26 Grizzards.Airex.SECAM.EF\nput Dist/Grizzards.Dirtex.NTSC.a26 Grizzards.Dirtex.NTSC.EF\nput Dist/Grizzards.Dirtex.PAL.a26 Grizzards.Dirtex.PAL.EF\nput Dist/Grizzards.Dirtex.SECAM.a26 Grizzards.Dirtex.SECAM.EF\nput Dist/Grizzards.Demo.NTSC.a26 Grizzards.Demo.NTSC.F4\nput Dist/Grizzards.Demo.PAL.a26 Grizzards.Demo.PAL.F4\nput Dist/Grizzards.Demo.SECAM.a26 Grizzards.Demo.SECAM.F4\nput Dist/Grizzards.NoSave.NTSC.a26 Grizzards.NoSave.NTSC.F4\nput Dist/Grizzards.NoSave.PAL.a26 Grizzards.NoSave.PAL.F4\nput Dist/Grizzards.NoSave.SECAM.a26 Grizzards.NoSave.SECAM.F4\nput Dist/Grizzards.Unerase.NTSC.a26 Grizzards.Unerase.NTSC.a26\nput Dist/Grizzards.Unerase.PAL.a26 Grizzards.Unerase.PAL.a26\nput Dist/Grizzards.Unerase.SECAM.a26 Grizzards.Unerase.SECAM.a26\nput Dist/Grizzards.Manual.txt Grizzards.Manual.txt' | \
+	@echo -e 'put Dist/Grizzards.Aquax.NTSC.a26 Grizzards.Aquax.NTSC.EF\nput Dist/Grizzards.Aquax.PAL.a26 Grizzards.Aquax.PAL.EF\nput Dist/Grizzards.Aquax.SECAM.a26 Grizzards.Aquax.SECAM.EF\nput Dist/Grizzards.Airex.NTSC.a26 Grizzards.Airex.NTSC.EF\nput Dist/Grizzards.Airex.PAL.a26 Grizzards.Airex.PAL.EF\nput Dist/Grizzards.Airex.SECAM.a26 Grizzards.Airex.SECAM.EF\nput Dist/Grizzards.Dirtex.NTSC.a26 Grizzards.Dirtex.NTSC.EF\nput Dist/Grizzards.Dirtex.PAL.a26 Grizzards.Dirtex.PAL.EF\nput Dist/Grizzards.Dirtex.SECAM.a26 Grizzards.Dirtex.SECAM.EF\nput Dist/Grizzards.Demo.NTSC.a26 Grizzards.Demo.NTSC.F4\nput Dist/Grizzards.Demo.PAL.a26 Grizzards.Demo.PAL.F4\nput Dist/Grizzards.Demo.SECAM.a26 Grizzards.Demo.SECAM.F4\nput Dist/Grizzards.NoSave.NTSC.a26 Grizzards.NoSave.NTSC.F4\nput Dist/Grizzards.NoSave.PAL.a26 Grizzards.NoSave.PAL.F4\nput Dist/Grizzards.NoSave.SECAM.a26 Grizzards.NoSave.SECAM.F4\nput Dist/Grizzards.Unerase.NTSC.a26 Grizzards.Unerase.NTSC.a26\nput Dist/Grizzards.Unerase.PAL.a26 Grizzards.Unerase.PAL.a26\nput Dist/Grizzards.Unerase.SECAM.a26 Grizzards.Unerase.SECAM.a26\nput Dist/Grizzards.Cheater.NTSC.a26 Grizzards.Cheater.NTSC.a26\nput Dist/Grizzards.Cheater.PAL.a26 Grizzards.Cheater.PAL.a26\nput Dist/Grizzards.Cheater.SECAM.a26 Grizzards.Cheater.SECAM.a26\nput Dist/Grizzards.Manual.txt Grizzards.Manual.txt' | \
 	cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/Grizzards
 
 demo:	Dist/Grizzards.Demo.zip
@@ -135,6 +144,11 @@ Dist/Grizzards.AtariAge.zip:	\
 Dist/Grizzards.Unerase.zip: Dist/Grizzards.Unerase.NTSC.a26 \
 		Dist/Grizzards.Unerase.PAL.a26 \
 		Dist/Grizzards.Unerase.SECAM.a26
+	zip $@ $^
+
+Dist/Grizzards.Cheater.zip: Dist/Grizzards.Cheater.NTSC.a26 \
+		Dist/Grizzards.Cheater.PAL.a26 \
+		Dist/Grizzards.Cheater.SECAM.a26
 	zip $@ $^
 
 Dist/Grizzards.Demo.zip: \
@@ -594,6 +608,24 @@ Dist/Grizzards.Unerase.SECAM.a26:	$(shell find Source -name \*.s)
 	--ascii -I. -I Source/Common -I Source/Routines \
 	-Wall -Wno-shadow -Wno-leading-zeros --m6502 \
 	Source/Unerase/Unerase.s -DTV=SECAM -o $@
+
+Dist/Grizzards.Cheater.NTSC.a26:	$(shell find Source -name \*.s)
+	64tass --nostart --long-branch --case-sensitive \
+	--ascii -I. -I Source/Common -I Source/Routines \
+	-Wall -Wno-shadow -Wno-leading-zeros --m6502 \
+	Source/Cheater/Cheater.s -DTV=NTSC -o $@
+
+Dist/Grizzards.Cheater.PAL.a26:	$(shell find Source -name \*.s)
+	64tass --nostart --long-branch --case-sensitive \
+	--ascii -I. -I Source/Common -I Source/Routines \
+	-Wall -Wno-shadow -Wno-leading-zeros --m6502 \
+	Source/Cheater/Cheater.s -DTV=PAL -o $@
+
+Dist/Grizzards.Cheater.SECAM.a26:	$(shell find Source -name \*.s)
+	64tass --nostart --long-branch --case-sensitive \
+	--ascii -I. -I Source/Common -I Source/Routines \
+	-Wall -Wno-shadow -Wno-leading-zeros --m6502 \
+	Source/Cheater/Cheater.s -DTV=SECAM -o $@
 
 RELEASE=noreleasenamegiven
 release:	all

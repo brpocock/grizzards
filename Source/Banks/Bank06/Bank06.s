@@ -29,7 +29,7 @@ DoLocal:
 
           .include "VSync.s"
           .include "VBlank.s"
-          .include "Overscan.s"
+          
           .include "Random.s"
           .include "48Pixels.s"
           .include "MoveEffects.s"
