@@ -147,8 +147,10 @@ InvertedBitMask:
           .fi
 
           .if BANK != 7
+          .if !DEMO || BANK != 5
           .if BANK < 8 || BANK == 15
           .include "Overscan.s"
+          .fi
           .fi
           .fi
           
