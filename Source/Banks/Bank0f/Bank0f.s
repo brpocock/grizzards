@@ -20,7 +20,7 @@
           .include "48Pixels.s"
           .include "VSync.s"
           .include "VBlank.s"
-          .include "Overscan.s"
+          
           .include "Prepare48pxMobBlob.s"
           .include "Random.s"
 

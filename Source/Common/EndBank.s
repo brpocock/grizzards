@@ -145,6 +145,12 @@ InvertedBitMask:
           .if BANK != 7
           .include "WaitScreenBottom.s"
           .fi
+
+          .if BANK != 7
+          .if BANK < 8 || BANK == 15
+          .include "Overscan.s"
+          .fi
+          .fi
           
           .fill ($fff7 - * + 1), 0        ; 7800 crypto key (designed to fail)
 

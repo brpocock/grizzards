@@ -19,7 +19,7 @@ DoLocal:
 
           .include "VSync.s"
           .include "VBlank.s"
-          .include "Overscan.s"
+          
           .include "Random.s"
 
           .include "PlayMusic.s"

@@ -50,7 +50,7 @@ ShowMoveDecoded:
           .include "ShowText.s"
           .include "VSync.s"
           .include "VBlank.s"
-          .include "Overscan.s"
+          
           .include "48Pixels.s"
           .include "Prepare48pxMobBlob.s"
           .include "DecodeText.s"
