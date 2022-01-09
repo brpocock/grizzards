@@ -16,3 +16,17 @@ Now you can understand the ancient carvings on the walls
 Ancient:
 There are old runes carved here,but you can not read it
 
+Radio:
+♂My radio repair shop is going to have to shut for monsters
+
+RadioFix:
+♂O.I can totally fix that radio for you.No problem
+
+RadioDone:
+♂I guess I ought to run away from monsters too..Bye
+
+Villager2:
+♀Hello there.Are you here to defeat these ? awful monsters
+
+Villager3:
+♂This village used to be a lot more fun before these monsters
