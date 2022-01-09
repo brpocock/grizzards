@@ -647,6 +647,10 @@ SpriteList:
           .byte 0, 0
           .byte SpriteCombat, 25
 
+          .byte $ff, SpriteFixed
+          .byte $91, $24
+          .byte SpriteSign, 78  ; Beware Cyclops
+
 	.byte 0
 
 	;; Room 27

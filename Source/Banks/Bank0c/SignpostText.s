@@ -5,7 +5,7 @@
 
           FirstSignpost = 67
 
-          Signs = ( Sign_FindAndrew, Sign_FindFred, Sign_FindTimmy, Sign_DragonHints, Sign_GetDragonHints, Sign_Ancient, NPC_Radio, NPC_RadioFix, NPC_RadioDone, NPC_Villager2, NPC_Villager3 )
+          Signs = ( Sign_FindAndrew, Sign_FindFred, Sign_FindTimmy, Sign_DragonHints, Sign_GetDragonHints, Sign_Ancient, NPC_Radio, NPC_RadioFix, NPC_RadioDone, NPC_Villager2, NPC_Villager3, Sign_BewareCyclops )
           
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
@@ -137,3 +137,13 @@ NPC_Villager3:
           .SignText "MONSTERS.   "
           .byte ModeSignpostDone
 
+;;; 78
+Sign_BewareCyclops:
+          .colu COLBLUE, 0
+          .colu COLYELLOW, $e
+          .SignText "BEWARE OF A "
+          .SignText "ONE-EYED    "
+          .SignText "MONSTER WHO "
+          .SignText "TENDS TO THE"
+          .SignText "VENOM SHEEP."
+          .byte ModeSignpostDone

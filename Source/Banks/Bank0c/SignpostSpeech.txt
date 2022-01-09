@@ -30,3 +30,6 @@ Villager2:
 
 Villager3:
 ♂This village used to be a lot more fun before these monsters
+
+BewareCyclops:
+Beware of a one-eyed monster who tends to the venom sheep
