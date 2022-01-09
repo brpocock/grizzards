@@ -145,13 +145,18 @@ HangUp:
           .if TV == NTSC
           .TimeLines KernelLines
           .else
-          .TimeLines KernelLines
+          .TimeLines KernelLines / 2
           .fi
 
           .ldacolu COLGREEN, $4
           sta COLUBK
 
           .WaitForTimer
+
+          .if TV != NTSC
+          .TimeLines KernelLines / 2
+          .WaitForTimer
+          .fi
 
           lda # ( 76 * OverscanLines ) / 64 - 1
           sta TIM64T
