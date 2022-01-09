@@ -5,7 +5,7 @@
 
           FirstSignpost = 67
 
-          Signs = ( Sign_FindAndrew, Sign_FindFred, Sign_FindTimmy, Sign_DragonHints, Sign_GetDragonHints, Sign_Ancient, NPC_Radio, NPC_RadioFix, NPC_RadioDone )
+          Signs = ( Sign_FindAndrew, Sign_FindFred, Sign_FindTimmy, Sign_DragonHints, Sign_GetDragonHints, Sign_Ancient, NPC_Radio, NPC_RadioFix, NPC_RadioDone, NPC_Villager2, NPC_Villager3 )
           
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
@@ -115,3 +115,25 @@ NPC_RadioDone:
           .SignText " - BYE!     "
           .byte ModeSignpostSetFlag, 29
           
+;;; 76
+NPC_Villager2:
+          .colu COLINDIGO, 0
+          .colu COLTURQUOISE, $9
+          .SignText "HELLO THERE."
+          .SignText "ARE YOU HERE"
+          .SignText "TO DEFEAT   "
+          .SignText "THESE AWFUL "
+          .SignText "MONSTERS?   "
+          .byte ModeSignpostDone
+
+;;; 77
+NPC_Villager3:
+          .colu COLINDIGO, 0
+          .colu COLTURQUOISE, $9
+          .SignText "THIS VILLAGE"
+          .SignText "USED TO BE A"
+          .SignText "LOT MORE FUN"
+          .SignText "BEFORE THESE"
+          .SignText "MONSTERS.   "
+          .byte ModeSignpostDone
+
