@@ -596,7 +596,7 @@ SpriteList:
 	;; Room 24
           .byte $ff, SpriteFixed
           .byte $7d, $10
-          .byte SpriteGrizzardDepot, 0
+          .byte SpriteDoor, 31
           
           .byte $ff, SpriteWander
           .byte 0, 0
@@ -714,6 +714,10 @@ SpriteList:
 	.byte 0
 
 	;; Room 32
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpritePerson, 10 ; random villager
+
 	.byte 0
 
 	;; Room 33
@@ -724,10 +728,18 @@ SpriteList:
 	.byte 0
 
 	;; Room 34
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpritePerson, 10 ; random villager
+
 	.byte 0
 
 	;; Room 35
-	.byte 0
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpritePerson, 10 ; random villager
+
+          .byte 0
 
 	;; Room 36
           .byte 46, SpriteWander
@@ -737,9 +749,17 @@ SpriteList:
 	.byte 0
 
 	;; Room 37
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpritePerson, 10 ; random villager
+
 	.byte 0
 
 	;; Room 38
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpritePerson, 10 ; random villager
+
 	.byte 0
 
 	;; Room 39

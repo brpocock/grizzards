@@ -3,23 +3,55 @@
 
 ValidateMap:        .block
           ;; Remove any Grizzard who is already a companion.
-          ;; New Grizzards must be the last sprite(s) on the list for a room.
           ldx SpriteCount
 CheckForGrizzard:
           dex
+          bmi DoneCheckingGrizzards ; wrapped below 0
 
           lda SpriteAction, x
           cmp #SpriteGrizzard
-          bne +
+          bne CheckForGrizzard
 
           lda SpriteParam, x
           sta Temp
+          txa
+          pha
           .FarJSR SaveKeyBank, ServicePeekGrizzard
-          bcc +                 ; Grizzard not found
+          bcc DidNotCatchGrizzardYet
+
+AlreadyCaughtGrizzard:
+          pla
+          pha
+          tax
+
+ShiftSpritesDownOne:
+          lda SpriteIndex + 1, x
+          sta SpriteIndex, x
+          lda SpriteX + 1, x
+          sta SpriteX, x
+          lda SpriteY + 1, x
+          sta SpriteY, x
+          lda SpriteMotion + 1, x
+          sta SpriteMotion, x
+          lda SpriteAction + 1, x
+          sta SpriteAction, x
+          lda SpriteParam + 1, x
+          sta SpriteParam, x
+
+          inx
+          cpx # 3
+          blt ShiftSpritesDownOne
+
           dec SpriteCount
 
-          bne CheckForGrizzard
-+
+DidNotCatchGrizzardYet:
+          pla
+          tax
+
+          jmp CheckForGrizzard
+
+DoneCheckingGrizzards:
+
 ;;; 
           lda GameMode
           cmp #ModeMapNewRoomDoor
