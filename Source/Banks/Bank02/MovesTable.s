@@ -142,21 +142,23 @@ WetNoodle:
           .MiniText "NOODLE"
 
           ;; 40
-          .MiniText " MOVE "
-          .MiniText "  40  "
-
-          .MiniText " MOVE "
-          .MiniText "  41  "
-
-          .MiniText " MOVE "
-          .MiniText "  42  "
-
-          .MiniText " MOVE "
-          .MiniText "  43  "
+StompDown:
+          .MiniText "STOMP "
+          .MiniText "  DOWN"
+Crush:
+          .MiniText "CRUSH "
+          .MiniText "      "
+FireyBreath:
+          .MiniText "FIREY "
+          .MiniText "BREATH"
+EvilEye:
+          .MiniText "EVIL  "
+          .MiniText "   EYE"
 
           ;; 44
-          .MiniText " MOVE "
-          .MiniText "  44  "
+ClawsOut:
+          .MiniText "CLAWS "
+          .MiniText "   OUT"
 
           .MiniText " MOVE "
           .MiniText "  45  "

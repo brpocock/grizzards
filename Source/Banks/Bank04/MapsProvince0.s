@@ -618,19 +618,19 @@ SpriteList:
 	;; Room 25
           .byte 30, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 25
+          .byte SpriteCombat, 25 ; Venom Sheep
 
           .byte 31, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 26
+          .byte SpriteCombat, 26 ; 4 Venom Sheep
 
           .byte $ff, SpriteRandomEncounter
           .byte 0, 0
-          .byte SpriteCombat, 25
+          .byte SpriteCombat, 25 ; Venom Sheep
 
-          .byte $ff, SpriteRandomEncounter
+          .byte 38, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 27
+          .byte SpriteMajorCombat, 27 ; Cyclops
 
 	.byte 0
 
@@ -647,10 +647,6 @@ SpriteList:
           .byte 0, 0
           .byte SpriteCombat, 25
 
-          .byte $ff, SpriteRandomEncounter
-          .byte 0, 0
-          .byte SpriteCombat, 27
-
 	.byte 0
 
 	;; Room 27
@@ -665,10 +661,6 @@ SpriteList:
           .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 25
-
-          .byte $ff, SpriteRandomEncounter
-          .byte 0, 0
-          .byte SpriteCombat, 27
 
 	.byte 0
 
@@ -839,7 +831,7 @@ SpriteList:
           .byte 0
 
           ;; Room 48
-          .byte $ff, SpriteRandomEncounter
+          .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 16
 
@@ -903,6 +895,10 @@ SpriteList:
           .byte 0
 
           ;; Room 56
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 16
+
           .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 15
@@ -938,10 +934,6 @@ SpriteList:
           .byte 0
 
           ;; Room 61
-          .byte $ff, SpriteRandomEncounter
-          .byte 0, 0
-          .byte SpriteCombat, 15
-
           .byte $ff, SpriteFixed
           .byte $b9, $28
           .byte SpriteGrizzardDepot, 0

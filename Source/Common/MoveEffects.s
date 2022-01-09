@@ -87,11 +87,16 @@ ScareAway:
 WetNoodle:
           .byte 0
           ;; 40
+StompDown:
+          .byte StatusSleep | StatusDefendDown
+Crush:
           .byte 0
+FireyBreath:
           .byte 0
-          .byte 0
-          .byte 0
-          .byte 0
+EvilEye:
+          .byte StatusMuddle
+ClawsOut:
+          .byte StatusDefendDown
           .byte 0
           .byte 0
           .byte 0
@@ -204,11 +209,16 @@ ScareAway:
 WetNoodle:
           .byte 0
           ;; 40
-          .byte 0
-          .byte 0
-          .byte 0
-          .byte 0
-          .byte 0
+StompDown:
+          .byte 19
+Crush:
+          .byte 27
+FireyBreath:
+          .byte 39
+EvilEye:
+          .byte 33
+ClawsOut:
+          .byte 12
           .byte 0
           .byte 0
           .byte 0

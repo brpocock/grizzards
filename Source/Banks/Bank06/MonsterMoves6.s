@@ -1,6 +1,6 @@
 ;;; Grizzards Source/Banks/Bank06/MonsterMoves6.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
-MonsterMoves:
+MonsterMoves:       .block
           ;; Each monster type can know 4 moves
 
           ;; 0
@@ -11,7 +11,7 @@ MonsterMoves:
           .byte 35, 3, 30, 9    ; Lectro Sheep
           .byte 9, 14, 23, 31   ; VIking Turtle
           .byte 17, 18, 19, 20  ; Crazy Fox
-          .byte 1, 2, 3, 4      ; WaterKitty
+          .byte 2, 39, 35, 44   ; WaterKitty
           ;; 8
           .byte 4, 17, 18, 30   ; Flame Doggo
           .byte 1, 2, 3, 4      ; Fuzzie Bear
@@ -23,10 +23,10 @@ MonsterMoves:
           .byte 1, 2, 3, 4      ; Butterfly
           ;; 16
           .byte 1, 2, 3, 4      ; Scary Rat
-          .byte 1, 2, 3, 4
-          .byte 1, 2, 3, 4
-          .byte 1, 2, 3, 4
-          .byte 1, 2, 3, 4
+          .byte 1, 2, 3, 4      ; Cave Grue
+          .byte 1, 2, 3, 4      ; Cave Bat
+          .byte 1, 2, 3, 4      ; Venom Sheep
+          .byte 40, 41, 43, 43  ; 1-Eyed Cyclops
           .byte 1, 2, 3, 4
           .byte 1, 2, 3, 4
           .byte 1, 2, 3, 4
@@ -61,3 +61,5 @@ MonsterMoves:
           .byte 1, 2, 3, 4
           .byte 1, 2, 3, 4
           ;; ↑ 49
+
+          .bend
