@@ -5,6 +5,9 @@
 ;;; Alex Herbert, 2004; altered by Bruce-Robert Pocock, 2017, 2020
 
 PlaySpeech: .block
+
+          .if !(NOSAVE)
+
           SerialOutput = $01
           SerialReady = $02
 
@@ -129,5 +132,8 @@ TheEnd:
           beq +
           dec SpeakJetCooldown
 +
+
+          .fi                   ; end of not-NoSave
+
           rts
           .bend

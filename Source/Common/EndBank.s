@@ -96,6 +96,7 @@ FarCall:
           pha
           sta BankSwitch0, x
           jsr DoLocal
+          ;; fall through after rts
 
 ;;; Return from a FarCall. In fact, jump to any address in any
 ;;; memory bank by stuffing the stack.
