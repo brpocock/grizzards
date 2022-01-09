@@ -178,7 +178,7 @@ MapLinks:
           ;; 15
           _ ..= (Map_FourWay, Map_SouthGlobe, ROOM17MAP, Map_Arc, Map_EWPassage)
           ;; 20
-          _ ..= (Map_EWFat, Map_Split, Map_SplitBoxes, Map_SplitMaze, Map_NorthGlobe)
+          _ ..= (Map_EWFat, Map_Split, Map_SplitBoxes, Map_SplitMaze, Map_Closed)
           ;; 25
           _ ..= (Map_EWFat, Map_FourWay, Map_EWFat, Map_EWFat, Map_FullTop)
           ;; 30
@@ -710,6 +710,10 @@ SpriteList:
           .byte 63, SpriteFixed
           .byte $53, $1f
           .byte SpriteDoor, 24
+
+          .byte 63, SpriteFixed
+          .byte $a8, $1f
+          .byte SpriteGrizzardDepot, 0
 
 	.byte 0
 
