@@ -120,13 +120,48 @@ ActuallyCheat:
           adc SaveGameSlot
           jsr i2cTxByte
           lda #<SaveGameSlotPrefix
+          ;; Megax is Grizzard # 29
+          ;; so it's in block + 3, offset 5 x 5 = 25
+          ;; That's $c0 + $19 = $d9
+          adc #$d9
           jsr i2cTxByte
 
-          ;; FIXME
-          ;; TODO
-          ;; WRITE MEGAX
+          lda # 90              ; Max HP
+          jsr i2cTxByte
+          lda # 90              ; Attack
+          jsr i2cTxByte
+          lda # 90              ; Defend
+          jsr i2cTxByte
+          lda # 0               ; Zero pad for future use
+          jsr i2cTxByte
+          lda #$ff              ; Moves Known
+          jsr i2cTxByte
 
-          jmp Loop
+          jsr i2cStopWrite
+
+HangUp:
+          jsr VSync
+
+          .if TV == NTSC
+          .TimeLines KernelLines
+          .else
+          .TimeLines KernelLines
+          .fi
+
+          .ldacolu COLGREEN, $4
+          sta COLUBK
+
+          .WaitForTimer
+
+          lda # ( 76 * OverscanLines ) / 64 - 1
+          sta TIM64T
+FillOverscanHang:
+          lda INSTAT
+          bpl FillOverscanHang
+
+          sta WSYNC
+
+          jmp HangUp
           
           .bend
 
