@@ -218,8 +218,8 @@ ClawsOut:
           .MiniText " MOVE "
           .MiniText "  62  "
 
-          .MiniText " MOVE "
-          .MiniText "  63  "
+          .MiniText "MEGA  "
+          .MiniText "  KILL"
           ;; ↑ 63
 
           .bend

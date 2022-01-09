@@ -25,7 +25,7 @@ MonsterMoves:       .block
           .byte 1, 2, 3, 4      ; Scary Rat
           .byte 1, 2, 3, 4      ; Cave Grue
           .byte 1, 2, 3, 4      ; Cave Bat
-          .byte 1, 2, 3, 4      ; Venom Sheep
+          .byte 25, 24, 24, 36  ; Venom Sheep
           .byte 40, 41, 43, 43  ; 1-Eyed Cyclops
           .byte 1, 2, 3, 4
           .byte 1, 2, 3, 4

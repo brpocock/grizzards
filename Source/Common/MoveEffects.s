@@ -117,7 +117,8 @@ ClawsOut:
           .byte 0
           .byte 0
           .byte 0
-          .byte 0
+MegaKill:
+          .byte StatusDefendDown | StatusAttackDown | StatusMuddle | StatusSleep
           ;; ↑ 63
 
           .bend
@@ -239,7 +240,8 @@ ClawsOut:
           .byte 0
           .byte 0
           .byte 0
-          .byte 0
+MegaKill:
+          .byte 50
           ;; ↑ 63
 
           .bend
