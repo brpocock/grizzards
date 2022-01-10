@@ -489,6 +489,12 @@ NCar0:
           jmp ByeBye
 
 NotSetFlag:
+          .if DEMO
+
+          ;; none of the points or inquire code
+          ;; fall through to NotInquire
+
+          .else
           cmp #ModeSignpostPoints
           bne NotPoints
           sed
@@ -523,6 +529,8 @@ NotPoints:
           ;; TODO
 
           jmp ByeBye
+
+          .fi                   ; !DEMO
 
 NotInquire:
           cmp #ModeSignpostDone
