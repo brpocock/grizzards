@@ -157,6 +157,8 @@ Speech1:
           bge Speech2
           lda WhoseTurn
           beq SpeechQueued
+          lda CombatMajorP
+          bne SpeechQueued
 
           lda #>(Phrase_One - 1)
           sta CurrentUtterance + 1
@@ -228,6 +230,9 @@ SayMonsterObject:
 Speech6:
           cmp # 7
           bge SpeechDone
+
+          lda CombatMajorP
+          bne SpeechQueued
 
           ldx CombatMoveSelected
           lda WhoseTurn
