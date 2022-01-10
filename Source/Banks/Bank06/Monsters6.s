@@ -230,7 +230,7 @@ Monsters:
           .byte 0, 0, 0
           .word $0100
 
-          .SignText " MAZE  PUMA "
+          .SignText " MAZE JAGUAR"
           .byte Monster_Cat
           .colu COLBLUE, $8
           .byte 0, 0, 0

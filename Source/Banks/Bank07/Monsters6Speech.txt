@@ -113,7 +113,7 @@ Monster6_37:
 Giant Bat
 
 Monster6_38:
-Maze Puma
+Maze Jaguar
 
 Monster6_39:
 Monster
