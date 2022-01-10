@@ -23,7 +23,7 @@ Fishing:
 ♂I fish here whenever the monsters let me be,which is not often
 
 FoundRing:
-♂You looking for a ¿ magic ring♂I found this in the sea
+♂You looking for a ¿ magic ring.♂I found this in the sea
 
 TrebleRefugee:
 ♂Port Lion is pretty safe,not like my home town,Treble
