@@ -46,6 +46,7 @@ ZeroTarget:
           sta pp3l
           stx WSYNC
           geq PrepareTopMonsters
+
 TopTarget:
           dex
 
@@ -161,9 +162,9 @@ DrawMajorMonsterLoop:
           lda (CombatSpritePointer), y
           sta GRP0
           .if TV == NTSC
-          .SkipLines 4
+            .SkipLines 4
           .else
-          .SkipLines 6
+            .SkipLines 6
           .fi
           dey
           bpl DrawMajorMonsterLoop
@@ -201,7 +202,7 @@ PositionMonsters:
           stx WSYNC
           lda SpritePresence, x
           sta NUSIZ0
-          .Sleep 4
+          .Sleep 6
           lda SpritePosition, x
           and #$0f
           tay
@@ -230,7 +231,7 @@ DrawMonsterLoop:
           stx WSYNC
           stx WSYNC
           .if TV != NTSC
-          stx WSYNC
+            stx WSYNC
           .fi
           dey
           bpl DrawMonsterLoop
@@ -285,5 +286,5 @@ CursorColored:
           .fi
 
           rts
-
+;;; 
           .bend
