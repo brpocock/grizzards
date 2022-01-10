@@ -133,7 +133,7 @@ FinishUp:
           sty GRP0
           sty GRP1
 
-          sta WSYNC
+          stx WSYNC
           rts
 
 NoBottomMonsters:
@@ -145,7 +145,7 @@ NoBottomMonsters:
 DrawMajorMonster:
 
 PositionMajorMonster:
-          sta WSYNC
+          stx WSYNC
           lda # NUSIZQuad
           sta NUSIZ0
           nop
@@ -199,7 +199,7 @@ CursorPosGross:
           rts
 ;;; 
 PositionMonsters:
-          sta WSYNC
+          stx WSYNC
           lda SpritePresence, x
           sta NUSIZ0
           .Sleep 4
@@ -215,7 +215,7 @@ GrossPositionMonsters:
           lda SpritePosition, x
           sta HMP0
 
-          sta WSYNC
+          stx WSYNC
           .SleepX 71
           sta HMOVE
 
@@ -228,10 +228,10 @@ DrawMonsters:
 -
           lda (CombatSpritePointer), y
           sta GRP0
-          sta WSYNC
-          sta WSYNC
+          stx WSYNC
+          stx WSYNC
           .if TV != NTSC
-          sta WSYNC
+          stx WSYNC
           .fi
           dey
           bpl -
@@ -245,7 +245,7 @@ DrawMonsters:
 DrawNothing:
           lda # 0
           sta GRP0
-          sta WSYNC
+          stx WSYNC
           .SleepX 71
           sta HMOVE
           lda pp3l
