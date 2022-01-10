@@ -202,7 +202,7 @@ colors:   .macro co1, co2
 ;;; NTSC, PAL
           .default
 
-          .byte (\co1 | (\co2 >> 4)
+          .byte (\co1 | (\co2 >> 4))
 
           .endswitch            ; TV
 .endm
