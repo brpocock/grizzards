@@ -224,7 +224,7 @@ GrossPositionMonsters:
 ;;; 
 DrawMonsters:
           ldy # 7
--
+DrawMonsterLoop:
           lda (CombatSpritePointer), y
           sta GRP0
           stx WSYNC
@@ -233,7 +233,7 @@ DrawMonsters:
           stx WSYNC
           .fi
           dey
-          bpl -
+          bpl DrawMonsterLoop
 
           ldy # 0
           sty GRP0
