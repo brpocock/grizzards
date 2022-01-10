@@ -139,9 +139,7 @@ FinishUp:
 NoBottomMonsters:
           jsr DrawNothing
           jmp FinishUp
-
 ;;; 
-
 DrawMajorMonster:
 
 PositionMajorMonster:
@@ -241,14 +239,14 @@ DrawMonsters:
           sty GRP0
           sty GRP1
           rts
-
-          .align $10, $20       ; avoid page crossing before HMOVE
+;;; 
 DrawNothing:
           lda # 0
           sta GRP0
           stx WSYNC
           .SleepX 71
           sta HMOVE
+          .NoPageCrossSince DrawNothing
           lda pp3l
           sta GRP1
           .if TV == NTSC
