@@ -157,7 +157,7 @@ GrossPositionMajorMonster:
 
 DrawMajorMonsterLines:
           ldy # 7
--
+DrawMajorMonsterLoop:
           lda (CombatSpritePointer), y
           sta GRP0
           .if TV == NTSC
@@ -166,7 +166,7 @@ DrawMajorMonsterLines:
           .SkipLines 6
           .fi
           dey
-          bpl -
+          bpl DrawMajorMonsterLoop
 
           ldy # 0
           sty GRP0
