@@ -8,7 +8,6 @@
 MapCount = 62
 ;;; 
 ;;; Foreground and background colors
-;;; Remember SECAM and don't make these too similar
 
 MapColors:
           ;; 0
