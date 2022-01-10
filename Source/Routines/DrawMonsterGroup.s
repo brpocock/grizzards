@@ -176,6 +176,7 @@ DrawMajorMonsterLines:
 
           .SkipLines 2
 
+          rts
 ;;; 
 PositionCursor:
           stx WSYNC
