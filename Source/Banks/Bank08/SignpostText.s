@@ -5,7 +5,7 @@
 
           FirstSignpost = 0
 
-          Signs = (Sign_Beware, Sign_FireSwamp, NPC_SouthGate, NPC_TunnelBlocked, NPC_TunnelOpen, NPC_Artifact, NPC_TakeArtifact1, NPC_TakeArtifact2, NPC_TookArtifact, Sign_LostMines, NPC_RandomVillager, Sign_TrebleVillage, NPC_TrebleVillage, Sign_TrebleDocks, Sign_WesternRoad, NPC_Artifact1Scared)
+          Signs = (Sign_Beware, Sign_FireSwamp, NPC_SouthGate, NPC_TunnelBlocked, NPC_TunnelOpen, NPC_Artifact, NPC_TakeArtifact1, NPC_TakeArtifact2, NPC_TookArtifact, Sign_LostMines, NPC_RandomVillager, Sign_TrebleVillage, NPC_TrebleVillage, Sign_TrebleDocks, Sign_WesternRoad)
           
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
@@ -166,13 +166,3 @@ Sign_WesternRoad:
           .SignText "  COMPLEX ->"
           .byte ModeSignpostDone
 
-;;; 15
-NPC_Artifact1Scared:
-          .colu COLINDIGO, 0
-          .colu COLTURQUOISE, $9
-          .SignText "I HAVE THE  "
-          .SignText "ARTIFACT    "
-          .SignText "HIDDEN FROM "
-          .SignText "THE MONSTERS"
-          .SignText "SAVE ME!    "
-          .byte ModeSignpostDone

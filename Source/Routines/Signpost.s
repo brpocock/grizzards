@@ -392,6 +392,7 @@ DoneDrawing:
           .BitBit PRESSED
           bne NoButton
 
+GetNextMode:
           ldy # (9 * 5)
           lda (SignpostText), y
           sta GameMode
@@ -468,7 +469,7 @@ NotClearFlag:
 
 NotWarp:
           cmp #ModeSignpostSetFlag
-          bne ByeBye
+          bne NotSetFlag
           sed
           lda Score
           clc
@@ -485,6 +486,49 @@ NCar0:
           lda (SignpostText), y
           sta Temp
           .SetBitFlag Temp
+          jmp ByeBye
+
+NotSetFlag:
+          cmp #ModeSignpostPoints
+          bne NotPoints
+          sed
+          lda Score
+          clc
+          ldy # (9 * 5) + 1
+          adc (SignpostText), y
+          sta Score
+          lda Score + 1
+          iny
+          adc (SignpostText), y
+          sta Score + 1
+          bcc +
+          inc Score + 2
++
+          cld
+          lda # SoundVictory
+          sta NextSound
+          lda SignpostText
+          clc
+          adc # 3
+          sta SignpostText
+          bcc +
+          inc SignpostText + 1
++
+          jmp GetNextMode
+
+NotPoints:
+          cmp #ModeSignpostInquire
+          bne NotInquire
+
+          ;; TODO
+
+          jmp ByeBye
+
+NotInquire:
+          cmp #ModeSignpostDone
+          beq ByeBye
+
+          brk
 
 ByeBye:
           lda # 0

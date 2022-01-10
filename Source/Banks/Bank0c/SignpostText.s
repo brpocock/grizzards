@@ -3,12 +3,57 @@
 
 ;;; Order of sign texts MUST match the texts in SignpostSpeech.txt or it all goes to Hell.
 
-          FirstSignpost = 67
+          FirstSignpost = 63
 
-          Signs = ( Sign_FindAndrew, Sign_FindFred, Sign_FindTimmy, Sign_DragonHints, Sign_GetDragonHints, Sign_Ancient, NPC_Radio, NPC_RadioFix, NPC_RadioDone, NPC_Villager2, NPC_Villager3, Sign_BewareCyclops )
+          Signs = ( NPC_Fishing2, NPC_MirandaLabyrinth, NPC_MirandaDone, Sign_DocksToTreble, Sign_FindAndrew, Sign_FindFred, Sign_FindTimmy, Sign_DragonHints, Sign_GetDragonHints, Sign_Ancient, NPC_Radio, NPC_RadioFix, NPC_RadioDone, NPC_Villager2, NPC_Villager3, Sign_BewareCyclops )
           
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
+
+;;; 63
+NPC_Fishing2:
+          .colu COLINDIGO, 0
+          .colu COLCYAN, $9
+          .SignText "IF I FIND   "
+          .SignText "ANY MORE    "
+          .SignText "MAGIC ITEMS,"
+          .SignText "I'LL LET YOU"
+          .SignText "KNOW IT.    "
+          .byte ModeSignpostDone
+
+;;; 64
+NPC_MirandaLabyrinth:
+          .colu COLPURPLE, 0
+          .colu COLTURQUOISE, $c
+          .byte $ff, 56, 65     ; labyrinth closed still
+          .SignText "A LABYRINTH "
+          .SignText "MUST HIDE   "
+          .SignText "THE BOSSES  "
+          .SignText "OF MONSTERS."
+          .SignText "UNCOVER IT. "
+          .byte ModeSignpostDone
+
+;;; 65
+NPC_MirandaDone:
+          .colu COLPURPLE, 0
+          .colu COLTURQUOISE, $c
+          .SignText "THERE ARE 3 "
+          .SignText "DRAGONS WHO "
+          .SignText "ANSWER TO A "
+          .SignText "BOSS BEAR.  "
+          .SignText "DEFEAT THEM."
+          .byte ModeSignpostDone
+
+;;; 66
+Sign_DocksToTreble:
+          .colu COLBLUE, $e
+          .colu COLCYAN, $2
+          .SignText "PORT LION   "
+          .SignText "DOCKS TO GO "
+          .SignText "TO TREBLE   "
+          .SignText "DEPARTING.  "
+          .SignText "ALL ABOARD! "
+          .byte ModeSignpostWarp, 0, 1
 
 ;;; 67
 Sign_FindAndrew:
@@ -147,3 +192,4 @@ Sign_BewareCyclops:
           .SignText "TENDS TO THE"
           .SignText "VENOM SHEEP."
           .byte ModeSignpostDone
+

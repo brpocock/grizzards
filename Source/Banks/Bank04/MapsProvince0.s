@@ -284,7 +284,7 @@ SpriteList:
           .if !DEMO
           .byte $ff, SpriteWander
           .byte 120, 32
-          .byte SpritePerson, 10 ; Random villager
+          .byte SpritePerson, 80 ; lover 2
           .fi
 
           .byte 0
@@ -753,7 +753,7 @@ SpriteList:
 	;; Room 37
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpritePerson, 76 ; random villager
+          .byte SpritePerson, 83 ; lover 1
 
 	.byte 0
 

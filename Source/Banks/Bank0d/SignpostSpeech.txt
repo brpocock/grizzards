@@ -1,0 +1,14 @@
+Lover1:
+♂Please take this note to my beloved in Treble.I miss them
+
+Lover2:
+♂You have brought me a great note.We'll meet again soon
+
+Lover2NoNote:
+♂My beloved is far away in Anchor.It's unsafe to get there
+
+Lover1Requited:
+♂I love them so much.Thank you,you've done a good deed
+
+Lover1End:
+♂When you've defeated all the monsters,we can be together
