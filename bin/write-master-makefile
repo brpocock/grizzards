@@ -3,7 +3,7 @@
 
 my @banks = ();
 {
-  for (my $bank = 0; $bank < 16; ++$bank) {
+  for (my $bank = 0; $bank < 32; ++$bank) {
     push @banks => sprintf "%02x" => $bank;
   }
 }

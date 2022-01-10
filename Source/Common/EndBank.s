@@ -148,7 +148,7 @@ InvertedBitMask:
 
           .if BANK != 7
           .if !DEMO || BANK != 5
-          .if BANK < 8 || BANK == 15
+          .if BANK < 8 || BANK >= 15
           .include "Overscan.s"
           .fi
           .fi
@@ -165,7 +165,7 @@ InvertedBitMask:
 
           .else
 
-          * = $ffe0
+          * = $ffc0
           .offs -$f000
 
           .text "grizbrp", 0
@@ -179,7 +179,10 @@ InvertedBitMask:
           .endswitch
 
           ;; magic cookie for Stella
-          nop $1fe0
+          * = $fff8
+          .offs -$f000
+
+          .text "dfdf"
 
           .fi
 
@@ -206,30 +209,52 @@ KnownZeroInEveryBank:
 
           .else
 
-          BankSwitch0 = $ffe0
-          BankSwitch1 = $ffe1
-          BankSwitch2 = $ffe2
-          BankSwitch3 = $ffe3
-          BankSwitch4 = $ffe4
-          BankSwitch5 = $ffe5
-          BankSwitch6 = $ffe6
-          BankSwitch7 = $ffe7
-          BankSwitch8 = $ffe8
-          BankSwitch9 = $ffe9
-          BankSwitchA = $ffea
-          BankSwitchB = $ffeb
-          BankSwitchC = $ffec
-          BankSwitchD = $ffed
-          BankSwitchE = $ffee
-          BankSwitchF = $ffef
+          BankSwitch0 = $ffc0
+          BankSwitch1 = $ffc1
+          BankSwitch2 = $ffc2
+          BankSwitch3 = $ffc3
+          BankSwitch4 = $ffc4
+          BankSwitch5 = $ffc5
+          BankSwitch6 = $ffc6
+          BankSwitch7 = $ffc7
+          BankSwitch8 = $ffc8
+          BankSwitch9 = $ffc9
+          BankSwitchA = $ffca
+          BankSwitchB = $ffcb
+          BankSwitchC = $ffcc
+          BankSwitchD = $ffcd
+          BankSwitchE = $ffce
+          BankSwitchF = $ffcf
+          BankSwitch10 = $ffd0
+          BankSwitch11 = $ffd1
+          BankSwitch12 = $ffd2
+          BankSwitch13 = $ffd3
+          BankSwitch14 = $ffd4
+          BankSwitch15 = $ffd5
+          BankSwitch16 = $ffd6
+          BankSwitch17 = $ffd7
+          BankSwitch18 = $ffd8
+          BankSwitch19 = $ffd9
+          BankSwitch1A = $ffda
+          BankSwitch1B = $ffdb
+          BankSwitch1C = $ffdc
+          BankSwitch1D = $ffdd
+          BankSwitch1E = $ffde
+          BankSwitch1F = $ffdf
 
           .fi
 
 ;;; 6502 special vectors
 ;;;
+          .if DEMO
+
+          ;; DF carts need DFDF overlapping here for Stella's happiness
+
           * = NMIVEC
           .offs -$f000
           .word GoColdStart
+
+          .fi
 
           * = RESVEC             ; CPU reset and BRK (IRQ) vectors (no NMI)
           .offs -$f000
