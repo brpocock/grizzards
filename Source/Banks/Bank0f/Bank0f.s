@@ -3,40 +3,28 @@
           BANK = $0f
 
           .include "StartBank.s"
+          .include "6BitCompression.s"
 
-          .include "Source/Generated/Bank07/SpeakJetIDs.s"
+          .include "SpeakJetIDs.s" ; from this bank, not bank 7
 
-          .include "AttractStory.s"
-          .include "Death.s"
-          .include "DrawMonsterGroup.s"
-          .include "WinnerFireworks.s"
-          .include "DrawGrizzard.s"
-
-          .include "MonsterArt.s"
-          .include "GrizzardImages.s"
-          .include "GrizzardArt.s"
-          .include "CombatSpriteTables.s"
-
-          .include "48Pixels.s"
-          .include "VSync.s"
-          .include "VBlank.s"
           
-          .include "Prepare48pxMobBlob.s"
-          .include "Random.s"
+          .include "Font.s"
+          .include "FontExtended.s"
 
 DoLocal:
-          cpy #ServiceAttractStory
-          beq AttractStory
-          cpy #ServiceDeath
-          beq Death
-          cpy #ServiceDrawMonsterGroup
-          beq DrawMonsterGroup
-          cpy #ServiceFireworks
-          beq WinnerFireworks
-          cpy #ServiceDrawGrizzard
-          beq DrawGrizzard
-          brk
+          .include "Signpost.s"
 
+          .include "VSync.s"
+          .include "VBlank.s"
+          .include "Random.s"
+          .include "48Pixels.s"
+          .include "DecodeText.s"
+
+          .include "SignpostText.s"
+          .include "SignpostSpeech.s"
+          .include "SpeakJetIndex.s"
+
+          .include "PlaySpeech.s"
           
 
           .include "EndBank.s"

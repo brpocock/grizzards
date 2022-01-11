@@ -1,4 +1,4 @@
-;;; Grizzards Source/Banks/Bank0e/SignpostText.s
+;;; Grizzards Source/Banks/Bank11/SignpostText.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 ;;; Order of sign texts MUST match the texts in SignpostSpeech.txt or it all goes to Hell.

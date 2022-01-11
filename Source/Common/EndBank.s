@@ -148,7 +148,7 @@ InvertedBitMask:
 
           .if BANK != 7
           .if !DEMO || BANK != 5
-          .if BANK < 8 || BANK >= 15
+          .if BANK < $08 || BANK > $15
           .include "Overscan.s"
           .fi
           .fi

@@ -128,7 +128,7 @@
           .if DEMO
           AnimationsBank = $03
           .else
-          AnimationsBank = $0f
+          AnimationsBank = $1f
           .fi
           TextBank = $02
           FailureBank = $01
