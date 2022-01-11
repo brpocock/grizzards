@@ -3,6 +3,12 @@
 
           .include "Source/Generated/Bank07/SpeakJetIDs.s"
 
+          .include "Font.s"
+          .include "FontExtended.s"
+          .include "6BitCompression.s"
+          .include "DecodeText.s"
+          .include "Write12Chars.s"
+
           .include "AttractStory.s"
           .include "Death.s"
           .include "DrawMonsterGroup.s"
@@ -22,6 +28,8 @@
           
           
 DoLocal:
+          cpy #ServiceWrite12Chars
+          beq Write12Chars
           cpy #ServiceAttractStory
           beq AttractStory
           cpy #ServiceDeath
