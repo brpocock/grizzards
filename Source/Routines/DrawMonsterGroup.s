@@ -46,6 +46,7 @@ ZeroTarget:
           sta pp3l
           stx WSYNC
           geq PrepareTopMonsters
+
 TopTarget:
           dex
 
@@ -133,19 +134,17 @@ FinishUp:
           sty GRP0
           sty GRP1
 
-          sta WSYNC
+          stx WSYNC
           rts
 
 NoBottomMonsters:
           jsr DrawNothing
           jmp FinishUp
-
 ;;; 
-
 DrawMajorMonster:
 
 PositionMajorMonster:
-          sta WSYNC
+          stx WSYNC
           lda # NUSIZQuad
           sta NUSIZ0
           nop
@@ -159,16 +158,16 @@ GrossPositionMajorMonster:
 
 DrawMajorMonsterLines:
           ldy # 7
--
+DrawMajorMonsterLoop:
           lda (CombatSpritePointer), y
           sta GRP0
           .if TV == NTSC
-          .SkipLines 4
+            .SkipLines 4
           .else
-          .SkipLines 6
+            .SkipLines 6
           .fi
           dey
-          bpl -
+          bpl DrawMajorMonsterLoop
 
           ldy # 0
           sty GRP0
@@ -176,6 +175,7 @@ DrawMajorMonsterLines:
 
           .SkipLines 2
 
+          rts
 ;;; 
 PositionCursor:
           stx WSYNC
@@ -199,10 +199,10 @@ CursorPosGross:
           rts
 ;;; 
 PositionMonsters:
-          sta WSYNC
+          stx WSYNC
           lda SpritePresence, x
           sta NUSIZ0
-          .Sleep 4
+          .Sleep 6
           lda SpritePosition, x
           and #$0f
           tay
@@ -215,7 +215,7 @@ GrossPositionMonsters:
           lda SpritePosition, x
           sta HMP0
 
-          sta WSYNC
+          stx WSYNC
           .SleepX 71
           sta HMOVE
 
@@ -225,29 +225,29 @@ GrossPositionMonsters:
 ;;; 
 DrawMonsters:
           ldy # 7
--
+DrawMonsterLoop:
           lda (CombatSpritePointer), y
           sta GRP0
-          sta WSYNC
-          sta WSYNC
+          stx WSYNC
+          stx WSYNC
           .if TV != NTSC
-          sta WSYNC
+            stx WSYNC
           .fi
           dey
-          bpl -
+          bpl DrawMonsterLoop
 
           ldy # 0
           sty GRP0
           sty GRP1
           rts
-
-          .align $10, $20       ; avoid page crossing before HMOVE
+;;; 
 DrawNothing:
           lda # 0
           sta GRP0
-          sta WSYNC
+          stx WSYNC
           .SleepX 71
           sta HMOVE
+          .NoPageCrossSince DrawNothing
           lda pp3l
           sta GRP1
           .if TV == NTSC
@@ -286,5 +286,5 @@ CursorColored:
           .fi
 
           rts
-
+;;; 
           .bend

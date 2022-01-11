@@ -208,12 +208,16 @@ RunAway:
 
           lda #ModeMap
           sta GameMode
-          ;; fall through ;; gne RunningAway
+          gne RunningAway
 ;;; 
 ScreenDone:
+          .if TV == NTSC
+          stx WSYNC
+          .fi
 RunningAway:
           .if TV == NTSC
-          .SkipLines 3
+          stx WSYNC
+          stx WSYNC
           .fi
 
           lda GameMode

@@ -126,7 +126,7 @@ Monsters:
           .byte Monster_Cyclops
           .colu COLPURPLE, $8
           .byte 20, 20, 60
-          .word $0120
+          .word $0500
 
           .SignText "FIERCERAPTOR"
           .byte Monster_Raptor
@@ -230,7 +230,7 @@ Monsters:
           .byte 0, 0, 0
           .word $0100
 
-          .SignText " MAZE  PUMA "
+          .SignText " MAZE JAGUAR"
           .byte Monster_Cat
           .colu COLBLUE, $8
           .byte 0, 0, 0

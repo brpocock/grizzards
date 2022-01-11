@@ -119,19 +119,19 @@ Move39:
 Wet Noodle
 
 Move40:
-A Move
+Stomp Down
 
 Move41:
-A Move
+Crush
 
 Move42:
-A Move
+Firey Breath
 
 Move43:
-A Move
+Evil Eye
 
 Move44:
-A Move
+Claws Out
 
 Move45:
 A Move
@@ -188,4 +188,4 @@ Move62:
 A Move
 
 Move63:
-A Move
+Mega Kill

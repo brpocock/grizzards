@@ -42,6 +42,3 @@ Treble docks.To Port Lion.No ships are in port now
 
 WesternRoad:
 To the west, the lost mine.To the east,the spiral woods and Mount Peshon tunnel complex
-
-Artifact1Scared:
-♂I have the artifact hidden from the monsters. Save me.

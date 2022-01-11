@@ -1,6 +1,4 @@
 ;;; Grizzards Source/Routines/AtariVox-EEPROM-Driver.s
-;;; Copyright © 2021-2022 Bruce-Robert Pocock
-;;; -*- asm -*-
 ;;;
 ;;; AtariVox EEPROM Driver
 ;;;

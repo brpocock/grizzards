@@ -1,14 +1,25 @@
-;;; Grizzards Source/Banks/Bank05/SignpostText.s
+;;; Grizzards Source/Banks/Bank09/SignpostText.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 ;;; Order of sign texts MUST match the texts in SignpostSpeech.txt or it all goes to Hell.
 
-          FirstSignpost = 16
+          FirstSignpost = 15
 
-          Signs = (NPC_BrokenRadio, Sign_TunnelClosed, Sign_SpiralWoodsOpen, Sign_PortLionShip, Sign_TunnelMazeBlocked, NPC_LostPendant, Random_FoundPendant, NPC_ReturnPendant, NPC_HaveKey, NPC_LostChild, NPC_IAmLost, NPC_ReturnChild, NPC_ChildReward, Sign_Labyrinth, Sign_KeyFred, Sign_KeyAndrew, Sign_KeyTimmy)
+          Signs = ( NPC_Artifact1Scared, NPC_BrokenRadio, Sign_TunnelClosed, Sign_SpiralWoodsOpen, Sign_PortLionShip, Sign_TunnelMazeBlocked, NPC_LostPendant, Random_FoundPendant, NPC_ReturnPendant, NPC_HaveKey, NPC_LostChild, NPC_IAmLost, NPC_ReturnChild, NPC_ChildReward, Sign_Labyrinth, Sign_KeyFred )
           
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
+
+;;; 15
+NPC_Artifact1Scared:
+          .colu COLINDIGO, 0
+          .colu COLTURQUOISE, $9
+          .SignText "I HAVE THE  "
+          .SignText "ARTIFACT    "
+          .SignText "HIDDEN FROM "
+          .SignText "THE MONSTERS"
+          .SignText "SAVE ME!    "
+          .byte ModeSignpostDone
 
 ;;; 16
 NPC_BrokenRadio:
@@ -179,27 +190,4 @@ Sign_KeyFred:
           .SignText "DREADED     "
           .SignText "DRAGON FRED."
           .byte ModeSignpostClearFlag, 60
-
-;;; 31
-Sign_KeyAndrew:
-          .colu COLGREEN, 0
-          .colu COLYELLOW, $f
-          .SignText "THIS LEVER  "
-          .SignText "UNLOCKS THE "
-          .SignText "DOOR TO THE "
-          .SignText "EVIL DRAGON "
-          .SignText "ANDREW.     "
-          .byte ModeSignpostClearFlag, 61
-
-;;; 32
-Sign_KeyTimmy:
-          .colu COLCYAN, 0
-          .colu COLCYAN, $f
-          .SignText "THIS LEVER  "
-          .SignText "UNLOCKS THE "
-          .SignText "DOOR TO THE "
-          .SignText "WICKED      "
-          .SignText "DRAGON TIMMY"
-          .byte ModeSignpostClearFlag, 62
-
 

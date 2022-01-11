@@ -1,3 +1,12 @@
+Hellmouth:
+♂It's me,Fat Tony.In an old story,this was the road to Hell
+
+CanYouSwim:
+♂It's me,Fat Tony.Can ¿ you swim♂If not,the sea is dangerous
+
+Allen:
+♂I'm Allen.They say in legends the monsters are from Hell
+
 Miranda1:
 ♀I'm Miranda.I've lost my favorite mirror,if you see it
 
@@ -36,16 +45,3 @@ GaryPlayerMirror:
 
 LabyrinthOpen:
 ♂A labyrinth beyond that door may be where the boss bear is
-
-Fishing2:
-♂If I find any more magic items,I'll let you know it
-
-MirandaLabyrinth:
-♀A labyrinth must hide the bosses of monsters.Uncover it
-
-MirandaDone:
-♀There are three dragons who answer to a boss bear.Defeat them
-
-DocksToTreble:
-Port Lion docks to go to Treble departing.All aboard
-

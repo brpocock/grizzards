@@ -292,13 +292,15 @@ SignpostTextLine:
 
           * = Scratchpad
 
-;;; What type (index) of enemy are we battling?
+;;; Reference to current combat scenario
 CurrentCombatEncounter:
           .byte ?
 
+;;; What flag do we set if victorious?
 CurrentCombatIndex:
           .byte ?
 
+;;; Which monster specifically are we fighting?
 CurrentMonsterPointer:
           .word ?
 
@@ -353,8 +355,11 @@ MoveHP:
 MoveStatusFX:
           .byte ?
 
+* = $ea
+
 ;;; Non-zero if this is a Major Combat in stead of a regular one
 ;;; (only differences are how the enemy is drawn and numbers are omitted)
+;;; This has to be past the SpriteParam fields which are $e8-$eb!
 CombatMajorP:
           .byte ?
 

@@ -104,24 +104,24 @@
           COLBROWN = COLORANGE
 
           .case SECAM
-          COLBLACK = 0
-          COLBLUE = 2
+          COLBLACK = $00
+          COLBLUE = $d2
           COLINDIGO = COLBLUE
-          COLRED = 4
+          COLRED = $64
           COLBROWN = COLRED
-          COLMAGENTA = 6
+          COLMAGENTA = $86
           COLPURPLE = COLMAGENTA
-          COLGREEN = 8
+          COLGREEN = $58
           COLSPRINGGREEN = COLGREEN
           COLSEAFOAM = COLGREEN
-          COLCYAN = $a
+          COLCYAN = $9a
           COLTURQUOISE = COLCYAN
           COLTEAL = COLCYAN
-          COLYELLOW = $c
+          COLYELLOW = $2c
           COLORANGE = COLYELLOW
           COLGOLD = COLYELLOW
-          COLWHITE = $e
-          COLGREY = $f          ; effectively white; see #ldacolu macro for use
+          COLWHITE = $0e
+          COLGREY = $0f          ; effectively white; see .ldacolu macro for use
           .endswitch
 
           COLGRAY = COLGREY
@@ -194,15 +194,15 @@ colors:   .macro co1, co2
           .case SECAM
 
           .if \co1 == COLGRAY
-            .byte (COLWHITE << 4) | COLBLACK
+            .byte ((COLWHITE & $0f) << 4) | (COLBLACK & $0f)
           .else
-            .byte (\co1 << 4) | COLBLACK
+            .byte ((\co1 & $0f) << 4) | (COLBLACK & $0f)
           .fi
 
 ;;; NTSC, PAL
           .default
 
-          .byte \co1 | (\co2 >> 4)
+          .byte (\co1 | (\co2 >> 4))
 
           .endswitch            ; TV
 .endm

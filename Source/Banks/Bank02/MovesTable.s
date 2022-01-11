@@ -1,151 +1,164 @@
 ;;; Grizzards Source/Banks/Bank02/MovesTable.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
-MovesTable:
+MovesTable:         .block
           ;; 0
+RunAway:
           .MiniText " RUN  "
           .MiniText " AWAY "
-
+KickDirt:
           .MiniText "KICK  "
           .MiniText "  DIRT"
-
+SplishSplash:
           .MiniText "SPLISH"
           .MiniText "SPLASH"
-
+MildShock:
           .MiniText "MILD  "
           .MiniText " SHOCK"
+
           ;; 4
+HotSpark:
           .MiniText "HOT   "
           .MiniText " SPARK"
-
+BuryDeep:
           .MiniText "BURY  "
           .MiniText "  DEEP"
-
+DirtyFoot:
           .MiniText "DIRTY "
           .MiniText "  FOOT"
-
+LoamyFear:
           .MiniText "LOAMY "
           .MiniText "  FEAR"
 
           ;; 8
-          
+DustyEyes:
           .MiniText "DUSTY "
           .MiniText "  EYES"
-
+RaiseHope:
           .MiniText "RAISE "
           .MiniText "  HOPE"
-
+SureSplash:
           .MiniText "SURE  "
           .MiniText "SPLASH"
-
+QuickFoot:
           .MiniText "QUICK "
           .MiniText "  FOOT"
+
           ;; 12
+GreatMojo:
           .MiniText "GREAT "
           .MiniText "  MOJO"
-
+WindFight:
           .MiniText "WIND  "
           .MiniText " FIGHT"
-
+StealAttack:
           .MiniText "STEAL "
           .MiniText "ATTACK"
-
+StealDefend:
           .MiniText "STEAL "
           .MiniText "DEFEND"
 
           ;; 16
-
+StealTurn:
           .MiniText "STEAL "
           .MiniText "  TURN"
-
+FireStart:
           .MiniText "FIRE  "
           .MiniText " START"
-
+BurntEdges:
           .MiniText "BURNT "
           .MiniText " EDGES"
-
+RogueFlare:
           .MiniText "ROGUE "
           .MiniText " FLARE"
+
           ;; 20
+DoubleFlares:
           .MiniText "DOUBLE"
           .MiniText "FLARES"
-
+TailWhip:
           .MiniText "TAIL  "
           .MiniText "  WHIP"
-
+TailLash:
           .MiniText "TAIL  "
           .MiniText "  LASH"
-
+Bite:
           .MiniText " BITE "
           .MiniText "      "
 
           ;; 24
-
+PoisonBite:
           .MiniText "POISON"
           .MiniText "  BITE"
-
+CruelStab:
           .MiniText "CRUEL "
           .MiniText "  STAB"
-
+BlindBlob:
           .MiniText "BLIND "
           .MiniText "  BLOB"
-
+SlimyTrick:
           .MiniText "SLIMY "
           .MiniText " TRICK"
+
           ;; 28
+GuardDown:
           .MiniText "GUARD "
           .MiniText "  DOWN"
-
+FirstAid:
           .MiniText "FIRST "
           .MiniText "   AID"
-
+SimpleCure:
           .MiniText "SIMPLE"
           .MiniText "  CURE"
-
+CommonCure:
           .MiniText "COMMON"
           .MiniText "  CURE"
 
           ;; 32
-          
+GreatCure:
           .MiniText "GREAT "
           .MiniText "  CURE"
-
+HealWound:
           .MiniText "HEAL  "
           .MiniText " WOUND"
-
+LifeReturn:
           .MiniText "LIFE  "
           .MiniText "RETURN"
-
+Nibble:
           .MiniText "NIBBLE"
           .MiniText "      "
+
           ;; 36
+MuddleMind:
           .MiniText "MUDDLE"
           .MiniText "  MIND"
-
+GreatMuddle:
           .MiniText "GREAT "
           .MiniText "MUDDLE"
-
+ScareAway:
           .MiniText "SCARE "
           .MiniText "  AWAY"
-
+WetNoodle:
           .MiniText "WET   "
           .MiniText "NOODLE"
 
           ;; 40
-          
-          .MiniText " MOVE "
-          .MiniText "  40  "
+StompDown:
+          .MiniText "STOMP "
+          .MiniText "  DOWN"
+Crush:
+          .MiniText "CRUSH "
+          .MiniText "      "
+FireyBreath:
+          .MiniText "FIREY "
+          .MiniText "BREATH"
+EvilEye:
+          .MiniText "EVIL  "
+          .MiniText "   EYE"
 
-          .MiniText " MOVE "
-          .MiniText "  41  "
-
-          .MiniText " MOVE "
-          .MiniText "  42  "
-
-          .MiniText " MOVE "
-          .MiniText "  43  "
           ;; 44
-          .MiniText " MOVE "
-          .MiniText "  44  "
+ClawsOut:
+          .MiniText "CLAWS "
+          .MiniText "   OUT"
 
           .MiniText " MOVE "
           .MiniText "  45  "
@@ -157,7 +170,6 @@ MovesTable:
           .MiniText "  47  "
 
           ;; 48
-          
           .MiniText " MOVE "
           .MiniText "  48  "
 
@@ -169,6 +181,7 @@ MovesTable:
 
           .MiniText " MOVE "
           .MiniText "  51  "
+
           ;; 52
           .MiniText " MOVE "
           .MiniText "  52  "
@@ -183,7 +196,6 @@ MovesTable:
           .MiniText "  55  "
 
           ;; 56
-          
           .MiniText " MOVE "
           .MiniText "  56  "
 
@@ -195,6 +207,7 @@ MovesTable:
 
           .MiniText " MOVE "
           .MiniText "  59  "
+
           ;; 60
           .MiniText " MOVE "
           .MiniText "  60  "
@@ -205,7 +218,8 @@ MovesTable:
           .MiniText " MOVE "
           .MiniText "  62  "
 
-          .MiniText " MOVE "
-          .MiniText "  63  "
-
+          .MiniText "MEGA  "
+          .MiniText "  KILL"
           ;; ↑ 63
+
+          .bend

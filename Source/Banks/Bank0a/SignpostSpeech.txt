@@ -1,3 +1,9 @@
+KeyAndrew:
+This lever unlocks the door to the evil dragon Andrew
+
+KeyTimmy:
+This lever unlocks the door to the wicked dragon Timmy
+
 TrainEm:
 ♀Grizzards can defeat monsters if you train them well
 
@@ -23,7 +29,7 @@ Fishing:
 ♂I fish here whenever the monsters let me be,which is not often
 
 FoundRing:
-♂You looking for a ¿ magic ring♂I found this in the sea
+♂You looking for a ¿ magic ring.♂I found this in the sea
 
 TrebleRefugee:
 ♂Port Lion is pretty safe,not like my home town,Treble
@@ -39,13 +45,4 @@ WelcomePortLion:
 
 LookUpCliff:
 ♂It's me,Fat Tony.Look up at how tall the cliffs are
-
-Hellmouth:
-♂It's me,Fat Tony.In an old story,this was the road to Hell
-
-CanYouSwim:
-♂It's me,Fat Tony.Can ¿ you swim♂If not,the sea is dangerous
-
-Allen:
-♂I'm Allen.They say in legends the monsters are from Hell
 

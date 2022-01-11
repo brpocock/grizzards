@@ -16,9 +16,11 @@ NewGrizzard:        .block
           .FarJSR SaveKeyBank, ServicePeekGrizzard
           ;; carry is set if the Grizzard is found
           bcc CatchEm
-          ;; If so, nothing doing, return
-          pla                   ; discard stashed ID
-          jsr WaitScreenBottomSub ; tail call
+          ;; If so, nothin!g doing, return
+          pla        ; discard stashed ID
+          lda CurrentMap
+          sta NextMap
+          jsr WaitScreenBottomSub
           jmp GoMap
 
 CatchEm:

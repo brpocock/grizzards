@@ -260,7 +260,7 @@ SpriteList:
           ;; Room 2
           .byte 50, SpriteWander
           .byte 0, 0
-          .byte SpriteMajorCombat, 109 ; Fred
+          .byte SpriteMajorCombat, 91 ; Fred
 
           .byte 0
 
@@ -285,7 +285,7 @@ SpriteList:
           ;; Room 5
           .byte 51, SpriteWander
           .byte 0, 0
-          .byte SpriteMajorCombat, 110 ; Andrew
+          .byte SpriteMajorCombat, 92 ; Andrew
 
           .byte 0
 
@@ -312,7 +312,7 @@ SpriteList:
           ;; Room 10
           .byte 52, SpriteWander
           .byte 0, 0
-          .byte SpriteMajorCombat, 111 ; Timmy
+          .byte SpriteMajorCombat, 93 ; Timmy
 
           .byte 0
 
@@ -357,6 +357,10 @@ SpriteList:
 	.byte 0
 
 	;;Room 23
+          .byte $ff, SpriteFixed
+          .byte $70, $10
+          .byte SpritePerson, 46 ; Fat Tony look up @ cliffs
+
 	.byte 0
 
 	;;Room 24
@@ -602,9 +606,8 @@ SpriteList:
           .byte $ff, SpriteFixed
           .byte $30, $10
           .byte SpriteProvinceDoor | $10, 46
+
           .byte 0
 
           ;; Room 66
           .byte 0
-
-          .fill 200

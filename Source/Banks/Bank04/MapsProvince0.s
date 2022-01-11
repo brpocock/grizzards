@@ -1,11 +1,13 @@
 ;;; Grizzards Source/Banks/Bank04/MapsProvince0.so
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
+
+;;; TODO There is room left for precisely 8 more sprites in this memory bank and I intend to use every one.
+          
           ;; How many maps are in these tables?
 MapCount = 62
 ;;; 
 ;;; Foreground and background colors
-;;; Remember SECAM and don't make these too similar
 
 MapColors:
           ;; 0
@@ -178,7 +180,7 @@ MapLinks:
           ;; 15
           _ ..= (Map_FourWay, Map_SouthGlobe, ROOM17MAP, Map_Arc, Map_EWPassage)
           ;; 20
-          _ ..= (Map_EWFat, Map_Split, Map_SplitBoxes, Map_SplitMaze, Map_NorthGlobe)
+          _ ..= (Map_EWFat, Map_Split, Map_SplitBoxes, Map_SplitMaze, Map_Closed)
           ;; 25
           _ ..= (Map_EWFat, Map_FourWay, Map_EWFat, Map_EWFat, Map_FullTop)
           ;; 30
@@ -282,7 +284,7 @@ SpriteList:
           .if !DEMO
           .byte $ff, SpriteWander
           .byte 120, 32
-          .byte SpritePerson, 10 ; Random villager
+          .byte SpritePerson, 80 ; lover 2
           .fi
 
           .byte 0
@@ -303,7 +305,7 @@ SpriteList:
           .if !DEMO
           .byte $ff, SpriteWander
           .byte 140, 45
-          .byte SpritePerson, 10 ; Random villager
+          .byte SpritePerson, 77 ; Random villager
           .fi
 
           .byte 0
@@ -596,7 +598,7 @@ SpriteList:
 	;; Room 24
           .byte $ff, SpriteFixed
           .byte $7d, $10
-          .byte SpriteGrizzardDepot, 0
+          .byte SpriteDoor, 31
           
           .byte $ff, SpriteWander
           .byte 0, 0
@@ -615,19 +617,19 @@ SpriteList:
 	;; Room 25
           .byte 30, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 25
+          .byte SpriteCombat, 25 ; Venom Sheep
 
           .byte 31, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 26
+          .byte SpriteCombat, 26 ; 4 Venom Sheep
 
           .byte $ff, SpriteRandomEncounter
           .byte 0, 0
-          .byte SpriteCombat, 25
+          .byte SpriteCombat, 25 ; Venom Sheep
 
-          .byte $ff, SpriteRandomEncounter
+          .byte 38, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 27
+          .byte SpriteMajorCombat, 27 ; Cyclops
 
 	.byte 0
 
@@ -644,9 +646,9 @@ SpriteList:
           .byte 0, 0
           .byte SpriteCombat, 25
 
-          .byte $ff, SpriteRandomEncounter
-          .byte 0, 0
-          .byte SpriteCombat, 27
+          .byte $ff, SpriteFixed
+          .byte $91, $24
+          .byte SpriteSign, 78  ; Beware Cyclops
 
 	.byte 0
 
@@ -662,10 +664,6 @@ SpriteList:
           .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 25
-
-          .byte $ff, SpriteRandomEncounter
-          .byte 0, 0
-          .byte SpriteCombat, 27
 
 	.byte 0
 
@@ -689,6 +687,18 @@ SpriteList:
 	.byte 0
 
 	;; Room 29
+          .byte 39, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 16 ; one fox
+
+          .byte $ff, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 16 ; one fox
+
+          .byte $ff, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 70 ; 2 foxes
+
 	.byte 0
 
 	;; Room 30
@@ -699,39 +709,87 @@ SpriteList:
           .byte $53, $1f
           .byte SpriteDoor, 24
 
+          .byte 63, SpriteFixed
+          .byte $a8, $1f
+          .byte SpriteGrizzardDepot, 0
+
 	.byte 0
 
 	;; Room 32
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpritePerson, 76 ; random villager
+
 	.byte 0
 
 	;; Room 33
+          .byte 45, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 70 ; two foxes
+
 	.byte 0
 
 	;; Room 34
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpritePerson, 77 ; random villager
+
 	.byte 0
 
 	;; Room 35
-	.byte 0
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpritePerson, 10 ; random villager
+
+          .byte 0
 
 	;; Room 36
+          .byte 46, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 70 ; two foxes
+
 	.byte 0
 
 	;; Room 37
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpritePerson, 83 ; lover 1
+
 	.byte 0
 
 	;; Room 38
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpritePerson, 77 ; random villager
+
 	.byte 0
 
 	;; Room 39
+          .byte 47, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 70 ; two foxes
+
 	.byte 0
 
 	;; Room 40
+          .byte 42, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 70 ; two foxes
+
 	.byte 0
 
 	;; Room 41
+          .byte 43, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 70 ; two foxes
+
 	.byte 0
 
 	;; Room 42
+          .byte 44, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 70 ; two foxes
+
 	.byte 0
 
 	;; Room 43
@@ -743,22 +801,24 @@ SpriteList:
           .byte 128, 32
           .byte SpritePerson, 21 ; lost pendant
 
-          .if !DEMO
           .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpritePerson, 10 ; random villager
-
-          .byte $ff, SpriteWander
-          .byte 0, 0
-          .byte SpritePerson, 10 ; random villager
-          .fi
 
           .byte 0
 
 	;; Room 44
+          .byte 40, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 71 ; three foxes
+          
 	.byte 0
 
 	;; Room 45
+          .byte 41, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 71 ; three foxes
+
 	.byte 0
 
 	;; Room 46
@@ -774,7 +834,7 @@ SpriteList:
           .byte 0
 
           ;; Room 48
-          .byte $ff, SpriteRandomEncounter
+          .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 16
 
@@ -838,6 +898,10 @@ SpriteList:
           .byte 0
 
           ;; Room 56
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 16
+
           .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 15
@@ -873,10 +937,6 @@ SpriteList:
           .byte 0
 
           ;; Room 61
-          .byte $ff, SpriteRandomEncounter
-          .byte 0, 0
-          .byte SpriteCombat, 15
-
           .byte $ff, SpriteFixed
           .byte $b9, $28
           .byte SpriteGrizzardDepot, 0
