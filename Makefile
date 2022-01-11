@@ -655,6 +655,6 @@ release:	all
 		Dist/$(RELEASE)/Grizzards.Unerase.*{a26,pdf,pro}
 
 publish-release:	release
-	until rsync -essh -v Dist/$(RELEASE)/*$(RELEASE)* \
+	until timeout 30 rsync -essh -v Dist/$(RELEASE)/*$(RELEASE)* \
 		star-hope.org:star-hope.org/games/Grizzards ; \
 		sleep 1 ; done
