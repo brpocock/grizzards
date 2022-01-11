@@ -287,6 +287,9 @@ SignpostScanline:
 
 SignpostTextLine:
           .byte ?
+
+SignpostLineCompressed:
+          .byte ?, ?, ?, ?,  ?, ?, ?, ?,  ?
 ;;; 
 ;;; Combat mode scratchpad
 
