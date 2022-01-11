@@ -3,6 +3,8 @@ Developer's Notes: Guts of the Grizzards
 This  is a  stream-of-consciousness mess  that  needs to  be cleaned  up
 a lot. Sorry.
 
+It's also horribly out of date, BtW. Sorry . . .
+
 If you're reading this, you're probably trying to make out how this game
 works to some  degree. Hopefully this overview document will  set you on
 the right path.
