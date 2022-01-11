@@ -10,7 +10,13 @@
 
 DoLocal:
           .include "PlaySFX.s"
+          .if DEMO
           .include "PlayMusic.s"
+          .else
+DoMusic:  
+          ldx # MusicBank
+          jsr FarCall
+          .fi
           .include "PlaySpeech.s"
           rts
 
@@ -19,14 +25,22 @@ DoLocal:
           .include "SpeakJetIndex.s"
           ;; Speech index uses a wildcard on this directory
           ;; All files must be included or the index will break
-          .include "Monsters6Speech.s"
           .include "MovesSpeech.s"
           .include "GrizzardsSpeech.s"
           .include "CombatSpeech.s"
           .include "TitleSpeech.s"
+          .include "Monsters6Speech.s"
+          .if !DEMO
+          .include "Monsters7Speech.s"
+          .fi
+
           .include "AtariToday.s"
-          .include "Theme.s"
+
           .include "Victory.s"
           .include "GameOver.s"
+
+          .if DEMO
+          .include "Theme.s"
+          .fi
 
           .include "EndBank.s"

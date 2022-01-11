@@ -46,7 +46,7 @@ Bouncey1:
           ldy # 0
           sty NewSWCHB
 
-          .if ((BANK == CombatBank0To127) || (BANK == CombatBank128To255))
+          .if ((BANK == CombatBank0To63) || (BANK == CombatBank64To127))
 
           cmp #ModeCombat
           bne +

@@ -4,6 +4,29 @@
 MapSetup: .block
           .WaitScreenTopMinus 2, -1
 
+CheckProvince:
+          lda CurrentProvince
+
+          .switch BANK
+          .case 3
+          cmp # 1
+
+          .case 4
+          cmp # 0
+
+          .case 5
+          cmp # 2
+
+          .case 6
+          cmp # 3
+          .endswitch
+
+          beq RightProvince
+          sta BankSwitch0 + BANK + 1
+          jmp CheckProvince
+
+RightProvince:
+
           jsr Random
           and #$4f
           ora #$20

@@ -135,13 +135,24 @@
           TextBank = $02
           FailureBank = $01
           Province0MapBank = $04
-          .if !DEMO
+          .if DEMO
+          FirstProvinceBank = $04
+          .else
+          FirstProvinceBank = $03
           Province1MapBank = $03
           Province2MapBank = $05
+          Province3MapBank = $06
           .fi
-          CombatBank0To127 = $06
-          CombatBank128To255 = $06
+          .if DEMO
+          CombatBank0To63 = $06
+          .else
+          CombatBank0To63 = $16
+          CombatBank64To127 = $17
+          .fi
           SFXBank = $07
+          .if !DEMO
+          MusicBank = $1e
+          .fi
           .if DEMO
           SignpostBank = $05
           SignpostBankCount = 1

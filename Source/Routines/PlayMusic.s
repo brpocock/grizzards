@@ -31,6 +31,24 @@ LoopMusic:
           lda #<SongTheme
           sta CurrentMusic
 
+          .case $1e
+
+          lda GameMode
+          .if PUBLISHER
+          cmp #ModePublisherPresents
+          .else
+          cmp #ModeBRPPreamble
+          .fi
+          beq TheEnd
+          and #$f0
+          cmp #ModeAttract
+          bne TheEnd
+
+          lda #>SongTheme
+          sta CurrentMusic + 1
+          lda #<SongTheme
+          sta CurrentMusic
+
           .case 3
 
           lda #>SongProvince1
@@ -51,6 +69,19 @@ LoopMusic:
           sta CurrentMusic + 1
           lda #<SongProvince2
           sta CurrentMusic
+
+          .case 6
+
+          .if DEMO
+          .error "Not expecting to be in bank ", BANK
+          .else
+
+          lda #>SongProvince3
+          sta CurrentMusic + 1
+          lda #<SongProvince3
+          sta CurrentMusic
+
+          .fi
 
           .default
           .error "Not expecting to be in bank ", BANK

@@ -1,11 +1,5 @@
-;;; Grizzards Source/Banks/Bank16/Bank16.s
-;;; Copyright © 2021-2022, Bruce-Robert Pocock
-
-          BANK = $16
-
-          .include "StartBank.s"
-
-          ;; Combat for encounters $00 … $3f
+;;; Grizzards Source/Banks/Bank06/Bank06Demo.s
+;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
           .include "Prepare48pxMobBlob.s"
           .include "6BitCompression.s"
@@ -36,9 +30,7 @@ DoLocal:
           .include "48Pixels.s"
           .include "MoveEffects.s"
 
-          .include "Combat16.s"
-          .include "Monsters16.s"
-          .include "MonsterMoves16.s"
+          .include "Combat6.s"
+          .include "Monsters6.s"
+          .include "MonsterMoves6.s"
           
-
-          .include "EndBank.s"

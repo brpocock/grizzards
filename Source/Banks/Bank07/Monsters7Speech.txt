@@ -1,0 +1,137 @@
+Monster7_0:
+Wicked Slime
+
+Monster7_1:
+Horrid Slime
+
+Monster7_2:
+Vorpal Bunny
+
+Monster7_3:
+Rodent of Unusual Size
+
+Monster7_4:
+Lectro Sheep
+
+Monster7_5:
+Viking Turtle
+
+Monster7_6:
+Crazy Fox
+
+Monster7_7:
+Water Kitty
+
+Monster7_8:
+Flame Dog o
+
+Monster7_9:
+Fuzzy Bear
+
+Monster7_10:
+Metal Mouse
+
+Monster7_11:
+Fire Panda
+
+Monster7_12:
+Leg e Mutant
+
+Monster7_13:
+Sky Mutant
+
+Monster7_14:
+Will O Wisp
+
+Monster7_15:
+Butterfly
+
+Monster7_16:
+Scary Rat
+
+Monster7_17:
+Cave Grue
+
+Monster7_18:
+Cave Bat
+
+Monster7_19:
+Venom Sheep
+
+Monster7_20:
+One-eyed Cyclops
+
+Monster7_21:
+Fierce raptor
+
+Monster7_22:
+Devil Eagle
+
+Monster7_23:
+Round Robin
+
+Monster7_24:
+Giant Crab
+
+Monster7_25:
+Bigger Crab
+
+Monster7_26:
+Mean Robber
+
+Monster7_27:
+Giant Slime
+
+Monster7_28:
+Dreaded Dragon Fred
+
+Monster7_29:
+Evil Dragon Andrew
+
+Monster7_30:
+Wicked Dragon Timmy
+
+Monster7_31:
+Uber Slime
+
+Monster7_32:
+Desert Eagle
+
+Monster7_33:
+Crazed robber
+
+Monster7_34:
+Great Worm
+
+Monster7_35:
+Poison Asp
+
+Monster7_36:
+Grabby Crabby
+
+Monster7_37:
+Giant Bat
+
+Monster7_38:
+Maze Jaguar
+
+Monster7_39:
+Monster
+
+Monster7_40:
+Monster
+
+Monster7_41:
+Monster
+
+Monster7_42:
+Monster
+
+Monster7_43:
+Monster
+
+Monster7_44:
+Monster
+
+Monster7_45:
+Boss Bear

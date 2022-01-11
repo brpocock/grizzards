@@ -6,7 +6,9 @@
           .include "StartBank.s"
 
 DoLocal:
-          brk
+          .include "PlayMusic.s"
+          rts
 
+          .include "../../Generated/Bank07/Theme.s"
 
           .include "EndBank.s"

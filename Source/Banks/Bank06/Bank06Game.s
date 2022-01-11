@@ -1,5 +1,5 @@
-;;; Grizzards Source/Banks/Bank05/Bank05Game.s
-;;; Copyright © 2021-2022 Bruce-Robert Pocock
+;;; Grizzards Source/Banks/Bank06/Bank06Game.s
+;;; Copyright © 2022 Bruce-Robert Pocock
 
           ;; The addresses of these must be known to the Map Services bank
           .include "PlayerSprites.s"
@@ -9,10 +9,10 @@ DoLocal:
           ;; falls through to
           .include "Map.s"
 
-          .include "MapsProvince2.s"
-          .include "Maps2RLE.s"
+          .include "MapsProvince3.s"
+          .include "Maps3RLE.s"
 
-          .include "Province2.s"
+          .include "Province3.s"
 
           .include "VSync.s"
           .include "VBlank.s"
@@ -21,4 +21,3 @@ DoLocal:
 
           .include "PlayMusic.s"
           rts
-

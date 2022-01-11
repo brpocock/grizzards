@@ -54,34 +54,15 @@ GoColdStart:
 GoMap:
           ldx #$ff              ; smash the stack
           txs
-          
-          .if DEMO
 
-          sta BankSwitch0 + Province0MapBank
+          sta BankSwitch0 + FirstProvinceBank
           jmp DoLocal
 
-          .else
-
-          lda CurrentProvince
-          bne +
-          sta BankSwitch0 + Province0MapBank
-          jmp DoLocal
-+
-          cmp #2
-          beq +
-          sta BankSwitch0 + Province1MapBank
-          jmp DoLocal
-+
-          sta BankSwitch0 + Province2MapBank
-          jmp DoLocal
-
-          .fi
-
-;;; Go to the current combat memory bank, and jump to DoCombat.
+;;; Go to the first combat memory bank, and jump to DoCombat.
 GoCombat:
           ldx #$ff              ; smash the stack
           txs
-          sta BankSwitch0 + CombatBank0To127
+          sta BankSwitch0 + CombatBank0To63
           jmp DoLocal
 
 ;;; Perform a far call to a memory bank with a specific local
