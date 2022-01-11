@@ -43,6 +43,8 @@ DoLocal:
           beq WinnerFireworks
           cpy #ServiceDrawGrizzard
           beq DrawGrizzard
+          cpy #ServiceInquire
+          beq Inquire
           brk
 
           

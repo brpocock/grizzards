@@ -313,9 +313,8 @@ NotPoints:
           cmp #ModeSignpostInquire
           bne NotInquire
 
-          ;; TODO
-
-          jmp ByeBye
+          .Add16 SignpostText, #( 9 * 5 ) + 2
+          .FarJSR AnimationsBank, ServiceInquire
 
           .fi                   ; !DEMO
 
