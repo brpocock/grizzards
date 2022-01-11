@@ -198,6 +198,7 @@
           ServiceDeath = $0d
           ServiceDrawMonsterGroup = $0b
           ServiceFireworks = $0a
+          ServiceWrite12Chars = $23
 
 ;;; Also the cold start / save game bank
 

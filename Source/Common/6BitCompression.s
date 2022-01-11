@@ -1,8 +1,8 @@
 ;;; Grizzards Source/Common/6BitCompression.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
-UnpackLeft:         .macro workPointer
-          lda (\workPointer), y
+UnpackLeft:         .macro buffer
+          lda \buffer, y
           tax
           and #$fc
           lsr a
@@ -17,7 +17,7 @@ UnpackLeft:         .macro workPointer
           asl a
           sta Temp
           iny
-          lda (\workPointer), y
+          lda \buffer, y
           tax
           and #$f0
           lsr a
@@ -33,7 +33,7 @@ UnpackLeft:         .macro workPointer
           asl a
           sta Temp
           iny
-          lda (\workPointer), y
+          lda \buffer, y
           tax
           and #$c0
           lsr a
@@ -50,7 +50,7 @@ UnpackLeft:         .macro workPointer
           sta StringBuffer + 3
 
           iny
-          lda (\workPointer), y
+          lda \buffer, y
           tax
           and #$fc
           lsr a
@@ -65,7 +65,7 @@ UnpackLeft:         .macro workPointer
           asl a
           sta Temp
           iny
-          lda (\workPointer), y
+          lda \buffer, y
           and #$f0
           lsr a
           lsr a
@@ -76,14 +76,14 @@ UnpackLeft:         .macro workPointer
 
           .endm
 
-UnpackRight:        .macro workPointer
-          lda (\workPointer), y
+UnpackRight:        .macro buffer
+          lda \buffer, y
           and #$0f
           asl a
           asl a
           sta Temp
           iny
-          lda (\workPointer), y
+          lda \buffer, y
           tax
           and #$c0
           lsr a
@@ -100,7 +100,7 @@ UnpackRight:        .macro workPointer
           sta StringBuffer + 1
 
           iny
-          lda (\workPointer), y
+          lda \buffer, y
           tax
           and #$fc
           lsr a
@@ -115,7 +115,7 @@ UnpackRight:        .macro workPointer
           asl a
           sta Temp
           iny
-          lda (\workPointer), y
+          lda \buffer, y
           tax
           and #$f0
           lsr a
@@ -131,7 +131,7 @@ UnpackRight:        .macro workPointer
           asl a
           sta Temp
           iny
-          lda (\workPointer), y
+          lda \buffer, y
           tax
           and #$c0
           lsr a
