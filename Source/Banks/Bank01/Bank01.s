@@ -54,7 +54,11 @@ DoLocal:
 
           .if NOSAVE
           .else
+          .if ARIA
+          .include "Aria-EEPROM-Driver.s"
+          .else
           .include "AtariVox-EEPROM-Driver.s"
+          .fi
           .fi
 
           

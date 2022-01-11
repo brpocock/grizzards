@@ -102,7 +102,8 @@ its moves to defend you and attack the monsters.
 
 \vspace{2in}\vfill
 
-This is the \textit{Grizzards} \ifdefined\NOSAVE No-Save \fi\ifdefined\DEMO Demo \fi Player's Guide
+This    is    the     \textit{Grizzards}    \ifdefined\NOSAVE    No-Save
+\fi\ifdefined\DEMO Demo \fi\ifdefined\ARIA\else Public Release\fi Player's Guide
 
 Copyright \copyright{} 2021-2022, Bruce-Robert Pocock
 
@@ -110,8 +111,9 @@ Copyright \copyright{} 2021-2022, Bruce-Robert Pocock
 
 This  version is  for systems  in \REGION{}  using the  \TV{} television
 standard. For Atari  Video Computer System CX-2600  (or Sears Tele-Games
-Video Arcade  or Atari  7800 ProSystem) \ifdefined\NOSAVE  without \else
-with \fi AtariVox (or MemCard, or SaveKey) device.
+Video  Arcade or  Atari  7800 ProSystem)  \ifdefined\ARIA with  optional
+AtariVox device. \else \ifdefined\NOSAVE without \else
+with \fi AtariVox (or MemCard, or SaveKey) device. \fi
 
 \bigskip
 
@@ -127,6 +129,11 @@ be different.
 \else
 
 Published by AtariAge.
+\ifdefined\ARIA\else
+If  you  enjoy playing  \textif{Grizzards},  you  may be  interested  in
+purchasing a retail copy with built-in save-game memory from AtariAge.
+\fi
+\href{https://atariage.com/}{https://atariage.com/}
 
 \fi
 
@@ -149,10 +156,13 @@ To play \textit{Grizzards}, you will need:
 \item A TV or video display
 \item        A        joystick         controller        (or        SEGA
   \ifdefined\TVNTSC{Genesis/}\fi{}MegaDrive gamepad)
+  \ifdefined\ARIA
+  \item Optional: an AtariVox device with speakers or headphones
+  \else
   \ifdefined\NOSAVE\else
 \item A  memory device: an  AtariVox device with (optional)  speakers or
   headphones, or a MemCard or SaveKey device.
-  \fi
+  \fi\fi
 \item The \textit{Grizzards} game cartridge
 \end{itemize}
 
@@ -160,20 +170,32 @@ To play \textit{Grizzards}, you will need:
 \begin{figure*}[b]
   \begin{center}
     \includegraphics[width=\columnwidth]{../Manual/AtariVox.jpeg}
+    \ifdefined\ARIA\else
     \includegraphics[width=\columnwidth]{../Manual/SaveKey.jpeg}
+    \fi
   \end{center}
 \end{figure*}
 \fi
 
 Set up  your console with your  TV or video display.  Connect a joystick
 controller  (or SEGA  \ifdefined\TVNTSC{Genesis/}\fi{}MegaDrive gamepad)
-to  the  \emph{left}  controller port\ifdefined\NOSAVE\else{},  and  the
+to the \emph{left} controller port. \ifdefined\ARIA, and (optionally) your
+AtariVox device to the \emph{right} controller port. Make certain
+that  the \textbf{Power}  switch  is in  the \textbf{Off}  position  when connecting  your
+AtariVox device. \else\ifdefined\NOSAVE\else{}, and the
 memory  device to  the \emph{right}  controller port.  Make certain
 that  the Power  switch  is in  the Off  position  when connecting  your
-memory device\fi{}.
+memory device.
+
+Note that the  retail cartridge available from  AtariAge does \emph{not}
+require  a memory  device  because the  special \textit{Aria}  cartridge
+contains its own save-game memory within it.
+
+To purchase \textit{Grizzards} or many other Atari games, visit \href{https://atariage.com/}{https://atariage.com/}
+\fi\fi
 
 Finally, insert  the \textit{Grizzards}  game cartridge (with  the label
-facing up) into the cartridge slot, and turn the Power On.
+facing up) into the cartridge slot, and turn the \textbf{Power} \textbf{On}.
 
 \begin{figure}[h]
   \begin{center}
@@ -276,7 +298,6 @@ Once your  console is set  up and everything  is connected, turn  on the
 Power  switch. You'll  see  the  title screen  appear.  If  you have  an
 AtariVox device, you'll also hear the title spoken.
 
-
 \begin{center}
   \includegraphics[width=\columnwidth]{../Manual/SelectSlot\TV.png}
 \end{center}
@@ -295,12 +316,13 @@ Select Slot screen.
 
 Press  the \textbf{Game  Select} switch  or move  the joystick  left and
 right to choose  a memory slot\footnote{Technical Note:  The Slot number
-  chosen  here is  relative to  the three  save game  slots used  by the
-  \textit{Grizzards} game program. Each save game slot actually occupies
-  4 blocks  on your memory  device.} for your  game. There are  3 memory
-slots  possible. Press  \textbf{Game Select}  or the  joystick again  to
-rotate   through  them.   If   someone  has   already   begun  to   play
-\textit{Grizzards}   in  a   certain   slot,  your   screen  will   show
+  chosen here  is relative to  the \ifdefined\ARIA four \else  three \fi
+  save  game   slots  used  by  the   \textit{Grizzards}  game  program.
+  \ifdefined\ARIA\else Each save game slot actually occupies 4 blocks on
+  your  memory device.  \fi} for  your game.  There are  \ifdefined\ARIA
+four \else three  \fi memory slots possible. Press \textbf{Game  Select} or the
+joystick again to  rotate through them. If someone has  already begun to
+play  \textit{Grizzards}  in  a  certain slot,  your  screen  will  show
 ``\texttt{RESUME}.''    If    a    slot    is    empty,    you'll    see
 ``\texttt{BEGIN}'' instead.
 
@@ -361,8 +383,8 @@ A Grizzard Depot looks like this:
 \ifdefined\NOSAVE
 
 In  this no-save  demo, you  will  have one  Grizzard companion,  Aquax.
-With a  memory device, you  may encounter  other Grizzards that  you can
-convince to join your party.
+With a  memory device or the  retail version of the  game cartridge, you
+may encounter other Grizzards that you can convince to join your party.
 
 \else
 
@@ -375,7 +397,8 @@ join your party. A wild Grizzard looks like this:
 \end{center}
 
 At a  Grizzard Depot, you'll have  the option to swap  Grizzards in your
-party,  with up  to  30 total  Grizzards saved  in  your memory  device.
+party, with up to 30 total  Grizzards saved in your \ifdefined\ARIA save
+file on the game cartridge. \else memory device. \fi
 Each Grizzard may have its own moves and skill scores.
 
 \fi
@@ -414,7 +437,8 @@ Touch the Grizzard Depot on the map screen to enter it.
 \end{figure*}
 
 \ifdefined\NOSAVE\else
-Your progress will \emph{immediately} be saved to your memory device.
+Your progress  will \emph{immediately} be saved  to your \ifdefined\ARIA
+game cartridge. \else memory device. \fi
 \fi
 
 At  a  Grizzard  Depot  your  Grizzard partner  will  be  fully  healed.
@@ -676,8 +700,9 @@ If  you're  \emph{sure}   you  want  to  erase  your   game  data,  then
 \subsection{Protecting Your Game Record}
 
 If  either of  your Difficulty  Switches is  in the  ``B'' (Beginner  or
-Novice) position, then you can't erase  a game slot. \emph{Tip: When you
-  connect your memory device, check the position of those switches.}
+Novice) position, then you can't erase a game slot. \ifdefined\ARIA\else
+\emph{Tip: When  you connect your  memory device, check the  position of
+  those switches.} \fi
 
 \ifdefined\TVSECAM
 
@@ -696,7 +721,7 @@ starting attributes and sets of Moves.
 \ifdefined\NOSAVE
 
 In  this  demo, you  can  play  with  only  Aquax. Other  Grizzards  are
-available with a memory device.
+available with a memory device or the retail cartridge.
 
 \fi
 
@@ -921,7 +946,7 @@ there is a problem.
 From here, you can press the \textbf{Game Reset} switch to return to the
 Title Screen.
 
-\ifdefined\NOSAVE\else
+\ifdefined\ARIA\else\ifdefined\NOSAVE\else
 
 \subsection{Red Sad Face Screen: Memory Device Needed}
 
@@ -932,7 +957,7 @@ Turn off  your console and connect  an AtariVox, SaveKey, or  MemCard to
 the right  controller port. You  may plug  in speakers or  headphones to
 your AtariVox so that you can hear the game voices.
 
-\fi
+\fi\fi
 
 \subsection{White Sad Face Screen}
 
@@ -956,13 +981,15 @@ for current information.
 Note that  you can  press \textbf{Game Select}  to view  your Grizzard's
 stats and effectively pause the game as well.
 
-\ifdefined\NOSAVE\else
+\ifdefined\NOSAVE\else\ifdefined\ARIA\else
 
 \section{TV goes blank when entering Grizzard Depot}
 
 Make  sure your  memory device  is  securely connected.  If your  memory
 device is not connected when the game  tries to save, you may see the TV
 picture remain blank while the game tries to record your progress.
+
+\fi
 
 \section{No voices}
 
@@ -971,8 +998,8 @@ hear the AtariVox announce the name of the game. If you don't, make sure
 that  the AtariVox  is connected  and the  speakers (or  headphones) are
 connected, powered on, and turned up.
 
-Naturally,  there  are  no  voices   when  playing  with  a  MemCard  or
-SaveKey device.
+Naturally, there are  no voices when playing  \ifdefined\ARIA without an
+AtariVox device. \else with a MemCard or SaveKey device. \fi
 
 \fi
 
@@ -995,6 +1022,16 @@ This special  No-Save demo does not  allow you to save  your progress or
 catch Grizzards,  but it can  be used without  a memory device  (such as
 SaveKey, MemCard, or AtariVox). When you turn off power to your console,
 all progress is erased.
+
+\else
+
+\ifdefined\ARIA
+
+\section{Save to Cartridge Technology}
+
+This  game uses  the advanced  capabilities of  AtariAge's \textit{Aria}
+cartridge system to save your progress to an EEPROM chip inside the game
+cartridge itself.
 
 \else
 
@@ -1056,6 +1093,8 @@ The save  game slots used by  this demo, however, are  distinct from the
 ones that will be used in the final game.
 
 \fi
+
+\fi % not Aria
 
 \fi % not no-save
 
