@@ -84,10 +84,7 @@ BackToSignpost:
           sta NewButtons
 
           ;; trash our own return vector
-          tsx
-          .rept 6
-          inx
-          .next
+          ldx #$f7
           txs
 
           .WaitScreenBottom
