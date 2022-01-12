@@ -19,6 +19,9 @@ SelectSlot:        .block
           lda #<Phrase_SelectSlot
           sta CurrentUtterance
 
+          lda # 0
+          sta SelectJatibuProgress
+
           .if TV == NTSC
           .TimeLines KernelLines * 2/3 - 4
           .else
@@ -144,6 +147,57 @@ ShowSlot:
           beq SwitchSelectSlot
 SkipSwitches:
 
+          ;; No Jatibu code if either difficulty switch is in A/Expert
+          lda SWCHB
+          and #SWCHBP0Advanced | SWCHBP1Advanced
+          bne NoJatibu
+
+          ;; Did they already complete it?
+          ldx SelectJatibuProgress
+          cmp #$ff
+          beq SkipStick
+
+          ;; Check for the next step in the sequence
+          lda NewSWCHA
+          beq SkipStick         ; no movement, ignore
+          and # P0StickLeft | P0StickRight | P0StickUp | P0StickDown
+          cmp # P0StickLeft | P0StickRight | P0StickUp | P0StickDown
+          beq SkipStick
+
+          and JatibuCode, x
+          cmp JatibuCode, x
+          ;; if they're wrong, reset the code sequence
+          beq NoJatibu
+
+          ;; Success, did that complete the sequence?
+          inx
+          stx SelectJatibuProgress
+          lda JatibuCode, x
+          beq JatibuEntered
+
+          lda # SoundChirp
+          gne +
+JatibuEntered:
+          ldx #$ff
+          sta SelectJatibuProgress
+          lda # SoundVictory
++
+          sta NextSound
+          gne SkipStick
+
+          ;; Land here if they have already completed the code
+          ;; Any further stick action "breaks out" of the sequence
+JatibuDone:
+          lda NewSWCHA
+          and #P0StickLeft | P0StickRight | P0StickUp | P0StickDown
+          cmp #P0StickLeft | P0StickRight | P0StickUp | P0StickDown
+          beq SkipStick
+
+          ;; Either  they've failed  to enter  the Jatibu  Code or  they
+	;; haven't tried
+NoJatibu:
+          ldx # 0
+          stx SelectJatibuProgress
           lda NewSWCHA
           beq SkipStick
           .BitBit P0StickLeft
@@ -257,5 +311,7 @@ FinishScreenAndProceed:
           stx WSYNC
           .fi
           .FarJMP MapServicesBank, ServiceNewGame
+
+;;;
 
           .bend

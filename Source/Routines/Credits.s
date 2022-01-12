@@ -37,17 +37,4 @@ StayCredits:
           .WaitScreenBottom
           jmp Loop
 
-WithText:
-          .MiniText " WITH "
-LoveText:
-          .MiniText " LOVE "
-ToText:
-          .MiniText "  TO  "
-ZephyrText:
-          .MiniText "ZEPHYR"
-
-          DateString = format("%04d%02d%02d", YEARNOW, MONTHNOW, DATENOW)
-          DateString6 = DateString[2:]
-DatestampText:
-          .MiniText DateString6
           .bend

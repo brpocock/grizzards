@@ -33,7 +33,30 @@ DoLocal:
           beq GrizzardStatsScreen
           cpy #ServiceValidateMap
           beq ValidateMap
+          cpy #$ff
+          beq +
           brk
+
++
+          ldx SelectJatibuProgress
+          cmp #$ff
+          bne +
+
+          lda # 29
+          sta CurrentGrizzard
+          lda # 90
+          sta GrizzardAttack
+          sta GrizzardDefense
+          sta MaxHP
+          sta CurrentHP
+          lda #$ff
+          sta MovesKnown
+          lda # 0
+          sta GrizzardDefense + 1
+          lda #$f0
+          sta Score + 2
++
+          rts
 
           .include "CopyPointerText.s"
           .include "MapTopService.s"
