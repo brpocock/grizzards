@@ -313,6 +313,7 @@ NotPoints:
           .Add16 SignpostText, # (9 * 5) + 1
 
           ldy # 0
+          sty SignpostInquiry
           lda (SignpostText), y
           sta SignpostFG
           iny

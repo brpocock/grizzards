@@ -40,6 +40,7 @@ Loop:
 +
           sta COLUBK
 
+          ldy # 4
           .UnpackRight SignpostLineCompressed
           .FarJSR TextBank, ServiceDecodeAndShowText
           .SkipLines 4
