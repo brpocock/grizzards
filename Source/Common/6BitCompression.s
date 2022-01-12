@@ -36,12 +36,9 @@ UnpackLeft:         .macro buffer
           lda \buffer, y
           tax
           and #$c0
+          .rept 6
           lsr a
-          lsr a
-          lsr a
-          lsr a
-          lsr a
-          lsr a
+          .next
           ora Temp
           sta StringBuffer + 2
 
@@ -86,12 +83,9 @@ UnpackRight:        .macro buffer
           lda \buffer, y
           tax
           and #$c0
+          .rept 6
           lsr a
-          lsr a
-          lsr a
-          lsr a
-          lsr a
-          lsr a
+          .next
           ora Temp
           sta StringBuffer + 0
 
@@ -134,12 +128,9 @@ UnpackRight:        .macro buffer
           lda \buffer, y
           tax
           and #$c0
+          .rept 6
           lsr a
-          lsr a
-          lsr a
-          lsr a
-          lsr a
-          lsr a
+          .next
           ora Temp
           sta StringBuffer + 4
 
