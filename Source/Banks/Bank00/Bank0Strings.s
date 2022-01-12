@@ -25,11 +25,6 @@ BruceRobertText:
 PocockText:
           .SignText " POCOCK     "
 
-JatibuCode:
-          .byte P0StickUp, P0StickUp, P0StickDown, P0StickDown
-          .byte P0StickLeft, P0StickRight, P0StickLeft, P0StickRight
-          .byte 0
-
 WithLoveText:
           .SignText "WITH LOVE TO"
 ZephyrText:
