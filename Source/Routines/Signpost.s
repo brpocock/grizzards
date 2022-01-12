@@ -317,6 +317,7 @@ NotPoints:
           lda (SignpostText), y
           sta SignpostFG
           iny
+          lda (SignpostText), y
           sta SignpostBG
 
           .Add16 SignpostText, # 2

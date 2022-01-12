@@ -77,6 +77,8 @@ StickDone:
           lda # 0
           sta NewButtons
 
+          lda # ModeSignpost
+          sta GameMode
           ldx # SignpostBank
           jmp FarCall
 
