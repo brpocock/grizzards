@@ -16,15 +16,18 @@ SlotText:
           .MiniText " SLOT "
 SlotOneText:
           .MiniText "SLOT 1"
-CopyText:
-          .MiniText "COPY  "
-RightText:
-          .MiniText "RIGHT "
-Text2022:
-          .MiniText " 2022 "
-BruceText:
-          .MiniText "BRUCE-"
-RobertText:
-          .MiniText "ROBERT"
+CopyrightText:
+          .SignText "COPYRIGHT   "
+CopyrightYearText:
+          .SignText format(" %04d       ", YEARNOW)
+BruceRobertText:
+          .SignText "BRUCE-ROBERT"
 PocockText:
-          .MiniText "POCOCK"
+          .SignText " POCOCK     "
+WithLoveText:
+          .SignText "WITH LOVE TO"
+ZephyrText:
+          .SignText "ZEPHYR SALZ "
+
+DatestampText:
+          .SignText format(" %04d-%02d-%02d ", YEARNOW, MONTHNOW, DATENOW)

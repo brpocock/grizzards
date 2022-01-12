@@ -133,13 +133,19 @@ PeekGrizzard:
           .include "AttractCopyright.s"
           .include "Credits.s"
           .include "CopyPointerText.s"
+          .include "CopyPointerText12.s"
           .include "Bank0Strings.s"
           
-
 ShowPointerText:
           jsr CopyPointerText
           ;; fall through
 ShowText:
           .FarJMP TextBank, ServiceDecodeAndShowText
+          
+ShowPointerText12:
+          jsr CopyPointerText12
+          ;; fall through
+ShowText12:
+          .FarJMP AnimationsBank, ServiceWrite12Chars
 
           .include "EndBank.s"
