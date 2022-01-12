@@ -59,9 +59,14 @@ Loop:
 
 DoneStickUp:
           .BitBit P0StickDown
-          bne StickDone
+          bne DoneStickDown
           lda # 1
           sta SignpostInquiry
+          gne StickDone
+
+DoneStickDown:
+          .BitBit P0StickLeft
+          beq BackToSignpost
 
 StickDone:
           lda NewButtons
@@ -73,6 +78,7 @@ StickDone:
           lda SignpostFG, x
           sta SignpostIndex
 
+BackToSignpost:
           .WaitScreenBottom
           lda # 0
           sta NewButtons
