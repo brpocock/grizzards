@@ -8,14 +8,25 @@
 Signpost: .block
 
 Setup:
+          lda GameMode
+          cmp #ModeSignpostInquire
+          beq +
           .WaitScreenTop
+          jmp Silence
 
++
+          .WaitScreenTopMinus 1, 0
+
+Silence:
           .KillMusic
           sta AUDC0
           sta AUDF0
           sta AUDV0
           sta CurrentUtterance + 1  ; zero from KillMusic
 
+          lda #ModeSignpost
+          sta GameMode
+          
           .if BANK == SignpostBank
           jsr GetSignpostIndex
           .else
@@ -172,7 +183,7 @@ DoneDrawing:
           .SkipLines 3
           sta COLUBK
 
-          lda AlarmCountdown      ; require 1s to tick before accepting button press; see #140
+          lda AlarmCountdown      ; require 1-2s to tick before accepting button press; see #140
           bne NoButton
           lda NewButtons
           beq NoButton
