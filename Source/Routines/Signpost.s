@@ -282,6 +282,7 @@ NotSetFlag:
           ;; fall through to NotInquire
 
           .else
+
           cmp #ModeSignpostPoints
           bne NotPoints
           sed
@@ -302,19 +303,31 @@ NotSetFlag:
           sta NextSound
           lda SignpostText
           clc
-          adc # 3
-          sta SignpostText
-          bcc +
-          inc SignpostText + 1
-+
+          .Add16 SignpostText, # 3
           jmp GetNextMode
 
 NotPoints:
           cmp #ModeSignpostInquire
           bne NotInquire
 
-          .Add16 SignpostText, #( 9 * 5 ) + 2
-          .FarJSR AnimationsBank, ServiceInquire
+          .Add16 SignpostText, # (9 * 5) + 1
+
+          ldy # 0
+          lda (SignpostText), y
+          sta SignpostFG
+          iny
+          sta SignpostBG
+
+          .Add16 SignpostText, # 2
+
+          ldy # 8
+-
+          lda (SignpostText), y
+          sta SignpostLineCompressed, y
+          dey
+          bpl -
+
+          .FarJMP AnimationsBank, ServiceInquire
 
           .fi                   ; !DEMO
 

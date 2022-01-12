@@ -11,6 +11,7 @@
           .include "6BitCompression.s"
           .include "DecodeText.s"
           .include "Write12Chars.s"
+          .include "Inquire.s"
 
           .include "AttractStory.s"
           .include "Death.s"
