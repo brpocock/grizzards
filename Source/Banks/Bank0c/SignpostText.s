@@ -6,7 +6,7 @@
           FirstSignpost = 0
 
           Signs = (  )
-          
+
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
 
