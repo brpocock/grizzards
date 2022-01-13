@@ -6,10 +6,10 @@ ShowMonsterName:
           lda CurrentMonsterPointer + 1
           sta Pointer + 1
 
-          ldy #0
-          .UnpackLeft CurrentMonsterPointer
+          ldy # 0
+          .UnpackLeft (CurrentMonsterPointer)
           .FarJSR TextBank, ServiceDecodeAndShowText
 
-          ldy #4
-          .UnpackRight CurrentMonsterPointer
+          ldy # 4
+          .UnpackRight (CurrentMonsterPointer)
           .FarJMP TextBank, ServiceDecodeAndShowText

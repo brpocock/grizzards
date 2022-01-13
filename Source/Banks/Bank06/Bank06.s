@@ -23,6 +23,7 @@ DoLocal:
           .include "GrizzardStatsScreen.s"
           .include "CombatAnnouncementScreen.s"
           .include "ExecuteCombatMove.s"
+
           .include "FindHighBit.s"
           .include "CopyPointerText.s"
           .include "ShowMonsterName.s"
