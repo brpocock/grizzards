@@ -130,6 +130,13 @@ Sign_TrebleVillage:
           .SignText "FLEE NOW!   "
           .SignText "THE MONSTERS"
           .SignText "ARE COMING! "
+
+;;; DO NOT COMMIT
+          .byte ModeSignpostInquire
+          .byte 1, 2
+          .SignText "TOPPERBOTTOM"
+;;; DO NOT COMMIT
+          
           .byte ModeSignpostDone
 
 ;;; 12

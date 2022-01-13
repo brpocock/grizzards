@@ -192,6 +192,7 @@
           ServiceDrawMonsterGroup = $0b
           ServiceFireworks = $0a
           ServiceWrite12Chars = $23
+          ServiceInquire = $24
 
 ;;; Also the cold start / save game bank
 

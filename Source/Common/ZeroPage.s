@@ -250,6 +250,11 @@ AttractStoryPanel:
           .byte ?
 AttractStoryProgress:
           .byte ?
+
+;;; Jatibu Code progress
+
+SelectJatibuProgress:
+          .byte ?
 ;;; 
 ;;; Start Game phase
 
@@ -290,6 +295,9 @@ SignpostTextLine:
 
 SignpostLineCompressed:
           .byte ?, ?, ?, ?,  ?, ?, ?, ?,  ?
+
+SignpostInquiry:
+          .byte ?
 ;;; 
 ;;; Combat mode scratchpad
 

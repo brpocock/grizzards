@@ -33,7 +33,96 @@ DoLocal:
           beq GrizzardStatsScreen
           cpy #ServiceValidateMap
           beq ValidateMap
+          cpy #$fe
+          beq JatibuFE
+          cpy #$ff
+          beq JatibuFF
           brk
+
+JatibuCode:
+          .byte P0StickUp, P0StickUp, P0StickDown, P0StickDown
+          .byte P0StickLeft, P0StickRight, P0StickLeft, P0StickRight
+          .byte 0
+
+JatibuFE:
+                    ;; No Jatibu code if either difficulty switch is in A/Expert
+          lda SWCHB
+          and #SWCHBP0Advanced | SWCHBP1Advanced
+          bne NoJatibu
+
+          ;; Did they already complete it?
+          ldx SelectJatibuProgress
+          cmp #$ff
+          beq SkipStick
+
+          ;; Check for the next step in the sequence
+          lda NewSWCHA
+          beq SkipStick         ; no movement, ignore
+          and # P0StickLeft | P0StickRight | P0StickUp | P0StickDown
+          cmp # P0StickLeft | P0StickRight | P0StickUp | P0StickDown
+          beq SkipStick
+
+          and JatibuCode, x
+          cmp JatibuCode, x
+          ;; if they're wrong, reset the code sequence
+          beq NoJatibu
+
+          ;; Success, did that complete the sequence?
+          inx
+          stx SelectJatibuProgress
+          lda JatibuCode, x
+          beq JatibuEntered
+
+          lda # SoundChirp
+          gne +
+JatibuEntered:
+          ldx #$ff
+          sta SelectJatibuProgress
+          lda # SoundVictory
++
+          sta NextSound
+          gne SkipStick
+
+          ;; Land here if they have already completed the code
+          ;; Any further stick action "breaks out" of the sequence
+JatibuDone:
+          lda NewSWCHA
+          and #P0StickLeft | P0StickRight | P0StickUp | P0StickDown
+          cmp #P0StickLeft | P0StickRight | P0StickUp | P0StickDown
+          beq SkipStick
+
+          ;; Either  they've failed  to enter  the Jatibu  Code or  they
+	;; haven't tried
+NoJatibu:
+          ldx # 0
+          stx SelectJatibuProgress
+
+          ldy # 1
+          rts
+SkipStick:
+          ldy # 0
+          rts
+          
+JatibuFF: 
+          ldx SelectJatibuProgress
+          cmp #$ff
+          bne +
+
+          lda # 29
+          sta CurrentGrizzard
+          lda # 90
+          sta GrizzardAttack
+          sta GrizzardDefense
+          sta MaxHP
+          sta CurrentHP
+          lda #$ff
+          sta MovesKnown
+          lda # 0
+          sta GrizzardDefense + 1
+          lda #$f0
+          sta Score + 2
++
+          rts
 
           .include "CopyPointerText.s"
           .include "MapTopService.s"
