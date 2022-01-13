@@ -12,4 +12,4 @@ ShowMonsterName:
 
           ldy # 4
           .UnpackRight (CurrentMonsterPointer)
-          .FarJMP TextBank, ServiceDecodeAndShowText
+          .FarJMP TextBank, ServiceDecodeAndShowText ; tail call
