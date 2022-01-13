@@ -8,6 +8,7 @@
           .include "6BitCompression.s"
           .include "DecodeText.s"
           .include "Write12Chars.s"
+          .include "Inquire.s"
 
           .include "AttractStory.s"
           .include "Death.s"
@@ -38,4 +39,6 @@ DoLocal:
           beq DrawMonsterGroup
           cpy #ServiceDrawGrizzard
           beq DrawGrizzard
+          cpy #ServiceInquire
+          beq Inquire
           brk

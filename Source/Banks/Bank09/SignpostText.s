@@ -3,114 +3,13 @@
 
 ;;; Order of sign texts MUST match the texts in SignpostSpeech.txt or it all goes to Hell.
 
-          FirstSignpost = 15
+          FirstSignpost = 24
 
-          Signs = ( NPC_Artifact1Scared, NPC_BrokenRadio, Sign_TunnelClosed, Sign_SpiralWoodsOpen, Sign_PortLionShip, Sign_TunnelMazeBlocked, NPC_LostPendant, Random_FoundPendant, NPC_ReturnPendant, NPC_HaveKey, NPC_LostChild, NPC_IAmLost, NPC_ReturnChild, NPC_ChildReward, Sign_Labyrinth, Sign_KeyFred )
-          
+          Signs = ( NPC_HaveKey, NPC_LostChild, NPC_IAmLost, NPC_ReturnChild, NPC_ChildReward, Sign_Labyrinth, Sign_KeyFred, Sign_KeyAndrew, Sign_KeyTimmy, NPC_TrainEm, NPC_Gary1, NPC_GaryBad, NPC_Slacker, NPC_LastMove, NPC_GaryMirror, NPC_GaryVindicated, NPC_Fishing, NPC_FoundRing, NPC_TrebleRefugee, NPC_HowLong, NPC_FatTony, NPC_WelcomePortLion, NPC_LookUpCliff, NPC_Hellmouth, NPC_CanYouSwim )
+
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
-
-;;; 15
-NPC_Artifact1Scared:
-          .colu COLINDIGO, 0
-          .colu COLTURQUOISE, $9
-          .SignText "I HAVE THE  "
-          .SignText "ARTIFACT    "
-          .SignText "HIDDEN FROM "
-          .SignText "THE MONSTERS"
-          .SignText "SAVE ME!    "
-          .byte ModeSignpostDone
-
-;;; 16
-NPC_BrokenRadio:
-          .colu COLINDIGO, 0
-          .colu COLBLUE, $9
-          .byte $ff, 27, 59     ; radio fixed
-          .SignText "IF YOU FIX  "
-          .SignText "MY RADIO SET"
-          .SignText "I COULD CALL"
-          .SignText "FOR A SHIP  "
-          .SignText "TO PORT LION"
-          .byte ModeSignpostSetFlag, 25
           
-;;; 17
-Sign_TunnelClosed:
-          .colu COLGRAY, 0
-          .colu COLBROWN, $8
-          .SignText "TUNNELS TO  "
-          .SignText "SOUTH FIELD "
-          .SignText "AND ANCHOR  "
-          .SignText "VILLAGE     "
-          .SignText "ARE CLOSED. "
-          .byte ModeSignpostDone
-          
-;;; 18
-Sign_SpiralWoodsOpen:
-          .colu COLGRAY, 0
-          .colu COLBROWN, $6
-          .SignText "NOW ENTERING"
-          .SignText "SPIRAL WOODS"
-          .SignText "            "
-          .SignText "- DANGER ! -"
-          .SignText "            "
-          .byte ModeSignpostDone
-
-;;; 19
-Sign_PortLionShip:
-          .colu COLBLUE, $e
-          .colu COLCYAN, $2
-          .SignText "TREBLE DOCKS"
-          .SignText "NEXT SHIP TO"
-          .SignText "PORT LION   "
-          .SignText "DEPARTING.  "
-          .SignText "ALL ABOARD! "
-          .byte ModeSignpostWarp, 2, 0
-
-;;; 20
-Sign_TunnelMazeBlocked:
-          .colu COLINDIGO, $4
-          .colu COLBLUE, $e
-          .SignText "BLOCKADE IS "
-          .SignText "LOCKED DUE  "
-          .SignText "TO DANGER OF"
-          .SignText "A CAVE GRUE."
-          .SignText "NO ENTRY.   "
-          .byte ModeSignpostDone
-
-;;; 21
-NPC_LostPendant:
-          .colu COLINDIGO, 0
-          .colu COLTURQUOISE, $9
-          .byte $ff, 28, 22
-          .SignText "I TRAINED   "
-          .SignText "GRIZZARDS   "
-          .SignText "TOO. I LOST "
-          .SignText "A PENDANT   "
-          .SignText "IN THE WOODS"
-          .byte ModeSignpostDone
-
-;;; 22
-Random_FoundPendant:
-          .colu COLGRAY, $f
-          .colu COLGRAY, $0
-          .SignText "YOU HAVE    "
-          .SignText "FOUND A     "
-          .SignText "PENDANT ON  "
-          .SignText "A LEAF ON   "
-          .SignText "THE GROUND. "
-          .byte ModeSignpostSetFlag, 28
-
-;;; 23
-NPC_ReturnPendant:
-          .colu COLINDIGO, 0
-          .colu COLTURQUOISE, $9
-          .SignText "YOU'RE GREAT"
-          .SignText "THAT'S MY   "
-          .SignText "PENDANT. YOU"
-          .SignText "CAN HAVE    "
-          .SignText "THIS KEY.   "
-          .byte ModeSignpostClearFlag, 63
-
 ;;; 24
 NPC_HaveKey:
           .colu COLINDIGO, 0
@@ -191,3 +90,206 @@ Sign_KeyFred:
           .SignText "DRAGON FRED."
           .byte ModeSignpostClearFlag, 60
 
+;;; 31
+Sign_KeyAndrew:
+          .colu COLGREEN, 0
+          .colu COLYELLOW, $f
+          .SignText "THIS LEVER  "
+          .SignText "UNLOCKS THE "
+          .SignText "DOOR TO THE "
+          .SignText "EVIL DRAGON "
+          .SignText "ANDREW.     "
+          .byte ModeSignpostClearFlag, 61
+
+;;; 32
+Sign_KeyTimmy:
+          .colu COLCYAN, 0
+          .colu COLCYAN, $f
+          .SignText "THIS LEVER  "
+          .SignText "UNLOCKS THE "
+          .SignText "DOOR TO THE "
+          .SignText "WICKED      "
+          .SignText "DRAGON TIMMY"
+          .byte ModeSignpostClearFlag, 62
+
+
+;;; 33
+NPC_TrainEm:
+          .colu COLINDIGO, 0
+          .colu COLTURQUOISE, $9
+          .SignText "GRIZZARDS   "
+          .SignText "CAN DEFEAT  "
+          .SignText "MONSTERS IF "
+          .SignText "YOU TRAIN   "
+          .SignText "THEM WELL.  "
+          .byte ModeSignpostDone
+
+;;; 34
+NPC_Gary1:
+          .colu COLINDIGO, 2
+          .colu COLTURQUOISE, $f
+          .byte $ff, 7, 38      ; looking for mirror
+          .SignText "MIRANDA     "
+          .SignText "TALKS TOO   "
+          .SignText "MUCH ABOUT  "
+          .SignText "OLD STUFF.  "
+          .SignText "HOW BORING! "
+          .byte ModeSignpostDone
+;;; 35
+NPC_GaryBad:
+          .colu COLINDIGO, 0
+          .colu COLTURQUOISE, $9
+          .SignText "GARY DOESN'T"
+          .SignText "LIKE MIRANDA"
+          .SignText "VERY MUCH.  "
+          .SignText "THEY FIGHT  "
+          .SignText "OFTEN.      "
+          .byte ModeSignpostDone
+
+;;; 36
+NPC_Slacker:
+          .colu COLINDIGO, 0
+          .colu COLTURQUOISE, $9
+          .SignText "GARY LIVES  "
+          .SignText "JUST SOUTH  "
+          .SignText "OF ME. SUCH "
+          .SignText "A GROUCHY   "
+          .SignText "SLACKER!    "
+          .byte ModeSignpostDone
+
+;;; 37
+NPC_LastMove:
+          .colu COLBLUE, 0
+          .colu COLCYAN, $9
+          .SignText "I CAN TRAIN "
+          .SignText "ANY OF YOUR "
+          .SignText "GRIZZARDS   "
+          .SignText "THEIR LAST  "
+          .SignText "MOVE.       "
+          .byte ModeTrainLastMove
+
+;;; 38
+NPC_GaryMirror:
+          .colu COLINDIGO, 2
+          .colu COLTURQUOISE, $f
+          .byte $ff, 8, 61      ; have mirror, haven't returned
+          .SignText "NO, I DON'T "
+          .SignText "KNOW WHERE  "
+          .SignText "MIRANDA'S   "
+          .SignText "DUMB MIRROR "
+          .SignText "HAS GOT TO. "
+          .byte ModeSignpostDone
+
+;;; 39
+NPC_GaryVindicated:
+          .colu COLINDIGO, 2
+          .colu COLTURQUOISE, $f
+          .SignText "SO SHE'S GOT"
+          .SignText "HER MIRROR  "
+          .SignText "BACK. SEE IF"
+          .SignText "SHE'LL EVER "
+          .SignText "APOLOGIZE.  "
+          .byte ModeSignpostDone
+
+;;; 40
+NPC_Fishing:
+          .colu COLINDIGO, 0
+          .colu COLCYAN, $9
+          .byte $ff, 15, 41     ; looking for ring?
+          .SignText "I FISH HERE "
+          .SignText "WHENEVER THE"
+          .SignText "MONSTERS LET"
+          .SignText "ME BE, WHICH"
+          .SignText "IS NOT OFTEN"
+          .byte ModeSignpostDone
+
+;;; 41
+NPC_FoundRing:
+          .colu COLINDIGO, 0
+          .colu COLCYAN, $9
+          .SignText "I FIND MANY "
+          .SignText "THINGS IN   "
+          .SignText "THE SEA. YOU"
+          .SignText "LOOKING FOR "
+          .SignText "SOMETHING?  "
+          .byte ModeSignpostInquire
+          .byte 86, 87
+          .SignText "RING  MIRROR"
+
+;;; 42
+NPC_TrebleRefugee:
+          .colu COLINDIGO, 0
+          .colu COLTURQUOISE, $9
+          .SignText "PORT LION IS"
+          .SignText "PRETTY SAFE,"
+          .SignText "NOT LIKE MY "
+          .SignText "HOME TOWN,  "
+          .SignText "TREBLE.     "
+          .byte ModeSignpostDone
+
+;;; 43
+NPC_HowLong:
+          .colu COLINDIGO, 0
+          .colu COLTURQUOISE, $9
+          .SignText "PEOPLE FLEE "
+          .SignText "HERE FROM   "
+          .SignText "OTHER TOWNS."
+          .SignText "HOW LONG IS "
+          .SignText "IT SAFE?    "
+          .byte ModeSignpostDone
+
+;;; 44
+NPC_FatTony:
+          .colu COLINDIGO, 0
+          .colu COLTURQUOISE, $9
+          .SignText "FAT TONY WAS"
+          .SignText "RAISED HERE,"
+          .SignText "AND HE KNOWS"
+          .SignText "ALL ABOUT   "
+          .SignText "OUR ISLAND. "
+          .byte ModeSignpostDone
+
+;;; 45
+NPC_WelcomePortLion:
+          .colu COLINDIGO, $f
+          .colu COLTURQUOISE, 2
+          .SignText "I'M FAT TONY"
+          .SignText "WELCOME TO  "
+          .SignText "PORT LION.  "
+          .SignText "I'M THE BEST"
+          .SignText "AT GEOGRAPHY"
+          .byte ModeSignpostDone
+
+;;; 46
+NPC_LookUpCliff:
+          .colu COLINDIGO, $f
+          .colu COLTURQUOISE, 2
+          .SignText "IT'S ME, FAT"
+          .SignText "TONY. LOOK  "
+          .SignText "UP AT HOW   "
+          .SignText "TALL THE    "
+          .SignText "CLIFFS ARE! "
+          .byte ModeSignpostDone
+          
+;;; 47
+NPC_Hellmouth:
+          .colu COLINDIGO, $f
+          .colu COLTURQUOISE, 2
+          .byte $ff, 12, 57     ; need ring
+          .SignText "IT'S ME, FAT"
+          .SignText "TONY. IN AN "
+          .SignText "OLD STORY,  "
+          .SignText "THIS WAS THE"
+          .SignText "ROAD TO HELL"
+          .byte ModeSignpostDone
+
+;;; 48
+NPC_CanYouSwim:
+          .colu COLINDIGO, $f
+          .colu COLTURQUOISE, 2
+          .SignText "IT'S ME, FAT"
+          .SignText "TONY. CAN   "
+          .SignText "YOU SWIM? IF"
+          .SignText "NOT, THE SEA"
+          .SignText "IS DANGEROUS"
+          .byte ModeSignpostDone

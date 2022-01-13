@@ -24,6 +24,9 @@ Silence:
           sta AUDV0
           sta CurrentUtterance + 1  ; zero from KillMusic
 
+          ldx #$ff
+          txs
+
           lda #ModeSignpost
           sta GameMode
           
@@ -287,13 +290,6 @@ NCar0:
           jmp ByeBye
 
 NotSetFlag:
-          .if DEMO
-
-          ;; none of the points or inquire code
-          ;; fall through to NotInquire
-
-          .else
-
           cmp #ModeSignpostPoints
           bne NotPoints
           sed
@@ -342,8 +338,6 @@ NotPoints:
 
           .FarJMP AnimationsBank, ServiceInquire
 
-          .fi                   ; !DEMO
-
 NotInquire:
           cmp #ModeSignpostDone
           beq ByeBye
@@ -354,7 +348,10 @@ ByeBye:
           lda # 0
           sta CurrentUtterance
           sta CurrentUtterance + 1
-          rts
+
+          .WaitScreenBottom
+
+          jmp GoMap
           .bend
 
 ;;; 

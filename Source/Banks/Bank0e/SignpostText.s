@@ -6,9 +6,6 @@
           FirstSignpost = 0
 
           Signs = ()
-          ;;; , Sign_TunnelClosed, Sign_SpiralWoodsOpen, Sign_PortLionShip
-          
+
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
-
-;;; 0
