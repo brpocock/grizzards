@@ -1,47 +1,29 @@
-Hellmouth:
-♂It's me,Fat Tony.In an old story,this was the road to Hell
+RadioFix:
+♂O.I can totally fix that radio for you.No problem
 
-CanYouSwim:
-♂It's me,Fat Tony.Can ¿ you swim♂If not,the sea is dangerous
+RadioDone:
+♂I guess I ought to run away from monsters too..Bye
 
-Allen:
-♂I'm Allen.They say in legends the monsters are from Hell
+Villager2:
+♀Hello there.Are you here to defeat these ? awful monsters
 
-Miranda1:
-♀I'm Miranda.I've lost my favorite mirror,if you see it
+Villager3:
+♂This village used to be a lot more fun before these monsters
 
-SueMirror:
-♀O,Miranda left that old mirror here again.Take it
+BewareCyclops:
+Beware of a one-eyed monster who tends to the venom sheep
 
-Sue:
-♀I'm Sue.My friend is an expert at legends,Miranda
+Lover1:
+♂Please take this note to my beloved in Treble.I miss them
 
-MirandaMirror:
-♀You've found my mirror.Let's talk about those old legends
+Lover2:
+♂You have brought me a great note.We'll meet again soon
 
-MirandaTip1:
-♀They say you can find the bosses of the monsters in Hell
+Lover2NoNote:
+♂My beloved is far away in Anchor.It's unsafe to get there
 
-MirandaTip2:
-♀They say if you want to go into Hell it's through a labyrinth
+Lover1Requited:
+♂I love them so much.Thank you,you've done a good deed
 
-MirandaTip3:
-♀Maybe Fat Tony can show you the labyrinth's entrance
-
-NeedRing:
-♂In the old stories a magic ring opens the labyrinth
-
-GotRing:
-♂With this magic ring,I will now reveal the labyrinth
-
-FixedRadio:
-♀My radio is fixed.The ship to Port Lion is at Treble dock
-
-PeterThanksAgain:
-♂Thanks for saving Peter.If I can do anything for you,just say
-
-GaryPlayerMirror:
-♂I told her I did not take that stupid mirror,but she's dumb
-
-LabyrinthOpen:
-♂A labyrinth beyond that door may be where the boss bear is
+Lover1End:
+♂When you've defeated all the monsters,we can be together
