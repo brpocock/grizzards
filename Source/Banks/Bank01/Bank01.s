@@ -77,7 +77,7 @@ JatibuFE:
           gne +
 JatibuEntered:
           ldx #$ff
-          sta SelectJatibuProgress
+          stx SelectJatibuProgress
           lda # SoundVictory
 +
           sta NextSound
@@ -105,7 +105,7 @@ SkipStick:
           
 JatibuFF: 
           ldx SelectJatibuProgress
-          cmp #$ff
+          cpx #$ff
           bne +
 
           lda # 29
