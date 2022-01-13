@@ -91,7 +91,7 @@ BeforeKernel:
           geq NoBalls
 
 LeftBall:
-          sta WSYNC
+          stx WSYNC
           sta RESBL
           lda # $20
           sta HMBL
@@ -100,7 +100,7 @@ LeftBall:
           gne DoneBall
 
 RightBall:
-          sta WSYNC
+          stx WSYNC
           .SleepX 69
           sta RESBL
           lda # 0
@@ -112,7 +112,7 @@ RightBall:
 NoBalls:
           lda # 0
           sta ENABL
-          sta WSYNC
+          stx WSYNC
 
 DoneBall:
           stx WSYNC
@@ -131,7 +131,7 @@ DoneBall:
           ora #$0e
           .fi
 
-          sta WSYNC
+          stx WSYNC
           sta COLUBK
           lda pp4l
           sta PF0
@@ -169,7 +169,7 @@ DrawMap:
           ldy LineCounter
 
 DrawLine:
-          sta WSYNC
+          stx WSYNC
           lda #7
           dcp P0LineCounter
           bcc NoP0
@@ -197,12 +197,12 @@ P1Done:
           lda #$01
           bit LineCounter
           beq +
-          sta WSYNC
+          stx WSYNC
 +
           .fi
 
           dec LineCounter
-          sta WSYNC
+          stx WSYNC
 
           bne DrawMap
 ;;; 

@@ -50,7 +50,7 @@ AfterScore:
 
           lda PlayerX
           sec
-          sta WSYNC
+          stx WSYNC
 P0HPos:
           sbc #15
           bcs P0HPos
@@ -88,7 +88,7 @@ FlickerOK:
 
           lda SpriteX, x
           sec
-          sta WSYNC
+          stx WSYNC
 P1HPos:
           sbc #15
           bcs P1HPos

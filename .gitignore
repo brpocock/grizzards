@@ -3,6 +3,7 @@
 .#*
 DEADJOE
 .DS_Store
+*.orig
 
 Dist/
 Dist/Grizzards.zip

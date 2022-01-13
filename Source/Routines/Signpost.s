@@ -156,7 +156,7 @@ Loop:
           sta VDELP0
           sta VDELP1
 
-          sta WSYNC
+          stx WSYNC
           lda SignpostBG
           sta COLUBK
           lda SignpostFG
@@ -364,6 +364,6 @@ Overscan: .block
 
           .WaitForTimer
 
-          sta WSYNC
+          stx WSYNC
           rts
           .bend

@@ -21,7 +21,7 @@ VSync: .block
           sty PF0
           sty PF1
           sty PF2
-          sta WSYNC                    ; VSYNC line 1/3
+          stx WSYNC                    ; VSYNC line 1/3
 
           inc ClockFrame
           lda ClockFrame
@@ -63,8 +63,8 @@ FramesNHalf:
 
 NoTime:
 
-          sta WSYNC                    ; VSYNC line 2/3
-          sta WSYNC                    ; VSYNC line 3/3
+          stx WSYNC                    ; VSYNC line 2/3
+          stx WSYNC                    ; VSYNC line 3/3
           ldy # 0
           sty VSYNC
 

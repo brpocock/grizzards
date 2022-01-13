@@ -85,7 +85,7 @@ FillOverscan:
           lda INSTAT
           bpl FillOverscan
 
-          sta WSYNC
+          stx WSYNC
 
           lda NewSWCHB
           beq SkipSwitches
