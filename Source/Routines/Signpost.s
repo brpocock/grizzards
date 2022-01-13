@@ -24,6 +24,9 @@ Silence:
           sta AUDV0
           sta CurrentUtterance + 1  ; zero from KillMusic
 
+          ldx #$ff
+          txs
+
           lda #ModeSignpost
           sta GameMode
           
@@ -354,7 +357,10 @@ ByeBye:
           lda # 0
           sta CurrentUtterance
           sta CurrentUtterance + 1
-          rts
+
+          .WaitScreenBottom
+
+          jmp GoMap
           .bend
 
 ;;; 

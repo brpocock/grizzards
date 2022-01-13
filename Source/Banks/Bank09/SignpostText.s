@@ -207,13 +207,14 @@ NPC_Fishing:
 NPC_FoundRing:
           .colu COLINDIGO, 0
           .colu COLCYAN, $9
-          .byte $ff, 13, 63     ; already got the ring
-          .SignText "YOU LOOKING "
-          .SignText "FOR A MAGIC "
-          .SignText "RING? I     "
-          .SignText "FOUND THIS  "
-          .SignText "IN THE SEA. "
-          .byte ModeSignpostSetFlag, 13
+          .SignText "I FIND MANY "
+          .SignText "THINGS IN   "
+          .SignText "THE SEA. YOU"
+          .SignText "LOOKING FOR "
+          .SignText "SOMETHING?  "
+          .byte ModeSignpostInquire
+          .byte 86, 87
+          .SignText "RING  MIRROR"
 
 ;;; 42
 NPC_TrebleRefugee:

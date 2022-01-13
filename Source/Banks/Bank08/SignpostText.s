@@ -36,12 +36,15 @@ Sign_FireSwamp:
 NPC_SouthGate:
           .colu COLINDIGO, 0
           .colu COLBLUE, $9
-          .SignText "TO THE SOUTH"
-          .SignText "ARE TUNNELS "
-          .SignText "TO THE FIELD"
-          .SignText "WHERE MANY  "
-          .SignText "PEOPLE LIVE."
-          .byte ModeSignpostDone
+          .SignText "YOU SHOULD  "
+          .SignText "LEAVE TREBLE"
+          .SignText "SOON.       "
+          .SignText "WHERE WILL  "
+          .SignText "YOU GO NOW? "
+          .byte ModeSignpostInquire
+          .byte 88, 89
+          .SignText "SOUTH WEST  "
+
 ;;; 3
 NPC_TunnelBlocked:
           .colu COLINDIGO, 0
@@ -226,8 +229,10 @@ Sign_PortLionShip:
           .SignText "NEXT SHIP TO"
           .SignText "PORT LION   "
           .SignText "DEPARTING.  "
-          .SignText "ALL ABOARD! "
-          .byte ModeSignpostWarp, 2, 0
+          .SignText "WANT TO GO? "
+          .byte ModeSignpostInquire
+          .byte 84, 85
+          .SignText "BOARD STAY  "
 
 ;;; 20
 Sign_TunnelMazeBlocked:

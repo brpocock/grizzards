@@ -5,7 +5,7 @@
 
           FirstSignpost = 74
 
-          Signs = ( NPC_RadioFix, NPC_RadioDone, NPC_Villager2, NPC_Villager3, Sign_BewareCyclops, NPC_Lover1, NPC_Lover2, NPC_Lover2NoNote, NPC_Lover1Requited, NPC_Lover1End )
+          Signs = ( NPC_RadioFix, NPC_RadioDone, NPC_Villager2, NPC_Villager3, Sign_BewareCyclops, NPC_Lover1, NPC_Lover2, NPC_Lover2NoNote, NPC_Lover1Requited, NPC_Lover1End, Sign_ShipToPortLion, Sign_StayInTreble, NPC_FishingWantRing, NPC_FishingWantMirror, NPC_RouteToAnchor, NPC_RouteToPortLion )
 
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
@@ -128,3 +128,70 @@ NPC_Lover1End:
           .byte ModeSignpostDone
 
 ;;; 84
+Sign_ShipToPortLion:
+          .colu COLBLUE, $e
+          .colu COLCYAN, $2
+          .SignText "TREBLE DOCKS"
+          .SignText "NEXT SHIP TO"
+          .SignText "PORT LION   "
+          .SignText "DEPARTING.  "
+          .SignText "ALL ABOARD! "
+          .byte ModeSignpostWarp, 2, 0
+
+;;; 85
+Sign_StayInTreble:
+          .colu COLBLUE, $e
+          .colu COLCYAN, $2
+          .SignText "TREBLE DOCKS"
+          .SignText "NEXT SHIP TO"
+          .SignText "PORT LION   "
+          .SignText "WILL WAIT   "
+          .SignText "FOR A WHILE."
+          .byte ModeSignpostDone
+
+;;; 86
+NPC_FishingWantRing:
+          .colu COLINDIGO, 0
+          .colu COLCYAN, $9
+          .byte $ff, 13, 63     ; already got the ring
+          .SignText "YOU LOOKING "
+          .SignText "FOR A MAGIC "
+          .SignText "RING? I     "
+          .SignText "FOUND THIS  "
+          .SignText "IN THE SEA. "
+          .byte ModeSignpostSetFlag, 13
+
+;;; 87
+NPC_FishingWantMirror:
+          .colu COLINDIGO, 0
+          .colu COLCYAN, $9
+          .SignText "MIRANDA HAS "
+          .SignText "ALWAYS LOST "
+          .SignText "THAT MIRROR "
+          .SignText "AT SUE'S    "
+          .SignText "HOUSE.      "
+          .byte ModeSignpostDone
+
+
+;;; 88
+NPC_RouteToAnchor:
+          .colu COLINDIGO, 0
+          .colu COLBLUE, $9
+          .SignText "TO THE SOUTH"
+          .SignText "ARE TUNNELS "
+          .SignText "TO THE FIELD"
+          .SignText "WHERE MANY  "
+          .SignText "PEOPLE LIVE."
+          .byte ModeSignpostDone
+
+;;; 89
+NPC_RouteToPortLion:
+          .colu COLINDIGO, 0
+          .colu COLBLUE, $9
+          .SignText "SHIPS DON'T "
+          .SignText "COME TO THIS"
+          .SignText "DOCK UNLESS "
+          .SignText "YOU CALL    "
+          .SignText "ON THE RADIO"
+          .byte ModeSignpostDone
+          

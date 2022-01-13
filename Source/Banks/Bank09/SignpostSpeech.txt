@@ -50,7 +50,7 @@ Fishing:
 ♂I fish here whenever the monsters let me be,which is not often
 
 FoundRing:
-♂You looking for a ¿ magic ring.♂I found this in the sea
+♂I find many things in the sea.You looking for ¿ something
 
 TrebleRefugee:
 ♂Port Lion is pretty safe,not like my home town,Treble
@@ -71,4 +71,4 @@ Hellmouth:
 ♂It's me,Fat Tony.In an old story,this was the road to Hell
 
 CanYouSwim:
-♂It's me,Fat Tony.Can ¿ you swim♂If not,the sea is dangerous
+♂It's me,Fat Tony.Can you ¿ swim.♂If not,the sea is dangerous

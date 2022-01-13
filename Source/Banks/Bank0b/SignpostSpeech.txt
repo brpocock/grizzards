@@ -27,3 +27,21 @@ Lover1Requited:
 
 Lover1End:
 ♂When you've defeated all the monsters,we can be together
+
+ShipToPortLion:
+Treble docks.Next ship to Port Lion departing.All aboard
+
+StayInTreble:
+Treble docks.Next ship to Port Lion will wait for a while
+
+FishingWantRing:
+♂You looking for a magic ¿ ring.I found this in the sea
+
+FishingWantMirror:
+♂Miranda has always lost that mirror at Sue's house
+
+RouteToAnchor:
+♂To the south are tunnels to the field where many people liv
+
+RouteToPortLion:
+♂Ships don't come to this dock unless you call on the radio
