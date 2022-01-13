@@ -5,7 +5,7 @@
 
           FirstSignpost = 0
 
-          Signs = (Sign_Beware, Sign_FireSwamp, NPC_SouthGate, NPC_TunnelBlocked, NPC_TunnelOpen, NPC_Artifact, NPC_TakeArtifact1, NPC_TakeArtifact2, NPC_TookArtifact, Sign_LostMines, Sign_SpiralWoods, Sign_TrebleVillage, NPC_TrebleVillage, Sign_TrebleDocks, Sign_WesternRoad, NPC_Artifact1Scared)
+          Signs = ( Sign_Beware, Sign_FireSwamp, NPC_SouthGate, NPC_TunnelBlocked, NPC_TunnelOpen, NPC_Artifact, NPC_TakeArtifact1, NPC_TakeArtifact2, NPC_TookArtifact, Sign_LostMines, Sign_SpiralWoods, Sign_TrebleVillage, NPC_TrebleVillage, Sign_TrebleDocks, Sign_WesternRoad, NPC_Artifact1Scared, Sign_FullGame, Sign_CannotEnter, Sign_GameOver1, Sign_GameOver2 )
           
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
@@ -59,7 +59,9 @@ NPC_TunnelOpen:
           .SignText "I CAN OPEN  "
           .SignText "THE TUNNELS."
           .SignText "END OF DEMO."
-          .byte ModeSignpostSetFlag, 1
+          .byte ModeSignpostInquire
+          .byte 18, 19
+          .SignText "INFO  DONE  "
 ;;; 5
 NPC_Artifact:
           .colu COLINDIGO, 0
@@ -109,7 +111,9 @@ Sign_LostMines:
           .SignText "   DUE TO   "
           .SignText "  CAVE-IN.  "
           .SignText "            "
-          .byte ModeSignpostDone
+          .byte ModeSignpostInquire
+          .byte 16, 17
+          .SignText "LEAVE ENTER "
 ;;; 10
 Sign_SpiralWoods:
           .colu COLGRAY, 0
@@ -119,7 +123,9 @@ Sign_SpiralWoods:
           .SignText " - CLOSED - "
           .SignText "NO ENTRANCE."
           .SignText "            "
-          .byte ModeSignpostDone
+          .byte ModeSignpostInquire
+          .byte 16, 17
+          .SignText "LEAVE ENTER "
 
 ;;; 11
 Sign_TrebleVillage:
@@ -175,3 +181,47 @@ NPC_Artifact1Scared:
           .SignText "THE MONSTERS"
           .SignText "SAVE ME!    "
           .byte ModeSignpostDone
+
+;;; 16
+Sign_FullGame:
+          .colu COLTURQUOISE, $e
+          .colu COLGRAY, 0
+          .SignText "            "
+          .SignText "THIS AREA IS"
+          .SignText "FOUND IN THE"
+          .SignText "FULL GAME.  "
+          .SignText "            "
+          .byte ModeSignpostDone
+
+;;; 17
+Sign_CannotEnter:
+          .colu COLTURQUOISE, $e
+          .colu COLGRAY, 0
+          .SignText "            "
+          .SignText "YOU CAN NOT "
+          .SignText "CONTINUE TO "
+          .SignText "GO THAT WAY."
+          .SignText "            "
+          .byte ModeSignpostDone
+
+;;; 18
+Sign_GameOver1:     
+          .colu COLINDIGO, 0
+          .colu COLBLUE, $9
+          .SignText "COMING IN   "
+          .SignText "2022, THE   "
+          .SignText "FULL GAME IS"
+          .SignText "MUCH LARGER."
+          .SignText "ATARIAGE.COM"
+          .byte ModeSignpostSetFlag, 1
+
+;;; 19
+Sign_GameOver2:
+          .colu COLINDIGO, 0
+          .colu COLBLUE, $9
+          .SignText "THANKS FOR  "
+          .SignText "TRYING IT.  "
+          .SignText "LOOK FOR THE"
+          .SignText "FULL GAME AT"
+          .SignText "ATARIAGE.COM"
+          .byte ModeSignpostSetFlag, 1

@@ -19,8 +19,11 @@ SelectSlot:        .block
           lda #<Phrase_SelectSlot
           sta CurrentUtterance
 
+          lda # 0
+          sta SelectJatibuProgress
+
           .if TV == NTSC
-          .TimeLines KernelLines * 2/3 - 4
+          .TimeLines KernelLines * 2/3 - 2
           .else
           .TimeLines KernelLines / 2 - 3
           .fi
@@ -28,8 +31,11 @@ SelectSlot:        .block
           jmp LoopFirst
 ;;; 
 Loop:
+          .WaitForTimer
+          jsr Overscan
           jsr VSync
           .if TV == NTSC
+          .SkipLines 2
           .TimeLines KernelLines * 2/3 - 1
           .else
           .TimeLines KernelLines / 2 - 1
@@ -90,7 +96,7 @@ MidScreen:
           .WaitForTimer
           .if TV == NTSC
           .SkipLines 2
-          .TimeLines KernelLines / 3 - 1
+          .TimeLines KernelLines / 3 - 2
           .else
           .TimeLines KernelLines / 2 - 1
           .fi
@@ -132,8 +138,6 @@ ShowSaveSlot:
 ShowSlot:
           .FarJSR TextBank, ServiceDecodeAndShowText
 
-          .WaitForTimer
-          jsr Overscan
 ;;; 
           lda NewSWCHB
           beq SkipSwitches
@@ -144,12 +148,16 @@ ShowSlot:
           beq SwitchSelectSlot
 SkipSwitches:
 
+          .FarJSR 1, $fe
+          cpy # 0
+          beq SkipStick
           lda NewSWCHA
           beq SkipStick
           .BitBit P0StickLeft
           beq SwitchMinusSlot
           .BitBit P0StickRight
           beq SwitchSelectSlot
+
 SkipStick:
 
           lda GameMode
@@ -222,7 +230,11 @@ SwitchMinusSlot:
 SwitchSelectSlot:
           inc SaveGameSlot
           lda SaveGameSlot
+          .if ARIA
+          cmp # 4
+          .else
           cmp # 3
+          .fi
           blt GoBack
           lda #0
           sta SaveGameSlot
@@ -233,7 +245,8 @@ GoBack:
           jmp Loop
 ;;; 
 SlotOK:
-          sta WSYNC
+          .WaitForTimer
+          jsr Overscan
           .WaitScreenTopMinus 2, 0
           lda #SoundHappy
           sta NextSound
@@ -257,5 +270,7 @@ FinishScreenAndProceed:
           stx WSYNC
           .fi
           .FarJMP MapServicesBank, ServiceNewGame
+
+;;;
 
           .bend

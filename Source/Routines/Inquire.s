@@ -4,6 +4,7 @@
 Inquire:  .block
 
           jsr Prepare48pxMobBlob
+          .WaitScreenBottom
 
 Loop:
           .WaitScreenTop
@@ -79,12 +80,15 @@ StickDone:
           sta SignpostIndex
 
 BackToSignpost:
-          .WaitScreenBottom
           lda # 0
           sta NewButtons
 
-          lda # ModeSignpost
-          sta GameMode
+          ;; trash our own return vector
+          ldx #$f7
+          txs
+
+          .WaitScreenBottom
+
           ldx # SignpostBank
           jmp FarCall
 

@@ -250,6 +250,11 @@ AttractStoryPanel:
           .byte ?
 AttractStoryProgress:
           .byte ?
+
+;;; Jatibu Code progress
+
+SelectJatibuProgress:
+          .byte ?
 ;;; 
 ;;; Start Game phase
 

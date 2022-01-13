@@ -18,18 +18,14 @@ DoneCopyrightSpeech:
           sta COLUP0
           sta COLUP1
 
-          .SetPointer CopyText
-          jsr ShowPointerText
-          .SetPointer RightText
-          jsr ShowPointerText
-          .SetPointer Text2022
-          jsr ShowPointerText
-          .SetPointer BruceText
-          jsr ShowPointerText
-          .SetPointer RobertText
-          jsr ShowPointerText
+          .SetPointer CopyrightText
+          jsr ShowPointerText12
+          .SetPointer CopyrightYearText
+          jsr ShowPointerText12
+          .SetPointer BruceRobertText
+          jsr ShowPointerText12
           .SetPointer PocockText
-          jsr ShowPointerText
+          jsr ShowPointerText12
 
           lda AlarmCountdown
           bne StillCopyright

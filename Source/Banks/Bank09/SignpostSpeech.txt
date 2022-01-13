@@ -1,30 +1,3 @@
-Artifact1Scared:
-♂I have the artifact hidden from the monsters. Save me.
-
-BrokenRadio:
-♀If you fix my radio set,I could call for a ship to Port Lion
-
-TunnelClosed:
-Tunnels to south field and Anchor Village are closed
-
-SpiralWoodsOpen:
-Now entering the Spiral Woods.Danger
-
-PortLionShip:
-Treble Docks.Next ship to Port Lion departing.All aboard
-
-BlockadeLocked:
-Blockade is locked due to danger of a cave grue.No entry
-
-LostPendant:
-♀I trained Grizzards too.I lost a pendant in the woods
-
-FoundPendant:
-You have found a pendant on a leaf on the ground
-
-ReturnPendant:
-♀You're great.That's my pendant.You can have this key
-
 HaveKey:
 ♀That key can open my cave to the north where I left my Grizzards
 
@@ -46,3 +19,56 @@ To do.I need to write something here.
 KeyFred:
 This lever unlocks the door to the dreaded dragon Fred
 
+KeyAndrew:
+This lever unlocks the door to the evil dragon Andrew
+
+KeyTimmy:
+This lever unlocks the door to the wicked dragon Timmy
+
+TrainEm:
+♀Grizzards can defeat monsters if you train them well
+
+Gary1:
+♂Miranda talks too much about old stuff.How boring
+
+GaryBad:
+♂Gary doesn't like Miranda very much.They fight often
+
+Slacker:
+♀Gary livs just south of me.Such a grouchy slacker
+
+LastMove:
+♂I can train any of your Grizzards their last move
+
+GaryMirror:
+♂No,I don't know where Miranda's dumb mirror has got to
+
+GaryVindicated:
+♂So she's got her mirror back.See if she'll ever apologize
+
+Fishing:
+♂I fish here whenever the monsters let me be,which is not often
+
+FoundRing:
+♂I find many things in the sea.You looking for ¿ something
+
+TrebleRefugee:
+♂Port Lion is pretty safe,not like my home town,Treble
+
+HowLong:
+♀People flee here from other towns.How long is ? it safe
+
+FatTony:
+♀Fat Tony was raised here,and knows all about our island
+
+WelcomePortLion:
+♂I'm Fat Tony.Welcome to Port Lion.I'm the best at geography
+
+LookUpCliff:
+♂It's me,Fat Tony.Look up at how tall the cliffs are
+
+Hellmouth:
+♂It's me,Fat Tony.In an old story,this was the road to Hell
+
+CanYouSwim:
+♂It's me,Fat Tony.Can you ¿ swim.♂If not,the sea is dangerous

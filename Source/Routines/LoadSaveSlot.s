@@ -58,6 +58,9 @@ ReadGlobalLoop:
 
           jsr LoadGrizzardData
 
+          .FarJSR MapServicesBank, $ff
+
+OKLoaded:
           .WaitScreenBottom
           jmp GoMap
 

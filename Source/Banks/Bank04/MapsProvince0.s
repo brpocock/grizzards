@@ -313,7 +313,7 @@ SpriteList:
           ;; Room 4
           .byte 6, SpriteFixed
           .byte $72, $13
-          .byte SpriteCombat, 6
+          .byte SpriteMajorCombat, 6 ; boss ROUS
 
           .byte $ff, SpriteRandomEncounter
           .byte 0, 0
