@@ -119,7 +119,11 @@
           
           ;; Must be exactly 5 bytes for the driver routines to work
           .enc "ascii"
+          .if ARIA
+          SaveGameSignature = "griz1"
+          .else
           SaveGameSignature = "griz0"
+          .fi
           .enc "none"
 ;;; 
 ;;; Special Memory Banks

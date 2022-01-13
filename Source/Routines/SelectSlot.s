@@ -230,7 +230,11 @@ SwitchMinusSlot:
 SwitchSelectSlot:
           inc SaveGameSlot
           lda SaveGameSlot
+          .if ARIA
+          cmp # 4
+          .else
           cmp # 3
+          .fi
           blt GoBack
           lda #0
           sta SaveGameSlot

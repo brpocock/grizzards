@@ -14,6 +14,7 @@
           PUBLISHER := false
           TV := NTSC
           NOSAVE := false
+          ARIA := false
           .endweak
 
           .weak
