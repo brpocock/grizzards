@@ -48,6 +48,4 @@ DoLocal:
           beq Inquire
           brk
 
-          
-
           .include "EndBank.s"
