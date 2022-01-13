@@ -8,14 +8,25 @@
 Signpost: .block
 
 Setup:
+          lda GameMode
+          cmp #ModeSignpostInquire
+          beq +
           .WaitScreenTop
+          jmp Silence
 
++
+          .WaitScreenTopMinus 1, 0
+
+Silence:
           .KillMusic
           sta AUDC0
           sta AUDF0
           sta AUDV0
           sta CurrentUtterance + 1  ; zero from KillMusic
 
+          lda #ModeSignpost
+          sta GameMode
+          
           .if BANK == SignpostBank
           jsr GetSignpostIndex
           .else
@@ -172,7 +183,7 @@ DoneDrawing:
           .SkipLines 3
           sta COLUBK
 
-          lda AlarmCountdown      ; require 1s to tick before accepting button press; see #140
+          lda AlarmCountdown      ; require 1-2s to tick before accepting button press; see #140
           bne NoButton
           lda NewButtons
           beq NoButton
@@ -282,6 +293,7 @@ NotSetFlag:
           ;; fall through to NotInquire
 
           .else
+
           cmp #ModeSignpostPoints
           bne NotPoints
           sed
@@ -302,20 +314,33 @@ NotSetFlag:
           sta NextSound
           lda SignpostText
           clc
-          adc # 3
-          sta SignpostText
-          bcc +
-          inc SignpostText + 1
-+
+          .Add16 SignpostText, # 3
           jmp GetNextMode
 
 NotPoints:
           cmp #ModeSignpostInquire
           bne NotInquire
 
-          ;; TODO
+          .Add16 SignpostText, # (9 * 5) + 1
 
-          jmp ByeBye
+          ldy # 0
+          sty SignpostInquiry
+          lda (SignpostText), y
+          sta SignpostFG
+          iny
+          lda (SignpostText), y
+          sta SignpostBG
+
+          .Add16 SignpostText, # 2
+
+          ldy # 8
+-
+          lda (SignpostText), y
+          sta SignpostLineCompressed, y
+          dey
+          bpl -
+
+          .FarJMP AnimationsBank, ServiceInquire
 
           .fi                   ; !DEMO
 
