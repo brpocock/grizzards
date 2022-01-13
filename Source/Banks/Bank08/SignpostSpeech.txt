@@ -42,3 +42,30 @@ Treble docks.To Port Lion.No ships are in port now
 
 WesternRoad:
 To the west, the lost mine.To the east,the spiral woods and Mount Peshon tunnel complex
+
+Artifact1Scared:
+♂I have the artifact hidden from the monsters. Save me.
+
+BrokenRadio:
+♀If you fix my radio set,I could call for a ship to Port Lion
+
+TunnelClosed:
+Tunnels to south field and Anchor Village are closed
+
+SpiralWoodsOpen:
+Now entering the Spiral Woods.Danger
+
+PortLionShip:
+Treble Docks.Next ship to Port Lion departing.All aboard
+
+BlockadeLocked:
+Blockade is locked due to danger of a cave grue.No entry
+
+LostPendant:
+♀I trained Grizzards too.I lost a pendant in the woods
+
+FoundPendant:
+You have found a pendant on a leaf on the ground
+
+ReturnPendant:
+♀You're great.That's my pendant.You can have this key

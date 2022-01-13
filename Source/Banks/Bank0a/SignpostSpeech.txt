@@ -1,48 +1,74 @@
-KeyAndrew:
-This lever unlocks the door to the evil dragon Andrew
+Allen:
+♂I'm Allen.They say in legends the monsters are from Hell
 
-KeyTimmy:
-This lever unlocks the door to the wicked dragon Timmy
+Miranda1:
+♀I'm Miranda.I've lost my favorite mirror,if you see it
 
-TrainEm:
-♀Grizzards can defeat monsters if you train them well
+SueMirror:
+♀O,Miranda left that old mirror here again.Take it
 
-Gary1:
-♂Miranda talks too much about old stuff.How boring
+Sue:
+♀I'm Sue.My friend is an expert at legends,Miranda
 
-GaryBad:
-♂Gary doesn't like Miranda very much.They fight often
+MirandaMirror:
+♀You've found my mirror.Let's talk about those old legends
 
-Slacker:
-♀Gary livs just south of me.Such a grouchy slacker
+MirandaTip1:
+♀They say you can find the bosses of the monsters in Hell
 
-LastMove:
-♂I can train any of your Grizzards their last move
+MirandaTip2:
+♀They say if you want to go into Hell it's through a labyrinth
 
-GaryMirror:
-♂No,I don't know where Miranda's dumb mirror has got to
+MirandaTip3:
+♀Maybe Fat Tony can show you the labyrinth's entrance
 
-GaryVindicated:
-♂So she's got her mirror back.See if she'll ever apologize
+NeedRing:
+♂In the old stories a magic ring opens the labyrinth
 
-Fishing:
-♂I fish here whenever the monsters let me be,which is not often
+GotRing:
+♂With this magic ring,I will now reveal the labyrinth
 
-FoundRing:
-♂You looking for a ¿ magic ring.♂I found this in the sea
+FixedRadio:
+♀My radio is fixed.The ship to Port Lion is at Treble dock
 
-TrebleRefugee:
-♂Port Lion is pretty safe,not like my home town,Treble
+PeterThanksAgain:
+♂Thanks for saving Peter.If I can do anything for you,just say
 
-HowLong:
-♀People flee here from other towns.How long is ? it safe
+GaryPlayerMirror:
+♂I told her I did not take that stupid mirror,but she's dumb
 
-FatTony:
-♀Fat Tony was raised here,and knows all about our island
+LabyrinthOpen:
+♂A labyrinth beyond that door may be where the boss bear is
 
-WelcomePortLion:
-♂I'm Fat Tony.Welcome to Port Lion.I'm the best at geography
+Fishing2:
+♂If I find any more magic items,I'll let you know it
 
-LookUpCliff:
-♂It's me,Fat Tony.Look up at how tall the cliffs are
+MirandaLabyrinth:
+♀A labyrinth must hide the bosses of monsters.Uncover it
 
+MirandaDone:
+♀There are three dragons who answer to a boss bear.Defeat them
+
+DocksToTreble:
+Port Lion docks to go to Treble departing.All aboard
+
+FindAndrew:
+The evil dragon Andrew is in the north-west corner
+
+FindFred:
+The dreaded dragon Fred livs in the south-west corner
+
+FindTimmy:
+The wicked dragon Timmy has a lair at the very center
+
+DragonHints:
+All three of the dragons liv on the second level under-ground
+
+GetDragonHints:
+Now you can understand the ancient carvings on the walls
+
+Ancient:
+There are old runes carved here,but you can not read it
+
+Radio:
+♂My radio repair shop is going to have to shut for monsters
