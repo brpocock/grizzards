@@ -290,13 +290,6 @@ NCar0:
           jmp ByeBye
 
 NotSetFlag:
-          .if DEMO
-
-          ;; none of the points or inquire code
-          ;; fall through to NotInquire
-
-          .else
-
           cmp #ModeSignpostPoints
           bne NotPoints
           sed
@@ -344,8 +337,6 @@ NotPoints:
           bpl -
 
           .FarJMP AnimationsBank, ServiceInquire
-
-          .fi                   ; !DEMO
 
 NotInquire:
           cmp #ModeSignpostDone
