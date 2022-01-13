@@ -448,5 +448,5 @@ PlayerYFraction:
           .fi
 
           .if LastRAM >= $e0
-          .warn "End of zero-page variables at ", LastRAM, " leaves ", $100 - LastRAM, " bytes for stack"
+          .warn "End of zero-page variables at ", LastRAM, " leaves ", $100 - LastRAM - 1, " bytes for stack"
           .fi
