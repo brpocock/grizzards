@@ -20,6 +20,7 @@ Sign_Beware:
           .SignText "MONSTERS.   "
           .SignText "BE CAREFUL! "
           .byte ModeSignpostDone
+
 ;;; 1
 Sign_FireSwamp:
           .colu COLRED, 0
@@ -30,6 +31,7 @@ Sign_FireSwamp:
           .SignText "FLAME DOGGOS"
           .SignText "AND R.O.U.S."
           .byte ModeSignpostDone
+
 ;;; 2
 NPC_SouthGate:
           .colu COLINDIGO, 0
@@ -50,6 +52,7 @@ NPC_TunnelBlocked:
           .SignText "2 ARTIFACTS."
           .SignText "BRING THEM. "
           .byte ModeSignpostSetFlag, 16
+
 ;;; 4
 NPC_TunnelOpen:
           .colu COLINDIGO, 0
@@ -60,6 +63,7 @@ NPC_TunnelOpen:
           .SignText "THE TUNNELS "
           .SignText "TO ANCHOR.  "
           .byte ModeSignpostSetFlag, 1
+
 ;;; 5
 NPC_Artifact:
           .colu COLINDIGO, 0
@@ -70,6 +74,7 @@ NPC_Artifact:
           .SignText "WHO SAYS YOU"
           .SignText "CAN TAKE IT?"
           .byte ModeSignpostDone
+
 ;;; 6
 NPC_TakeArtifact1:
           .colu COLINDIGO, 0
@@ -80,6 +85,7 @@ NPC_TakeArtifact1:
           .SignText "TAKE THIS TO"
           .SignText "THE TUNNELS."
           .byte ModeSignpostSetFlag, 18
+
 ;;; 7
 NPC_TakeArtifact2:
           .colu COLINDIGO, 0
@@ -90,6 +96,7 @@ NPC_TakeArtifact2:
           .SignText "TAKE THIS TO"
           .SignText "THE TUNNELS."
           .byte ModeSignpostSetFlag, 17
+
 ;;; 8
 NPC_TookArtifact:
           .colu COLINDIGO, 0
@@ -188,7 +195,7 @@ NPC_BrokenRadio:
           .SignText "FOR A SHIP  "
           .SignText "TO PORT LION"
           .byte ModeSignpostSetFlag, 25
-          
+
 ;;; 17
 Sign_TunnelClosed:
           .colu COLGRAY, 0
@@ -210,7 +217,6 @@ Sign_SpiralWoodsOpen:
           .SignText "- DANGER ! -"
           .SignText "            "
           .byte ModeSignpostDone
-
 
 ;;; 19
 Sign_PortLionShip:
@@ -267,5 +273,3 @@ NPC_ReturnPendant:
           .SignText "CAN HAVE    "
           .SignText "THIS KEY.   "
           .byte ModeSignpostClearFlag, 63
-
-

@@ -126,3 +126,5 @@ NPC_Lover1End:
           .SignText "WE CAN BE   "
           .SignText "TOGETHER.   "
           .byte ModeSignpostDone
+
+;;; 84
