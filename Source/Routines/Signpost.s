@@ -262,13 +262,35 @@ NCar1:
 NotClearFlag:
           cmp #ModeSignpostWarp
           bne NotWarp
+ProvinceChange:
+;;; Duplicated in Signpost.s and CheckPlayerCollision.s nearly exactly
+          ldx #$ff              ; smash the stack
+          txs
+          .WaitForTimer         ; finish up VBlank cycle
+          ldx # 0
+          stx VBLANK
+          ;; WaitScreenTop without VSync/VBlank
+          .if TV == NTSC
+          .TimeLines KernelLines - 2
+          .else
+          lda #$fe
+          sta TIM64T
+          .fi
+          .WaitScreenBottom
+          .FarJSR SaveKeyBank, ServiceSaveProvinceData
+          .WaitScreenTop
+
           ldy # (9 * 5) + 1
           lda (SignpostText), y
           sta CurrentProvince
           iny
           lda (SignpostText), y
           sta NextMap
-          lda #ModeMapNewRoom
+          ldy #ModeMapNewRoom
+          sty GameMode
+          
+          .FarJSR SaveKeyBank, ServiceLoadProvinceData
+          .WaitScreenBottom
           jmp GoMap
 
 NotWarp:
