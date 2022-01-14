@@ -526,6 +526,9 @@ SpriteList:
 	.byte 0
 
 	;; Room 18
+          .byte $ff, SpriteFixed
+          .byte $6f, $35
+          .byte SpriteSign, 94  ; may be eaten
 	.byte 0
 
 	;; Room 19
@@ -579,7 +582,7 @@ SpriteList:
 	;; Room 23
           .byte 24, SpriteRandomEncounter
           .byte 0, 0
-          .byte SpriteCombat, 24
+          .byte SpriteMajorCombat, 24
 
           .byte 24, SpriteFixed
           .byte $77, $27

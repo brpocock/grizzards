@@ -61,7 +61,6 @@ FightWithSpriteMajor:
           ;; fall through
           
 FightWithSprite:
-          ldx SpriteFlicker     ; ? Seems unnecessary XXX
 FightWithSpriteX:
           lda SpriteParam, x
           sta CurrentCombatEncounter

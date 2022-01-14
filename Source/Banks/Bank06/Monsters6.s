@@ -1,18 +1,21 @@
 ;;; Grizzards Source/Banks/Bank06/Monsters6.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
-Monsters: 
+Monsters:
+;;; 0
           .SignText "WICKEDSLIME "
           .byte Monster_SlimeSmall               ; art
           .colu COLGREEN, $f
           .byte 2, 1, 2         ; ATK, DEF, HP
           .word $0006           ;  score for defeating (BCD)
 
+;;; 1
           .SignText "HORRIDSLIME "
           .byte Monster_SlimeSmall               ; art
           .colu COLRED, $f
           .byte 3, 2, 3       ; ATK, DEF, HP
           .word $0007
-          
+
+;;; 2
           .SignText "VORPALBUNNY "
           .byte Monster_Bunny
           .colu COLGOLD, $4
@@ -25,6 +28,7 @@ Monsters:
           .byte 2, 2, 6
           .word $0015
 
+;;; 4
           .SignText "LECTRO SHEEP"
           .byte Monster_Sheep
           .colu COLBLUE, $8

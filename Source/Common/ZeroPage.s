@@ -366,7 +366,7 @@ MoveHP:
 MoveStatusFX:
           .byte ?
 
-* = $ea
+* = $ec
 
 ;;; Non-zero if this is a Major Combat in stead of a regular one
 ;;; (only differences are how the enemy is drawn and numbers are omitted)
