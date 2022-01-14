@@ -51,3 +51,10 @@ GetArtifacts:
 
 NoArtifacts:
 ♀The people in Anchor need your help against the monsters
+
+DoTrain:
+♂Now your Grizzard can use their last move for sure
+
+DoNotTrain:
+♂Bring me any Grizzard you want me to train and I will do it
+
