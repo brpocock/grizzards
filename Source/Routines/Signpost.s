@@ -8,6 +8,9 @@
 Signpost: .block
 
 Setup:
+          ldx #$ff
+          txs
+
           lda GameMode
           cmp #ModeSignpostInquire
           beq +
