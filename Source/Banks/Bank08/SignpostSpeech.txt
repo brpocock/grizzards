@@ -8,7 +8,7 @@ SouthGate:
 ♀You should leave Treble soon.Where will you go ¿ now
 
 TunnelBlocked:
-♀I can't open the tunnels with out the two artifacts.Bring them
+♀I can't open the tunnels with out the two artifacts.You'll ? help
 
 TunnelOpen:
 ♀Now that you brought them I can open the tunnels to Anchor Village
