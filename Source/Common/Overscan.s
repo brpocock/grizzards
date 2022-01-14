@@ -30,6 +30,6 @@ Overscan: .block
 
           .WaitForTimer
 
-          sta WSYNC
+          stx WSYNC
           rts
           .bend

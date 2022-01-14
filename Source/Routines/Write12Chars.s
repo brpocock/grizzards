@@ -11,7 +11,7 @@ TextLineLoop:
 DrawLeftField:
           .option allow_branch_across_page = false
 
-          sta WSYNC
+          stx WSYNC
           sta HMCLR
           ldx #$a0
           ldy #$b0
@@ -41,7 +41,7 @@ DrawLeftField:
 AlignedLeft:
           .option allow_branch_across_page = false
 
-          sta WSYNC
+          stx WSYNC
           ldy # 4
           sty SignpostScanline
           .SleepX 49
@@ -109,7 +109,7 @@ LeftLoop:
 	dec SignpostScanline
           bpl LeftLoop
 
-          sta WSYNC
+          stx WSYNC
 
           jmp DrawCommon
 
@@ -117,7 +117,7 @@ DrawRightField:
 
           .option allow_branch_across_page = false
 
-          sta WSYNC
+          stx WSYNC
           sta HMCLR
           ldx #$00
           ldy #$00
@@ -144,7 +144,7 @@ DrawRightField:
 AlignedRight:
           .option allow_branch_across_page = false
 
-          sta WSYNC
+          stx WSYNC
           ldy # 4
           sty SignpostScanline
           .SleepX 65
@@ -221,8 +221,8 @@ DrawCommon:
           sta GRP0
           sta GRP1
 
-          sta WSYNC
-          sta WSYNC
+          stx WSYNC
+          stx WSYNC
 
 DoneDrawing:
           rts

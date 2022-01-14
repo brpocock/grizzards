@@ -97,7 +97,7 @@ DoneTitleSpeech:
           sta COLUP1
 
           .ldacolu COLTURQUOISE, $e
-          sta WSYNC
+          stx WSYNC
           sta COLUBK
 
           .SetUpFortyEight Title1
@@ -171,7 +171,7 @@ DoneTitleSpeech:
           sta COLUP0
           sta COLUP1
 
-          sta WSYNC             ; just for line count
+          stx WSYNC             ; just for line count
 
           lda ClockFrame
           .BitBit $20

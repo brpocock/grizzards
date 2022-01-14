@@ -31,7 +31,7 @@ Prepare48pxMobBlob: .block
 
           .option allow_branch_across_page = false
 
-          sta WSYNC           ; Critical timing from here …
+          stx WSYNC           ; Critical timing from here …
           sta HMCLR 
           ldx #$a0
           ldy #$b0

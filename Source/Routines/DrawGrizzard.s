@@ -13,7 +13,7 @@ DrawGrizzard:
           sta COLUP0
           sta COLUP1
 
-          sta WSYNC
+          stx WSYNC
           sta HMCLR
           .SleepX 36
           sta RESP0
@@ -48,10 +48,10 @@ DrawGrizzard:
           sta GRP0
           lda (pp3l), y
           sta GRP1
-          sta WSYNC
-          sta WSYNC
+          stx WSYNC
+          stx WSYNC
           .if TV != NTSC
-          sta WSYNC
+          stx WSYNC
           .fi
           dey
           bne -

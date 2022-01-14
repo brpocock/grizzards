@@ -45,3 +45,9 @@ RouteToAnchor:
 
 RouteToPortLion:
 ♂Ships don't come to this dock unless you call on the radio
+
+GetArtifacts:
+♀There are two artifacts that were in Treble.Find them both
+
+NoArtifacts:
+♀The people in Anchor need your help against the monsters

@@ -24,7 +24,7 @@ BRPPreambleMode:
           sta COLUP0
           sta COLUP1
 
-          sta WSYNC
+          stx WSYNC
 
           lda AlarmCountdown
           bne StillPresenting

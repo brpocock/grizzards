@@ -53,8 +53,10 @@ NPC_TunnelBlocked:
           .SignText "THE TUNNELS "
           .SignText "WITHOUT THE "
           .SignText "2 ARTIFACTS."
-          .SignText "BRING THEM. "
-          .byte ModeSignpostSetFlag, 16
+          .SignText "YOU'LL HELP?"
+          .byte ModeSignpostInquire
+          .byte 90, 91
+          .SignText "HELP  NO    "
 
 ;;; 4
 NPC_TunnelOpen:
@@ -65,6 +67,8 @@ NPC_TunnelOpen:
           .SignText "I CAN OPEN  "
           .SignText "THE TUNNELS "
           .SignText "TO ANCHOR.  "
+          .byte ModeSignpostPoints
+          .word $0050
           .byte ModeSignpostSetFlag, 1
 
 ;;; 5

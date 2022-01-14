@@ -6,7 +6,7 @@
           .endweak
 
 VBlank: .block
-          sta WSYNC
+          stx WSYNC
           .TimeLines VBlankLines
 
           lda # 0
