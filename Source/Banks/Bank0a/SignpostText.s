@@ -3,12 +3,36 @@
 
 ;;; Order of sign texts MUST match the texts in SignpostSpeech.txt or it all goes to Hell.
 
-          FirstSignpost = 49
+          FirstSignpost = 47
 
-          Signs = ( NPC_Allen, NPC_Miranda1, NPC_SueMirror, NPC_Sue, NPC_MirandaMirror, NPC_MirandaTip1, NPC_MirandaTip2, NPC_MirandaTip3, NPC_NeedRing, NPC_GotRing, NPC_FixedRadio, NPC_PeterThanksAgain, NPC_GaryPlayerMirror, NPC_LabyrinthOpen, NPC_Fishing2, NPC_MirandaLabyrinth, NPC_MirandaDone, Sign_DocksToTreble, Sign_FindAndrew, Sign_FindFred, Sign_FindTimmy, Sign_DragonHints, Sign_GetDragonHints, Sign_Ancient, NPC_Radio )
+          Signs = ( NPC_Hellmouth, NPC_CanYouSwim, NPC_Allen, NPC_Miranda1, NPC_SueMirror, NPC_Sue, NPC_MirandaMirror, NPC_MirandaTip1, NPC_MirandaTip2, NPC_MirandaTip3, NPC_NeedRing, NPC_GotRing, NPC_FixedRadio, NPC_PeterThanksAgain, NPC_GaryPlayerMirror, NPC_LabyrinthOpen, NPC_Fishing2, NPC_MirandaLabyrinth, NPC_MirandaDone, Sign_DocksToTreble )
 
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
+
+          
+;;; 47
+NPC_Hellmouth:
+          .colu COLINDIGO, $f
+          .colu COLTURQUOISE, 2
+          .byte $ff, 12, 57     ; need ring
+          .SignText "IT'S ME, FAT"
+          .SignText "TONY. IN AN "
+          .SignText "OLD STORY,  "
+          .SignText "THIS WAS THE"
+          .SignText "ROAD TO HELL"
+          .byte ModeSignpostDone
+
+;;; 48
+NPC_CanYouSwim:
+          .colu COLINDIGO, $f
+          .colu COLTURQUOISE, 2
+          .SignText "IT'S ME, FAT"
+          .SignText "TONY. CAN   "
+          .SignText "YOU SWIM? IF"
+          .SignText "NOT, THE SEA"
+          .SignText "IS DANGEROUS"
+          .byte ModeSignpostDone
 
 ;;; 49
 NPC_Allen:
@@ -217,84 +241,3 @@ Sign_DocksToTreble:
           .SignText "ALL ABOARD! "
           .byte ModeSignpostWarp, 0, 1
 
-;;; 67
-Sign_FindAndrew:
-          .colu COLGRAY, 0
-          .colu COLGRAY, $f
-          .byte $ff, 57, 72     ; runes
-          .SignText "THE EVIL    "
-          .SignText "DRAGON      "
-          .SignText "ANDREW IS IN"
-          .SignText "THE NORTH-  "
-          .SignText "WEST CORNER."
-          .byte ModeSignpostDone
-
-;;; 68
-Sign_FindFred:
-          .colu COLGRAY, 0
-          .colu COLGRAY, $f
-          .byte $ff, 57, 72     ; runes
-          .SignText "THE DREADED "
-          .SignText "DRAGON FRED "
-          .SignText "LIVES IN THE"
-          .SignText "SOUTHWEST   "
-          .SignText "CORNER.     "
-          .byte ModeSignpostDone
-
-;;; 69
-Sign_FindTimmy:
-          .colu COLGRAY, 0
-          .colu COLGRAY, $f
-          .byte $ff, 57, 72     ; runes
-          .SignText "THE WICKED  "
-          .SignText "DRAGON TIMMY"
-          .SignText "HAS A LAIR  "
-          .SignText "AT THE VERY "
-          .SignText "CENTER.     "
-          .byte ModeSignpostDone
-
-;;; 70
-Sign_DragonHints:
-          .colu COLGRAY, 0
-          .colu COLGRAY, $f
-          .byte $ff, 57, 72     ; runes
-          .SignText "ALL THREE OF"
-          .SignText "THE DRAGONS "
-          .SignText "LIVE ON THE "
-          .SignText "SECOND LEVEL"
-          .SignText "UNDERGROUND."
-          .byte ModeSignpostDone
-
-;;; 71
-Sign_GetDragonHints:
-          .colu COLGRAY, 0
-          .colu COLGRAY, $f
-          .SignText "NOW YOU CAN "
-          .SignText "UNDERSTAND  "
-          .SignText "THE ANCIENT "
-          .SignText "CARVINGS ON "
-          .SignText "THE WALLS.  "
-          .byte ModeSignpostClearFlag, 57
-
-;;; 72
-Sign_Ancient:
-          .colu COLGRAY, $f
-          .colu COLGRAY, 0
-          .SignText "THERE ARE   "
-          .SignText "OLD RUNES   "
-          .SignText "CARVED HERE,"
-          .SignText "BUT YOU CAN "
-          .SignText "NOT READ IT."
-          .byte ModeSignpostDone
-
-;;; 73
-NPC_Radio:
-          .colu COLYELLOW, $f
-          .colu COLBLUE, $4
-          .byte $ff, 25, 74     ; asked to fix radio
-          .SignText "MY RADIO    "
-          .SignText "REPAIR SHOP "
-          .SignText "IS GOING TO "
-          .SignText "HAVE TO SHUT"
-          .SignText "FOR MONSTERS"
-          .byte ModeSignpostDone

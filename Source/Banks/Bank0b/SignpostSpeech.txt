@@ -1,3 +1,24 @@
+FindAndrew:
+The evil dragon Andrew is in the north-west corner
+
+FindFred:
+The dreaded dragon Fred livs in the south-west corner
+
+FindTimmy:
+The wicked dragon Timmy has a lair at the very center
+
+DragonHints:
+All three of the dragons liv on the second level under-ground
+
+GetDragonHints:
+Now you can understand the ancient carvings on the walls
+
+Ancient:
+There are old runes carved here,but you can not read it
+
+Radio:
+♂My radio repair shop is going to have to shut for monsters
+
 RadioFix:
 ♂O.I can totally fix that radio for you.No problem
 
@@ -51,12 +72,3 @@ GetArtifacts:
 
 NoArtifacts:
 ♀The people in Anchor need your help against the monsters
-
-DoTrain:
-♂Now your Grizzard can use their last move for sure
-
-DoNotTrain:
-♂Bring me any Grizzard you want me to train and I will do it
-
-Grue:
-Caves beyond can be dark.You may be eaten by a Grue

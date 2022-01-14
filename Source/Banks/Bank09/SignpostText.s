@@ -3,12 +3,23 @@
 
 ;;; Order of sign texts MUST match the texts in SignpostSpeech.txt or it all goes to Hell.
 
-          FirstSignpost = 24
+          FirstSignpost = 23
 
-          Signs = ( NPC_HaveKey, NPC_LostChild, NPC_IAmLost, NPC_ReturnChild, NPC_ChildReward, Sign_Labyrinth, Sign_KeyFred, Sign_KeyAndrew, Sign_KeyTimmy, NPC_TrainEm, NPC_Gary1, NPC_GaryBad, NPC_Slacker, NPC_LastMove, NPC_GaryMirror, NPC_GaryVindicated, NPC_Fishing, NPC_FoundRing, NPC_TrebleRefugee, NPC_HowLong, NPC_FatTony, NPC_WelcomePortLion, NPC_LookUpCliff, NPC_Hellmouth, NPC_CanYouSwim )
+          Signs = ( NPC_ReturnPendant, NPC_HaveKey, NPC_LostChild, NPC_IAmLost, NPC_ReturnChild, NPC_ChildReward, Sign_Labyrinth, Sign_KeyFred, Sign_KeyAndrew, Sign_KeyTimmy, NPC_TrainEm, NPC_Gary1, NPC_GaryBad, NPC_Slacker, NPC_LastMove, NPC_GaryMirror, NPC_GaryVindicated, NPC_Fishing, NPC_FoundRing, NPC_TrebleRefugee, NPC_HowLong, NPC_FatTony, NPC_WelcomePortLion, NPC_LookUpCliff )
 
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
+
+;;; 23
+NPC_ReturnPendant:
+          .colu COLINDIGO, 0
+          .colu COLTURQUOISE, $9
+          .SignText "YOU'RE GREAT"
+          .SignText "THAT'S MY   "
+          .SignText "PENDANT. YOU"
+          .SignText "CAN HAVE    "
+          .SignText "THIS KEY.   "
+          .byte ModeSignpostClearFlag, 63
           
 ;;; 24
 NPC_HaveKey:
@@ -271,27 +282,4 @@ NPC_LookUpCliff:
           .SignText "UP AT HOW   "
           .SignText "TALL THE    "
           .SignText "CLIFFS ARE! "
-          .byte ModeSignpostDone
-          
-;;; 47
-NPC_Hellmouth:
-          .colu COLINDIGO, $f
-          .colu COLTURQUOISE, 2
-          .byte $ff, 12, 57     ; need ring
-          .SignText "IT'S ME, FAT"
-          .SignText "TONY. IN AN "
-          .SignText "OLD STORY,  "
-          .SignText "THIS WAS THE"
-          .SignText "ROAD TO HELL"
-          .byte ModeSignpostDone
-
-;;; 48
-NPC_CanYouSwim:
-          .colu COLINDIGO, $f
-          .colu COLTURQUOISE, 2
-          .SignText "IT'S ME, FAT"
-          .SignText "TONY. CAN   "
-          .SignText "YOU SWIM? IF"
-          .SignText "NOT, THE SEA"
-          .SignText "IS DANGEROUS"
           .byte ModeSignpostDone

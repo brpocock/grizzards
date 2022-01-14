@@ -1,3 +1,9 @@
+Hellmouth:
+♂It's me,Fat Tony.In an old story,this was the road to Hell
+
+CanYouSwim:
+♂It's me,Fat Tony.Can you ¿ swim.♂If not,the sea is dangerous
+
 Allen:
 ♂I'm Allen.They say in legends the monsters are from Hell
 
@@ -51,24 +57,3 @@ MirandaDone:
 
 DocksToTreble:
 Port Lion docks to go to Treble departing.All aboard
-
-FindAndrew:
-The evil dragon Andrew is in the north-west corner
-
-FindFred:
-The dreaded dragon Fred livs in the south-west corner
-
-FindTimmy:
-The wicked dragon Timmy has a lair at the very center
-
-DragonHints:
-All three of the dragons liv on the second level under-ground
-
-GetDragonHints:
-Now you can understand the ancient carvings on the walls
-
-Ancient:
-There are old runes carved here,but you can not read it
-
-Radio:
-♂My radio repair shop is going to have to shut for monsters
