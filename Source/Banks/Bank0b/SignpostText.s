@@ -5,7 +5,7 @@
 
           FirstSignpost = 74
 
-          Signs = ( NPC_RadioFix, NPC_RadioDone, NPC_Villager2, NPC_Villager3, Sign_BewareCyclops, NPC_Lover1, NPC_Lover2, NPC_Lover2NoNote, NPC_Lover1Requited, NPC_Lover1End, Sign_ShipToPortLion, Sign_StayInTreble, NPC_FishingWantRing, NPC_FishingWantMirror, NPC_RouteToAnchor, NPC_RouteToPortLion, NPC_GetArtifacts, NPC_NoArtifacts, NPC_DoTrain, NPC_DoNotTrain )
+          Signs = ( NPC_RadioFix, NPC_RadioDone, NPC_Villager2, NPC_Villager3, Sign_BewareCyclops, NPC_Lover1, NPC_Lover2, NPC_Lover2NoNote, NPC_Lover1Requited, NPC_Lover1End, Sign_ShipToPortLion, Sign_StayInTreble, NPC_FishingWantRing, NPC_FishingWantMirror, NPC_RouteToAnchor, NPC_RouteToPortLion, NPC_GetArtifacts, NPC_NoArtifacts, NPC_DoTrain, NPC_DoNotTrain, Sign_Grue )
 
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
@@ -237,4 +237,15 @@ NPC_DoNotTrain:
           .SignText "WANT ME TO  "
           .SignText "TRAIN AND I "
           .SignText "WILL DO IT. "
+          .byte ModeSignpostDone
+
+;;; 94
+Sign_Grue:
+          .colu COLRED, $4
+          .colu COLGRAY, $a
+          .SignText "CAVES BEYOND"
+          .SignText "CAN BE DARK."
+          .SignText "YOU MAY BE  "
+          .SignText "EATEN BY A  "
+          .SignText "GRUE.       "
           .byte ModeSignpostDone

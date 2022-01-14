@@ -183,8 +183,9 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
         print "
 \tmkdir -p Object
 \t\${AS2600} -DSTARTER=$starter $daria -DPUBLISHER=true -DTV=$tv \\
-\t   -I Source/Generated/Bank$bank -l \$\@.labels.txt -L \$\@.list.txt \$< -o \$\@\n
-\tbin/label2sym \$\@.labels.txt\n\n";
+\t   -I Source/Generated/Bank$bank -l \$\@.labels.txt -L \$\@.list.txt \$< -o \$\@
+\tbin/label2sym \$\@.labels.txt
+\tbin/listing2lst \$\@.list.txt\n";
 
         if (1 == $starter and '' eq $aria and hex("0x$bank") < 8) {
           print "\n\nObject/Bank$bank.Demo.$tv.o:\t";
@@ -194,7 +195,8 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
           print "
 \tmkdir -p Object
 \t\${AS2600} -DTV=$tv -DDEMO=true -I Source/Generated/Bank$bank -l \$\@.labels.txt -L \$\@.list.txt \$< -o \$\@\n
-\tbin/label2sym \$\@.labels.txt\n\n";
+\tbin/label2sym \$\@.labels.txt
+\tbin/listing2lst \$\@.list.txt\n";
 
           print "\n\nObject/Bank$bank.NoSave.$tv.o:\t";
           for my $file (@files) {
@@ -203,7 +205,8 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
           print "
 \tmkdir -p Object
 \t\${AS2600} -DTV=$tv -DDEMO=true -DNOSAVE=true -I Source/Generated/Bank$bank -l \$\@.labels.txt -L \$\@.list.txt \$< -o \$\@\n
-\tbin/label2sym \$\@.labels.txt\n\n";
+\tbin/label2sym \$\@.labels.txt
+\tbin/listing2lst \$\@.list.txt\n";
         }
       }                         # end of bank
     }                           # end of starter
