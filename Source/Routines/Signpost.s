@@ -212,7 +212,7 @@ Leave:
           lda MovesKnown
           ora #$80
           sta MovesKnown
-          jmp Leave
+          gne ByeBye
 
 NotTrainLastMove:
           cmp #ModeSignpostSet0And63
