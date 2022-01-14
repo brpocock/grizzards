@@ -501,6 +501,72 @@ Dist/Grizzards.Airex.SECAM.sym:	\
 	$(shell bin/banks Object Airex.SECAM.sym)
 	cat $^ > $@
 
+
+Dist/Grizzards.Demo.NTSC.lst:	\
+	$(shell bin/banks Object Demo.NTSC.lst)
+	cat $^ > $@
+
+Dist/Grizzards.Demo.PAL.lst:	\
+	$(shell bin/banks Object Demo.PAL.lst)
+	cat $^ > $@
+
+Dist/Grizzards.Demo.SECAM.lst:	\
+	$(shell bin/banks Object Demo.SECAM.lst)
+	cat $^ > $@
+
+Dist/Grizzards.NoSave.NTSC.lst:	\
+	$(shell bin/banks Object NoSave.NTSC.lst)
+	cat $^ > $@
+
+Dist/Grizzards.NoSave.PAL.lst:	\
+	$(shell bin/banks Object NoSave.PAL.lst)
+	cat $^ > $@
+
+Dist/Grizzards.NoSave.SECAM.lst:	\
+	$(shell bin/banks Object NoSave.SECAM.lst)
+	cat $^ > $@
+
+
+Dist/Grizzards.Dirtex.NTSC.lst:	\
+	$(shell bin/banks Object Dirtex.NTSC.lst)
+	cat $^ > $@
+
+Dist/Grizzards.Dirtex.PAL.lst:	\
+	$(shell bin/banks Object Dirtex.PAL.lst)
+	cat $^ > $@
+
+Dist/Grizzards.Dirtex.SECAM.lst:	\
+	$(shell bin/banks Object Dirtex.SECAM.lst)
+	cat $^ > $@
+
+
+Dist/Grizzards.Aquax.NTSC.lst:	\
+	$(shell bin/banks Object Aquax.NTSC.lst)
+	cat $^ > $@
+
+Dist/Grizzards.Aquax.PAL.lst:	\
+	$(shell bin/banks Object Aquax.PAL.lst)
+	cat $^ > $@
+
+Dist/Grizzards.Aquax.SECAM.lst:	\
+	$(shell bin/banks Object Aquax.SECAM.lst)
+	cat $^ > $@
+
+
+Dist/Grizzards.Airex.NTSC.lst:	\
+	$(shell bin/banks Object Airex.NTSC.lst)
+	cat $^ > $@
+
+Dist/Grizzards.Airex.PAL.lst:	\
+	$(shell bin/banks Object Airex.PAL.lst)
+	cat $^ > $@
+
+Dist/Grizzards.Airex.SECAM.lst:	\
+	$(shell bin/banks Object Airex.SECAM.lst)
+	cat $^ > $@
+
+
+
 Dist/Grizzards.Demo.NTSC.pro:	Source/Grizzards.Demo.pro Dist/Grizzards.Demo.NTSC.a26
 	sed $< -e s/@@ARIA@@/0/ -e s/@@TV@@/NTSC/g \
 		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.Demo.NTSC.a26 | cut -d\  -f1)/g > $@
@@ -597,67 +663,78 @@ Dist/Grizzards.Aria.Airex.SECAM.pro:	Source/Grizzards.pro Dist/Grizzards.Aria.Ai
 	sed $< -e s/@@ARIA@@/1/ -e s/@@TV@@/SECAM/g \
 		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.Aria.Airex.SECAM.a26 | cut -d\  -f1)/g > $@
 
-dstella:	Dist/Grizzards.Demo.NTSC.a26 Dist/Grizzards.Demo.NTSC.sym Dist/Grizzards.Demo.NTSC.pro
+dstella:	Dist/Grizzards.Demo.NTSC.a26 Dist/Grizzards.Demo.NTSC.lst \
+	Dist/Grizzards.Demo.NTSC.sym Dist/Grizzards.Demo.NTSC.pro
 	stella -tv.filter 3 -grabmouse 0 -bs F4 \
 		-lc Genesis -rc AtariVox \
 		-format NTSC -pp Yes \
 		-debug $<
 
-dstella-pal:	Dist/Grizzards.Demo.PAL.a26 Dist/Grizzards.Demo.PAL.sym Dist/Grizzards.Demo.PAL.pro
+dstella-pal:	Dist/Grizzards.Demo.PAL.a26 Dist/Grizzards.Demo.PAL.lst \
+	Dist/Grizzards.Demo.PAL.sym Dist/Grizzards.Demo.PAL.pro
 	stella -tv.filter 3 -grabmouse 0 -bs F4 \
 		-lc Genesis -rc AtariVox \
 		-format PAL -pp Yes \
 		-debug $<
 
-dstella-secam:	Dist/Grizzards.Demo.SECAM.a26 Dist/Grizzards.Demo.SECAM.sym Dist/Grizzards.Demo.SECAM.pro
+dstella-secam:	Dist/Grizzards.Demo.SECAM.a26 Dist/Grizzards.Demo.SECAM.lst \
+	Dist/Grizzards.Demo.SECAM.sym Dist/Grizzards.Demo.SECAM.pro
 	stella -tv.filter 3 -grabmouse 0 -bs F4 \
 		-lc Genesis -rc AtariVox \
 		-format SECAM -pp Yes \
 		-debug $<
 
-nstella:	Dist/Grizzards.NoSave.NTSC.a26 Dist/Grizzards.NoSave.NTSC.sym Dist/Grizzards.NoSave.NTSC.pro
+nstella:	Dist/Grizzards.NoSave.NTSC.a26 Dist/Grizzards.NoSave.NTSC.lst \
+	Dist/Grizzards.NoSave.NTSC.sym Dist/Grizzards.NoSave.NTSC.pro
 	stella -tv.filter 3 -grabmouse 0 -bs F4 \
 		-lc Genesis -rc Joystick \
 		-format NTSC -pp Yes \
 		-debug $<
 
-nstella-pal:	Dist/Grizzards.NoSave.PAL.a26 Dist/Grizzards.NoSave.PAL.sym Dist/Grizzards.NoSave.PAL.pro
+nstella-pal:	Dist/Grizzards.NoSave.PAL.a26 Dist/Grizzards.NoSave.PAL.lst \
+	Dist/Grizzards.NoSave.PAL.sym Dist/Grizzards.NoSave.PAL.pro
 	stella -tv.filter 3 -grabmouse 0 -bs F4 \
 		-lc Genesis -rc Joystick \
 		-format PAL -pp Yes \
 		-debug $<
 
-nstella-secam:	Dist/Grizzards.NoSave.SECAM.a26 Dist/Grizzards.NoSave.SECAM.sym Dist/Grizzards.NoSave.SECAM.pro
+nstella-secam:	Dist/Grizzards.NoSave.SECAM.a26 Dist/Grizzards.NoSave.SECAM.lst \
+	Dist/Grizzards.NoSave.SECAM.sym Dist/Grizzards.NoSave.SECAM.pro
 	stella -tv.filter 3 -grabmouse 0 -bs F4 \
 		-lc Genesis -rc Joystick \
 		-format SECAM -pp Yes \
 		-debug $<
 
-stella:	Dist/Grizzards.Aquax.NTSC.a26 Dist/Grizzards.Aquax.NTSC.sym Dist/Grizzards.Aquax.NTSC.pro
+stella:	Dist/Grizzards.Aquax.NTSC.a26 Dist/Grizzards.Aquax.NTSC.lst \
+	Dist/Grizzards.Aquax.NTSC.sym Dist/Grizzards.Aquax.NTSC.pro
 	stella -tv.filter 3 -grabmouse 0 -bs EF \
 		-lc Genesis -rc AtariVox \
 		-format NTSC -pp Yes \
 		-debug $<
 
-stella-airex:	Dist/Grizzards.Airex.NTSC.a26 Dist/Grizzards.Airex.NTSC.sym Dist/Grizzards.Airex.NTSC.pro
+stella-airex:	Dist/Grizzards.Airex.NTSC.a26 Dist/Grizzards.Airex.NTSC.lst \
+	Dist/Grizzards.Airex.NTSC.sym Dist/Grizzards.Airex.NTSC.pro
 	stella -tv.filter 3 -grabmouse 0 -bs EF \
 		-lc Genesis -rc AtariVox \
 		-format NTSC -pp Yes \
 		-debug $<
 
-stella-dirtex:	Dist/Grizzards.Dirtex.NTSC.a26 Dist/Grizzards.Dirtex.NTSC.sym Dist/Grizzards.Dirtex.NTSC.pro
+stella-dirtex:	Dist/Grizzards.Dirtex.NTSC.a26 Dist/Grizzards.Dirtex.NTSC.lst \
+	Dist/Grizzards.Dirtex.NTSC.sym Dist/Grizzards.Dirtex.NTSC.pro
 	stella -tv.filter 3 -grabmouse 0 -bs EF \
 		-lc Genesis -rc AtariVox \
 		-format NTSC -pp Yes \
 		-debug $<
 
-stella-pal:	Dist/Grizzards.Aquax.PAL.a26 Dist/Grizzards.Aquax.PAL.sym Dist/Grizzards.Aquax.PAL.pro
+stella-pal:	Dist/Grizzards.Aquax.PAL.a26 Dist/Grizzards.Aquax.PAL.lst \
+	Dist/Grizzards.Aquax.PAL.sym Dist/Grizzards.Aquax.PAL.pro
 	stella -tv.filter 3 -grabmouse 0 -bs EF \
 		-lc Genesis -rc AtariVox \
 		-format PAL -pp Yes \
 		-debug $<
 
-stella-secam:	Dist/Grizzards.Aquax.SECAM.a26 Dist/Grizzards.Aquax.SECAM.sym Dist/Grizzards.Aquax.SECAM.pro
+stella-secam:	Dist/Grizzards.Aquax.SECAM.a26 Dist/Grizzards.Aquax.SECAM.lst \
+	Dist/Grizzards.Aquax.SECAM.sym Dist/Grizzards.Aquax.SECAM.pro
 	stella -tv.filter 3 -grabmouse 0 -bs EF \
 		-lc Genesis -rc AtariVox \
 		-format SECAM -pp Yes \

@@ -1,0 +1,102 @@
+#!/usr/bin/perl
+# -*- cperl -*-
+
+unless (@ARGV > 0) {
+  print STDERR <<"USAGE";
+Usage:
+
+$0 some-file.list.txt
+
+This utility takes a 64tass-formatted listing file and outputs something
+that is "close enough" to a  dasm-formatted listing file file to be used
+with the Stella debugger.
+
+The target file name will be, in this example, "some-file.lst"
+
+Multiple listing files can be supplied at a go, if desired.
+USAGE
+  exit -1;
+}
+
+while (my $list_file_name = shift @ARGV) {
+    eval {
+    my $lst_file_name = $list_file_name;
+    $lst_file_name =~ s/\.txt$//;
+    $lst_file_name =~ s/\.o\./\./;
+    $lst_file_name =~ s/\.[^\.]+?$//;
+    $lst_file_name .= '.lst';
+
+    if ($list_file_name eq $lst_file_name) {
+      die "Can't figure out how to make $list_file_name into a .lst name.
+Did you try to supply the wrong file as an input?
+Try renaming $list_file_name to something like:
+$list_file_name.o.list.txt\n";
+    }
+
+    my $outline = 0;
+
+    open my $list_file, '<', $list_file_name or die "can't read $list_file_name: $!";
+    open my $lst_file, '>', $lst_file_name or die "can't write $lst_file_name: $!";
+
+    select $lst_file;
+
+    print "------- FILE $list_file_name LEVEL 0 PASS 0\n";
+    while (my $line = <$list_file>) {
+      next if ($line =~ /^\s*$/);
+      next if ($line =~ /^;/);
+      if ($line =~ /^\s*+\* = $([0-9a-f]{4})/) {
+        ++$outline;
+        printf "%7d  %04x                                         ORG       $%04x" =>
+          $outline, $1, $1;
+        next;
+      }
+      if ($line =~ /^=(.+)\s+(.+)=(.+)$/) {
+        my ($value, $label, $comp) = ($1, $2, $3);
+        if ($value =~ /\$([0-9a-f]+)/) { $value = oct("0x$1") }
+        if ($value =~ /\%([01]+)/) { $value = oct("0b$1") }
+        next unless ($value == (0 + $value));
+        my $hb = $value & 0xff00;
+        my $lb = $value & 0x00ff;
+        ++$outline;
+        printf "%7d  0000 ????             %02x %02x       %s  equ  \$%x\n" =>
+          $outline, $hb, $lb, $label, $value;
+        next;
+      }
+      if ($line =~ /^\.[0-9a-f]{4}\s+([0-9a-f]{4})\s+(([0-9a-f ][0-9a-f]\s?)+)\s+(.+)/) {
+        ++$outline;
+        my ($addr, $bytes, $ops) = ($1, $2, $4);
+        my @bytes = map { sprintf "%02x" => $_ } map { oct("0x$_") } split /\s*/ => $bytes;
+        my $byte1 = $bytes[0];
+        my $byte2 = '  ';
+        if ($#bytes > 1) { $byte2 = $bytes[1]; }
+        my $byte3 = '  ';
+        if ($#bytes > 2) { $byte3 = $bytes[2]; }
+        my $byte4 = '  ';
+        if ($#bytes > 3) { $byte4 = $bytes[3]; }
+        my $morebytes = $#bytes > 4 ? "*" : " ";
+        printf "%7d  %04x                  %2s %2s %2s %2s%1s           %s\n" =>
+          $outline, oct("0x$addr"), $byte1, $byte2, $byte3, $byte4, $morebytes, $ops;
+        next;
+      }
+      if ($line =~ /^\.[0-9a-f]{4}\s+([0-9a-f]{4})\s+(.*):/) {
+        my ($addr, $label) = ($1, $2);
+        ++$outline;
+        printf "%7d  %04x                              %s" =>
+          $outline, oct("0x$addr"), $label;
+        next;
+      }
+    }
+    close $lst_file;
+    close $list_file;
+
+    select STDOUT;
+
+    print "Read $list_file_name, wrote $lst_file_name, done.\n";
+  };
+
+  if ($@) {
+    print STDERR "Error in $list_file_name\n$@\n";
+    exit -2
+  }
+}
+
