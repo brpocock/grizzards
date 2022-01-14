@@ -166,7 +166,9 @@ NPC_LastMove:
           .SignText "GRIZZARDS   "
           .SignText "THEIR LAST  "
           .SignText "MOVE.       "
-          .byte ModeTrainLastMove
+          .byte ModeSignpostInquire
+          .byte 92, 93
+          .SignText "TRAIN LATER "
 
 ;;; 38
 NPC_GaryMirror:
