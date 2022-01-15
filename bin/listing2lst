@@ -50,7 +50,7 @@ $list_file_name.o.list.txt\n";
           $outline, $1, $1;
         next;
       }
-      if ($line =~ /^=(.+)\s+(.+)=(.+)$/) {
+      if ($line =~ /^=(.+)\s+(\w+)=(.+)$/) {
         my ($value, $label, $comp) = ($1, $2, $3);
         if ($value =~ /\$([0-9a-f]+)/) { $value = oct("0x$1") }
         if ($value =~ /\%([01]+)/) { $value = oct("0b$1") }
