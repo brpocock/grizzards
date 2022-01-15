@@ -8,7 +8,7 @@
           .include "StartBank.s"
           .include "Prepare48pxMobBlob.s"
           .include "6BitCompression.s"
-          .include "Source/Generated/Bank07/SpeakJetIDs.s"
+          .include "Source/Generated/Bank1d/SpeakJetIDs.s"
 
           MonsterPhrase = Phrase_Monster7_0
 
@@ -38,6 +38,5 @@ DoLocal:
           .include "Combat17.s"
           .include "Monsters17.s"
           .include "MonsterMoves17.s"
-          
 
           .include "EndBank.s"

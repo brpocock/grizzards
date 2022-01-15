@@ -1,0 +1,191 @@
+RunAway:
+Run Away
+
+Move01:
+Kick Dirt
+
+Move02:
+Splish Splash
+
+Move03:
+Mild Shock
+
+Move04:
+Hot Spark
+
+Move05:
+Bury Deep
+
+Move06:
+Dirty Foot
+
+Move07:
+Loam-e Fear
+
+Move08:
+Dust-e Eyes
+
+Move09:
+Raise Hope
+
+Move10:
+Sure Splash
+
+Move11:
+Quick Foot
+
+Move12:
+Great Mojo
+
+Move13:
+Wind Fight
+
+Move14:
+Steal Attack
+
+Move15:
+Steal Defend
+
+Move16:
+Steal Turn
+
+Move17:
+Fire Start
+
+Move18:
+Burnt Edges
+
+Move19:
+Rogue Flare
+
+Move20:
+Double Flares
+
+Move21:
+Tail Whip
+
+Move22:
+Tail Lash
+
+Move23:
+Bite
+
+Move24:
+Poison Bite
+
+Move25:
+Cruel Stab
+
+Move26:
+Blind Blob
+
+Move27:
+Slimy Trick
+
+Move28:
+Guard Down
+
+Move29:
+First Aid
+
+Move30:
+Simple Cure
+
+Move31:
+Common Cure
+
+Move32:
+Great Cure
+
+Move33:
+Heal Wound
+
+Move34:
+Life Return
+
+Move35:
+Nibble
+
+Move36:
+Muddle Mind
+
+Move37:
+Great Muddle
+
+Move38:
+Scare Away
+
+Move39:
+Wet Noodle
+
+Move40:
+Stomp Down
+
+Move41:
+Crush
+
+Move42:
+Firey Breath
+
+Move43:
+Evil Eye
+
+Move44:
+Claws Out
+
+Move45:
+A Move
+
+Move46:
+A Move
+
+Move47:
+A Move
+
+Move48:
+A Move
+
+Move49:
+A Move
+
+Move50:
+A Move
+
+Move51:
+A Move
+
+Move52:
+A Move
+
+Move53:
+A Move
+
+Move54:
+A Move
+
+Move55:
+A Move
+
+Move56:
+A Move
+
+Move57:
+A Move
+
+Move58:
+A Move
+
+Move59:
+A Move
+
+Move60:
+A Move
+
+Move61:
+A Move
+
+Move62:
+A Move
+
+Move63:
+Mega Kill

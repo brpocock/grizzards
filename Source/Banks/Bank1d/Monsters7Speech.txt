@@ -1,0 +1,137 @@
+Monster6_0:
+Wicked Slime
+
+Monster6_1:
+Horrid Slime
+
+Monster6_2:
+Vorpal Bunny
+
+Monster6_3:
+Rodent of Unusual Size
+
+Monster6_4:
+Lectro Sheep
+
+Monster6_5:
+Viking Turtle
+
+Monster6_6:
+Crazy Fox
+
+Monster6_7:
+Water Kitty
+
+Monster6_8:
+Flame Dog o
+
+Monster6_9:
+Fuzzy Bear
+
+Monster6_10:
+Metal Mouse
+
+Monster6_11:
+Fire Panda
+
+Monster6_12:
+Leg e Mutant
+
+Monster6_13:
+Sky Mutant
+
+Monster6_14:
+Will O Wisp
+
+Monster6_15:
+Butterfly
+
+Monster6_16:
+Scary Rat
+
+Monster6_17:
+Cave Grue
+
+Monster6_18:
+Cave Bat
+
+Monster6_19:
+Venom Sheep
+
+Monster6_20:
+One-eyed Cyclops
+
+Monster6_21:
+Fierce raptor
+
+Monster6_22:
+Devil Eagle
+
+Monster6_23:
+Round Robin
+
+Monster6_24:
+Giant Crab
+
+Monster6_25:
+Bigger Crab
+
+Monster6_26:
+Mean Robber
+
+Monster6_27:
+Giant Slime
+
+Monster6_28:
+Dreaded Dragon Fred
+
+Monster6_29:
+Evil Dragon Andrew
+
+Monster6_30:
+Wicked Dragon Timmy
+
+Monster6_31:
+Uber Slime
+
+Monster6_32:
+Desert Eagle
+
+Monster6_33:
+Crazed robber
+
+Monster6_34:
+Great Worm
+
+Monster6_35:
+Poison Asp
+
+Monster6_36:
+Grabby Crabby
+
+Monster6_37:
+Giant Bat
+
+Monster6_38:
+Maze Jaguar
+
+Monster6_39:
+Monster thirty-nine
+
+Monster6_40:
+Monster forty
+
+Monster6_41:
+Monster forty-one
+
+Monster6_42:
+Monster forty-two
+
+Monster6_43:
+Monster forty-three
+
+Monster6_44:
+Monster forty-four
+
+Monster6_45:
+Boss Bear

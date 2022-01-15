@@ -273,7 +273,7 @@ Dist/Grizzards.Aria.Airex.SECAM.a26:	${SOURCES} Source/Generated/Makefile bin/sk
 
 Source/Generated/Makefile:	bin/write-master-makefile ${SOURCES}
 	mkdir -p Source/Generated
-	for bank in 5 7 8 9 a b c d e f 10 11 12 13 14 15; do bin/make-speakjet-enums $$bank; done
+	for bank in 5 7 8 9 a b c d e f 10 11 12 13 14 15 1d; do bin/make-speakjet-enums $$bank; done
 	$< > Source/Generated/Makefile
 
 Dist/Grizzards.NTSC-book.pdf:	Dist/Grizzards.Aria.NTSC.pdf

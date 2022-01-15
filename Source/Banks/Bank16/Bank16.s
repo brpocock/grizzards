@@ -9,7 +9,7 @@
 
           .include "Prepare48pxMobBlob.s"
           .include "6BitCompression.s"
-          .include "Source/Generated/Bank07/SpeakJetIDs.s"
+          .include "SpeakJetIDs.s"
 
           MonsterPhrase = Phrase_Monster6_0
 

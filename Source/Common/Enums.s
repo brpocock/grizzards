@@ -155,8 +155,12 @@
           CombatBank64To127 = $17
           .fi
           SFXBank = $07
-          .if !DEMO
+          .if DEMO
+          MusicBank = $07
+          CombatEffectsBank = $07
+          .else
           MusicBank = $1e
+          CombatEffectsBank = $1d
           .fi
           .if DEMO
           SignpostBank = $05
@@ -216,6 +220,14 @@
           ServiceSaveProvinceData = $20
           ServiceLoadProvinceData = $21
           ServiceLoadGrizzard = $22
+
+;;; Combat effects bank
+          ServiceCombatSpeech = $25
+          ServiceCombatHitMonster = $26
+          ServiceCombatMissMonster = $27
+          ServiceCombatHitGrizzard = $28
+          ServiceCombatMissGrizzard = $29
+
 ;;; 
 ;;; Maximum number of Grizzards allowed
 ;;; The save/load routines should handle up to 36

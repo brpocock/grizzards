@@ -1,0 +1,80 @@
+NoEffect:
+but nothing happens
+
+Monster:
+The monster
+
+Grizzard:
+Your Grizzard
+
+Learnt:
+Learnt
+
+UsesMove:
+uses move
+
+On:
+on
+
+And:
+and
+
+Missed:
+missed
+
+IsInjured:
+is injured
+
+IsKilled:
+is killed
+
+IsHealed:
+has healed them self
+
+StatusFXSleep:
+goes to sleep
+
+StatusFXMuddle:
+is muddled
+
+StatusFXAttack:
+attack
+
+StatusFXDefend:
+defend
+
+StatusFXRaise:
+is raised
+
+StatusFXLower:
+is lowered
+
+Victory:
+Victory
+
+GameOver:
+Game Over
+
+One:
+one
+
+Two:
+two
+
+Three:
+three
+
+Four:
+four
+
+Five:
+five
+
+Six:
+six
+
+LevelUp:
+Level up
+
+MaxHP:
+maximum hit points
