@@ -233,6 +233,7 @@ cap = \KE \Slow \AY \PO
 car = \KO \Slow \AW \RR
 care = \EK \EY \EYRR
 careful = \EK \EY \EYRR \FF \AX \LE
+carefully = \EK \EY \EYRR \FF \AX \Slow \LE \IY
 carpet = \KO \Fast \AWRR \PE \IH \TT
 carriage = \EK \Fast \EYRR \Slow \IH \JH
 carrot = \EK \Fast \EYRR \AX \TT

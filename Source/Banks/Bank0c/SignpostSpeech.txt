@@ -12,3 +12,6 @@ DoNotTrain:
 
 Grue:
 Caves beyond can be dark.You may be eaten by a Grue
+
+TunnelAlreadyOpen:
+♀The tunnels are open.Go carefully.Anchor is in danger

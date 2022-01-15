@@ -62,6 +62,7 @@ NPC_TunnelBlocked:
 NPC_TunnelOpen:
           .colu COLINDIGO, 0
           .colu COLBLUE, $9
+          .byte $ff, 1, 95
           .SignText "NOW THAT YOU"
           .SignText "BROUGHT THEM"
           .SignText "I CAN OPEN  "

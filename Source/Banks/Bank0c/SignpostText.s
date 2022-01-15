@@ -5,7 +5,7 @@
 
           FirstSignpost = 90
 
-          Signs = ( NPC_GetArtifacts, NPC_NoArtifacts, NPC_DoTrain, NPC_DoNotTrain, Sign_Grue )
+          Signs = ( NPC_GetArtifacts, NPC_NoArtifacts, NPC_DoTrain, NPC_DoNotTrain, Sign_Grue, NPC_TunnelAlreadyOpen )
 
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
@@ -63,4 +63,15 @@ Sign_Grue:
           .SignText "YOU MAY BE  "
           .SignText "EATEN BY A  "
           .SignText "GRUE.       "
+          .byte ModeSignpostDone
+
+;;; 95
+NPC_TunnelAlreadyOpen:
+          .colu COLINDIGO, 0
+          .colu COLBLUE, $9
+          .SignText "THE TUNNELS "
+          .SignText "ARE OPEN. GO"
+          .SignText "CAREFULLY!  "
+          .SignText "ANCHOR IS IN"
+          .SignText "DANGER.     "
           .byte ModeSignpostDone
