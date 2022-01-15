@@ -149,6 +149,7 @@
           .fi
           .if DEMO
           CombatBank0To63 = $06
+          CombatBank64To127 = $06 ; not really
           .else
           CombatBank0To63 = $16
           CombatBank64To127 = $17
