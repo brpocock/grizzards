@@ -134,4 +134,4 @@ Monster6_44:
 Monster forty-four
 
 Monster6_45:
-Boss Bear
+The Terrifying Boss Bear

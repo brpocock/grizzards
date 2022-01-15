@@ -67,6 +67,7 @@
           SoundVictory = 9
           SoundGameOver = 10
           SoundFootstep = 11
+          SoundRoar = 12
 ;;; 
 ;;; Status Effects for player or enemies 
           StatusSleep = $01
@@ -194,12 +195,12 @@
           ServiceDrawMonsterGroup = $0b
           ServiceWrite12Chars = $23
           ServiceInquire = $24
-          ServiceCheckForWin = $28
 
 ;;; End of game animation services
 
           ServiceRevealBear = $27
           ServiceFireworks = $0a
+          ServiceShowBossBear = $29
 
 ;;; Also the cold start / save game bank
 

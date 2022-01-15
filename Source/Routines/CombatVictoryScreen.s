@@ -4,7 +4,13 @@
           ;; follows CombatSetup
 
 CombatVictoryScreen:  .block
+          lda CurrentCombatEncounter
+          cmp #92               ; Boss Bear Battle
+          beq WonGame
+          ;; after Boss Bear are the 3 dragons
+          bge DefeatDragon
 
+NormalVictory:
           .SetUtterance Phrase_Victory
 
           lda #SoundVictory
@@ -46,4 +52,19 @@ FirstTime:
 
           jmp GoMap
 
+DefeatDragon:
+          lda CurrentProvince
+          cmp # 2
+          bne NormalVictory
+
+          lda ProvinceFlags + 5
+          and #%00011100        ; Dragon Bits
+          cmp #%00011100
+          bne NormalVictory
+
+          .FarJMP EndAnimationsBank, ServiceRevealBear
+          
+WonGame:
+          .FarJMP EndAnimationsBank, ServiceFireworks
+           
           .bend

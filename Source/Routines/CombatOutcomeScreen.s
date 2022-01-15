@@ -317,10 +317,14 @@ CheckForWin:
           bne -
 
 WonBattle:
+          lda CurrentCombatIndex
+          cmp #$ff
+          beq +
           .SetBitFlag CurrentCombatIndex
           ;; Did the player level up their stats by this victory?
           ;; The likelihood decreases the higher that stat is.
           ;; Use DeltaX to store which level(s) was (were) raised
++
           lda # 0
           sta DeltaX
 
@@ -372,9 +376,6 @@ HPLevelUpDone:
 
 NoLevelUp:
 WonReturnToMap:
-          lda #SoundVictory
-          sta NextSound
-
           .WaitScreenBottom
           jmp CombatVictoryScreen
 

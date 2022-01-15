@@ -37,9 +37,17 @@ LoopFirst:
           sta COLUP0
           sta COLUP1
 
-PausedOrNot:
 ;;; 
 MonstersDisplay:
+          lda CurrentCombatEncounter
+          cmp # 92              ; Boss Bear encounter
+          bne MonsterWithName
+          .SkipLines 25
+          .FarJSR EndAnimationsBank, ServiceShowBossBear
+          .SkipLines 25
+          jmp DelayAfterMonsters
+
+MonsterWithName:
           jsr ShowMonsterName
 
           ldy # MonsterColorIndex
