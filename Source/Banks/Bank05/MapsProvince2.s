@@ -318,7 +318,7 @@ SpriteList:
 
           ;; Room 11
           .byte $ff, SpriteFixed
-          .byte $20, $10
+          .byte $60, $10
           .byte SpriteGrizzardDepot, 0
 
           .byte 0
