@@ -161,7 +161,7 @@ StyAllGraphics:   .macro
           sty VDELP1
           .endm
           
-ClearAllGraphics: .macro          
+ClearAllGraphics: .macro
           ldy #0
           .StyAllGraphics
           .endm
