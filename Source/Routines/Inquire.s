@@ -15,7 +15,7 @@ Loop:
           sta COLUP0
           sta COLUP1
 
-          .SkipLines ( KernelLines - 60 ) / 3 
+          .SkipLines ( KernelLines - 60 ) / 4
 
           .ldacolu COLGRAY, 0
           ldx SignpostInquiry
@@ -95,7 +95,8 @@ BackToSignpost:
           sta NewButtons
 
           .WaitScreenBottom
-
+          .WaitScreenTopMinus 2, 2
+          .WaitScreenBottom
           ldx # SignpostBank
           jmp FarCall
 
