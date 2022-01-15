@@ -95,8 +95,11 @@ BackToSignpost:
           sta NewButtons
 
           .WaitScreenBottom
-          .WaitScreenTopMinus 2, 2
+          .WaitScreenTopMinus 2, 0
           .WaitScreenBottom
+          .if NTSC != TV
+            .SkipLines 2
+          .fi
           ldx # SignpostBank
           jmp FarCall
 

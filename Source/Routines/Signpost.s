@@ -30,9 +30,6 @@ Silence:
           ldx #$ff
           txs
 
-          lda #ModeSignpost
-          sta GameMode
-          
           .if BANK == SignpostBank
           jsr GetSignpostIndex
           .else
@@ -136,6 +133,17 @@ ReadyToDraw:
           sta AlarmCountdown
 
           .WaitScreenBottom
+          .if NTSC != TV
+          lda GameMode
+          cmp #ModeSignpostInquire
+          bne +
+          stx WSYNC
+          stx WSYNC
++
+          .fi
+
+          lda #ModeSignpost
+          sta GameMode
 ;;; 
 Loop:
           .WaitScreenTop
@@ -264,23 +272,20 @@ ClearFlag:
 NotClearFlag:
           cmp #ModeSignpostWarp
           bne NotWarp
+
+Warp:
 ProvinceChange:
 ;;; Duplicated in Signpost.s and CheckPlayerCollision.s nearly exactly
           ldx #$ff              ; smash the stack
           txs
-          .WaitForTimer         ; finish up VBlank cycle
-          ldx # 0
-          stx VBLANK
-          ;; WaitScreenTop without VSync/VBlank
-          .if TV == NTSC
-          .TimeLines KernelLines - 2
+          .if NTSC == TV
+            .SkipLines KernelLines - 179
           .else
-          lda #$fe
-          sta TIM64T
+            .SkipLines KernelLines - 177
           .fi
-          .WaitScreenBottom
+          jsr Overscan
           .FarJSR SaveKeyBank, ServiceSaveProvinceData
-          .WaitScreenTop
+          .WaitScreenTopMinus 1, 0
 
           ldy # (9 * 5) + 1
           lda (SignpostText), y
