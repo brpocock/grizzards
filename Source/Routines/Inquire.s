@@ -54,6 +54,10 @@ Loop:
 
           .BitBit P0StickUp
           bne DoneStickUp
+          lda SignpostInquiry
+          beq StickDone
+          lda #SoundChirp
+          sta NextSound
           lda # 0
           sta SignpostInquiry
           geq StickDone
@@ -61,6 +65,10 @@ Loop:
 DoneStickUp:
           .BitBit P0StickDown
           bne DoneStickDown
+          lda SignpostInquiry
+          bne StickDone
+          lda #SoundChirp
+          sta NextSound
           lda # 1
           sta SignpostInquiry
           gne StickDone
@@ -75,6 +83,9 @@ StickDone:
           .BitBit PRESSED
           bne NoButton
 
+          lda #SoundHappy
+          sta NextSound
+
           ldx SignpostInquiry
           lda SignpostFG, x
           sta SignpostIndex
@@ -82,10 +93,6 @@ StickDone:
 BackToSignpost:
           lda # 0
           sta NewButtons
-
-          ;; trash our own return vector
-          ldx #$f7
-          txs
 
           .WaitScreenBottom
 
