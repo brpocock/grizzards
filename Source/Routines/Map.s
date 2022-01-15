@@ -139,21 +139,21 @@ DoneBall:
           sta PF1
           lda pp3l
           sta PF2
+          ldy # 1
+          lax (pp5l), y
 ;;; 
 DrawMap:
           ;; Actually draw each line of the map
           dec RunLength
-          bne DrawLine
+          bne DrawPlayers
 
-          ldy # 1
           ;; skip run length until the PF regs are written
           ;; or we'll be too late and update halfway into the line
-          lax (pp5l), y
+          stx PF0
           iny
           lda (pp5l), y
-          iny
-          stx PF0
           sta PF1
+          iny
           lda (pp5l), y
           sta PF2
           ldy # 0
@@ -168,7 +168,7 @@ DrawMap:
           sta pp5l
           ldy LineCounter
 
-DrawLine:
+DrawPlayers:
           stx WSYNC
           lda #7
           dcp P0LineCounter
@@ -201,6 +201,9 @@ P1Done:
 +
           .fi
 
+          ldy # 1
+          lax (pp5l), y
+
           dec LineCounter
           stx WSYNC
 
@@ -210,11 +213,11 @@ FillBottomScreen:
           lda # 0
           sta COLUBK
           sta PF0
+          sta ENABL
           sta PF1
           sta PF2
           sta GRP0
           sta GRP1
-          sta ENABL
 ;;; 
 ScreenJumpLogic:
           lda PlayerY
