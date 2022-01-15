@@ -25,6 +25,7 @@ SelectSlot:        .block
           .if TV == NTSC
           .TimeLines KernelLines * 2/3 - 2
           .else
+          .SkipLines 1
           .TimeLines KernelLines / 2 - 3
           .fi
 
@@ -38,6 +39,7 @@ Loop:
           .SkipLines 2
           .TimeLines KernelLines * 2/3 - 1
           .else
+          .SkipLines 1
           .TimeLines KernelLines / 2 - 1
           .fi
 LoopFirst:
