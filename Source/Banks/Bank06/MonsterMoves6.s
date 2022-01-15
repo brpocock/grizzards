@@ -27,26 +27,26 @@ MonsterMoves:       .block
           .byte 1, 2, 3, 4      ; Cave Bat
           .byte 25, 24, 24, 36  ; Venom Sheep
           .byte 40, 41, 43, 43  ; 1-Eyed Cyclops
-          .byte 1, 2, 3, 4
-          .byte 1, 2, 3, 4
-          .byte 1, 2, 3, 4
+          .byte 1, 2, 3, 4      ; Fierce Raptor
+          .byte 1, 2, 3, 4      ; Devil Eagle
+          .byte 1, 2, 3, 4      ; Round Robin
           ;; 24
-          .byte 1, 2, 3, 4
-          .byte 1, 2, 3, 4
-          .byte 1, 2, 3, 4
-          .byte 1, 2, 3, 4
-          .byte 1, 2, 3, 4
-          .byte 1, 2, 3, 4
-          .byte 1, 2, 3, 4
-          .byte 1, 2, 3, 4
+          .byte 1, 2, 3, 4      ; Giant Crab
+          .byte 1, 2, 3, 4      ; Bigger Crab
+          .byte 1, 2, 3, 4      ; Mean Robber
+          .byte 1, 2, 3, 4      ; Giant Slime
+          .byte 40, 41, 42, 44  ; Dragon Fred
+          .byte 40, 41, 42, 44  ; Dragon Andrew
+          .byte 40, 41, 42, 43  ; Dragon Timmy
+          .byte 1, 2, 3, 4      ; Uber Slime
           ;; 32
-          .byte 1, 2, 3, 4
-          .byte 1, 2, 3, 4
-          .byte 1, 2, 3, 4
-          .byte 1, 2, 3, 4
-          .byte 1, 2, 3, 4
-          .byte 1, 2, 3, 4
-          .byte 1, 2, 3, 4
+          .byte 1, 2, 3, 4      ; Desert Eagle
+          .byte 1, 2, 3, 4      ; Crazed Robber
+          .byte 1, 2, 3, 4      ; Great Wyrm
+          .byte 1, 2, 3, 4      ; Poison Asp
+          .byte 1, 2, 3, 4      ; Grabby Crabby
+          .byte 1, 2, 3, 4      ; Giant Bat
+          .byte 1, 2, 3, 4      ; Maze Jaguar
           .byte 1, 2, 3, 4
           ;; 40
           .byte 1, 2, 3, 4
@@ -54,12 +54,7 @@ MonsterMoves:       .block
           .byte 1, 2, 3, 4
           .byte 1, 2, 3, 4
           .byte 1, 2, 3, 4
-          .byte 1, 2, 3, 4
-          .byte 1, 2, 3, 4
-          .byte 1, 2, 3, 4
-          ;; 48
-          .byte 1, 2, 3, 4
-          .byte 1, 2, 3, 4
-          ;; ↑ 49
+          .byte 1, 2, 3, 4      ; Boss Bear
+          ;; ↑ 45
 
           .bend

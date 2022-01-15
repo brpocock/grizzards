@@ -177,20 +177,20 @@ Monsters:
           .SignText "DRAGON FRED "
           .byte Monster_Dragon
           .colu COLBLUE, $0
-          .byte 50, 50, 200
-          .word $1000
+          .byte 60, 60, 200
+          .word $2000
 
           .SignText "DRAGONANDREW"
           .byte Monster_Dragon
           .colu COLCYAN, $4
-          .byte 50, 50, 200
-          .word $1000
+          .byte 50, 50, 150
+          .word $1500
 ;;; 30
           .SignText "DRAGON TIMMY"
           .byte Monster_Dragon
           .colu COLGREEN, $8
-          .byte 50, 50, 200
-          .word $1000
+          .byte 70, 70, 250
+          .word $2500
 
           .SignText " UBER  SLIME"
           .byte Monster_SlimeBig
