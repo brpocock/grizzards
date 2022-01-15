@@ -116,22 +116,22 @@ Monster6_38:
 Maze Jaguar
 
 Monster6_39:
-Monster
+Monster thirty-nine
 
 Monster6_40:
-Monster
+Monster forty
 
 Monster6_41:
-Monster
+Monster forty-one
 
 Monster6_42:
-Monster
+Monster forty-two
 
 Monster6_43:
-Monster
+Monster forty-three
 
 Monster6_44:
-Monster
+Monster forty-four
 
 Monster6_45:
 Boss Bear
