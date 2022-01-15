@@ -604,7 +604,7 @@ SpriteList:
 
           ;; Room 65
           .byte $ff, SpriteFixed
-          .byte $30, $10
+          .byte $47, $20
           .byte SpriteProvinceDoor | $10, 46
 
           .byte 0
