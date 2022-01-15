@@ -196,7 +196,7 @@ MapLinks:
           ;; 55
           _ ..= ( Map_InHouse, Map_InHouse, Map_InHouse, Map_InHouse, Map_InHouse )
           ;; 60
-          _ ..= ( Map_InHouse, Map_InHouse, Map_DoorTop, Map_OpenSides, Map_ClosedTop )
+          _ ..= ( Map_InHouse, Map_InHouse, Map_OpenSidesDoorTop, Map_OpenSides, Map_ClosedTop )
           ;; 65
           _ ..= ( Map_EWOval, Map_OpenTopDoorSides )
 
