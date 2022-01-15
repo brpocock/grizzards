@@ -5,7 +5,7 @@
 
           FirstSignpost = 67
 
-          Signs = ( Sign_FindAndrew, Sign_FindFred, Sign_FindTimmy, Sign_DragonHints, Sign_GetDragonHints, Sign_Ancient, NPC_Radio, NPC_RadioFix, NPC_RadioDone, NPC_Villager2, NPC_Villager3, Sign_BewareCyclops, NPC_Lover1, NPC_Lover2, NPC_Lover2NoNote, NPC_Lover1Requited, NPC_Lover1End, Sign_ShipToPortLion, Sign_StayInTreble, NPC_FishingWantRing, NPC_FishingWantMirror, NPC_RouteToAnchor, NPC_RouteToPortLion, NPC_GetArtifacts, NPC_NoArtifacts )
+          Signs = ( Sign_FindAndrew, Sign_FindFred, Sign_FindTimmy, Sign_DragonHints, Sign_GetDragonHints, Sign_Ancient, NPC_Radio, NPC_RadioFix, NPC_RadioDone, NPC_Villager2, NPC_Villager3, Sign_BewareCyclops, NPC_Lover1, NPC_Lover2, NPC_Lover2NoNote, NPC_Lover1Requited, NPC_Lover1End, Sign_ShipToPortLion, Sign_StayInTreble, NPC_FishingWantRing, NPC_FishingWantMirror, NPC_RouteToAnchor, NPC_RouteToPortLion )
 
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
@@ -277,24 +277,3 @@ NPC_RouteToPortLion:
           .SignText "ON THE RADIO"
           .byte ModeSignpostDone
 
-;;; 90
-NPC_GetArtifacts:
-          .colu COLINDIGO, 0
-          .colu COLBLUE, $9
-          .SignText "THERE ARE   "
-          .SignText "2 ARTIFACTS "
-          .SignText "THAT WERE IN"
-          .SignText "TREBLE. FIND"
-          .SignText "THEM BOTH.  "
-          .byte ModeSignpostSetFlag, 16
-
-;;; 91
-NPC_NoArtifacts:
-          .colu COLINDIGO, 0
-          .colu COLBLUE, $9
-          .SignText "THE PEOPLE  "
-          .SignText "IN ANCHOR   "
-          .SignText "NEED YOUR   "
-          .SignText "HELP AGAINST"
-          .SignText "THE MONSTERS"
-          .byte ModeSignpostSetFlag, 16

@@ -3,12 +3,34 @@
 
 ;;; Order of sign texts MUST match the texts in SignpostSpeech.txt or it all goes to Hell.
 
-          FirstSignpost = 92
+          FirstSignpost = 90
 
-          Signs = ( NPC_DoTrain, NPC_DoNotTrain, Sign_Grue )
+          Signs = ( NPC_GetArtifacts, NPC_NoArtifacts, NPC_DoTrain, NPC_DoNotTrain, Sign_Grue )
 
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
+
+;;; 90
+NPC_GetArtifacts:
+          .colu COLINDIGO, 0
+          .colu COLBLUE, $9
+          .SignText "THERE ARE   "
+          .SignText "2 ARTIFACTS "
+          .SignText "THAT WERE IN"
+          .SignText "TREBLE. FIND"
+          .SignText "THEM BOTH.  "
+          .byte ModeSignpostSetFlag, 16
+
+;;; 91
+NPC_NoArtifacts:
+          .colu COLINDIGO, 0
+          .colu COLBLUE, $9
+          .SignText "THE PEOPLE  "
+          .SignText "IN ANCHOR   "
+          .SignText "NEED YOUR   "
+          .SignText "HELP AGAINST"
+          .SignText "THE MONSTERS"
+          .byte ModeSignpostSetFlag, 16
 
 ;;; 92
 NPC_DoTrain:
