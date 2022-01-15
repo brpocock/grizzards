@@ -231,9 +231,9 @@ Sign_PortLionShip:
           .colu COLBLUE, $e
           .colu COLCYAN, $2
           .SignText "TREBLE DOCKS"
-          .SignText "NEXT SHIP TO"
-          .SignText "PORT LION   "
-          .SignText "DEPARTING.  "
+          .SignText "A SHIP IS   "
+          .SignText "HERE, GOING "
+          .SignText "TO PORT LION"
           .SignText "WANT TO GO? "
           .byte ModeSignpostInquire
           .byte 84, 85

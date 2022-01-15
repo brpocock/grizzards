@@ -50,10 +50,10 @@ Lover1End:
 ♂When you've defeated all the monsters,we can be together
 
 ShipToPortLion:
-Treble docks.Next ship to Port Lion departing.All aboard
+The ship to Port Lion is departing.All aboard
 
 StayInTreble:
-Treble docks.Next ship to Port Lion will wait for a while
+The ship to Port Lion will wait for a while
 
 FishingWantRing:
 ♂You looking for a magic ¿ ring.I found this in the sea

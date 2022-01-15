@@ -234,10 +234,12 @@ NPC_MirandaDone:
 Sign_DocksToTreble:
           .colu COLBLUE, $e
           .colu COLCYAN, $2
-          .SignText "PORT LION   "
-          .SignText "DOCKS TO GO "
-          .SignText "TO TREBLE   "
-          .SignText "DEPARTING.  "
-          .SignText "ALL ABOARD! "
-          .byte ModeSignpostWarp, 0, 1
+          .SignText "  PORT LION "
+          .SignText "    DOCKS   "
+          .SignText "YOU CAN SAIL"
+          .SignText "BACK TO     "
+          .SignText "TREBLE NOW. "
+          .byte ModeSignpostInquire
+          .byte 96, 97
+          .SignText " SAIL  STAY "
 

@@ -213,10 +213,10 @@ NPC_Lover1End:
 Sign_ShipToPortLion:
           .colu COLBLUE, $e
           .colu COLCYAN, $2
-          .SignText "TREBLE DOCKS"
-          .SignText "NEXT SHIP TO"
-          .SignText "PORT LION   "
+          .SignText "THE SHIP TO "
+          .SignText "PORT LION IS"
           .SignText "DEPARTING.  "
+          .SignText "            "
           .SignText "ALL ABOARD! "
           .byte ModeSignpostWarp, 2, 0
 
@@ -224,11 +224,11 @@ Sign_ShipToPortLion:
 Sign_StayInTreble:
           .colu COLBLUE, $e
           .colu COLCYAN, $2
-          .SignText "TREBLE DOCKS"
-          .SignText "NEXT SHIP TO"
+          .SignText "THE SHIP TO "
           .SignText "PORT LION   "
           .SignText "WILL WAIT   "
           .SignText "FOR A WHILE."
+          .SignText "            "
           .byte ModeSignpostDone
 
 ;;; 86

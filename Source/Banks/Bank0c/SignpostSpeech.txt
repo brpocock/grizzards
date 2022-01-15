@@ -15,3 +15,10 @@ Caves beyond can be dark.You may be eaten by a Grue
 
 TunnelAlreadyOpen:
 ♀The tunnels are open.Go carefully.Anchor is in danger
+
+SailBackToTreble:
+Sailing back to Treble now
+
+StayInPortLion:
+We'll wait to return to Treble until you're ready then
+

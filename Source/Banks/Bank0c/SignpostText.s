@@ -5,7 +5,7 @@
 
           FirstSignpost = 90
 
-          Signs = ( NPC_GetArtifacts, NPC_NoArtifacts, NPC_DoTrain, NPC_DoNotTrain, Sign_Grue, NPC_TunnelAlreadyOpen )
+          Signs = ( NPC_GetArtifacts, NPC_NoArtifacts, NPC_DoTrain, NPC_DoNotTrain, Sign_Grue, NPC_TunnelAlreadyOpen, Sign_SailBackToTreble, Sign_StayInPortLion )
 
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
@@ -75,3 +75,26 @@ NPC_TunnelAlreadyOpen:
           .SignText "ANCHOR IS IN"
           .SignText "DANGER.     "
           .byte ModeSignpostDone
+
+;;; 96
+Sign_SailBackToTreble:
+          .colu COLBLUE, $e
+          .colu COLCYAN, $2
+          .SignText "            "
+          .SignText "SAILING BACK"
+          .SignText "TO TREBLE   "
+          .SignText "NOW.        "
+          .SignText "            "
+          .byte ModeSignpostWarp, 0, 1
+
+;;; 97
+Sign_StayInPortLion:
+          .colu COLBLUE, $e
+          .colu COLCYAN, $2
+          .SignText "WE'LL WAIT  "
+          .SignText "TO RETURN TO"
+          .SignText "TREBLE UNTIL"
+          .SignText "YOU'RE READY"
+          .SignText "THEN.       "
+          .byte ModeSignpostDone
+

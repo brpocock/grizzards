@@ -56,7 +56,7 @@ SpiralWoodsOpen:
 Now entering the Spiral Woods.Danger
 
 PortLionShip:
-Treble Docks.Next ship to Port Lion departing.Want to ? go
+Treble Docks.A ship is here,going to Port Lion.Want to ? go
 
 BlockadeLocked:
 Blockade is locked due to danger of a cave grue.No entry
