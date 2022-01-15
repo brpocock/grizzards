@@ -10,7 +10,11 @@ PublisherPresentsMode:
           .ldacolu COLGRAY, $f
           sta COLUBK
           ldy # AtariAgeLogo.Height
-          .ldacolu COLTURQUOISE, $8
+          .if SECAM == TV
+            lda #COLBLUE
+          .else
+            .ldacolu COLTURQUOISE, $8
+          .fi
 
           .else
 
