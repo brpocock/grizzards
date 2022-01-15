@@ -165,7 +165,7 @@ MapLinks:
           .byte 13, 66, 63, $ff
           ;; 65
           .byte $ff, $ff, $ff, 66
-          .byte 54, $ff, 65, $ff
+          .byte 64, $ff, 65, $ff
 
 ;;; RLE Map data for each screen.
 
