@@ -17,6 +17,7 @@
           .include "Death.s"
           .include "DrawMonsterGroup.s"
           .include "WinnerFireworks.s"
+          .include "CheckForWin.s"
           .include "DrawGrizzard.s"
 
           .include "MonsterArt.s"
@@ -46,6 +47,8 @@ DoLocal:
           beq DrawGrizzard
           cpy #ServiceInquire
           beq Inquire
+          cpy #ServiceCheckForWin
+          beq CheckForWin
           brk
 
           .include "EndBank.s"

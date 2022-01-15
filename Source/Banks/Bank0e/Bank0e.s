@@ -3,21 +3,26 @@
           BANK = $0e
 
           .include "StartBank.s"
-
-          .include "SpeakJetIDs.s" ; from this bank, not bank 7
-
+          .include "SpeakJetIndex.s"
 
 DoLocal:
-          .include "Signpost.s"
+          cpy #ServiceRevealBear
+          beq RevealBear
+          cpy #ServiceFireworks
+          beq WinnerFireworks
+          brk
 
           .include "VSync.s"
           .include "VBlank.s"
           .include "Random.s"
           .include "48Pixels.s"
 
-          .include "SignpostText.s"
-          .include "SignpostSpeech.s"
-          .include "SpeakJetIndex.s"
+          .include "FinalText.s"
+          .include "BossBear.s"
+          .include "RevealBear.s"
+          .include "BossBearDies.s"
+          .include "Fireworks.s"
+          .include "WinnerFireworks.s"
 
           .include "PlaySpeech.s"
 

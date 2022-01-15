@@ -4,7 +4,6 @@
 
 	.include "StartBank.s"
           .include "Source/Generated/Bank07/SpeakJetIDs.s"
-
           
           .include "Font.s"
 
@@ -71,7 +70,6 @@ ShowMoveDecoded:
           .include "GrizzardMoves.s"
           .include "MovesTable.s"
           .include "StringsTable.s"
-          
 
 CombatText:
           .MiniText "COMBAT"

@@ -133,8 +133,10 @@
           MapServicesBank = $01
           .if DEMO
           AnimationsBank = $03
+          EndAnimationsBank = $03
           .else
           AnimationsBank = $0f
+          EndAnimationsBank = $0e
           .fi
           TextBank = $02
           FailureBank = $01
@@ -190,9 +192,14 @@
           ServiceAttractStory = $15
           ServiceDeath = $0d
           ServiceDrawMonsterGroup = $0b
-          ServiceFireworks = $0a
           ServiceWrite12Chars = $23
           ServiceInquire = $24
+          ServiceCheckForWin = $28
+
+;;; End of game animation services
+
+          ServiceRevealBear = $27
+          ServiceFireworks = $0a
 
 ;;; Also the cold start / save game bank
 
