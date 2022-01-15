@@ -211,10 +211,10 @@ RunAway:
           gne RunningAway
 ;;; 
 ScreenDone:
+RunningAway:
           .if TV == NTSC
           stx WSYNC
           .fi
-RunningAway:
           .if TV == NTSC
           stx WSYNC
           stx WSYNC
