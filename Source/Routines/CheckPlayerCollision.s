@@ -107,6 +107,7 @@ EnterDepot:
           rts
 
 ProvinceChange:
+;;; Duplicated in Signpost.s and CheckPlayerCollision.s nearly exactly
           stx P0LineCounter
           ldx #$ff              ; smash the stack
           txs
@@ -136,7 +137,7 @@ ProvinceChange:
           sta NextMap
           ldy #ModeMapNewRoomDoor
           sty GameMode
-          .FarJSR SaveKeyBank, ServiceLoadProvinceData  ; tail call
+          .FarJSR SaveKeyBank, ServiceLoadProvinceData
           .WaitScreenBottom
           jmp GoMap
 

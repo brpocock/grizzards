@@ -30,9 +30,6 @@ Silence:
           ldx #$ff
           txs
 
-          lda #ModeSignpost
-          sta GameMode
-          
           .if BANK == SignpostBank
           jsr GetSignpostIndex
           .else
@@ -136,6 +133,17 @@ ReadyToDraw:
           sta AlarmCountdown
 
           .WaitScreenBottom
+          .if NTSC != TV
+          lda GameMode
+          cmp #ModeSignpostInquire
+          bne +
+          stx WSYNC
+          stx WSYNC
++
+          .fi
+
+          lda #ModeSignpost
+          sta GameMode
 ;;; 
 Loop:
           .WaitScreenTop
@@ -145,7 +153,7 @@ Loop:
           lda SignpostText + 1
           sta SignpostWork + 1
 
-          .SkipLines KernelLines / 5
+          .SkipLines KernelLines / 6
 
           lda # 0
           sta REFP0
@@ -181,9 +189,7 @@ NextTextLine:
           .FarJSR AnimationsBank, ServiceWrite12Chars
           dec SignpostTextLine
           bne NextTextLine
-
 ;;; 
-
 DoneDrawing:
           lda # 0
           .SkipLines 3
@@ -207,11 +213,12 @@ NoButton:
           bne Leave
           .WaitScreenBottom
           jmp Loop
-
+;;; 
 Leave:
           cmp #ModeTrainLastMove
           bne NotTrainLastMove
 
+TrainLastMove:
           lda MovesKnown
           ora #$80
           sta MovesKnown
@@ -221,14 +228,15 @@ NotTrainLastMove:
           cmp #ModeSignpostSet0And63
           bne NotSet0And63
 
+SetFlags0And63:
           sed
           lda Score + 1
           clc
           adc # 1
           sta Score + 1
-          bcc NCar100
+          bcc +
           inc Score + 2
-NCar100:
++
           cld
           lda ProvinceFlags + 0
           ora #$01
@@ -241,6 +249,8 @@ NCar100:
 NotSet0And63:
           cmp #ModeSignpostClearFlag
           bne NotClearFlag
+
+ClearFlag:
           sed
           lda Score
           clc
@@ -249,9 +259,9 @@ NotSet0And63:
           lda Score + 1
           adc # 0
           sta Score + 1
-          bcc NCar1
+          bcc +
           inc Score + 2
-NCar1:
++
           cld
           ldy # (9 * 5) + 1
           lda (SignpostText), y
@@ -262,18 +272,38 @@ NCar1:
 NotClearFlag:
           cmp #ModeSignpostWarp
           bne NotWarp
+
+Warp:
+ProvinceChange:
+;;; Duplicated in Signpost.s and CheckPlayerCollision.s nearly exactly
+          ldx #$ff              ; smash the stack
+          txs
+          .if NTSC == TV
+            .SkipLines KernelLines - 179
+          .else
+            .SkipLines KernelLines - 177
+          .fi
+          jsr Overscan
+          .FarJSR SaveKeyBank, ServiceSaveProvinceData
+          .WaitScreenTopMinus 1, 0
+
           ldy # (9 * 5) + 1
           lda (SignpostText), y
           sta CurrentProvince
           iny
           lda (SignpostText), y
           sta NextMap
-          lda #ModeMapNewRoom
+          ldy #ModeMapNewRoom
+          sty GameMode
+          
+          .FarJSR SaveKeyBank, ServiceLoadProvinceData
+          .WaitScreenBottom
           jmp GoMap
 
 NotWarp:
           cmp #ModeSignpostSetFlag
           bne NotSetFlag
+SetFlag:
           sed
           lda Score
           clc
@@ -282,9 +312,9 @@ NotWarp:
           lda Score + 1
           adc # 0
           sta Score + 1
-          bcc NCar0
+          bcc +
           inc Score + 2
-NCar0:
++
           cld
           ldy # (9 * 5) + 1
           lda (SignpostText), y
@@ -295,6 +325,7 @@ NCar0:
 NotSetFlag:
           cmp #ModeSignpostPoints
           bne NotPoints
+GetPoints:
           sed
           lda Score
           clc
@@ -319,7 +350,7 @@ NotSetFlag:
 NotPoints:
           cmp #ModeSignpostInquire
           bne NotInquire
-
+Inquire:
           .Add16 SignpostText, # (9 * 5) + 1
 
           ldy # 0
@@ -346,7 +377,7 @@ NotInquire:
           beq ByeBye
 
           brk
-
+;;; 
 ByeBye:
           lda # 0
           sta CurrentUtterance

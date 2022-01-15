@@ -4,6 +4,7 @@
 Write12Chars:       .block
 
 TextLineLoop:
+          stx WSYNC
           lda ClockFrame
           and #$01
           beq DrawRightField

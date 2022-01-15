@@ -3,12 +3,94 @@
 
 ;;; Order of sign texts MUST match the texts in SignpostSpeech.txt or it all goes to Hell.
 
-          FirstSignpost = 74
+          FirstSignpost = 67
 
-          Signs = ( NPC_RadioFix, NPC_RadioDone, NPC_Villager2, NPC_Villager3, Sign_BewareCyclops, NPC_Lover1, NPC_Lover2, NPC_Lover2NoNote, NPC_Lover1Requited, NPC_Lover1End, Sign_ShipToPortLion, Sign_StayInTreble, NPC_FishingWantRing, NPC_FishingWantMirror, NPC_RouteToAnchor, NPC_RouteToPortLion, NPC_GetArtifacts, NPC_NoArtifacts, NPC_DoTrain, NPC_DoNotTrain, Sign_Grue )
+          Signs = ( Sign_FindAndrew, Sign_FindFred, Sign_FindTimmy, Sign_DragonHints, Sign_GetDragonHints, Sign_Ancient, NPC_Radio, NPC_RadioFix, NPC_RadioDone, NPC_Villager2, NPC_Villager3, Sign_BewareCyclops, NPC_Lover1, NPC_Lover2, NPC_Lover2NoNote, NPC_Lover1Requited, NPC_Lover1End, Sign_ShipToPortLion, Sign_StayInTreble, NPC_FishingWantRing, NPC_FishingWantMirror, NPC_RouteToAnchor, NPC_RouteToPortLion )
 
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
+
+;;; 67
+Sign_FindAndrew:
+          .colu COLGRAY, 0
+          .colu COLGRAY, $f
+          .byte $ff, 57, 72     ; runes
+          .SignText "THE EVIL    "
+          .SignText "DRAGON      "
+          .SignText "ANDREW IS IN"
+          .SignText "THE NORTH-  "
+          .SignText "WEST CORNER."
+          .byte ModeSignpostDone
+
+;;; 68
+Sign_FindFred:
+          .colu COLGRAY, 0
+          .colu COLGRAY, $f
+          .byte $ff, 57, 72     ; runes
+          .SignText "THE DREADED "
+          .SignText "DRAGON FRED "
+          .SignText "LIVES IN THE"
+          .SignText "SOUTHWEST   "
+          .SignText "CORNER.     "
+          .byte ModeSignpostDone
+
+;;; 69
+Sign_FindTimmy:
+          .colu COLGRAY, 0
+          .colu COLGRAY, $f
+          .byte $ff, 57, 72     ; runes
+          .SignText "THE WICKED  "
+          .SignText "DRAGON TIMMY"
+          .SignText "HAS A LAIR  "
+          .SignText "AT THE VERY "
+          .SignText "CENTER.     "
+          .byte ModeSignpostDone
+
+;;; 70
+Sign_DragonHints:
+          .colu COLGRAY, 0
+          .colu COLGRAY, $f
+          .byte $ff, 57, 72     ; runes
+          .SignText "ALL THREE OF"
+          .SignText "THE DRAGONS "
+          .SignText "LIVE ON THE "
+          .SignText "SECOND LEVEL"
+          .SignText "UNDERGROUND."
+          .byte ModeSignpostDone
+
+;;; 71
+Sign_GetDragonHints:
+          .colu COLGRAY, 0
+          .colu COLGRAY, $f
+          .SignText "NOW YOU CAN "
+          .SignText "UNDERSTAND  "
+          .SignText "THE ANCIENT "
+          .SignText "CARVINGS ON "
+          .SignText "THE WALLS.  "
+          .byte ModeSignpostClearFlag, 57
+
+;;; 72
+Sign_Ancient:
+          .colu COLGRAY, $f
+          .colu COLGRAY, 0
+          .SignText "THERE ARE   "
+          .SignText "OLD RUNES   "
+          .SignText "CARVED HERE,"
+          .SignText "BUT YOU CAN "
+          .SignText "NOT READ IT."
+          .byte ModeSignpostDone
+
+;;; 73
+NPC_Radio:
+          .colu COLYELLOW, $f
+          .colu COLBLUE, $4
+          .byte $ff, 25, 74     ; asked to fix radio
+          .SignText "MY RADIO    "
+          .SignText "REPAIR SHOP "
+          .SignText "IS GOING TO "
+          .SignText "HAVE TO SHUT"
+          .SignText "FOR MONSTERS"
+          .byte ModeSignpostDone
 
 ;;; 74
 NPC_RadioFix:
@@ -195,57 +277,3 @@ NPC_RouteToPortLion:
           .SignText "ON THE RADIO"
           .byte ModeSignpostDone
 
-;;; 90
-NPC_GetArtifacts:
-          .colu COLINDIGO, 0
-          .colu COLBLUE, $9
-          .SignText "THERE ARE   "
-          .SignText "2 ARTIFACTS "
-          .SignText "THAT WERE IN"
-          .SignText "TREBLE. FIND"
-          .SignText "THEM BOTH.  "
-          .byte ModeSignpostSetFlag, 16
-
-;;; 91
-NPC_NoArtifacts:
-          .colu COLINDIGO, 0
-          .colu COLBLUE, $9
-          .SignText "THE PEOPLE  "
-          .SignText "IN ANCHOR   "
-          .SignText "NEED YOUR   "
-          .SignText "HELP AGAINST"
-          .SignText "THE MONSTERS"
-          .byte ModeSignpostSetFlag, 16
-          
-;;; 92
-NPC_DoTrain:
-          .colu COLBLUE, 0
-          .colu COLCYAN, $9
-          .SignText "NOW YOUR    "
-          .SignText "GRIZZARD CAN"
-          .SignText "USE THEIR   "
-          .SignText "LAST MOVE   "
-          .SignText "FOR SURE.   "
-          .byte ModeTrainLastMove
-
-;;; 93
-NPC_DoNotTrain:
-          .colu COLBLUE, 0
-          .colu COLCYAN, $9
-          .SignText "BRING ME ANY"
-          .SignText "GRIZZARD YOU"
-          .SignText "WANT ME TO  "
-          .SignText "TRAIN AND I "
-          .SignText "WILL DO IT. "
-          .byte ModeSignpostDone
-
-;;; 94
-Sign_Grue:
-          .colu COLRED, $4
-          .colu COLGRAY, $a
-          .SignText "CAVES BEYOND"
-          .SignText "CAN BE DARK."
-          .SignText "YOU MAY BE  "
-          .SignText "EATEN BY A  "
-          .SignText "GRUE.       "
-          .byte ModeSignpostDone

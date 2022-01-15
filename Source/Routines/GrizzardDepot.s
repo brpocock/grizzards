@@ -41,6 +41,8 @@ Loop:
           .SetPointer DepotText
           jsr ShowPointerText
 
+          .SkipLines 30
+
           .FarJSR TextBank, ServiceShowGrizzardName
           .FarJSR AnimationsBank, ServiceDrawGrizzard
 
@@ -196,7 +198,11 @@ SeekScreen:
           .WaitScreenBottom
           .WaitScreenTop
 
-          .ldacolu COLTEAL, $2
+          .if SECAM == TV
+            lda #COLBLACK
+          .else
+            .ldacolu COLTEAL, $2
+          .fi
           sta COLUBK
 KeepSeeking:
           dec AlarmCountdown
@@ -222,9 +228,13 @@ SeekOK:
           bcc KeepSeeking
           .WaitScreenBottom
           .WaitScreenTop
-          .FarJSR SaveKeyBank, ServiceLoadGrizzard
-          .ldacolu COLTEAL, $2
+          .if SECAM == TV
+            lda #COLBLACK
+          .else
+            .ldacolu COLTEAL, $2
+          .fi
           sta COLUBK
+          .FarJSR SaveKeyBank, ServiceLoadGrizzard
 
           .fi                   ; end of block disabled for NoSave
 

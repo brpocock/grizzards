@@ -1,0 +1,14 @@
+GetArtifacts:
+♀There are two artifacts that were in Treble.Find them both
+
+NoArtifacts:
+♀The people in Anchor need your help against the monsters
+
+DoTrain:
+♂Now your Grizzard can use their last move for sure
+
+DoNotTrain:
+♂Bring me any Grizzard you want me to train and I will do it
+
+Grue:
+Caves beyond can be dark.You may be eaten by a Grue
