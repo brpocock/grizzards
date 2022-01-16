@@ -33,11 +33,19 @@ DoLocal:
           .include "PlaySpeech.s"
 
           .include "CopyPointerText.s"
+          .include "CopyPointerText12.s"
+
 ShowPointerText:
           jsr CopyPointerText
           ;; fall through
 ShowText:
           .FarJMP TextBank, ServiceDecodeAndShowText
+
+ShowPointerText12:
+          jsr CopyPointerText12
+          ;; fall through
+ShowText12:
+          .FarJMP AnimationsBank, ServiceWrite12Chars
 
 BossText:
           .MiniText " BOSS "
