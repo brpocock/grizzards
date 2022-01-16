@@ -7,6 +7,9 @@ GrizzardDepot:    .block
           ldx #$ff              ; blow away the stack
           txs
 
+          lda #SoundDepot
+          sta NextSound
+
           .if TV == NTSC
           .WaitScreenBottom
           .else

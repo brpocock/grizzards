@@ -2,7 +2,7 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
           ;; Don't forget to update the Enums.s table as well
-          SoundIndex = (Drone, Chirp, Deleted, Happy, Bump, ErrorSound, SweepUp, SongAtariToday, SongVictory, SongGameOver, Footstep, BearRoar)
+          SoundIndex = (Drone, Chirp, Deleted, Happy, Bump, ErrorSound, SweepUp, SongAtariToday, SongVictory, SongGameOver, Footstep, BearRoar, SongDepotJingle)
 
           SoundCount = len(SoundIndex)
 

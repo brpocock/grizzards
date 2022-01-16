@@ -28,5 +28,6 @@ DoLocal:
           .include "Theme.s"
           .include "Victory.s"
           .include "GameOver.s"
+          .include "DepotJingle.s"
 
           .include "EndBank.s"
