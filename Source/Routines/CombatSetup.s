@@ -11,28 +11,27 @@ DoCombat:          .block
           ldx CurrentCombatEncounter
           lda EncounterMonster, x
 
-SetUpMonsterPointer:          
+SetUpMonsterPointer:
           ldx # 0
+          sta CurrentMonsterPointer
           stx CurrentMonsterPointer + 1
 
-          ;; × 16
           ldx # 4
-Mul16:
+-
           clc
-          asl a
-          bcc +
+          asl CurrentMonsterPointer
           rol CurrentMonsterPointer + 1
-+
           dex
-          bne Mul16
+          bne -
 
           clc
+          lda CurrentMonsterPointer
           adc #<Monsters
           bcc +
           inc CurrentMonsterPointer + 1
 +
           sta CurrentMonsterPointer
-
+          clc
           lda CurrentMonsterPointer + 1
           adc #>Monsters
           sta CurrentMonsterPointer + 1
