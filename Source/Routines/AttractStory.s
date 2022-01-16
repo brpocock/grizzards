@@ -17,6 +17,8 @@ AttractStory:       .block
           and #$07
           adc # 2
           sta CurrentMonsterArt
+          lda # 0
+          sta CombatMajorP
 RandomColor:
           jsr Random
           .if TV == SECAM
