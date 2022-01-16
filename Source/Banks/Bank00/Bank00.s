@@ -112,8 +112,8 @@ PeekGrizzard:
           .include "PeekGrizzard.s"
           .include "SelectSlot.s"
           .include "LoadSaveSlot.s"
-          .if ARIA
-          .include "Aria-EEPROM-Driver.s"
+          .if ATARIAGESAVE
+          .include "AtariAgeSave-EEPROM-Driver.s"
           .else
           .include "AtariVox-EEPROM-Driver.s"
           .fi

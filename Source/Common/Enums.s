@@ -121,7 +121,7 @@
           
           ;; Must be exactly 5 bytes for the driver routines to work
           .enc "ascii"
-          .if ARIA
+          .if ATARIAGESAVE
           SaveGameSignature = "griz1"
           .else
           SaveGameSignature = "griz0"

@@ -1,6 +1,6 @@
 "Cart.MD5" "@@MD5@@"
 "Cart.Manufacturer" "Bruce-Robert Pocock"
-"Cart.ModelNo" "Griz@@ARIA@@.@@TV@@"
+"Cart.ModelNo" "Griz@@ATARIAGESAVE@@.@@TV@@"
 "Cart.Name" "Grizzards"
 "Cart.Rarity" "Homebrew"
 "Cart.Type" "EF"

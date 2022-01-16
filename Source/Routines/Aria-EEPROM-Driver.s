@@ -1,6 +1,6 @@
 ;;; Grizzards Source/Routines/AtariVox-EEPROM-Driver.s
 ;;;
-;;; Aria EEPROM Driver
+;;; AtariAgeSave EEPROM Driver
 ;;;
 ;;; COMING SOON from Fred Quimby
 ;;;

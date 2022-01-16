@@ -232,7 +232,7 @@ SwitchMinusSlot:
 SwitchSelectSlot:
           inc SaveGameSlot
           lda SaveGameSlot
-          .if ARIA
+          .if ATARIAGESAVE
           cmp # 4
           .else
           cmp # 3
