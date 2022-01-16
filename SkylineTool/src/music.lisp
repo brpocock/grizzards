@@ -242,7 +242,7 @@ skipping MIDI music with ~:d note~:p"
     array))
 
 (defun midi-translate-notes (notes)
-  (let ((volume 4)
+  (let ((volume 8)
         (output (list)))
     (loop for note in notes
           for i from 0
