@@ -212,7 +212,7 @@ Sign_GameOver1:
           .SignText "2022, THE   "
           .SignText "FULL GAME IS"
           .SignText "MUCH LARGER."
-          .SignText "ATATARIAGESAVEGE.COM"
+          .SignText "ATARIAGE.COM"
           .byte ModeSignpostSetFlag, 1
 
 ;;; 19
@@ -223,5 +223,5 @@ Sign_GameOver2:
           .SignText "TRYING IT.  "
           .SignText "LOOK FOR THE"
           .SignText "FULL GAME AT"
-          .SignText "ATATARIAGESAVEGE.COM"
+          .SignText "ATARIAGE.COM"
           .byte ModeSignpostSetFlag, 1
