@@ -30,7 +30,13 @@ LoopFirst:
           .case PAL
             .ldacolu COLRED, $2
           .case SECAM
+          ;; black background normally, but red for Boss Bear
             lda #COLBLACK
+            ldx CurrentCombatEncounter
+            cpx # 92
+            bne +
+            lda #COLRED
++
           .endswitch
           sta COLUBK
           .ldacolu COLYELLOW, $f
