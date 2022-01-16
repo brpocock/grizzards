@@ -4,7 +4,7 @@ WinnerFireworks:    .block
 
 Loop:
           .WaitScreenTop
-          .ldacolu COLCYAN, $9
+          .ldacolu COLCYAN, $c
           sta COLUBK
           .ldacolu COLRED, $2
           sta COLUP0
@@ -24,7 +24,24 @@ Loop:
           .fill $180, $ea
 
           .WaitScreenBottom
+;;; 
+          lda NewSWCHB
+          beq +
+          .BitBit SWCHBReset
+          beq Leave
++
+	lda NewButtons
+          beq +
+          .BitBit PRESSED
+          beq Leave
++
+          lda AlarmCountdown
+          beq Leave
           jmp Loop
+
+Leave:
+          .WaitScreenTop
+          .FarJMP SaveKeyBank, ServiceAttract
 
           .bend
 
