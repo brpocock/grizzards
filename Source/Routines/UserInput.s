@@ -16,7 +16,8 @@ CheckSwitches:
           lda #$ff
           sta TIM64T
           .fi
-          jmp GoQuit
+
+          .FarJMP SaveKeyBank, ServiceAttract
 
 NoReset:
           and # SWCHBSelect
