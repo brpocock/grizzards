@@ -64,6 +64,19 @@ WithDecodedMoveID:              ; move ID is in Y register
           sta Pointer
 
           jsr CopyPointerText
-          jmp DecodeAndShowText
+
+          ;; Suppress line with all blanks
+          ldx # 6
+-
+          lda StringBuffer - 1, x
+          cmp #$28              ; blank space
+          bne DrawLine2
+          dex
+          bne -
+
+          rts                   ; return without drawing
+
+DrawLine2:
+          jmp DecodeAndShowText ; tail call
 
           .bend
