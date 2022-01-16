@@ -11,14 +11,14 @@ MapColors:
           ;; 0
           .colors COLBLUE, COLBROWN
           .colors COLBLUE, COLBROWN
-          .colors COLBROWN, COLBLUE
-          .colors COLBROWN, COLBLUE
-          .colors COLBROWN, COLBLUE
-          .colors COLGREEN, COLYELLOW
-          .colors COLGREEN, COLYELLOW
-          .colors COLGREEN, COLYELLOW
-          .colors COLGREEN, COLYELLOW
-          .colors COLGREEN, COLYELLOW
+          .colors COLBLUE, COLTURQUOISE
+          .colors COLBLUE, COLTURQUOISE
+          .colors COLBLUE, COLTURQUOISE
+          .colors COLGREEN, COLSPRINGGREEN
+          .colors COLGREEN, COLSPRINGGREEN
+          .colors COLGREEN, COLSPRINGGREEN
+          .colors COLGREEN, COLSPRINGGREEN
+          .colors COLGREEN, COLSPRINGGREEN
           ;; 10
           .colors COLCYAN, COLCYAN
           .colors COLCYAN, COLCYAN
