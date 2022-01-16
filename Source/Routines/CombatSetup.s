@@ -12,16 +12,16 @@ DoCombat:          .block
           lda EncounterMonster, x
 
 SetUpMonsterPointer:          
-          ldx #>Monsters
+          ldx # 0
           stx CurrentMonsterPointer + 1
-          
+
           ;; × 16
-          ldx #4
+          ldx # 4
 Mul16:
           clc
           asl a
           bcc +
-          inc CurrentMonsterPointer + 1
+          rol CurrentMonsterPointer + 1
 +
           dex
           bne Mul16
@@ -32,6 +32,10 @@ Mul16:
           inc CurrentMonsterPointer + 1
 +
           sta CurrentMonsterPointer
+
+          lda CurrentMonsterPointer + 1
+          adc #>Monsters
+          sta CurrentMonsterPointer + 1
 
 AnnounceMonsterSpeech:
           lda #>MonsterPhrase
