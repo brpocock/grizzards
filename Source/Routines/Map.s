@@ -48,11 +48,17 @@ GotRLE:
           ror a
           ror a
           .case NTSC
+          .if Province1MapBank == BANK
+          ora #$0e
+          .else
           ora #$02              ; dim
+          .fi
           .case PAL
+          .if Province1MapBank == BANK
+          ora #$0e
+          .else
           ora #$04              ; not quite as dim on PAL
-          .default
-          .error "What kind of TV standard are we working with here?"
+          .fi
           .endswitch
           sta COLUPF
 
@@ -128,7 +134,16 @@ DoneBall:
           asl a
           asl a
           asl a
+          .if Province1MapBank == BANK ; Province 1 is Dark
+          .switch TV
+          .case NTSC
+          ora #$02
+          .case PAL
+          ora #$04
+          .endswitch
+          .else                 ; not province 1
           ora #$0e
+          .fi
           .fi
 
           stx WSYNC

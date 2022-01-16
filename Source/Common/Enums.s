@@ -135,7 +135,7 @@
           MapServicesBank = $01
           .if DEMO
           AnimationsBank = $03
-          EndAnimationsBank = $03
+          EndAnimationsBank = $ff
           .else
           AnimationsBank = $0f
           EndAnimationsBank = $0e
@@ -143,7 +143,10 @@
           TextBank = $02
           FailureBank = $01
           Province0MapBank = $04
-          .if !DEMO
+          .if DEMO
+          Province1MapBank = $ff
+          Province2MapBank = $ff
+          .else
           Province1MapBank = $03
           Province2MapBank = $05
           .fi
