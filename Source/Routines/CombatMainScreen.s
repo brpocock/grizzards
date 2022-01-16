@@ -42,9 +42,9 @@ MonstersDisplay:
           lda CurrentCombatEncounter
           cmp # 92              ; Boss Bear encounter
           bne MonsterWithName
-          .SkipLines 25
+          .SkipLines 20
           .FarJSR EndAnimationsBank, ServiceShowBossBear
-          .SkipLines 25
+          .SkipLines 20
           jmp DelayAfterMonsters
 
 MonsterWithName:
