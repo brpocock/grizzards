@@ -34,7 +34,7 @@ Happy:
           .sound 0, 0, 0, 0, 1
 
 Footstep:
-          .sound 4, $6, $10, 1, 0
+          .sound 6, $6, $10, 1, 0
           .sound 0, 0, 0, 0, 1
 
 Bump:
