@@ -92,11 +92,19 @@ TitleMode:
           sta CurrentUtterance
           sta AttractHasSpoken
 DoneTitleSpeech:
-          .ldacolu COLINDIGO, $a
+          .if TV == SECAM
+            lda #COLWHITE
+          .else
+            .ldacolu COLINDIGO, $a
+          .fi
           sta COLUP0
           sta COLUP1
 
-          .ldacolu COLTURQUOISE, $e
+          .if TV == SECAM
+            lda #COLBLUE
+          .else
+            .ldacolu COLTURQUOISE, $e
+          .fi
           stx WSYNC
           sta COLUBK
 
@@ -112,7 +120,7 @@ DoneTitleSpeech:
           .SkipLines 20
           .ldacolu COLORANGE, $a
           sta COLUBK
-          .SkipLines 10
+          .SkipLines 22
 
           .case 1               ; Aquax
 
@@ -120,52 +128,52 @@ DoneTitleSpeech:
           .ldacolu COLSPRINGGREEN, $4
           sta COLUBK
 
+          .SkipLines 12
+
           .case 2               ; Airex
 
           .SkipLines 20
           .ldacolu COLGREEN, $4
-          sta COLUBK
-          .ldacolu COLTURQUOISE, $e
           sta COLUPF
+          .if TV == SECAM
+            lda #COLBLUE
+          .else
+            .ldacolu COLTURQUOISE, $e
+          .fi
+          sta COLUBK
 
-          lda #$ff
+          lda # 43
+          sta Rand
+          sta Rand + 1
+
+          ldy # 4
+Foliage:
+          jsr Random
           sta PF0
-          lda #$f0
+          jsr Random
           sta PF1
-          .SkipLines 6
+          jsr Random
+          sta PF2
+          .SkipLines 4
+          dey
+          bne Foliage
 
-          ;; lda #$d5
-          ;; sta PF1
-          ;; .SkipLines 4
-
-          lda #$aa
-          sta PF0
-          lda #$88
-          sta PF1
-          .SkipLines 6
-
-          lda # 0
+          lda # $ff
           sta PF0
           sta PF1
           sta PF2
 
           .endswitch
 
-          .SkipLines 12
-
           .switch STARTER
-          .case 0
-          .ldacolu COLGREEN, $e
-          .case 1
-          .ldacolu COLBROWN, $6
-          .case 2
-          .if TV == SECAM
-          lda #COLBLUE
-          .else
-          .ldacolu COLTEAL, $e
-          .fi
+          .case 0               ; Aquax
+           .ldacolu COLGREEN, $e
+          .case 1               ; Dirtex
+           .ldacolu COLBROWN, $6
+          .case 2               ; Airex
+           .ldacolu COLTEAL, $e
           .default
-          .error "STARTER ∈ (0 1 2), ¬ ", STARTER
+           .error "STARTER ∈ (0 1 2), ¬ ", STARTER
           .endswitch
 
           sta COLUP0
@@ -243,9 +251,24 @@ SetWaveLevel:
 
           .case 2               ; Airex
 
+          lda #$ff
+          sta PF2
+          .SkipLines 3
           .ldacolu COLBROWN, $4
-          sta COLUBK
+          sta COLUPF
           .SkipLines 10
+ 
+          stx WSYNC
+          .if TV == SECAM
+            lda #COLBLUE
+          .else
+            .ldacolu COLTURQUOISE, $e
+          .fi
+          sta COLUBK
+
+          lda #$ff
+          sta GRP0
+          sta GRP1
 
           lda # NUSIZQuad
           sta NUSIZ0
@@ -263,13 +286,10 @@ SetWaveLevel:
           nop
           sta RESP1
 
-          stx WSYNC
-          .ldacolu COLTURQUOISE, $e
-          sta COLUBK
-
-          lda #$ff
-          sta GRP0
-          sta GRP1
+          lda # 0
+          sta PF0
+          sta PF1
+          sta PF2
 
           .endswitch
 
