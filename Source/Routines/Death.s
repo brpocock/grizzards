@@ -34,7 +34,7 @@ LoopFirst:
           sta COLUP0
           sta COLUP1
 
-          .SkipLInes KernelLines / 3
+          .SkipLines KernelLines / 3
           jsr Prepare48pxMobBlob
           .LoadString " GAME "
           .FarJSR TextBank, ServiceDecodeAndShowText
