@@ -137,6 +137,8 @@ Leave:
           .FarJSR SaveKeyBank, ServiceSaveToSlot
           .FarJSR AnimationsBank, ServiceBeginName
 
+          .WaitScreenBottom
+          .WaitScreenTop
 SaveName:
           jsr i2cStartWrite
           lda SaveGameSlot
@@ -157,6 +159,8 @@ SaveName:
           bne -
 
           jsr i2cStopWrite
+
+          .WaitScreenBottom
 
           .fi       ; end of not-NOSAVE
 

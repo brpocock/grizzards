@@ -3,9 +3,7 @@
 
 SaveGrizzard:       .block
           .WaitScreenBottom
-          .WaitScreenTopMinus 2, -1
-          ;; Now we have 3 more blocks to write.
-
+          .WaitScreenTopMinus 3, -1
           ;; We have 30 potential Grizzards, which make up 5 bytes each.
           ;; So we store 0-11 in the first block, then 12-23 in the second block,
           ;; and 24-30 in the last block. Nominally, we could do something

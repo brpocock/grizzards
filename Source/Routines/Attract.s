@@ -325,7 +325,6 @@ DoneKernel:
 Leave:
           lda #ModeSelectSlot
           sta GameMode
-          .WaitScreenBottom
           .if NOSAVE
           jmp BeginOrResume
           .else

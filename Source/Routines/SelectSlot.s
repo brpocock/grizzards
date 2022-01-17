@@ -6,8 +6,6 @@ SelectSlot:        .block
           ;; Select a save game slot
           ;;
 
-          jsr VSync
-
           .KillMusic
           jsr Prepare48pxMobBlob
 
@@ -25,11 +23,9 @@ SelectSlot:        .block
           lda #$ff
           sta SaveSlotChecked
 
-          jmp LoopFirst
 ;;; 
 Loop:
           .WaitScreenBottom
-LoopFirst:
           .WaitScreenTop
 
           lda GameMode
