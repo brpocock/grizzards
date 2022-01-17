@@ -2,6 +2,7 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 WinnerFireworks:    .block
 
+          .WaitScreenBottom
 Loop:
           .WaitScreenTop
           .ldacolu COLCYAN, $c
