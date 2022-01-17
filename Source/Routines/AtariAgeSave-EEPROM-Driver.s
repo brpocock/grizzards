@@ -10,6 +10,8 @@ SaveGameSignatureString:
 
 ;;; 
 
+          .fill $230, $ea
+
 i2cStartRead:
           ;; TODO
 
