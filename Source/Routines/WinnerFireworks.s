@@ -2,6 +2,9 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 WinnerFireworks:    .block
 
+          lda # 60
+          sta AlarmCountdown
+
           .WaitScreenBottom
 Loop:
           .WaitScreenTop
