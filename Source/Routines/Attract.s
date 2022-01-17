@@ -142,7 +142,7 @@ DoneTitleSpeech:
           .fi
           sta COLUBK
 
-          .if TV == NTSC
+          .if false
 
           lda # 43
           sta Rand
