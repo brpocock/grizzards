@@ -142,6 +142,8 @@ DoneTitleSpeech:
           .fi
           sta COLUBK
 
+          .if TV == NTSC
+
           lda # 43
           sta Rand
           sta Rand + 1
@@ -157,6 +159,8 @@ Foliage:
           .SkipLines 4
           dey
           bne Foliage
+
+          .fi
 
           lda # $ff
           sta PF0
