@@ -199,6 +199,7 @@
           ServiceDrawMonsterGroup = $0b
           ServiceWrite12Chars = $23
           ServiceInquire = $24
+          ServiceBeginName = $2a
 
 ;;; End of game animation services
 

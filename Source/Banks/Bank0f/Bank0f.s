@@ -13,6 +13,8 @@
           .include "Write12Chars.s"
           .include "Inquire.s"
 
+          .include "BeginNamePrompt.s"
+
           .include "AttractStory.s"
           .include "Death.s"
           .include "DrawMonsterGroup.s"
@@ -30,6 +32,11 @@
           .include "Prepare48pxMobBlob.s"
           .include "Random.s"
 
+          .include "CopyPointerText.s"
+ShowPointerText:
+          jsr CopyPointerText
+          .FarJMP TextBank, ServiceDecodeAndShowText ; tail call
+
 DoLocal:
           cpy #ServiceWrite12Chars
           beq Write12Chars
@@ -43,6 +50,8 @@ DoLocal:
           beq DrawGrizzard
           cpy #ServiceInquire
           beq Inquire
+          cpy #ServiceBeginName
+          beq BeginNamePrompt
           brk
 
           .include "EndBank.s"

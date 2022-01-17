@@ -20,7 +20,10 @@ EraseSlotSignature: .block
           jsr i2cTxByte
 
           jsr i2cStopWrite
-       
+
+          lda # 0
+          sta SaveSlotBusy
+
           rts
 
           .bend

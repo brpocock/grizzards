@@ -5,13 +5,16 @@ TitleCopyright:
 Copyright twenty-twenty-two Bruce-Robert Pocock
 
 SelectSlot:
-Select a save game slot.
+Select a save game slot
 
 EraseSlot:
-Erase a save game slot.
+Erase a save game slot
 
 Credits:
-With love to Zephyr Salz.
+With love to Zephyr Salz
 
 Story:
-Save the world of Syrex. Train your Grizzards to defeat the monsters.
+Save the world of Syrex.Train your Grizzards to defeat the monsters
+
+EnterName:
+Enter your name

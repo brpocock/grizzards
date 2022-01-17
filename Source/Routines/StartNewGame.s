@@ -135,6 +135,28 @@ WaitForScreenEnd:
 
 Leave:
           .FarJSR SaveKeyBank, ServiceSaveToSlot
+          .FarJSR AnimationsBank, ServiceBeginName
+
+SaveName:
+          jsr i2cStartWrite
+          lda SaveGameSlot
+          clc
+          adc #>SaveGameSlotPrefix
+          jsr i2cTxByte
+          clc
+          lda #<SaveGameSlotPrefix
+          adc #$1a
+          jsr i2cTxByte
+
+          ldx # 0
+-
+          lda NameEntryBuffer, x
+          jsr i2cTxByte
+          inx
+          cpx # 6
+          bne -
+
+          jsr i2cStopWrite
 
           .fi       ; end of not-NOSAVE
 

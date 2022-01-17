@@ -22,27 +22,15 @@ SelectSlot:        .block
           lda # 0
           sta SelectJatibuProgress
 
-          .if TV == NTSC
-          .TimeLines KernelLines * 2/3 - 2
-          .else
-          .SkipLines 1
-          .TimeLines KernelLines / 2 - 3
-          .fi
+          lda #$ff
+          sta SaveSlotChecked
 
           jmp LoopFirst
 ;;; 
 Loop:
-          .WaitForTimer
-          jsr Overscan
-          jsr VSync
-          .if TV == NTSC
-          .SkipLines 2
-          .TimeLines KernelLines * 2/3 - 1
-          .else
-          .SkipLines 1
-          .TimeLines KernelLines / 2 - 1
-          .fi
+          .WaitScreenBottom
 LoopFirst:
+          .WaitScreenTop
 
           lda GameMode
           cmp #ModeSelectSlot
@@ -85,25 +73,20 @@ Slot:
 DoNotDestroy:
           ;; See if the slot is in use
           ;; by checking for the signature bytes
+          lda SaveSlotChecked
+          cmp SaveGameSlot
+          beq MidScreen
 
+NeedToCheck:
           jsr CheckSaveSlot
-          ;; carry is SET if the slot is EMPTY
-          bcc +
-          ldy # 0               ; slot empty
-          geq MidScreen
-+
-          ldy # 1               ; slot busy
+Checked:
+          lda SaveGameSlot
+          sta SaveSlotChecked
+          jmp Loop
 
 MidScreen:
-          .WaitForTimer
-          .if TV == NTSC
-          .SkipLines 2
-          .TimeLines KernelLines / 3 - 2
-          .else
-          .TimeLines KernelLines / 2 - 1
-          .fi
-
-          cpy # 0
+          .SkipLines KernelLines / 4
+          ldy SaveSlotBusy
           bne ShowResume
 
           lda GameMode
@@ -122,14 +105,26 @@ ShowResume:
           cmp #ModeSelectSlot
           bne ShowActive
           .SetPointer ResumeText
-          bne ShowSaveSlot
+ShowSlotName:
+          jsr ShowPointerText
+          ldx # 6
+-
+          lda NameEntryBuffer - 1, x
+          sta StringBuffer - 1, x
+          dex
+          bne -
+
+          .FarJSR TextBank, ServiceDecodeAndShowText
+          jmp ShowSlotNumbered
 
 ShowActive:
           .SetPointer InUseText
+          jmp ShowSlotName
 
 ShowSaveSlot:
           jsr ShowPointerText
 
+ShowSlotNumbered:
           .SetPointer SlotOneText
           jsr CopyPointerText
 
@@ -253,17 +248,10 @@ SlotOK:
           lda #SoundHappy
           sta NextSound
 
-          jsr CheckSaveSlot
-          ;; carry is SET if the slot is EMPTY
-          bcc +
-          ldy # 0               ; slot empty
-          geq FinishScreenAndProceed
-+
-          ldy # 1               ; slot busy
+          ldy SaveSlotBusy
+          beq FinishScreenAndProceed
 
 FinishScreenAndProceed:
-          sty Temp
-          ldy Temp
           bne LoadSaveSlot      ; located immediately after this in memory
                                 ; (so, reachable by branch)
 

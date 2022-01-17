@@ -88,7 +88,7 @@ GlobalZeroPad:
 EndGlobalGameData:
 
           GlobalGameDataLength = EndGlobalGameData - GlobalGameData + 1
-          
+
           .if GlobalGameDataLength > 27
           .error "Global data exceeds 27 bytes (length is ", GlobalGameDataLength, " bytes)"
           .fi
@@ -108,7 +108,7 @@ GrizzardDefense:
 ;;; Filler byte, previously used for Grizzard Acuity
 GrizzardZeroPad:
           .byte ?
-          
+
 ;;; Moves known (8 bits = 8 possible moves)
 MovesKnown:
           .byte ?
@@ -125,7 +125,7 @@ AlarmCountdown:
 ;;; e.g.  monster names.
 StringBuffer:
           .byte ?, ?, ?, ?, ?, ?
-          
+
 DebounceSWCHA:
           .byte ?
 DebounceSWCHB:
@@ -251,19 +251,6 @@ AttractStoryPanel:
 AttractStoryProgress:
           .byte ?
 
-;;; Jatibu Code progress
-
-SelectJatibuProgress:
-          .byte ?
-;;; 
-;;; Start Game phase
-
-          * = Scratchpad
-
-;;; Which memory block is being wiped right now?
-;;; We need to blank global + all provincial data
-StartGameWipeBlock:
-          .word ?
 ;;; 
 ;;; SIgnpost mode scratchpad
 
@@ -318,7 +305,7 @@ CurrentMonsterPointer:
 ;;; Index of monster's art, used to communicate between ROM banks
 CurrentMonsterArt:
           .byte ?
-          
+
 ;;; Pointer to the enemy's sprite graphics
 CombatSpritePointer:
           .word ?
@@ -361,7 +348,7 @@ MoveHitMiss:
 ;;; The move's change in hit points
 MoveHP:
           .byte ?
-          
+
 ;;; The move's new status effects
 MoveStatusFX:
           .byte ?
@@ -375,6 +362,33 @@ CombatMajorP:
           .byte ?
 
           CombatEnd = * - 1
+;;; 
+;;; Scratchpad for Name Entry
+          * = Scratchpad
+;;; Which memory block is being wiped right now?
+;;; We need to blank global + all provincial data
+StartGameWipeBlock:
+          .word ?
+
+;;; Which save slot did we last test?
+SaveSlotChecked:
+          .byte ?
+
+;;; Is the current slot in use?
+SaveSlotBusy:
+          .byte ?
+
+;;; Jatibu Code progress
+SelectJatibuProgress:
+          .byte ?
+
+;;; Cursor position on name entry screeen
+NameEntryPosition:
+          .byte ?
+
+;;; Buffer for name entry
+NameEntryBuffer:
+          .byte ?, ?, ?, ?, ?, ?
 ;;; 
 ;;; Scratchpad for Map mode
             * = Scratchpad
@@ -414,7 +428,7 @@ SpriteY:
 
 SpriteMotion:
           .byte ?, ?, ?, ?
-          
+
 SpriteAction:
           .byte ?, ?, ?, ?
 
@@ -437,7 +451,7 @@ PlayerYFraction:
 ;;; Verify that we don't run over
 
           LastRAM = CombatEnd > MapEnd ? CombatEnd : MapEnd
-          
+
           ;; There must be at least $10 stack space (to be fairly safe)
           .if LastRAM >= $f0
           .error "Zero page ran right into stack space at ", LastRAM
