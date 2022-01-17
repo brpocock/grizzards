@@ -384,7 +384,6 @@ HPLevelUpDone:
 
 NoLevelUp:
 WonReturnToMap:
-          .WaitScreenBottom
           jmp CombatVictoryScreen
 
 CheckForLoss:

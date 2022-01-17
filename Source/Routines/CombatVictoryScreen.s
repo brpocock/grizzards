@@ -18,10 +18,9 @@ NormalVictory:
 
           lda # 8
           sta AlarmCountdown
-          jmp FirstTime
+
 Loop:
           .WaitScreenBottom
-FirstTime:
           .WaitScreenTop
           .ldacolu COLGREEN, $6
           sta COLUBK
