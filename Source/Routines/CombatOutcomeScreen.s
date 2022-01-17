@@ -205,6 +205,8 @@ SayInjuredOrKilled:
           bne SayInjured
 SayKilled:
           .SetUtterance Phrase_IsKilled
+          lda # 5
+          sta SpeechSegment
           gne SpeechQueued
 
 CheckMonsterPulse:
