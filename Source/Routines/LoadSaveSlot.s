@@ -7,16 +7,8 @@ LoadSaveSlot: .block
           stx WSYNC
           .fi
           .WaitScreenTop
-          jsr CheckSaveSlot
-          bcc ReallyLoadIt
-
-          jmp SelectSlot
 
 ReallyLoadIt:
-          ;; OK, loading is much more straightforward than saving.
-          ;; When saving, we have to write entire blocks at a time.
-          ;; When loading, we can jump around and pick the values
-          ;; that interest us directly.
           jsr i2cStartWrite
           lda SaveGameSlot
           clc

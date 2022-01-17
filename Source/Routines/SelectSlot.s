@@ -245,16 +245,16 @@ SlotOK:
           .WaitForTimer
           jsr Overscan
           .WaitScreenTopMinus 2, 0
-          lda #SoundHappy
-          sta NextSound
 
-          ldy SaveSlotBusy
-          beq FinishScreenAndProceed
+          lda SaveSlotBusy
+          beq GoNewGame
 
 FinishScreenAndProceed:
-          bne LoadSaveSlot      ; located immediately after this in memory
+          ldy # 1
+          gne LoadSaveSlot      ; located immediately after this in memory
                                 ; (so, reachable by branch)
 
+GoNewGame:
           .WaitScreenBottom
           .if TV != NTSC
           stx WSYNC
