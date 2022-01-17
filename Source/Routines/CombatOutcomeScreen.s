@@ -374,6 +374,12 @@ HPLevelUpDone:
           sta Temp
           jsr LevelUp
 
+          ;; Strip a row off the timer because voodoo
+          lda INTIM
+          sec
+          sbc # 1
+          sta TIM64T
+
 NoLevelUp:
 WonReturnToMap:
           .WaitScreenBottom
