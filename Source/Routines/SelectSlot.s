@@ -17,11 +17,10 @@ SelectSlot:        .block
           lda #<Phrase_SelectSlot
           sta CurrentUtterance
 
-          lda # 0
-          sta SelectJatibuProgress
-
-          lda #$ff
-          sta SaveSlotChecked
+          ldx # 0
+          stx SelectJatibuProgress
+          dex
+          stx SaveSlotChecked
 
 ;;; 
 Loop:
@@ -32,6 +31,7 @@ Loop:
           cmp #ModeSelectSlot
           beq NoErase
 
+Erase:
           .ldacolu COLRED, $8
           sta COLUP0
           sta COLUP1
@@ -49,7 +49,6 @@ NoErase:
           .SetPointer SelectText
 
 StartPicture:
-
           .SkipLines 16
 
 Slot:
@@ -61,6 +60,7 @@ Slot:
           lda #ModeErasing
           cmp GameMode
           bne DoNotDestroy
+DestroyNow:
           jsr EraseSlotSignature
           lda #ModeSelectSlot
           sta GameMode
@@ -137,7 +137,7 @@ ShowSlot:
           .BitBit SWCHBReset
           beq SlotOK
 
-          .BitBit SWCHBSelect
+          and #SWCHBSelect
           beq SwitchSelectSlot
 SkipSwitches:
 
@@ -148,7 +148,7 @@ SkipSwitches:
           beq SkipStick
           .BitBit P0StickLeft
           beq SwitchMinusSlot
-          .BitBit P0StickRight
+          and #P0StickRight
           beq SwitchSelectSlot
 
 SkipStick:
@@ -165,11 +165,11 @@ SkipStick:
           bne ThisIsNotAStickUp
           ;; — pull Down on joystick
           lda SWCHA
-          .BitBit P0StickDown
+          and #P0StickDown
           bne ThisIsNotAStickUp
           ;; — hold Fire button
           lda INPT4
-          .BitBit PRESSED
+          and #PRESSED
           bne ThisIsNotAStickUp
 
           lda #>Phrase_EraseSlot
@@ -184,12 +184,12 @@ SkipStick:
 EliminationMode:
           ;; Release button to exit Elimination Mode
           lda INPT4
-          .BitBit PRESSED
+          and #PRESSED
           bne ThisIsNotAStickUp
 
           ;; Push stick Up to erase the selected slot
           lda SWCHA
-          .BitBit P0StickUp
+          and #P0StickUp
           beq EraseSlotNow
           jmp Loop
 

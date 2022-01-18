@@ -142,8 +142,6 @@ DoneTitleSpeech:
           .fi
           sta COLUBK
 
-          .if false
-
           lda # 43
           sta Rand
           sta Rand + 1
@@ -156,11 +154,9 @@ Foliage:
           sta PF1
           jsr Random
           sta PF2
-          .SkipLines 4
+          .SkipLines 5
           dey
           bne Foliage
-
-          .fi
 
           lda # $ff
           sta PF0

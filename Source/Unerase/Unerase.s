@@ -143,9 +143,7 @@ CheckSlotStatus:    .block
           adc #>SaveGameSlotPrefix
           jsr i2cTxByte
           lda #<SaveGameSlotPrefix
-          jsr i2cTxByte
-          jsr i2cStopWrite
-          jsr i2cStartRead
+          jsr i2cK
 
           ldx # 0
           jsr i2cRxByte

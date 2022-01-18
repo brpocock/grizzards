@@ -1,11 +1,16 @@
 ;;; Grizzards Source/Routines/CheckSaveSlot.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
+EEPROMFail:
+          jsr i2cStopWrite
+          lda #ModeNoAtariVox
+          sta GameMode
+          brk
+
 CheckSaveSlot: .block
           jsr SeedRandom
           
 	jsr i2cStartWrite
-	bcc CheckSignature
-	jmp EEPROMFail
+	bcs EEPROMFail
 
 CheckSignature:
 	lda SaveGameSlot
@@ -14,9 +19,7 @@ CheckSignature:
 	adc #>SaveGameSlotPrefix
 	jsr i2cTxByte
 	lda #<SaveGameSlotPrefix 
-	jsr i2cTxByte
-	jsr i2cStopWrite
-	jsr i2cStartRead
+	jsr i2cK
 	ldx #0
 ReadLoop:
 	jsr i2cRxByte
@@ -29,11 +32,7 @@ ReadLoop:
 ReadSlotName:
           jsr i2cStopRead
 
-          ;; Wait for acknowledge bit
--
-          jsr i2cStartWrite
-          bcs -
-          jsr i2cStopWrite
+          jsr i2cWaitForAck
 
           jsr i2cStartWrite
           lda SaveGameSlot
@@ -41,9 +40,7 @@ ReadSlotName:
           adc #>SaveGameSlotPrefix
           jsr i2cTxByte
           lda #<SaveGameSlotPrefix + $1a
-          jsr i2cTxByte
-          jsr i2cStopWrite
-          jsr i2cStartRead
+          jsr i2cK
 
           ldx # 0
 -

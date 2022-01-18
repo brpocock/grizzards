@@ -142,4 +142,16 @@ i2cStopWrite:
           .i2cStop
           rts
 
+i2cK:
+          jsr i2cTxByte
+          jsr i2cStopWrite
+          jmp i2cStartRead      ; tail call
+
+i2cWaitForAck:
+          ;; Wait for acknowledge bit
+-
+          jsr i2cStartWrite
+          bcs -
+          jmp i2cStopWrite      ; tail call
+
           SaveWritesPerScreen = $20

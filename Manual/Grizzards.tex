@@ -319,12 +319,12 @@ right to choose  a memory slot\footnote{Technical Note:  The Slot number
   chosen here  is relative to  the \ifdefined\ARIA four \else  three \fi
   save  game   slots  used  by  the   \textit{Grizzards}  game  program.
   \ifdefined\ARIA\else Each save game slot actually occupies 4 blocks on
-  your  memory device.  \fi} for  your game.  There are  \ifdefined\ARIA
-four \else three  \fi memory slots possible. Press \textbf{Game  Select} or the
+  your memory device. \fi} for your game. There are \ifdefined\ARIA four
+\else three \fi memory slots possible. Press \textbf{Game Select} or the
 joystick again to  rotate through them. If someone has  already begun to
 play  \textit{Grizzards}  in  a  certain slot,  your  screen  will  show
-``\texttt{RESUME}.''    If    a    slot    is    empty,    you'll    see
-``\texttt{BEGIN}'' instead.
+``\texttt{RESUME},'' and  their name will appear  as well. If a  slot is
+empty, you'll see ``\texttt{BEGIN}'' instead.
 
 \ifdefined\DEMO
 \skip
@@ -340,9 +340,20 @@ When you have selected the slot you want to begin (or resume), press the
 
 \fi
 
+\ifdefined\NOSAVE\else
+
+When you  first choose  to begin a  new game, you  can enter  your name.
+Press the  joystick forward (up)  to select  the next letter;  pull back
+(down) to select  the previous letter. Press the joystick  right to move
+to the  next letter; press  left to move  back. When you've  entered six
+characters  for  your name,  press  the  \textbf{Fire} button  to  begin
+your adventure.
+
+\fi
+
 You'll begin in the ruins of  Treble Village after the monsters invaded.
-You know that to the east are  the extremely dangerous \textbf{Fire} Bog, so your
-best  bet   is  to  head   west  (left)  and   see  if  there   are  any
+You know that to the east are the extremely dangerous \textbf{Fire} Bog,
+so  your best  bet is  to head  west  (left) and  see if  there are  any
 other survivors.
 
 \section{Roaming The World}

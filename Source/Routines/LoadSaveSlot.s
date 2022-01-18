@@ -15,9 +15,7 @@ ReallyLoadIt:
           adc #>SaveGameSlotPrefix
           jsr i2cTxByte
           lda #<SaveGameSlotPrefix
-          jsr i2cTxByte
-          jsr i2cStopWrite
-          jsr i2cStartRead
+          jsr i2cK
 
 DiscardSignature:
           ldx # 0

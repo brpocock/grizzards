@@ -63,22 +63,14 @@ WritePadAfterGlobal:
           bne WritePadAfterGlobal
 
           jsr i2cStopWrite
+          jsr i2cWaitForAck
 
-          ;; Wait for acknowledge bit
--
-          jsr i2cStartWrite
-          bcs -
-          jsr i2cStopWrite
           .WaitScreenBottom
 WriteCurrentProvince:
           jsr SaveProvinceData
           .WaitScreenTop
 
-          ;; Wait for acknowledge bit
--
-          jsr i2cStartWrite
-          bcs -
-          jsr i2cStopWrite
+          jsr i2cWaitForAck
 
 WriteCurrentGrizzard:
           jmp SaveGrizzard      ; tail call
