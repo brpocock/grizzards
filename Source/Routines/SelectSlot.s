@@ -238,8 +238,7 @@ GoBack:
           jmp Loop
 ;;; 
 SlotOK:
-          .WaitForTimer
-          jsr Overscan
+          .WaitScreenBottom
           .WaitScreenTopMinus 2, 0
 
           lda SaveSlotBusy
