@@ -18,8 +18,10 @@ BeginNamePrompt:
           lda # 0
           sta NameEntryPosition
 
+          jmp FirstTime
 Loop:
           .WaitScreenBottom
+FirstTime:
           .WaitScreenTop
 
           .ldacolu COLGREEN, 0
