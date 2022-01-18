@@ -17,7 +17,9 @@ EndBank:
 
           .proff
           ;; Fill with cute junk
-          .fill BankEndAddress - *, format("%d-%d-%d;github:brpocock/grizzards;", YEARNOW, MONTHNOW, DATENOW)
+          .enc "Unicode"
+          .fill BankEndAddress - *, format("%d-%d-%d%chttps://star-hope.org/games/Grizzards%c", YEARNOW, MONTHNOW, DATENOW, 0, 0)
+          .enc "none"
           .pron
 
 BankJump: .macro label, bank

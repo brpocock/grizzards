@@ -9,6 +9,7 @@
 
 ;;; Start of each ROM bank
 
+          ;; These can be overridden by the build command-line.
           .weak
           DEMO := false
           PUBLISHER := false
