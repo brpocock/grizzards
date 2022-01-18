@@ -8,7 +8,7 @@ games/Grizzards/
 Program:
 Bruce-Robert Pocock
 
-Music + Add'l Art:
+Music + Additional Art:
 Zephyr Salz
 Controller:
 
@@ -34,18 +34,29 @@ left/right to BEGIN or RESUME.
 RESUME is only available
 immediately after GAME OVER.
 FIRE to select.
+New game (SaveKey/AtariVox):
+Enter your name. Use left/right
+to position cursor, up/down to
+select letter/character.
+Cursor right to last position
+and press Fire to start game.
+
+* Old save files without names
+  will show garbage chars on the
+  RESUME screen, unfortunately.
+
+No file name in NoSave version.
 Map: Walk (8 ways) with
 joystick. Stats with SELECT.
 Run into objects to interact.
 
 Green slime: Monster or group
-of monsters.
-
+             of monsters.
+Green figure: Boss monster.
 Black signpost: Signpost.
 Gold person: Person.
 Purple building: Grizzard Depot.
 Green "lizard": wild Grizzard
-
 Combat: Select move with
 up/down. Black moves have not
 been learnt yet. Select target
