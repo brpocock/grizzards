@@ -344,34 +344,34 @@ Dist/Grizzards.SECAM.pdf: Manual/Grizzards.tex
 	mv Object/SECAM.pdf/Grizzards.pdf Dist/Grizzards.SECAM.pdf
 
 Dist/Grizzards.AA.NTSC.pdf: Manual/Grizzards.tex
-	mkdir -p Object/AtariAgeSave.NTSC.pdf
-	cp $< Object/AtariAgeSave.NTSC.pdf/
-	ln -sf ../Manual Object/AtariAgeSave.
-	-cd Object/AtariAgeSave.NTSC.pdf ; xelatex -interaction=batchmode "\def\TVNTSC{}\def\ATARIAGESAVE{}\input{Grizzards}"
-	-cd Object/AtariAgeSave.NTSC.pdf ; xelatex -interaction=batchmode "\def\TVNTSC{}\def\ATARIAGESAVE{}\input{Grizzards}"
-	-cd Object/AtariAgeSave.NTSC.pdf ; xelatex -interaction=batchmode "\def\TVNTSC{}\def\ATARIAGESAVE{}\input{Grizzards}"
+	mkdir -p Object/AA.NTSC.pdf
+	cp $< Object/AA.NTSC.pdf/
+	ln -sf ../Manual Object/AA.
+	-cd Object/AA.NTSC.pdf ; xelatex -interaction=batchmode "\def\TVNTSC{}\def\ATARIAGESAVE{}\input{Grizzards}"
+	-cd Object/AA.NTSC.pdf ; xelatex -interaction=batchmode "\def\TVNTSC{}\def\ATARIAGESAVE{}\input{Grizzards}"
+	-cd Object/AA.NTSC.pdf ; xelatex -interaction=batchmode "\def\TVNTSC{}\def\ATARIAGESAVE{}\input{Grizzards}"
 	mkdir -p Dist
-	mv Object/AtariAgeSave.NTSC.pdf/Grizzards.pdf Dist/Grizzards.AA.NTSC.pdf
+	mv Object/AA.NTSC.pdf/Grizzards.pdf Dist/Grizzards.AA.NTSC.pdf
 
 Dist/Grizzards.AA.PAL.pdf: Manual/Grizzards.tex
-	mkdir -p Object/AtariAgeSave.PAL.pdf
-	cp $< Object/AtariAgeSave.PAL.pdf/
-	ln -sf ../Manual Object/AtariAgeSave.
-	-cd Object/AtariAgeSave.PAL.pdf ; xelatex -interaction=batchmode "\def\TVPAL{}\def\ATARIAGESAVE{}\input{Grizzards}"
-	-cd Object/AtariAgeSave.PAL.pdf ; xelatex -interaction=batchmode "\def\TVPAL{}\def\ATARIAGESAVE{}\input{Grizzards}"
-	-cd Object/AtariAgeSave.PAL.pdf ; xelatex -interaction=batchmode "\def\TVPAL{}\def\ATARIAGESAVE{}\input{Grizzards}"
+	mkdir -p Object/AA.PAL.pdf
+	cp $< Object/AA.PAL.pdf/
+	ln -sf ../Manual Object/AA.
+	-cd Object/AA.PAL.pdf ; xelatex -interaction=batchmode "\def\TVPAL{}\def\ATARIAGESAVE{}\input{Grizzards}"
+	-cd Object/AA.PAL.pdf ; xelatex -interaction=batchmode "\def\TVPAL{}\def\ATARIAGESAVE{}\input{Grizzards}"
+	-cd Object/AA.PAL.pdf ; xelatex -interaction=batchmode "\def\TVPAL{}\def\ATARIAGESAVE{}\input{Grizzards}"
 	mkdir -p Dist
-	mv Object/AtariAgeSave.PAL.pdf/Grizzards.pdf Dist/Grizzards.AA.PAL.pdf
+	mv Object/AA.PAL.pdf/Grizzards.pdf Dist/Grizzards.AA.PAL.pdf
 
 Dist/Grizzards.AA.SECAM.pdf: Manual/Grizzards.tex
-	mkdir -p Object/AtariAgeSave.SECAM.pdf
-	cp $< Object/AtariAgeSave.SECAM.pdf/
-	ln -sf ../Manual Object/AtariAgeSave.
-	-cd Object/AtariAgeSave.SECAM.pdf ; xelatex -interaction=batchmode "\def\TVSECAM{}\def\ATARIAGESAVE{}\input{Grizzards}"
-	-cd Object/AtariAgeSave.SECAM.pdf ; xelatex -interaction=batchmode "\def\TVSECAM{}\def\ATARIAGESAVE{}\input{Grizzards}"
-	-cd Object/AtariAgeSave.SECAM.pdf ; xelatex -interaction=batchmode "\def\TVSECAM{}\def\ATARIAGESAVE{}\input{Grizzards}"
+	mkdir -p Object/AA.SECAM.pdf
+	cp $< Object/AA.SECAM.pdf/
+	ln -sf ../Manual Object/AA.
+	-cd Object/AA.SECAM.pdf ; xelatex -interaction=batchmode "\def\TVSECAM{}\def\ATARIAGESAVE{}\input{Grizzards}"
+	-cd Object/AA.SECAM.pdf ; xelatex -interaction=batchmode "\def\TVSECAM{}\def\ATARIAGESAVE{}\input{Grizzards}"
+	-cd Object/AA.SECAM.pdf ; xelatex -interaction=batchmode "\def\TVSECAM{}\def\ATARIAGESAVE{}\input{Grizzards}"
 	mkdir -p Dist
-	mv Object/AtariAgeSave.SECAM.pdf/Grizzards.pdf Dist/Grizzards.AA.SECAM.pdf
+	mv Object/AA.SECAM.pdf/Grizzards.pdf Dist/Grizzards.AA.SECAM.pdf
 
 Dist/Grizzards.Demo.NTSC.pdf: Manual/Grizzards.tex
 	mkdir -p Object/Demo.NTSC.pdf
@@ -783,10 +783,10 @@ release:	all
 	@if [ $(RELEASE) = noreleasenamegiven ]; then echo "Usage: make RELEASE=ident release" >&2; exit 1; fi
 	mkdir -p Dist/$(RELEASE)
 	-rm Dist/$(RELEASE)/*
-	-cp -v Dist/Grizzards{.AtariAgeSave,}.{Demo,Airex,Aquax,Dirtex,NoSave,Unerase}.{NTSC,PAL,SECAM}.{a26,pro} \
+	-cp -v Dist/Grizzards{.AA,}.{Demo,Airex,Aquax,Dirtex,NoSave,Unerase}.{NTSC,PAL,SECAM}.{a26,pro} \
 		Dist/Grizzards.{Demo.{NTSC,PAL,SECAM},NoSave.{NTSC,PAL,SECAM},Unerase}.pdf \
 		Dist/$(RELEASE) 2>/dev/null
-	cp -v Dist/Grizzards{.AtariAgeSave,}.{NTSC,PAL,SECAM}{,-book}.pdf Dist/$(RELEASE)
+	cp -v Dist/Grizzards{.AA,}.{NTSC,PAL,SECAM}{,-book}.pdf Dist/$(RELEASE)
 	cp -v Dist/Grizzards.Manual.txt Dist/$(RELEASE)
 	@cd Dist/$(RELEASE) ; \
 	for file in Grizzards.*.{zip,a26,pdf}; do \
