@@ -27,6 +27,7 @@
           .include "Prepare48pxMobBlob.s"
           .include "Random.s"
           
+          .include "BeginNamePrompt.s"
           
 DoLocal:
           cpy #ServiceWrite12Chars
@@ -41,4 +42,12 @@ DoLocal:
           beq DrawGrizzard
           cpy #ServiceInquire
           beq Inquire
+          cpy #ServiceBeginName
+          beq BeginNamePrompt
           brk
+
+          .include "CopyPointerText.s"
+ShowPointerText:
+          jsr CopyPointerText
+          .FarJMP TextBank, ServiceDecodeAndShowText ; tail call
+

@@ -9,7 +9,7 @@ BeginOrResume:        .block
 
           lda # 0
           sta SaveGameSlot
-
+          .WaitScreenBottom
 ;;; 
 Loop:     
           .WaitScreenTop
@@ -74,6 +74,7 @@ GoBack:
           jmp Loop
 ;;; 
 SlotOK:
+          .WaitScreenBottom
           .WaitScreenTop
           lda #SoundHappy
           sta NextSound
