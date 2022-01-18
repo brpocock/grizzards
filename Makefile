@@ -125,12 +125,12 @@ uno:	Dist/Grizzards.Dirtex.NTSC.a26 \
 	fi
 
 Dist/Grizzards.AtariAge.zip:	\
-	Dist/Grizzards.AtariAgeSave.Dirtex.NTSC.a26 Dist/Grizzards.AtariAgeSave.Dirtex.PAL.a26 Dist/Grizzards.AtariAgeSave.Dirtex.SECAM.a26 \
-	Dist/Grizzards.AtariAgeSave.Aquax.NTSC.a26 Dist/Grizzards.AtariAgeSave.Aquax.PAL.a26 Dist/Grizzards.AtariAgeSave.Aquax.SECAM.a26 \
-	Dist/Grizzards.AtariAgeSave.Airex.NTSC.a26 Dist/Grizzards.AtariAgeSave.Airex.PAL.a26 Dist/Grizzards.AtariAgeSave.Airex.SECAM.a26 \
-	Dist/Grizzards.AtariAgeSave.Dirtex.NTSC.pro Dist/Grizzards.AtariAgeSave.Dirtex.PAL.pro Dist/Grizzards.AtariAgeSave.Dirtex.SECAM.pro \
-	Dist/Grizzards.AtariAgeSave.Aquax.NTSC.pro Dist/Grizzards.AtariAgeSave.Aquax.PAL.pro Dist/Grizzards.AtariAgeSave.Aquax.SECAM.pro \
-	Dist/Grizzards.AtariAgeSave.Airex.NTSC.pro Dist/Grizzards.AtariAgeSave.Airex.PAL.pro Dist/Grizzards.AtariAgeSave.Airex.SECAM.pro \
+	Dist/Grizzards.AA.Dirtex.NTSC.a26 Dist/Grizzards.AA.Dirtex.PAL.a26 Dist/Grizzards.AA.Dirtex.SECAM.a26 \
+	Dist/Grizzards.AA.Aquax.NTSC.a26 Dist/Grizzards.AA.Aquax.PAL.a26 Dist/Grizzards.AA.Aquax.SECAM.a26 \
+	Dist/Grizzards.AA.Airex.NTSC.a26 Dist/Grizzards.AA.Airex.PAL.a26 Dist/Grizzards.AA.Airex.SECAM.a26 \
+	Dist/Grizzards.AA.Dirtex.NTSC.pro Dist/Grizzards.AA.Dirtex.PAL.pro Dist/Grizzards.AA.Dirtex.SECAM.pro \
+	Dist/Grizzards.AA.Aquax.NTSC.pro Dist/Grizzards.AA.Aquax.PAL.pro Dist/Grizzards.AA.Aquax.SECAM.pro \
+	Dist/Grizzards.AA.Airex.NTSC.pro Dist/Grizzards.AA.Airex.PAL.pro Dist/Grizzards.AA.Airex.SECAM.pro \
 	Dist/Grizzards.NTSC-book.pdf Dist/Grizzards.PAL-book.pdf Dist/Grizzards.SECAM-book.pdf \
 	Package/Box.svg Package/EndLabel.png Package/FrontLabel.png
 	zip "$@" $^
@@ -243,32 +243,32 @@ Dist/Grizzards.Airex.PAL.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-t
 Dist/Grizzards.Airex.SECAM.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
 	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.Airex.SECAM.a26
 
-Dist/Grizzards.AtariAgeSave.Dirtex.NTSC.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
-	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.AtariAgeSave.Dirtex.NTSC.a26
+Dist/Grizzards.AA.Dirtex.NTSC.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
+	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.AA.Dirtex.NTSC.a26
 
-Dist/Grizzards.AtariAgeSave.Dirtex.PAL.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
-	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.AtariAgeSave.Dirtex.PAL.a26
+Dist/Grizzards.AA.Dirtex.PAL.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
+	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.AA.Dirtex.PAL.a26
 
-Dist/Grizzards.AtariAgeSave.Dirtex.SECAM.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
-	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.AtariAgeSave.Dirtex.SECAM.a26
+Dist/Grizzards.AA.Dirtex.SECAM.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
+	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.AA.Dirtex.SECAM.a26
 
-Dist/Grizzards.AtariAgeSave.Aquax.NTSC.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
-	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.AtariAgeSave.Aquax.NTSC.a26
+Dist/Grizzards.AA.Aquax.NTSC.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
+	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.AA.Aquax.NTSC.a26
 
-Dist/Grizzards.AtariAgeSave.Aquax.PAL.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
-	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.AtariAgeSave.Aquax.PAL.a26
+Dist/Grizzards.AA.Aquax.PAL.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
+	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.AA.Aquax.PAL.a26
 
-Dist/Grizzards.AtariAgeSave.Aquax.SECAM.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
-	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.AtariAgeSave.Aquax.SECAM.a26
+Dist/Grizzards.AA.Aquax.SECAM.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
+	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.AA.Aquax.SECAM.a26
 
-Dist/Grizzards.AtariAgeSave.Airex.NTSC.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
-	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.AtariAgeSave.Airex.NTSC.a26
+Dist/Grizzards.AA.Airex.NTSC.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
+	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.AA.Airex.NTSC.a26
 
-Dist/Grizzards.AtariAgeSave.Airex.PAL.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
-	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.AtariAgeSave.Airex.PAL.a26
+Dist/Grizzards.AA.Airex.PAL.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
+	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.AA.Airex.PAL.a26
 
-Dist/Grizzards.AtariAgeSave.Airex.SECAM.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
-	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.AtariAgeSave.Airex.SECAM.a26
+Dist/Grizzards.AA.Airex.SECAM.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
+	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.AA.Airex.SECAM.a26
 
 
 Source/Generated/Makefile:	bin/write-master-makefile ${SOURCES}
@@ -276,13 +276,13 @@ Source/Generated/Makefile:	bin/write-master-makefile ${SOURCES}
 	for bank in 5 7 8 9 a b c d e; do bin/make-speakjet-enums $$bank; done
 	$< > Source/Generated/Makefile
 
-Dist/Grizzards.NTSC-book.pdf:	Dist/Grizzards.AtariAgeSave.NTSC.pdf
+Dist/Grizzards.NTSC-book.pdf:	Dist/Grizzards.AA.NTSC.pdf
 	pdfbook2 --paper=letterpaper -o 0 -i 0 -t 0 -b 0 $<
 
-Dist/Grizzards.PAL-book.pdf:	Dist/Grizzards.AtariAgeSave.PAL.pdf
+Dist/Grizzards.PAL-book.pdf:	Dist/Grizzards.AA.PAL.pdf
 	pdfbook2 --paper=letterpaper -o 0 -i 0 -t 0 -b 0 $<
 
-Dist/Grizzards.SECAM-book.pdf:	Dist/Grizzards.AtariAgeSave.SECAM.pdf
+Dist/Grizzards.SECAM-book.pdf:	Dist/Grizzards.AA.SECAM.pdf
 	pdfbook2 --paper=letterpaper -o 0 -i 0 -t 0 -b 0 $<
 
 Dist/Grizzards.Demo.NTSC-book.pdf:	Dist/Grizzards.Demo.NTSC.pdf
@@ -343,7 +343,7 @@ Dist/Grizzards.SECAM.pdf: Manual/Grizzards.tex
 	mkdir -p Dist
 	mv Object/SECAM.pdf/Grizzards.pdf Dist/Grizzards.SECAM.pdf
 
-Dist/Grizzards.AtariAgeSave.NTSC.pdf: Manual/Grizzards.tex
+Dist/Grizzards.AA.NTSC.pdf: Manual/Grizzards.tex
 	mkdir -p Object/AtariAgeSave.NTSC.pdf
 	cp $< Object/AtariAgeSave.NTSC.pdf/
 	ln -sf ../Manual Object/AtariAgeSave.
@@ -351,9 +351,9 @@ Dist/Grizzards.AtariAgeSave.NTSC.pdf: Manual/Grizzards.tex
 	-cd Object/AtariAgeSave.NTSC.pdf ; xelatex -interaction=batchmode "\def\TVNTSC{}\def\ATARIAGESAVE{}\input{Grizzards}"
 	-cd Object/AtariAgeSave.NTSC.pdf ; xelatex -interaction=batchmode "\def\TVNTSC{}\def\ATARIAGESAVE{}\input{Grizzards}"
 	mkdir -p Dist
-	mv Object/AtariAgeSave.NTSC.pdf/Grizzards.pdf Dist/Grizzards.AtariAgeSave.NTSC.pdf
+	mv Object/AtariAgeSave.NTSC.pdf/Grizzards.pdf Dist/Grizzards.AA.NTSC.pdf
 
-Dist/Grizzards.AtariAgeSave.PAL.pdf: Manual/Grizzards.tex
+Dist/Grizzards.AA.PAL.pdf: Manual/Grizzards.tex
 	mkdir -p Object/AtariAgeSave.PAL.pdf
 	cp $< Object/AtariAgeSave.PAL.pdf/
 	ln -sf ../Manual Object/AtariAgeSave.
@@ -361,9 +361,9 @@ Dist/Grizzards.AtariAgeSave.PAL.pdf: Manual/Grizzards.tex
 	-cd Object/AtariAgeSave.PAL.pdf ; xelatex -interaction=batchmode "\def\TVPAL{}\def\ATARIAGESAVE{}\input{Grizzards}"
 	-cd Object/AtariAgeSave.PAL.pdf ; xelatex -interaction=batchmode "\def\TVPAL{}\def\ATARIAGESAVE{}\input{Grizzards}"
 	mkdir -p Dist
-	mv Object/AtariAgeSave.PAL.pdf/Grizzards.pdf Dist/Grizzards.AtariAgeSave.PAL.pdf
+	mv Object/AtariAgeSave.PAL.pdf/Grizzards.pdf Dist/Grizzards.AA.PAL.pdf
 
-Dist/Grizzards.AtariAgeSave.SECAM.pdf: Manual/Grizzards.tex
+Dist/Grizzards.AA.SECAM.pdf: Manual/Grizzards.tex
 	mkdir -p Object/AtariAgeSave.SECAM.pdf
 	cp $< Object/AtariAgeSave.SECAM.pdf/
 	ln -sf ../Manual Object/AtariAgeSave.
@@ -371,7 +371,7 @@ Dist/Grizzards.AtariAgeSave.SECAM.pdf: Manual/Grizzards.tex
 	-cd Object/AtariAgeSave.SECAM.pdf ; xelatex -interaction=batchmode "\def\TVSECAM{}\def\ATARIAGESAVE{}\input{Grizzards}"
 	-cd Object/AtariAgeSave.SECAM.pdf ; xelatex -interaction=batchmode "\def\TVSECAM{}\def\ATARIAGESAVE{}\input{Grizzards}"
 	mkdir -p Dist
-	mv Object/AtariAgeSave.SECAM.pdf/Grizzards.pdf Dist/Grizzards.AtariAgeSave.SECAM.pdf
+	mv Object/AtariAgeSave.SECAM.pdf/Grizzards.pdf Dist/Grizzards.AA.SECAM.pdf
 
 Dist/Grizzards.Demo.NTSC.pdf: Manual/Grizzards.tex
 	mkdir -p Object/Demo.NTSC.pdf
@@ -627,41 +627,41 @@ Dist/Grizzards.Airex.SECAM.pro:	Source/Grizzards.pro Dist/Grizzards.Airex.SECAM.
 	sed $< -e s/@@ATARIAGESAVE@@/0/ -e s/@@TV@@/SECAM/g \
 		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.Airex.SECAM.a26 | cut -d\  -f1)/g > $@
 
-Dist/Grizzards.AtariAgeSave.Dirtex.NTSC.pro:	Source/Grizzards.pro Dist/Grizzards.AtariAgeSave.Dirtex.NTSC.a26
+Dist/Grizzards.AA.Dirtex.NTSC.pro:	Source/Grizzards.pro Dist/Grizzards.AA.Dirtex.NTSC.a26
 	sed $< -e s/@@ATARIAGESAVE@@/1/ -e s/@@TV@@/NTSC/g \
-		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.AtariAgeSave.Dirtex.NTSC.a26 | cut -d\  -f1)/g > $@
+		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.AA.Dirtex.NTSC.a26 | cut -d\  -f1)/g > $@
 
-Dist/Grizzards.AtariAgeSave.Dirtex.PAL.pro:	Source/Grizzards.pro Dist/Grizzards.AtariAgeSave.Dirtex.PAL.a26
+Dist/Grizzards.AA.Dirtex.PAL.pro:	Source/Grizzards.pro Dist/Grizzards.AA.Dirtex.PAL.a26
 	sed $< -e s/@@ATARIAGESAVE@@/1/ -e s/@@TV@@/PAL/g \
-		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.AtariAgeSave.Dirtex.PAL.a26 | cut -d\  -f1)/g > $@
+		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.AA.Dirtex.PAL.a26 | cut -d\  -f1)/g > $@
 
-Dist/Grizzards.AtariAgeSave.Dirtex.SECAM.pro:	Source/Grizzards.pro Dist/Grizzards.AtariAgeSave.Dirtex.SECAM.a26
+Dist/Grizzards.AA.Dirtex.SECAM.pro:	Source/Grizzards.pro Dist/Grizzards.AA.Dirtex.SECAM.a26
 	sed $< -e s/@@ATARIAGESAVE@@/1/ -e s/@@TV@@/SECAM/g \
-		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.AtariAgeSave.Dirtex.SECAM.a26 | cut -d\  -f1)/g > $@
+		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.AA.Dirtex.SECAM.a26 | cut -d\  -f1)/g > $@
 
-Dist/Grizzards.AtariAgeSave.Aquax.NTSC.pro:	Source/Grizzards.pro Dist/Grizzards.AtariAgeSave.Aquax.NTSC.a26
+Dist/Grizzards.AA.Aquax.NTSC.pro:	Source/Grizzards.pro Dist/Grizzards.AA.Aquax.NTSC.a26
 	sed $< -e s/@@ATARIAGESAVE@@/1/ -e s/@@TV@@/NTSC/g \
-		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.AtariAgeSave.Aquax.NTSC.a26 | cut -d\  -f1)/g > $@
+		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.AA.Aquax.NTSC.a26 | cut -d\  -f1)/g > $@
 
-Dist/Grizzards.AtariAgeSave.Aquax.PAL.pro:	Source/Grizzards.pro Dist/Grizzards.AtariAgeSave.Aquax.PAL.a26
+Dist/Grizzards.AA.Aquax.PAL.pro:	Source/Grizzards.pro Dist/Grizzards.AA.Aquax.PAL.a26
 	sed $< -e s/@@ATARIAGESAVE@@/1/ -e s/@@TV@@/PAL/g \
-		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.AtariAgeSave.Aquax.PAL.a26 | cut -d\  -f1)/g > $@
+		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.AA.Aquax.PAL.a26 | cut -d\  -f1)/g > $@
 
-Dist/Grizzards.AtariAgeSave.Aquax.SECAM.pro:	Source/Grizzards.pro Dist/Grizzards.AtariAgeSave.Aquax.SECAM.a26
+Dist/Grizzards.AA.Aquax.SECAM.pro:	Source/Grizzards.pro Dist/Grizzards.AA.Aquax.SECAM.a26
 	sed $< -e s/@@ATARIAGESAVE@@/1/ -e s/@@TV@@/SECAM/g \
-		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.AtariAgeSave.Aquax.SECAM.a26 | cut -d\  -f1)/g > $@
+		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.AA.Aquax.SECAM.a26 | cut -d\  -f1)/g > $@
 
-Dist/Grizzards.AtariAgeSave.Airex.NTSC.pro:	Source/Grizzards.pro Dist/Grizzards.AtariAgeSave.Airex.NTSC.a26
+Dist/Grizzards.AA.Airex.NTSC.pro:	Source/Grizzards.pro Dist/Grizzards.AA.Airex.NTSC.a26
 	sed $< -e s/@@ATARIAGESAVE@@/1/ -e s/@@TV@@/NTSC/g \
-		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.AtariAgeSave.Airex.NTSC.a26 | cut -d\  -f1)/g > $@
+		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.AA.Airex.NTSC.a26 | cut -d\  -f1)/g > $@
 
-Dist/Grizzards.AtariAgeSave.Airex.PAL.pro:	Source/Grizzards.pro Dist/Grizzards.AtariAgeSave.Airex.PAL.a26
+Dist/Grizzards.AA.Airex.PAL.pro:	Source/Grizzards.pro Dist/Grizzards.AA.Airex.PAL.a26
 	sed $< -e s/@@ATARIAGESAVE@@/1/ -e s/@@TV@@/PAL/g \
-		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.AtariAgeSave.Airex.PAL.a26 | cut -d\  -f1)/g > $@
+		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.AA.Airex.PAL.a26 | cut -d\  -f1)/g > $@
 
-Dist/Grizzards.AtariAgeSave.Airex.SECAM.pro:	Source/Grizzards.pro Dist/Grizzards.AtariAgeSave.Airex.SECAM.a26
+Dist/Grizzards.AA.Airex.SECAM.pro:	Source/Grizzards.pro Dist/Grizzards.AA.Airex.SECAM.a26
 	sed $< -e s/@@ATARIAGESAVE@@/1/ -e s/@@TV@@/SECAM/g \
-		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.AtariAgeSave.Airex.SECAM.a26 | cut -d\  -f1)/g > $@
+		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.AA.Airex.SECAM.a26 | cut -d\  -f1)/g > $@
 
 dstella:	Dist/Grizzards.Demo.NTSC.a26 Dist/Grizzards.Demo.NTSC.lst \
 	Dist/Grizzards.Demo.NTSC.sym Dist/Grizzards.Demo.NTSC.pro
@@ -794,7 +794,7 @@ release:	all
 	done
 	@echo "AtariAge Release $(RELEASE) of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
 		zip -9 Dist/$(RELEASE)/Grizzards.AtariAge.$(RELEASE).zip \
-		Dist/$(RELEASE)/Grizzards.AtariAgeSave.{Airex,Aquax,Dirtex}.*
+		Dist/$(RELEASE)/Grizzards.AA.{Airex,Aquax,Dirtex}.*
 	@echo "Release $(RELEASE) of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
 		zip -9 Dist/$(RELEASE)/Grizzards.$(RELEASE).zip \
 		Dist/$(RELEASE)/Grizzards.{Airex,Aquax,Dirtex}.* Dist/$(RELEASE)/Grizzards.{NTSC,PAL,SECAM}*pdf
