@@ -78,3 +78,6 @@ Level up
 
 MaxHP:
 maximum hit points
+
+CriticalHit:
+it's a critical hit

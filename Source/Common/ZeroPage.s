@@ -280,11 +280,13 @@ SignpostScanline:
 SignpostTextLine:
           .byte ?
 
+SignpostInquiry:
+          .byte ?
+
+          * = $f0 - 9
 SignpostLineCompressed:
           .byte ?, ?, ?, ?,  ?, ?, ?, ?,  ?
 
-SignpostInquiry:
-          .byte ?
 ;;; 
 ;;; Combat mode scratchpad
 
@@ -351,6 +353,10 @@ MoveHP:
 
 ;;; The move's new status effects
 MoveStatusFX:
+          .byte ?
+
+;;; Was this a critical hit?
+CriticalHitP:
           .byte ?
 
 * = $ec

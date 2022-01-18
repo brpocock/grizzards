@@ -11,6 +11,7 @@ ExecuteCombatMove:  .block
           sta MoveHP
           sta MoveHitMiss
           sta MoveStatusFX
+          sta CriticalHitP
 
 DetermineOutcome:
           lda WhoseTurn
@@ -51,6 +52,12 @@ MonsterAttackPositiveRandom:
           adc MoveHP            ; temporarily effective Attack score
           jmp MonsterAttackHitMissP
 
+MonsterCriticalHit:
+          lda CombatMoveDeltaHP
+          sta CriticalHitP
+          asl a
+          gne MonsterAttackHitCommon
+
 MonsterAttackNegativeRandom:
           and Temp
           sta Temp
@@ -61,7 +68,10 @@ MonsterAttackNegativeRandom:
           ;; fall through
 MonsterAttackHitMissP:
           tax                   ; stash effective attack strength
-          cmp GrizzardDefense
+          jsr Random
+          and #$0f
+          beq MonsterCriticalHit
+          cpx GrizzardDefense
           blt MonsterAttackMiss
           ;; fall through
 ;;; 
@@ -221,6 +231,12 @@ PlayerAttackPositiveRandom:
           adc MoveHP               ; temporarily effective Attack score
           gne PlayerAttackHitMissP
 
+PlayerCriticalHit:
+          lda CombatMoveDeltaHP
+          sta CriticalHitP
+          asl a
+          gne PlayerAttackHitCommon
+
 PlayerAttackNegativeRandom:
           and Temp
           sta Temp
@@ -230,6 +246,10 @@ PlayerAttackNegativeRandom:
           ;; fall through
 PlayerAttackHitMissP:
           tax                   ; stash effective attack strength
+          jsr Random
+          and #$f0
+          beq PlayerCriticalHit
+          txa
           ldy # MonsterDefendIndex
           cmp (CurrentMonsterPointer), y
           blt PlayerAttackMiss

@@ -20,9 +20,8 @@ CombatAnnouncementScreen:     .block
           bne FindMonsterMove
 FindPlayerMove:
           .FarJSR TextBank, ServiceFetchGrizzardMove
-          ldy Temp
-          sty CombatMoveSelected
-          ldx CombatMoveSelected
+          ldx Temp
+          stx CombatMoveSelected
           jmp MoveFound
 
 FindMonsterMove:
@@ -40,9 +39,8 @@ FindMonsterMove:
 +
           sta Pointer
 
-          lda (Pointer), y
+          lax (Pointer), y
           sta CombatMoveSelected
-          tax
 
 MoveFound:
           lda MoveDeltaHP, x
@@ -51,20 +49,21 @@ MoveFound:
           lda # 2
           sta AlarmCountdown
 
-          .WaitScreenBottom
+          gne FirstTime
 ;;; 
 Loop:
           .WaitScreenTop
+FirstTime:
           jsr Prepare48pxMobBlob
 
-          stx WSYNC
+          ;; stx WSYNC ; commented out for space
           .ldacolu COLINDIGO, 0
           sta COLUBK
 
           lda WhoseTurn
           bne MonsterTurnColor
           .ldacolu COLTURQUOISE, $f
-          jmp +
+          gne +
 
 MonsterTurnColor:
           .ldacolu COLRED, $f
@@ -147,11 +146,11 @@ Speech0:
           beq SayPlayerSubject
 SayMonsterSubject:
           jsr SayMonster
-          jmp SpeechQueued
+          gne SpeechQueued
 
 SayPlayerSubject:
           jsr SayPlayerGrizzard
-          jmp SpeechQueued
+          gne SpeechQueued
 
 Speech1:
           cmp # 2
@@ -189,7 +188,6 @@ Speech3:
           clc
           adc CombatMoveSelected
           sta CurrentUtterance
-
           gne SpeechQueued
 
 Speech4:
@@ -200,7 +198,6 @@ Speech4:
           sta CurrentUtterance + 1
           lda #<Phrase_On
           sta CurrentUtterance
-
           gne SpeechQueued
 
 Speech5:

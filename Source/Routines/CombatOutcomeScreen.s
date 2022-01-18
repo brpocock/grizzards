@@ -23,6 +23,10 @@ Loop:
 LoopFirst:
           stx WSYNC
           .ldacolu COLBLUE, 0
+          ldx CriticalHitP
+          beq +
+          .ldacolu COLRED, 0
++
           sta COLUBK
           .ldacolu COLGRAY, $f
           sta COLUP0
@@ -73,6 +77,11 @@ DrawHealPoints:
 
 DrawHitPoints:
           jsr AppendDecimalAndPrint.FromTemp
+          lda CriticalHitP
+          beq +
+          .SetPointer CritText
+          jsr ShowPointerText
++
           jmp AfterHitPoints
 
 SkipHitPoints:
@@ -265,7 +274,6 @@ Speech3:
 
 SaySleep:
           .SetUtterance Phrase_StatusFXSleep
-
           gne SpeechQueued
 
 SayMuddle:
@@ -283,7 +291,7 @@ SayDefend:
 Speech4:
           lda SpeechSegment
           cmp # 5
-          bge SpeechDone
+          bge Speech5
 
           lda MoveStatusFX
           and #StatusAttackDown | StatusDefendDown
@@ -298,7 +306,17 @@ Speech4NotDown:
           beq SpeechQueued
 
           .SetUtterance Phrase_StatusFXRaise
-          ;; fall through to common
+          gne SpeechQueued
+
+Speech5:
+          lda SpeechSegment
+          cmp # 5
+          bge SpeechDone
+
+          lda CriticalHitP
+          beq SpeechQueued
+          .SetUtterance Phrase_CriticalHit
+
 SpeechQueued:
           inc SpeechSegment
           ;; fall through

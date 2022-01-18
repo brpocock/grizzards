@@ -20,3 +20,6 @@ MissedText:
           .MiniText "MISSED"
 KilledText:
           .MiniText "KILLED"
+
+CritText:
+          .MiniText " CRIT!"
