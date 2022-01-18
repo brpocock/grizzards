@@ -11,12 +11,6 @@ publish:	demo game no-save doc unerase Dist/Grizzards.Source.tar.gz
 		Dist/Grizzards.Demo.NTSC.a26 Dist/Grizzards.Demo.PAL.a26 Dist/Grizzards.Demo.SECAM.a26 \
 		Dist/Grizzards.Demo.zip Dist/Grizzards.Source.tar.gz \
 		Dist/Grizzards.Demo.NTSC.pdf Dist/Grizzards.Demo.PAL.pdf Dist/Grizzards.Demo.SECAM.pdf \
-		Dist/Grizzards.Demo.NTSC-book.pdf \
-		Dist/Grizzards.Demo.PAL-book.pdf \
-		Dist/Grizzards.Demo.SECAM-book.pdf \
-		Dist/Grizzards.NoSave.NTSC-book.pdf \
-		Dist/Grizzards.NoSave.PAL-book.pdf \
-		Dist/Grizzards.NoSave.SECAM-book.pdf \
 		Dist/Grizzards.NoSave.NTSC.a26 Dist/Grizzards.NoSave.PAL.a26 Dist/Grizzards.NoSave.SECAM.a26 \
 		Dist/Grizzards.NoSave.NTSC.pdf Dist/Grizzards.NoSave.PAL.pdf Dist/Grizzards.NoSave.SECAM.pdf \
 		Dist/Grizzards.Dirtex.NTSC.a26 Dist/Grizzards.Dirtex.PAL.a26 Dist/Grizzards.Dirtex.SECAM.a26 \
@@ -131,7 +125,7 @@ Dist/Grizzards.AtariAge.zip:	\
 	Dist/Grizzards.AA.Dirtex.NTSC.pro Dist/Grizzards.AA.Dirtex.PAL.pro Dist/Grizzards.AA.Dirtex.SECAM.pro \
 	Dist/Grizzards.AA.Aquax.NTSC.pro Dist/Grizzards.AA.Aquax.PAL.pro Dist/Grizzards.AA.Aquax.SECAM.pro \
 	Dist/Grizzards.AA.Airex.NTSC.pro Dist/Grizzards.AA.Airex.PAL.pro Dist/Grizzards.AA.Airex.SECAM.pro \
-	Dist/Grizzards.NTSC-book.pdf Dist/Grizzards.PAL-book.pdf Dist/Grizzards.SECAM-book.pdf \
+	Dist/Grizzards.AA.NTSC-book.pdf Dist/Grizzards.AA.PAL-book.pdf Dist/Grizzards.AA.SECAM-book.pdf \
 	Package/Box.svg Package/EndLabel.png Package/FrontLabel.png
 	zip "$@" $^
 
@@ -158,10 +152,7 @@ Dist/Grizzards.Demo.zip: \
 	Dist/Grizzards.Demo.SECAM.pro \
 	Dist/Grizzards.Demo.NTSC.pdf \
 	Dist/Grizzards.Demo.PAL.pdf \
-	Dist/Grizzards.Demo.SECAM.pdf \
-	Dist/Grizzards.Demo.NTSC-book.pdf \
-	Dist/Grizzards.Demo.PAL-book.pdf \
-	Dist/Grizzards.Demo.SECAM-book.pdf
+	Dist/Grizzards.Demo.SECAM.pdf
 	zip $@ $^
 
 Dist/Grizzards.NoSave.zip: \
@@ -179,14 +170,8 @@ Dist/Grizzards.NoSave.zip: \
 game:	Dist/Grizzards.zip
 
 doc:	Dist/Grizzards.NTSC.pdf Dist/Grizzards.PAL.pdf Dist/Grizzards.SECAM.pdf \
-	Dist/Grizzards.NTSC-book.pdf Dist/Grizzards.PAL-book.pdf Dist/Grizzards.SECAM-book.pdf \
+	Dist/Grizzards.AA.NTSC-book.pdf Dist/Grizzards.AA.PAL-book.pdf Dist/Grizzards.AA.SECAM-book.pdf \
 	Dist/Grizzards.Demo.NTSC.pdf Dist/Grizzards.Demo.PAL.pdf Dist/Grizzards.Demo.SECAM.pdf \
-	Dist/Grizzards.Demo.NTSC-book.pdf \
-	Dist/Grizzards.Demo.PAL-book.pdf \
-	Dist/Grizzards.Demo.SECAM-book.pdf \
-	Dist/Grizzards.NoSave.NTSC-book.pdf \
-	Dist/Grizzards.NoSave.PAL-book.pdf \
-	Dist/Grizzards.NoSave.SECAM-book.pdf \
 	Dist/Grizzards.Manual.txt \
 	Dist/Grizzards.Unerase.pdf \
 	Dist/Grizzards.NoSave.NTSC.pdf Dist/Grizzards.NoSave.PAL.pdf Dist/Grizzards.NoSave.SECAM.pdf
@@ -276,32 +261,14 @@ Source/Generated/Makefile:	bin/write-master-makefile ${SOURCES}
 	for bank in 5 7 8 9 a b c d e; do bin/make-speakjet-enums $$bank; done
 	$< > Source/Generated/Makefile
 
-Dist/Grizzards.NTSC-book.pdf:	Dist/Grizzards.AA.NTSC.pdf
+Dist/Grizzards.AA.NTSC-book.pdf:	Dist/Grizzards.AA.NTSC.pdf
 	pdfbook2 --paper=letterpaper -o 0 -i 0 -t 0 -b 0 $<
 
-Dist/Grizzards.PAL-book.pdf:	Dist/Grizzards.AA.PAL.pdf
+Dist/Grizzards.AA.PAL-book.pdf:	Dist/Grizzards.AA.PAL.pdf
 	pdfbook2 --paper=letterpaper -o 0 -i 0 -t 0 -b 0 $<
 
-Dist/Grizzards.SECAM-book.pdf:	Dist/Grizzards.AA.SECAM.pdf
+Dist/Grizzards.AA.SECAM-book.pdf:	Dist/Grizzards.AA.SECAM.pdf
 	pdfbook2 --paper=letterpaper -o 0 -i 0 -t 0 -b 0 $<
-
-Dist/Grizzards.Demo.NTSC-book.pdf:	Dist/Grizzards.Demo.NTSC.pdf
-	pdfbook2 --paper=letterpaper -o 0 -i 0 -t 0 -b 0 $<
-
-Dist/Grizzards.Demo.PAL-book.pdf:	Dist/Grizzards.Demo.PAL.pdf
-	pdfbook2 --paper=a4 -o 0 -i 0 -t 0 -b 0 $<
-
-Dist/Grizzards.Demo.SECAM-book.pdf:	Dist/Grizzards.Demo.SECAM.pdf
-	pdfbook2 --paper=a4 -o 0 -i 0 -t 0 -b 0 $<
-
-Dist/Grizzards.NoSave.NTSC-book.pdf:	Dist/Grizzards.NoSave.NTSC.pdf
-	pdfbook2 --paper=letterpaper -o 0 -i 0 -t 0 -b 0 $<
-
-Dist/Grizzards.NoSave.PAL-book.pdf:	Dist/Grizzards.NoSave.PAL.pdf
-	pdfbook2 --paper=a4 -o 0 -i 0 -t 0 -b 0 $<
-
-Dist/Grizzards.NoSave.SECAM-book.pdf:	Dist/Grizzards.NoSave.SECAM.pdf
-	pdfbook2 --paper=a4 -o 0 -i 0 -t 0 -b 0 $<
 
 Dist/Grizzards.Unerase.pdf:	Manual/Unerase.tex
 	mkdir -p Object/Unerase.pdf
@@ -786,7 +753,8 @@ release:	all
 	-cp -v Dist/Grizzards{.AA,}.{Demo,Airex,Aquax,Dirtex,NoSave,Unerase}.{NTSC,PAL,SECAM}.{a26,pro} \
 		Dist/Grizzards.{Demo.{NTSC,PAL,SECAM},NoSave.{NTSC,PAL,SECAM},Unerase}.pdf \
 		Dist/$(RELEASE) 2>/dev/null
-	cp -v Dist/Grizzards{.AA,}.{NTSC,PAL,SECAM}{,-book}.pdf Dist/$(RELEASE)
+	cp -v Dist/Grizzards{.AA,}.{NTSC,PAL,SECAM}.pdf Dist/$(RELEASE)
+	cp -v Dist/Grizzards.AA.{NTSC,PAL,SECAM}-book.pdf Dist/$(RELEASE)
 	cp -v Dist/Grizzards.Manual.txt Dist/$(RELEASE)
 	@cd Dist/$(RELEASE) ; \
 	for file in Grizzards.*.{zip,a26,pdf}; do \
