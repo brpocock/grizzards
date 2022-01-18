@@ -280,10 +280,13 @@ ProvinceChange:
           txs
           .if NTSC == TV
             .SkipLines KernelLines - 179
+            jsr Overscan
           .else
-            .SkipLines KernelLines - 177
+            ldx INTIM
+            dex
+            stx TIM64T
+            .WaitScreenBottom
           .fi
-          jsr Overscan
           .FarJSR SaveKeyBank, ServiceSaveProvinceData
           .WaitScreenTopMinus 1, 0
 
@@ -298,6 +301,9 @@ ProvinceChange:
           
           .FarJSR SaveKeyBank, ServiceLoadProvinceData
           .WaitScreenBottom
+          .if TV != NTSC
+          .SkipLines 2
+          .fi
           jmp GoMap
 
 NotWarp:

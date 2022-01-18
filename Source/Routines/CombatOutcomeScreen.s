@@ -21,6 +21,7 @@ SoundForMiss:
 Loop:
           .WaitScreenTop
 LoopFirst:
+          stx WSYNC
           .ldacolu COLBLUE, 0
           sta COLUBK
           .ldacolu COLGRAY, $f
@@ -376,11 +377,12 @@ HPLevelUpDone:
           sta Temp
           jsr LevelUp
 
+          .if NTSC == TV
           ;; Strip a row off the timer because voodoo
-          lda INTIM
-          sec
-          sbc # 1
-          sta TIM64T
+          ldx INTIM
+          dex
+          stx TIM64T
+          .fi
 
 NoLevelUp:
 WonReturnToMap:

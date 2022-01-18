@@ -22,6 +22,7 @@ LevelUp:        .block
 Loop:
           .WaitScreenTop
 
+          stx WSYNC
           .ldacolu COLTURQUOISE, $f
           sta COLUBK
 

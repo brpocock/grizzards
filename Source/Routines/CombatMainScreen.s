@@ -222,7 +222,10 @@ RunAway:
 
           lda #ModeMap
           sta GameMode
-          gne RunningAway
+          .if TV != NTSC
+          .SkipLines 19
+          .fi
+          ;; gne RunningAway
 ;;; 
 ScreenDone:
 RunningAway:

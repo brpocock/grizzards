@@ -13,6 +13,7 @@ Loop:
           .WaitScreenBottom
           .WaitScreenTop
 
+          stx WSYNC
           .ldacolu COLRED, $6
           sta COLUBK
 

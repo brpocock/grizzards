@@ -22,6 +22,8 @@ NormalVictory:
 Loop:
           .WaitScreenBottom
           .WaitScreenTop
+
+          stx WSYNC
           .ldacolu COLGREEN, $6
           sta COLUBK
 

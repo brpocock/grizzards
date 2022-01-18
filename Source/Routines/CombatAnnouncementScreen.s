@@ -57,6 +57,7 @@ Loop:
           .WaitScreenTop
           jsr Prepare48pxMobBlob
 
+          stx WSYNC
           .ldacolu COLINDIGO, 0
           sta COLUBK
 
