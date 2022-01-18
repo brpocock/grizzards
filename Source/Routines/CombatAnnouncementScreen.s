@@ -170,10 +170,13 @@ Speech1:
 
 Speech2:
           cmp # 3
+          .if TV == NTSC        ; cut for space in PAL/SECAM
           bge Speech3
-
           .SetUtterance Phrase_UsesMove
           gne SpeechQueued
+          .else
+          blt SpeechQueued
+          .fi
 
 Speech3:
           cmp # 4
@@ -189,10 +192,13 @@ Speech3:
 
 Speech4:
           cmp # 5
+          .if NTSC == TV        ; cut for space in PAL/SECAM
           bge Speech5
-
           .SetUtterance Phrase_On
           gne SpeechQueued
+          .else
+          blt SpeechQueued
+          .fi
 
 Speech5:
           cmp # 6
