@@ -140,6 +140,7 @@ LetterDec:
           sta NextSound
 
           dec NameEntryBuffer, x
+          lda NameEntryBuffer, x
           cmp #$ff
           bne Done
           lda #$28              ; blank
