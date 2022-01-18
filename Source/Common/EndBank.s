@@ -113,10 +113,6 @@ Break:
           pha
           BankJump Failure, FailureBank
 
-;;; Save and Quit
-GoQuit:
-          BankJump Attract.WarmStart, ColdStartBank
-
 ;;; End of wired memory
 WiredEnd:
           .if $ff80 < WiredEnd

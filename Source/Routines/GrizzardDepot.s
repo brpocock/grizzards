@@ -247,7 +247,7 @@ DoneStick:
           beq SwitchesDone
           .BitBit SWCHBReset
           bne NoReset
-          jmp GoQuit
+          .FarJMP SaveKeyBank, ServiceAttract
 NoReset:
           .BitBit SWCHBSelect
           bne SwitchesDone

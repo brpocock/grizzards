@@ -11,7 +11,7 @@ Attract:  .block
           ldx #$80
           lda #0
 ZeroRAM:
-          sta $80, x
+          sta $80 - 1, x
           dex
           bne ZeroRAM
 

@@ -25,7 +25,7 @@ NoButton:
           beq Bouncey1
           .BitBit SWCHBReset
           bne +
-          jmp GoQuit
+          .FarJMP SaveKeyBank, ServiceAttract
 +
           .BitBit SWCHBSelect
           bne Bouncey1
