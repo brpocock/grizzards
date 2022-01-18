@@ -290,12 +290,12 @@ ShowMonsterNameAndNumber:
           rts
 
 +
-          lda #40               ; blank space
-          sta StringBuffer + 0
-          sta StringBuffer + 1
-          sta StringBuffer + 2
-          sta StringBuffer + 4
-          sta StringBuffer + 5
+          ldx # 6
+          lda #$28              ; blank
+-
+          sta StringBuffer - 1, x
+          dex
+          bne -
           lda WhoseTurn
           bne +
           lda MoveTarget
