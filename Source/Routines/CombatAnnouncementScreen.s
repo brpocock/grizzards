@@ -172,10 +172,7 @@ Speech2:
           cmp # 3
           bge Speech3
 
-          lda #>Phrase_UsesMove
-          sta CurrentUtterance + 1
-          lda #<Phrase_UsesMove
-          sta CurrentUtterance
+          .SetUtterance Phrase_UsesMove
           gne SpeechQueued
 
 Speech3:
@@ -194,10 +191,7 @@ Speech4:
           cmp # 5
           bge Speech5
 
-          lda #>Phrase_On
-          sta CurrentUtterance + 1
-          lda #<Phrase_On
-          sta CurrentUtterance
+          .SetUtterance Phrase_On
           gne SpeechQueued
 
 Speech5:

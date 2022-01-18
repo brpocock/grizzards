@@ -10,7 +10,7 @@ CombatOutcomeScreen:          .block
           lda MoveHitMiss
           beq SoundForMiss
           lda #SoundHit
-          bne +                 ; alway taken
+          gne +
 SoundForMiss:
           lda #SoundMiss
 +
