@@ -251,18 +251,6 @@ NotSet0And63:
           bne NotClearFlag
 
 ClearFlag:
-          sed
-          lda Score
-          clc
-          adc #$04
-          sta Score
-          lda Score + 1
-          adc # 0
-          sta Score + 1
-          bcc +
-          inc Score + 2
-+
-          cld
           ldy # (9 * 5) + 1
           lda (SignpostText), y
           sta Temp
@@ -312,18 +300,6 @@ NotWarp:
           cmp #ModeSignpostSetFlag
           bne NotSetFlag
 SetFlag:
-          sed
-          lda Score
-          clc
-          adc #$03
-          sta Score
-          lda Score + 1
-          adc # 0
-          sta Score + 1
-          bcc +
-          inc Score + 2
-+
-          cld
           ldy # (9 * 5) + 1
           lda (SignpostText), y
           sta Temp
