@@ -310,7 +310,7 @@ Speech4NotDown:
 
 Speech5:
           lda SpeechSegment
-          cmp # 5
+          cmp # 6
           bge SpeechDone
 
           lda CriticalHitP
