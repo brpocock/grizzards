@@ -21,6 +21,9 @@ GrizzardDepot:    .block
           .WaitScreenTop
           .FarJSR SaveKeyBank, ServiceSaveToSlot
           stx WSYNC
+          .if NTSC == TV
+          stx WSYNC
+          .fi
           .WaitScreenTop
           .KillMusic
           jmp ReturnToLoop
@@ -28,6 +31,7 @@ GrizzardDepot:    .block
 Loop:
           .WaitScreenTop
 
+          stx WSYNC
           .if TV == SECAM
             lda #COLBLACK
           .else

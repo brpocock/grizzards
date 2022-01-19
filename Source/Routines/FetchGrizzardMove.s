@@ -11,7 +11,7 @@ FetchGrizzardMove:
           asl a
           asl a
           asl a
-          clc
+          clc                   ; XXX isn't this already clear per asl a?
           adc Temp
           tax
           lda GrizzardMoves, x
