@@ -42,6 +42,12 @@ MonsterAttacks:
 +
           tya
           sta MoveHP            ; temporarily effective Attack score
+
+          jsr Random
+          and #$0f
+          beq MonsterCriticalHit
+
+          tya
           jsr CalculateAttackMask
           sta Temp
           jsr Random
@@ -68,9 +74,6 @@ MonsterAttackNegativeRandom:
           ;; fall through
 MonsterAttackHitMissP:
           tax                   ; stash effective attack strength
-          jsr Random
-          and #$0f
-          beq MonsterCriticalHit
           cpx GrizzardDefense
           blt MonsterAttackMiss
           ;; fall through
@@ -102,7 +105,7 @@ MonsterAttackHitCommon:
           cmp MoveHP
           beq MonsterKilledGrizzard
           blt MonsterKilledGrizzard
-          sec
+          ;;           sec — skip, BLT is same as BCC, carry must be set.
           sbc MoveHP
           sta CurrentHP
           gne MonsterDidNotKillGrizzard
@@ -220,7 +223,13 @@ PlayerAttacks:
           tax
 +
           txa
-          sta MoveHP            ; temporarily effective Attack score
+          sta MoveHP            ; temporarily effective Attack score 
+
+          jsr Random
+          and #$f0
+          beq PlayerCriticalHit
+
+          txa
           jsr CalculateAttackMask
           sta Temp
           jsr Random
@@ -246,10 +255,6 @@ PlayerAttackNegativeRandom:
           ;; fall through
 PlayerAttackHitMissP:
           tax                   ; stash effective attack strength
-          jsr Random
-          and #$f0
-          beq PlayerCriticalHit
-          txa
           ldy # MonsterDefendIndex
           cmp (CurrentMonsterPointer), y
           blt PlayerAttackMiss
