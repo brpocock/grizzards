@@ -287,6 +287,8 @@ ProvinceChange:
             stx TIM64T
             .WaitScreenBottom
           .fi
+          lda #SoundShipSailing
+          sta NextSound
           .FarJSR SaveKeyBank, ServiceSaveProvinceData
           .WaitScreenTopMinus 1, 0
 

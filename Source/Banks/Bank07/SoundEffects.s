@@ -3,7 +3,7 @@
 
 SoundTable:        .block
           ;; Don't forget to update the Enums.s table as well
-          SoundIndex = (Drone, Chirp, Deleted, Happy, Bump, ErrorSound, SweepUp, SongAtariToday, SongVictory, SongGameOver, Footstep, BearRoar, SongDepotJingle, Blip)
+          SoundIndex = (Drone, Chirp, Deleted, Happy, Bump, ErrorSound, SweepUp, SongAtariToday, SongVictory, SongGameOver, Footstep, BearRoar, SongDepotJingle, Blip, ShipSailing)
 
           Count = len(SoundIndex)
 
@@ -42,6 +42,27 @@ Happy:
 
 Footstep:
           .sound 6, $6, $10, 1, 0
+          .sound 0, 0, 0, 0, 1
+
+ShipSailing:
+          .sound $8, $8, $10, 10, 0
+          .sound $a, $8, $10, 10, 0
+          .sound $c, $8, $10, 10, 0
+          .sound $e, $8, $10, 10, 0
+          .sound $f, $8, $10, 10, 0
+          .sound $c, $8, $10, 20, 0
+          .sound $8, $8, $10, 10, 0
+          .sound $a, $8, $10, 10, 0
+          .sound $c, $8, $10, 10, 0
+          .sound $e, $8, $10, 10, 0
+          .sound $f, $8, $10, 10, 0
+          .sound $c, $8, $10, 20, 0
+          .sound $8, $8, $10, 10, 0
+          .sound $a, $8, $10, 10, 0
+          .sound $c, $8, $10, 10, 0
+          .sound $e, $8, $10, 10, 0
+          .sound $f, $8, $10, 10, 0
+          .sound $c, $8, $10, 20, 0
           .sound 0, 0, 0, 0, 1
 
 Bump:

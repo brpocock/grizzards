@@ -70,6 +70,7 @@
           SoundRoar = 12
           SoundDepot = 13
           SoundBlip = 14
+          SoundShipSailing = 15
 ;;; 
 ;;; Status Effects for player or enemies 
           StatusSleep = $01
