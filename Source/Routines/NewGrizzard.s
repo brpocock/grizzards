@@ -27,6 +27,9 @@ CatchEm:
           ;; New Grizzard found, save current Grizzard …
           .FarJSR SaveKeyBank, ServiceSaveGrizzard
           stx WSYNC
+          .if NTSC == TV
+          stx WSYNC
+          .fi
           .WaitScreenTop
           ;; … and set up this one with default levels
           pla
@@ -61,6 +64,9 @@ CatchEm:
           .FarJSR SaveKeyBank, ServiceSaveGrizzard
 
           stx WSYNC
+          .if NTSC == TV
+          stx WSYNC
+          .fi
           .WaitScreenTop
           lda #SoundHappy
           sta NextSound
