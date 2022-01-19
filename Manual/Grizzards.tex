@@ -103,7 +103,7 @@ its moves to defend you and attack the monsters.
 \vspace{2in}\vfill
 
 This    is    the     \textit{Grizzards}    \ifdefined\NOSAVE    No-Save
-\fi\ifdefined\DEMO Demo \fi\ifdefined\ATARIAGESAVE\else Public Release\fi Player's Guide
+\fi\ifdefined\DEMO Demo \fi\ifdefined\ATARIAGESAVE Official \else Public Release \fi Player's Guide
 
 Copyright \copyright{} 2021-2022, Bruce-Robert Pocock
 
@@ -126,16 +126,15 @@ or its successors.
 This manual describes a \ifdefined\NOSAVE No-Save \fi DEMO version of the game. The full version may
 be different.
 
-\else
+\fi
 
 Published by AtariAge.
-\ifdefined\ATARIAGESAVE\else
-If  you  enjoy playing  \textif{Grizzards},  you  may be  interested  in
-purchasing a retail copy with built-in save-game memory from AtariAge.
-\fi
+
+\ifdefined\ATARIAGESAVE\else  If you  enjoy playing  \textif{Grizzards},
+you  may  be  interested  in  purchasing a  retail  copy  with  built-in
+save-game          memory           from          AtariAge.          \fi
 \href{https://atariage.com/}{https://atariage.com/}
 
-\fi
 
 ]
 
@@ -170,7 +169,9 @@ To play \textit{Grizzards}, you will need:
 \begin{figure*}[b]
   \begin{center}
     \includegraphics[width=\columnwidth]{../Manual/AtariVox.jpeg}
-    \ifdefined\ATARIAGESAVE\else
+    \ifdefined\ATARIAGESAVE
+    \includegraphics[width=\columnwidth]{../Manual/Atari-2600-Wood-4Sw-Set.png}
+    \else
     \includegraphics[width=\columnwidth]{../Manual/SaveKey.jpeg}
     \fi
   \end{center}
@@ -179,17 +180,13 @@ To play \textit{Grizzards}, you will need:
 
 Set up  your console with your  TV or video display.  Connect a joystick
 controller  (or SEGA  \ifdefined\TVNTSC{Genesis/}\fi{}MegaDrive gamepad)
-to the \emph{left} controller port. \ifdefined\ATARIAGESAVE, and (optionally) your
-AtariVox device to the \emph{right} controller port. Make certain
-that  the \textbf{Power}  switch  is in  the \textbf{Off}  position  when connecting  your
-AtariVox device. \else\ifdefined\NOSAVE\else{}, and the
-memory  device to  the \emph{right}  controller port.  Make certain
-that  the Power  switch  is in  the Off  position  when connecting  your
-memory device.
+to the \emph{left} controller port\ifdefined\ATARIAGESAVE, and (optionally) your
+AtariVox device to the \emph{right} controller port.  \else\ifdefined\NOSAVE.\else{}, and the
+memory device to the \emph{right} controller port.
 
 Note that the  retail cartridge available from  AtariAge does \emph{not}
-require  a memory  device  because the  special \textit{AtariAge}  cartridge
-contains its own save-game memory within it.
+require a memory device because  the special AtariAge cartridge contains
+its own save-game memory within it.
 
 To purchase \textit{Grizzards} or many other Atari games, visit \href{https://atariage.com/}{https://atariage.com/}
 \fi\fi
@@ -197,12 +194,13 @@ To purchase \textit{Grizzards} or many other Atari games, visit \href{https://at
 Finally, insert  the \textit{Grizzards}  game cartridge (with  the label
 facing up) into the cartridge slot, and turn the \textbf{Power} \textbf{On}.
 
+\ifdefined\ATARIAGESAVE\else
 \begin{figure}[h]
   \begin{center}
     \includegraphics[width=\columnwidth]{../Manual/Atari-2600-Wood-4Sw-Set.png}
   \end{center}
 \end{figure}
-
+\fi
 
 \vfill
 
@@ -315,23 +313,23 @@ your current game  in progress or \texttt{BEGIN} a new  game, then press
 Select Slot screen.
 
 Press  the \textbf{Game  Select} switch  or move  the joystick  left and
-right to choose  a memory slot\footnote{Technical Note:  The Slot number
-  chosen here  is relative to  the \ifdefined\ATARIAGESAVE four \else  three \fi
-  save  game   slots  used  by  the   \textit{Grizzards}  game  program.
-  \ifdefined\ATARIAGESAVE\else Each save game slot actually occupies 4 blocks on
-  your memory device. \fi} for your game. There are \ifdefined\ATARIAGESAVE four
-\else three \fi memory slots possible. Press \textbf{Game Select} or the
-joystick again to  rotate through them. If someone has  already begun to
-play  \textit{Grizzards}  in  a  certain slot,  your  screen  will  show
-``\texttt{RESUME},'' and  their name will appear  as well. If a  slot is
-empty, you'll see ``\texttt{BEGIN}'' instead.
+right to choose a memory slot\ifdefined\ATARIAGESAVE\else\footnote{Technical Note: The Slot
+  number chosen  here is relative to  the three save game  slots used by
+  the  \textit{Grizzards} game  program.  Each save  game slot  actually
+  occupies 4 blocks on your memory  device.}\fi for your game. There are
+\ifdefined\ATARIAGESAVE  four \else  three  \fi  memory slots  possible.
+Press \textbf{Game Select} or the joystick again to rotate through them.
+If someone  has already  begun to play  \textit{Grizzards} in  a certain
+slot, your  screen will  show ``\texttt{RESUME},''  and their  name will
+appear    as    well.    If    a   slot    is    empty,    you'll    see
+``\texttt{BEGIN}'' instead.
 
 \ifdefined\DEMO
 \skip
 This  demo  saves your  progress  in  the  ``scratchpad'' area  of  your
 memory  device.  It's possible  that  other  games might  overwrite  and
 destroy your saved progress. This is  just because it's a demo, and does
-not have a private area reserved for it yet.
+not have a private area reserved for it.
 \skip
 \fi
 
@@ -344,15 +342,15 @@ When you have selected the slot you want to begin (or resume), press the
 
 When you  first choose  to begin a  new game, you  can enter  your name.
 Press the  joystick forward (up)  to select  the next letter;  pull back
-(down) to select  the previous letter. Press the joystick  right to move
-to the  next letter; press  left to move  back. When you've  entered six
-characters  for  your name,  press  the  \textbf{Fire} button  to  begin
-your adventure.
+(down) to select the previous letter.  Press the joystick left and right
+to  move  to the  next  or  previous  letter.  When you've  entered  six
+characters  for  your  name,  the  cursor  will  turn  pink.  Press  the
+\textbf{Fire} button to begin your adventure.
 
 \fi
 
 You'll begin in the ruins of  Treble Village after the monsters invaded.
-You know that to the east are the extremely dangerous \textbf{Fire} Bog,
+You know that to the east are the extremely dangerous Fire Bog,
 so  your best  bet is  to head  west  (left) and  see if  there are  any
 other survivors.
 
@@ -565,8 +563,7 @@ Your adventure will end there, and you'll return to the title screen.
 You can  resume your  game from  the Start Game  screen, or  start over.
 \else
 Don't worry, though;  you can continue from the last  Grizzard Depot you
-visited by  resuming your  game's saved progress.  Just choose  the same
-game slot and resume and try again.
+visited by  resuming your  game's saved progress.  
 \fi
 
 If you  defeat all of  the monsters, victory  is yours! Your  score will
@@ -578,8 +575,8 @@ immediately healed and may still come after you.
 \subsection{Grizzard Learning}
 
 Your  Grizzard companion  may  learn from  opposing  Monsters. This  can
-result  in your  Grizzard  increasing  its Attack  or  Defend score,  or
-learning a Move that a monster has just performed.
+result in your  Grizzard increasing its Attack or  Defend score, maximum
+hit points, or learning a Move that a monster has just performed.
 
 Your Grizzard  can only  learn certain moves.  Moves that  your Grizzard
 might be able to  perform, but does not yet know how  to, will appear in
@@ -655,45 +652,20 @@ you earn will increase as you defeat more difficult monsters.
 
 Your score begins at \texttt{000000} when you start your adventure.
 
-\section{Game Over}
-
-If  you fail  in your  mission,  your game  is over.  However, you  have
-another chance to continue.
-
 \begin{figure}[b]
   \begin{center}
     \includegraphics[width=\columnwidth]{../Manual/GameOver\TV.png}
   \end{center}
 \end{figure}
 
+\section{Game Over}
+
+If  you fail  in your  mission,  your game  is over.  However, you can continue.
+
 When you continue, it'll  be just as if you'd never  failed in the first
 place. However,  you'll start over from  \ifdefined\NOSAVE the beginning
 of the game, \else the last Grizzard Depot that you had visited, \fi but
-with your  current progress.  \ifdefined\NOSAVE\else If you  fail before
-visiting a Grizzard Depot, you'll return to the original starting point.
-\fi
-
-Just  choose   your  game   slot  from  the   Title  Screen   to  resume
-your adventure.
-
-\section{Winning the Campaign}\label{Winning the Campaign}
-
-\ifdefined\DEMO
-
-You can't win the full campaign  in this demo version. However, there is
-one quest  that you can  complete. When  you have completed  that quest,
-a person in  the game will let  you know that you've reached  the end of
-the demo. At that  point, you can continue to level  up your Grizzard by
-fighting more monsters,  but you won't be able to  make more progress in
-the story.
-
-\else
-
-If  you  defeat  all of  the  main  monsters  in  the game,  you'll  see
-a fireworks  show to let  you know  that you've completed  the campaign.
-Your ``final'' score will appear above the fireworks display.
-
-\fi
+with your  current progress. 
 
 \section{Starting Over}\label{Starting Your Adventure Over}
 
@@ -704,19 +676,12 @@ When  you  start  the  game,  you can  \texttt{BEGIN}  a  new  game,  or
 
 \else
 
-When you choose a  slot with no game record in  it already, you'll begin
-a new adventure.
-
 If you want to delete your adventure  and start again, it's a little bit
-tricky. This is to make sure you don't accidentally lose your progress!
-
-From the  Title Screen, press  \textbf{Game Select} or the  \textbf{Fire} button.
-Then, press  \textbf{Game Select}  or move the  joystick left  and right
-until the slot you want to erase is shown.
-
-Here's the tricky part. You'll need to:
+tricky.
 
 \begin{itemize}
+\item On  the Select  Slot  screen,  press \textbf{Game  Select}  or move  the
+  joystick left and right until the slot you want to erase is shown.
 \item Make sure that both of the Difficulty Switches on your console
   are set to the ``A'' (Advanced or Expert) position.
 \item With your joystick controller, pull down (toward you) on the
@@ -724,23 +689,20 @@ Here's the tricky part. You'll need to:
 \end{itemize}
 
 The screen  will change from  saying ``\texttt{SELECT SLOT}''  to saying
-``\texttt{ERASE  SLOT}.''   The  text   will  also   be  red   to  catch
-your attention.
+``\texttt{ERASE  SLOT}.''
 
 If  you're  \emph{sure}   you  want  to  erase  your   game  data,  then
 \emph{without}  letting go  of the  \textbf{Fire}  button, move  the joystick  up
-(toward  the TV).  You'll see  that the  slot changes  from ``\texttt{IN
-  USE}'' to ``\texttt{VACANT}'' \emph{immediately}.
+(toward the TV). Your game record will be deleted \emph{immediately}.
 
-\emph{Once your game record has been erased, you can not recover it from
-  the game, so think carefully before you erase it.}
+\emph{Once  your  game record  has  been  erased,  you can  not  recover
+  it \ifdefined\ATARIAGESAVE ever \else from the game\fi{}, so think
+  carefully before you erase it.}
 
 \subsection{Protecting Your Game Record}
 
 If  either of  your Difficulty  Switches is  in the  ``B'' (Beginner  or
-Novice) position, then you can't erase a game slot. \ifdefined\ATARIAGESAVE\else
-\emph{Tip: When  you connect your  memory device, check the  position of
-  those switches.} \fi
+Novice) position, then you can't erase a game slot.
 
 \ifdefined\TVSECAM
 
@@ -788,10 +750,6 @@ The green Dirtex Grizzard lives in the grass. It can learn these Moves:
   enemy's defend value.
 \item \texttt{LOAMY FEAR} --- may lower the enemy's attack value.
 \item \texttt{DUSTY EYES} --- may lower the enemy's defend value.
-\item \texttt{FIRST  AID} ---  heals a small  amount of  health, raising
-  your own hit points.
-\item \texttt{SIMPLE CURE} --- heals a bit larger amount of health.
-\item \texttt{COMMON CURE} --- heals even more health.
 \end{itemize}
 
 \fi
@@ -812,10 +770,6 @@ Moves:
   the enemy's defend ability.
 \item \texttt{GREAT MOJO}  --- causes some damage and  may also decrease
   the enemy's attack ability.
-\item \texttt{FIRST  AID} ---  heals a small  amount of  health, raising
-  your own hit points.
-\item \texttt{SIMPLE CURE} --- heals a bit larger amount of health.
-\item \texttt{COMMON CURE} --- heals even more health.
 \end{itemize}
 
 \ifdefined\DEMO\else
@@ -833,13 +787,20 @@ Airex is a teal Grizzard which lives in the trees. It can learn these Moves:
 \item \texttt{STEAL ATTACK} --- may lower the enemy's attack value.
 \item \texttt{STEAL DEFEND} --- may lower the enemy's defend value.
 \item \texttt{STEAL TURN} --- may put the enemy to sleep
+\end{itemize}
+
+\fi
+
+\section{Healing}
+
+Most Grizzards can learn healing moves as well. Some examples:
+
+\begin{itemize}
 \item \texttt{FIRST  AID} ---  heals a small  amount of  health, raising
   your own hit points.
 \item \texttt{SIMPLE CURE} --- heals a bit larger amount of health.
 \item \texttt{COMMON CURE} --- heals even more health.
 \end{itemize}
-
-\fi
 
 \section{Run Away}
 
@@ -906,13 +867,17 @@ but they have very strong defenses!
 are dangerous sheep  that are full of static electricity.  They roam the
 countryside, as sheep will do.
 
-\pagebreak
+\vspace{14pt}
 
 \lettrine[image=true,       lines=5, findent=3pt, nindent=3pt]{../Manual/Viking-Turtle.png}{Viking
   Turtles} are dangerous waterfront creatures that can be very dangerous
 to encounter.
 
+\ifdefined\ATARIAGESAVE
+\pagebreak
+\else
 \vspace{14pt}
+\fi
 
 \lettrine[image=true, lines=5, findent=3pt, nindent=3pt]{../Manual/Crazy-Fox.png}{Crazy Foxes} are
 likely to unleash a  great deal of pain. It's said  that they were never
@@ -950,6 +915,8 @@ You'll have to discover the others on your own. Here's a hint: There are
 more than 40 types of monsters that you can face.
 
 }
+
+\ifdefined\ATARIAGESAVE\else
 
 \chapter{Troubleshooting}
 
@@ -1009,15 +976,15 @@ You  should   not  be  able   to  reach  this  screen.   Please  contact
 additional assistance. Send the code  number that appears on this screen
 with your email.
 
+\ifdefined\ATARIAGESAVE\else
+
 \section{Pause button must be held down (7800)}
 
 This  is believed  to  be  a side  effect  of  certain multi-carts,  eg.
-PlusCart.   If  you   are  encountering   this  problem,   please  check
-\href{https://github.com/brpocock/grizzards/issues/182}{https://\-github.com/\-brpocock/\-grizzards/\-issues/\-182}
-for current information.
+PlusCart.  Note that  you can  press \textbf{Game  Select} to  view your
+Grizzard's stats and effectively pause the game as well.
 
-Note that  you can  press \textbf{Game Select}  to view  your Grizzard's
-stats and effectively pause the game as well.
+\fi
 
 \ifdefined\NOSAVE\else\ifdefined\ATARIAGESAVE\else
 
@@ -1041,100 +1008,18 @@ AtariVox device. \else with a MemCard or SaveKey device. \fi
 
 \fi
 
-\chapter{Technical Notes}
-
-The following notes are of interest to hackers only. You don't need to
-understand anything in this section to play \textit{Grizzards}.
-
-\section{Development Tools}
-
-The \textit{Grizzards} source code and development tools are available from
-\href{https://Star-Hope.org/games/Grizzards/}{https://Star-Hope\-.org/\-games/\-Grizzards/} 
-the \textit{Grizzards} web site.
-
 \ifdefined\NOSAVE
 
-\section{No-Save Version}
+\chapter{No-Save Version}
 
 This special  No-Save demo does not  allow you to save  your progress or
 catch Grizzards,  but it can  be used without  a memory device  (such as
 SaveKey, MemCard, or AtariVox). When you turn off power to your console,
 all progress is erased.
 
-\else
-
-\ifdefined\ATARIAGESAVE
-
-\section{Save to Cartridge Technology}
-
-This game uses the advanced  capabilities of AtariAge's cartridge system
-to   save  your   progress   to   an  EEPROM   chip   inside  the   game
-cartridge itself.
-
-\else
-
-\section{Game Record Slots}
-
-There are 3  logical game slots that  you can choose from  for the game.
-Each save game  slot takes up 4  blocks (256 bytes) of  storage space on
-your memory  device, for a  total of 12 blocks  for all three  save game
-slots. The following blocks are used:
-
-\ifdefined\DEMO
-
-\begin{enumerate}
-\item blocks \$c0-\$c3 (addresses \$3000-\$30ff)
-\item blocks \$c4-\$c7 (addresses \$3100-\$31ff)
-\item blocks \$c8-\$cb (addresses \$3200-\$32ff)
-\end{enumerate}
-
-These blocks are in the Scratchpad  area. This means that other programs
-might potentially disrupt or destroy your saved game record.
-
-The final version of this game will use a different set of memory blocks
-that  are  reserved   for  its  own  private  use,  so   this  won't  be
-a problem then.
-
-\else
-
-\begin{enumerate}
-\item blocks \$44-\$47 (addresses \$1100-\$11ff)
-\item blocks \$48-\$4b (addresses \$1200-\$12ff)
-\item blocks \$4c-\$4f (addresses \$1300-\$13ff)
-\end{enumerate}
-
-The addresses used by the Save  Game Slots are registered with AtariAge,
-so they won't conflict with any other games you might play.
-
-A deleted game can  sometimes be recovered if you have  a Harmony or Uno
-cartridge, or  a similar cartridge to  which you can upload  a ROM file.
-Visit the Grizzards web site at
-\href{https://Star-Hope.org/games/Grizzards/}{https://Star-Hope\-.org/\-games/\-Grizzards/}
-and download the  Unerase utility program. If you have  just erased your
-game's progress, you can probably recover it.
-
-You will also be able to find the Unerase utility in the PlusCart library.
-
 \fi
 
-
-\subsection{Portability}
-
-The save game records are in the same format for all \textit{Grizzards} game
-cartridges, regardless of the region for which they were saved.  This means
-that you can save your progress on an NTSC type system and then continue
-playing on a PAL or SECAM system, or vice-versa.
-
-\ifdefined\DEMO
-
-The save  game slots used by  this demo, however, are  distinct from the
-ones that will be used in the final game.
-
-\fi
-
-\fi % not AtariAge
-
-\fi % not no-save
+\fi % not AtariAge release
 
 \chapter{Credits}
 
