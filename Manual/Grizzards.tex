@@ -103,7 +103,7 @@ its moves to defend you and attack the monsters.
 \vspace{2in}\vfill
 
 This    is    the     \textit{Grizzards}    \ifdefined\NOSAVE    No-Save
-\fi\ifdefined\DEMO Demo \fi\ifdefined\ARIA\else Public Release\fi Player's Guide
+\fi\ifdefined\DEMO Demo \fi\ifdefined\ATARIAGESAVE\else Public Release\fi Player's Guide
 
 Copyright \copyright{} 2021-2022, Bruce-Robert Pocock
 
@@ -111,7 +111,7 @@ Copyright \copyright{} 2021-2022, Bruce-Robert Pocock
 
 This  version is  for systems  in \REGION{}  using the  \TV{} television
 standard. For Atari  Video Computer System CX-2600  (or Sears Tele-Games
-Video  Arcade or  Atari  7800 ProSystem)  \ifdefined\ARIA with  optional
+Video  Arcade or  Atari  7800 ProSystem)  \ifdefined\ATARIAGESAVE with  optional
 AtariVox device. \else \ifdefined\NOSAVE without \else
 with \fi AtariVox (or MemCard, or SaveKey) device. \fi
 
@@ -129,7 +129,7 @@ be different.
 \else
 
 Published by AtariAge.
-\ifdefined\ARIA\else
+\ifdefined\ATARIAGESAVE\else
 If  you  enjoy playing  \textif{Grizzards},  you  may be  interested  in
 purchasing a retail copy with built-in save-game memory from AtariAge.
 \fi
@@ -156,7 +156,7 @@ To play \textit{Grizzards}, you will need:
 \item A TV or video display
 \item        A        joystick         controller        (or        SEGA
   \ifdefined\TVNTSC{Genesis/}\fi{}MegaDrive gamepad)
-  \ifdefined\ARIA
+  \ifdefined\ATARIAGESAVE
   \item Optional: an AtariVox device with speakers or headphones
   \else
   \ifdefined\NOSAVE\else
@@ -170,7 +170,7 @@ To play \textit{Grizzards}, you will need:
 \begin{figure*}[b]
   \begin{center}
     \includegraphics[width=\columnwidth]{../Manual/AtariVox.jpeg}
-    \ifdefined\ARIA\else
+    \ifdefined\ATARIAGESAVE\else
     \includegraphics[width=\columnwidth]{../Manual/SaveKey.jpeg}
     \fi
   \end{center}
@@ -179,7 +179,7 @@ To play \textit{Grizzards}, you will need:
 
 Set up  your console with your  TV or video display.  Connect a joystick
 controller  (or SEGA  \ifdefined\TVNTSC{Genesis/}\fi{}MegaDrive gamepad)
-to the \emph{left} controller port. \ifdefined\ARIA, and (optionally) your
+to the \emph{left} controller port. \ifdefined\ATARIAGESAVE, and (optionally) your
 AtariVox device to the \emph{right} controller port. Make certain
 that  the \textbf{Power}  switch  is in  the \textbf{Off}  position  when connecting  your
 AtariVox device. \else\ifdefined\NOSAVE\else{}, and the
@@ -316,10 +316,10 @@ Select Slot screen.
 
 Press  the \textbf{Game  Select} switch  or move  the joystick  left and
 right to choose  a memory slot\footnote{Technical Note:  The Slot number
-  chosen here  is relative to  the \ifdefined\ARIA four \else  three \fi
+  chosen here  is relative to  the \ifdefined\ATARIAGESAVE four \else  three \fi
   save  game   slots  used  by  the   \textit{Grizzards}  game  program.
-  \ifdefined\ARIA\else Each save game slot actually occupies 4 blocks on
-  your memory device. \fi} for your game. There are \ifdefined\ARIA four
+  \ifdefined\ATARIAGESAVE\else Each save game slot actually occupies 4 blocks on
+  your memory device. \fi} for your game. There are \ifdefined\ATARIAGESAVE four
 \else three \fi memory slots possible. Press \textbf{Game Select} or the
 joystick again to  rotate through them. If someone has  already begun to
 play  \textit{Grizzards}  in  a  certain slot,  your  screen  will  show
@@ -408,7 +408,7 @@ join your party. A wild Grizzard looks like this:
 \end{center}
 
 At a  Grizzard Depot, you'll have  the option to swap  Grizzards in your
-party, with up to 30 total  Grizzards saved in your \ifdefined\ARIA save
+party, with up to 30 total  Grizzards saved in your \ifdefined\ATARIAGESAVE save
 file on the game cartridge. \else memory device. \fi
 Each Grizzard may have its own moves and skill scores.
 
@@ -448,7 +448,7 @@ Touch the Grizzard Depot on the map screen to enter it.
 \end{figure*}
 
 \ifdefined\NOSAVE\else
-Your progress  will \emph{immediately} be saved  to your \ifdefined\ARIA
+Your progress  will \emph{immediately} be saved  to your \ifdefined\ATARIAGESAVE
 game cartridge. \else memory device. \fi
 \fi
 
@@ -738,7 +738,7 @@ If  you're  \emph{sure}   you  want  to  erase  your   game  data,  then
 \subsection{Protecting Your Game Record}
 
 If  either of  your Difficulty  Switches is  in the  ``B'' (Beginner  or
-Novice) position, then you can't erase a game slot. \ifdefined\ARIA\else
+Novice) position, then you can't erase a game slot. \ifdefined\ATARIAGESAVE\else
 \emph{Tip: When  you connect your  memory device, check the  position of
   those switches.} \fi
 
@@ -984,7 +984,7 @@ there is a problem.
 From here, you can press the \textbf{Game Reset} switch to return to the
 Title Screen.
 
-\ifdefined\ARIA\else\ifdefined\NOSAVE\else
+\ifdefined\ATARIAGESAVE\else\ifdefined\NOSAVE\else
 
 \subsection{Red Sad Face Screen: Memory Device Needed}
 
@@ -1019,7 +1019,7 @@ for current information.
 Note that  you can  press \textbf{Game Select}  to view  your Grizzard's
 stats and effectively pause the game as well.
 
-\ifdefined\NOSAVE\else\ifdefined\ARIA\else
+\ifdefined\NOSAVE\else\ifdefined\ATARIAGESAVE\else
 
 \section{TV goes blank when entering Grizzard Depot}
 
@@ -1036,7 +1036,7 @@ hear the AtariVox announce the name of the game. If you don't, make sure
 that  the AtariVox  is connected  and the  speakers (or  headphones) are
 connected, powered on, and turned up.
 
-Naturally, there are  no voices when playing  \ifdefined\ARIA without an
+Naturally, there are  no voices when playing  \ifdefined\ATARIAGESAVE without an
 AtariVox device. \else with a MemCard or SaveKey device. \fi
 
 \fi
@@ -1063,12 +1063,12 @@ all progress is erased.
 
 \else
 
-\ifdefined\ARIA
+\ifdefined\ATARIAGESAVE
 
 \section{Save to Cartridge Technology}
 
-This  game uses  the advanced  capabilities of  AtariAge's \textit{AtariAge}
-cartridge system to save your progress to an EEPROM chip inside the game
+This game uses the advanced  capabilities of AtariAge's cartridge system
+to   save  your   progress   to   an  EEPROM   chip   inside  the   game
 cartridge itself.
 
 \else
