@@ -81,6 +81,8 @@ NPC_TakeArtifact1:
           .SignText "ARTIFACTS.  "
           .SignText "TAKE THIS TO"
           .SignText "THE TUNNELS."
+          .byte ModeSignpostPoints
+          .word $0020
           .byte ModeSignpostSetFlag, 18
 ;;; 7
 NPC_TakeArtifact2:
@@ -91,6 +93,8 @@ NPC_TakeArtifact2:
           .SignText "ARTIFACTS.  "
           .SignText "TAKE THIS TO"
           .SignText "THE TUNNELS."
+          .byte ModeSignpostPoints
+          .word $0025
           .byte ModeSignpostSetFlag, 17
 ;;; 8
 NPC_TookArtifact:
