@@ -15,8 +15,7 @@ FetchGrizzardMove:
           adc Temp
           tax
           lda GrizzardMoves, x
-          sta Temp
-          rts
+          tax
 FetchedRunAway:
           stx Temp
           rts
