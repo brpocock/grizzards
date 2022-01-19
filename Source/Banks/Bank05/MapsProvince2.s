@@ -42,41 +42,41 @@ MapColors:
           .colors COLRED, COLBROWN
           .colors COLRED, COLBROWN
           ;; 30
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
+          .colors COLSEAFOAM, COLGREY
+          .colors COLINDIGO, COLGREY
+          .colors COLMAGENTA, COLGREY
+          .colors COLORANGE, COLGREY
+          .colors COLBLUE, COLBROWN
+          .colors COLGOLD, COLGREY
+          .colors COLSPRINGGREEN, COLGREY
+          .colors COLTEAL, COLGREY
+          .colors COLBROWN, COLGREY
+          .colors COLBLUE, COLBROWN
           ;; 40
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
+          .colors COLGREEN, COLGREEN
+          .colors COLGREEN, COLGREEN
+          .colors COLGREEN, COLGREEN
+          .colors COLGREEN, COLGREEN
+          .colors COLGREEN, COLGREEN
+          .colors COLGREEN, COLGREEN
+          .colors COLGREEN, COLGREEN
+          .colors COLGREEN, COLGREEN
+          .colors COLGREEN, COLBROWN
+          .colors COLGREEN, COLBROWN
           ;; 50
-          .colors COLRED, COLBROWN
+          .colors COLGREEN, COLBROWN
           .colors COLBLUE, COLBROWN
           .colors COLBLUE, COLBROWN
           .colors COLBLUE, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
+          .colors COLSEAFOAM, COLSEAFOAM
+          .colors COLINDIGO, COLINDIGO
+          .colors COLMAGENTA, COLMAGENTA
+          .colors COLORANGE, COLORANGE
+          .colors COLGOLD, COLGOLD
+          .colors COLSPRINGGREEN, COLSPRINGGREEN
           ;; 60
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
+          .colors COLTEAL, COLTEAL
+          .colors COLBROWN, COLBROWN
           .colors COLCYAN, COLCYAN
           .colors COLCYAN, COLCYAN
           .colors COLCYAN, COLCYAN
@@ -134,7 +134,7 @@ MapLinks:
           .byte 43, 33, 39, 37
           .byte $ff, 34, $ff, 38
           ;; 40
-          .byte 44, 30, 36, $ff
+          .byte 44, 35, 41, $ff
           .byte 45, 36, 42, 40
           .byte 46, 37, 43, 41
           .byte 47, 38, $ff, 42
@@ -172,25 +172,25 @@ MapLinks:
 ;;; Note that it can be reused, so the same basic layout, potentially
 ;;; in different colors, can appear in several places.
           ;; 0
-          _ := ( Map_SouthDock, Map_SouthShoreCorner, Map_DoorBottom, Map_DoorTopBottom, Map_DoorTop )
+          _ := ( Map_SouthDock, Map_SouthShore, Map_DoorBottom, Map_DoorTopBottom, Map_DoorTop )
           ;; 5
           _ ..= ( Map_DoorBottom, Map_OpenBottomDoorTop, Map_ClosedSides, Map_OpenTopDoorSides, Map_EWOval )
           ;; 10
           _ ..= ( Map_DoorBottom, Map_DoorBottomSplit, Map_DoorTopSplit, Map_OpenSidesSplit, Map_SouthShore )
           ;; 15
-          _ ..= ( Map_SouthShore, Map_SouthShore, Map_SouthShore, Map_NorthGate, Map_NorthWall )
+          _ ..= ( Map_SouthShore, Map_SouthShore, Map_SouthShore, Map_NorthGate, Map_NorthCliff )
           ;; 20
-          _ ..= ( Map_NorthWall, Map_NorthGate, Map_NorthWall, Map_NorthSouthWall, Map_FourWay )
+          _ ..= ( Map_NorthCliff, Map_NorthGate, Map_NorthCliff, Map_NorthCliffSouthWall, Map_FourWay )
           ;; 25
           _ ..= ( Map_EWPassage, Map_EWPassage, Map_FourWay, Map_EWLarge, Map_EWLarge )
           ;; 30
-          _ ..= ( Map_HouseSouthWall, Map_HouseSouthWall, Map_HouseSouthWall, Map_HouseSouthGate, Map_SouthWallCorners )
+          _ ..= ( Map_House, Map_HouseSouthWall, Map_HouseSouthWall, Map_House, Map_SouthWallCorners )
           ;; 35
           _ ..= ( Map_House, Map_House, Map_House, Map_House, Map_NorthWallCorners )
           ;; 40
-          _ ..= ( Map_NorthWallCorners, Map_NorthWallCorners, Map_NorthGateCorners, Map_NorthWallCorners, Map_EWLarge )
+          _ ..= ( Map_NorthCliffTown, Map_NorthCliffTown, Map_NorthGateCorners, Map_NorthCliffTown, Map_EWLarge )
           ;; 45
-          _ ..= ( Map_EWPassage, Map_FourWay, Map_EWLarge, Map_SouthWall, Map_SouthGate )
+          _ ..= ( Map_EWPassage, Map_FatFourWay, Map_EWLarge, Map_SouthWall, Map_SouthGate )
           ;; 50
           _ ..= ( Map_SouthWall, Map_NorthShore, Map_NorthShore, Map_NorthShore, Map_InHouse )
           ;; 55
@@ -215,7 +215,7 @@ MapSides:
           .byte 0, 0, 0, $80, $40
           ;; 10
           .byte 0, $80, 0, $40, 0
-          .byte 0, 0, 0, 0, 0
+          .byte 0, 0, $80, $40, 0
           ;; 20
           .byte 0, 0, $80, 0, $40
           .byte 0, 0, 0, 0, $80
@@ -486,7 +486,7 @@ SpriteList:
 
           ;; Room 51
           .byte $ff, SpriteFixed
-          .byte $b0, $27
+          .byte $b0, $2a
           .byte SpritePerson, 40 ; fishing
 
           .byte 0
