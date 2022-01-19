@@ -156,6 +156,8 @@ NPC_TrebleVillage:
           .SignText "THE MONSTERS"
           .SignText "KEEP GETTING"
           .SignText "CLOSER TO US"
+          .byte ModeSignpostPoints
+          .word $0003
           .byte ModeSignpostSetFlag, 19
 
 ;;; 13
