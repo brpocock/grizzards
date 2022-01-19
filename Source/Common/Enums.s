@@ -69,6 +69,7 @@
           SoundFootstep = 11
           SoundRoar = 12
           SoundDepot = 13
+          SoundBlip = 14
 ;;; 
 ;;; Status Effects for player or enemies 
           StatusSleep = $01

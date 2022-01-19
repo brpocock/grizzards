@@ -1,13 +1,14 @@
 ;;; SoundEffects.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
+SoundTable:        .block
           ;; Don't forget to update the Enums.s table as well
-          SoundIndex = (Drone, Chirp, Deleted, Happy, Bump, ErrorSound, SweepUp, SongAtariToday, SongVictory, SongGameOver, Footstep, BearRoar, SongDepotJingle)
+          SoundIndex = (Drone, Chirp, Deleted, Happy, Bump, ErrorSound, SweepUp, SongAtariToday, SongVictory, SongGameOver, Footstep, BearRoar, SongDepotJingle, Blip)
 
-          SoundCount = len(SoundIndex)
+          Count = len(SoundIndex)
 
-SoundIndexH:        .byte >SoundIndex
-SoundIndexL:        .byte <SoundIndex
+IndexH:        .byte >SoundIndex
+IndexL:        .byte <SoundIndex
 
           ;; Format:
           ;; First byte: AUDV0 << 4 | AUDC0
@@ -16,6 +17,7 @@ SoundIndexL:        .byte <SoundIndex
           ;; The .sound macro takes duration in jiffies and converts to
           ;; frames for PAL/SECAM
 
+
 Drone:
           .sound $8, $1, $f, 60, 0
           .sound 0, 0, 0, 0, 1
@@ -23,7 +25,12 @@ Drone:
 Chirp:
           .sound $f, $4, $2, 2, 0
           .sound 0, 0, 0, 0, 1
-          
+
+Blip:
+          .sound $f, $4, $2, 2, 0
+          .sound $f, $8, $2, 2, 0
+          .sound 0, 0, 0, 0, 1
+
 Deleted:
           .sound $f, $8, $1f, 20, 0
           .sound $f, $1, $8, 10, 1
@@ -40,6 +47,7 @@ Footstep:
 Bump:
           .sound $8, $1, $f, 5, 0
           .sound 0, 0, 0, 0, 1
+
 
 ErrorSound:
           .sound $8, $1, $0f, 10, 0
@@ -65,3 +73,5 @@ BearRoar:
           .sound $d, $8, $14, 30, 0
           .sound $f, $8, $10, 20, 0
           .sound 0, 0, 0, 0, 1
+
+          .bend

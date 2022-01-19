@@ -9,16 +9,16 @@ PlaySFX: .block
           beq EndOfSound
 
 PlayNewSound:
-          cmp #SoundCount + 1
+          cmp #SoundTable.Count + 1
           blt PlayNewSoundReally
 
           lda #SoundDeleted     ; replace incorrect sounds with the toilet flush
 
 PlayNewSoundReally:
           tax                   ; NextSound (index)
-          lda SoundIndexL - 1, x
+          lda SoundTable.IndexL - 1, x
           sta CurrentSound
-          lda SoundIndexH - 1, x
+          lda SoundTable.IndexH - 1, x
           sta CurrentSound + 1
           lda #0
           sta NextSound

@@ -241,6 +241,9 @@ DrawMonsterLoop:
           sty GRP1
           rts
 ;;; 
+
+          ;; align DrawNothing
+          .align $20, $ea
 DrawNothing:
           lda # 0
           sta GRP0

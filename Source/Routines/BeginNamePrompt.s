@@ -46,6 +46,11 @@ FirstTime:
           sta COLUP0
           sta COLUP1
           .ldacolu COLBLUE, $e
+          ldx NameEntryPosition
+          cpx # 5
+          blt +
+          .ldacolu COLPURPLE, $e
++
           sta COLUPF
 
           ldx # 6
@@ -116,6 +121,9 @@ ButtonPressed:
           cpx # 5
           beq Submit
 
+          lda # SoundBlip
+          sta NextSound
+
           inc NameEntryPosition
           inx
           lda NameEntryBuffer, x
@@ -150,7 +158,7 @@ LetterDec:
           gne Done
 
 CursorMoveLeft:
-          lda #SoundBump
+          lda #SoundBlip
           
           dex
           bpl +
@@ -162,11 +170,12 @@ CursorMoveLeft:
           jmp Done
 
 CursorMoveRight:
-          lda #SoundBump
+          lda #SoundBlip
 
           inx
           cpx # 5
           blt +
+          beq +
           lda # 0
           ldx # 5
 +
