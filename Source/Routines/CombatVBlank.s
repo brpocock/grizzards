@@ -74,13 +74,13 @@ CheckStick:
 
           and #P0StickUp
           bne DoneStickUp
-          dex
           lda CombatMajorP
           beq CanSelectMoveUp
-          cpx # 0
+          dex
           beq WrapMoveForUp
 
 CanSelectMoveUp:
+          dex
           bpl DoneStickUp
 WrapMoveForUp:
           ldx # 8
