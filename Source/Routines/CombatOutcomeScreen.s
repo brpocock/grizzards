@@ -9,7 +9,12 @@ CombatOutcomeScreen:          .block
 
           lda MoveHitMiss
           beq SoundForMiss
+          lda MoveHP
+          bmi SoundForHeal
           lda #SoundHit
+          gne +
+SoundForHeal:
+          lda #SoundHappy
           gne +
 SoundForMiss:
           lda #SoundMiss
