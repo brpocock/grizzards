@@ -85,7 +85,7 @@ Sign_SailBackToTreble:
           .SignText "TO TREBLE   "
           .SignText "NOW.        "
           .SignText "            "
-          .byte ModeSignpostWarp, 0, 1
+          .byte ModeSignpostWarp, 0, 19
 
 ;;; 97
 Sign_StayInPortLion:

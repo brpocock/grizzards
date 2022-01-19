@@ -31,7 +31,7 @@ MapColors:
           .colors COLGREEN, COLSPRINGGREEN
           .colors COLTURQUOISE, COLGRAY
           .colors COLTURQUOISE, COLGRAY
-          .colors COLBLUE, COLGRAY
+          .colors COLBLUE, COLBROWN
           ;; 20
           .colors COLBLUE, COLGRAY
           .colors COLINDIGO, COLBLUE
@@ -84,7 +84,7 @@ MapColors:
 ;;; Links up, down, left, right are map indices in this bank
 MapLinks:
           .byte $ff, $ff, $ff, $ff
-          .byte $ff, 7, $ff, 2
+          .byte $ff, 7, 19, 2
           .byte $ff, $ff, 1, 3
           .byte $ff, $ff, 2, 4
           .byte $ff, $ff, 3, 5
@@ -104,10 +104,10 @@ MapLinks:
           .byte 10, 16, 14, 48
           .byte 15, $ff, $ff, $ff
           .byte 14, $ff, 18, $ff
-          .byte $ff, 23, 19, 17
-          .byte $ff, $ff, 20, 18
+          .byte $ff, 23, 20, 17
+          .byte $ff, $ff, $ff, 1
           ;; 20
-          .byte $ff, $ff, $ff, 19
+          .byte $ff, $ff, $ff, 18
           .byte $ff, 24, 23, 22
           .byte $ff, $ff, 21, 23
           .byte 18, 26, 22, 21
@@ -213,7 +213,7 @@ MapRLEH:  .byte >MapRLE
 ;;; reflected mode
 ;;; $80 = left, $40 = right ball.
 MapSides:
-          .byte 0, $80, 0, 0, 0
+          .byte 0, 0, 0, 0, 0
           .byte 0, $40, 0, $80, 0
           ;; 10
           .byte 0, 0, 0, 0, 0
@@ -221,7 +221,7 @@ MapSides:
           ;; block off area to right of screen 15
           .byte $40, $40, $40, 0, $80
           .else
-          .byte 0, $40, $40, 0, 0
+          .byte 0, $40, $40, 0, $80
           .fi
           ;; 20
           .byte $80, 0, 0, 0, 0
@@ -254,10 +254,6 @@ SpriteList:
           .byte 0               ; end of list
 
           ;; Room 1
-          .byte $ff, SpriteFixed
-          .byte $3c, $27
-          .byte SpritePerson, 2 ; there are tunnels in the south
-
           .byte 2, SpriteWander
           .byte $bd, $21
           .byte SpriteCombat, 2
@@ -265,10 +261,6 @@ SpriteList:
           .byte 3, SpriteWander
           .byte $7b, $2c
           .byte SpriteCombat, 3
-
-          .byte $ff, SpriteFixed
-          .byte $3c, $20
-          .byte SpriteSign, 13  ; Treble Docks to Port Lion
 
           .byte 0               ; end of list
 
@@ -532,6 +524,14 @@ SpriteList:
           .byte 0
 
           ;; Room 19
+          .byte $ff, SpriteWander
+          .byte $3c, $27
+          .byte SpritePerson, 2 ; there are tunnels in the south
+
+          .byte $ff, SpriteFixed
+          .byte $3c, $20
+          .byte SpriteSign, 13  ; Treble Docks to Port Lion
+
           .byte 0
 
           ;; Room 20
