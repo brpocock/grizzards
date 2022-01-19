@@ -48,8 +48,8 @@ MapColors:
           .colors COLMAGENTA, COLBROWN
           .colors COLMAGENTA, COLBROWN
           .colors COLMAGENTA, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
+          .colors COLRED, COLGRAY
+          .colors COLGREEN, COLGRAY
           .colors COLRED, COLBROWN
           .colors COLORANGE, COLBROWN
           .colors COLORANGE, COLBROWN
@@ -58,8 +58,8 @@ MapColors:
           .colors COLMAGENTA, COLBROWN
           .colors COLRED, COLBROWN
           .colors COLORANGE, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
+          .colors COLYELLOW, COLGRAY
+          .colors COLBLUE, COLGRAY
           .colors COLORANGE, COLBROWN
           .colors COLORANGE, COLBROWN
           .colors COLGRAY, COLGRAY ; lost mines "lobby"
@@ -186,9 +186,9 @@ MapLinks:
           ;; 30
           _ ..= (Map_FullTop, Map_ClosedNorth, Map_OpenNorth, Map_ClosedNorth, Map_Island)
           ;; 35
-          _ ..= (Map_Clear, Map_Clear, Map_BottomLine, Map_BottomLine, Map_BottomLine)
+          _ ..= (Map_House, Map_Clear, Map_BottomLine, Map_BottomLine, Map_BottomLine)
           ;; 40
-          _ ..= (Map_FullTop, Map_Clear, Map_BottomLine, Map_Clear, Map_Clear)
+          _ ..= (Map_FullTop, Map_Clear, Map_BottomLine, Map_House, Map_House)
           ;; 45
           _ ..= (Map_BottomLine, Map_BottomLine, Map_SouthGlobe, Map_Bow, Map_Arc)
           ;; 50
@@ -801,23 +801,23 @@ SpriteList:
           .byte SpritePerson, 16 ; broken radio
 
           .byte $ff, SpriteWander
-          .byte 128, 32
-          .byte SpritePerson, 21 ; lost pendant
-
-          .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpritePerson, 10 ; random villager
 
           .byte 0
 
           ;; Room 44
+          .byte $ff, SpriteWander
+          .byte 128, 32
+          .byte SpritePerson, 21 ; lost pendant
+
+          .byte 0
+
+          ;; Room 45
           .byte 40, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 71 ; three foxes
           
-          .byte 0
-
-          ;; Room 45
           .byte 41, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 71 ; three foxes
