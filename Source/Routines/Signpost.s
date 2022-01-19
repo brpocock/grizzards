@@ -324,8 +324,6 @@ GetPoints:
           inc Score + 2
 +
           cld
-          lda # SoundVictory
-          sta NextSound
           lda SignpostText
           clc
           .Add16 SignpostText, # 3
