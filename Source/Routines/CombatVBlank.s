@@ -97,7 +97,7 @@ CheckStick:
           beq CanSelectMoveUp
           dex
           beq WrapMoveForUp
-
+          gne DoneStickUp
 CanSelectMoveUp:
           dex
           bpl DoneStickUp
