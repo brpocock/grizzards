@@ -4,6 +4,7 @@
 "Cart.Name" "Grizzards Demo"
 "Cart.Rarity" "Homebrew"
 "Cart.Type" "F4"
+"Cart.Url" "https://star-hope.org/games/Grizzards"
 "Controller.Left" "GENESIS"
 "Controller.Right" "ATARIVOX"
 "Display.Format" "@@TV@@"

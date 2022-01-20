@@ -25,21 +25,22 @@ DoAutoMove:
 MaybeDoPlayerMove:
           lda StatusFX
           .BitBit StatusSleep
-          bne DoPlayerSleep
-          and #StatusMuddle
-          bne DoPlayerMuddled
-          geq CheckStick
+          beq NotPlayerSleep
 
 DoPlayerSleep:
           jsr Random
           bpl +
           lda StatusFX
-          ora #~StatusSleep
+          and #~StatusSleep
           sta StatusFX
 +
           lda #ModeCombatNextTurn
           sta GameMode
           gne CheckStick
+
+NotPlayerSleep:
+          and #StatusMuddle
+          beq CheckStick
 
 DoPlayerMuddled:
           jsr Random
@@ -48,13 +49,32 @@ DoPlayerMuddled:
           lda BitMask, x
           bit MovesKnown
           beq DoPlayerMuddled
+          inx
           stx MoveSelection
           jsr Random
-          bpl CheckStick
+          bpl SetMuddledMove
           lda StatusFX
-          ora #~StatusMuddle
+          and #~StatusMuddle
           sta StatusFX
           jmp CheckStick
+
+SetMuddledMove:
+PickMonster:
+          jsr Random
+          and #$07
+CheckMonsterPulse:
+          cmp # 6
+          bge PickMonster
+          tax
+          lda MonsterHP, x
+          bne GotMonster
+          inx
+          gne CheckMonsterPulse
+GotMonster:
+          stx MoveTarget
+          lda #ModeCombatDoMove
+          sta GameMode
+          jmp StickDone
 
 DoMonsterMove:
           jsr Random
@@ -77,7 +97,7 @@ CheckStick:
           beq CanSelectMoveUp
           dex
           beq WrapMoveForUp
-
+          gne DoneStickUp
 CanSelectMoveUp:
           dex
           bpl DoneStickUp
@@ -102,9 +122,7 @@ DoneStickDown:
           stx MoveSelection
 
 StickLeftRight:
-          .FarJSR TextBank, ServiceFetchGrizzardMove
-          ldx Temp
-          lda MoveDeltaHP, x
+          lda CombatMoveDeltaHP
           bpl ChooseTarget
 
 SelfTarget:
@@ -114,13 +132,28 @@ SelfTarget:
 
 ChooseTarget:
           lda CombatMajorP
-          beq +
+          beq ChooseMinorTarget
           ldx # 0
           stx MoveTarget
-+
+          geq StickDone
+
+ChooseMinorTarget:
           ldx MoveTarget
           bne +
-          jsr CombatMainScreen.TargetFirstMonster
+
+          ;; copied from CombatMainScreen
+TargetFirstMonster:
+          ldx #0
+-
+          lda MonsterHP, x
+          bne TargetFirst
+          inx
+          cpx # 5
+          bne -
+TargetFirst:
+          inx
+          stx MoveTarget
+
 +
           cpx # 7
           blt +

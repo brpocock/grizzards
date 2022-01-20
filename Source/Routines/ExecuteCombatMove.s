@@ -30,7 +30,7 @@ MonsterAttacks:
           .BitBit StatusAttackDown
           beq +
           tya
-          ror a
+          lsr a
           tay
 +
           lda EnemyStatusFX - 1, x
@@ -40,8 +40,7 @@ MonsterAttacks:
           asl a
           tay
 +
-          tya
-          sta MoveHP            ; temporarily effective Attack score
+          sty MoveHP            ; temporarily effective Attack score
 
           jsr Random
           and #$0f
@@ -176,9 +175,9 @@ MonsterHealsCommon:
           ldx WhoseTurn
           clc
           adc MonsterHP - 1, x
-          cmp # 99
+          cmp # 199
           blt +
-          lda # 99
+          lda # 199
 +
           sta MonsterHP - 1, x
           lda MoveHP

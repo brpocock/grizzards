@@ -15,14 +15,11 @@
           .include "DrawMonsterGroup.s"
           .include "DrawGrizzard.s"
 
-          .include "MonsterArt.s"
-          .include "GrizzardImages.s"
-          .include "GrizzardArt.s"
-          .include "CombatSpriteTables.s"
-
           .include "48Pixels.s"
           .include "VSync.s"
           .include "VBlank.s"
+
+          .include "CombatVBlank.s"
           
           .include "Prepare48pxMobBlob.s"
           .include "Random.s"
@@ -30,6 +27,8 @@
           .include "BeginNamePrompt.s"
           
 DoLocal:
+          cpy #ServiceCombatVBlank
+          beq CombatVBlank
           cpy #ServiceWrite12Chars
           beq Write12Chars
           cpy #ServiceAttractStory
@@ -50,4 +49,9 @@ DoLocal:
 ShowPointerText:
           jsr CopyPointerText
           .FarJMP TextBank, ServiceDecodeAndShowText ; tail call
+
+          .include "MonsterArt.s"
+          .include "GrizzardImages.s"
+          .include "GrizzardArt.s"
+          .include "CombatSpriteTables.s"
 

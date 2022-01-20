@@ -81,3 +81,9 @@ maximum hit points
 
 CriticalHit:
 it's a critical hit
+
+Sleeping:
+Your Grizzard is sleeping
+
+Muddled:
+Your Grizzard is muddled

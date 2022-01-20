@@ -12,7 +12,11 @@
           MonsterPhrase = Phrase_Monster6_0
 
 DoVBlankWork:
-          .include "CombatVBlank.s"
+          .FarJSR TextBank, ServiceFetchGrizzardMove
+          ldx Temp
+          lda MoveDeltaHP, x
+          sta CombatMoveDeltaHP
+          .FarJMP CombatServicesBank, ServiceCombatVBlank ; tail call
 DoLocal:
           .include "CombatSetup.s"
           ;; falls through to:
