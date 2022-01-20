@@ -137,9 +137,11 @@
           MapServicesBank = $01
           .if DEMO
           AnimationsBank = $03
+          CombatServicesBank = $03
           EndAnimationsBank = $ff
           .else
           AnimationsBank = $0f
+          CombatServicesBank = $0f
           EndAnimationsBank = $0e
           .fi
           TextBank = $02
@@ -203,6 +205,10 @@
           ServiceInquire = $24
           ServiceBeginName = $2a
 
+;;; Combat services (stuffed into same bank as animation)
+
+          ServiceCombatVBlank = $2b
+          
 ;;; End of game animation services
 
           ServiceRevealBear = $27

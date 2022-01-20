@@ -7,7 +7,19 @@ BackToPlayer:
           sta MoveSelection
           lda #ModeCombat
           sta GameMode
-          jsr TargetFirstMonster
+          ;; copied into CombatVBlank also
+TargetFirstMonster:
+          ldx #0
+-
+          lda MonsterHP, x
+          bne TargetFirst
+          inx
+          cpx # 5
+          bne -
+TargetFirst:
+          inx
+          stx MoveTarget
+
           .WaitScreenBottom
           jmp LoopFirst
 ;;; 
@@ -278,19 +290,5 @@ HealthyPF1:
           .byte %00011111
           .byte %00111111
           .byte %01111111
-
-TargetFirstMonster:
-          ldx #0
--
-          lda MonsterHP, x
-          bne TargetFirst
-          inx
-          cpx # 5
-          bne -
-TargetFirst:
-          inx
-          stx MoveTarget
-
-          rts
 
           .bend

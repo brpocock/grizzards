@@ -103,9 +103,7 @@ DoneStickDown:
           stx MoveSelection
 
 StickLeftRight:
-          .FarJSR TextBank, ServiceFetchGrizzardMove
-          ldx Temp
-          lda MoveDeltaHP, x
+          lda CombatMoveDeltaHP
           bpl ChooseTarget
 
 SelfTarget:
@@ -115,13 +113,28 @@ SelfTarget:
 
 ChooseTarget:
           lda CombatMajorP
-          beq +
+          beq ChooseMinorTarget
           ldx # 0
           stx MoveTarget
-+
+          geq StickDone
+
+ChooseMinorTarget:
           ldx MoveTarget
           bne +
-          jsr CombatMainScreen.TargetFirstMonster
+
+          ;; copied from CombatMainScreen
+TargetFirstMonster:
+          ldx #0
+-
+          lda MonsterHP, x
+          bne TargetFirst
+          inx
+          cpx # 5
+          bne -
+TargetFirst:
+          inx
+          stx MoveTarget
+
 +
           cpx # 7
           blt +
