@@ -30,7 +30,7 @@ MonsterAttacks:
           .BitBit StatusAttackDown
           beq +
           tya
-          ror a
+          lsr a
           tay
 +
           lda EnemyStatusFX - 1, x
