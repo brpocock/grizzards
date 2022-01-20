@@ -10,12 +10,11 @@ CombatVBlank:       .block
           rts
 
 CombatLogic:
+          lda AlarmCountdown
+          beq DoAutoMove
 
           lda WhoseTurn
           beq CheckStick
-
-          lda AlarmCountdown
-          beq DoAutoMove
 
           .SkipLines KernelLines - 180
           jmp CheckSwitches
@@ -26,21 +25,22 @@ DoAutoMove:
 MaybeDoPlayerMove:
           lda StatusFX
           .BitBit StatusSleep
-          bne DoPlayerSleep
-          and #StatusMuddle
-          bne DoPlayerMuddled
-          geq CheckStick
+          beq NotPlayerSleep
 
 DoPlayerSleep:
           jsr Random
           bpl +
           lda StatusFX
-          ora #~StatusSleep
+          and #~StatusSleep
           sta StatusFX
 +
           lda #ModeCombatNextTurn
           sta GameMode
           gne CheckStick
+
+NotPlayerSleep:
+          and #StatusMuddle
+          beq CheckStick
 
 DoPlayerMuddled:
           jsr Random
@@ -49,13 +49,32 @@ DoPlayerMuddled:
           lda BitMask, x
           bit MovesKnown
           beq DoPlayerMuddled
+          inx
           stx MoveSelection
           jsr Random
-          bpl CheckStick
+          bpl SetMuddledMove
           lda StatusFX
-          ora #~StatusMuddle
+          and #~StatusMuddle
           sta StatusFX
           jmp CheckStick
+
+SetMuddledMove:
+PickMonster:
+          jsr Random
+          and #$07
+CheckMonsterPulse:
+          cmp # 6
+          bge PickMonster
+          tax
+          lda MonsterHP, x
+          bne GotMonster
+          inx
+          gne CheckMonsterPulse
+GotMonster:
+          stx MoveTarget
+          lda #ModeCombatDoMove
+          sta GameMode
+          jmp StickDone
 
 DoMonsterMove:
           jsr Random

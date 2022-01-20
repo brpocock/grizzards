@@ -7,6 +7,19 @@ BackToPlayer:
           sta MoveSelection
           lda #ModeCombat
           sta GameMode
+          lda # 4
+          sta AlarmCountdown
+          lda StatusFX
+          .BitBit StatusSleep
+          beq NotAsleep1
+          .SetUtterance Phrase_Sleeping
+
+NotAsleep1:
+          and #StatusMuddle
+          beq NotMuddled1
+          .SetUtterance Phrase_Muddled
+
+NotMuddled1:
           ;; copied into CombatVBlank also
 TargetFirstMonster:
           ldx #0
@@ -180,6 +193,34 @@ DoneHealth:
 PlayerChooseMove:
           jsr Prepare48pxMobBlob
 
+          lda StatusFX
+          .BitBit StatusSleep
+          beq NotAsleep
+Asleep:
+          .ldacolu COLORANGE, $e
+          sta COLUP0
+          sta COLUP1
+          .SetPointer SleepsText
+          jsr CopyPointerText
+          .FarJSR TextBank, ServiceDecodeAndShowText
+          jmp ScreenDone
+
+NotAsleep:
+          and #StatusMuddle
+          beq NotMuddled
+Muddled:
+          .ldacolu COLGRAY, $e
+          sta COLUP0
+          sta COLUP1
+          .SetPointer MuddleText
+          jsr CopyPointerText
+          .FarJSR TextBank, ServiceDecodeAndShowText
+          lda GameMode
+          cmp #ModeCombatDoMove
+          beq MoveOK
+          jmp ScreenDone
+
+NotMuddled:
           ldx MoveSelection
           bne NotRunAway
           .ldacolu COLRED , $a
@@ -201,11 +242,13 @@ ShowSelectedMove:
 
           .FarJSR TextBank, ServiceShowMove
 
+UserControls:
           lda NewButtons
           beq ScreenDone
           and #PRESSED
           bne ScreenDone
 
+GoDoMove:
           ldx MoveSelection
           beq RunAway
           dex
@@ -224,6 +267,8 @@ DoUseMove:
           lda MonsterHP - 1, x
           beq MoveNotOK
 MoveOK:
+          lda #ModeCombat
+          sta GameMode
           lda #SoundChirp
           sta NextSound
           jmp CombatAnnouncementScreen
@@ -242,19 +287,18 @@ RunAway:
 ScreenDone:
 RunningAway:
           .if TV == NTSC
-          stx WSYNC
-          .fi
-          .if TV == NTSC
-          stx WSYNC
-          stx WSYNC
+          .SkipLines 3
           .fi
 
           lda GameMode
           cmp #ModeCombat
           bne Leave
+GoLoop:
           jmp Loop
 
 Leave:
+          cmp #ModeCombatDoMove
+          beq GoLoop
           cmp #ModeMap
           bne +
           .SkipLines 32
@@ -269,6 +313,8 @@ Leave:
 +
           cmp #ModeCombatAnnouncement
           beq CombatAnnouncementScreen
+          cmp #ModeCombatNextTurn
+          beq ExecuteCombatMove.NextTurn
           brk
 ;;; 
 HealthyPF2:
@@ -290,5 +336,10 @@ HealthyPF1:
           .byte %00011111
           .byte %00111111
           .byte %01111111
+
+SleepsText:
+          .MiniText "SLEEPS"
+MuddleText:
+          .MiniText "MUDDLE"
 
           .bend

@@ -36,6 +36,7 @@
           ModeCombatNextTurn = $45
           ModeLearntMove = $46
           ModeLevelUp = $47
+          ModeCombatDoMove = $48
 
           ModeGrizzardDepot = $50
 
