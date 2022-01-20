@@ -400,13 +400,6 @@ HPLevelUpDone:
           sta Temp
           jsr LevelUp
 
-          .if NTSC == TV
-          ;; Strip a row off the timer because voodoo
-          ldx INTIM
-          dex
-          stx TIM64T
-          .fi
-
 NoLevelUp:
 WonReturnToMap:
           jmp CombatVictoryScreen
