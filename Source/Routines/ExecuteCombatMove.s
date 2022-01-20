@@ -40,8 +40,7 @@ MonsterAttacks:
           asl a
           tay
 +
-          tya
-          sta MoveHP            ; temporarily effective Attack score
+          sty MoveHP            ; temporarily effective Attack score
 
           jsr Random
           and #$0f
