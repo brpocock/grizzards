@@ -176,9 +176,9 @@ MonsterHealsCommon:
           ldx WhoseTurn
           clc
           adc MonsterHP - 1, x
-          cmp # 99
+          cmp # 199
           blt +
-          lda # 99
+          lda # 199
 +
           sta MonsterHP - 1, x
           lda MoveHP
