@@ -77,6 +77,16 @@ GotMonster:
           jmp StickDone
 
 DoMonsterMove:
+          ldx WhoseTurn
+          dex
+          lda EnemyStatusFX, x
+          and #StatusSleep
+          beq MonsterMoves
+          lda #ModeCombatNextTurn
+          sta GameMode
+          gne CheckStick
+
+MonsterMoves:
           jsr Random
           and #$03
           sta MoveSelection
