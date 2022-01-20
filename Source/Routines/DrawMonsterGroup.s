@@ -241,25 +241,6 @@ DrawMonsterLoop:
           sty GRP1
           rts
 ;;; 
-
-          ;; align DrawNothing
-          .align $20, $ea
-DrawNothing:
-          lda # 0
-          sta GRP0
-          stx WSYNC
-          .SleepX 71
-          sta HMOVE
-          .NoPageCrossSince DrawNothing
-          lda pp3l
-          sta GRP1
-          .if TV == NTSC
-            .SkipLines 17
-          .else
-            .SkipLines 24
-          .fi
-          rts
-;;; 
 SetCursorColor:
           sta HMCLR
 
@@ -288,6 +269,22 @@ CursorColored:
 
           .fi
 
+          rts
+;;; 
+DrawNothing:
+          lda # 0
+          sta GRP0
+          stx WSYNC
+          .SleepX 71
+          sta HMOVE
+          .NoPageCrossSince DrawNothing
+          lda pp3l
+          sta GRP1
+          .if TV == NTSC
+            .SkipLines 17
+          .else
+            .SkipLines 24
+          .fi
           rts
 ;;; 
           .bend

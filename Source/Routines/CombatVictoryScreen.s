@@ -19,6 +19,7 @@ NormalVictory:
           lda # 8
           sta AlarmCountdown
 
+          stx WSYNC
 Loop:
           .WaitScreenBottom
           .WaitScreenTop
