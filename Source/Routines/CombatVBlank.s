@@ -10,12 +10,11 @@ CombatVBlank:       .block
           rts
 
 CombatLogic:
+          lda AlarmCountdown
+          beq DoAutoMove
 
           lda WhoseTurn
           beq CheckStick
-
-          lda AlarmCountdown
-          beq DoAutoMove
 
           .SkipLines KernelLines - 180
           jmp CheckSwitches
