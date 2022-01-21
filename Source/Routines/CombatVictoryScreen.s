@@ -1,8 +1,6 @@
 ;;; Grizzards Source/Routines/CombatVictoryScreen.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
-          ;; follows CombatSetup
-
 CombatVictoryScreen:  .block
           lda GrizzardXP
           cmp # 198
@@ -11,14 +9,14 @@ CombatVictoryScreen:  .block
 
           .FarJSR MapServicesBank, ServiceGrizzardEvolveP
 
-          lda Temp
+          cpy # 0
           beq AfterEvolution
 
           .FarJSR EndAnimationsBank, ServiceGrizzardEvolution
 
 AfterEvolution:
           lda CurrentCombatEncounter
-          cmp #92               ; Boss Bear Battle
+          cmp # 92               ; Boss Bear Battle
           beq WonGame
           ;; after Boss Bear are the 3 dragons
           bge DefeatDragon

@@ -335,7 +335,7 @@ CombatOutcomeDone:
           bne CheckForLoss
 
 CheckForWin:
-          ldx #6
+          ldx # 6
 -
           lda MonsterHP - 1, x
           bne Bye

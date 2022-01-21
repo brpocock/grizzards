@@ -22,6 +22,7 @@ DoLocal:
           .include "48Pixels.s"
           .include "ShowPicture.s"
           .include "Prepare48pxMobBlob.s"
+          .include "GrizzardEvolution.s"
 
           .include "FinalText.s"
           .include "BossBear.s"

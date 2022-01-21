@@ -3,17 +3,17 @@
 GrizzardStartingStats:        .block
           ;; For each Grizzard there are 5 bytes
           ;; the order of which is the same as ZeroPage:
-          ;; Max HP, ATK, DEF, (unused), and MovesKnown
+          ;; Max HP, ATK, DEF, Evolution, and MovesKnown
 
           ;; 0
 Dirtex:
-          .byte  8,  1,  1,  0,  $0f
+          .byte  8,  1,  1,  8,  $0f
 Aquax:
-          .byte  8,  1,  1,  0,  $0f
+          .byte  8,  1,  1,  9,  $0f
 Airex:
-          .byte  8,  1,  1,  0,  $0f
+          .byte  8,  1,  1, 10,  $0f
 Flamex:
-          .byte 10,  4,  4,  0,  $0f
+          .byte 10,  4,  4, 11,  $0f
 Soiley:
           .byte 10,  4,  4,  0,  $0f
 Wetnas:

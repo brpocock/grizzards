@@ -5,17 +5,16 @@ GrizzardEvolveP:    .block
 
           lda CurrentGrizzard
           ;; × 5
-          sta Temp
           asl a
           asl a
           clc
-          adc Temp
+          adc CurrentGrizzard
 
           adc # 3
           tay
 
           lda GrizzardStartingStats, y
-          sta Temp
+          tay
           rts
 
           .bend
