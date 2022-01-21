@@ -14,7 +14,31 @@ CombatVictoryScreen:  .block
           lda Temp
           beq AfterEvolution
 
+          .if DEMO
+          ;; No room for evolution screen!
+
+          lda Temp
+          sta NextMap
+
+          ;; Destroy current Grizzard's file
+          ;; (also destroys Temp var though)
+          ldy # 0
+          sty MaxHP
+          .FarJSR SaveKeyBank, ServiceSaveGrizzard
+
+          lda NextMap
+          sta Temp
+          .FarJSR MapServicesBank, ServiceNewGrizzard
+
+          lda CurrentMap
+          sta NextMap
+          jmp AfterEvolution
+
+          .else
+
           .FarJSR EndAnimationsBank, ServiceGrizzardEvolution
+
+          .fi
 
 AfterEvolution:
           lda CurrentCombatEncounter
