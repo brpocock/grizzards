@@ -14,17 +14,17 @@ InitGameVars:
           lda #ModeMap
           sta GameMode
 
-          lda # 0
-          sta CurrentProvince
-          sta NextMap
-          sta CurrentMap
-          sta Score
-          sta Score + 1
-          sta Score + 2
-          sta ClockFrame
-          sta ClockSeconds
-          sta ClockMinutes
-          sta ClockFourHours
+          ldy # 0
+          sty CurrentProvince
+          sty NextMap
+          sty CurrentMap
+          sty Score
+          sty Score + 1
+          sty Score + 2
+          sty ClockFrame
+          sty ClockSeconds
+          sty ClockMinutes
+          sty ClockFourHours
 
           lda # 80              ; Player start position
           sta BlessedX
@@ -38,7 +38,8 @@ InitGameVars:
           lda # 1
           sta GrizzardAttack
           sta GrizzardDefense
-          sta GrizzardDefense + 1 ; unused for now
+          
+          sty GrizzardXP
 
           lda #$0f              ; learn 4 moves to start TODO
           sta MovesKnown

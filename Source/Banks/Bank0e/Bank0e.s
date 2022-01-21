@@ -5,8 +5,6 @@
           .include "StartBank.s"
           .include "SpeakJetIndex.s"
 
-          .include "RevealBear.s"
-
 DoLocal:
           cpy #ServiceRevealBear
           beq RevealBear
@@ -14,6 +12,8 @@ DoLocal:
           beq WinnerFireworks
           cpy #ServiceShowBossBear
           beq ShowBossBear
+          cpy #ServiceGrizzardEvolution
+          beq GrizzardEvolution
           brk
 
           .include "VSync.s"
@@ -52,4 +52,6 @@ BossText:
 BearText:
           .MiniText " BEAR "
           
+          .include "RevealBear.s"
+
           .include "EndBank.s"

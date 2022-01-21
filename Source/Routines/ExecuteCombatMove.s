@@ -290,6 +290,11 @@ PlayerReduceMonsterHP:
 
 PlayerKilledMonster:
           ;; add to score the amount for that monster
+          lda GrizzardXP
+          cmp # 199
+          bge +
+          inc GrizzardXP
++
           ldy # MonsterPointsIndex
           lda (CurrentMonsterPointer), y
           sed

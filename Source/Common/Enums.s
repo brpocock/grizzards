@@ -41,6 +41,7 @@
           ModeGrizzardDepot = $50
 
           ModeNewGrizzard = $60
+          ModeGrizzardEvolution = $61
 
           ModeGrizzardStats = $70
 
@@ -195,6 +196,7 @@
           ServiceNewGrizzard = $0c
           ServiceTopOfScreen = $08
           ServiceValidateMap = $1d
+          ServiceGrizzardEvolveP = $2c
 
 ;;; Animations services
 
@@ -215,6 +217,7 @@
           ServiceRevealBear = $27
           ServiceFireworks = $0a
           ServiceShowBossBear = $29
+          ServiceGrizzardEvolution = $2d
 
 ;;; Also the cold start / save game bank
 

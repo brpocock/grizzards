@@ -4,6 +4,19 @@
           ;; follows CombatSetup
 
 CombatVictoryScreen:  .block
+          lda GrizzardXP
+          cmp # 198
+          bne AfterEvolution
+          inc GrizzardXP
+
+          .FarJSR MapServicesBank, ServiceGrizzardEvolveP
+
+          lda Temp
+          beq AfterEvolution
+
+          .FarJSR EndAnimationsBank, ServiceGrizzardEvolution
+
+AfterEvolution:
           lda CurrentCombatEncounter
           cmp #92               ; Boss Bear Battle
           beq WonGame

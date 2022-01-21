@@ -54,8 +54,8 @@ CatchEm:
           lda GrizzardStartingStats, y
           sta GrizzardDefense
           iny
-          lda GrizzardStartingStats, y
-          sta GrizzardDefense + 1
+          lda # 0               ; XP always starts at zero
+          sta GrizzardXP
           iny
           lda GrizzardStartingStats, y
           sta MovesKnown
