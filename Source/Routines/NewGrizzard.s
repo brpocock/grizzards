@@ -30,38 +30,10 @@ CatchEm:
           .if NTSC == TV
           stx WSYNC
           .fi
-          .WaitScreenTop
           ;; … and set up this one with default levels
           pla
-
-          sta CurrentGrizzard
-
           sta Temp
-          asl a
-          asl a
-          clc
-          adc Temp              ; × 5
-          tay
-          ;; max 150, .y can hold it OK
-
-          lda GrizzardStartingStats, y
-          sta MaxHP
-          sta CurrentHP
-          iny
-          lda GrizzardStartingStats, y
-          sta GrizzardAttack
-          iny
-          lda GrizzardStartingStats, y
-          sta GrizzardDefense
-          iny
-          lda # 0               ; XP always starts at zero
-          sta GrizzardXP
-          iny
-          lda GrizzardStartingStats, y
-          sta MovesKnown
-
-          ;; Now, save this guy for good measure
-          .FarJSR SaveKeyBank, ServiceSaveGrizzard
+          jsr Defaults
 
           stx WSYNC
           .if NTSC == TV
@@ -111,4 +83,37 @@ Loop:
 CaughtText:
           .MiniText "CAUGHT"
 
+Defaults:
+          .WaitScreenTop
+          lda Temp
+          sta CurrentGrizzard
+
+          asl a
+          asl a
+          clc
+          adc CurrentGrizzard  ; × 5
+          tay
+          ;; max 150, .y can hold it OK
+
+          lda GrizzardStartingStats, y
+          sta MaxHP
+          sta CurrentHP
+          iny
+          lda GrizzardStartingStats, y
+          sta GrizzardAttack
+          iny
+          lda GrizzardStartingStats, y
+          sta GrizzardDefense
+          iny
+          lda # 0               ; XP always starts at zero
+          sta GrizzardXP
+          iny
+          lda GrizzardStartingStats, y
+          sta MovesKnown
+
+          ;; Now, save this guy for good measure
+          .FarJSR SaveKeyBank, ServiceSaveGrizzard
+
+          rts
+          
           .bend

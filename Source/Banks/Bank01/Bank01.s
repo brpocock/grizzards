@@ -15,14 +15,14 @@ DoVBlankWork:
           
           .include "48Pixels.s"
           .include "Prepare48pxMobBlob.s"
-          .include "LearntMove.s"
-          .include "Failure.s"
 
 DoLocal:
           cpy #ServiceTopOfScreen
           beq TopOfScreenService
           cpy #ServiceNewGrizzard
           beq NewGrizzard
+          cpy #ServiceGrizzardDefaults
+          beq NewGrizzard.Defaults
           cpy #ServiceNewGame
           beq StartNewGame
           cpy #ServiceLearntMove
@@ -47,6 +47,9 @@ JatibuCode:
           .byte P0StickUp, P0StickUp, P0StickDown, P0StickDown
           .byte P0StickLeft, P0StickRight, P0StickLeft, P0StickRight
           .byte 0
+
+          .include "LearntMove.s"
+          .include "Failure.s"
 
 JatibuFE:
                     ;; No Jatibu code if either difficulty switch is in A/Expert
@@ -122,7 +125,7 @@ JatibuFF:
           lda #$ff
           sta MovesKnown
           lda # 0
-          sta GrizzardDefense + 1
+          sta GrizzardXP
           lda #$f0
           sta Score + 2
 +

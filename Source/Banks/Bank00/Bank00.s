@@ -68,6 +68,8 @@ DoLocal:
           .if !NOSAVE
           cpy #ServiceLoadGrizzard
           beq LoadGrizzardData
+          cpy #ServiceSetCurrentGrizzard
+          beq SetCurrentGrizzard
           .fi
           .if !DEMO
           cpy #ServiceSaveProvinceData
@@ -124,6 +126,7 @@ PeekGrizzard:
           .include "EraseSlotSignature.s"
           .include "SetGrizzardAddress.s"
           .include "SaveGrizzard.s"
+          .include "SetCurrentGrizzard.s"
 
           .fi
 

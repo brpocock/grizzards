@@ -2,21 +2,23 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 CombatVictoryScreen:  .block
+          .if !NOSAVE
+
           lda GrizzardXP
-          cmp # 198
-          bne AfterEvolution
-          inc GrizzardXP
+          cmp # 199
+          blt AfterEvolution
 
           .FarJSR MapServicesBank, ServiceGrizzardEvolveP
 
           cpy # 0
           beq AfterEvolution
 
+DoesEvolve:
           .if DEMO
           ;; No room for evolution screen!
+          ;; This logic is mostly duplicated in GrizzardEvolution.s
 
-          lda Temp
-          sta NextMap
+          sty NextMap
 
           ;; Destroy current Grizzard's file
           ;; (also destroys Temp var though)
@@ -28,16 +30,29 @@ CombatVictoryScreen:  .block
           sta Temp
           .FarJSR MapServicesBank, ServiceNewGrizzard
 
+          lda NextMap
+          sta CurrentGrizzard
+          ;; We have to also switch the current Grizzard to the new form
+          ;; or if they quit, they'll come back with a zombie Grizzard
+          ;; with 0 HP still selected as their current companion.
+          .FarJSR SaveKeyBank, ServiceSetCurrentGrizzard
+
           lda CurrentMap
           sta NextMap
+
+          lda #SoundDepot
+          sta NextSound
+
           jmp AfterEvolution
 
           .else
 
-          .FarJSR EndAnimationsBank, ServiceGrizzardEvolution
+          sty NextMap
+          .FarJMP EndAnimationsBank, ServiceGrizzardEvolution
 
           .fi
 
+          .fi                   ; !NOSAVE
 AfterEvolution:
           lda CurrentCombatEncounter
           cmp # 92               ; Boss Bear Battle

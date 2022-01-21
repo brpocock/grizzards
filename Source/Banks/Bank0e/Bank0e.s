@@ -3,6 +3,7 @@
           BANK = $0e
 
           .include "StartBank.s"
+          .include "SpeakJetIDs.s"
           .include "SpeakJetIndex.s"
 
 DoLocal:
@@ -24,7 +25,7 @@ DoLocal:
           .include "Prepare48pxMobBlob.s"
           .include "GrizzardEvolution.s"
 
-          .include "FinalText.s"
+          .include "FinalSpeech.s"
           .include "BossBear.s"
           .include "ShowBossBear.s"
           .include "BossBearDies.s"
@@ -35,6 +36,8 @@ DoLocal:
 
           .include "CopyPointerText.s"
           .include "CopyPointerText12.s"
+
+          .include "GrizzardsSpeech.s"
 
 ShowPointerText:
           jsr CopyPointerText

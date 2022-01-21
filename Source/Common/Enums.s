@@ -197,6 +197,7 @@
           ServiceTopOfScreen = $08
           ServiceValidateMap = $1d
           ServiceGrizzardEvolveP = $2c
+          ServiceGrizzardDefaults = $2e
 
 ;;; Animations services
 
@@ -229,6 +230,8 @@
           ServiceSaveProvinceData = $20
           ServiceLoadProvinceData = $21
           ServiceLoadGrizzard = $22
+          ServiceSetCurrentGrizzard = $2f
+
 ;;; 
 ;;; Maximum number of Grizzards allowed
 ;;; The save/load routines should handle up to 36
