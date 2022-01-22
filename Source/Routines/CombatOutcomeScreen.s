@@ -14,6 +14,8 @@ CombatOutcomeScreen:          .block
           lda #SoundHit
           gne +
 SoundForHeal:
+          cmp #$ff
+          beq SoundForMiss
           lda #SoundHappy
           gne +
 SoundForMiss:
@@ -48,7 +50,6 @@ LoopFirst:
           bmi DrawHealPoints
           beq SkipHitPoints
           sta Temp              ; for later decoding
-
 CheckForPulse:
           ldx WhoseTurn
           beq CheckMonsterPulse2
@@ -79,7 +80,6 @@ DrawHealPoints:
           beq SkipHitPoints
           sta Temp
           .SetPointer HealedText
-
 DrawHitPoints:
           jsr AppendDecimalAndPrint.FromTemp
           lda CriticalHitP
