@@ -138,7 +138,7 @@ SpriteMoveDone:
           sta SpriteMotion, x
           inc SpriteX, x
 LeftOK:
-          cmp #ScreenRightEdge + 10 ; XXX #307 this may be the culprit
+          cmp #ScreenRightEdge
           blt RightOK
           lda SpriteMotion, x
           eor # SpriteMoveLeft | SpriteMoveRight
