@@ -308,7 +308,7 @@ Leave:
           bne +
           lda #ModeCombat
           sta DeltaY
-          .SkipLines 32
+          .WaitScreenBottom
           jmp GrizzardStatsScreen
 +
           cmp #ModeCombatAnnouncement

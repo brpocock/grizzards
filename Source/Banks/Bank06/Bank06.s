@@ -12,11 +12,18 @@
           MonsterPhrase = Phrase_Monster6_0
 
 DoVBlankWork:
+          lda GameMode
+          and #$f0
+          cmp #ModeCombat
+          beq +
+          rts
++
           .FarJSR TextBank, ServiceFetchGrizzardMove
           ldx Temp
           lda MoveDeltaHP, x
           sta CombatMoveDeltaHP
           .FarJMP CombatServicesBank, ServiceCombatVBlank ; tail call
+
 DoLocal:
           .include "CombatSetup.s"
           ;; falls through to:
@@ -42,6 +49,5 @@ DoLocal:
           .include "Combat6.s"
           .include "Monsters6.s"
           .include "MonsterMoves6.s"
-          
 
           .include "EndBank.s"
