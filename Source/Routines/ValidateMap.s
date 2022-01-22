@@ -113,8 +113,9 @@ RandomY:
           adc #ScreenTopEdge    ; who cares what Carry says, it'll fit either way
           sta SpriteY, x
 
-          lda MapFlags
+          lda BitMask + 4, x    ; MapFlagSprite𝑥Moved
           ora #MapFlagRandomSpawn
+          ora MapFlags
           sta MapFlags
 
 NextMayBeRandom:

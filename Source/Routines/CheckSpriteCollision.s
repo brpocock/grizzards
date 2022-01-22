@@ -2,13 +2,18 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 CheckSpriteCollision:         .block
+          ldx SpriteFlicker
           lda CXP1FB
           and #$c0           ; collision with playfield or ball
           bne CollisionHasOccurred
+NoCollision:
+          lda BitMask + 4, x    ; MapFlagSprite𝑥Moved
+          eor #$ff
+          and MapFlags
+          sta MapFlags
           rts
 
 CollisionHasOccurred:
-          ldx SpriteFlicker
 
           ;; If we  are in random  spawn mode,  and nobody had  to move,
           ;; we must have gotten  through a round of validations without

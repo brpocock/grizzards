@@ -166,10 +166,6 @@ NextSprite:
           bpl MoveSprites
           ;; fall through
 MovementLogicDone:
-          lda #MapFlagAnySpriteMoved
-          ora MapFlags
-          sta MapFlags
-
           rts
 
           .bend
