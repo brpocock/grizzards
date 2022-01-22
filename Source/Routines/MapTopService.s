@@ -121,7 +121,7 @@ SetUpSprites:
           sta pp1h
           clc
           lda MapFlags
-          .BitBit MapFlagRandomSpawn
+          and #MapFlagRandomSpawn
           tay
           lda SpriteAction, x
           and #$07
