@@ -164,9 +164,9 @@ Foliage:
           .endswitch
 
           .switch STARTER
-          .case 0               ; Aquax
+          .case 0               ; Dirtex
            .ldacolu COLGREEN, $e
-          .case 1               ; Dirtex
+          .case 1               ; Aquax
            .ldacolu COLBROWN, $6
           .case 2               ; Airex
            .ldacolu COLTEAL, $e
