@@ -51,9 +51,6 @@ Loop:
           cmp #ModeAttractStory
           beq StoryMode
 
-          .if TV == NTSC
-          .SkipLines 4
-          .fi
           jsr Prepare48pxMobBlob
 
           lda GameMode
