@@ -135,12 +135,6 @@ DoneTitleSpeech:
           .SkipLines 20
           .ldacolu COLGREEN, $4
           sta COLUPF
-          .if TV == SECAM
-            lda #COLBLUE
-          .else
-            .ldacolu COLTURQUOISE, $e
-          .fi
-          sta COLUBK
 
           .if NTSC == TV
           
