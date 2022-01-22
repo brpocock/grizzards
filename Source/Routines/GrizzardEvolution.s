@@ -155,6 +155,8 @@ DoneTalking:
           blt Loop
 
 Leave:
+          lda CurrentMap
+          sta NewMap
           .FarJMP TextBank, ServiceCombatVictory
 
 BecameText:

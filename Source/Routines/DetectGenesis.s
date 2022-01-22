@@ -14,19 +14,18 @@ DetectGenesis:      .block
 
           ldy #0
           lda INPT0
-          bpl +
+          bpl NotGenesis
           lda INPT1
-          bpl +
+          bpl NotGenesis
 
           lda SWCHB
           ora #SWCHBP0Genesis
-          sta SWCHB
-          jmp GotGenesis
-+
+          gne DoneGenesis
+NotGenesis:
           lda SWCHB
           and #~SWCHBP0Genesis
+DoneGenesis:
           sta SWCHB
-GotGenesis:
 
           .WaitScreenBottom
 
