@@ -5,7 +5,7 @@ CombatVictoryScreen:  .block
           .if !NOSAVE
 
           lda GrizzardXP
-          cmp # 199
+          cmp # 40
           blt AfterEvolution
 
           .FarJSR MapServicesBank, ServiceGrizzardEvolveP
