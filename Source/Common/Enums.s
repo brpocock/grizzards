@@ -268,6 +268,7 @@
           MapFlagSprite1Moved = $20
           MapFlagSprite2Moved = $40
           MapFlagSprite3Moved = $80
+          MapFlagAnySpriteMoved = $f0
 ;;; 
 ;;; Monster art types
           Monster_Bunny = 0

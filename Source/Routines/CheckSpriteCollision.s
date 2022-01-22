@@ -16,8 +16,7 @@ CollisionHasOccurred:
           lda MapFlags
           .BitBit MapFlagRandomSpawn
           beq NoRePosition    ; Not in RandomSpawn mode
-          AnySpriteMoved = MapFlagSprite0Moved | MapFlagSprite1Moved | MapFlagSprite2Moved | MapFlagSprite3Moved
-          and #MapFlagRandomSpawn | AnySpriteMoved
+          and #MapFlagRandomSpawn | MapFlagAnySpriteMoved
           cmp #MapFlagRandomSpawn
           bne NotCertainOfPositions
 EndRandomSpawn:
