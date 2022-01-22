@@ -133,8 +133,6 @@ DoneTitleSpeech:
           .ldacolu COLGREEN, $4
           sta COLUPF
 
-          .if NTSC == TV
-          
           lda # 43
           sta Rand
           sta Rand + 1
@@ -143,15 +141,15 @@ DoneTitleSpeech:
 Foliage:
           jsr Random
           sta PF0
+          .if NTSC == TV
           jsr Random
+          .fi
           sta PF1
           jsr Random
           sta PF2
           .SkipLines 5
           dey
           bne Foliage
-
-          .fi                   ;end NTSC-only §
 
           lda # $ff
           sta PF0
