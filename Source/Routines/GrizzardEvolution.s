@@ -156,7 +156,7 @@ DoneTalking:
 
 Leave:
           lda CurrentMap
-          sta NewMap
+          sta NextMap
           .FarJMP TextBank, ServiceCombatVictory
 
 BecameText:
