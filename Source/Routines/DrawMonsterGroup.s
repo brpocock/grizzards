@@ -188,6 +188,7 @@ CursorPosGross:
           dey
           bne CursorPosGross
           sta RESP1
+          .NoPageCrossSince PositionCursor
 
           lda CursorPosition, x
           sta HMP1
@@ -211,6 +212,7 @@ GrossPositionMonsters:
           dey
           bne GrossPositionMonsters
           sta RESP0
+          .NoPageCrossSince PositionMonsters
 
           lda SpritePosition, x
           sta HMP0
