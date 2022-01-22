@@ -123,9 +123,8 @@ MonsterDidNotKillGrizzard:
           beq MonsterAttackNoStatusFX
 MonsterAttackSetsStatusFX:
           tay
-          and StatusFX
+          bit StatusFX
           bne MonsterAttackNoStatusFX
-          tya
           sta MoveStatusFX
           ora StatusFX
           sta StatusFX
