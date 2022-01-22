@@ -1,6 +1,56 @@
 #!/usr/bin/bash
 
+while getopts "s:t:" opt; do
+    case $opt in
+        s)
+            case $OPTARG in
+                Airex)
+                    starter=Airex;
+                    ;;
+                Dirtex)
+                    starter=Dirtex;
+                    ;;
+                Aquax)
+                    starter=Aquax;
+                    ;;
+                Demo)
+                    starter=Demo;
+                    ;;
+                AA)
+                    starter=AA.$starter;
+                    ;;
+                NoSave)
+                    starter=NoSave;
+                    ;;
+            esac
+            ;;
+        t)
+            case $OPTARG in
+                PAL)
+                    tv=PAL;
+                    ;;
+                NTSC)
+                    tv=NTSC;
+                    ;;
+                SECAM)
+                    tv=SECAM;
+                    ;;
+            esac
+            ;;
+    esac
+done
+
+if [ "x$starter" = "x" ]; then
+    starter=Airex
+fi
+
+if [ "x$tv" = "x" ]; then
+    tv=PAL
+fi
+
+echo "Space remanining in $starter build for $tv:"
+
 for bank in 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f; do
-    rm Object/Bank$bank.Airex.PAL.o
-    make Object/Bank$bank.Airex.PAL.o -f Source/Generated/Makefile 2>&1 | grep 'bytes left' | grep -v %d
+    rm Object/Bank$bank.$starter.$tv.o
+    make Object/Bank$bank.$starter.$tv.o -f Source/Generated/Makefile 2>&1 | grep 'bytes left' | grep -v %d | cut -d: -f5
 done
