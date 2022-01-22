@@ -22,4 +22,4 @@ KilledText:
           .MiniText "KILLED"
 
 CritText:
-          .MiniText " CRIT!"
+          .MiniText " CRIT!"    ; critical hit
