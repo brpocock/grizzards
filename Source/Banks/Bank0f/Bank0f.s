@@ -36,18 +36,18 @@ ShowPointerText:
           .FarJMP TextBank, ServiceDecodeAndShowText ; tail call
 
 DoLocal:
-          cpy #ServiceCombatVBlank
-          beq CombatVBlank
-          cpy #ServiceWrite12Chars
-          beq Write12Chars
-          cpy #ServiceAttractStory
-          beq AttractStory
-          cpy #ServiceDeath
-          beq Death
           cpy #ServiceDrawMonsterGroup
           beq DrawMonsterGroup
           cpy #ServiceDrawGrizzard
           beq DrawGrizzard
+          cpy #ServiceWrite12Chars
+          beq Write12Chars
+          cpy #ServiceCombatVBlank
+          beq CombatVBlank
+          cpy #ServiceAttractStory
+          beq AttractStory
+          cpy #ServiceDeath
+          beq Death
           cpy #ServiceInquire
           beq Inquire
           cpy #ServiceBeginName
