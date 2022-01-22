@@ -67,7 +67,7 @@ Loop:
 
 ;;; The clock hours-to-decimal routine is based upon http://6502.org/source/integers/hex2dec.htm
 
-;;; Note that our max hours = 255 × 4 where we display XXXX
+;;; Note that our max hours = 255 × 4 where we display MANY
 
           lda # 0
           sta Temp
