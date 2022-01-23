@@ -26,14 +26,18 @@ MaybeDoPlayerMove:
           lda StatusFX
           .BitBit StatusSleep
           beq NotPlayerSleep
-
 DoPlayerSleep:
+          .if !DEMO && !ATARIAGESAVE && !NOSAVE
+          lda SWCHB
+          and #SWCHBP1Advanced
+          bne PlayerNotAwaken
+          .fi
           jsr Random
-          bpl +
+          bpl PlayerNotAwaken
           lda StatusFX
           and #~StatusSleep
           sta StatusFX
-+
+PlayerNotAwaken:
           lda #ModeCombatNextTurn
           sta GameMode
           gne CheckStick
@@ -41,8 +45,20 @@ DoPlayerSleep:
 NotPlayerSleep:
           and #StatusMuddle
           beq CheckStick
-
 DoPlayerMuddled:
+          .if !DEMO && !ATARIAGESAVE && !NOSAVE
+          lda SWCHB
+          and #SWCHBP1Advanced
+          bne PlayerNotClearUp
+          .fi
+          jsr Random
+          bpl PlayerNotClearUp
+          lda StatusFX
+          and #~StatusMuddle
+          sta StatusFX
+          jmp CheckStick
+
+PlayerNotClearUp:
           jsr Random
           and #$07
           tax
@@ -51,12 +67,6 @@ DoPlayerMuddled:
           beq DoPlayerMuddled
           inx
           stx MoveSelection
-          jsr Random
-          bpl SetMuddledMove
-          lda StatusFX
-          and #~StatusMuddle
-          sta StatusFX
-          jmp CheckStick
 
 SetMuddledMove:
 PickMonster:
@@ -133,38 +143,33 @@ DoneStickDown:
 
 StickLeftRight:
           lda CombatMoveDeltaHP
-          bpl ChooseTarget
-
-SelfTarget:
-          ldx # 0
-          stx MoveTarget
-          jmp StickDone
-
+          bmi SelfTarget
 ChooseTarget:
           lda CombatMajorP
           beq ChooseMinorTarget
+SelfTarget:
           ldx # 0
           stx MoveTarget
           geq StickDone
 
+
 ChooseMinorTarget:
           ldx MoveTarget
-          bne +
+          bne NormalizeMinorTarget
 
           ;; copied from CombatMainScreen
 TargetFirstMonster:
           ldx #0
--
+TargetNextMonster:
           lda MonsterHP, x
           bne TargetFirst
           inx
           cpx # 5
-          bne -
+          bne TargetNextMonster
 TargetFirst:
           inx
           stx MoveTarget
-
-+
+NormalizeMinorTarget:
           cpx # 7
           blt +
           ldx # 1
