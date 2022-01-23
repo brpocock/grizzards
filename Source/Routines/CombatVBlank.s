@@ -59,28 +59,29 @@ DoPlayerMuddled:
           jmp CheckStick
 
 PlayerNotClearUp:
+SetMuddledMove:
           jsr Random
           and #$07
           tax
           lda BitMask, x
           bit MovesKnown
-          beq DoPlayerMuddled
+          beq SetMuddledMove
           inx
           stx MoveSelection
 
-SetMuddledMove:
 PickMonster:
           jsr Random
           and #$07
-CheckMonsterPulse:
-          cmp # 6
-          bge PickMonster
           tax
+CheckMonsterPulse:
+          cpx # 6
+          bge PickMonster
           lda MonsterHP, x
           bne GotMonster
           inx
           gne CheckMonsterPulse
 GotMonster:
+          inx
           stx MoveTarget
           lda #ModeCombatDoMove
           sta GameMode
