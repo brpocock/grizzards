@@ -13,7 +13,6 @@
 
 DoVBlankWork:
           lda GameMode
-          and #$f0
           cmp #ModeCombat
           beq +
           rts
