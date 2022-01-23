@@ -271,7 +271,7 @@ MoveOK:
           sta GameMode
           lda #SoundChirp
           sta NextSound
-          jmp CombatAnnouncementScreen
+          gne CombatAnnouncementScreen
 
 RunAway:
           lda #SoundHappy

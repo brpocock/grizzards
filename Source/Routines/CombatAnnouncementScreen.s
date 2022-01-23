@@ -22,7 +22,7 @@ FindPlayerMove:
           .FarJSR TextBank, ServiceFetchGrizzardMove
           ldx Temp
           stx CombatMoveSelected
-          jmp MoveFound
+          gne MoveFound
 
 FindMonsterMove:
           lda #>MonsterMoves
@@ -40,8 +40,8 @@ FindMonsterMove:
           sta Pointer
 
           lax (Pointer), y
-          sta CombatMoveSelected
-
+          stx CombatMoveSelected
+          ;; fall through:
 MoveFound:
           lda MoveDeltaHP, x
           sta CombatMoveDeltaHP
@@ -112,7 +112,7 @@ AnnounceObject:
           beq Speak
 DrawObject:
           ldx CombatMoveSelected
-          lda MoveDeltaHP, x
+          bit CombatMoveDeltaHP
           bpl ObjectOther
 ObjectSelf:
           lda WhoseTurn
@@ -200,7 +200,7 @@ Speech5:
           lda WhoseTurn
           beq SayMonsterObject
 SayPlayerObject:
-          lda MoveDeltaHP, x
+          bit CombatMoveDeltaHP
           bpl +
           jsr SayMonster
           jmp SpeechQueued
@@ -209,7 +209,7 @@ SayPlayerObject:
           jmp SpeechQueued
 
 SayMonsterObject:
-          lda MoveDeltaHP, x
+          bit CombatMoveDeltaHP
           bpl +
           jsr SayPlayerGrizzard
           jmp SpeechQueued
@@ -228,12 +228,12 @@ Speech6:
           lda WhoseTurn
           beq SayObjectNumberOnPlayersTurn
 SayObjectNumberOnMonstersTurn:
-          lda MoveDeltaHP, x
+          bit CombatMoveDeltaHP
           bpl SpeechQueued
           gmi SayThatObjectNumber
 
 SayObjectNumberOnPlayersTurn:
-          lda MoveDeltaHP, x
+          bit CombatMoveDeltaHP
           bmi SpeechQueued
 SayThatObjectNumber:
           lda CombatMajorP

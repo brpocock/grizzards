@@ -140,7 +140,6 @@ CanRunAwayDown:
 
 DoneStickDown:
           stx MoveSelection
-
 StickLeftRight:
           lda CombatMoveDeltaHP
           bmi SelfTarget
@@ -151,8 +150,6 @@ SelfTarget:
           ldx # 0
           stx MoveTarget
           geq StickDone
-
-
 ChooseMinorTarget:
           ldx MoveTarget
           bne NormalizeMinorTarget
