@@ -33,6 +33,6 @@ CNVBIT:
           and #$0f
           sta StringBuffer + 5
 
-          jmp DecodeAndShowText
+          jmp DecodeAndShowText ; tail call
 
           .bend
