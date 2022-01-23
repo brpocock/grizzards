@@ -7,8 +7,6 @@ BeginOrResume:        .block
           lda #SoundChirp
           sta NextSound
 
-          lda # 0
-          sta SaveGameSlot
           .WaitScreenBottom
 ;;; 
 Loop:     
@@ -99,12 +97,14 @@ SlotOK:
           sta BlessedY
           sta PlayerY
 
+          .WaitScreenBottom
           jmp GoMap
 
 BeginAnew:
-          .WaitScreenBottom
           lda #ModeStartGame
           sta GameMode
+          lda #$ff
+          sta SaveGameSlot
           .FarJMP MapServicesBank, ServiceNewGame
 
           .bend
