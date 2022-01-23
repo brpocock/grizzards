@@ -406,15 +406,14 @@ PlayerHealsCommon:
 
 PlayerBuff:
           ldx CombatMoveSelected
+          lda # 1
+          sta MoveHitMiss
+
           lda MoveEffects, x
           sta Temp
           jsr Random
           and Temp
           sta MoveStatusFX
-
-          lda # 1
-          sta MoveHitMiss
-
           ora StatusFX
           sta StatusFX
           ;;  fall through
