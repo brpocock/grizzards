@@ -51,6 +51,6 @@ fi
 echo "Space remanining in $starter build for $tv:"
 
 for bank in 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f; do
-    rm Object/Bank$bank.$starter.$tv.o
+    rm -f Object/Bank$bank.$starter.$tv.o
     make Object/Bank$bank.$starter.$tv.o -f Source/Generated/Makefile 2>&1 | grep 'bytes left' | grep -v %d | cut -d: -f5
 done
