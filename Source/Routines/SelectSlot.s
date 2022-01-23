@@ -32,11 +32,11 @@ Loop:
           beq NoErase
 
 Erase:
+          .ldacolu COLGOLD, $0
+          sta COLUBK
           .ldacolu COLRED, $8
           sta COLUP0
           sta COLUP1
-          .ldacolu COLGOLD, $0
-          sta COLUBK
           .SetPointer EraseText
           gne StartPicture
 
