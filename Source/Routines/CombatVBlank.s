@@ -27,11 +27,6 @@ MaybeDoPlayerMove:
           .BitBit StatusSleep
           beq NotPlayerSleep
 DoPlayerSleep:
-          .if !DEMO && !ATARIAGESAVE && !NOSAVE
-          lda SWCHB
-          and #SWCHBP1Advanced
-          bne PlayerNotAwaken
-          .fi
           jsr Random
           bpl PlayerNotAwaken
           lda StatusFX
@@ -46,11 +41,6 @@ NotPlayerSleep:
           and #StatusMuddle
           beq CheckStick
 DoPlayerMuddled:
-          .if !DEMO && !ATARIAGESAVE && !NOSAVE
-          lda SWCHB
-          and #SWCHBP1Advanced
-          bne PlayerNotClearUp
-          .fi
           jsr Random
           bpl PlayerNotClearUp
           lda StatusFX
