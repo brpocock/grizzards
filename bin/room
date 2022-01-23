@@ -1,7 +1,20 @@
 #!/usr/bin/bash
 
-while getopts "s:t:" opt; do
+while getopts "s:t:ah" opt; do
     case $opt in
+        h)
+            cat <<EOF >&2
+Usage: $0 [ -s starter ] [ -t tv-type ] [ -a ]
+
+-t TV type: NTSC, PAL, SECAM
+-s Starter: Airex, Dirtex, Aquax, Demo, NoSave
+-a for AtariAge builds
+EOF
+            exit 2;
+            ;;
+        a)
+            atariage=AA.
+            ;;
         s)
             case $OPTARG in
                 Airex)
@@ -48,9 +61,16 @@ if [ "x$tv" = "x" ]; then
     tv=PAL
 fi
 
-echo "Space remanining in $starter build for $tv:"
+if [ "x$atariage" = "x" ]; then
+    aa=public
+else
+    aa='AtariAge official'
+fi
+
+echo "Space remanining in $starter $aa build for $tv:"
 
 for bank in 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f; do
-    rm -f Object/Bank$bank.$starter.$tv.o
-    make Object/Bank$bank.$starter.$tv.o -f Source/Generated/Makefile 2>&1 | grep 'bytes left' | grep -v %d | cut -d: -f5
+    rm -f Object/Bank$bank.$atariage$starter.$tv.o
+    make Object/Bank$bank.$atariage$starter.$tv.o -f Source/Generated/Makefile 2>&1 \
+        | grep 'bytes left' | grep -v %d | cut -d: -f5
 done
