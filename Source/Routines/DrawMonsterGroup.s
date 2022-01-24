@@ -255,17 +255,19 @@ SetCursorColor:
           .else
 
           ldx MoveTarget
-          bne +
+          bne TargetIsMonster
           stx WSYNC
           stx WSYNC
           geq CursorColored
-+
+
+TargetIsMonster:
           lda MonsterHP - 1, x
-          beq +
-          .ldacolu COLGRAY, $f
-          gne SetColor
-+
-          .ldacolu COLGRAY, 0
+          beq MonsterGone
+          .ldacolu COLGRAY, $0
+          geq SetColor
+
+MonsterGone:
+          .ldacolu COLGRAY, $e
 SetColor:
           sta COLUP1
 CursorColored:
