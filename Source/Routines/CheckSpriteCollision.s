@@ -10,6 +10,8 @@ NoCollision:
           lda BitMask + 4, x    ; MapFlagSprite𝑥Moved
           eor #$ff
           and MapFlags
+          cmp #MapFlagRandomSpawn | MapFlagAnySpriteMoved
+          bne EndRandomSpawn
           sta MapFlags
           rts
 
@@ -40,7 +42,6 @@ NotCertainOfPositions:
 
 NoRePosition:
           lda BitMask + 4, x   ; $10 … $80 = MapFlagSprite𝑥Moved
-
           bit MapFlags
           beq Bye               ; sprite did not move since last check?
           eor #$ff              ; invert to clear MapFlagSprite𝑥Moved
