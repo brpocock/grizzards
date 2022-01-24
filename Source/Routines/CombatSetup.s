@@ -41,7 +41,7 @@ AnnounceMonsterSpeech:
           sta CurrentUtterance + 1
           lda #<MonsterPhrase
           ldx CurrentCombatEncounter
-          clc
+          ;; clc ; unneeded, the adc #>Monsters won't have overflowed
           adc EncounterMonster, x
           sta CurrentUtterance
           
