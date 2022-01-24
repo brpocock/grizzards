@@ -229,18 +229,22 @@ KillMusic:          .macro
           .endm
 ;;; 
 FarJSR:   .macro bank, service
+          .proff
           .if \bank == BANK
           .error "Don't do FarJSR for the local bank for ", \service
           .fi
+          .pron
           ldy #\service
           ldx #\bank
           jsr FarCall
           .endm
 
 FarJMP:   .macro bank, service
+          .proff
           .if \bank == BANK
           .error "Don't do FarJMP for the local bank for ", \service
           .fi
+          .pron
           ldy #\service
           ldx #\bank
           jmp FarCall
