@@ -37,16 +37,18 @@ NoChangeRLE:
           lda MapRLEH, x
           sta pp5h
 GotRLE:
-
           ldx CurrentMap
           lda MapColors, x
           and #$f0
+          ;; Set up the effective color,
+          ;; the brightness is based on province,
+          ;; in province 1 the floor is darker than the walls
           .switch TV
           .case SECAM
-          ror a
-          ror a
-          ror a
-          ror a
+          lsr a
+          lsr a
+          lsr a
+          lsr a
           .case NTSC
           .if Province1MapBank == BANK
           ora #$0e
