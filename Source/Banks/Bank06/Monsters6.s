@@ -1,4 +1,4 @@
-;;; Grizzards Source/Banks/Bank06/Monsters6.s
+;; Grizzards Source/Banks/Bank06/Monsters6.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 Monsters:
 ;;; 0
@@ -135,43 +135,43 @@ Monsters:
           .SignText "FIERCERAPTOR"
           .byte Monster_Raptor
           .colu COLORANGE, $8
-          .byte 0, 0, 0
+          .byte 10, 10, 10
           .word $0010
 
           .SignText "DEVIL  EAGLE"
           .byte Monster_Eagle
           .colu COLRED, $8
-          .byte 0, 0, 0
+          .byte 10, 10, 10
           .word $0010
 
           .SignText "ROUND  ROBIN"
           .byte Monster_Bird
           .colu COLBLUE, $8
-          .byte 0, 0, 0
+          .byte 10, 10, 10
           .word $0010
 ;;; 24
           .SignText "GIANT  CRAB "
           .byte Monster_Crab
           .colu COLTURQUOISE, $8
-          .byte 0, 0, 0
-          .word $0010
+          .byte 16, 16, 16
+          .word $0160
 ;;; 25
           .SignText "BIGGER CRAB "
           .byte Monster_Crab
           .colu COLCYAN, $8
-          .byte 0, 0, 0
-          .word $0010
+          .byte 14, 14, 14
+          .word $0140
 
           .SignText " MEAN ROBBER"
           .byte Monster_Human
           .colu COLBROWN, $f
-          .byte 0, 0, 0
+          .byte 10, 10, 10
           .word $0010
 
           .SignText "GIANT SLIME "
           .byte Monster_SlimeBig
           .colu COLINDIGO, $8
-          .byte 0, 0, 0
+          .byte 10, 10, 10
           .word $0010
 ;;; 28
           .SignText "DRAGON FRED "
@@ -195,85 +195,85 @@ Monsters:
           .SignText " UBER  SLIME"
           .byte Monster_SlimeBig
           .colu COLBROWN, $f
-          .byte 0, 0, 0
+          .byte 10, 10, 10
           .word $0010
 ;;; 32
           .SignText "DESERT EAGLE"
           .byte Monster_Eagle
           .colu COLBLUE, $8
-          .byte 0, 0, 0
+          .byte 10, 10, 10
           .word $0010
 
           .SignText "CRAZEDROBBER"
           .byte Monster_Human
           .colu COLBLUE, $8
-          .byte 0, 0, 0
+          .byte 10, 10, 10
           .word $0010
 
           .SignText "GREAT  WYRM "
           .byte Monster_Serpent
           .colu COLBLUE, $8
-          .byte 0, 0, 0
+          .byte 10, 10, 10
           .word $0010
 ;;; 35
           .SignText "POISON ASP  "
           .byte Monster_Serpent
           .colu COLBLUE, $8
-          .byte 0, 0, 0
+          .byte 10, 10, 10
           .word $0010
 
           .SignText "GRABBYCRABBY"
           .byte Monster_Crab
           .colu COLBLUE, $8
-          .byte 0, 0, 0
+          .byte 10, 10, 10
           .word $0010
 
           .SignText "GIANT  BAT  "
           .byte Monster_Bat
           .colu COLGRAY, $4
-          .byte 0, 0, 0
+          .byte 10, 10, 10
           .word $0100
 
           .SignText " MAZE JAGUAR"
           .byte Monster_Cat
           .colu COLBLUE, $8
-          .byte 0, 0, 0
+          .byte 10, 10, 10
           .word $0010
 
           .SignText "MONSTR  39  "
           .byte Monster_Bunny
           .colu COLBLUE, $8
-          .byte 0, 0, 0
+          .byte 10, 10, 10
           .word $0010
 ;;; 40
           .SignText "MONSTR  40  "
           .byte Monster_Bunny
           .colu COLBLUE, $8
-          .byte 0, 0, 0
+          .byte 10, 10, 10
           .word $0010
 
           .SignText "MONSTR  41  "
           .byte Monster_Bunny
           .colu COLBLUE, $8
-          .byte 0, 0, 0
+          .byte 10, 10, 10
           .word $0010
 
           .SignText "MONSTR  42  "
           .byte Monster_Bunny
           .colu COLBLUE, $8
-          .byte 0, 0, 0
+          .byte 10, 10, 10
           .word $0010
 
           .SignText "MONSTR  43  "
           .byte Monster_Bunny
           .colu COLBLUE, $8
-          .byte 0, 0, 0
+          .byte 10, 10, 10
           .word $0010
 
           .SignText "MONSTR  44  "
           .byte Monster_Bunny
           .colu COLBLUE, $8
-          .byte 0, 0, 0
+          .byte 10, 10, 10
           .word $0010
 ;;; 45
           .SignText " BOSS  BEAR "
