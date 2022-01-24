@@ -6,4 +6,7 @@ WaitScreenBottomSub:
           .if TV != NTSC
           .SkipLines 11
           .fi
-          jmp Overscan          ; tail call
+          ;; fall through to Overscan
+          .if Overscan < EndBank
+          jmp Overscan
+          .fi
