@@ -26,7 +26,7 @@ Loop:
 	ldy LineCounter
 	lda (PixelPointers + 0), y
 	sta GRP0
-          .Sleep 5 + (BANK == 0 ? 0 : 1)
+          .Sleep 5
 	lda (PixelPointers + 2), y
 	sta GRP1
 	lda (PixelPointers + 4), y
@@ -45,6 +45,7 @@ Loop:
 	bne Loop
 
           .option allow_branch_across_page = true
+          .NoPageCrossSince ShowPicture
 
 	ldy #0
 	sty GRP0
