@@ -1,61 +1,75 @@
 Developer's Notes: Guts of the Grizzards
 
-This  is a  stream-of-consciousness mess  that  needs to  be cleaned  up
-a lot. Sorry.
-
-It's also horribly out of date, BtW. Sorry . . .
-
 If you're reading this, you're probably trying to make out how this game
 works to some  degree. Hopefully this overview document will  set you on
 the right path.
 
-
+BANKS AND CODE LAYOUT
 
 Each ROM bank is built  around a file named Source/Banks/Bank00/Bank00.s
-or so.  This file contains  little-to-no code, but defines  the constant
+or so. This file contains very little code, but defines the constant
 BANK and  .includes all the  specific routines  and data for  that bank.
-For service banks, the dispatch function is found in this file as well.
+Most all banks  contain a function DoLocal. Usually, this  is a dispatch
+for a service routine library found in that bank.
 
-Note that the  “magic” DoLocal label can be pointed  anywhere in memory,
-and is the entry  point for FarCalls made to this  bank. I usually leave
-it near the beginning, though.
+DoLocal is a bank-local label, so it  can be anywhere in the bank space.
+The  service routines  are  called  with a  routine  number  — found  in
+Source/Common/Enums.s as Service* — in the Y register. By the time we're
+called, A  and X  are trashed.  The few routines  that require  a simple
+parameter usually get it in Temp ($80).
 
 ROM banks have enumerated symbolic names:
 
  * 0 is ColdStartBank and SaveKeyBank (both). These routines include the
    publisher/author  credit  screen,  the title  screen,  the  copyright
    notice, a secret  Easter Egg screen which displays  the build version
-   of the game, and the Select/Erase Game Slot screen.
+   of  the  game, and  the  Select/Erase  Game  Slot screen.  The  title
+   graphics take up  a lot of space,  but the SaveKey code  here also is
+   over 1k. There are various SaveKey-alike build options, see below.
 
- * 1  is MapServicesBank  and AnimationsBank  (both). The  animations to
-   which the title  refers are win, lose, and the  “story” screen in the
-   attract sequence.
+ * 1 is MapServicesBank, and  generally provides the MapTopService which
+   is called from every map bank on every frame.
 
  * 2 is  the TextBank. It's  also FailureBank,  where the “sad  face” is
    drawn (via the BRK vector).
 
- * 3 is the Province1MapBank.  This is one half of the  maps in the game
-   (roughly) and all share a common background song (Province1.midi).
+ * 3 is the Province1MapBank.  This is one third of the  maps in the game
+   (roughly) and  all share  a common background  song (Province1.midi).
+   In the Demo builds, it's instead used as the Animations bank.
 
- * 4 is the Province0MapBank, with the rest of the maps.
+ * 4 is the Province0MapBank, It's the only one found in the Demo build.
 
- * 5 is the Signpost bank, handling  signs and NPCs (which are basically
-   the same thing,  aside from some story-driven  special-casing and map
-   icons)
+ * 5 is the Province2MapBank, usually, or  the only Signpost bank in the
+   Demo build,  handling signs  and NPCs (which  are basically  the same
+   thing, aside from some story-driven special-casing and map icons)
  
- * 6 is CombatBank
+ * 6 is  CombatBank. Nominally,  there was  support for  multiple combat
+   banks, but in practice the 64k game does not use more than the one.
 
  * 7 is the  SFXBank, handling sound effects, speech  synthesis, and the
    music for the title/attract sequence.
 
+ * Banks 8‐13 are the Signpost banks for the full game. There's a lot of
+   text (and  speech phoneme) data here.  Note that the demo  (32k) uses
+   bank 5 for all its Signpost data.
 
-Each bank includes Source/Common/EndBank.s which provides “wired” memory
-(the same  in every bank)  with routines to jump  into a map,  jump into
-combat, or make a “far call” to  a function in another bank. The FarCall
-subroutine  (and the  .FarJSR macro,  or .FarJMP  for tail  calls) takes
-a memory bank number in the X  register, and a service routine ID in the
-Y register. These  are both taken from lists of  constants maintained in
-Source/Common/Enums.s.
+ * Bank 14 is  the EndAnimations bank, which are animations  not used in
+   the demo builds.
+
+ * Bank 15  is the animation  services bank generally (replaced  by bank
+   3 in the demo).
+
+Each  bank includes  Source/Common/StartBank.s  which  includes the  RAM
+layouts and various  constants and macros that will be  useful, but does
+not actually fill any ROM space.
+
+Each bank  also includes Source/Common/EndBank.s which  provides “wired”
+memory (the same in  every bank) with routines to jump  into a map, jump
+into  combat, or  make  a “far  call”  to a  function  in another  bank.
+The  FarCall subroutine  (and the  .FarJSR  macro, or  .FarJMP for  tail
+calls)  takes a  memory bank  number in  the X  register, and  a service
+routine  ID in  the  Y register.  These  are both  taken  from lists  of
+constants maintained in Source/Common/Enums.s.
 
 I say “the  same in every bank,”  but the actual contents  of the memory
 may be a little different in each bank. EG: The address of DoLocal might
@@ -65,23 +79,24 @@ not change  the program counter, so  after every store to  a bank switch
 register  the  next opcode  has  to  be at  the  right  location in  the
 destination bank, and this “wiring” ensures that.
 
+Aside from looking  cleaner, an advantage of using  .FarJSR (or .FarJMP)
+is that it will  signal a compile-time error if you attempt  to do a far
+call  to the  current  memory bank  (when  you could  do  a regular  JSR
+instead).
+
 One oddball thing found  in EndBank is a BitMask table  that can be used
 to convert the X register to 2 to  the power of X, which us something we
-use all over the place.
+use all  over the place.  There's a .BitBit  macro that provides  a fake
+version of bit #nn for powers-of-two only.
 
-Aside from  looking cleaner, an  advantage of  using .FarJSR is  that it
-will signal a compile-time error if you  attempt to do a far call to the
-current memory bank (when you could do a regular JSR instead).
-
-Text  is mostly  encoded (by  the assembler)  in what  I have  nicknamed
-“minifont” coding. 0 = “0,” $0a = “A,” and so forth (so decimal digit or
-hex dumping  is trivial), up  through 40 =  blank. The text  macros like
-.MiniText handle the conversion from Unicode silently at compile-time.
+Most banks also have  the code to wait out the  screen timer and perform
+Overscan  buried   in  what  would   have  been  wasted  space   in  the
+EndBank region.
 
 Sound effects have  a one-deep queue system, where  the NextSound memory
-location is a  queue. Sound IDs are taken from  enumerated constants and
-the Bank  7 sound routine  checks NextSound after finishing  the current
-sound. Sound effects use voice 0, music uses voice 1.
+location is  that queue. Sound  IDs are taken from  enumerated constants
+and  the Bank  7  sound  routine checks  NextSound  after finishing  the
+current sound. Sound effects use voice 0, music uses voice 1.
 
 The .sound  macro handles change  of duration  based on system,  but not
 pitch adjustments; however, the music  compiler writes out both NTSC and
@@ -109,10 +124,13 @@ bank has only the one service to  provide (well, a 3-in-1 service) so it
 does not require Y to be loaded with a service routine ID.
 
 Common code  is used for VSync,  VBlank, and Overscan in  every ROM bank
-that uses them — which is every bank except 7.
+that  uses them  — which  is every  bank except  7. Additional  code for
+VBlank can  be added by defining  a label DoVBlank in  the Bank0n.s file
+pointed  to  the additional  routine.
 
 Some FarCalled  routines (eg. player  death) may never return,  and they
-reset the stack pointer (to $ff) and go about their own business.
+reset  the stack  pointer  (to $ff)  and go  about  their own  business.
+The same is true of switching "screens" in general.
 
 There is  a 6-char StringBuffer  used for composing  text, and a  set of
 6 (word-length)  “pixel pointers”  used for various  graphics functions,
@@ -121,27 +139,32 @@ Pointer temp vars that are used constantly.
 
 Part of zero  page is globally used;  part of that is saved  to the save
 game “file”  on the EEPROM. A  set of game flags  (indicating victory in
-combat) are saved to different areas  of the save game file depending on
-which  “province” the  player is  in (Province  0 in  ROM banks  4 ,  or
-Province  1  in banks  3).  Another  5-byte  segment holds  the  current
-Grizzard's stats, which are “paged” when changing Grizzards.
+combat or  other forms  of player progress,  eg from  conversations with
+NPCs) are  saved to different areas  of the save game  file depending on
+which “province” the player  is in (Province 0 in ROM  bank 4 , Province
+1 in bank 3, or Province 2  in bank 5). Another 5-byte segment holds the
+current  Grizzard's stats,  which are  “paged” when  changing Grizzards.
+Note that this means a game  flag from one province cannot be tested-for
+in a different province; what happens in Vegas, stays in Vegas.
 
 The middle part  (between globals and the stack) of  the zero page holds
 “overlain”  variables   which  are  defined  for   a  specific  routine.
 These routines  normally reset  them on  entry to  a game  routine (e.g.
 starting combat), trashing whatever the previous game routine might have
-left there.
+left there. This is referenced in ZeroPage.s as the Scratchpad region.
 
 A global  clock stores current  time in  game play, in  frames, seconds,
 minutes, and  four-hour increments. (The minutes  counter ranges 0-239.)
-An alarm word can  be used to set an alarm for a  future time in minutes
-and   seconds,  and   is  used   to  normalize   display  delays   (e.g.
-message  displays) between  50Hz  and 60Hz  systems.  Currently NTSC  is
-always 60Hz and PAL & SECAM are  locked to 50Hz, but it's plausible that
-could be changed. In addition to working with the alarm timer, the clock
-is  used  for  the  game  play clock  displayed  in  a  Grizzard  Depot.
-If a  crazy person  plays for  more than $ff  4-hours (1,020  hours) the
-hours counter stops and the Depot reports only “MANY” hours played.
+An alarm word can be used to set  an alarm for a future time in one-half
+seconds, and is used to normalize display delays (e.g. message displays)
+between 50Hz and  60Hz systems. Currently NTSC is always  60Hz and PAL &
+SECAM are  locked to 50Hz, but  it's plausible that could  be changed if
+there's a  demand for  a PAL60  version — I  don't understand  why there
+would be. In addition to working with the alarm timer, the clock is used
+for the game play clock displayed in a Grizzard Depot. If a crazy person
+plays for  more than $ff 4-hours  (1,020 hours) the hours  counter stops
+and the  Depot reports only  “MANY” hours  played. Note that  this means
+more than 42 days of continuous game play. Them's some Zelda hours.
 
 The user  input is scanned  during VBlank and debounced.  Current values
 are available  in eg.  DebounceSWCHA; when these  have not  changed, the
@@ -150,17 +173,19 @@ changed, the New registers contain  non-zero values. (Since stick cannot
 be both left & right or up & down, at least two directions must be 1; to
 ensure that the fire button registers a 1  on INPT4 we OR it with a $01;
 we likewise set a spurious 1 bit  in SWCHB in case someone flips all the
-switches at once.)
+switches at  once.) NewButtons  also tracks  the C  button on  a Genesis
+gamepad if one was detected at startup.
 
 For  screens that  want  to perform  some  variable-length work  without
 losing count of scanlines, there are a pair of macros .WaitScreenTop and
 .WaitScreenBottom that  set up TIM64T to  allow the routine to  work for
 the majority  of a frame (181  scanlines, 215 TIM64T counts),  then wait
 out the timer and hit WSYNC enough times to keep the scanline count even
-(262 resp.  312 for  NTSC or  PAL/SECAM). This is  used for  things like
+(262 resp. 312  for NTSC resp. PAL/SECAM). This is  used for things like
 computing the outcome of a Move in combat which are too complex to count
 cycles in any meaningful way (and take  too long to stuff into VBlank or
-Overscan or something).
+Overscan or something), or basically every screen to avoid variations in
+frame length really.
 
 There  is (unused)  support for  localization of  text based  on a  LANG
 constant  at compile-time.  This  could  also be  used  to swap  between
@@ -170,28 +195,169 @@ version of  the game, but  the 6-char limits will  be a big  problem for
 most  languages (not  to  mention  the effort  of  translating all  this
 nonsense) so it's unlikely to happen.
 
-Combat is  roughly broken  into 4  routines: CombatMainScreen  shows the
-monsters, the player's Grizzard, and  (on the player's turn) allows move
-selection (or  makes a  selection for monsters  or a  Muddled Grizzard).
+Combat is roughly  broken into 5 routines: CombatSetup runs  once to set
+up  the  Scratchpad region;  CombatMainScreen  shows  the monsters,  the
+player's Grizzard, and (on the  player's turn) allows move selection (or
+makes   a    selection   for   monsters   or    a   Muddled   Grizzard).
 CombatAnnouncementScreen just echoes what is  happening in the Move, and
 looks up some facts about that  move that are used by ExecuteCombatMove.
 ExecuteCombatMove is somewhat self-explanatory and occurs during a blank
 frame. The CombatOutcomeScreen displays  the outcome, and possibly jumps
-to Death, WinnerFireworks, or back to the map screen as appropriate.
+to Death, WinnerFireworks, RevealBear, or back to the map screen as appropriate.
 
 The Signpost  system has a setup  code block that has  special cases for
 "game logic" to swap out which message is shown depending on game flags.
-That is the least data-driven element of the game design system.
+Normally, however, a very simple "script" system is used. When the first
+byte after the signpost colors is  $ff (since COLUM values are nominally
+7-bit but  realistically I set  the low bit  sometimes, so $ff  could be
+valid), then the  next byte is a  flag index (bit number  in relation to
+ProvinceFlags) and the following byte is  the Signpost index to which to
+jump if that bit flag is set.
 
+Upon entering a province,  if bit 55 is clear (as it  will usually be at
+start as the flags are zeroed to begin with) then bits 56-63 are all set
+to 1, allowing "negative" tests. This allows eg. suppressing the door to
+the  labyrinth using  a  normal bit  flag test  until  some story  beats
+have passed.
 
+DATA STRUCTURES
 
+The  music (and  some  sound  effects) exist  as  MIDI  files which  are
+compiled into tables  at compile-time; there are  different versions for
+50Hz or 60Hz machines.
+
+The graphics are mostly ripped from  PNG files into inverted tables; for
+the simple 8px  graphics, these strips are ordered in  8×8px cells, each
+of which is  inverted. For 48px graphics, up to  42px high, the vertical
+8px-wide strips  are stored  inverted. The PNG  files are  the preferred
+form for editing.
+
+The one random exception to this is the font, which is 8px×5px character
+cells, inverted,  and entered  directly into the  source code  as binary
+values by hand.
+
+Text  is mostly  encoded (by  the assembler)  in what  I have  nicknamed
+“minifont” coding. 0 = “0,” $0a = “A,” and so forth (so decimal digit or
+hex dumping  is trivial), up  through 40 =  blank. The text  macros like
+.MiniText handle the conversion from Unicode silently at compile-time.
+
+.MiniText  allows  a  6-character  string,   which  is  encoded  in  the
+"minifont"   format,   one   byte  per   character.   .SignText   allows
+a 12-character string, which is compressed  to 6 bits per character, ie,
+9 bytes.
+
+The Maps  are made up of  four interrelated tables, and  I'm hand coding
+them  for all  — there's  no eg.  TMX support  here. The  MapLinks table
+enumerates the exits from any screen  — up, down, left, right (or North,
+South, West, East). $ff indicates no  exit. The screens each have an RLE
+pointer  —  an  actual  word  pointer  into  the  ROM.  Backgrounds  are
+hand-coded RLE graphics  consisting of a run length,  followed by values
+for  PF0, PF1,  and PF2,  and  are drawn  in the  usual reflected  mode.
+To make  slightly asymmetrical screens,  the Ball  can be placed  at the
+left or right side  of a screen; the ball values are  $80 for Right, $40
+for left, or $00 for no balls.
+
+The   Sprite    List   enumerates   each   room's    sprite   data   and
+random encounters. For each room, there can be up to 4 sprites, followed
+by a zero byte. The sprite table is six bytes long, consisting of: a bit
+flag  index to  suppress the  sprite;  the sprite's  movement type;  its
+starting X and Y position; and the sprite's action and action parameter.
+
+If the bit flag referenced by the sprite index is 1, the sprite will not
+appear; this is  used eg. to suppress a monster  that has been defeated.
+Movement types can be  Fixed or Wander. The x,y position  can be left as
+0, 0  to position  the sprite randomly;  stylistically, this  is usually
+done only for  monsters. The Sprite action can  be: Combat, MajorCombat,
+Person, Signpost,  Door, or ProvinceDoor;  in the case  of ProvinceDoor,
+the high nybble must  be set to indicate to which  province (eg. $20 for
+Province 2). Combat  and MajorCombat both take a  combat scenario index,
+however, Major Combat  is a "boss fight" and must  have only one monster
+defined  in its  scenario  or the  player  will never  be  able to  win.
+These have also different icons on the map, wholly inspired by Zelda II.
+Person and  Signpost are interchangeable,  differing only in  graphic on
+the map, and take as parameter the signpost index. Door and ProvinceDoor
+take (in addition to, perhaps, a  province number) the index of the room
+to which to link; it is required that there be a Door or ProvinceDoor on
+the destination  screen, to  position the  player properly.  (The player
+always appears slightly  below the door, matching  the directionality of
+the door graphic.)
+
+CODING STYLE
 
 Stylistically, I use CamelCase for  memory addresses and constants both,
 for the  most part, with  CAPS for constants  that are really  more like
-compile-time variables: TV, DEMO, STARTER, and PUBLISHER in particular.
+compile-time variables: TV, DEMO, STARTER, and PUBLISHER for example.
 
 I usually  add a space between  “#” and a  decimal value, but not  a hex
 value, just to make it slightly easier to tell it's a decimal.
 
+All labels have colons. All blocks are  defined as a block, even if they
+don't need local  labels. Local +/- labels are usually  only used within
+a few lines — very short jumps —  and may be “upgraded” to a named label
+if there's any good descriptive name for them.
 
+BUILDS AND BUILDING
 
+There are NTSC, PAL, and SECAM versions for each of the following:
+
+ * The stand-alone Unerase  utility, which may be folded in  to the code
+   if space can be found. (4k)
+
+ * The Demo and NoSave demo builds. (32k each)
+
+ * The “public” builds using  SaveKey/MemCard/AtariVox memory. These are
+   the  default builds,  really.  There are  three  for each  territory:
+   Airex, Aquax, and Dirtex. (64k each)
+
+ * The AtariAge  builds using on-cartridge  save memory. There  are also
+   three of  these for each  territory: Airex, Aquax, and  Dirtex. (also
+   64k each)
+
+This builds a total of 3 + 3×2 + 3×3 + 3×3 = 27 binary ROM images.
+
+The main Makefile contains numerous  targets, but the individual sources
+for   each   bank   are    in   Source/Generated/Makefile   created   by
+bin/write-master-makefile. So  if you  want to build  just one  bank use
+e.g. make Object/Bank00.Demo.NTSC.o -f Source/Generated/Makefile.
+
+To  check  available  ROM  space,  there's a  facility  bin/room  —  eg.
+bin/room -t NTSC -s Demo will tell  you how much ROM remains in the NTSC
+Demo build in each bank; bin/room -a -t SECAM -s Airex will tell you how
+much ROM  remains in the AtariAge  Airex build for SECAM.  This actually
+compiles the bank but does not concatenate them into the ROM image file.
+
+If you're  curious, you can  see the source lines  of code for  the game
+itself (not Skyline Tool) with  bin/sloc; to see also generated sources,
+use bin/sloc -a.
+
+For testing, there are convenient  Makefile targets for launching Stella
+with the latest build of various types. Note that Stella does not (yet?)
+support the on-cartridge save ROM  format, so the AtariAge versions must
+be tested in EPROM form.
+
+ * stella = NTSC Aquax full game (public version)
+
+ * dstella = NTSC Demo
+
+ * nstella = NTSC NoSave demo
+
+ * stella-pal = PAL Aquax full game
+
+ * stella-secam = SECAM Aquax full game
+
+ * stella-airex = NTSC Airex full game
+
+ * stella-dirtex = NTSC Dirtex full game
+
+For    any   other    specific   build,    do   something    like   make
+Dist/Grizzards.NoSave.PAL.a26 && stella Dist/Grizzards.NoSave.PAL.a26
+
+Stella should  correctly detect the  ROM bankswitching formats  and even
+identify the  Genesis controller and  SaveKey supports, but it  does not
+detect  SECAM  as  distinct  from  PAL. The  SECAM  version  colors  are
+intentionally set up  to look "OK-ish" on PAL systems,  but for the full
+gory glory  of SECAM  you'll have  to use  Control+F or  specify -format
+SECAM when launching Stella.
+
+There are  Stella .pro files  created in  the build process  that should
+also help with Stella's identifying things.
