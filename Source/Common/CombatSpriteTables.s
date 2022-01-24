@@ -23,6 +23,6 @@ SpritePosition:
           .byte $03             ; 1 1 1
 
 CursorPosition:
-          .byte $03             ; x - -
-          .byte $e5             ; - x -
-          .byte $c7             ; - - x
+          .byte $33             ; x - -
+          .byte $45             ; - x -
+          .byte $27             ; - - x

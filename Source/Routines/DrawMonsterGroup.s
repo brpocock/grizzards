@@ -26,8 +26,9 @@ PrepareToDrawMonsters:
           sta VDELP0
           sta VDELP1
           sta NUSIZ0
-          sta NUSIZ1
           sta pp3l
+          lda #NUSIZDouble
+          sta NUSIZ1
 
           lda CombatMajorP
           beq PrepareTopCursor
@@ -193,7 +194,7 @@ CursorPosGross:
           lda CursorPosition, x
           sta HMP1
 
-          lda #$ff
+          lda #%11111100
           sta pp3l
 
           stx WSYNC
