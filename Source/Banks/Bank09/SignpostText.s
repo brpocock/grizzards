@@ -75,7 +75,7 @@ NPC_ChildReward:
           .SignText "THANK YOU   "
           .SignText "FOR SAVING  "
           .SignText "PETER. HAVE "
-          .SignText "THIS -FIXME-"
+          .SignText "THIS COOKIE "
           .SignText "AS A REWARD."
           .byte ModeSignpostSetFlag, 2
 
