@@ -331,9 +331,7 @@ itself (not Skyline Tool) with  bin/sloc; to see also generated sources,
 use bin/sloc -a.
 
 For testing, there are convenient  Makefile targets for launching Stella
-with the latest build of various types. Note that Stella does not (yet?)
-support the on-cartridge save ROM  format, so the AtariAge versions must
-be tested in EPROM form.
+with the latest build of various types.
 
  * stella = NTSC Aquax full game (public version)
 
@@ -349,6 +347,11 @@ be tested in EPROM form.
 
  * stella-dirtex = NTSC Dirtex full game
 
+Since Stella does  not (yet?) support the on-cartridge  save ROM format,
+so the AtariAge versions must be tested  in EPROM form. Since I can only
+directly test  the NTSC builds, there  are only targets for  burning the
+NTSC EPROMs with minipro.
+
 For    any   other    specific   build,    do   something    like   make
 Dist/Grizzards.NoSave.PAL.a26 && stella Dist/Grizzards.NoSave.PAL.a26
 
@@ -361,3 +364,23 @@ SECAM when launching Stella.
 
 There are  Stella .pro files  created in  the build process  that should
 also help with Stella's identifying things.
+
+For loading up  various SD cards, there are targets  named uno, harmony,
+encore,  and plus.  The plus  target  expects that  your local  username
+matches the username you registered  with the "PlusStore" site, and that
+your login and password are in ~/.netrc in the form:
+
+machine plusstore.firmaplus.de
+login YOURNAME
+password PLAINTEXT-PASSWORD
+
+UTILITIES
+
+The largest  external utilities needed to  build are Common Lisp  (I use
+SBCL)  and  LaTeX (for  the  manuals).  The bin/skyline-tool  executable
+converts MIDI  and PNG  graphics into various  formats, this  version is
+rather specific to the Atari 2600 but  it has been used for Commodore 64
+in the past and could be extended to various other platforms.
+
+Speech  is currently  converted from  English to  SpeakJet phoneme  data
+using a rather crude Perl script, but it works reliably.

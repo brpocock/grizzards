@@ -44,7 +44,7 @@ plus:	Dist/Grizzards.Aquax.NTSC.a26 \
 	Dist/Grizzards.Manual.txt
 
 	@echo -e 'put Dist/Grizzards.Aquax.NTSC.a26 Grizzards.Aquax.NTSC.EF\nput Dist/Grizzards.Aquax.PAL.a26 Grizzards.Aquax.PAL.EF\nput Dist/Grizzards.Aquax.SECAM.a26 Grizzards.Aquax.SECAM.EF\nput Dist/Grizzards.Airex.NTSC.a26 Grizzards.Airex.NTSC.EF\nput Dist/Grizzards.Airex.PAL.a26 Grizzards.Airex.PAL.EF\nput Dist/Grizzards.Airex.SECAM.a26 Grizzards.Airex.SECAM.EF\nput Dist/Grizzards.Dirtex.NTSC.a26 Grizzards.Dirtex.NTSC.EF\nput Dist/Grizzards.Dirtex.PAL.a26 Grizzards.Dirtex.PAL.EF\nput Dist/Grizzards.Dirtex.SECAM.a26 Grizzards.Dirtex.SECAM.EF\nput Dist/Grizzards.Demo.NTSC.a26 Grizzards.Demo.NTSC.F4\nput Dist/Grizzards.Demo.PAL.a26 Grizzards.Demo.PAL.F4\nput Dist/Grizzards.Demo.SECAM.a26 Grizzards.Demo.SECAM.F4\nput Dist/Grizzards.NoSave.NTSC.a26 Grizzards.NoSave.NTSC.F4\nput Dist/Grizzards.NoSave.PAL.a26 Grizzards.NoSave.PAL.F4\nput Dist/Grizzards.NoSave.SECAM.a26 Grizzards.NoSave.SECAM.F4\nput Dist/Grizzards.Unerase.NTSC.a26 Grizzards.Unerase.NTSC.a26\nput Dist/Grizzards.Unerase.PAL.a26 Grizzards.Unerase.PAL.a26\nput Dist/Grizzards.Unerase.SECAM.a26 Grizzards.Unerase.SECAM.a26\nput Dist/Grizzards.Manual.txt Grizzards.Manual.txt' | \
-	cadaver https://plusstore.firmaplus.de/remote.php/dav/files/brpocock/Grizzards
+	cadaver https://plusstore.firmaplus.de/remote.php/dav/files/$(USER)/Grizzards
 
 demo:	Dist/Grizzards.Demo.zip
 
@@ -54,16 +54,17 @@ Dist/Grizzards.Source.tar.gz:	game
 	find Source Manual -name \*~ -exec rm {} \;
 	tar zcf $@ Makefile README.md Source Manual
 
-cart:	cart-ntsc
+cart:	cart-aquax
 
-cart-ntsc:	Dist/Grizzards.Demo.NTSC.a26
+cart-aquax:	Dist/Grizzards.AA.Aquax.NTSC.a26
 	minipro -p AT27C256@DIP28 -w $<
 
-cart-pal:	Dist/Grizzards.Demo.PAL.a26
+cart-airex:	Dist/Grizzards.AA.Airex.NTSC.a26
 	minipro -p AT27C256@DIP28 -w $<
 
-cart-secam:	Dist/Grizzards.Demo.SECAM.a26
+cart-dirtex:	Dist/Grizzards.AA.Dirtex.NTSC.a26
 	minipro -p AT27C256@DIP28 -w $<
+
 
 USBMOUNT=$(shell echo \"$$(mount | grep /run/media/$$USER | grep vfat | head -n 1 | perl -pne 's#^/dev/.+ on (.+) type vfat (.*)#$$1#g')\")
 
