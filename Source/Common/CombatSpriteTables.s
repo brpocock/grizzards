@@ -1,4 +1,4 @@
-;;; Grizzards Source/Banks/Bank01/CombatSpriteTables.s
+;;; Grizzards Source/Common/CombatSpriteTables.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 ;;; Combat sprite tables
           

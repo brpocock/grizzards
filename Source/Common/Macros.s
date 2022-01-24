@@ -1,6 +1,5 @@
-;;; Macros.s
-;;;
-;;; Copyright © 2016,2017,2020,2021,2022 Bruce-Robert Pocock (brpocock@star-hope.org)
+;;; Grizzards Source/Common/Macros.s
+;;; Copyright © 2016,2017,2020-2022 Bruce-Robert Pocock (brpocock@star-hope.org)
 ;;;
 ;;;
 Sleep:    .macro Cycles

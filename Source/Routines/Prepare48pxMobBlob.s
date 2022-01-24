@@ -1,7 +1,7 @@
 ;;; Grizzards Source/Routines/Prepare48pxMobBlob.s
 ;;; -*- asm -*-
 ;;;
-;;; Copyright © 2016,2017,2020 Bruce-Robert Pocock (brpocock@star-hope.org)
+;;; Copyright © 2016,2017,2020-2022 Bruce-Robert Pocock (brpocock@star-hope.org)
 ;;;
 ;;; Most rights reserved. (See COPYING for details.)
 ;;;

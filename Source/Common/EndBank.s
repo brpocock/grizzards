@@ -1,3 +1,5 @@
+;;; Grizzards Source/Common/EndBank.s
+;;; Copyright © 2021-2022, Bruce-Robert Pocock
 ;;; Common logic at the end of every ROM bank.
 
 EndBank:

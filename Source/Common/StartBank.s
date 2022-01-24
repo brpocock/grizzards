@@ -1,12 +1,5 @@
-;;; -*- asm -*-
-;;;
-;;; Grizzards
-;;;
+;;; Grizzards Source/Common/StartBank.s
 ;;; Copyright © 2021-2022, Bruce-Robert Pocock <brpocock@star-hope.org>
-;;;
-;;; Most rights reserved. (See COPYING for details.)
-;;;
-
 ;;; Start of each ROM bank
 
           ;; These can be overridden by the build command-line.

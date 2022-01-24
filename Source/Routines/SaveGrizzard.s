@@ -1,5 +1,5 @@
 ;;; Grizzards Source/Routines/SaveGrizzard.s
-;;; Copyright © Bruce-Robert Pocock
+;;; Copyright © 2021,2022 Bruce-Robert Pocock
 
 SaveGrizzard:       .block
           .WaitScreenBottom

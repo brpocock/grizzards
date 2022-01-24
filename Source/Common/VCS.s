@@ -1,4 +1,4 @@
-; vcs.s
+; VCS.s
 ; Version 1.05, 13/November/2003 — revised for 64tass assembler, 2007
 
 VERSIONVCS         = 105

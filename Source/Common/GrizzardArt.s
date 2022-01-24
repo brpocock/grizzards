@@ -1,4 +1,4 @@
-;;; Grizzards Source/Banks/Bank02/GrizzardArt.s
+;;; Grizzards Source/Common/GrizzardArt.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 GrizzardPictureSelect:

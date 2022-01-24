@@ -1,5 +1,5 @@
 ;;; -*- fundamental -*-
-;;; Grizzards Source/Banks/Bank05/FontExtended.s
+;;; Grizzards Source/Common/FontExtended.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 ;;; The text font is an 8 × 15px font stored at 8 × 5px resolution,
