@@ -1,4 +1,4 @@
-;;; Grizzards Source/Banks/Bank04/OverworldMaps.s
+;;; Grizzards Source/Banks/Bank05/MapsProvince2.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
           ;; How many maps are in these tables?

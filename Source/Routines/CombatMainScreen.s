@@ -1,4 +1,4 @@
-;;; Grizzards Source/Common/CombatMainScreen.s
+;;; Grizzards Source/Routines/CombatMainScreen.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 CombatMainScreen:   .block
 

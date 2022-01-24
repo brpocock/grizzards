@@ -1,4 +1,4 @@
-;;; Grizzards Source/Common/CombatAnnouncementScreen.s
+;;; Grizzards Source/Routines/CombatAnnouncementScreen.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 CombatAnnouncementScreen:     .block

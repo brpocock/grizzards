@@ -1,4 +1,4 @@
-;;; Grizzards Source/Common/GrizzardStatsScreen.s
+;;; Grizzards Source/Routines/GrizzardStatsScreen.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 GrizzardStatsScreen: .block
           .WaitScreenTop

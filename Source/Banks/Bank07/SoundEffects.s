@@ -1,4 +1,4 @@
-;;; SoundEffects.s
+;;; Grizzards Source/Banks/Bank07/SoundEffects.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 SoundTable:        .block

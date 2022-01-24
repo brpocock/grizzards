@@ -1,4 +1,4 @@
-;;; Grizzards Source/Routines/ReadProvinceData.s
+;;; Grizzards Source/Routines/LoadProvinceData.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 LoadProvinceData:   .block

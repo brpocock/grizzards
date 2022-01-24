@@ -1,4 +1,4 @@
-;;; Grizzards Source/Common/ExecuteCombatMove.s
+;;; Grizzards Source/Routines/ExecuteCombatMove.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 ExecuteCombatMove:  .block
