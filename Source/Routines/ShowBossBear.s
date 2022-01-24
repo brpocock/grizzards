@@ -11,6 +11,4 @@ ShowBossBear:
           .SetUpFortyEight BossBear
           ldy #BossBear.Height
           sty LineCounter
-          jsr ShowPicture
-
-          rts
+          jmp ShowPicture       ; tail call
