@@ -6,7 +6,7 @@ unerase:	Dist/Grizzards.Unerase.zip
 
 atariage:	Dist/Grizzards.AtariAge.zip
 
-publish:	demo game no-save doc unerase Dist/Grizzards.Source.tar.gz
+publish:	demo game no-save doc unerase Dist/Grizzards.Source.tar.gz Dist/Grizzards.AtariAge.zip
 	@until rsync -essh --progress \
 		Dist/Grizzards.Demo.NTSC.a26 Dist/Grizzards.Demo.PAL.a26 Dist/Grizzards.Demo.SECAM.a26 \
 		Dist/Grizzards.Demo.zip Dist/Grizzards.Source.tar.gz \
@@ -20,6 +20,7 @@ publish:	demo game no-save doc unerase Dist/Grizzards.Source.tar.gz
 		Dist/Grizzards.Unerase.NTSC.a26 \
 		Dist/Grizzards.Unerase.PAL.a26 \
 		Dist/Grizzards.Unerase.SECAM.a26 \
+		Dist/Grizzards.AtariAge.zip \
 		star-hope.org:star-hope.org/games/Grizzards/ ; \
 	do sleep 1; done
 
