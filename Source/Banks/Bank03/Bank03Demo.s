@@ -12,6 +12,7 @@
 
           .include "AttractStory.s"
           .include "Death.s"
+          .align $20
           .include "DrawMonsterGroup.s"
           .include "DrawGrizzard.s"
 
