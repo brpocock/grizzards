@@ -71,7 +71,9 @@ if [ "$minmode" = "1" ]; then
                 rm -f Object/Bank$bank.$starter.$tv.o
                 size=$(make Object/Bank$bank.$starter.$tv.o -f Source/Generated/Makefile 2>&1 \
                            | grep 'bytes left' | grep -v %d | cut -d: -f5 | cut -d ' ' -f 8)
-                if [ $size -lt $min ]; then
+                if [ "x$size" = "x" ]; then
+                    # no op
+                elif [ $size -lt $min ]; then
                     min=$size
                     mincfg="$starter for $tv"
                 fi
