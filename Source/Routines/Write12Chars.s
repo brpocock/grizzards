@@ -7,8 +7,37 @@ TextLineLoop:
           stx WSYNC
           lda ClockFrame
           and #$01
-          beq DrawRightField
+          bne DrawLeftField
+          ;; fall through
+;;; 
+DrawRightField:
 
+          .option allow_branch_across_page = false
+
+          stx WSYNC
+          sta HMCLR
+          ldx #$00
+          ldy #$00
+          stx HMP0
+          sty HMP1
+          .Sleep 34
+          sta RESP0
+          sta RESP1
+          .Sleep 13
+          sta HMOVE             ; Cycle 74 HMOVE
+
+          .option allow_branch_across_page = true
+          .NoPageCrossSince AlignedLeft
+
+          ldy # 4
+          .UnpackRight SignpostLineCompressed
+
+          jsr DecodeText
+
+          .Add16 SignpostWork, # 9
+
+          jmp AlignedRight
+;;; 
 DrawLeftField:
           .option allow_branch_across_page = false
 
@@ -36,9 +65,8 @@ DrawLeftField:
 
           .Add16 SignpostWork, # 9
 
-          jmp AlignedLeft
-          .align $b0, $ea
-
+          ;; fall through
+;;; 
 AlignedLeft:
           .option allow_branch_across_page = false
 
@@ -111,36 +139,23 @@ LeftLoop:
           bpl LeftLoop
 
           stx WSYNC
-
-          jmp DrawCommon
-
-DrawRightField:
-
-          .option allow_branch_across_page = false
+          ;; fall through
+;;; 
+DrawCommon:
+          lda # 0
+          sta GRP0
+          sta GRP1
+          sta GRP0
+          sta GRP1
 
           stx WSYNC
-          sta HMCLR
-          ldx #$00
-          ldy #$00
-          stx HMP0
-          sty HMP1
-          .Sleep 34
-          sta RESP0
-          sta RESP1
-          .Sleep 13
-          sta HMOVE             ; Cycle 74 HMOVE
+          stx WSYNC
 
-          .option allow_branch_across_page = true
+DoneDrawing:
+          rts
+;;; 
 
-          ldy # 4
-          .UnpackRight SignpostLineCompressed
-
-          jsr DecodeText
-
-          .Add16 SignpostWork, # 9
-
-          jmp AlignedRight
-          .align $40, $ea
+          .align $30
 
 AlignedRight:
           .option allow_branch_across_page = false
@@ -214,18 +229,8 @@ RightLoop:
           bpl RightLoop
 
           .option allow_branch_across_page = true
+          .NoPageCrossSince AlignedRight
 
-DrawCommon:
-          lda # 0
-          sta GRP0
-          sta GRP1
-          sta GRP0
-          sta GRP1
-
-          stx WSYNC
-          stx WSYNC
-
-DoneDrawing:
-          rts
+          jmp DrawCommon
 
           .bend
