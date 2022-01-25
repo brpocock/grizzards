@@ -58,13 +58,13 @@ Dist/Grizzards.Source.tar.gz:	game
 cart:	cart-aquax
 
 cart-aquax:	Dist/Grizzards.AA.Aquax.NTSC.a26
-	minipro -p AT27C256@DIP28 -w $<
+	minipro -p AT27C512@DIP32 -w $<
 
 cart-airex:	Dist/Grizzards.AA.Airex.NTSC.a26
-	minipro -p AT27C256@DIP28 -w $<
+	minipro -p AT27C512@DIP32 -w $<
 
 cart-dirtex:	Dist/Grizzards.AA.Dirtex.NTSC.a26
-	minipro -p AT27C256@DIP28 -w $<
+	minipro -p AT27C512@DIP32 -w $<
 
 
 USBMOUNT=$(shell echo \"$$(mount | grep /run/media/$$USER | grep vfat | head -n 1 | perl -pne 's#^/dev/.+ on (.+) type vfat (.*)#$$1#g')\")
