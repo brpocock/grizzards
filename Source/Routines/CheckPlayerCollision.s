@@ -5,8 +5,7 @@ CheckPlayerCollision:         .block
           lda CXP0FB
           and #$c0              ; hit playfield or ball
           beq NoBumpWall
-          jsr BumpWall
-          rts
+          jmp BumpWall          ; tail call
 
 NoBumpWall:
           lda CXPPMM
@@ -87,10 +86,10 @@ GetNewGrizzard:
 
 PlayerMoveOK:
           lda BumpCooldown
-          beq +
+          beq Cool
           dec BumpCooldown
           rts
-+
+Cool:
           lda ClockFrame
           and #$03
           bne DonePlayerMove
@@ -127,7 +126,6 @@ ProvinceChange:
           ldx P0LineCounter
           lda SpriteAction, x
           and #$f0
-          clc
           lsr a
           lsr a
           lsr a
@@ -147,10 +145,10 @@ BumpWall:
 
           lda BlessedX
           cmp PlayerX
-          beq +
+          beq NeedsXShove
           sta PlayerX
           jmp BumpY
-+
+NeedsXShove:
           lda DeltaX
           bne ShoveX
           jsr Random
@@ -166,10 +164,10 @@ ShoveX:
 BumpY:
           lda BlessedY
           cmp PlayerY
-          beq +
+          beq NeedsYShove
           sta PlayerY
           jmp DoneBump
-+
+NeedsYShove:
           lda DeltaY
           bne ShoveY
           jsr Random
