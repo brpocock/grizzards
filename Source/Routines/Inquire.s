@@ -56,21 +56,19 @@ Loop:
           bne DoneStickUp
           lda SignpostInquiry
           beq StickDone
-          lda #SoundChirp
-          sta NextSound
           lda # 0
-          sta SignpostInquiry
-          geq StickDone
+          geq StickMoved
 
 DoneStickUp:
           .BitBit P0StickDown
           bne DoneStickDown
           lda SignpostInquiry
           bne StickDone
+          lda # 1
+StickMoved:
+          sta SignpostInquiry
           lda #SoundChirp
           sta NextSound
-          lda # 1
-          sta SignpostInquiry
           gne StickDone
 
 DoneStickDown:
@@ -104,7 +102,6 @@ BackToSignpost:
           jmp FarCall
 
 NoButton:
-
           .WaitScreenBottom
           jmp Loop
 
