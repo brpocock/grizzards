@@ -10,7 +10,9 @@ SaveGameSignatureString:
 
 ;;; 
 
-          .fill $230, $ea
+          ;; The AtariVox EEPROM driver is about 192 bytes ($c0)
+          ;; So we'll reserve twice as much space, to be pessimistic.
+          .fill $180, $ea
 
 i2cStartRead:
           ;; TODO

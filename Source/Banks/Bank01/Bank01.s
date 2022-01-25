@@ -51,8 +51,8 @@ JatibuCode:
           .include "LearntMove.s"
           .include "Failure.s"
 
-JatibuFE:
-                    ;; No Jatibu code if either difficulty switch is in A/Expert
+JatibuFE:   .block
+          ;; No Jatibu code if either difficulty switch is in A/Expert
           lda SWCHB
           and #SWCHBP0Advanced | SWCHBP1Advanced
           bne NoJatibu
@@ -109,11 +109,12 @@ NoJatibu:
 SkipStick:
           ldy # 0
           rts
+          .bend
           
-JatibuFF: 
+JatibuFF: .block
           ldx SelectJatibuProgress
           cpx #$ff
-          bne +
+          bne NotCompleted
 
           lda # 29
           sta CurrentGrizzard
@@ -128,8 +129,9 @@ JatibuFF:
           sta GrizzardXP
           lda #$f0
           sta Score + 2
-+
+NotCompleted:
           rts
+          .bend
 
           .include "CopyPointerText.s"
           .include "MapTopService.s"
@@ -156,8 +158,6 @@ JatibuFF:
           .include "AtariVox-EEPROM-Driver.s"
           .fi
           .fi
-
-          
 
           .include "SpriteColor.s"
 
