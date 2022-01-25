@@ -12,6 +12,11 @@ Usage: $0 [ -s starter ] [ -t tv-type ] [ -a ]
 -t TV type: NTSC, PAL, SECAM
 -s Starter: Airex, Dirtex, Aquax, Demo, NoSave
 -a for AtariAge builds
+
+or
+
+-b specific bank across all builds (-b 0 through -b 15)
+-m minimum across all builds
 EOF
             exit 2;
             ;;
