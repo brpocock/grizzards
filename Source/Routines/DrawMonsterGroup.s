@@ -9,12 +9,32 @@ GetMonsterPointer:
 GetMonsterArtPointer:
           lda CurrentMonsterArt
           clc
+
+          .if !DEMO
+          tax
+          lda #$20
+          bit ClockFrame
+          beq FrameOne
+          txa
+          ;; skip over the MonsterArt to get to the MonsterArt2 frames
+          ;; clc ; not needed, BIT does not affect Carry, still clear here
+          adc # MonsterArt.Height / 8
+          bcc GotFrame
+          inc CombatSpritePointer + 1
+          clc
+          gcc GotFrame
+FrameOne:
+          txa
+GotFrame:
+          .fi
+
           asl a
           asl a
           asl a
           bcc +
           inc CombatSpritePointer + 1
 +
+          clc
           adc #<MonsterArt
           bcc +
           inc CombatSpritePointer + 1
@@ -31,8 +51,7 @@ PrepareToDrawMonsters:
           sta NUSIZ1
 
           lda CombatMajorP
-          beq PrepareTopCursor
-          jmp DrawMajorMonster
+          bne DrawMajorMonster
 ;;; 
 PrepareTopCursor:
           jsr SetCursorColor

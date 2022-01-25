@@ -52,6 +52,7 @@ DoLocal:
           brk
 
           .include "MonsterArt.s"
+          .include "MonsterArt2.s"
           .include "GrizzardImages.s"
           .include "GrizzardArt.s"
           .include "CombatSpriteTables.s"
