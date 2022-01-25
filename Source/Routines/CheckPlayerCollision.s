@@ -8,9 +8,8 @@ CheckPlayerCollision:         .block
           jmp BumpWall          ; tail call
 
 NoBumpWall:
-          lda CXPPMM
-          .BitBit $80              ; hit other sprite
-          beq PlayerMoveOK         ; did not hit
+          bit CXPPMM
+          bpl PlayerMoveOK         ; did not hit
 
 BumpSprite:
           jsr BumpWall
@@ -40,7 +39,7 @@ ActionWithSpriteX:
           and #SpriteProvinceDoor
           cmp #SpriteProvinceDoor
           bne PlayerMoveOK      ; No action
-          geq ProvinceChange    
+          geq ProvinceChange
 
 ReadSign:
           lda SpriteParam, x
@@ -58,7 +57,6 @@ FightWithSpriteMajor:
           lda #$80
           sta CombatMajorP
           ;; fall through
-          
 FightWithSprite:
 FightWithSpriteX:
           lda SpriteParam, x
