@@ -1,8 +1,9 @@
 #!/usr/bin/bash
 
 bankmode=
+minmode=
 
-while getopts "s:t:ahb:" opt; do
+while getopts "s:t:ahb:m" opt; do
     case $opt in
         h)
             cat <<EOF >&2
@@ -19,6 +20,9 @@ EOF
             ;;
         b)
             bankmode=$OPTARG
+            ;;
+        m)
+            minmode=1
             ;;
         s)
             case $OPTARG in
@@ -58,6 +62,26 @@ EOF
     esac
 done
 
+if [ "$minmode" = "1" ]; then
+    for bank in 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f; do
+        min=4096
+        mincfg='???'
+        for starter in AA.Aquax AA.Dirtex AA.Airex Aquax Dirtex Airex Demo NoSave ; do
+            for tv in NTSC PAL SECAM; do
+                rm -f Object/Bank$bank.$starter.$tv.o
+                size=$(make Object/Bank$bank.$starter.$tv.o -f Source/Generated/Makefile 2>&1 \
+                           | grep 'bytes left' | grep -v %d | cut -d: -f5 | cut -d ' ' -f 8)
+                if [ $size -lt $min ]; then
+                    min=$size
+                    mincfg="$starter for $tv"
+                fi
+            done
+        done
+        echo "bank $bank min is $min bytes free in $mincfg"
+    done
+    exit 0
+fi
+
 if [ "x$bankmode" != "x" ]; then
     bank=$(printf %02x $bankmode)
     for starter in AA.Aquax AA.Dirtex AA.Airex Aquax Dirtex Airex Demo NoSave ; do
@@ -66,10 +90,9 @@ if [ "x$bankmode" != "x" ]; then
             echo "$starter.$tv:"
             make Object/Bank$bank.$starter.$tv.o -f Source/Generated/Makefile 2>&1 \
                 | grep 'bytes left' | grep -v %d | cut -d: -f5
-            
         done
     done
-    exit 0;
+    exit 0
 fi
 
 if [ "x$starter" = "x" ]; then
