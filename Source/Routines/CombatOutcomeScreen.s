@@ -414,7 +414,11 @@ CheckForLoss:
           stx TIM64T
           .fi
           .WaitScreenBottom
+          .if DEMO
           .FarJMP AnimationsBank, ServiceDeath
+          .else
+          .FarJMP EndAnimationsBank, ServiceDeath
+          .fi
 Bye:
           .WaitScreenBottomTail
 

@@ -15,6 +15,8 @@ DoLocal:
           beq ShowBossBear
           cpy #ServiceGrizzardEvolution
           beq GrizzardEvolution
+          cpy #ServiceDeath
+          beq Death
           brk
 
           .include "VSync.s"
@@ -31,6 +33,8 @@ DoLocal:
           .include "BossBearDies.s"
           .include "Fireworks.s"
           .include "WinnerFireworks.s"
+
+          .include "Death.s"
 
           .include "PlaySpeech.s"
 

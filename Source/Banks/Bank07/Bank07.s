@@ -17,6 +17,7 @@ DoLocal:
           .include "SoundEffects.s"
 
           .include "SpeakJetIndex.s"
+
           ;; Speech index uses a wildcard on this directory
           ;; All files must be included or the index will break
           .include "Monsters6Speech.s"
@@ -24,6 +25,7 @@ DoLocal:
           .include "GrizzardsSpeech.s"
           .include "CombatSpeech.s"
           .include "TitleSpeech.s"
+
           .include "AtariToday.s"
           .include "Theme.s"
           .include "Victory.s"

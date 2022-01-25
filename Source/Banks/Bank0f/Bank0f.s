@@ -16,7 +16,6 @@
           .include "BeginNamePrompt.s"
 
           .include "AttractStory.s"
-          .include "Death.s"
           .include "DrawMonsterGroup.s"
           .include "DrawGrizzard.s"
 
@@ -46,8 +45,6 @@ DoLocal:
           beq CombatVBlank
           cpy #ServiceAttractStory
           beq AttractStory
-          cpy #ServiceDeath
-          beq Death
           cpy #ServiceInquire
           beq Inquire
           cpy #ServiceBeginName

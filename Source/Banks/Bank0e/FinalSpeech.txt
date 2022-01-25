@@ -12,3 +12,5 @@ free of the monsters soon
 Became:
 became
 
+GameOver:
+game over
