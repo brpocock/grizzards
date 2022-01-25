@@ -179,10 +179,16 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
         for my $file (@files) {
           print "\\\n\t$file";
         }
-        if ('' ne $atariagesave) { $datariagesave = '-DARIA=true' } else { $datariagesave = '' }
+        if ('' ne $atariagesave) {
+          $publisher = 'true';
+          $datariagesave = '-DATARIAGESAVE=true'
+        } else {
+          $datariagesave = '';
+          $publisher = 'false'
+        }
         print "
 \tmkdir -p Object
-\t\${AS2600} -DSTARTER=$starter $datariagesave -DPUBLISHER=true -DTV=$tv \\
+\t\${AS2600} -DSTARTER=$starter $datariagesave -DPUBLISHER=$publisher -DTV=$tv \\
 \t   -I Source/Generated/Bank$bank -l \$\@.labels.txt -L \$\@.list.txt \$< -o \$\@
 \tbin/label2sym \$\@.labels.txt
 \tbin/listing2lst \$\@.list.txt\n";
