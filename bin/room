@@ -63,7 +63,12 @@ EOF
 done
 
 if [ "$minmode" = "1" ]; then
-    for bank in 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f; do
+    if [ "x$bankmode" = 'x' ]; then
+        banklist="00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f"
+    else
+        banklist=$(printf %02x $bankmode)
+    fi
+    for bank in $banklist ; do
         min=4096
         mincfg='???'
         for starter in AA.Aquax AA.Dirtex AA.Airex Aquax Dirtex Airex ; do
@@ -83,7 +88,15 @@ if [ "$minmode" = "1" ]; then
         echo "bank $bank min is $min bytes free in $mincfg"
     done
     echo ''
-    for bank in 00 01 02 03 04 05 06 07; do
+    if [ "x$bankmode" = 'x' ]; then
+        banklist="00 01 02 03 04 05 06 07"
+    else
+        banklist=$(printf %02x $bankmode)
+        if [ $bankmode -gt 7 ]; then
+            exit 0;
+        fi
+    fi
+    for bank in $banklist ; do
         min=4096
         mincfg='???'
         for starter in Demo NoSave ; do
