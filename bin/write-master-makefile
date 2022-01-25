@@ -181,14 +181,12 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
         }
         if ($atariagesave) {
           $publisher = 'true';
-          $datariagesave = 'false'
         } else {
-          $datariagesave = 'true';
           $publisher = 'false'
         }
         print "
 \tmkdir -p Object
-\t\${AS2600} -DSTARTER=$starter -DATARIAGESAVE=$datariagesave -DPUBLISHER=$publisher -DTV=$tv \\
+\t\${AS2600} -DSTARTER=$starter -DATARIAGESAVE=$publisher -DPUBLISHER=$publisher -DTV=$tv \\
 \t   -I Source/Generated/Bank$bank -l \$\@.labels.txt -L \$\@.list.txt \$< -o \$\@
 \tbin/label2sym \$\@.labels.txt
 \tbin/listing2lst \$\@.list.txt\n";
