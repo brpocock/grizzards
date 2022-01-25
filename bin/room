@@ -73,6 +73,7 @@ if [ "$minmode" = "1" ]; then
                            | grep 'bytes left' | grep -v %d | cut -d: -f5 | cut -d ' ' -f 8)
                 if [ "x$size" = "x" ]; then
                     # no op
+                    echo -n ;
                 elif [ $size -lt $min ]; then
                     min=$size
                     mincfg="$starter for $tv"
