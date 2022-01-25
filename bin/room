@@ -1,6 +1,8 @@
 #!/usr/bin/bash
 
-while getopts "s:t:ah" opt; do
+bankmode=
+
+while getopts "s:t:ahb:" opt; do
     case $opt in
         h)
             cat <<EOF >&2
@@ -14,6 +16,9 @@ EOF
             ;;
         a)
             atariage=AA.
+            ;;
+        b)
+            bankmode=$OPTARG
             ;;
         s)
             case $OPTARG in
@@ -52,6 +57,20 @@ EOF
             ;;
     esac
 done
+
+if [ "x$bankmode" != "x" ]; then
+    bank=$(printf %02x $bankmode)
+    for starter in AA.Aquax AA.Dirtex AA.Airex Aquax Dirtex Airex Demo NoSave ; do
+        for tv in NTSC PAL SECAM; do
+            rm -f Object/Bank$bank.$starter.$tv.o
+            echo "$starter.$tv:"
+            make Object/Bank$bank.$starter.$tv.o -f Source/Generated/Makefile 2>&1 \
+                | grep 'bytes left' | grep -v %d | cut -d: -f5
+            
+        done
+    done
+    exit 0;
+fi
 
 if [ "x$starter" = "x" ]; then
     starter=Airex
