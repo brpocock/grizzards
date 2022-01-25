@@ -66,7 +66,27 @@ if [ "$minmode" = "1" ]; then
     for bank in 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f; do
         min=4096
         mincfg='???'
-        for starter in AA.Aquax AA.Dirtex AA.Airex Aquax Dirtex Airex Demo NoSave ; do
+        for starter in AA.Aquax AA.Dirtex AA.Airex Aquax Dirtex Airex ; do
+            for tv in NTSC PAL SECAM; do
+                rm -f Object/Bank$bank.$starter.$tv.o
+                size=$(make Object/Bank$bank.$starter.$tv.o -f Source/Generated/Makefile 2>&1 \
+                           | grep 'bytes left' | grep -v %d | cut -d: -f5 | cut -d ' ' -f 8)
+                if [ "x$size" = "x" ]; then
+                    # no op
+                    echo -n ;
+                elif [ $size -lt $min ]; then
+                    min=$size
+                    mincfg="$starter for $tv"
+                fi
+            done
+        done
+        echo "bank $bank min is $min bytes free in $mincfg"
+    done
+    echo ''
+    for bank in 00 01 02 03 04 05 06 07; do
+        min=4096
+        mincfg='???'
+        for starter in Demo NoSave ; do
             for tv in NTSC PAL SECAM; do
                 rm -f Object/Bank$bank.$starter.$tv.o
                 size=$(make Object/Bank$bank.$starter.$tv.o -f Source/Generated/Makefile 2>&1 \
