@@ -53,7 +53,7 @@ no-save:	Dist/Grizzards.NoSave.zip
 
 Dist/Grizzards.Source.tar.gz:	game
 	find Source Manual -name \*~ -exec rm {} \;
-	tar zcf $@ Makefile README.md Source Manual
+	tar zcf $@ Makefile README.md Guts.txt Source Manual
 
 cart:	cart-aquax
 
@@ -67,7 +67,8 @@ cart-dirtex:	Dist/Grizzards.AA.Dirtex.NTSC.a26
 	minipro -p AT27C512@DIP32 -w $<
 
 
-USBMOUNT=$(shell echo \"$$(mount | grep /run/media/$$USER | grep vfat | head -n 1 | perl -pne 's#^/dev/.+ on (.+) type vfat (.*)#$$1#g')\")
+USBMOUNT=$(shell echo \"$$(mount | grep /run/media/$$USER | grep vfat | head -n 1 | \
+		perl -pne 's#^/dev/.+ on (.+) type vfat (.*)#$$1#g')\")
 
 
 # Basic Harmony cart only can handle 32k images
@@ -178,15 +179,22 @@ Dist/Grizzards.NoSave.zip: \
 game:	Dist/Grizzards.zip
 
 doc:	Dist/Grizzards.NTSC.pdf Dist/Grizzards.PAL.pdf Dist/Grizzards.SECAM.pdf \
-	Dist/Grizzards.AA.NTSC-book.pdf Dist/Grizzards.AA.PAL-book.pdf Dist/Grizzards.AA.SECAM-book.pdf \
-	Dist/Grizzards.Demo.NTSC.pdf Dist/Grizzards.Demo.PAL.pdf Dist/Grizzards.Demo.SECAM.pdf \
+	Dist/Grizzards.AA.NTSC-book.pdf \
+	Dist/Grizzards.AA.PAL-book.pdf \
+	Dist/Grizzards.AA.SECAM-book.pdf \
+	Dist/Grizzards.Demo.NTSC.pdf \
+	Dist/Grizzards.Demo.PAL.pdf \
+	Dist/Grizzards.Demo.SECAM.pdf \
 	Dist/Grizzards.Manual.txt \
 	Dist/Grizzards.Unerase.pdf \
-	Dist/Grizzards.NoSave.NTSC.pdf Dist/Grizzards.NoSave.PAL.pdf Dist/Grizzards.NoSave.SECAM.pdf
+	Dist/Grizzards.NoSave.NTSC.pdf \
+	Dist/Grizzards.NoSave.PAL.pdf \
+	Dist/Grizzards.NoSave.SECAM.pdf
 
 .PRECIOUS: %.s %.png %.a26 %.txt %.zip %.tar.gz
 
-SOURCES=$(shell find Source -name \*.s -o -name \*.txt -o -name \*.png -o -name \*.midi -a -not -name .\#\*)
+SOURCES=$(shell find Source -name \*.s -o -name \*.txt -o -name \*.png -o -name \*.midi \
+		-a -not -name .\#\*)
 
 Dist/Grizzards.Manual.txt:	Manual/Manual.txt
 	cp Manual/Manual.txt Dist/Grizzards.Manual.txt
@@ -769,19 +777,24 @@ release:	all
 		mv -v $$file $$(echo $$file | perl -pne 's(Grizzards.([^.]+).(.*)) (Grizzards.\1.$(RELEASE).\2)'); \
 	done
 	@echo "AtariAge Release $(RELEASE) of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
-		zip -9 Dist/$(RELEASE)/Grizzards.AtariAge.$(RELEASE).zip \
+		zip --archive-comment -9 \
+		Dist/$(RELEASE)/Grizzards.AtariAge.$(RELEASE).zip \
 		Dist/$(RELEASE)/Grizzards.AA.{Airex,Aquax,Dirtex}.*
 	@echo "Release $(RELEASE) of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
-		zip -9 Dist/$(RELEASE)/Grizzards.$(RELEASE).zip \
+		zip --archive-comment -9 \
+		Dist/$(RELEASE)/Grizzards.$(RELEASE).zip \
 		Dist/$(RELEASE)/Grizzards.{Airex,Aquax,Dirtex}.* Dist/$(RELEASE)/Grizzards.{NTSC,PAL,SECAM}*pdf
 	@echo "Demo Release $(RELEASE) of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
-		zip -9 Dist/$(RELEASE)/Grizzards.Demo.$(RELEASE).zip \
+		zip --archive-comment -9 \
+		Dist/$(RELEASE)/Grizzards.Demo.$(RELEASE).zip \
 		Dist/$(RELEASE)/Grizzards.Demo.*{a26,pdf,pro}
 	@echo "No-Save Demo Release $(RELEASE) of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
-		zip -9 Dist/$(RELEASE)/Grizzards.NoSave.$(RELEASE).zip \
+		zip --archive-comment -9 \
+		Dist/$(RELEASE)/Grizzards.NoSave.$(RELEASE).zip \
 		Dist/$(RELEASE)/Grizzards.NoSave.*{a26,pdf,pro}
 	@echo "Unerase Tool Release $(RELEASE) of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
-		zip -9 Dist/$(RELEASE)/Grizzards.Unerase.$(RELEASE).zip \
+		zip --archive-comment -9 \
+		Dist/$(RELEASE)/Grizzards.Unerase.$(RELEASE).zip \
 		Dist/$(RELEASE)/Grizzards.Unerase.*{a26,pdf,pro}
 
 publish-release:	release
