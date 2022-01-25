@@ -134,7 +134,8 @@ Dist/Grizzards.AtariAge.zip:	\
 	Dist/Grizzards.AA.Airex.NTSC.pro Dist/Grizzards.AA.Airex.PAL.pro Dist/Grizzards.AA.Airex.SECAM.pro \
 	Dist/Grizzards.AA.NTSC-book.pdf Dist/Grizzards.AA.PAL-book.pdf Dist/Grizzards.AA.SECAM-book.pdf \
 	Package/Box.svg Package/EndLabel.png Package/FrontLabel.png
-	zip "$@" $^
+	@echo "AtariAge daily build of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
+		zip  --archive-comment -9 "$@" $^
 
 Dist/Grizzards.zip:	\
 	Dist/Grizzards.Dirtex.NTSC.a26 Dist/Grizzards.Dirtex.PAL.a26 Dist/Grizzards.Dirtex.SECAM.a26 \
@@ -144,13 +145,15 @@ Dist/Grizzards.zip:	\
 	Dist/Grizzards.Dirtex.NTSC.pro Dist/Grizzards.Dirtex.PAL.pro Dist/Grizzards.Dirtex.SECAM.pro \
 	Dist/Grizzards.Aquax.NTSC.pro Dist/Grizzards.Aquax.PAL.pro Dist/Grizzards.Aquax.SECAM.pro \
 	Dist/Grizzards.Airex.NTSC.pro Dist/Grizzards.Airex.PAL.pro Dist/Grizzards.Airex.SECAM.pro
-	zip "$@" $^
+	@echo "Daily build of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
+		zip  --archive-comment -9 "$@" $^
 
 Dist/Grizzards.Unerase.zip: Dist/Grizzards.Unerase.NTSC.a26 \
 		Dist/Grizzards.Unerase.PAL.a26 \
 		Dist/Grizzards.Unerase.SECAM.a26 \
 		Dist/Grizzards.Unerase.pdf
-	zip $@ $^
+	@echo "Unerase utility for Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
+		zip  --archive-comment -9 "$@" $^
 
 Dist/Grizzards.Demo.zip: \
 	Dist/Grizzards.Demo.NTSC.a26 \
@@ -162,7 +165,8 @@ Dist/Grizzards.Demo.zip: \
 	Dist/Grizzards.Demo.NTSC.pdf \
 	Dist/Grizzards.Demo.PAL.pdf \
 	Dist/Grizzards.Demo.SECAM.pdf
-	zip $@ $^
+	@echo "Daily build of Grizzards demo for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
+		zip  --archive-comment -9 "$@" $^
 
 Dist/Grizzards.NoSave.zip: \
 	Dist/Grizzards.NoSave.NTSC.a26 \
@@ -174,7 +178,8 @@ Dist/Grizzards.NoSave.zip: \
 	Dist/Grizzards.NoSave.SECAM.a26 \
 	Dist/Grizzards.NoSave.SECAM.pdf \
 	Dist/Grizzards.NoSave.SECAM.pro
-	zip $@ $^
+	@echo "Daily build of Grizzards no-save demo for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
+		zip  --archive-comment -9 "$@" $^
 
 game:	Dist/Grizzards.zip
 
