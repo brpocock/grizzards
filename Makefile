@@ -72,18 +72,21 @@ USBMOUNT=$(shell echo \"$$(mount | grep /run/media/$$USER | grep vfat | head -n 
 
 # Basic Harmony cart only can handle 32k images
 harmony:	Dist/Grizzards.Demo.NTSC.a26 \
+		Dist/Grizzards.Unerase.NTSC.a26 \
 		Dist/Grizzards.NoSave.NTSC.a26
 	[ "$(USBMOUNT)" != "" ]
 	@if [ $$(uname -s) = 'Linux' ] ; then \
 	  mkdir $(USBMOUNT)/Grizzards ;\
 	  cp -v Dist/Grizzards.Demo.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.Demo.F4 ;\
 	  cp -v Dist/Grizzards.NoSave.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.NoSave.F4 ;\
+	  cp -v Dist/Grizzards.Unerase.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.Unerase.a26 ;\
 	else \
 	  echo "Patch Makefile for your $$(uname -s) OS" ; \
 	fi
 
 encore:	Dist/Grizzards.Demo.NTSC.a26 \
 	Dist/Grizzards.NoSave.NTSC.a26 \
+	Dist/Grizzards.Unerase.NTSC.a26 \
 	Dist/Grizzards.Airex.NTSC.a26 \
 	Dist/Grizzards.Dirtex.NTSC.a26 \
 	Dist/Grizzards.Aquax.NTSC.a26
@@ -92,6 +95,7 @@ encore:	Dist/Grizzards.Demo.NTSC.a26 \
 	  mkdir $(USBMOUNT)/Grizzards ;\
 	  cp -v Dist/Grizzards.Demo.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.Demo.F4 ;\
 	  cp -v Dist/Grizzards.NoSave.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.NoSave.F4 ;\
+	  cp -v Dist/Grizzards.NoSave.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.Unerase.a26 ;\
 	  cp -v Dist/Grizzards.Airex.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.Airex.EF ;\
 	  cp -v Dist/Grizzards.Dirtex.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.Dirtex.EF ;\
 	  cp -v Dist/Grizzards.Aquax.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.Aquax.EF ;\
@@ -115,7 +119,7 @@ uno:	Dist/Grizzards.Dirtex.NTSC.a26 \
 	  cp -v Dist/Grizzards.Airex.NTSC.a26 $(USBMOUNT)/GRIZZARDS/AIREX.NTSC.EF ;\
 	  cp -v Dist/Grizzards.Demo.NTSC.a26 $(USBMOUNT)/GRIZZARDS/DEMO.NTSC.F4 ;\
 	  cp -v Dist/Grizzards.NoSave.NTSC.a26 $(USBMOUNT)/GRIZZARDS/NOSAVE.NTSC.F4 ;\
-	  cp -v Dist/Grizzards.Unerase.NTSC.a26 $(USBMOUNT)/GRIZZARDS/UNERASE.NTSC.F4 ;\
+	  cp -v Dist/Grizzards.Unerase.NTSC.a26 $(USBMOUNT)/GRIZZARDS/UNERASE.NTSC.A26 ;\
 	else \
 	  echo "Patch Makefile for your $$(uname -s) OS" ; \
 	fi
@@ -135,6 +139,7 @@ Dist/Grizzards.zip:	\
 	Dist/Grizzards.Dirtex.NTSC.a26 Dist/Grizzards.Dirtex.PAL.a26 Dist/Grizzards.Dirtex.SECAM.a26 \
 	Dist/Grizzards.Aquax.NTSC.a26 Dist/Grizzards.Aquax.PAL.a26 Dist/Grizzards.Aquax.SECAM.a26 \
 	Dist/Grizzards.Airex.NTSC.a26 Dist/Grizzards.Airex.PAL.a26 Dist/Grizzards.Airex.SECAM.a26 \
+	Dist/Grizzards.NTSC.pdf Dist/Grizzards.PAL.a26 Dist/Grizzards.SECAM.a26 \
 	Dist/Grizzards.Dirtex.NTSC.pro Dist/Grizzards.Dirtex.PAL.pro Dist/Grizzards.Dirtex.SECAM.pro \
 	Dist/Grizzards.Aquax.NTSC.pro Dist/Grizzards.Aquax.PAL.pro Dist/Grizzards.Aquax.SECAM.pro \
 	Dist/Grizzards.Airex.NTSC.pro Dist/Grizzards.Airex.PAL.pro Dist/Grizzards.Airex.SECAM.pro
@@ -142,7 +147,8 @@ Dist/Grizzards.zip:	\
 
 Dist/Grizzards.Unerase.zip: Dist/Grizzards.Unerase.NTSC.a26 \
 		Dist/Grizzards.Unerase.PAL.a26 \
-		Dist/Grizzards.Unerase.SECAM.a26
+		Dist/Grizzards.Unerase.SECAM.a26 \
+		Dist/Grizzards.Unerase.pdf
 	zip $@ $^
 
 Dist/Grizzards.Demo.zip: \
