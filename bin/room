@@ -82,15 +82,22 @@ if [ "$minmode" = "1" ]; then
                 size=$(make Object/Bank$bank.$starter.$tv.o -f Source/Generated/Makefile 2>&1 \
                            | grep 'bytes left' | grep -v %d | cut -d: -f5 | cut -d ' ' -f 8)
                 if [ "x$size" = "x" ]; then
-                    # no op
-                    echo -n ;
+                    min='-1'
+                    mincfg="$starter for $tv"
                 elif [ $size -lt $min ]; then
                     min=$size
                     mincfg="$starter for $tv"
                 fi
             done
         done
-        echo "bank $bank min is $min bytes free in $mincfg"
+        if [ $min -eq -1 ]; then
+            echo "bank $bank overflows in $mincfg (at least)" >&2
+            banknum=$(perl -e "printf '%d' => 0x$bank")
+            echo "hint: $0 -b $banknum to compare all configurations" >&2
+            exit 1
+        else
+            echo "bank $bank min is $min bytes free in $mincfg"
+        fi
     done
     echo ''
     if [ "x$bankmode" = 'x' ]; then
