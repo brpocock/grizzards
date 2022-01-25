@@ -333,112 +333,112 @@ SpriteList:
           ;; Room 13
           .byte 0
 
-	;;Room 14
+          ;;Room 14
           .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 60
 
-	.byte 0
+          .byte 0
 
-	;;Room 15
+          ;;Room 15
           .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 60
 
-	.byte 0
+          .byte 0
 
-	;;Room 16
+          ;;Room 16
           .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 60
 
-	.byte 0
+          .byte 0
 
-	;;Room 17
+          ;;Room 17
           .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 60
 
-	.byte 0
+          .byte 0
 
-	;;Room 18
+          ;;Room 18
           .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 30
 
-	.byte 0
+          .byte 0
 
-	;;Room 19
+          ;;Room 19
           .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 31
 
-	.byte 0
+          .byte 0
 
-	;;Room 20
+          ;;Room 20
           .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 32
 
-	.byte 0
+          .byte 0
 
-	;;Room 21
+          ;;Room 21
           .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 33
 
-	.byte 0
+          .byte 0
 
-	;;Room 22
+          ;;Room 22
           .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 34
 
-	.byte 0
+          .byte 0
 
-	;;Room 23
+          ;;Room 23
           .byte $ff, SpriteFixed
           .byte $70, $10
           .byte SpritePerson, 46 ; Fat Tony look up @ cliffs
 
-	.byte 0
+          .byte 0
 
-	;;Room 24
+          ;;Room 24
           .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 35
 
-	.byte 0
+          .byte 0
 
-	;;Room 25
+          ;;Room 25
           .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 36
 
-	.byte 0
+          .byte 0
 
-	;;Room 26
+          ;;Room 26
           .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 30
 
-	.byte 0
+          .byte 0
 
-	;;Room 27
+          ;;Room 27
           .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 31
 
-	.byte 0
+          .byte 0
 
-	;;Room 28
+          ;;Room 28
           .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 32
 
-	.byte 0
+          .byte 0
 
-	;;Room 29
+          ;;Room 29
           .byte 56, SpriteFixed
           .byte $6f, $12
           .byte SpriteProvinceDoor | $10, 36
@@ -447,90 +447,117 @@ SpriteList:
           .byte $6f, $3c
           .byte SpritePerson, 47 ; road to Hades
 
-	.byte 0
+          .byte 0
 
-	;;Room 30
+          ;;Room 30
           .byte $ff, SpriteFixed
           .byte $7c, $2f
           .byte SpriteDoor, 54
 
-	.byte 0
+          .byte 0
 
-	;;Room 31
+          ;;Room 31
           .byte $ff, SpriteFixed
           .byte $7c, $2f
           .byte SpriteDoor, 55
 
-	.byte 0
+          .byte 0
 
-	;;Room 32
+          ;;Room 32
           .byte $ff, SpriteFixed
           .byte $7c, $2f
           .byte SpriteDoor, 56
 
-	.byte 0
+          .byte 0
 
-	;;Room 33
+          ;;Room 33
           .byte $ff, SpriteFixed
           .byte $7c, $2f
           .byte SpriteDoor, 57
 
-	.byte 0
+          .byte 0
 
-	;;Room 34
-	.byte 0
+          ;;Room 34
+          .byte 0
 
-	;;Room 35
+          ;;Room 35
           .byte $ff, SpriteFixed
           .byte $7c, $2f
           .byte SpriteDoor, 58
 
-	.byte 0
+          .byte 0
 
-	;;Room 36
+          ;;Room 36
           .byte $ff, SpriteFixed
           .byte $7c, $2f
           .byte SpriteDoor, 59
 
-	.byte 0
+          .byte 0
 
-	;;Room 37
+          ;;Room 37
           .byte $ff, SpriteFixed
           .byte $7c, $2f
           .byte SpriteDoor, 60
 
-	.byte 0
+          .byte 0
 
-	;;Room 38
+          ;;Room 38
           .byte $ff, SpriteFixed
           .byte $7c, $2f
           .byte SpriteDoor, 61
 
-	.byte 0
+          .byte 0
 
-	;;Room 39
-	.byte 0
+          ;;Room 39
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpritePerson, 98 ; hungry
+          .byte 0
 
-	;;Room 40
-	.byte 0
+          ;;Room 40
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 19 ; metal mouse
 
-	;;Room 41
-	.byte 0
+          .byte 0
 
-	;;Room 42
-	.byte 0
+          ;;Room 41
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 19 ; metal mouse
 
-	;;Room 43
-	.byte 0
+          .byte 0
 
-	;;Room 44
-	.byte 0
+          ;;Room 42
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 19 ; metal mouse
 
-	;;Room 45
-	.byte 0
+          .byte 0
 
-	;;Room 46
-	.byte 0
+          ;;Room 43
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 19 ; metal mouse
+
+          .byte 0
+
+          ;;Room 44
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 19 ; metal mouse
+
+          .byte 0
+
+          ;;Room 45
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 19 ; metal mouse
+
+          .byte 0
+
+          ;;Room 46
+          .byte 0
 
           ;; Room 47
           .byte 0

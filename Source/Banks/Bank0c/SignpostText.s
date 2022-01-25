@@ -5,7 +5,7 @@
 
           FirstSignpost = 90
 
-          Signs = ( NPC_GetArtifacts, NPC_NoArtifacts, NPC_DoTrain, NPC_DoNotTrain, Sign_Grue, NPC_TunnelAlreadyOpen, Sign_SailBackToTreble, Sign_StayInPortLion )
+          Signs = ( NPC_GetArtifacts, NPC_NoArtifacts, NPC_DoTrain, NPC_DoNotTrain, Sign_Grue, NPC_TunnelAlreadyOpen, Sign_SailBackToTreble, Sign_StayInPortLion, NPC_Hungry, NPC_HungryCookie, NPC_NoCookieForYou, NPC_CookieGiven, NPC_HadCookie )
 
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
@@ -98,3 +98,63 @@ Sign_StayInPortLion:
           .SignText "THEN.       "
           .byte ModeSignpostDone
 
+;;; 98
+NPC_Hungry:
+          .colu COLSPRINGGREEN, $e
+          .colu COLGOLD, $2
+          .byte $ff, 1, 99
+          .SignText "THESE AWFUL "
+          .SignText "MONSTERS ARE"
+          .SignText "MAKING IT SO"
+          .SignText "HARD TO GET "
+          .SignText "LUXURIES TOO"
+          .byte ModeSignpostDone
+
+;;; 99
+NPC_HungryCookie:
+          .colu COLSPRINGGREEN, $e
+          .colu COLGOLD, $2
+          .byte $ff, 22, 102
+          .SignText "IT'S HARD TO"
+          .SignText "GET LUXURIES"
+          .SignText "THESE DAYS. "
+          .SignText "MAY I HAVE A"
+          .SignText "COOKIE?     "
+          .byte ModeSignpostInquire
+          .byte 101, 100
+          .SignText " GIVE  KEEP "
+
+;;; 100
+NPC_NoCookieForYou:
+          .colu COLSPRINGGREEN, $e
+          .colu COLGOLD, $2
+          .SignText "WHEN YOU DO "
+          .SignText "DEFEAT ALL  "
+          .SignText "THE MONSTERS"
+          .SignText "THERE WILL  "
+          .SignText "BE COOKIES. "
+          .byte ModeSignpostDone
+
+;;; 101
+NPC_CookieGiven:
+          .colu COLSPRINGGREEN, $e
+          .colu COLGOLD, $2
+          .SignText "YOU ARE THE "
+          .SignText "BEST!       "
+          .SignText "I'LL TELL MY"
+          .SignText "FRIENDS ALL "
+          .SignText "ABOUT YOU.  "
+          .byte ModeSignpostPoints
+          .word $0100
+          .byte ModeSignpostSetFlag, 22
+
+;;; 102
+NPC_HadCookie:
+          .colu COLSPRINGGREEN, $e
+          .colu COLGOLD, $2
+          .SignText "THAT WAS THE"
+          .SignText "BEST COOKIE."
+          .SignText "I'LL NAME   "
+          .SignText "MY KID AFTER"
+          .SignText "YOU FOR SURE"
+          .byte ModeSignpostDone
