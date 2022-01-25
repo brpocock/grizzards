@@ -86,7 +86,6 @@ PlayerMoveOK:
           lda BumpCooldown
           beq Cool
           dec BumpCooldown
-          rts
 Cool:
           lda ClockFrame
           and #$03
