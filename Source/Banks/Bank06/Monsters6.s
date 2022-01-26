@@ -227,19 +227,19 @@ Monsters:
           .colu COLBLUE, $8
           .byte 10, 10, 10
           .word $0010
-
+;;; 37
           .SignText "GIANT  BAT  "
           .byte Monster_Bat
           .colu COLGRAY, $4
           .byte 10, 10, 10
           .word $0100
-
+;;; 38
           .SignText " MAZE JAGUAR"
           .byte Monster_Cat
           .colu COLBLUE, $8
           .byte 10, 10, 10
           .word $0010
-
+;;; 39
           .SignText "MONSTR  39  "
           .byte Monster_Bunny
           .colu COLBLUE, $8
