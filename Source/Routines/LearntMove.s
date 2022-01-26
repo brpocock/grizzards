@@ -29,6 +29,7 @@ Loop:
           .ldacolu COLGRAY, 0
           sta COLUP0
           sta COLUP1
+          stx WSYNC
           .ldacolu COLTURQUOISE, $f
           sta COLUBK
 
