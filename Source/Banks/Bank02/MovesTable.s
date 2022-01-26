@@ -81,6 +81,7 @@ TailWhip:
 TailLash:
           .MiniText "TAIL  "
           .MiniText "  LASH"
+          ;; 23
 Bite:
           .MiniText " BITE "
           .MiniText "      "
@@ -103,9 +104,11 @@ SlimyTrick:
 GuardDown:
           .MiniText "GUARD "
           .MiniText "  DOWN"
+          ;; 29
 FirstAid:
           .MiniText "FIRST "
           .MiniText "   AID"
+          ;; 30
 SimpleCure:
           .MiniText "SIMPLE"
           .MiniText "  CURE"
@@ -148,9 +151,11 @@ StompDown:
 Crush:
           .MiniText "CRUSH "
           .MiniText "      "
+          ;; 42
 FireyBreath:
           .MiniText "FIREY "
           .MiniText "BREATH"
+          ;; 43
 EvilEye:
           .MiniText "EVIL  "
           .MiniText "   EYE"
@@ -158,19 +163,20 @@ EvilEye:
 ClawsOut:
           .MiniText "CLAWS "
           .MiniText "   OUT"
+          ;; 45
 DeadlySwoop:
           .MiniText "DEADLY"
           .MiniText " SWOOP"
-
+Shove:
           .MiniText "SHOVE "
           .MiniText "      "
-
+Slash:
           .MiniText "SLASH "
           .MiniText "      "
-
           ;; 48
-          .MiniText " MOVE "
-          .MiniText "  48  "
+VampyBite:
+          .MiniText "VAMPY "
+          .MiniText "  BITE"
 
           .MiniText " MOVE "
           .MiniText "  49  "
