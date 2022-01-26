@@ -299,12 +299,16 @@ CursorColored:
 DrawNothing:
           lda # 0
           sta GRP0
+
           stx WSYNC
           .SleepX 71
           sta HMOVE
+
           .NoPageCrossSince DrawNothing
+
           lda pp3l
           sta GRP1
+
           .if TV == NTSC
             .SkipLines 17
           .else
