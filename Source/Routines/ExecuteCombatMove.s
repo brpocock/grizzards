@@ -163,9 +163,16 @@ MonsterHealsPlusHP:
           sta MoveHP
           gne MonsterHealsCommon
 
+MonsterHealsZero:
+          lda # 0
+          sta MoveHP
+          geq MonsterHealsCommon
+
 MonsterHealsMinusHP:
           and Temp
           sta Temp
+          cmp MoveHP
+          bge MonsterHealsZero
           lda MoveHP
           sec
           sbc Temp
@@ -312,7 +319,7 @@ PlayerKilledMonster:
 ScoreNoCarry:
           sta Score
 
-          iny
+          iny                   ; MonsterPointsIndex + 1
           lda (CurrentMonsterPointer), y
           clc
           adc Score + 1
@@ -329,13 +336,13 @@ ScoreNoCarry2:
           cld
 
           lda # 0               ; zero on negative
-          geq +
+          geq PlayerHitMonsterCommon
 
 PlayerDidNotKillMonster:
           lda MonsterHP - 1, x
           sec
           sbc MoveHP
-+
+PlayerHitMonsterCommon:
           sta MonsterHP - 1, x
 
           ;; OK, also, what is the effect on the enemy's status?
@@ -490,7 +497,7 @@ NextTurn:
           dex
           cpx # 6
           bne NotLastMonster
-          ldx #0
+          ldx # 0
           stx WhoseTurn
           jmp CombatMainScreen.BackToPlayer
 NotLastMonster:
