@@ -267,7 +267,7 @@ SetPointer:         .macro value
 ;;; 
 SkipLines:          .macro length
 
-          .if \length < 5
+          .if \length < 4
 
           .rept \length
           stx WSYNC
