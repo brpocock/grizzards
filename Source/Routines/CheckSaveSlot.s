@@ -57,7 +57,6 @@ SlotEmpty:
 	lda # 0			; Nope, not in use
 Leave:
           sta SaveSlotBusy
-	jsr i2cStopRead
-	rts
+	jmp i2cStopRead       ; tail call
 	
 	.bend
