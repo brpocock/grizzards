@@ -155,7 +155,7 @@ DoneDrawing:
           rts
 ;;; 
 
-          .align $30
+          .align $40
 
 AlignedRight:
           .option allow_branch_across_page = false
