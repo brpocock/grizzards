@@ -43,12 +43,12 @@ ReadSlotName:
           jsr i2cK
 
           ldx # 0
--
+LoadNameLoop:
           jsr i2cRxByte
           sta NameEntryBuffer, x
           inx
           cpx # 6
-          bne -
+          bne LoadNameLoop
 
           lda #$80
           gne Leave
