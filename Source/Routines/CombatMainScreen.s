@@ -105,11 +105,11 @@ MonsterWithName:
           ;; something that's “rounded off” to black
           ;; (background) or white (highlight)
           bne +                 ; COLBLACK = 0
-          lda #COLGREEN
+          lda #COLBLUE
 +
           cmp #COLWHITE
           bne +
-          lda #COLGREEN
+          lda #COLYELLOW
 +
           .fi
 
