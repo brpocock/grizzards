@@ -137,10 +137,14 @@ StickLeftRight:
 ChooseTarget:
           lda CombatMajorP
           beq ChooseMinorTarget
+          ldx # 1
+          gne ForcedTarget
 SelfTarget:
           ldx # 0
+ForcedTarget:
           stx MoveTarget
-          geq StickDone
+          jmp StickDone
+
 ChooseMinorTarget:
           ldx MoveTarget
           bne NormalizeMinorTarget
