@@ -28,7 +28,6 @@ WriteProvinceData:
           bne -
 
           jsr i2cStopWrite
-          .WaitScreenBottom
-          rts
+          .WaitScreenBottomTail
 
           .bend
