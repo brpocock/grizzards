@@ -154,20 +154,19 @@ FireyBreath:
 EvilEye:
           .MiniText "EVIL  "
           .MiniText "   EYE"
-
           ;; 44
 ClawsOut:
           .MiniText "CLAWS "
           .MiniText "   OUT"
+DeadlySwoop:
+          .MiniText "DEADLY"
+          .MiniText " SWOOP"
 
-          .MiniText " MOVE "
-          .MiniText "  45  "
+          .MiniText "SHOVE "
+          .MiniText "      "
 
-          .MiniText " MOVE "
-          .MiniText "  46  "
-
-          .MiniText " MOVE "
-          .MiniText "  47  "
+          .MiniText "SLASH "
+          .MiniText "      "
 
           ;; 48
           .MiniText " MOVE "
