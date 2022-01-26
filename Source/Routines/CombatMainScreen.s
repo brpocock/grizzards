@@ -89,6 +89,7 @@ MonstersDisplay:
           lda CurrentCombatEncounter
           cmp # 92              ; Boss Bear encounter
           bne MonsterWithName
+BossBearDisplay:
           .SkipLines 20
           .FarJSR EndAnimationsBank, ServiceShowBossBear
           .SkipLines 20
@@ -99,20 +100,6 @@ MonsterWithName:
 
           ldy # MonsterColorIndex
           lda (CurrentMonsterPointer), y
-
-          .if TV == SECAM
-          ;; With only 8 colors we might run into
-          ;; something that's “rounded off” to black
-          ;; (background) or white (highlight)
-          bne +                 ; COLBLACK = 0
-          lda #COLBLUE
-+
-          cmp #COLWHITE
-          bne +
-          lda #COLYELLOW
-+
-          .fi
-
           sta COLUP0
 
           lda WhoseTurn         ; show highlight on monster moving
