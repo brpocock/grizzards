@@ -49,6 +49,8 @@ LoopFirst:
           .WaitScreenTopMinus 1, 3
           jsr Prepare48pxMobBlob
 
+          lda WhoseTurn
+          beq PlayerTurnBGTop
           .switch TV
           .case NTSC
             .ldacolu COLRED, 0
@@ -63,6 +65,10 @@ LoopFirst:
             lda #COLRED
 +
           .endswitch
+          jmp BGTop
+PlayerTurnBGTop:
+          .ldacolu COLGRAY, $2
+BGTop:
           sta COLUBK
           .ldacolu COLYELLOW, $f
           sta COLUP0
@@ -109,14 +115,20 @@ DelayAfterMonsters:
           ;; no actual delay now
 ;;; 
 BeginPlayerSection:
+          lda WhoseTurn
           .ldacolu COLBLUE, $f
           sta COLUP0
           sta COLUP1
+          beq PlayerBGBottom
+          .ldacolu COLGRAY, $2
+          jmp BGBottom
+PlayerBGBottom:
           .if TV == SECAM
           lda #COLMAGENTA
           .else
           .ldacolu COLINDIGO, $4
           .fi
+BGBottom:
           stx WSYNC
           sta COLUBK
 
