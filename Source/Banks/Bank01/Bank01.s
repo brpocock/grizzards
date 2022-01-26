@@ -137,7 +137,7 @@ NotCompleted:
           .include "MapTopService.s"
           .include "NewGrizzard.s"
           .include "Random.s"
-          .include "GrizzardStartingStats.s"
+
           .include "StartNewGame.s"
           .include "DecodeScore.s"
 
@@ -159,6 +159,7 @@ NotCompleted:
           .fi
           .fi
 
+          .include "GrizzardStartingStats.s"
           .include "SpriteColor.s"
 
 ShowPointerText:
