@@ -92,6 +92,7 @@ BeforeKernel:
           sty LineCounter       ; (72 × 2½ lines = 180 lines on PAL/SECAM)
 
           ldx CurrentMap
+          stx WSYNC
           lda MapSides, x
           bmi LeftBall
           and #$40
@@ -99,19 +100,15 @@ BeforeKernel:
           geq NoBalls
 
 LeftBall:
-          stx WSYNC
           sta RESBL
           lda # $20
-          sta HMBL
-          lda #ENABLED
-          sta ENABL
-          gne DoneBall
+          gne EnableBall
 
 RightBall:
-          stx WSYNC
           .SleepX 69
           sta RESBL
           lda # 0
+EnableBall:
           sta HMBL
           lda #ENABLED
           sta ENABL
@@ -120,7 +117,6 @@ RightBall:
 NoBalls:
           lda # 0
           sta ENABL
-          stx WSYNC
 
 DoneBall:
           stx WSYNC
