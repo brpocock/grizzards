@@ -138,6 +138,8 @@ ProvinceChange:
 
 ;;; 
 BumpWall:
+          sta CXCLR
+
           lda BlessedX
           cmp PlayerX
           beq NeedsXShove
