@@ -49,25 +49,35 @@ LoopFirst:
           .WaitScreenTopMinus 1, 3
           jsr Prepare48pxMobBlob
 
-          lda WhoseTurn
-          beq PlayerTurnBGTop
           .switch TV
           .case NTSC
+
+            lda WhoseTurn
+            beq PlayerTurnBGTop
             .ldacolu COLRED, 0
+            jmp BGTop
+PlayerTurnBGTop:
+            .ldacolu COLGRAY, $2
+
           .case PAL
+
+            lda WhoseTurn
+            beq PlayerTurnBGTop
             .ldacolu COLRED, $2
+            jmp BGTop
+PlayerTurnBGTop:
+            .ldacolu COLGRAY, $2
+
           .case SECAM
-          ;; black background normally, but red for Boss Bear
+
+            ;; black background normally, but red for Boss Bear
             lda #COLBLACK
             ldx CurrentCombatEncounter
             cpx # 92
-            bne +
+            bne BGTop
             lda #COLRED
-+
+
           .endswitch
-          jmp BGTop
-PlayerTurnBGTop:
-          .ldacolu COLGRAY, $2
 BGTop:
           sta COLUBK
           .ldacolu COLYELLOW, $f
