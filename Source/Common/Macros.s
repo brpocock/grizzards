@@ -251,6 +251,13 @@ FarJMP:   .macro bank, service
           jmp FarCall
           .endm
 ;;; 
+Move16: .macro dest, src
+          lda dest
+          sta src
+          lda dest + 1
+          sta src + 1
+          .endm
+
 SetPointer:         .macro value
           lda #>\value
           sta Pointer + 1
