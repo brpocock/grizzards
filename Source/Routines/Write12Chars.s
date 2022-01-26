@@ -20,10 +20,10 @@ DrawRightField:
           ldy #$00
           stx HMP0
           sty HMP1
-          .Sleep 34
+          .SleepX 34
           sta RESP0
           sta RESP1
-          .Sleep 13
+          .SleepX 13
           sta HMOVE             ; Cycle 74 HMOVE
 
           .option allow_branch_across_page = true
@@ -47,10 +47,10 @@ DrawLeftField:
           ldy #$b0
           stx HMP0
           sty HMP1
-          .Sleep 17
+          .SleepX 17
           sta RESP0
           sta RESP1
-          .Sleep 35
+          .SleepX 35
           sta HMOVE             ; Cycle 74 HMOVE
 
           .option allow_branch_across_page = true
