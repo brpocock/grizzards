@@ -152,7 +152,7 @@ Dist/Grizzards.Unerase.zip: Dist/Grizzards.Unerase.NTSC.a26 \
 		Dist/Grizzards.Unerase.PAL.a26 \
 		Dist/Grizzards.Unerase.SECAM.a26 \
 		Dist/Grizzards.Unerase.pdf
-	@echo "Unerase utility for Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
+	@echo "Daily build of the unerase utility for Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
 		zip  --archive-comment -9 "$@" $^
 
 Dist/Grizzards.Demo.zip: \
@@ -785,7 +785,7 @@ release:	all
 		zip --archive-comment -9 \
 		Dist/$(RELEASE)/Grizzards.AtariAge.$(RELEASE).zip \
 		Dist/$(RELEASE)/Grizzards.AA.{Airex,Aquax,Dirtex}.*
-	@echo "Release $(RELEASE) of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
+	@echo "Public Release $(RELEASE) of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
 		zip --archive-comment -9 \
 		Dist/$(RELEASE)/Grizzards.$(RELEASE).zip \
 		Dist/$(RELEASE)/Grizzards.{Airex,Aquax,Dirtex}.* Dist/$(RELEASE)/Grizzards.{NTSC,PAL,SECAM}*pdf
