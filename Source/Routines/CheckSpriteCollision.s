@@ -7,31 +7,26 @@ CheckSpriteCollision:         .block
           and #$c0           ; collision with playfield or ball
           bne CollisionHasOccurred
 NoCollision:
-          lda BitMask + 4, x    ; MapFlagSprite𝑥Moved
-          eor #$ff
+          lda InvertedBitMask + 4, x    ; MapFlagSprite𝑥Moved
           and MapFlags
           cmp #MapFlagRandomSpawn | MapFlagAnySpriteMoved
           bne EndRandomSpawn
           sta MapFlags
           rts
 
-CollisionHasOccurred:
+EndRandomSpawn:
+          lda MapFlags
+          and #~MapFlagRandomSpawn
+          sta MapFlags
+          rts
 
+CollisionHasOccurred:
           ;; If we  are in random  spawn mode,  and nobody had  to move,
           ;; we must have gotten  through a round of validations without
 	;; any collisions, so we can turn off RandomSpawn mode
           lda MapFlags
           .BitBit MapFlagRandomSpawn
           beq NoRePosition    ; Not in RandomSpawn mode
-          and #MapFlagRandomSpawn | MapFlagAnySpriteMoved
-          cmp #MapFlagRandomSpawn
-          bne NotCertainOfPositions
-EndRandomSpawn:
-          lda MapFlags
-          and #~MapFlagRandomSpawn
-          sta MapFlags
-          jmp NoRePosition
-
 NotCertainOfPositions:
           lda BitMask + 4, x    ; MapFlagSprite𝑥Moved
           ora MapFlags
@@ -41,14 +36,6 @@ NotCertainOfPositions:
           jmp ValidateMap.CheckSpriteSpawn ; tail call
 
 NoRePosition:
-          lda BitMask + 4, x   ; $10 … $80 = MapFlagSprite𝑥Moved
-          bit MapFlags
-          beq Bye               ; sprite did not move since last check?
-          eor #$ff              ; invert to clear MapFlagSprite𝑥Moved
-          and MapFlags
-          sta MapFlags
-
-          ldx SpriteFlicker
           lda SpriteMotion, x
           beq Bye
 CheckLeft:

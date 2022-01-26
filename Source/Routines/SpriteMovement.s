@@ -42,21 +42,20 @@ NoRandom:
 SpriteXMove:
           cmp #SpriteMoveIdle
           beq SpriteMoveNext
-          lda SpriteMotion, x
           .BitBit SpriteMoveLeft
-          bne +
+          beq +
           dec SpriteX, x
 +
           .BitBit SpriteMoveRight
-          bne +
+          beq +
           inc SpriteX, x
 +
           .BitBit SpriteMoveUp
-          bne +
+          beq +
           dec SpriteY, x
 +
           .BitBit SpriteMoveDown
-          bne +
+          beq +
           inc SpriteY, x
 +
 
