@@ -297,9 +297,17 @@ SpriteList:
           .byte 0
 
           ;; Room 14
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 0
 
           ;; Room 15
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte $ff, SpriteFixed
           .byte $8b, $0e
           .byte SpriteDoor, 39
@@ -307,6 +315,10 @@ SpriteList:
           .byte 0
 
           ;; Room 16
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte $ff, SpriteFixed
           .byte $8a, $30
           .byte SpriteDoor, 40
@@ -314,9 +326,17 @@ SpriteList:
           .byte 0
 
           ;; Room 17
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 0
 
           ;; Room 18
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte $ff, SpriteFixed
           .byte $53, $1d
           .byte SpriteSign, 67  ; find Andrew
@@ -324,21 +344,45 @@ SpriteList:
           .byte 0
 
           ;; Room 19
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 0
 
           ;; Room 20
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 0
 
           ;; Room 21
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 0
 
           ;; Room 22
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 0
 
           ;; Room 23
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 0
 
           ;; Room 24
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte $ff, SpriteFixed
           .byte $70, $30
           .byte SpriteDoor, 48
@@ -346,6 +390,10 @@ SpriteList:
           .byte 0
 
           ;; Room 25
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte $ff, SpriteFixed
           .byte $6c, $30
           .byte SpriteSign, 32  ; Timmy lever
@@ -353,9 +401,17 @@ SpriteList:
           .byte 0
 
           ;; Room 26
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 0
 
           ;; Room 27
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte $ff, SpriteFixed
           .byte $6e, $0f
           .byte SpriteDoor, 51
@@ -367,9 +423,17 @@ SpriteList:
           .byte 0
 
           ;; Room 28
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 0
 
           ;; Room 29
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte $ff, SpriteFixed
           .byte $6f, $12
           .byte SpriteDoor, 62
@@ -377,6 +441,10 @@ SpriteList:
           .byte 0
 
           ;; Room 30
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte $ff, SpriteFixed
           .byte $b0, $40
           .byte SpriteSign, 69  ; find TImmy
@@ -384,21 +452,45 @@ SpriteList:
           .byte 0
 
           ;; Room 31
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 0
 
           ;; Room 32
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 0
 
           ;; Room 33
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 0
 
           ;; Room 34
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 0
 
           ;; Room 35
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 0
 
           ;; Room 36
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte $ff, SpriteFixed
           .byte $6b, $31
           .byte SpriteGrizzardDepot, 0
@@ -410,6 +502,10 @@ SpriteList:
           .byte 0
 
           ;; Room 37
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 61, SpriteFixed
           .byte $3a, $0e
           .byte SpriteProvinceDoor | $20, 9
@@ -417,9 +513,17 @@ SpriteList:
           .byte 0
 
           ;; Room 38
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 0
 
           ;; Room 39
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte $ff, SpriteFixed
           .byte $8b, $0e
           .byte SpriteDoor, 15
@@ -427,6 +531,10 @@ SpriteList:
           .byte 0
 
           ;; Room 40
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte $ff, SpriteFixed
           .byte $8a, $30
           .byte SpriteDoor, 16
@@ -434,21 +542,45 @@ SpriteList:
           .byte 0
 
           ;; Room 41
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 0
 
           ;; Room 42
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 0
 
           ;; Room 43
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 0
 
           ;; Room 44
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 0
 
           ;; Room 45
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 0
 
           ;; Room 46
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 62, SpriteFixed
           .byte $88, $31
           .byte SpriteProvinceDoor | $20, 65
@@ -456,9 +588,17 @@ SpriteList:
           .byte 0
 
           ;; Room 47
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 0
 
           ;; Room 48
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte $ff, SpriteFixed
           .byte $70, $30
           .byte SpriteDoor, 24
@@ -470,9 +610,17 @@ SpriteList:
           .byte 0
 
           ;; Room 49
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 0
 
           ;; Room 50
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte $ff, SpriteFixed
           .byte $7c, $0d
           .byte SpriteDoor, 61
@@ -480,6 +628,10 @@ SpriteList:
           .byte 0
 
           ;; Room 51
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte $ff, SpriteFixed
           .byte $6e, $0f
           .byte SpriteDoor, 27
@@ -487,21 +639,45 @@ SpriteList:
           .byte 0
 
           ;; Room 52
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 0
 
           ;; Room 53
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 0
 
           ;; Room 54
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 0
 
           ;; Room 55
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 0
 
           ;; Room 56
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 0
 
           ;; Room 57
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 60, SpriteFixed
           .byte $7d, $31
           .byte SpriteProvinceDoor | $20, 4
@@ -509,15 +685,31 @@ SpriteList:
           .byte 0
 
           ;; Room 58
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 0
 
           ;; Room 59
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 0
 
           ;; Room 60
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 0
 
           ;; Room 61
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte $ff, SpriteFixed
           .byte $7c, $0d
           .byte SpriteDoor, 50
@@ -525,6 +717,10 @@ SpriteList:
           .byte 0
 
           ;; Room 62
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte $ff, SpriteFixed
           .byte $6f, $12
           .byte SpriteDoor, 29
@@ -532,9 +728,17 @@ SpriteList:
           .byte 0
 
           ;; Room 63
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 0
 
           ;; Room 64
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte $ff, SpriteFixed
           .byte $bc, $38
           .byte SpriteSign, 30  ; Fred lever
@@ -542,20 +746,33 @@ SpriteList:
           .byte 0
 
           ;; Room 65
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 0
 
           ;; Room 66
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 0
 
           ;; Room 67
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte $ff, SpriteFixed
           .byte $89, $31
           .byte SpriteSign, 68  ; find Fred
 
           .byte 0
 
-          ;; Room 67
+          ;; Room 68
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 64
+
           .byte 0
-
-
-          .fill 200
