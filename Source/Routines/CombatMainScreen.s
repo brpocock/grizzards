@@ -115,10 +115,10 @@ DelayAfterMonsters:
           ;; no actual delay now
 ;;; 
 BeginPlayerSection:
-          lda WhoseTurn
           .ldacolu COLBLUE, $f
           sta COLUP0
           sta COLUP1
+          lda WhoseTurn
           beq PlayerBGBottom
           .ldacolu COLGRAY, $2
           jmp BGBottom
