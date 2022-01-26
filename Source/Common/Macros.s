@@ -3,6 +3,7 @@
 ;;;
 ;;;
 Sleep:    .macro Cycles
+
           .if \Cycles < 0
           .error "Can't sleep back-in-time for ", \Cycles, " cycles"
           .else
@@ -37,6 +38,7 @@ Sleep:    .macro Cycles
           .case 8
           dec $2d
           nop $ea
+
           .case 9
           dec $2d
           nop
@@ -55,8 +57,8 @@ Sleep:    .macro Cycles
           .fi
           .endm
 
-        ;; Alternate sleep macro, which will use .x as a
-        ;; countdown register. Exits with .x = 0
+          ;; Alternate sleep macro, which will use .x as a
+          ;; countdown register. Exits with .x = 0
 SleepX: .macro Cycles
           .block
         
@@ -65,7 +67,7 @@ SleepX: .macro Cycles
           .else
           
           Loopable = \Cycles - 1
-          .if ((* % $100) > $fe)
+          .if (((* % $100) >= $fc) && ((* % $100) <= $fe))
           ;; going to cross page boundary on branch
           ;; so each loop takes 6 cycles instead of 5
           LoopCycles = Loopable / 6
@@ -79,8 +81,8 @@ SleepX: .macro Cycles
           .SleepX \Cycles - 2
           nop
 
-        .else
-          
+          .else
+
           ldx #LoopCycles       ; 2
 SleepLoop:
           dex                   ; 2
@@ -91,10 +93,10 @@ SleepLoop:
           ;; then each loop is 6 cycles.
           .Sleep ModuloCycles
 
-        .fi
-        .fi
+          .fi
+          .fi
 
-        .bend
+          .bend
           .endm
 
 ;;; 
