@@ -97,11 +97,15 @@ EvilEye:
           .byte StatusMuddle
 ClawsOut:
           .byte StatusDefendDown
+DeadlySwoop:
           .byte 0
+Shove:
           .byte 0
+Slash:
           .byte 0
           ;; 48
-          .byte 0
+VampyBite:
+          .byte StatusSleep
           .byte 0
           .byte 0
           .byte 0
@@ -220,11 +224,15 @@ EvilEye:
           .byte 33
 ClawsOut:
           .byte 12
-          .byte 0
-          .byte 0
-          .byte 0
+DeadlySwoop:
+          .byte 10
+Shove:
+          .byte 7
+Slash:
+          .byte 14
           ;; 48
-          .byte 0
+VampyBite:
+          .byte 5
           .byte 0
           .byte 0
           .byte 0
