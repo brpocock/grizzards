@@ -12,11 +12,6 @@ DoLocal:
           ;; falls through to
           .include "Map.s"
 
-          .include "MapsProvince0.s"
-          .include "Maps0RLE.s"
-
-          .include "Province0.s"
-
           .include "VSync.s"
           .include "VBlank.s"
           
@@ -24,6 +19,11 @@ DoLocal:
 
           .include "PlayMusic.s"
           rts
+
+          .include "MapsProvince0.s"
+          .include "Maps0RLE.s"
+
+          .include "Province0.s"
 
           
           .include "EndBank.s"
