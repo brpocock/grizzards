@@ -91,6 +91,8 @@ BeforeKernel:
           ldy # 72              ; 72 × 2 lines = 144 lines total
           sty LineCounter       ; (72 × 2½ lines = 180 lines on PAL/SECAM)
 
+          lda #ENABLED
+          sta VBLANK
           ldx CurrentMap
           lda MapSides, x
           bmi LeftBall
@@ -146,6 +148,8 @@ DoneBall:
           .fi
           .fi
 
+          ldx # 0
+          stx VBLANK
           stx WSYNC
           sta COLUBK
           lda pp4l
