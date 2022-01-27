@@ -10,24 +10,33 @@ GetMonsterArtPointer:
           lda CurrentMonsterArt
           clc
 
+          tax
+
           .if !DEMO
 GetAnimationFrame:
-          tax
           lda #$20
           bit ClockFrame
-          beq FrameOne
-          txa
+          beq GotFrame
           ;; skip over the MonsterArt to get to the MonsterArt2 frames
+          txa
           ;; clc ; not needed, BIT does not affect Carry, still clear here
           adc # MonsterArt.Height / 8
-          bcc GotFrame
+          bcc +
           inc CombatSpritePointer + 1
++
           clc
-          gcc GotFrame
-FrameOne:
-          txa
+          tax
 GotFrame:
           .fi
+
+          ldy # 0
+          lda # 1
+          bit ClockSeconds
+          beq GotFlip
+          ldy #REFLECTED
+GotFlip:
+          sty REFP0
+          txa
 
 GetImagePointer:
           asl a
