@@ -215,16 +215,6 @@ facing  up)  into  the  cartridge  slot,  and  turn  the  \textbf{Power}
 \ifdefined\TVSECAM
 \else
 
-\ifdefined\TVPAL
-\subsection{Colour/B\&W Switch (Pause)}
-
-On an  Atari 2600  (or Sears Arcade)  you can pause  the game  using the
-\textbf{Colour/B\&W Switch}.  Push the \textbf{Colour/B\&W}  switch into
-the \textbf{Colour} position  to play, or the  \textbf{B\&W} position to
-pause the game.
-
-\else
-
 \subsection{Color/B\&W Switch (Pause)}
 
 On an  Atari 2600  (or Sears Arcade)  you can pause  the game  using the
@@ -235,7 +225,6 @@ the game.
 On the  Atari 7800, press  the \textbf{Pause}  button once to  pause the
 game, and again to resume playing.
 
-\fi
 \fi
 
 \subsection{Game Select}
@@ -527,9 +516,9 @@ reduced to zero, your adventure will be over.
 
 Using the joystick controller, you can  choose from among the moves that
 your Grizzard knows how to perform. Press  up and down to select a move.
-If your Grizzard knows  how to perform a move, it  will appear in color.
-If your Grizzard does not yet know how to perform a move, it will appear
-in black.
+If  your  Grizzard knows  how  to  perform a  move,  it  will appear  in
+\ifdefined\TVNTSC color. \else colour. \fi If your Grizzard does not yet
+know how to perform a move, it will appear in black.
 
 Most  Moves will  target one  monster  that you're  facing. (Some  Moves
 instead affect yourself.) Press left or right on the joystick controller
@@ -560,7 +549,7 @@ you failed to defeat) will return to normal.
 
 If  you Grizzard  loses hit  points, the  bar below  your Grizzard  will
 reduce in  length. When your Grizzard  is nearly out of  hit points, the
-bar will change to a red color.
+bar will change to a red \ifdefined\TVNTSC color. \else colour. \fi
 
 If your  Grizzard is defeated, the  monsters will surely eat  you alive.
 Your adventure will end there, and you'll return to the title screen.
