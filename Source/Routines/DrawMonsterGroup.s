@@ -167,6 +167,7 @@ DrawBottomMonsters:
 FinishUp:
           sty GRP0
           sty GRP1
+          sty REFP0
           lda MoveTarget
 
           .if SECAM == TV
