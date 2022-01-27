@@ -152,6 +152,9 @@ NoPuff:
 +
           sta pp1l
 
+MaybeAnimate:
+          lda Pause
+          bne AnimationFrameReady
           lda SpriteAction, x
           cmp #SpriteCombat
           beq Flippy
