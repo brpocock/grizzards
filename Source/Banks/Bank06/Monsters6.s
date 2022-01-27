@@ -277,7 +277,7 @@ Monsters:
           .word $0010
 ;;; 45
           .SignText " BOSS  BEAR "
-          .byte Monster_Bear
+          .byte $ff             ; special graphics
           .mcolu COLGRAY, 0
           .byte 80, 80, 250
           .word $5000
