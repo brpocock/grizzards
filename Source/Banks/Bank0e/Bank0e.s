@@ -63,5 +63,7 @@ BearText:
 
           .align $100
           .include "BossBear.s"
+          .align $100
+          .include "BossBear2.s"
 
           .include "EndBank.s"
