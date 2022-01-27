@@ -70,7 +70,7 @@ Monsters:
           .byte Monster_Mouse
           .mcolu COLGRAY, $6
           .byte 12, 20, 10
-          .word $0010
+          .word $0053
 
           .SignText "FIRE   PANDA"
           .byte Monster_Firefox
