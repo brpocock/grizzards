@@ -44,7 +44,7 @@ plus:	Dist/Grizzards.Aquax.NTSC.a26 \
 	Dist/Grizzards.Unerase.SECAM.a26 \
 	Dist/Grizzards.Manual.txt
 
-	@echo -e 'put Dist/Grizzards.Aquax.NTSC.a26 Grizzards.Aquax.NTSC.EF\nput Dist/Grizzards.Aquax.PAL.a26 Grizzards.Aquax.PAL.EF\nput Dist/Grizzards.Aquax.SECAM.a26 Grizzards.Aquax.SECAM.EF\nput Dist/Grizzards.Airex.NTSC.a26 Grizzards.Airex.NTSC.EF\nput Dist/Grizzards.Airex.PAL.a26 Grizzards.Airex.PAL.EF\nput Dist/Grizzards.Airex.SECAM.a26 Grizzards.Airex.SECAM.EF\nput Dist/Grizzards.Dirtex.NTSC.a26 Grizzards.Dirtex.NTSC.EF\nput Dist/Grizzards.Dirtex.PAL.a26 Grizzards.Dirtex.PAL.EF\nput Dist/Grizzards.Dirtex.SECAM.a26 Grizzards.Dirtex.SECAM.EF\nput Dist/Grizzards.Demo.NTSC.a26 Grizzards.Demo.NTSC.F4\nput Dist/Grizzards.Demo.PAL.a26 Grizzards.Demo.PAL.F4\nput Dist/Grizzards.Demo.SECAM.a26 Grizzards.Demo.SECAM.F4\nput Dist/Grizzards.NoSave.NTSC.a26 Grizzards.NoSave.NTSC.F4\nput Dist/Grizzards.NoSave.PAL.a26 Grizzards.NoSave.PAL.F4\nput Dist/Grizzards.NoSave.SECAM.a26 Grizzards.NoSave.SECAM.F4\nput Dist/Grizzards.Unerase.NTSC.a26 Grizzards.Unerase.NTSC.a26\nput Dist/Grizzards.Unerase.PAL.a26 Grizzards.Unerase.PAL.a26\nput Dist/Grizzards.Unerase.SECAM.a26 Grizzards.Unerase.SECAM.a26\nput Dist/Grizzards.Manual.txt Grizzards.Manual.txt' | \
+	@echo -e 'put Dist/Grizzards.Aquax.NTSC.a26 Grizzards.Aquax.NTSC.F9\nput Dist/Grizzards.Aquax.PAL.a26 Grizzards.Aquax.PAL.F9\nput Dist/Grizzards.Aquax.SECAM.a26 Grizzards.Aquax.SECAM.F9\nput Dist/Grizzards.Airex.NTSC.a26 Grizzards.Airex.NTSC.F9\nput Dist/Grizzards.Airex.PAL.a26 Grizzards.Airex.PAL.F9\nput Dist/Grizzards.Airex.SECAM.a26 Grizzards.Airex.SECAM.F9\nput Dist/Grizzards.Dirtex.NTSC.a26 Grizzards.Dirtex.NTSC.F9\nput Dist/Grizzards.Dirtex.PAL.a26 Grizzards.Dirtex.PAL.F9\nput Dist/Grizzards.Dirtex.SECAM.a26 Grizzards.Dirtex.SECAM.F9\nput Dist/Grizzards.Demo.NTSC.a26 Grizzards.Demo.NTSC.F4\nput Dist/Grizzards.Demo.PAL.a26 Grizzards.Demo.PAL.F4\nput Dist/Grizzards.Demo.SECAM.a26 Grizzards.Demo.SECAM.F4\nput Dist/Grizzards.NoSave.NTSC.a26 Grizzards.NoSave.NTSC.F4\nput Dist/Grizzards.NoSave.PAL.a26 Grizzards.NoSave.PAL.F4\nput Dist/Grizzards.NoSave.SECAM.a26 Grizzards.NoSave.SECAM.F4\nput Dist/Grizzards.Unerase.NTSC.a26 Grizzards.Unerase.NTSC.a26\nput Dist/Grizzards.Unerase.PAL.a26 Grizzards.Unerase.PAL.a26\nput Dist/Grizzards.Unerase.SECAM.a26 Grizzards.Unerase.SECAM.a26\nput Dist/Grizzards.Manual.txt Grizzards.Manual.txt' | \
 	cadaver https://plusstore.firmaplus.de/remote.php/dav/files/$(USER)/Grizzards
 
 demo:	Dist/Grizzards.Demo.zip
@@ -97,14 +97,14 @@ encore:	Dist/Grizzards.Demo.NTSC.a26 \
 	  cp -v Dist/Grizzards.Demo.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.Demo.F4 ;\
 	  cp -v Dist/Grizzards.NoSave.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.NoSave.F4 ;\
 	  cp -v Dist/Grizzards.NoSave.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.Unerase.a26 ;\
-	  cp -v Dist/Grizzards.Airex.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.Airex.EF ;\
-	  cp -v Dist/Grizzards.Dirtex.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.Dirtex.EF ;\
-	  cp -v Dist/Grizzards.Aquax.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.Aquax.EF ;\
+	  cp -v Dist/Grizzards.Airex.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.Airex.F9 ;\
+	  cp -v Dist/Grizzards.Dirtex.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.Dirtex.F9 ;\
+	  cp -v Dist/Grizzards.Aquax.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.Aquax.F9 ;\
 	else \
 	  echo "Patch Makefile for your $$(uname -s) OS" ; \
 	fi
 
-# Uno needs special extension to detect  us as an EF cartridge and shows
+# Uno needs special extension to detect  us as an F9 cartridge and shows
 # fairly short names only
 uno:	Dist/Grizzards.Dirtex.NTSC.a26 \
 	Dist/Grizzards.Aquax.NTSC.a26 \
@@ -115,9 +115,9 @@ uno:	Dist/Grizzards.Dirtex.NTSC.a26 \
 	[ "$(USBMOUNT)" != "" ]
 	@if [ $$(uname -s) = 'Linux' ] ; then \
 	  mkdir -p $(USBMOUNT)/GRIZZARDS/ ;\
-	  cp -v Dist/Grizzards.Dirtex.NTSC.a26 $(USBMOUNT)/GRIZZARDS/DIRTEX.NTSC.EF ;\
-	  cp -v Dist/Grizzards.Aquax.NTSC.a26 $(USBMOUNT)/GRIZZARDS/AQUAX.NTSC.EF ;\
-	  cp -v Dist/Grizzards.Airex.NTSC.a26 $(USBMOUNT)/GRIZZARDS/AIREX.NTSC.EF ;\
+	  cp -v Dist/Grizzards.Dirtex.NTSC.a26 $(USBMOUNT)/GRIZZARDS/DIRTEX.NTSC.F9 ;\
+	  cp -v Dist/Grizzards.Aquax.NTSC.a26 $(USBMOUNT)/GRIZZARDS/AQUAX.NTSC.F9 ;\
+	  cp -v Dist/Grizzards.Airex.NTSC.a26 $(USBMOUNT)/GRIZZARDS/AIREX.NTSC.F9 ;\
 	  cp -v Dist/Grizzards.Demo.NTSC.a26 $(USBMOUNT)/GRIZZARDS/DEMO.NTSC.F4 ;\
 	  cp -v Dist/Grizzards.NoSave.NTSC.a26 $(USBMOUNT)/GRIZZARDS/NOSAVE.NTSC.F4 ;\
 	  cp -v Dist/Grizzards.Unerase.NTSC.a26 $(USBMOUNT)/GRIZZARDS/UNERASE.NTSC.A26 ;\
@@ -695,35 +695,35 @@ nstella-secam:	Dist/Grizzards.NoSave.SECAM.a26 Dist/Grizzards.NoSave.SECAM.lst \
 
 stella:	Dist/Grizzards.Aquax.NTSC.a26 Dist/Grizzards.Aquax.NTSC.lst \
 	Dist/Grizzards.Aquax.NTSC.sym Dist/Grizzards.Aquax.NTSC.pro
-	stella -tv.filter 3 -grabmouse 0 -bs EF \
+	stella -tv.filter 3 -grabmouse 0 -bs F9 \
 		-lc Genesis -rc AtariVox \
 		-format NTSC -pp Yes \
 		-debug $<
 
 stella-airex:	Dist/Grizzards.Airex.NTSC.a26 Dist/Grizzards.Airex.NTSC.lst \
 	Dist/Grizzards.Airex.NTSC.sym Dist/Grizzards.Airex.NTSC.pro
-	stella -tv.filter 3 -grabmouse 0 -bs EF \
+	stella -tv.filter 3 -grabmouse 0 -bs F9 \
 		-lc Genesis -rc AtariVox \
 		-format NTSC -pp Yes \
 		-debug $<
 
 stella-dirtex:	Dist/Grizzards.Dirtex.NTSC.a26 Dist/Grizzards.Dirtex.NTSC.lst \
 	Dist/Grizzards.Dirtex.NTSC.sym Dist/Grizzards.Dirtex.NTSC.pro
-	stella -tv.filter 3 -grabmouse 0 -bs EF \
+	stella -tv.filter 3 -grabmouse 0 -bs F9 \
 		-lc Genesis -rc AtariVox \
 		-format NTSC -pp Yes \
 		-debug $<
 
 stella-pal:	Dist/Grizzards.Aquax.PAL.a26 Dist/Grizzards.Aquax.PAL.lst \
 	Dist/Grizzards.Aquax.PAL.sym Dist/Grizzards.Aquax.PAL.pro
-	stella -tv.filter 3 -grabmouse 0 -bs EF \
+	stella -tv.filter 3 -grabmouse 0 -bs F9 \
 		-lc Genesis -rc AtariVox \
 		-format PAL -pp Yes \
 		-debug $<
 
 stella-secam:	Dist/Grizzards.Aquax.SECAM.a26 Dist/Grizzards.Aquax.SECAM.lst \
 	Dist/Grizzards.Aquax.SECAM.sym Dist/Grizzards.Aquax.SECAM.pro
-	stella -tv.filter 3 -grabmouse 0 -bs EF \
+	stella -tv.filter 3 -grabmouse 0 -bs F9 \
 		-lc Genesis -rc AtariVox \
 		-format SECAM -pp Yes \
 		-debug $<

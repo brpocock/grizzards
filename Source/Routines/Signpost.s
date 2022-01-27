@@ -45,11 +45,14 @@ IndexReady:
           bge NoBankDown
 BankDown:
           .if BANK > SignpostBank
-          stx BankSwitch0 + BANK - 1
+          lda #BANK - 1
+          sta BankControl
           .else
-          nop
-          nop
-          brk
+          nop                   ; lda#
+          nop                   ; BANK - 1
+          nop                   ; sta
+          nop                   ; $f9
+          brk                   ; $ff
           .fi
           jmp IndexReady
 
@@ -58,11 +61,14 @@ NoBankDown:
           blt NoBankUp
 BankUp:
           .if BANK < SignpostBank + SignpostBankCount - 1
-          stx BankSwitch0 + BANK + 1
+          lda #BANK + 1
+          sta BankControl
           .else
-          nop
-          nop
-          brk
+          nop                   ;lda #
+          nop                   ; BANK + 1
+          nop                   ; sta
+          nop                   ; $f9
+          brk                   ; $ff
           .fi
           jmp IndexReady
 

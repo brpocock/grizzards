@@ -5,7 +5,7 @@
 EndBank:
 
           .if DEMO
-          BankEndAddress = $ff4e      ; keep this as high as possible
+          BankEndAddress = $ff4c      ; keep this as high as possible
           .else
           BankEndAddress = $ff3a      ; keep this as high as possible
           .fi
@@ -27,7 +27,7 @@ EndBank:
 BankJump: .macro label, bank
           .block
 BankSwitch:
-          sta BankSwitch0 + \bank
+          stx BankControl
 
           .if BANK == \bank
           jmp \label
@@ -61,22 +61,24 @@ GoMap:
           
           .if DEMO
 
-          sta BankSwitch0 + Province0MapBank
+          sta BankControl
           jmp DoLocal
 
           .else
 
           lda CurrentProvince
           bne +
-          sta BankSwitch0 + Province0MapBank
-          jmp DoLocal
+          lda #Province0MapBank
+          gne GoGoMap
 +
           cmp #2
           beq +
-          sta BankSwitch0 + Province1MapBank
-          jmp DoLocal
+          lda #Province1MapBank
+          gne GoGoMap
 +
-          sta BankSwitch0 + Province2MapBank
+          lda #Province2MapBank
+GoGoMap:
+          sta BankControl
           jmp DoLocal
 
           .fi
@@ -85,7 +87,8 @@ GoMap:
 GoCombat:
           ldx #$ff              ; smash the stack
           txs
-          sta BankSwitch0 + CombatBank0To127
+          lda #CombatBank0To127
+          sta BankControl
           jmp DoLocal
 
 ;;; Perform a far call to a memory bank with a specific local
@@ -98,7 +101,7 @@ GoCombat:
 FarCall:
           lda #BANK
           pha
-          sta BankSwitch0, x
+          stx BankControl
           jsr DoLocal
           ;; fall through after rts
 
@@ -107,7 +110,7 @@ FarCall:
 FarReturn:
           pla
           tax
-          sta BankSwitch0, x
+          stx BankControl
           rts
 
 ;;; BRK vector jumps to the routine Failure
@@ -156,33 +159,6 @@ InvertedBitMask:
           
           .fill ($fff7 - * + 1), 0        ; 7800 crypto key (designed to fail)
 
-          .if DEMO
-          
-          * = $fff4
-          .offs -$f000
-
-          .text "grizbrp", 0
-
-          .else
-
-          * = $ffe0
-          .offs -$f000
-
-          .text "grizbrp", 0
-          .switch STARTER
-          .case 0
-          .text "dirtex", 0, 0
-          .case 1
-          .text "aquax", 0, 0, 0
-          .case 2
-          .text "airex", 0, 0, 0
-          .endswitch
-
-          ;; magic cookie for Stella
-          nop $1fe0
-
-          .fi
-
 ;;; The KnownZeroInEveryBank allows pointer to point to a fixed zero,
 ;;; which has proven to be useful on occassion.
 
@@ -192,38 +168,8 @@ KnownZeroInEveryBank:
           ;; on the 7800 this says ROM begins at $f000 (true) and
           ;; since 0 ≠ 7 we are not a 7800 tape (also true)
 
-;;; Bank switch hotspots for F4 style bank switching that we're using for now.
-          .if DEMO
-          
-          BankSwitch0 = $fff4
-          BankSwitch1 = $fff5
-          BankSwitch2 = $fff6
-          BankSwitch3 = $fff7
-          BankSwitch4 = $fff8
-          BankSwitch5 = $fff9
-          BankSwitch6 = $fffa
-          BankSwitch7 = $fffb
-
-          .else
-
-          BankSwitch0 = $ffe0
-          BankSwitch1 = $ffe1
-          BankSwitch2 = $ffe2
-          BankSwitch3 = $ffe3
-          BankSwitch4 = $ffe4
-          BankSwitch5 = $ffe5
-          BankSwitch6 = $ffe6
-          BankSwitch7 = $ffe7
-          BankSwitch8 = $ffe8
-          BankSwitch9 = $ffe9
-          BankSwitchA = $ffea
-          BankSwitchB = $ffeb
-          BankSwitchC = $ffec
-          BankSwitchD = $ffed
-          BankSwitchE = $ffee
-          BankSwitchF = $ffef
-
-          .fi
+;;; Bank switch control port for F9 style bank switching
+          BankControl = $fff9
 
 ;;; 6502 special vectors
 ;;;
