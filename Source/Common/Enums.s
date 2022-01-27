@@ -278,7 +278,7 @@
           Monster_Fox = 4
           Monster_Cat = 5
           Monster_Dog = 6
-          Monster_Bear = 7
+          Monster_Spider = 7
           Monster_Mouse = 8
           Monster_Firefox = 9
           Monster_TwoLegs = 10

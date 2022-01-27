@@ -59,8 +59,8 @@ Monsters:
           .byte 15, 6, 8
           .word $0035
 
-          .SignText "FUZZIE  BEAR"
-          .byte Monster_Bear
+          .SignText "CREEPYSPIDER"
+          .byte Monster_Spider
           .mcolu COLBROWN, $8
           .byte 12, 12, 12
           .word $0010
