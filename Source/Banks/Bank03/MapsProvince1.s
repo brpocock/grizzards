@@ -328,7 +328,7 @@ SpriteList:
           ;; Room 17
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 23    ; rat
 
           .byte 0
 
@@ -353,7 +353,7 @@ SpriteList:
           ;; Room 20
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 23    ; rat
 
           .byte 0
 
@@ -374,14 +374,14 @@ SpriteList:
           ;; Room 23
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 23    ; rat
 
           .byte 0
 
           ;; Room 24
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 23    ; rat
 
           .byte $ff, SpriteFixed
           .byte $70, $30
@@ -403,7 +403,7 @@ SpriteList:
           ;; Room 26
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 23    ; rat
 
           .byte 0
 
@@ -432,7 +432,7 @@ SpriteList:
           ;; Room 29
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 23    ; rat
 
           .byte $ff, SpriteFixed
           .byte $6f, $12
@@ -468,7 +468,7 @@ SpriteList:
           ;; Room 33
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 23    ; rat
 
           .byte 0
 
@@ -489,7 +489,7 @@ SpriteList:
           ;; Room 36
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 23    ; rat
 
           .byte $ff, SpriteFixed
           .byte $6b, $31
@@ -522,7 +522,7 @@ SpriteList:
           ;; Room 39
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 23    ; rat
 
           .byte $ff, SpriteFixed
           .byte $8b, $0e
@@ -551,7 +551,7 @@ SpriteList:
           ;; Room 42
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 23    ; rat
 
           .byte 0
 
@@ -565,7 +565,7 @@ SpriteList:
           ;; Room 44
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 23    ; rat
 
           .byte 0
 
@@ -590,7 +590,7 @@ SpriteList:
           ;; Room 47
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 23    ; rat
 
           .byte 0
 
@@ -630,7 +630,7 @@ SpriteList:
           ;; Room 51
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 23    ; rat
 
           .byte $ff, SpriteFixed
           .byte $6e, $0f
@@ -669,7 +669,7 @@ SpriteList:
           ;; Room 56
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 23    ; rat
 
           .byte 0
 
@@ -687,7 +687,7 @@ SpriteList:
           ;; Room 58
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 23    ; rat
 
           .byte 0
 
@@ -701,14 +701,14 @@ SpriteList:
           ;; Room 60
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 23    ; rat
 
           .byte 0
 
           ;; Room 61
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 23    ; rat
 
           .byte $ff, SpriteFixed
           .byte $7c, $0d
@@ -739,6 +739,10 @@ SpriteList:
           .byte 0, 0
           .byte SpriteCombat, 64    ; bat
 
+          .byte $ff, SpriteWander
+          .byte $bc, $38
+          .byte SpriteMajorCombat, 20 ; cyclops
+
           .byte $ff, SpriteFixed
           .byte $bc, $38
           .byte SpriteSign, 30  ; Fred lever
@@ -748,7 +752,7 @@ SpriteList:
           ;; Room 65
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 23    ; rat
 
           .byte 0
 
