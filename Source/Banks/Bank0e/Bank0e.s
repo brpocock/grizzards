@@ -28,7 +28,6 @@ DoLocal:
           .include "GrizzardEvolution.s"
 
           .include "FinalSpeech.s"
-          .include "BossBear.s"
           .include "ShowBossBear.s"
           .include "BossBearDies.s"
           .include "Fireworks.s"
@@ -61,5 +60,8 @@ BearText:
           .MiniText " BEAR "
           
           .include "RevealBear.s"
+
+          .align $100
+          .include "BossBear.s"
 
           .include "EndBank.s"
