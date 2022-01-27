@@ -11,6 +11,7 @@ GetMonsterArtPointer:
           clc
 
           .if !DEMO
+GetAnimationFrame:
           tax
           lda #$20
           bit ClockFrame
@@ -28,6 +29,7 @@ FrameOne:
 GotFrame:
           .fi
 
+GetImagePointer:
           asl a
           asl a
           asl a
@@ -50,7 +52,7 @@ PrepareToDrawMonsters:
           lda #NUSIZDouble
           sta NUSIZ1
 
-          lda CombatMajorP
+          lda CombatMajorP      ; not Boss Bear, handled by ServiceShowBossBear
           bne DrawMajorMonster
 ;;; 
 PrepareTopCursor:
@@ -58,13 +60,16 @@ PrepareTopCursor:
 
 PrepareCursor2:
           ldx MoveTarget
-          beq ZeroTarget
+          beq NoTarget
           cpx # 4
           blt TopTarget
-ZeroTarget:
+NoTarget:
+          .if SECAM == TV
+          stx WSYNC
+          .fi
+NoTopTarget:
           lda # 0
           sta pp3l
-          stx WSYNC
           geq PrepareTopMonsters
 
 TopTarget:
@@ -96,7 +101,6 @@ PositionTopMonsters:
 
 DrawTopMonsters:
           jsr DrawMonsters
-
           geq PrepareBottomCursor
 
 NoTopMonsters:
@@ -149,14 +153,30 @@ PositionBottomMonsters:
 DrawBottomMonsters:
           jsr DrawMonsters
           stx WSYNC
-
+          ;; fall through
+;;; 
 FinishUp:
           sty GRP0
           sty GRP1
+          lda MoveTarget
 
+          .if SECAM == TV
+          bne +
           stx WSYNC
++
+          .SkipLines 3
           rts
 
+          .else
+
+          ;; NTSC and PAL for some reason (Weird!)
+          beq +
+          stx WSYNC
++
+          rts
+          .fi
+
+;;; 
 NoBottomMonsters:
           jsr DrawNothing
           jmp FinishUp
@@ -262,6 +282,7 @@ DrawMonsterLoop:
           ldy # 0
           sty GRP0
           sty GRP1
+          ;; must return with Y=0 and Z flag set
           rts
 ;;; 
 SetCursorColor:

@@ -40,12 +40,4 @@ CalculateAttackMask:          .block
 ;;; 
 
 AttackMask:
-          .byte %00000000
-          .byte %00000000
-          .byte %000000001
-          .byte %00000011
-          .byte %00000111
-          .byte %00001111
-          .byte %00011111
-          .byte %00111111
-          .byte %011111111
+          .byte 1, 3, 7, 15, 31, 63, 127, 255

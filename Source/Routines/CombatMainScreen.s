@@ -41,9 +41,9 @@ Loop:
           .if TV != NTSC
           lda WhoseTurn
           bne +
-          .SkipLines 3
+          .SkipLines 5
 +
-          .SkipLines 2
+          .SkipLines 0
           .fi
 LoopFirst:
           .WaitScreenTopMinus 1, 3
@@ -57,13 +57,13 @@ LoopFirst:
             .ldacolu COLRED, 0
             jmp BGTop
 PlayerTurnBGTop:
-            .ldacolu COLGRAY, $2
+            .ldacolu COLGRAY, $8
 
           .case PAL
 
             lda WhoseTurn
             beq PlayerTurnBGTop
-            .ldacolu COLRED, $2
+            .ldacolu COLRED, $8
             jmp BGTop
 PlayerTurnBGTop:
             .ldacolu COLGRAY, $2
@@ -73,7 +73,7 @@ PlayerTurnBGTop:
             ;; black background normally, but red for Boss Bear
             lda #COLBLACK
             ldx CurrentCombatEncounter
-            cpx # 92
+            cpx # 92            ; Boss Bear encounter
             bne BGTop
             lda #COLRED
 
@@ -89,6 +89,7 @@ MonstersDisplay:
           lda CurrentCombatEncounter
           cmp # 92              ; Boss Bear encounter
           bne MonsterWithName
+BossBearDisplay:
           .SkipLines 20
           .FarJSR EndAnimationsBank, ServiceShowBossBear
           .SkipLines 20
@@ -99,20 +100,6 @@ MonsterWithName:
 
           ldy # MonsterColorIndex
           lda (CurrentMonsterPointer), y
-
-          .if TV == SECAM
-          ;; With only 8 colors we might run into
-          ;; something that's “rounded off” to black
-          ;; (background) or white (highlight)
-          bne +                 ; COLBLACK = 0
-          lda #COLBLUE
-+
-          cmp #COLWHITE
-          bne +
-          lda #COLYELLOW
-+
-          .fi
-
           sta COLUP0
 
           lda WhoseTurn         ; show highlight on monster moving
@@ -291,7 +278,7 @@ DoUseMove:
 MoveOK:
           lda #ModeCombat
           sta GameMode
-          lda #SoundChirp
+          lda #SoundBlip
           sta NextSound
           gne CombatAnnouncementScreen
 
@@ -306,10 +293,16 @@ RunAway:
           .fi
           ;; gne RunningAway
 ;;; 
-ScreenDone:
 RunningAway:
-          .if TV == NTSC
+          .if SECAM == TV
+          .SkipLines 1
+          .fi
+          .if PAL == TV
           .SkipLines 3
+          .fi
+ScreenDone:
+          .if NTSC == TV
+          .SkipLines 4
           .fi
 
           lda GameMode
@@ -331,6 +324,9 @@ Leave:
           lda #ModeCombat
           sta DeltaY
           .WaitScreenBottom
+          .if NTSC != TV
+          .SkipLines 5
+          .fi
           jmp GrizzardStatsScreen
 +
           cmp #ModeCombatAnnouncement

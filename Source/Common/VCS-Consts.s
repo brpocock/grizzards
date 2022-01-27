@@ -159,7 +159,37 @@ colu:     .macro co, lu=$7
           .endswitch            ; TV
           
           .endm
+
+          ;; Special version that never returns black or white on SECAM,
+          ;; but  blue or  yellow instead,  to guarantee  a good  enough
+	;; display on a black or white background.
+mcolu:     .macro co, lu=$7
+          .switch TV
+
+;;; SECAM
+          .case SECAM
+          .if \co == COLGRAY
+	    .if \lu > 7
+	      .byte COLYELLOW
+	    .else
+	      .byte COLBLUE
+	    .fi
+          .else
+            .if \lu == 0
+              .byte COLBLUE
+            .else
+              .byte \co
+            .fi
+          .fi
+
+;;; NTSC, PAL
+          .default
+          .byte (\co | \lu)
           
+          .endswitch            ; TV
+          
+          .endm
+
 ldacolu .macro co, lu=$7
           .switch TV
 
