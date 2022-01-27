@@ -226,7 +226,7 @@ DrawMajorMonsterLoop:
 
           rts
 ;;; 
-          .align $10
+          .align $40
 PositionCursor:
           stx WSYNC
           .Sleep 13
