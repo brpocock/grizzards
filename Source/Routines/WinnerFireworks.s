@@ -14,9 +14,8 @@ Loop:
           .SetUpFortyEight BossBearDies
           ldy #BossBearDies.Height
           jsr ShowPicture
-          
-          .SetPointer WinnerText
-          jsr ShowPointerText12
+
+          .FarJSR AnimationsBank, ServiceFinalScore
 
 ;;; 
           lda NewSWCHB
@@ -30,7 +29,4 @@ Leave:
           jmp GoColdStart
 
           .bend
-
-WinnerText:
-          .SignText "   VICTORY!   "
 

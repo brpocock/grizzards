@@ -212,6 +212,7 @@
           ServiceDrawMonsterGroup = $0b
           ServiceWrite12Chars = $23
           ServiceInquire = $24
+          ServiceFinalScore = $36
 
 ;;; Combat services (stuffed into same bank as animation)
 

@@ -40,7 +40,6 @@ DoLocal:
           .include "PlaySpeech.s"
 
           .include "CopyPointerText.s"
-          .include "CopyPointerText12.s"
 
           .include "GrizzardsSpeech.s"
 
@@ -49,11 +48,6 @@ ShowPointerText:
           ;; fall through
 ShowText:
           .FarJMP TextBank, ServiceDecodeAndShowText
-ShowPointerText12:
-          jsr CopyPointerText12
-          ;; fall through
-ShowText12:
-          .FarJMP AnimationsBank, ServiceWrite12Chars
 
           .include "BossArt.s"
           .include "BossArt2.s"

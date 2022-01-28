@@ -48,7 +48,12 @@ DoLocal:
           beq AttractStory
           cpy #ServiceInquire
           beq Inquire
+          cpy #ServiceFinalScore
+          beq FinalScore
           brk
+
+          .include "FinalScore.s"
+          .include "DecodeScore.s"
 
           .include "MonsterArt.s"
           .include "MonsterArt2.s"
