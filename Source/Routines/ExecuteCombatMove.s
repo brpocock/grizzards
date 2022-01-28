@@ -70,6 +70,8 @@ MonsterAttackNegativeRandom:
           lda (CurrentMonsterPointer), y
           sec
           sbc Temp
+          bpl MonsterAttackHitMissP
+          lda # 0
           ;; fall through
 MonsterAttackHitMissP:
           tax                   ; stash effective attack strength
@@ -97,6 +99,8 @@ MonsterAttackHitMinus:
           lda CombatMoveDeltaHP
           sec
           sbc Temp
+          bpl MonsterAttackHitCommon
+          lda # 0
           ;; fall through
 MonsterAttackHitCommon:
           sta MoveHP
@@ -176,6 +180,8 @@ MonsterHealsMinusHP:
           lda MoveHP
           sec
           sbc Temp
+          bpl MonsterHealsCommon
+          lda # 0
           ;; fall through
 MonsterHealsCommon:
           ldx WhoseTurn
@@ -257,6 +263,8 @@ PlayerAttackNegativeRandom:
           lda GrizzardAttack
           sec
           sbc Temp
+          bpl PlayerAttackHitMissP
+          lda # 0
           ;; fall through
 PlayerAttackHitMissP:
           tax                   ; stash effective attack strength
@@ -285,6 +293,8 @@ PlayerAttackHitMinus:
           lda CombatMoveDeltaHP
           sec
           sbc Temp
+          bpl PlayerAttackHitCommon
+          lda # 0
           ;; fall through
 PlayerAttackHitCommon:
           sta MoveHP
@@ -398,6 +408,8 @@ PlayerHealsMinusHP:
           lda MoveHP
           sec
           sbc Temp
+          bpl PlayerHealsCommon
+          lda # 0
           ;; fall through
 PlayerHealsCommon:
           clc
