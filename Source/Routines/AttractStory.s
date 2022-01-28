@@ -6,9 +6,6 @@ AttractStory:       .block
           cmp #<Phrase_Story
           beq Loop
 
-          lda # STARTER
-          sta CurrentGrizzard
-
           lda # 0
           sta AttractStoryPanel
           sta AttractStoryProgress
@@ -211,6 +208,14 @@ StoryDone:
           sta AlarmCountdown
           lda # 0
           sta DeltaY
+
+RandomGrizzard:
+          jsr Random
+          and #$03
+          cmp # 3
+          beq RandomGrizzard
+          sta CurrentGrizzard
+
           lda #ModeAttractTitle
           sta GameMode
           rts

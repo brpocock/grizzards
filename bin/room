@@ -7,11 +7,10 @@ while getopts "s:t:ahb:m" opt; do
     case $opt in
         h)
             cat <<EOF >&2
-Usage: $0 [ -s starter ] [ -t tv-type ] [ -a ]
+Usage: $0 [ -v variant ] [ -t tv-type ]
 
 -t TV type: NTSC, PAL, SECAM
--s Starter: Airex, Dirtex, Aquax, Demo, NoSave
--a for AtariAge builds
+-v Variant: AA, Demo, NoSave, Public
 
 or
 
@@ -19,9 +18,6 @@ or
 -m minimum across all builds
 EOF
             exit 2;
-            ;;
-        a)
-            atariage=AA.
             ;;
         b)
             bankmode=$OPTARG
@@ -31,23 +27,17 @@ EOF
             ;;
         s)
             case $OPTARG in
-                Airex)
-                    starter=Airex;
-                    ;;
-                Dirtex)
-                    starter=Dirtex;
-                    ;;
-                Aquax)
-                    starter=Aquax;
+                Public)
+                    variant='';
                     ;;
                 Demo)
-                    starter=Demo;
+                    variant=.Demo;
                     ;;
                 AA)
-                    starter=AA.$starter;
+                    variant=.AA;
                     ;;
                 NoSave)
-                    starter=NoSave;
+                    variant=.NoSave;
                     ;;
             esac
             ;;
@@ -76,17 +66,17 @@ if [ "$minmode" = "1" ]; then
     for bank in $banklist ; do
         min=4096
         mincfg='???'
-        for starter in AA.Aquax AA.Dirtex AA.Airex Aquax Dirtex Airex ; do
+        for variant in .AA '' ; do
             for tv in NTSC PAL SECAM; do
-                rm -f Object/Bank$bank.$starter.$tv.o
-                size=$(make Object/Bank$bank.$starter.$tv.o -f Source/Generated/Makefile 2>&1 \
+                rm -f Object/Bank$bank$variant.$tv.o
+                size=$(make Object/Bank$bank$variant.$tv.o -f Source/Generated/Makefile 2>&1 \
                            | grep 'bytes left' | grep -v %d | cut -d: -f5 | cut -d ' ' -f 8)
                 if [ "x$size" = "x" ]; then
                     min='-1'
-                    mincfg="$starter for $tv"
+                    mincfg="$variant for $tv"
                 elif [ $size -lt $min ]; then
                     min=$size
-                    mincfg="$starter for $tv"
+                    mincfg="$variant for $tv"
                 fi
             done
         done
@@ -110,10 +100,10 @@ if [ "$minmode" = "1" ]; then
     for bank in $banklist ; do
         min=4096
         mincfg='???'
-        for starter in Demo NoSave ; do
+        for variant in .Demo .NoSave ; do
             for tv in NTSC PAL SECAM; do
-                rm -f Object/Bank$bank.$starter.$tv.o
-                size=$(make Object/Bank$bank.$starter.$tv.o -f Source/Generated/Makefile 2>&1 \
+                rm -f Object/Bank$bank$variant.$tv.o
+                size=$(make Object/Bank$bank$variant.$tv.o -f Source/Generated/Makefile 2>&1 \
                            | grep 'bytes left' | grep -v -E %d  | \
                            cut -d: -f5 | cut -d ' ' -f 8)
                 if [ "x$size" = "x" ]; then
@@ -121,7 +111,7 @@ if [ "$minmode" = "1" ]; then
                     echo -n ;
                 elif [ $size -lt $min ]; then
                     min=$size
-                    mincfg="$starter for $tv"
+                    mincfg="$variant for $tv"
                 fi
             done
         done
@@ -132,35 +122,25 @@ fi
 
 if [ "x$bankmode" != "x" ]; then
     bank=$(printf %02x $bankmode)
-    for starter in AA.Aquax AA.Dirtex AA.Airex Aquax Dirtex Airex Demo NoSave ; do
+    for variant in .AA '' .Demo .NoSave ; do
         for tv in NTSC PAL SECAM; do
-            rm -f Object/Bank$bank.$starter.$tv.o
-            echo "$starter.$tv:"
-            make Object/Bank$bank.$starter.$tv.o -f Source/Generated/Makefile 2>&1 \
+            rm -f Object/Bank$bank$variant.$tv.o
+            echo "$variant.$tv:"
+            make Object/Bank$bank$variant.$tv.o -f Source/Generated/Makefile 2>&1 \
                 | grep -E '(bytes left|overran)' | grep -v -E '(%d|*,)' | cut -d: -f5
         done
     done
     exit 0
 fi
 
-if [ "x$starter" = "x" ]; then
-    starter=Airex
-fi
-
 if [ "x$tv" = "x" ]; then
     tv=PAL
 fi
 
-if [ "x$atariage" = "x" ]; then
-    aa=public
-else
-    aa='AtariAge official'
-fi
-
-echo "Space remanining in $starter $aa build for $tv:"
+echo "Space remanining in $variant build for $tv:"
 
 for bank in 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f; do
-    rm -f Object/Bank$bank.$atariage$starter.$tv.o
-    make Object/Bank$bank.$atariage$starter.$tv.o -f Source/Generated/Makefile 2>&1 \
+    rm -f Object/Bank$bank$variant.$tv.o
+    make Object/Bank$bank$variant.$tv.o -f Source/Generated/Makefile 2>&1 \
         | grep -E '(bytes left|overran)' | grep -v  -E '(%d|*,)' | cut -d: -f5
 done

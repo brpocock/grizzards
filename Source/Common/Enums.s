@@ -145,6 +145,7 @@
           AnimationsBank = $0f
           CombatServicesBank = $0f
           EndAnimationsBank = $0e
+          StretchBank = $0d
           .fi
           TextBank = $02
           FailureBank = $01
@@ -231,6 +232,15 @@
           ServiceLoadProvinceData = $21
           ServiceLoadGrizzard = $22
           ServiceSetCurrentGrizzard = $2f
+
+;;; Stretch goals bank
+
+          ServiceDrawStarter = $30
+          ServiceChooseGrizzard = $31
+          ServiceConfirmNewGame = $32
+          ServiceUnerase = $33
+          ServiceConfirmErase = $34
+          ServiceDrawBoss = $35
 
 ;;; 
 ;;; Maximum number of Grizzards allowed

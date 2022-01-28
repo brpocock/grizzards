@@ -33,6 +33,13 @@ BRPPreambleMode:
           lda AlarmCountdown
           bne StillPresenting
 
+RandomGrizzard:
+          jsr Random
+          and #$03
+          cmp # 3
+          beq RandomGrizzard
+          sta CurrentGrizzard
+
           lda # 60
           sta AlarmCountdown
           lda #ModeAttractTitle

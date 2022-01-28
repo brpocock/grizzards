@@ -36,8 +36,6 @@ InitGameVars:
           sta BlessedY
           sta PlayerY
 
-          lda # STARTER         ; STARTER Grizzard
-          sta CurrentGrizzard
           lda # 1
           sta GrizzardAttack
           sta GrizzardDefense

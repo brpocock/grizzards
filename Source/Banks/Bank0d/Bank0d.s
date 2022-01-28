@@ -4,21 +4,35 @@
 
           .include "StartBank.s"
 
-          .include "SpeakJetIDs.s" ; from this bank, not bank 7
-
-
 DoLocal:
-          .include "Signpost.s"
+          cpy #ServiceDrawStarter
+          beq DrawStarter
+          cpy #ServiceChooseGrizzard
+          cpy #ServiceConfirmNewGame
+          cpy #ServiceUnerase
+          cpy #ServiceConfirmErase
+          cpy #ServiceDrawBoss
+          brk
 
+          .include "DrawStarter.s"
+          .include "ShowPicture.s"
           .include "VSync.s"
           .include "VBlank.s"
           .include "Random.s"
           .include "48Pixels.s"
 
-          .include "SignpostText.s"
-          .include "SignpostSpeech.s"
-          .include "SpeakJetIndex.s"
+          .align $100
+          .include "Grizzard0-0.s"
+          .align $100
+          .include "Grizzard0-1.s"
+          .align $100
+          .include "Grizzard1-0.s"
+          .align $100
+          .include "Grizzard1-1.s"
+          .align $100
+          .include "Grizzard2-0.s"
+          .align $100
+          .include "Grizzard2-1.s"
 
-          .include "PlaySpeech.s"
 
           .include "EndBank.s"

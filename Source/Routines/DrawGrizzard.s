@@ -4,6 +4,7 @@ DrawGrizzard:
           lda #0
           sta VDELP0
           sta VDELP1
+          sta REFP0
           lda #NUSIZDouble
           sta NUSIZ0
           sta NUSIZ1

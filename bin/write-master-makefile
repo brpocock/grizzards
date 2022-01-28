@@ -61,14 +61,11 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
 \tmkdir -p Dist
 \tcat \$^ > \$\@\n\n";
 
-  for my $starter (0, 1, 2) {
     for my $atariagesave ('', '.AA') {
 
-      my $starter_name = (qw[Dirtex Aquax Airex])[$starter];
-
-      print "Dist/Grizzards$atariagesave.$starter_name.$tv.a26:\t";
+      print "Dist/Grizzards$atariagesave.$tv.a26:\t";
       for my $bank (@banks) {
-        print "\\\n\tObject/Bank$bank$atariagesave.$starter_name.$tv.o ";
+        print "\\\n\tObject/Bank$bank$atariagesave.$tv.o ";
       }
       print "
 \tmkdir -p Dist
@@ -175,7 +172,7 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
           next;
         }
 
-        print "Object/Bank$bank$atariagesave.$starter_name.$tv.o:\t";
+        print "Object/Bank$bank$atariagesave.$tv.o:\t";
         for my $file (@files) {
           print "\\\n\t$file";
         }
@@ -186,12 +183,12 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
         }
         print "
 \tmkdir -p Object
-\t\${AS2600} -DSTARTER=$starter -DATARIAGESAVE=$publisher -DPUBLISHER=$publisher -DTV=$tv \\
+\t\${AS2600} -DATARIAGESAVE=$publisher -DPUBLISHER=$publisher -DTV=$tv \\
 \t   -I Source/Generated/Bank$bank -l \$\@.labels.txt -L \$\@.list.txt \$< -o \$\@
 \tbin/label2sym \$\@.labels.txt
 \tbin/listing2lst \$\@.list.txt\n";
 
-        if (1 == $starter and '' eq $atariagesave and hex("0x$bank") < 8) {
+        if ('' eq $atariagesave and hex("0x$bank") < 8) {
           print "\n\nObject/Bank$bank.Demo.$tv.o:\t";
           for my $file (@files) {
             print "\\\n\t$file";
@@ -213,6 +210,5 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
 \tbin/listing2lst \$\@.list.txt\n";
         }
       }                         # end of bank
-    }                           # end of starter
   }                             # end of AA
 }                               # end of TV standard
