@@ -45,7 +45,7 @@ Loop:
 
 Leave:
           .WaitScreenTop
-          .FarJMP SaveKeyBank, ServiceAttract
+          jmp Attract
 
           .bend
 
