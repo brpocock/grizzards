@@ -22,6 +22,12 @@ BufferReady:
           lda # 0
           sta NameEntryPosition
 
+          .if PAL == TV
+          .WaitScreenBottom
+          .SkipLines 1
+          jmp FirstTime
+          .fi
+
 Loop:
           .WaitScreenBottom
 FirstTime:
