@@ -94,7 +94,9 @@ while (my $line = <INFILE>) {
       $word =~ s/^\s+/ /;
       $word =~ s/(.)\s*$/$1/;
       if ($word eq '-') {
-	print OUTFILE "\n\t;; -";
+        print OUTFILE "\n\t;; -";
+      } elsif ($word eq '\;') {
+        print OUTFILE "\n\t;; \\;";
       } elsif ($word =~ /^\\(.*)/) {
 	my $code = $1;
 	if ($code =~ /^[0-9]*$/) {

@@ -26,7 +26,7 @@ Hungry:
 ♂These awful monsters are making it so hard to get luxuries too
 
 HungryCookie:
-♂It's hard to get luxuries these days.May I have a ? cookie
+♂It's hard to get luxuries these days.May I have a¿cookie
 
 NoCookieForYou:
 ♂When you do defeat all the monsters there will be cookies

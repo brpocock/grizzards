@@ -53,13 +53,13 @@ Fishing:
 ♂I fish here whenever the monsters let me be,which is not often
 
 FoundRing:
-♂I find many things in the sea.You looking for ¿ something
+♂I find many things in the sea.You looking for¿something
 
 TrebleRefugee:
 ♂Port Lion is pretty safe,not like my home town,Treble
 
 HowLong:
-♀People flee here from other towns.How long is ? it safe
+♀People flee here from other towns.How long is it?safe
 
 FatTony:
 ♀Fat Tony was raised here,and knows all about our island

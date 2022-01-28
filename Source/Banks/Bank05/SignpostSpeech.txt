@@ -15,7 +15,7 @@ TunnelOpen:
 ☿This is the end of the demo area for Grizzards.Thank you for playing
 
 Artifact:
-♂I have one of the two artifacts.Who says you can ¿ take it
+♂I have one of the two artifacts.Who says you can¿take it
 
 TakeArtifact1:
 ♂I have one of the two artifacts.Take this to the tunnels

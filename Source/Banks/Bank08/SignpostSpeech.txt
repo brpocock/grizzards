@@ -8,13 +8,13 @@ SouthGate:
 ♀You should leave Treble soon.Where will you go ¿ now
 
 TunnelBlocked:
-♀I can't open the tunnels with out the two artifacts.You'll ? help
+♀I can't open the tunnels with out the two artifacts.You'll?help
 
 TunnelOpen:
 ♀Now that you brought them I can open the tunnels to Anchor Village
 
 Artifact:
-♂I have one of the two artifacts.Who says you can take ¿ it
+♂I have one of the two artifacts.Who says you can take¿it
 
 TakeArtifact1:
 ♂I have one of the two artifacts.Take this to the tunnels
@@ -56,7 +56,7 @@ SpiralWoodsOpen:
 Now entering the Spiral Woods.Danger
 
 PortLionShip:
-Treble Docks.A ship is here,going to Port Lion.Want to ? go
+Treble Docks.A ship is here,going to Port Lion.Want to?go
 
 BlockadeLocked:
 Blockade is locked due to danger of a cave grue.No entry
