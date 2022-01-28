@@ -60,6 +60,10 @@ DoLocal:
           beq SaveProvinceData
           cpy #ServiceLoadProvinceData
           beq LoadProvinceData
+          cpy #ServiceChooseGrizzard
+          beq GrizzardChooser
+          cpy #ServiceConfirmNewGame
+          beq ConfirmNewGame
           .fi
           brk
 
@@ -116,6 +120,9 @@ PeekGrizzard:
 
           .if DEMO
           .include "DrawStarter.s"
+          .else
+          .include "GrizzardChooser.s"
+          .include "ConfirmNewGame.s"
           .fi
 
           .include "Random.s"

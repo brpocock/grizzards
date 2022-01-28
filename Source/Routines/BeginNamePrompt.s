@@ -5,6 +5,9 @@ BeginNamePrompt:
 
           .SetUtterance Phrase_EnterName
 
+          lda NameEntryBuffer
+          bne BufferReady
+
           lda #$28              ; blank
           ldx # 5
 -
@@ -15,10 +18,10 @@ BeginNamePrompt:
           lda #$0a              ; letter “A”
           sta NameEntryBuffer
 
+BufferReady:
           lda # 0
           sta NameEntryPosition
 
-          jmp FirstTime
 Loop:
           .WaitScreenBottom
 FirstTime:

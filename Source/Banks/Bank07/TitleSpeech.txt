@@ -18,3 +18,9 @@ Enter your name
 
 GameOver:
 game over
+
+ChooseGrizzard:
+Choose your starting Grizzard
+
+ConfirmNewGame:
+Make changes,or begin now

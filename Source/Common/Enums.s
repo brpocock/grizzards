@@ -24,6 +24,9 @@
           ModeErasing = $22
           ModeNoAtariVox = $23
           ModeStartGame = $24
+          ModeGrizzardChooser = $25
+          ModeConfirmNewGame = $26
+          ModeEnterName = $27
 
           ModeMap = $30
           ModeMapNewRoom = $31
@@ -140,7 +143,8 @@
           .if DEMO
           AnimationsBank = $03
           CombatServicesBank = $03
-          EndAnimationsBank = $ff
+          EndAnimationsBank = $03
+          StretchBank = $03
           .else
           AnimationsBank = $0f
           CombatServicesBank = $0f
@@ -208,7 +212,6 @@
           ServiceDrawMonsterGroup = $0b
           ServiceWrite12Chars = $23
           ServiceInquire = $24
-          ServiceBeginName = $2a
 
 ;;; Combat services (stuffed into same bank as animation)
 
@@ -232,12 +235,13 @@
           ServiceLoadProvinceData = $21
           ServiceLoadGrizzard = $22
           ServiceSetCurrentGrizzard = $2f
+          ServiceChooseGrizzard = $31
+          ServiceConfirmNewGame = $32
 
 ;;; Stretch goals bank
 
+          ServiceBeginName = $2a
           ServiceDrawStarter = $30
-          ServiceChooseGrizzard = $31
-          ServiceConfirmNewGame = $32
           ServiceUnerase = $33
           ServiceConfirmErase = $34
           ServiceDrawBoss = $35

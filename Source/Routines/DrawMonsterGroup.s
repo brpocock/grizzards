@@ -226,7 +226,7 @@ DrawMajorMonsterLoop:
 
           rts
 ;;; 
-          .fill $20             ; alignment XXX
+          .fill $00             ; alignment XXX
 PositionCursor:
           stx WSYNC
           .Sleep 13
@@ -327,6 +327,7 @@ CursorColored:
 
           rts
 ;;; 
+          .fill $00             ; alignment XXX
 DrawNothing:
           lda # 0
           sta GRP0

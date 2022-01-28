@@ -136,11 +136,19 @@ WaitForScreenEnd:
           jmp Loop
 
 Leave:
+          lda # 0
+          sta NameEntryBuffer
+EnterName:
+          .FarJSR StretchBank, ServiceBeginName
+          .if !DEMO
+          .FarJSR SaveKeyBank, ServiceChooseGrizzard
+          .FarJSR SaveKeyBank, ServiceConfirmNewGame
+          lda GameMode
+          cmp #ModeEnterName
+          beq EnterName
+          .fi
           .FarJSR SaveKeyBank, ServiceSaveToSlot
-          .FarJSR AnimationsBank, ServiceBeginName
 
-          .WaitScreenBottom
-          .WaitScreenTop
 SaveName:
           jsr i2cStartWrite
           lda SaveGameSlot

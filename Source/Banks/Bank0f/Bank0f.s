@@ -5,18 +5,19 @@
           .include "StartBank.s"
 
           .include "Source/Generated/Bank07/SpeakJetIDs.s"
+          .include "6BitCompression.s"
 
           .include "Font.s"
           .include "FontExtended.s"
-          .include "6BitCompression.s"
-          .include "DecodeText.s"
-          .include "Write12Chars.s"
-          .include "Inquire.s"
 
-          .include "BeginNamePrompt.s"
-
-          .include "AttractStory.s"
+          ;; these have some annoying alignment requirements
+          ;; keep them early to avoid adjusting it too often
           .include "DrawMonsterGroup.s"
+          .include "Write12Chars.s"
+
+          .include "DecodeText.s"
+          .include "Inquire.s"
+          .include "AttractStory.s"
           .include "DrawGrizzard.s"
 
           .include "CombatVBlank.s"
@@ -47,8 +48,6 @@ DoLocal:
           beq AttractStory
           cpy #ServiceInquire
           beq Inquire
-          cpy #ServiceBeginName
-          beq BeginNamePrompt
           brk
 
           .include "MonsterArt.s"

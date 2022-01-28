@@ -4,11 +4,30 @@
 
           .include "StartBank.s"
 
+          .include "Source/Generated/Bank07/SpeakJetIDs.s"
+          .include "6BitCompression.s"
+
+          .include "Font.s"
+          .include "FontExtended.s"
+
+          .include "DecodeText.s"
+
+          .include "CopyPointerText.s"
+
+ShowPointerText:
+          jsr CopyPointerText
+          .FarJMP TextBank, ServiceDecodeAndShowText ; tail call
+
+          .include "BeginNamePrompt.s"
+
+          .include "Prepare48pxMobBlob.s"
+          .include "Random.s"
+
 DoLocal:
           cpy #ServiceDrawStarter
           beq DrawStarter
-          cpy #ServiceChooseGrizzard
-          cpy #ServiceConfirmNewGame
+          cpy #ServiceBeginName
+          beq BeginNamePrompt
           cpy #ServiceUnerase
           cpy #ServiceConfirmErase
           cpy #ServiceDrawBoss
@@ -18,7 +37,6 @@ DoLocal:
           .include "ShowPicture.s"
           .include "VSync.s"
           .include "VBlank.s"
-          .include "Random.s"
           .include "48Pixels.s"
 
           .align $100
