@@ -41,6 +41,14 @@ RandomColor:
 Loop:
           .WaitScreenTop
 LoopFirst:
+          .if SECAM == TV
+            lda #COLBLUE
+          .else
+            .ldacolu COLTURQUOISE, $e
+          .fi
+          stx WSYNC
+          sta COLUBK
+
           lda AttractStoryPanel
           cmp # 1
           bge StoryPhase0
@@ -78,6 +86,20 @@ StoryPhase0:
 
           jsr DrawMonsterGroup
 
+          lda # KernelLines / 4
+          sec
+          sbc AttractStoryProgress
+          tax
+          beq +
+-
+          stx WSYNC
+          dex
+          bne -
++
+
+          .ldacolu COLGREEN, $8
+          sta COLUBK
+          
           lda DeltaY
           clc
           adc # ceil( $40 * ( FramesPerSecond / 24.0 ) )
@@ -147,6 +169,9 @@ NotSix:
 
           jsr DrawMonsterGroup
 
+          .ldacolu COLGREEN, $8
+          sta COLUBK
+          
           ldx AttractStoryProgress
           beq +
 -
