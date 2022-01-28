@@ -117,6 +117,6 @@ DefeatDragon:
           .FarJMP StretchBank, ServiceRevealBear
           
 WonGame:
-          .FarJMP StretchBank, ServiceFireworks
+          .FarJMP EndAnimationsBank, ServiceFireworks
            
           .bend

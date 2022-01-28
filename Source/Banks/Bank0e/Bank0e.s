@@ -6,6 +6,11 @@
           .include "SpeakJetIDs.s"
           .include "SpeakJetIndex.s"
 
+          .align $100
+          .include "BossBearDies.s"
+          .align $20
+          .include "ShowPicture.s"
+
 DoLocal:
           cpy #ServiceGrizzardEvolution
           beq GrizzardEvolution
@@ -13,15 +18,18 @@ DoLocal:
           beq Death
           cpy #ServiceDrawBoss
           beq DrawBoss
+          cpy #ServiceFireworks
+          beq WinnerFireworks
           brk
 
           .include "VSync.s"
           .include "VBlank.s"
           .include "Random.s"
           .include "48Pixels.s"
-          .include "ShowPicture.s"
           .include "Prepare48pxMobBlob.s"
           .include "GrizzardEvolution.s"
+
+          .include "WinnerFireworks.s"
 
           .include "FinalSpeech.s"
 
@@ -32,6 +40,7 @@ DoLocal:
           .include "PlaySpeech.s"
 
           .include "CopyPointerText.s"
+          .include "CopyPointerText12.s"
 
           .include "GrizzardsSpeech.s"
 
@@ -40,11 +49,13 @@ ShowPointerText:
           ;; fall through
 ShowText:
           .FarJMP TextBank, ServiceDecodeAndShowText
+ShowPointerText12:
+          jsr CopyPointerText12
+          ;; fall through
+ShowText12:
+          .FarJMP AnimationsBank, ServiceWrite12Chars
 
           .include "BossArt.s"
           .include "BossArt2.s"
-
-          .align $100
-          .include "BossBearDies.s"
 
           .include "EndBank.s"

@@ -66,8 +66,6 @@ DoLocal:
           beq GrizzardChooser
           cpy #ServiceConfirmNewGame
           beq ConfirmNewGame
-          cpy #ServiceFireworks
-          beq WinnerFireworks
           .fi
 
           brk
@@ -154,9 +152,5 @@ ShowPointerText12:
           ;; fall through
 ShowText12:
           .FarJMP AnimationsBank, ServiceWrite12Chars
-
-          .if !DEMO
-          .include "WinnerFireworks.s"
-          .fi
 
           .include "EndBank.s"

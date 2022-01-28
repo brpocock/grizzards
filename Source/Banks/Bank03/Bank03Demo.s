@@ -8,12 +8,12 @@
           .include "6BitCompression.s"
           .include "DecodeText.s"
           .include "Write12Chars.s"
+          .include "DrawMonsterGroup.s"
+
           .include "Inquire.s"
 
           .include "AttractStory.s"
           .include "Death.s"
-          .align $20
-          .include "DrawMonsterGroup.s"
           .include "DrawGrizzard.s"
 
           .include "48Pixels.s"
