@@ -240,11 +240,11 @@ Monsters:
           .byte 10, 10, 10
           .word $0010
 ;;; 39
-          .SignText "MONSTR  39  "
-          .byte Monster_Bunny
-          .mcolu COLBLUE, $8
-          .byte 10, 10, 10
-          .word $0010
+          .SignText "GIANT SPIDER"
+          .byte Monster_Spider
+          .mcolu COLORANGE, $e
+          .byte 50, 5, 40
+          .word $0038
 ;;; 40
           .SignText "MONSTR  40  "
           .byte Monster_Bunny

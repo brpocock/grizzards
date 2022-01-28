@@ -299,14 +299,14 @@ SpriteList:
           ;; Room 14
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 69    ; jaguars
 
           .byte 0
 
           ;; Room 15
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 65    ; bat
 
           .byte $ff, SpriteFixed
           .byte $8b, $0e
@@ -335,7 +335,7 @@ SpriteList:
           ;; Room 18
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 66    ; jaguar
 
           .byte $ff, SpriteFixed
           .byte $53, $1d
@@ -346,14 +346,14 @@ SpriteList:
           ;; Room 19
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 72    ; spider
 
           .byte 0
 
           ;; Room 20
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 23    ; rat
+          .byte SpriteCombat, 67    ; jaguar
 
           .byte 0
 
@@ -367,7 +367,7 @@ SpriteList:
           ;; Room 22
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 68    ; jaguar
 
           .byte 0
 
@@ -392,7 +392,7 @@ SpriteList:
           ;; Room 25
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 72    ; spider
 
           .byte $ff, SpriteFixed
           .byte $6c, $30
@@ -410,7 +410,7 @@ SpriteList:
           ;; Room 27
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 68    ; jaguar
 
           .byte $ff, SpriteFixed
           .byte $6e, $0f
@@ -443,7 +443,7 @@ SpriteList:
           ;; Room 30
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 65    ; bat
 
           .byte $ff, SpriteFixed
           .byte $b0, $40
@@ -454,14 +454,14 @@ SpriteList:
           ;; Room 31
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 65 ; bat
 
           .byte 0
 
           ;; Room 32
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 69    ; jaguars
 
           .byte 0
 
@@ -475,7 +475,7 @@ SpriteList:
           ;; Room 34
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 73 ; spider
 
           .byte 0
 
@@ -515,7 +515,7 @@ SpriteList:
           ;; Room 38
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 69    ; jaguars
 
           .byte 0
 
@@ -533,7 +533,7 @@ SpriteList:
           ;; Room 40
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 72    ; spider
 
           .byte $ff, SpriteFixed
           .byte $8a, $30
@@ -544,7 +544,7 @@ SpriteList:
           ;; Room 41
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 65    ; bat
 
           .byte 0
 
@@ -579,7 +579,7 @@ SpriteList:
           ;; Room 46
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 73    ; spider
 
           .byte 62, SpriteFixed
           .byte $88, $31
@@ -612,14 +612,14 @@ SpriteList:
           ;; Room 49
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 69    ; jaguars
 
           .byte 0
 
           ;; Room 50
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 65    ; bat
 
           .byte $ff, SpriteFixed
           .byte $7c, $0d
@@ -655,14 +655,14 @@ SpriteList:
           ;; Room 54
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 72    ; spider
 
           .byte 0
 
           ;; Room 55
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 69    ; jaguars
 
           .byte 0
 
@@ -694,7 +694,7 @@ SpriteList:
           ;; Room 59
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 73    ; spider
 
           .byte 0
 
@@ -719,7 +719,7 @@ SpriteList:
           ;; Room 62
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 65    ; bat
 
           .byte $ff, SpriteFixed
           .byte $6f, $12
@@ -759,14 +759,14 @@ SpriteList:
           ;; Room 66
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 69    ; jaguars
 
           .byte 0
 
           ;; Room 67
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 69    ; jaguars
 
           .byte $ff, SpriteFixed
           .byte $89, $31
@@ -777,6 +777,6 @@ SpriteList:
           ;; Room 68
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 64    ; bat
+          .byte SpriteCombat, 72    ; spider
 
           .byte 0
