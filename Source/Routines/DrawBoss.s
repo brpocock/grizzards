@@ -4,7 +4,7 @@
 DrawBoss: .block
 
 GetMonsterPointer:
-          lda #>MonsterArt
+          lda #>BossArt
           sta CombatSpritePointer + 1
 
 GetMonsterArtPointer:
@@ -20,7 +20,7 @@ GetAnimationFrame:
           ;; skip over the MonsterArt to get to the MonsterArt2 frames
           txa
           ;; clc ; not needed, BIT does not affect Carry, still clear here
-          adc # BossArt.Height / 16
+          adc # BossArt.Height / 16 * 2
           bcc +
           inc CombatSpritePointer + 1
 +
@@ -37,7 +37,7 @@ GetImagePointer:
           inc CombatSpritePointer + 1
 +
           clc
-          adc #<MonsterArt
+          adc #<BossArt
           bcc +
           inc CombatSpritePointer + 1
 +
