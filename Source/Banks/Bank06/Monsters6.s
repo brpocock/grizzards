@@ -104,9 +104,9 @@ Monsters:
 ;;; 16
           .SignText "SCARY    RAT"
           .byte Monster_Rodent
-          .mcolu COLBLUE, $8
-          .byte $05, $05, $05
-          .word $0010
+          .mcolu COLBROWN, $8
+          .byte 10, 5, 25
+          .word $0026
 
           .SignText "CAVE    GRUE"
           .byte Monster_Rodent
