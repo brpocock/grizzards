@@ -150,6 +150,9 @@ EnterName:
           .FarJSR SaveKeyBank, ServiceSaveToSlot
 
 SaveName:
+          .WaitScreenBottom
+          .WaitScreenTop
+
           jsr i2cStartWrite
           lda SaveGameSlot
           clc

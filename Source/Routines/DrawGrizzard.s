@@ -1,6 +1,6 @@
 ;;; Grizzards Source/Routines/DrawGrizzard.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
-DrawGrizzard:
+DrawGrizzard:       .block
           lda #0
           sta VDELP0
           sta VDELP1
@@ -61,3 +61,5 @@ DrawGrizzard:
           sty GRP1
 
           rts
+
+          .bend

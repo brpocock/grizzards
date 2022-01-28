@@ -60,9 +60,6 @@ PrepareToDrawMonsters:
           sta pp3l
           lda #NUSIZDouble
           sta NUSIZ1
-
-          lda CombatMajorP      ; not Boss Bear, handled by ServiceShowBossBear
-          bne DrawMajorMonster
 ;;; 
 PrepareTopCursor:
           jsr SetCursorColor
@@ -188,43 +185,6 @@ FinishUp:
 NoBottomMonsters:
           jsr DrawNothing
           jmp FinishUp
-;;; 
-DrawMajorMonster:
-
-PositionMajorMonster:
-          stx WSYNC
-          lda # NUSIZQuad
-          sta NUSIZ0
-          nop
-          nop
-          nop
-          ldy #$70
-GrossPositionMajorMonster:
-          dey
-          bne GrossPositionMajorMonster
-          sta RESP0
-
-DrawMajorMonsterLines:
-          ldy # 7
-DrawMajorMonsterLoop:
-          lda (CombatSpritePointer), y
-          sta GRP0
-          .if TV == NTSC
-            .SkipLines 4
-          .else
-            .SkipLines 6
-          .fi
-          dey
-          bpl DrawMajorMonsterLoop
-
-          ldy # 0
-          sty GRP0
-          sty GRP1
-          sty REFP0
-
-          .SkipLines 2
-
-          rts
 ;;; 
           .fill $00             ; alignment XXX
 PositionCursor:

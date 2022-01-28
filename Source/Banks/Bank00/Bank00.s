@@ -49,12 +49,14 @@ DoLocal:
           beq SaveGrizzard
           cpy #ServiceAttract
           beq Attract.WarmStart
+
           .if !NOSAVE
           cpy #ServiceLoadGrizzard
           beq LoadGrizzardData
           cpy #ServiceSetCurrentGrizzard
           beq SetCurrentGrizzard
           .fi
+
           .if !DEMO
           cpy #ServiceSaveProvinceData
           beq SaveProvinceData
@@ -64,7 +66,10 @@ DoLocal:
           beq GrizzardChooser
           cpy #ServiceConfirmNewGame
           beq ConfirmNewGame
+          cpy #ServiceFireworks
+          beq WinnerFireworks
           .fi
+
           brk
 
           ;; falls through to
@@ -149,5 +154,9 @@ ShowPointerText12:
           ;; fall through
 ShowText12:
           .FarJMP AnimationsBank, ServiceWrite12Chars
+
+          .if !DEMO
+          .include "WinnerFireworks.s"
+          .fi
 
           .include "EndBank.s"

@@ -91,7 +91,7 @@ MonstersDisplay:
           bne MonsterWithName
 BossBearDisplay:
           .SkipLines 20
-          .FarJSR EndAnimationsBank, ServiceShowBossBear
+          .FarJSR StretchBank, ServiceShowBossBear
           .SkipLines 20
           jmp DelayAfterMonsters
 
@@ -107,6 +107,20 @@ MonsterWithName:
           sta MoveTarget
 +
 
+          lda CombatMajorP
+          beq MinorCombatArt
+          lda MonsterHP + 1
+          ora MonsterHP + 2
+          ora MonsterHP + 3
+          ora MonsterHP + 4
+          ora MonsterHP + 5
+          bne MinorCombatArt
+
+MajorCombatArt:
+          .FarJSR EndAnimationsBank, ServiceDrawBoss
+          jmp DelayAfterMonsters
+
+MinorCombatArt:
           .FarJSR AnimationsBank, ServiceDrawMonsterGroup
 DelayAfterMonsters:
           ;; no actual delay now

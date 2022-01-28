@@ -7,38 +7,9 @@
           .include "Source/Generated/Bank07/SpeakJetIDs.s"
           .include "6BitCompression.s"
 
-          .include "Font.s"
-          .include "FontExtended.s"
-
-          .include "DecodeText.s"
-
-          .include "CopyPointerText.s"
-
-ShowPointerText:
-          jsr CopyPointerText
-          .FarJMP TextBank, ServiceDecodeAndShowText ; tail call
-
-          .include "BeginNamePrompt.s"
-
-          .include "Prepare48pxMobBlob.s"
-          .include "Random.s"
-
-DoLocal:
-          cpy #ServiceDrawStarter
-          beq DrawStarter
-          cpy #ServiceBeginName
-          beq BeginNamePrompt
-          cpy #ServiceUnerase
-          cpy #ServiceConfirmErase
-          cpy #ServiceDrawBoss
-          brk
-
-          .include "DrawStarter.s"
-          .include "ShowPicture.s"
-          .include "VSync.s"
-          .include "VBlank.s"
-          .include "48Pixels.s"
-
+          .include "BossBear.s"
+          .align $100
+          .include "BossBear2.s"
           .align $100
           .include "Grizzard0-0.s"
           .align $100
@@ -52,5 +23,51 @@ DoLocal:
           .align $100
           .include "Grizzard2-1.s"
 
+          .align $100
+          .include "ShowPicture.s"
+          .include "CopyPointerText.s"
+ShowPointerText12:
+          jsr CopyPointerText12
+          ;; fall through
+ShowText12:
+          .FarJMP AnimationsBank, ServiceWrite12Chars
+
+          .include "CopyPointerText12.s"
+
+ShowPointerText:
+          jsr CopyPointerText
+          .FarJMP TextBank, ServiceDecodeAndShowText ; tail call
+
+          .include "BeginNamePrompt.s"
+
+          .include "Prepare48pxMobBlob.s"
+          .include "Random.s"
+
+          .include "ShowBossBear.s"
+
+DoLocal:
+          cpy #ServiceRevealBear
+          beq RevealBear
+          cpy #ServiceShowBossBear
+          beq ShowBossBear
+          cpy #ServiceDrawStarter
+          beq DrawStarter
+          cpy #ServiceBeginName
+          beq BeginNamePrompt
+          brk
+
+          .include "DrawStarter.s"
+
+          .include "VSync.s"
+          .include "VBlank.s"
+          .include "48Pixels.s"
+
+
+BossText:
+          .MiniText " BOSS "
+BearText:
+          .MiniText " BEAR "
+          
+          .include "RevealBear.s"
 
           .include "EndBank.s"

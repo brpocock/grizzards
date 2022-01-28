@@ -114,9 +114,9 @@ DefeatDragon:
           cmp #%00011100
           bne NormalVictory
 
-          .FarJMP EndAnimationsBank, ServiceRevealBear
+          .FarJMP StretchBank, ServiceRevealBear
           
 WonGame:
-          .FarJMP EndAnimationsBank, ServiceFireworks
+          .FarJMP StretchBank, ServiceFireworks
            
           .bend

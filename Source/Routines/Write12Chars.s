@@ -68,7 +68,7 @@ DrawLeftField:
           jmp AlignedLeft
 ;;; 
           .if BANK > 3
-          .fill $50             ; alignment XXX
+          .align $100             ; alignment XXX
           .fi
 AlignedLeft:
           .option allow_branch_across_page = false

@@ -12,8 +12,8 @@
 
           ;; these have some annoying alignment requirements
           ;; keep them early to avoid adjusting it too often
-          .include "DrawMonsterGroup.s"
           .include "Write12Chars.s"
+          .include "DrawMonsterGroup.s"
 
           .include "DecodeText.s"
           .include "Inquire.s"
