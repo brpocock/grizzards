@@ -175,7 +175,6 @@ FinishUp:
           stx WSYNC
 +
           .SkipLines 3
-          rts
 
           .else
 
@@ -183,9 +182,8 @@ FinishUp:
           beq +
           stx WSYNC
 +
-          rts
           .fi
-
+          rts
 ;;; 
 NoBottomMonsters:
           jsr DrawNothing
@@ -222,12 +220,13 @@ DrawMajorMonsterLoop:
           ldy # 0
           sty GRP0
           sty GRP1
+          sty REFP0
 
           .SkipLines 2
 
           rts
 ;;; 
-          .fill $20             ; alignment
+          .fill $20             ; alignment XXX
 PositionCursor:
           stx WSYNC
           .Sleep 13
@@ -250,6 +249,7 @@ CursorPosGross:
           stx WSYNC
           rts
 ;;; 
+          .fill $08             ; alignment XXX
 PositionMonsters:
           stx WSYNC
           lda SpritePresence, x
