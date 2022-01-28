@@ -18,6 +18,7 @@ publish:	demo game no-save doc unerase Dist/Grizzards.Source.tar.gz Dist/Grizzar
 		Dist/Grizzards.Unerase.NTSC.a26 \
 		Dist/Grizzards.Unerase.PAL.a26 \
 		Dist/Grizzards.Unerase.SECAM.a26 \
+		Dist/Grizzards.zip \
 		Dist/Grizzards.AtariAge.zip \
 		star-hope.org:star-hope.org/games/Grizzards/ ; \
 	do sleep 1; done
@@ -112,7 +113,7 @@ Dist/Grizzards.AtariAge.zip:	\
 Dist/Grizzards.zip:	\
 	Dist/Grizzards.NTSC.a26 Dist/Grizzards.PAL.a26 Dist/Grizzards.SECAM.a26 \
 	Dist/Grizzards.NTSC.pdf Dist/Grizzards.PAL.pdf Dist/Grizzards.SECAM.pdf \
-	Dist/Grizzards.NTSC.pro Dist/Grizzards.PAL.pro Dist/Grizzards.SECAM.pro \
+	Dist/Grizzards.NTSC.pro Dist/Grizzards.PAL.pro Dist/Grizzards.SECAM.pro
 	@echo "Daily build of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
 		zip  --archive-comment -9 "$@" $^
 
