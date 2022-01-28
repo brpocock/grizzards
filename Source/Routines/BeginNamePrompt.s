@@ -22,7 +22,7 @@ BufferReady:
           lda # 0
           sta NameEntryPosition
 
-          .if PAL == TV
+          .if NTSC != TV
           .WaitScreenBottom
           .SkipLines 1
           jmp FirstTime
