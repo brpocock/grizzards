@@ -86,12 +86,12 @@ SerialDelayLoop:
           lsr Temp             ; 5 59
 
           ;; and loop (branch always taken)
-         gpl SerialSendBit    ; 3 62 cycles for loop
+          gpl SerialSendBit    ; 3 62 cycles for loop
 
 DoneSpeaking:
-          lda #0
-          sta CurrentUtterance
-          sta CurrentUtterance + 1
+          ldy # 0
+          sty CurrentUtterance
+          sty CurrentUtterance + 1
 
 TheEnd:
           lda SpeakJetCooldown
