@@ -4,28 +4,12 @@
 DrawBoss: .block
 
 GetMonsterPointer:
-          lda #>BossArt
+          lda #>BossArt - 1
           sta CombatSpritePointer + 1
 
 GetMonsterArtPointer:
           lda CurrentMonsterArt
-          clc
 
-          tax
-GetAnimationFrame:
-          lda #$20
-          bit ClockFrame
-          beq GotFrame
-          ;; skip over the BossArt to get to the BossArt2 frames
-          txa
-          ;; clc ; not needed, BIT does not affect Carry, still clear here
-          adc # BossArt.Height / 16
-          bcc +
-          inc CombatSpritePointer + 1
-+
-          tax
-GotFrame:
-          txa
 GetImagePointer:
           ldx # 4
 -
@@ -37,7 +21,7 @@ GetImagePointer:
           dex
           bne -
           clc
-          adc #<BossArt
+          adc #<BossArt - 1
           bcc +
           inc CombatSpritePointer + 1
 +
@@ -57,6 +41,33 @@ GetImagePointer:
           adc #>BossArt.Height
           sta pp3h
 
+          lda # 1
+          bit ClockSeconds
+          beq PrepareToDrawMonster
+
+          lda pp2l
+          clc
+          adc #<BossArt.Height * 2
+          bcc +
+          inc pp2h
++
+          sta pp2l
+          lda pp2h
+          adc #>BossArt.Height * 2
+          sta pp2h
+
+          lda pp3l
+          clc
+          adc #<BossArt.Height * 2
+          bcc +
+          inc pp3h
++
+          sta pp3l
+          lda pp3h
+          adc #>BossArt.Height * 2
+          sta pp3h
+
+          
 PrepareToDrawMonster:
           lda #0
           sta VDELP0
