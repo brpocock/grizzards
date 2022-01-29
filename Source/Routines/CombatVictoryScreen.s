@@ -53,7 +53,28 @@ DoesEvolve:
           .fi
 
           .fi                   ; !NOSAVE
+
 AfterEvolution:
+          .if !DEMO
+
+          ldy # 0
+          sty DeltaY
+          lda Potions
+          cmp # 99
+          bge AfterPotions
+
+          jsr Random
+          and #$03
+          bne AfterPotions
+
+          lda # 1
+          sta DeltaY
+
+          inc Potions
+
+          .fi
+
+AfterPotions:
           lda CurrentCombatEncounter
           cmp # 92               ; Boss Bear Battle
           beq WonGame
@@ -93,6 +114,21 @@ Loop:
           .SetPointer Victory2Text
           jsr CopyPointerText
           jsr DecodeAndShowText
+
+          .SkipLines KernelLines / 5
+
+          lda DeltaY
+          beq DonePrintingPotions
+
+          .SetPointer PotionText
+          jsr CopyPointerText
+          jsr DecodeAndShowText
+
+          .SetPointer PotionText + 6
+          jsr CopyPointerText
+          jsr DecodeAndShowText
+
+DonePrintingPotions:
 
           lda AlarmCountdown
           bne Loop

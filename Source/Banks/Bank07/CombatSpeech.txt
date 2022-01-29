@@ -52,6 +52,9 @@ is lowered
 Victory:
 Victory
 
+VictoryWithPotion:
+Victory.You got a potion
+
 One:
 one
 
