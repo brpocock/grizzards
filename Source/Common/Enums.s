@@ -33,6 +33,7 @@
           ModeMap = $30
           ModeMapNewRoom = $31
           ModeMapNewRoomDoor = $32
+          ModePotion = $33
 
           ModeCombat = $40
           ModeCombatAnnouncement = $41
@@ -228,6 +229,7 @@
           ServiceFireworks = $0a
           ServiceShowBossBear = $29
           ServiceGrizzardEvolution = $2d
+          ServicePotion = $37
 
 ;;; Also the cold start / save game bank
 

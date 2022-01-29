@@ -18,6 +18,7 @@ MapSetup: .block
           sta PlayerXFraction
           sta PlayerYFraction
           sta CurrentMusic + 1
+          sta NewButtons
 
           lda BlessedX
           sta PlayerX

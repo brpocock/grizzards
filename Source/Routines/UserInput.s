@@ -2,6 +2,16 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 UserInput: .block
+
+CheckButton:
+          lda NewButtons
+          beq CheckSwitches
+          and #PRESSED
+          bne CheckSwitches
+
+          lda #ModePotion
+          sta GameMode
+
 CheckSwitches:
           lda NewSWCHB
           beq NoSelect

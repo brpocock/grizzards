@@ -15,6 +15,8 @@ DoLocal:
           beq DrawBoss
           cpy #ServiceConfirmErase
           beq ConfirmErase
+          cpy #ServicePotion
+          beq Potion
           brk
 
           .include "VSync.s"
@@ -22,6 +24,7 @@ DoLocal:
           .include "Random.s"
           .include "48Pixels.s"
           .include "Prepare48pxMobBlob.s"
+          .include "AppendDecimalAndPrint.s"
 
           .include "DrawBoss.s"
 
@@ -30,7 +33,7 @@ DoLocal:
           .include "ConfirmErase.s"
 
           .include "Death.s"
-
+          .include "Potion.s"
 
           .include "PlaySpeech.s"
 
