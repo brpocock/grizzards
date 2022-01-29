@@ -55,6 +55,8 @@ DoesEvolve:
           .fi                   ; !NOSAVE
 
 AfterEvolution:
+          .SetUtterance Phrase_Victory
+
           .if !DEMO
 
           ldy # 0
@@ -72,6 +74,8 @@ AfterEvolution:
 
           inc Potions
 
+          .SetUtterance Phrase_VictoryWithPotion
+
           .fi
 
 AfterPotions:
@@ -82,8 +86,6 @@ AfterPotions:
           bge DefeatDragon
 
 NormalVictory:
-          .SetUtterance Phrase_Victory
-
           lda #SoundVictory
           sta NextSound
 
