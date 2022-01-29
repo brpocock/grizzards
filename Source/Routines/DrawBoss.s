@@ -19,7 +19,7 @@ GetAnimationFrame:
           ;; skip over the BossArt to get to the BossArt2 frames
           txa
           ;; clc ; not needed, BIT does not affect Carry, still clear here
-          adc # BossArt.Height / 16 * 2
+          adc # BossArt.Height / 16
           bcc +
           inc CombatSpritePointer + 1
 +
