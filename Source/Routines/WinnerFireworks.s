@@ -14,11 +14,16 @@ Loop:
           sta COLUP0
           sta COLUP1
 
-          .SetUpFortyEight BossBearDies
-          ldy #BossBearDies.Height
-          jsr ShowPicture
+          jsr Prepare48pxMobBlob
 
           .FarJSR AnimationsBank, ServiceFinalScore
+
+          .SkipLines KernelLines / 5
+          
+          .SetUpFortyEight BossBearDies
+          ldy #BossBearDies.Height
+          sty LineCounter
+          jsr ShowPicture
 
 ;;; 
           lda NewSWCHB

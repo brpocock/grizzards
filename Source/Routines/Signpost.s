@@ -358,12 +358,12 @@ NotInquire:
           cmp #ModeWinnerFireworks
           bne NotFireworks
 
-          .weak
-          WinnerFireworks := $ffff
-          .endweak
-
           sta GameMode
+          .if BANK == $0c
           jmp WinnerFireworks
+          .else
+          brk
+          .fi
 
 NotFireworks:
           cmp #ModeSignpostDone
