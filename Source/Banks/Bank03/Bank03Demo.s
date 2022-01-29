@@ -44,7 +44,11 @@ DoLocal:
           beq Inquire
           cpy #ServiceBeginName
           beq BeginNamePrompt
+          cpy #ServiceDrawBoss
+          beq DemoDrawBoss
           brk
+
+          .include "DemoDrawBoss.s"
 
           .include "CopyPointerText.s"
 ShowPointerText:
