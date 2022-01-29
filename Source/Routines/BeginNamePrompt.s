@@ -70,6 +70,11 @@ FirstTime:
           bne -
 
           ldx NameEntryPosition
+          jmp BeginGrossPosition
+
+          .align $20            ; XXX
+
+BeginGrossPosition:
           stx WSYNC
           .Sleep 13
           lda CursorPositionIndex, x
@@ -87,6 +92,8 @@ CursorPosGross:
           stx WSYNC
           .SleepX 71
           sta HMOVE
+
+          .NoPageCrossSince BeginGrossPosition
 
           jsr Prepare48pxMobBlob
 
