@@ -99,11 +99,7 @@ DoneTitleSpeech:
           sta COLUP0
           sta COLUP1
 
-          .if TV == SECAM
-            lda #COLBLUE
-          .else
-            .ldacolu COLTURQUOISE, $e
-          .fi
+          .SetSkyColor
           stx WSYNC
           sta COLUBK
 

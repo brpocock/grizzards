@@ -188,11 +188,7 @@ AirexBottom:
           .SkipLines 10
  
           stx WSYNC
-          .if TV == SECAM
-            lda #COLBLUE
-          .else
-            .ldacolu COLTURQUOISE, $e
-          .fi
+          .SetSkyColor
           sta COLUBK
 
           lda #$ff

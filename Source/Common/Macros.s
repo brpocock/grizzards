@@ -351,3 +351,11 @@ SetUtterance:       .macro constant
           lda #<\constant
           sta CurrentUtterance
           .endm
+          
+SetSkyColor:        .macro
+          .if TV == SECAM
+            lda #COLBLUE
+          .else
+            .ldacolu COLTURQUOISE, $e
+          .fi
+          .endm

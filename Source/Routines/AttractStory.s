@@ -41,11 +41,7 @@ RandomColor:
 Loop:
           .WaitScreenTop
 LoopFirst:
-          .if SECAM == TV
-            lda #COLBLUE
-          .else
-            .ldacolu COLTURQUOISE, $e
-          .fi
+          .SetSkyColor
           stx WSYNC
           sta COLUBK
 
@@ -68,6 +64,7 @@ LoopFirst:
           gne -
 
 StoryPhase0:
+          ;; Introducing the monsters
           cmp # 2
           bge StoryPhase1
 
@@ -98,6 +95,7 @@ StoryPhase0:
 +
 
           .ldacolu COLGREEN, $8
+          stx WSYNC
           sta COLUBK
           
           lda DeltaY
@@ -116,6 +114,7 @@ StoryPhase0:
           inc AttractStoryPanel
 ;;; 
 StoryPhase1:
+          ;; Grizzard attacking the monsters
           cmp # 8
           bge StoryDone
 
@@ -169,7 +168,12 @@ NotSix:
 
           jsr DrawMonsterGroup
 
+          ldy # 0               ; should not need this but … do.
+          sty GRP0
+          sty GRP1
+
           .ldacolu COLGREEN, $8
+          stx WSYNC
           sta COLUBK
           
           ldx AttractStoryProgress
@@ -202,10 +206,7 @@ StoryPhase1a:
           inc AttractStoryPanel
           lda # 0
           sta DeltaY
-          lda #>Phrase_Story
-          sta CurrentUtterance + 1
-          lda #<Phrase_Story
-          sta CurrentUtterance
+          .SetUtterance Phrase_Story
           sta AttractHasSpoken
           gne StoryDone
 
@@ -217,34 +218,34 @@ StoryPhase1b:
           inc AttractStoryPanel
           lda # 0
           sta DeltaY
-          gne StoryDone
-
-StoryDone:
-          ;; fall through
+          ;; gne StoryDone ; fall through
 ;;; 
-
+StoryDone:
           jsr Prepare48pxMobBlob
 
           lda AttractStoryPanel
           cmp # 8
           blt StillStory
 
+          ;; Return to title screen, with a new Grizzard
           lda # 30
           sta AlarmCountdown
           lda # 0
           sta DeltaY
 
-RandomGrizzard:
-          jsr Random
-          and #$03
+NextGrizzard:
+          inc CurrentGrizzard
+          lda CurrentGrizzard
           cmp # 3
-          beq RandomGrizzard
+          blt +
+          lda # 0
           sta CurrentGrizzard
++
 
           lda #ModeAttractTitle
           sta GameMode
           rts
-
+;;; 
 StillStory:
           lda NewSWCHB
           beq CheckFire
@@ -262,9 +263,9 @@ SelectSlot:
           lda #ModeSelectSlot
           sta GameMode
           rts
-
+;;; 
 LoopMe:
           .WaitScreenBottom
           jmp Loop
-
+;;; 
           .bend
