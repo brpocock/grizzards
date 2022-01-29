@@ -6,6 +6,9 @@ SelectSlot:        .block
           ;; Select a save game slot
           ;;
 
+          lda # 120
+          sta AlarmCountdown
+
           .KillMusic
           jsr Prepare48pxMobBlob
 
@@ -143,15 +146,15 @@ SkipSwitches:
 
           .FarJSR 1, $fe
           cpy # 0
-          beq SkipStick
+          beq StickDone
           lda NewSWCHA
-          beq SkipStick
+          beq StickDone
           .BitBit P0StickLeft
           beq SwitchMinusSlot
           and #P0StickRight
           beq SwitchSelectSlot
 
-SkipStick:
+StickDone:
 
           lda GameMode
           cmp #ModeEraseSlot
@@ -204,6 +207,14 @@ EraseSlotNow:
 ThisIsNotAStickUp:
           lda #ModeSelectSlot
           sta GameMode
+
+          lda AlarmCountdown
+          bne StillGotTime
+
+          .WaitScreenBottom
+          jmp Attract
+
+StillGotTime:
 
           lda NewButtons
           beq SkipButton
