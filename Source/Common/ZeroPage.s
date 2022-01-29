@@ -383,6 +383,10 @@ SaveSlotChecked:
 SaveSlotBusy:
           .byte ?
 
+;;; Is the current slot recently erased?
+SaveSlotErased:
+          .byte ?
+
 ;;; Jatibu Code progress
 SelectJatibuProgress:
           .byte ?

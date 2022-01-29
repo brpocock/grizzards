@@ -12,26 +12,58 @@ CheckSaveSlot: .block
 	jsr i2cStartWrite
 	bcs EEPROMFail
 
-CheckSignature:
-	lda SaveGameSlot
-          sta SaveSlotChecked
-	clc
-	adc #>SaveGameSlotPrefix
-	jsr i2cTxByte
-	lda #<SaveGameSlotPrefix 
-	jsr i2cK
-	ldx #0
+          lda SaveGameSlot
+          clc
+          adc #>SaveGameSlotPrefix
+          jsr i2cTxByte
+          lda #<SaveGameSlotPrefix
+          jsr i2cK
+
+          ldx # 0
+          jsr i2cRxByte
+          beq MaybeDeleted
 ReadLoop:
-	jsr i2cRxByte
-	cmp SaveGameSignatureString, x
-	bne SlotEmpty
-	inx
-	cpx # 5
+          cmp SaveGameSignatureString, x
+          bne SlotEmpty
+          inx
+          jsr i2cRxByte
+          cpx # 5
           bne ReadLoop
 
-ReadSlotName:
           jsr i2cStopRead
 
+          ldy # 1               ; slot busy
+          sty SaveSlotBusy
+
+          jmp ReadSlotName
+
+SlotEmpty:
+          jsr i2cStopRead
+          ldy # 0               ; slot empty
+          sty SaveSlotBusy
+          sty SaveSlotErased
+          rts
+
+MaybeDeleted:
+          inx
+ReadLoop0:
+          jsr i2cRxByte
+          cmp SaveGameSignatureString, x
+          bne SlotEmpty
+          inx
+          cpx # 5
+          bne ReadLoop0
+
+          jsr i2cStopRead
+
+          lda # 0
+          sta SaveSlotBusy
+          lda # 1
+          sta SaveSlotErased
+
+          ;; fall through
+
+ReadSlotName:
           jsr i2cWaitForAck
 
           jsr i2cStartWrite
@@ -39,24 +71,21 @@ ReadSlotName:
           clc
           adc #>SaveGameSlotPrefix
           jsr i2cTxByte
-          lda #<SaveGameSlotPrefix + $1a
+          lda #<SaveGameSlotPrefix + $1a ; Name offset
           jsr i2cK
 
           ldx # 0
 LoadNameLoop:
           jsr i2cRxByte
           sta NameEntryBuffer, x
+          beq MaybeDeleted
           inx
           cpx # 6
           bne LoadNameLoop
-
           lda #$80
-          gne Leave
 
-SlotEmpty:           
-	lda # 0			; Nope, not in use
-Leave:
-          sta SaveSlotBusy
-	jmp i2cStopRead       ; tail call
-	
+          jsr i2cStopRead
+
+          rts
+
 	.bend

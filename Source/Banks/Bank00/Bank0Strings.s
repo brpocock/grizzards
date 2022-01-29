@@ -8,6 +8,8 @@ BeginText:
           .MiniText "BEGIN "
 VacantText:
           .MiniText "VACANT"
+ErasedText:
+          .MiniText "ERASED"
 ResumeText:
           .MiniText "RESUME"
 InUseText:

@@ -126,6 +126,7 @@ PeekGrizzard:
           .else
           .include "GrizzardChooser.s"
           .include "ConfirmNewGame.s"
+          .include "Unerase.s"
           .fi
 
           .include "Random.s"

@@ -40,6 +40,11 @@ Erase:
           .ldacolu COLRED, $8
           sta COLUP0
           sta COLUP1
+          lda SaveSlotErased
+          beq +
+          .SetPointer ResumeText
+          gne StartPicture
++
           .SetPointer EraseText
           gne StartPicture
 
@@ -67,6 +72,8 @@ DestroyNow:
           jsr EraseSlotSignature
           lda #ModeSelectSlot
           sta GameMode
+          lda # 0
+          sta SaveSlotChecked
           gne MidScreen
 
 DoNotDestroy:
@@ -96,6 +103,13 @@ MidScreen:
           gne ShowSaveSlot
 
 ShowVacant:
+          lda SaveSlotErased
+          beq ReallyVacant
+
+          .SetPointer ErasedText
+          jmp ShowSlotName
+
+ReallyVacant:
           .SetPointer VacantText
           gne ShowSaveSlot
 
@@ -103,7 +117,13 @@ ShowResume:
           lda GameMode
           cmp #ModeSelectSlot
           bne ShowActive
+
           .SetPointer ResumeText
+          jmp ShowSlotName
+
+ShowActive:
+          .SetPointer InUseText
+
 ShowSlotName:
           jsr ShowPointerText
           ldx # 6
@@ -115,10 +135,6 @@ ShowSlotName:
 
           .FarJSR TextBank, ServiceDecodeAndShowText
           jmp ShowSlotNumbered
-
-ShowActive:
-          .SetPointer InUseText
-          jmp ShowSlotName
 
 ShowSaveSlot:
           jsr ShowPointerText
@@ -205,13 +221,27 @@ EraseSlotNow:
             lda #ModeErasing
             sta GameMode
 
+            jmp Loop
+          
           .else
 
-            .FarJSR EndAnimationsBank, ServiceConfirmErase
+          lda SaveSlotBusy
+          bne DoEraseSlot
+          lda SaveSlotErased
+          bne DoResumeSlot
+          geq Loop
 
+DoEraseSlot:
+          .FarJSR EndAnimationsBank, ServiceConfirmErase
+          jmp Loop
+
+DoResumeSlot:
+          jsr Unerase
+          .WaitScreenBottom
+          jmp Loop
+          
           .fi
 
-          jmp Loop
 
 ThisIsNotAStickUp:
           lda #ModeSelectSlot

@@ -15,8 +15,6 @@ DoLocal:
           beq DrawBoss
           cpy #ServiceConfirmErase
           beq ConfirmErase
-          cpy #ServiceUnerase
-          beq Unerase
           brk
 
           .include "VSync.s"
@@ -30,7 +28,6 @@ DoLocal:
           .include "GrizzardEvolution.s"
 
           .include "ConfirmErase.s"
-          .include "Unerase.s"
 
           .include "Death.s"
 

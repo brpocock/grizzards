@@ -714,22 +714,55 @@ The screen  will change from  saying ``\texttt{SELECT SLOT}''  to saying
 
 If  you're  \emph{sure}   you  want  to  erase  your   game  data,  then
 \emph{without}  letting go  of the  \textbf{Fire}  button, move  the joystick  up
-(toward the TV). Your game record will be deleted \emph{immediately}.
+(toward the TV). \ifdefined\DEMO
+Your game record will be deleted \emph{immediately}.
 
-\emph{Once  your  game record  has  been  erased,  you can  not  recover
-  it \ifdefined\ATARIAGESAVE ever \else from the game\fi{}, so think
-  carefully before you erase it.}
+\emph{Once your game record has been  erased, you can not recover it, so
+  think carefully before you erase it.}
+
+\ifdefined\TVSECAM
+
+Remember,  the  Left  Difficulty  Switch  is used  to  pause  the  game.
+After deleting  your saved game's  progress, return the  Left Difficulty
+Switch to the ``B'' position to begin playing again.
+
+\fi
+
+\else
+
+You will be asked if you're sure  you want to erase your game. Press the
+joystick   up  to   select   ``\texttt{ERASE},''  or   down  to   select
+``\texttt{KEEP},''   and  press   the  \textbf{Fire}   button  to   make
+your choice.
+
+\fi
 
 \subsection{Protecting Your Game Record}
 
 If  either of  your Difficulty  Switches is  in the  ``B'' (Beginner  or
 Novice) position, then you can't erase a game slot.
 
-\ifdefined\TVSECAM
+\ifdefined\DEMO\else
 
-Remember,  the  Left  Difficulty  Switch  is used  to  pause  the  game.
-After deleting your save game slot, return the Left Difficulty Switch to
-the ``B'' position.
+\subsection{Recovering an Erased Game}
+
+If you have just erased a game's  progress, but no one has started a new
+game using the same slot yet, you may be able to un-erase it.
+
+To recover  an erased game,  follow the same steps  as if you  wanted to
+erase  a game.  Press  left and  right  on the  joystick  to select  the
+now-empty slot (the screen will say ``\texttt{BEGIN}''). Set both Difficulty
+Switches to  the ``A'' (Advanced or  Export) position, pull down  on the
+joystick, and hold the \textbf{Fire} button.
+
+If your game's progress can be recovered, rather than saying the slot is
+\texttt{VACANT}, you'll  see that  the slot  is \texttt{ERASED}  and you
+should also see your name appear.  To recover the game's progress, press
+up  on  the  joystick.  The   game  will  immediately  become  available
+to resume.
+
+Note that it  is \emph{not possible} to recover a  saved game's progress
+once a new game has been started in the same memory slot.
 
 \fi
 
