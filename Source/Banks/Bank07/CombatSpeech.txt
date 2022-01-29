@@ -1,5 +1,5 @@
 NoEffect:
-but it missed
+.missed
 
 Monster:
 The monster
