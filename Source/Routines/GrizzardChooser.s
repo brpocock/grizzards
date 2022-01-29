@@ -59,7 +59,7 @@ DoneSwitches:
           bpl DoneLeft
           lda # 2
           sta CurrentGrizzard
-          lda #SoundBlip
+          lda #SoundChirp
           sta NextSound
 DoneLeft:
           lda NewSWCHA
@@ -72,7 +72,7 @@ DoRight:
           blt DoneRight
           lda # 0
           sta CurrentGrizzard
-          lda #SoundBlip
+          lda #SoundChirp
           sta NextSound
 DoneRight:
 DoneStick:
@@ -81,6 +81,8 @@ DoneStick:
           and #PRESSED
           bne DoneButtons
 
+          lda #SoundBlip
+          sta NextSound
           lda #ModeConfirmNewGame
           sta GameMode
 
