@@ -150,7 +150,11 @@ EnterName:
           .FarJSR SaveKeyBank, ServiceSaveToSlot
 
 SaveName:
-          .WaitScreenBottom
+          .if NTSC == TV
+          .SkipLines 2
+          .else
+          .SkipLines 1
+          .fi
           .WaitScreenTop
 
           jsr i2cStartWrite
