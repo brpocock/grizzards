@@ -16,6 +16,8 @@ EraseSlotSignature: .block
 
           lda # 0
           sta SaveSlotBusy
+          lda #$ff
+          sta SaveSlotChecked
 
           rts
 

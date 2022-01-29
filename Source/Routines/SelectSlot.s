@@ -74,7 +74,7 @@ DestroyNow:
           jsr EraseSlotSignature
           lda #ModeSelectSlot
           sta GameMode
-          lda # 0
+          lda #$ff
           sta SaveSlotChecked
           gne MidScreen
 

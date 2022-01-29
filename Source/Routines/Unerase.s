@@ -15,7 +15,7 @@ Unerase:       .block
           jsr i2cTxByte
           jsr i2cStopWrite
 
-          lda # 0
+          lda #$ff
           sta SaveSlotChecked
 
           lda #ModeSelectSlot
