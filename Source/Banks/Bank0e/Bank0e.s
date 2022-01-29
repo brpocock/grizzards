@@ -36,8 +36,8 @@ DoLocal:
 
           .include "CopyPointerText.s"
 
-          .include "FinalSpeech.s"
           .include "GrizzardsSpeech.s"
+          .include "FinalSpeech.s"
 
 
 ShowPointerText:
