@@ -101,6 +101,8 @@ MonsterWithName:
           ldy # MonsterColorIndex
           lda (CurrentMonsterPointer), y
           sta COLUP0
+          ;; COLUP1 overwritten for “regular” fights but needed for bosses
+          sta COLUP1
 
           lda WhoseTurn         ; show highlight on monster moving
           beq +
