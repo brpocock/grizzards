@@ -17,7 +17,7 @@ Artifact:
 ♂I have one of the two artifacts.Who says you can take¿it
 
 TakeArtifact1:
-♂I have one of the two artifacts.Take this to the tunnels
+♂Thanks for saving me.Take this artifact to the tunnels
 
 TakeArtifact2:
 ♂I have one of the two artifacts.Take this to the tunnels
