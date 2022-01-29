@@ -19,6 +19,8 @@ AttractStory:       .block
 RandomColor:
           jsr Random
           .if TV == SECAM
+          and #$0e
+          cmp #COLBLUE & $0e
           beq RandomColor
           .else
           ora #$03
@@ -94,7 +96,11 @@ StoryPhase0:
           bne -
 +
 
+          .if SECAM == TV
+          lda #COLBLACK
+          .else
           .ldacolu COLGREEN, $8
+          .fi
           stx WSYNC
           sta COLUBK
           
@@ -172,7 +178,11 @@ NotSix:
           sty GRP0
           sty GRP1
 
+          .if SECAM == TV
+          lda #COLBLACK
+          .else
           .ldacolu COLGREEN, $8
+          .fi
           stx WSYNC
           sta COLUBK
           
