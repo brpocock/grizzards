@@ -116,7 +116,7 @@ Monsters:
 
           .SignText "CAVE  BAT   "
           .byte Monster_Bat
-          .mcolu COLGRAY, $8
+          .mcolu COLGRAY, $4
           .byte 4, 2, 10
           .word $0010
 
