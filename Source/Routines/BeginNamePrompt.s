@@ -72,7 +72,11 @@ FirstTime:
           ldx NameEntryPosition
           jmp BeginGrossPosition
 
+          .if 3 == BANK
+          .align $40            ; XXX alignment
+          .else
           .align $20            ; XXX
+          .fi
 
 BeginGrossPosition:
           stx WSYNC
