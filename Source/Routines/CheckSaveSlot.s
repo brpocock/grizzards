@@ -8,7 +8,9 @@ EEPROMFail:
 
 CheckSaveSlot: .block
           jsr SeedRandom
-          
+
+          jsr i2cWaitForAck
+
 	jsr i2cStartWrite
 	bcs EEPROMFail
 

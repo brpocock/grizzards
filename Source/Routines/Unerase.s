@@ -18,5 +18,8 @@ Unerase:       .block
           lda # 0
           sta SaveSlotChecked
 
+          lda #ModeSelectSlot
+          sta GameMode
+
           rts
           .bend

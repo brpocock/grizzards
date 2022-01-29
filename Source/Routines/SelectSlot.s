@@ -40,11 +40,13 @@ Erase:
           .ldacolu COLRED, $8
           sta COLUP0
           sta COLUP1
+          lda SaveSlotBusy
+          bne ReallyErase
           lda SaveSlotErased
-          beq +
+          beq ReallyErase
           .SetPointer ResumeText
           gne StartPicture
-+
+ReallyErase:
           .SetPointer EraseText
           gne StartPicture
 
@@ -229,7 +231,10 @@ EraseSlotNow:
           bne DoEraseSlot
           lda SaveSlotErased
           bne DoResumeSlot
-          geq Loop
+
+          lda #SoundBump
+          sta NextSound
+          jmp Loop
 
 DoEraseSlot:
           .FarJSR EndAnimationsBank, ServiceConfirmErase
@@ -237,7 +242,6 @@ DoEraseSlot:
 
 DoResumeSlot:
           jsr Unerase
-          .WaitScreenBottom
           jmp Loop
           
           .fi
