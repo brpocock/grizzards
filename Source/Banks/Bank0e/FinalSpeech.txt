@@ -1,9 +1,9 @@
 OhNo:
-O no..what is?this.\Reset\;After your defeat of the dragons,you have awakened
-the evil¿\Volume\112Boss Bear
+♂O no..what is?this.\Reset\;After your defeat of the dragons,you have awakened
+the evil¿\Volume\112\;Boss Bear
 
 BossBearApproaching:
-\Volume\112Boss Bear is coming for you.Get ready to fight
+\Volume\112\;Boss Bear is coming for you.Get ready to fight
 
 Became:
 became
