@@ -23,7 +23,7 @@ RandomColor:
           cmp #COLBLUE & $0e
           beq RandomColor
           .else
-          ora #$03
+          and $f7               ; don't get really bright
           .fi
           sta DeltaX
 
