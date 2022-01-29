@@ -13,6 +13,10 @@ DoLocal:
           beq Death
           cpy #ServiceDrawBoss
           beq DrawBoss
+          cpy #ServiceConfirmErase
+          beq ConfirmErase
+          cpy #ServiceUnerase
+          beq Unerase
           brk
 
           .include "VSync.s"
@@ -20,19 +24,24 @@ DoLocal:
           .include "Random.s"
           .include "48Pixels.s"
           .include "Prepare48pxMobBlob.s"
+
+          .include "DrawBoss.s"
+
           .include "GrizzardEvolution.s"
 
-          .include "FinalSpeech.s"
+          .include "ConfirmErase.s"
+          .include "Unerase.s"
 
           .include "Death.s"
 
-          .include "DrawBoss.s"
 
           .include "PlaySpeech.s"
 
           .include "CopyPointerText.s"
 
+          .include "FinalSpeech.s"
           .include "GrizzardsSpeech.s"
+
 
 ShowPointerText:
           jsr CopyPointerText

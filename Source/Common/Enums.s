@@ -27,6 +27,8 @@
           ModeGrizzardChooser = $25
           ModeConfirmNewGame = $26
           ModeEnterName = $27
+          ModeConfirmEraseSlot = $28
+          ModeUnerase = $29
 
           ModeMap = $30
           ModeMapNewRoom = $31

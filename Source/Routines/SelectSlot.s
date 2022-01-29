@@ -197,11 +197,20 @@ EliminationMode:
           jmp Loop
 
 EraseSlotNow:
-          lda #SoundDeleted
-          sta NextSound
+          .if DEMO
 
-          lda #ModeErasing
-          sta GameMode
+            lda #SoundDeleted
+            sta NextSound
+
+            lda #ModeErasing
+            sta GameMode
+
+          .else
+
+            .FarJSR EndAnimationsBank, ServiceConfirmErase
+
+          .fi
+
           jmp Loop
 
 ThisIsNotAStickUp:
