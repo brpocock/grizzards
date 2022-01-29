@@ -1,12 +1,10 @@
-default:	game unerase doc
+default:	game doc
 
-all:	game demo no-save unerase doc atariage
-
-unerase:	Dist/Grizzards.Unerase.zip
+all:	game demo no-save doc atariage
 
 atariage:	Dist/Grizzards.AtariAge.zip
 
-publish:	demo game no-save doc unerase Dist/Grizzards.Source.tar.gz Dist/Grizzards.AtariAge.zip
+publish:	demo game no-save doc Dist/Grizzards.Source.tar.gz Dist/Grizzards.AtariAge.zip
 	@until rsync -essh --progress \
 		Dist/Grizzards.Demo.NTSC.a26 Dist/Grizzards.Demo.PAL.a26 Dist/Grizzards.Demo.SECAM.a26 \
 		Dist/Grizzards.Demo.zip Dist/Grizzards.Source.tar.gz \
@@ -15,9 +13,6 @@ publish:	demo game no-save doc unerase Dist/Grizzards.Source.tar.gz Dist/Grizzar
 		Dist/Grizzards.NoSave.NTSC.pdf Dist/Grizzards.NoSave.PAL.pdf Dist/Grizzards.NoSave.SECAM.pdf \
 		Dist/Grizzards.NTSC.a26 Dist/Grizzards.PAL.a26 Dist/Grizzards.SECAM.a26 \
 		Dist/Grizzards.NTSC.pdf Dist/Grizzards.PAL.pdf Dist/Grizzards.SECAM.pdf \
-		Dist/Grizzards.Unerase.NTSC.a26 \
-		Dist/Grizzards.Unerase.PAL.a26 \
-		Dist/Grizzards.Unerase.SECAM.a26 \
 		Dist/Grizzards.zip \
 		Dist/Grizzards.AtariAge.zip \
 		star-hope.org:star-hope.org/games/Grizzards/ ; \
@@ -32,12 +27,9 @@ plus:	Dist/Grizzards.NTSC.a26 \
 	Dist/Grizzards.NoSave.NTSC.a26 \
 	Dist/Grizzards.NoSave.PAL.a26 \
 	Dist/Grizzards.NoSave.SECAM.a26 \
-	Dist/Grizzards.Unerase.NTSC.a26 \
-	Dist/Grizzards.Unerase.PAL.a26 \
-	Dist/Grizzards.Unerase.SECAM.a26 \
 	Dist/Grizzards.Manual.txt
 
-	@echo -e 'put Dist/Grizzards.NTSC.a26 Grizzards.NTSC.EF\nput Dist/Grizzards.PAL.a26 Grizzards.PAL.EF\nput Dist/Grizzards.SECAM.a26 Grizzards.SECAM.EF\nput Dist/Grizzards.Demo.NTSC.a26 Grizzards.Demo.NTSC.F4\nput Dist/Grizzards.Demo.PAL.a26 Grizzards.Demo.PAL.F4\nput Dist/Grizzards.Demo.SECAM.a26 Grizzards.Demo.SECAM.F4\nput Dist/Grizzards.NoSave.NTSC.a26 Grizzards.NoSave.NTSC.F4\nput Dist/Grizzards.NoSave.PAL.a26 Grizzards.NoSave.PAL.F4\nput Dist/Grizzards.NoSave.SECAM.a26 Grizzards.NoSave.SECAM.F4\nput Dist/Grizzards.Unerase.NTSC.a26 Grizzards.Unerase.NTSC.a26\nput Dist/Grizzards.Unerase.PAL.a26 Grizzards.Unerase.PAL.a26\nput Dist/Grizzards.Unerase.SECAM.a26 Grizzards.Unerase.SECAM.a26\nput Dist/Grizzards.Manual.txt Grizzards.Manual.txt' | \
+	@echo -e 'put Dist/Grizzards.NTSC.a26 Grizzards.NTSC.EF\nput Dist/Grizzards.PAL.a26 Grizzards.PAL.EF\nput Dist/Grizzards.SECAM.a26 Grizzards.SECAM.EF\nput Dist/Grizzards.Demo.NTSC.a26 Grizzards.Demo.NTSC.F4\nput Dist/Grizzards.Demo.PAL.a26 Grizzards.Demo.PAL.F4\nput Dist/Grizzards.Demo.SECAM.a26 Grizzards.Demo.SECAM.F4\nput Dist/Grizzards.NoSave.NTSC.a26 Grizzards.NoSave.NTSC.F4\nput Dist/Grizzards.NoSave.PAL.a26 Grizzards.NoSave.PAL.F4\nput Dist/Grizzards.NoSave.SECAM.a26 Grizzards.NoSave.SECAM.F4\nput Dist/Grizzards.Manual.txt Grizzards.Manual.txt' | \
 	cadaver https://plusstore.firmaplus.de/remote.php/dav/files/$(USER)/Grizzards
 
 demo:	Dist/Grizzards.Demo.zip
@@ -58,28 +50,24 @@ USBMOUNT=$(shell echo \"$$(mount | grep /run/media/$$USER | grep vfat | head -n 
 
 # Basic Harmony cart only can handle 32k images
 harmony:	Dist/Grizzards.Demo.NTSC.a26 \
-		Dist/Grizzards.Unerase.NTSC.a26 \
 		Dist/Grizzards.NoSave.NTSC.a26
 	[ "$(USBMOUNT)" != "" ]
 	@if [ $$(uname -s) = 'Linux' ] ; then \
 	  mkdir $(USBMOUNT)/Grizzards ;\
 	  cp -v Dist/Grizzards.Demo.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.Demo.F4 ;\
 	  cp -v Dist/Grizzards.NoSave.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.NoSave.F4 ;\
-	  cp -v Dist/Grizzards.Unerase.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.Unerase.a26 ;\
 	else \
 	  echo "Patch Makefile for your $$(uname -s) OS" ; \
 	fi
 
 encore:	Dist/Grizzards.Demo.NTSC.a26 \
 	Dist/Grizzards.NoSave.NTSC.a26 \
-	Dist/Grizzards.Unerase.NTSC.a26 \
 	Dist/Grizzards.NTSC.a26
 	[ "$(USBMOUNT)" != "" ]
 	@if [ $$(uname -s) = 'Linux' ] ; then \
 	  mkdir $(USBMOUNT)/Grizzards ;\
 	  cp -v Dist/Grizzards.Demo.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.Demo.F4 ;\
 	  cp -v Dist/Grizzards.NoSave.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.NoSave.F4 ;\
-	  cp -v Dist/Grizzards.NoSave.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.Unerase.a26 ;\
 	  cp -v Dist/Grizzards.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.EF ;\
 	else \
 	  echo "Patch Makefile for your $$(uname -s) OS" ; \
@@ -89,15 +77,13 @@ encore:	Dist/Grizzards.Demo.NTSC.a26 \
 # fairly short names only
 uno:	Dist/Grizzards.NTSC.a26 \
 	Dist/Grizzards.Demo.NTSC.a26 \
-	Dist/Grizzards.NoSave.NTSC.a26 \
-	Dist/Grizzards.Unerase.NTSC.a26
+	Dist/Grizzards.NoSave.NTSC.a26
 	[ "$(USBMOUNT)" != "" ]
 	@if [ $$(uname -s) = 'Linux' ] ; then \
 	  mkdir -p $(USBMOUNT)/GRIZZARDS/ ;\
 	  cp -v Dist/Grizzards.NTSC.a26 $(USBMOUNT)/GRIZZARDS/GRIZZARDS.NTSC.EF ;\
 	  cp -v Dist/Grizzards.Demo.NTSC.a26 $(USBMOUNT)/GRIZZARDS/DEMO.NTSC.F4 ;\
 	  cp -v Dist/Grizzards.NoSave.NTSC.a26 $(USBMOUNT)/GRIZZARDS/NOSAVE.NTSC.F4 ;\
-	  cp -v Dist/Grizzards.Unerase.NTSC.a26 $(USBMOUNT)/GRIZZARDS/UNERASE.NTSC.A26 ;\
 	else \
 	  echo "Patch Makefile for your $$(uname -s) OS" ; \
 	fi
@@ -115,13 +101,6 @@ Dist/Grizzards.zip:	\
 	Dist/Grizzards.NTSC.pdf Dist/Grizzards.PAL.pdf Dist/Grizzards.SECAM.pdf \
 	Dist/Grizzards.NTSC.pro Dist/Grizzards.PAL.pro Dist/Grizzards.SECAM.pro
 	@echo "Daily build of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
-		zip  --archive-comment -9 "$@" $^
-
-Dist/Grizzards.Unerase.zip: Dist/Grizzards.Unerase.NTSC.a26 \
-		Dist/Grizzards.Unerase.PAL.a26 \
-		Dist/Grizzards.Unerase.SECAM.a26 \
-		Dist/Grizzards.Unerase.pdf
-	@echo "Daily build of the unerase utility for Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
 		zip  --archive-comment -9 "$@" $^
 
 Dist/Grizzards.Demo.zip: \
@@ -160,7 +139,6 @@ doc:	Dist/Grizzards.NTSC.pdf Dist/Grizzards.PAL.pdf Dist/Grizzards.SECAM.pdf \
 	Dist/Grizzards.Demo.PAL.pdf \
 	Dist/Grizzards.Demo.SECAM.pdf \
 	Dist/Grizzards.Manual.txt \
-	Dist/Grizzards.Unerase.pdf \
 	Dist/Grizzards.NoSave.NTSC.pdf \
 	Dist/Grizzards.NoSave.PAL.pdf \
 	Dist/Grizzards.NoSave.SECAM.pdf
@@ -223,16 +201,6 @@ Dist/Grizzards.AA.PAL-book.pdf:	Dist/Grizzards.AA.PAL.pdf
 
 Dist/Grizzards.AA.SECAM-book.pdf:	Dist/Grizzards.AA.SECAM.pdf
 	pdfbook2 --paper=letterpaper -o 0 -i 0 -t 0 -b 0 $<
-
-Dist/Grizzards.Unerase.pdf:	Manual/Unerase.tex
-	mkdir -p Object/Unerase.pdf
-	cp $< Object/Unerase.pdf/
-	ln -sf ../Manual Object/
-	-cd Object/Unerase.pdf ; xelatex -interaction=batchmode Unerase.tex
-	-cd Object/Unerase.pdf ; xelatex -interaction=batchmode Unerase.tex
-	-cd Object/Unerase.pdf ; xelatex -interaction=batchmode Unerase.tex
-	mkdir -p Dist
-	mv Object/Unerase.pdf/Unerase.pdf Dist/Grizzards.Unerase.pdf
 
 Dist/Grizzards.NTSC.pdf: Manual/Grizzards.tex
 	mkdir -p Object/NTSC.pdf
@@ -569,31 +537,13 @@ bin/buildapp:
 	sbcl --load SkylineTool/prepare-system.lisp --eval '(cl-user::quit)'
 
 
-Dist/Grizzards.Unerase.NTSC.a26:	$(shell find Source -name \*.s)
-	64tass --nostart --long-branch --case-sensitive \
-	--ascii -I. -I Source/Common -I Source/Routines \
-	-Wall -Wno-shadow -Wno-leading-zeros --m6502 \
-	Source/Unerase/Unerase.s -DTV=NTSC -o $@
-
-Dist/Grizzards.Unerase.PAL.a26:	$(shell find Source -name \*.s)
-	64tass --nostart --long-branch --case-sensitive \
-	--ascii -I. -I Source/Common -I Source/Routines \
-	-Wall -Wno-shadow -Wno-leading-zeros --m6502 \
-	Source/Unerase/Unerase.s -DTV=PAL -o $@
-
-Dist/Grizzards.Unerase.SECAM.a26:	$(shell find Source -name \*.s)
-	64tass --nostart --long-branch --case-sensitive \
-	--ascii -I. -I Source/Common -I Source/Routines \
-	-Wall -Wno-shadow -Wno-leading-zeros --m6502 \
-	Source/Unerase/Unerase.s -DTV=SECAM -o $@
-
 RELEASE=noreleasenamegiven
 release:	all
 	@if [ $(RELEASE) = noreleasenamegiven ]; then echo "Usage: make RELEASE=ident release" >&2; exit 1; fi
 	mkdir -p Dist/$(RELEASE)
 	-rm Dist/$(RELEASE)/*
-	-cp -v Dist/Grizzards.{AA,Demo,NoSave,Unerase,}.{NTSC,PAL,SECAM}.{a26,pro} \
-		Dist/Grizzards.{AA,Demo,NoSave,Unerase,}.{NTSC,PAL,SECAM}.pdf \
+	-cp -v Dist/Grizzards.{AA,Demo,NoSave,}.{NTSC,PAL,SECAM}.{a26,pro} \
+		Dist/Grizzards.{AA,Demo,NoSave,}.{NTSC,PAL,SECAM}.pdf \
 		Dist/$(RELEASE) 2>/dev/null
 	cp -v Dist/Grizzards.AA.{NTSC,PAL,SECAM}-book.pdf Dist/$(RELEASE)
 	cp -v Dist/Grizzards.Manual.txt Dist/$(RELEASE)
@@ -617,10 +567,6 @@ release:	all
 		zip --archive-comment -9 \
 		Dist/$(RELEASE)/Grizzards.NoSave.$(RELEASE).zip \
 		Dist/$(RELEASE)/Grizzards.NoSave.{NTSC,PAL,SECAM}.{a26,pdf,pro}
-	@echo "Unerase Tool Release $(RELEASE) of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
-		zip --archive-comment -9 \
-		Dist/$(RELEASE)/Grizzards.Unerase.$(RELEASE).zip \
-		Dist/$(RELEASE)/Grizzards.Unerase.{NTSC,PAL,SECAM}{a26,pdf,pro}
 
 publish-release:	release
 	until rsync -essh -v Dist/$(RELEASE)/*$(RELEASE)* \
