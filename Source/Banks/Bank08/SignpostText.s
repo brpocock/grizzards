@@ -87,10 +87,10 @@ NPC_Artifact:
 NPC_TakeArtifact1:
           .colu COLINDIGO, 0
           .colu COLTURQUOISE, $9
-          .SignText "I HAVE ONE  "
-          .SignText "OF THE TWO  "
-          .SignText "ARTIFACTS.  "
-          .SignText "TAKE THIS TO"
+          .SignText "THANKS FOR  "
+          .SignText "SAVING ME.  "
+          .SignText "TAKE THIS   "
+          .SignText "ARTIFACT TO "
           .SignText "THE TUNNELS."
           .byte ModeSignpostPoints
           .word $0020
