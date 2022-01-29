@@ -117,6 +117,11 @@ DefeatDragon:
           .FarJMP StretchBank, ServiceRevealBear
           
 WonGame:
-          .FarJMP EndAnimationsBank, ServiceFireworks
+          lda # 103             ; Game_Won
+          sta SignpostIndex
+          lda #ModeSignpost
+          sta GameMode
+          ldx #SignpostBank
+          jmp FarCall
            
           .bend

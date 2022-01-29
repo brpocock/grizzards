@@ -5,10 +5,6 @@ the evil¿\Volume\112Boss Bear
 BossBearApproaching:
 \Volume\112Boss Bear is coming for you.Get ready to fight
 
-BossBearDefeated:
-Boss Bear  has been defeated.The  monsters have no leader.Syrex  will be
-free of the monsters soon
-
 Became:
 became
 

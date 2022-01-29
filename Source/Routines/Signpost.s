@@ -355,6 +355,17 @@ Inquire:
           .FarJMP AnimationsBank, ServiceInquire
 
 NotInquire:
+          cmp #ModeWinnerFireworks
+          bne NotFireworks
+
+          .weak
+          WinnerFireworks := $ffff
+          .endweak
+
+          sta GameMode
+          jmp WinnerFireworks
+
+NotFireworks:
           cmp #ModeSignpostDone
           beq ByeBye
 

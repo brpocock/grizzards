@@ -6,11 +6,6 @@
           .include "SpeakJetIDs.s"
           .include "SpeakJetIndex.s"
 
-          .align $100
-          .include "BossBearDies.s"
-          .align $20
-          .include "ShowPicture.s"
-
 DoLocal:
           cpy #ServiceGrizzardEvolution
           beq GrizzardEvolution
@@ -18,8 +13,6 @@ DoLocal:
           beq Death
           cpy #ServiceDrawBoss
           beq DrawBoss
-          cpy #ServiceFireworks
-          beq WinnerFireworks
           brk
 
           .include "VSync.s"
@@ -28,8 +21,6 @@ DoLocal:
           .include "48Pixels.s"
           .include "Prepare48pxMobBlob.s"
           .include "GrizzardEvolution.s"
-
-          .include "WinnerFireworks.s"
 
           .include "FinalSpeech.s"
 

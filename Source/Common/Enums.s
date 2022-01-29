@@ -57,6 +57,8 @@
           ModeTrainLastMove = $86
           ModeSignpostPoints = $87
           ModeSignpostInquire = $88
+
+          ModeWinnerFireworks = $90
 ;;; 
 ;;; Sounds in the library (index values)
           SoundDrone = 1

@@ -36,3 +36,6 @@ CookieGiven:
 
 HadCookie:
 ♂That was the best cookie.I'll name my kid after you for sure
+
+Win1:
+You have hit the final blow of the battle.The boss bear
