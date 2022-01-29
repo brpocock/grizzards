@@ -59,6 +59,8 @@ DoneSwitches:
           bpl DoneLeft
           lda # 2
           sta CurrentGrizzard
+          lda #SoundBlip
+          sta NextSound
 DoneLeft:
           lda NewSWCHA
           and #P0StickRight
@@ -70,6 +72,8 @@ DoRight:
           blt DoneRight
           lda # 0
           sta CurrentGrizzard
+          lda #SoundBlip
+          sta NextSound
 DoneRight:
 DoneStick:
           lda NewButtons
