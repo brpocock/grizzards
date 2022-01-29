@@ -120,6 +120,16 @@ CursorPosGross:
 
           ldx NameEntryPosition
 
+          lda NewSWCHB
+          beq DoneSwitches
+          and #SWCHBReset
+          bne DoneSwitches
+
+          .WaitScreenBottom
+          jmp GoColdStart
+
+DoneSwitches:
+
           lda NewSWCHA
           beq NoStick
           .BitBit P0StickUp
@@ -141,6 +151,8 @@ ButtonPressed:
           cpx # 5
           beq Submit
 
+          .if !DEMO
+
           lda # SoundBlip
           sta NextSound
 
@@ -151,6 +163,9 @@ ButtonPressed:
           bne Done
           lda #$0a              ; letter “A”
           sta NameEntryBuffer, x
+
+          .fi
+
           gne Done
 
 LetterInc:
