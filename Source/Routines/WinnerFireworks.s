@@ -4,13 +4,14 @@ WinnerFireworks:    .block
 
           lda #SoundRoar
           sta NextSound
+          .SetUtterance Phrase_BossBearDefeated
 
 Loop:
           .WaitScreenBottom
           .WaitScreenTop
-          .ldacolu COLRED, $e
+          .ldacolu COLRED, $8
           sta COLUBK
-          .ldacolu COLRED, $0
+          .ldacolu COLGOLD, $0
           sta COLUP0
           sta COLUP1
 
