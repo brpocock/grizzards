@@ -19,7 +19,7 @@ Monsters:
           .SignText "VORPALBUNNY "
           .byte Monster_Bunny
           .mcolu COLGOLD, $4
-          .byte 6, 4, 5
+          .byte 6, 4, 10
           .word $0010
           
           .SignText "R.O.    U.S."
