@@ -41,51 +41,64 @@ GetImagePointer:
           adc #>BossArt.Height
           sta pp3h
 
-          lda # 1
-          bit ClockSeconds
-          beq PrepareToDrawMonster
+          lda #$20
+          and ClockFrame
+          beq CommonFrame
 
-          lda pp2l
-          clc
-          adc #<BossArt.Height * 2
-          bcc +
-          inc pp2h
-+
-          sta pp2l
+          .Add16 pp2l, #<BossArt.Height * 2
           lda pp2h
           adc #>BossArt.Height * 2
           sta pp2h
 
-          lda pp3l
-          clc
-          adc #<BossArt.Height * 2
-          bcc +
-          inc pp3h
-+
-          sta pp3l
+          .Add16 pp3l, #<BossArt.Height * 2
           lda pp3h
           adc #>BossArt.Height * 2
           sta pp3h
 
-          
-PrepareToDrawMonster:
-          lda #0
-          sta VDELP0
-          sta VDELP1
-          sta REFP0
+CommonFrame:
+          ldy #0
+          sty VDELP0
+          sty VDELP1
           lda #NUSIZDouble
           sta NUSIZ0
           sta NUSIZ1
 
+DecideFlipFrame:
+          lda # 1
+          and ClockSeconds
+          bne PrepareToDrawMonsterFlipped
+          
+PrepareToDrawMonster:
+          sty REFP0
+          sty REFP1
+
+SetUpLeftHanded:
           stx WSYNC
           sta HMCLR
           .SleepX 36
           sta RESP0
           nop
           sta RESP1
+          .NoPageCrossSince SetUpLeftHanded
+          jmp DrawMonster
 
+PrepareToDrawMonsterFlipped:
+          lda #REFLECTED
+          sta REFP0
+          sta REFP1
+
+SetUpRightHanded:
+          stx WSYNC
+          sta HMCLR
+          .SleepX 36
+          sta RESP1
+          nop
+          sta RESP0
+          .NoPageCrossSince SetUpRightHanded
+
+DrawMonster:
           ldy # 16
--
+DrawMonsterLoop:
           lda (pp2l), y
           sta GRP0
           lda (pp3l), y
@@ -96,12 +109,13 @@ PrepareToDrawMonster:
           stx WSYNC
           .fi
           dey
-          bne -
+          bne DrawMonsterLoop
 
           sty GRP0
           sty GRP1
 
-          
+          .SkipLines 5
+
           rts
 
           .bend
