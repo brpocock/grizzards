@@ -138,8 +138,8 @@ Monsters:
           .byte 10, 10, 10
           .word $0010
 
-          .SignText "DEVIL  EAGLE"
-          .byte Monster_Eagle
+          .SignText "DEVIL SKULL "
+          .byte Monster_Skull
           .mcolu COLRED, $8
           .byte 10, 10, 10
           .word $0010
@@ -164,10 +164,10 @@ Monsters:
 
           .SignText " MEAN ROBBER"
           .byte Monster_Human
-          .mcolu COLBROWN, $f
+          .mcolu COLBROWN, $e
           .byte 10, 10, 10
           .word $0010
-
+;;; 27
           .SignText "GIANT SLIME "
           .byte Monster_SlimeBig
           .mcolu COLINDIGO, $8
@@ -179,7 +179,7 @@ Monsters:
           .mcolu COLBLUE, $0
           .byte 60, 60, 175
           .word $2000
-
+;;; 29
           .SignText "DRAGONANDREW"
           .byte Monster_Dragon
           .mcolu COLCYAN, $4
@@ -191,25 +191,25 @@ Monsters:
           .mcolu COLGREEN, $8
           .byte 70, 70, 200
           .word $2500
-
+;;; 31
           .SignText " UBER  SLIME"
           .byte Monster_SlimeBig
           .mcolu COLBROWN, $f
           .byte 10, 10, 10
           .word $0010
 ;;; 32
-          .SignText "DESERT EAGLE"
-          .byte Monster_Eagle
-          .mcolu COLBLUE, $8
+          .SignText "FLYINGSKULL "
+          .byte Monster_Skull
+          .mcolu COLTURQUOISE, $e
           .byte 10, 10, 10
           .word $0010
-
-          .SignText "CRAZEDROBBER"
-          .byte Monster_Human
-          .mcolu COLBLUE, $8
+;;; 33
+          .SignText "CRAZY SKULL "
+          .byte Monster_Skull
+          .mcolu COLMAGENTA, $a
           .byte 10, 10, 10
           .word $0010
-
+;;; 34
           .SignText "GREAT  WYRM "
           .byte Monster_Serpent
           .mcolu COLBLUE, $8
@@ -221,7 +221,7 @@ Monsters:
           .mcolu COLBLUE, $8
           .byte 10, 10, 10
           .word $0010
-
+;;; 36
           .SignText "GRABBYCRABBY"
           .byte Monster_Crab
           .mcolu COLBLUE, $8
@@ -246,30 +246,30 @@ Monsters:
           .byte 50, 5, 40
           .word $0038
 ;;; 40
-          .SignText "MONSTR  40  "
-          .byte Monster_Bunny
-          .mcolu COLBLUE, $8
-          .byte 10, 10, 10
-          .word $0010
-
+          .SignText " FIRE DRAKE "
+          .byte Monster_Dragon
+          .mcolu COLORANGE, $8
+          .byte 99, 10, 30
+          .word $0035
+;;; 41
           .SignText "MONSTR  41  "
           .byte Monster_Bunny
           .mcolu COLBLUE, $8
           .byte 10, 10, 10
           .word $0010
-
+;;; 42
           .SignText "MONSTR  42  "
           .byte Monster_Bunny
           .mcolu COLBLUE, $8
           .byte 10, 10, 10
           .word $0010
-
+;;; 43
           .SignText "MONSTR  43  "
           .byte Monster_Bunny
           .mcolu COLBLUE, $8
           .byte 10, 10, 10
           .word $0010
-
+;;; 44
           .SignText "MONSTR  44  "
           .byte Monster_Bunny
           .mcolu COLBLUE, $8

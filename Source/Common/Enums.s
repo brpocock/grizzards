@@ -309,7 +309,7 @@
           Monster_Raptor = 18
           Monster_Human = 19
           Monster_Bat = 20
-          Monster_Eagle = 21
+          Monster_Skull = 21
           Monster_Dragon = 22
           Monster_SlimeBig = 23
           Monster_Cyclops = 24
