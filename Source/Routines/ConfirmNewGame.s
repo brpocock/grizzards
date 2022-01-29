@@ -88,6 +88,8 @@ DoneSwitches:
 
           lda # 0
           sta DeltaX
+          lda #SoundChirp
+          sta NextSound
 DoneUp:
           lda NewSWCHA
           and #P0StickDown
@@ -95,6 +97,8 @@ DoneUp:
 
           lda # 1
           sta DeltaX
+          lda #SoundChirp
+          sta NextSound
 DoneDown:
 DoneStick:
           lda NewButtons
@@ -102,6 +106,8 @@ DoneStick:
           and #PRESSED
           bne DoneButtons
 
+          lda #SoundBlip
+          sta NextSound
           lda #ModeStartGame
           ldx DeltaX
           bne +
