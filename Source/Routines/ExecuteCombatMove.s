@@ -379,12 +379,14 @@ PlayerAttackNoStatusFX:
           jmp WaitOutScreen
 ;;; 
 PlayerAttackMiss:
-          lda # 0
+          lda MoveHP
+          lsr a
           sta MoveHP
           sta MoveHitMiss
-          sta MoveStatusFX
+          ldy # 0
+          sty MoveStatusFX
 
-          jmp WaitOutScreen
+          geq WaitOutScreen
 ;;; 
 PlayerHeals:
           ;; .A has the inverted HP to be gained
