@@ -271,7 +271,7 @@ SpriteList:
 
           .byte $ff, SpriteFixed
           .byte 100, 32
-          .byte SpriteSign, 0   ; Beware
+          .byte SpriteSign, 103 ;;; DO NOT COMMIT — 0   ; Beware
 
           .if !DEMO
           .byte $ff, SpriteWander
@@ -542,9 +542,9 @@ SpriteList:
           .byte 0
 
           ;; Room 21
-          .byte 24, SpriteRandomEncounter
+          .byte 24, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 24
+          .byte SpriteMajorCombat, 24
 
           .byte $ff, SpriteWander
           .byte 0, 0
