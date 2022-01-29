@@ -40,12 +40,18 @@ Erase:
           .ldacolu COLRED, $8
           sta COLUP0
           sta COLUP1
+
+          .if !DEMO
+          
           lda SaveSlotBusy
           bne ReallyErase
           lda SaveSlotErased
           beq ReallyErase
           .SetPointer ResumeText
           gne StartPicture
+
+          .fi
+
 ReallyErase:
           .SetPointer EraseText
           gne StartPicture
