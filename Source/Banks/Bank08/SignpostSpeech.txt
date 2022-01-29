@@ -5,7 +5,7 @@ FireSwamp:
 Now entering the fire bog.Be wary of flame doggos and rodents of unusual size
 
 SouthGate:
-♀You should leave Treble soon.Where will you go ¿ now
+♂You should leave Treble soon.Where will you go¿now
 
 TunnelBlocked:
 ♀I can't open the tunnels with out the two artifacts.You'll?help
