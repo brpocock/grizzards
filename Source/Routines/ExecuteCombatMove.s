@@ -67,7 +67,7 @@ MonsterAttacks:
           tay
 +
           sty DefenderDefend
-          
+
           mva DefenderHP, CurrentHP
           mva DefenderStatusFX, StatusFX
 
@@ -79,7 +79,7 @@ MonsterAttacks:
           jmp WaitOutScreen
 ;;; 
 MonsterHeals:
-          ;; .A has the negative HP to be gained
+          ;; .A has the inverted HP to be gained
           ;; (alter by random factor)
           eor #$ff
           sta MoveHP
