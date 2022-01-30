@@ -12,7 +12,7 @@ CheckButton:
           .if !DEMO
           lda #ModePotion
           sta GameMode
-          .fi
+          .fi 
 
 CheckSwitches:
           lda NewSWCHB
