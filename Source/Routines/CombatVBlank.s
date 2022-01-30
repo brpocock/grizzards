@@ -104,6 +104,8 @@ CheckStick:
 
           and #P0StickUp
           bne DoneStickUp
+          lda #SoundChirp
+          sta NextSound
           lda CombatMajorP
           beq CanSelectMoveUp
           dex
@@ -111,8 +113,6 @@ CheckStick:
           gne DoneStickUp
 CanSelectMoveUp:
           dex
-          lda #SoundChirp
-          sta NextSound
           cpx #$ff
           bne DoneStickUp
 WrapMoveForUp:
