@@ -212,7 +212,7 @@ GreatMuddle:
 ScareAway:
           .byte 0
 WetNoodle:
-          .byte 0
+          .byte 4
           ;; 40
 StompDown:
           .byte 19
