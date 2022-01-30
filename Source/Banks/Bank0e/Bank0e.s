@@ -3,8 +3,10 @@
           BANK = $0e
 
           .include "StartBank.s"
-          .include "SpeakJetIDs.s"
-          .include "SpeakJetIndex.s"
+
+          .include "Source/Generated/Bank07/SpeakJetIDs.s"
+
+          .include "DrawBoss.s"
 
 DoLocal:
           cpy #ServiceGrizzardEvolution
@@ -26,8 +28,6 @@ DoLocal:
           .include "Prepare48pxMobBlob.s"
           .include "AppendDecimalAndPrint.s"
 
-          .include "DrawBoss.s"
-
           .include "GrizzardEvolution.s"
 
           .include "ConfirmErase.s"
@@ -35,13 +35,7 @@ DoLocal:
           .include "Death.s"
           .include "Potion.s"
 
-          .include "PlaySpeech.s"
-
           .include "CopyPointerText.s"
-
-          .include "GrizzardsSpeech.s"
-          .include "FinalSpeech.s"
-
 
 ShowPointerText:
           jsr CopyPointerText
@@ -53,3 +47,5 @@ ShowText:
           .include "BossArt2.s"
 
           .include "EndBank.s"
+
+          

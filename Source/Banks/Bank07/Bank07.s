@@ -25,6 +25,7 @@ DoLocal:
           .include "GrizzardsSpeech.s"
           .include "CombatSpeech.s"
           .include "TitleSpeech.s"
+          .include "FinalSpeech.s"
 
           .include "AtariToday.s"
           .include "Theme.s"

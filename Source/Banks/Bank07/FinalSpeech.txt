@@ -8,9 +8,6 @@ BossBearApproaching:
 Became:
 became
 
-GameOver:
-game over
-
 ConfirmErase:
 Make sure you want to erase this game's progress.
 
