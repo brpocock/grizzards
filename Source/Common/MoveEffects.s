@@ -157,7 +157,7 @@ QuickFoot:
 GreatMojo:
           .byte 5
 WindFight:
-          .byte 0
+          .byte 3
 StealAttack:
           .byte 0
 StealDefend:
@@ -212,7 +212,7 @@ GreatMuddle:
 ScareAway:
           .byte 0
 WetNoodle:
-          .byte 0
+          .byte 4
           ;; 40
 StompDown:
           .byte 19

@@ -96,17 +96,37 @@ Defaults:
           ;; max 150, .y can hold it OK
 
           lda GrizzardStartingStats, y
+          .if NOSAVE
+          cmp MaxHP
+          blt +
+          .fi
           sta MaxHP
++
+          .if NOSAVE
+          lda MaxHP
+          .fi
           sta CurrentHP
           iny
           lda GrizzardStartingStats, y
+          .if NOSAVE
+          cmp GrizzardAttack
+          blt +
+          .fi
           sta GrizzardAttack
++
           iny
           lda GrizzardStartingStats, y
+          .if NOSAVE
+          cmp GrizzardDefense
+          blt +
+          .fi
           sta GrizzardDefense
++
           iny
+          .if !NOSAVE
           lda # 0               ; XP always starts at zero
           sta GrizzardXP
+          .fi
           iny
           lda GrizzardStartingStats, y
           sta MovesKnown
