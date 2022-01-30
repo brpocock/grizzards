@@ -11,14 +11,6 @@
           ATARIAGESAVE := false
           .endweak
 
-          .weak
-          .if DEMO
-          STARTER := 1          ; Start with Aquax in the demo
-          .else
-          STARTER := 0          ; Should come from build command-line
-          .fi
-          .endweak
-
           .enc "Unicode"
           .cdef $00, $1ffff, 0
 
