@@ -9,8 +9,10 @@ CheckButton:
           and #PRESSED
           bne CheckSwitches
 
+          .if !DEMO
           lda #ModePotion
           sta GameMode
+          .fi
 
 CheckSwitches:
           lda NewSWCHB
