@@ -341,6 +341,13 @@ MoveTarget:
 MoveAnnouncement:
           .byte ?
 
+;;; Overlain: when drawing vs. executing a move
+
+          .union
+MonsterColorPointer:
+          .word ?
+
+          .struct
 ;;; The move's outcome
 MoveHitMiss:
           .byte ?
@@ -356,6 +363,9 @@ MoveStatusFX:
 ;;; Was this a critical hit?
 CriticalHitP:
           .byte ?
+
+          .endstruct
+          .endunion
 
 * = $ec
 

@@ -52,6 +52,27 @@ GetImagePointer:
 +
           sta CombatSpritePointer
 
+          .if !DEMO
+
+          lda #>MonsterColorTable
+          sta MonsterColorPointer + 1
+          
+          lda CurrentMonsterNumber
+          .rept 4
+          asl a
+          bcc +
+          inc MonsterColorPointer + 1
++
+          .next
+
+          adc #<MonsterColorTable
+          bcc +
+          inc MonsterColorPointer + 1
++
+          sta MonsterColorPointer
+
+          .fi
+
 PrepareToDrawMonsters:
           lda # 0
           sta VDELP0
