@@ -49,7 +49,12 @@ SetUpMonsterHP:
           ldy # MonsterHPIndex
           lda (CurrentMonsterPointer), y
           sta Temp
-          
+
+          ldy CombatMajorP
+          beq +
+          asl Temp
++
+
           lda EncounterQuantity, x
           tay
 

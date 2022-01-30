@@ -57,10 +57,11 @@ DoesEvolve:
 AfterEvolution:
           .SetUtterance Phrase_Victory
 
-          .if !DEMO
-
           ldy # 0
           sty DeltaY
+
+          .if !DEMO
+
           lda Potions
           cmp # 99
           bge AfterPotions

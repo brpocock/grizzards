@@ -10,7 +10,7 @@ MapVBlank:        .block
 MovementLogic:
           jsr CheckSpriteCollision
           jsr SpriteMovement
-          jsr CheckPlayerCollision
-          jmp UserInput         ; tail call
+          jsr UserInput
+          jmp CheckPlayerCollision ; tail call
 
           .bend
