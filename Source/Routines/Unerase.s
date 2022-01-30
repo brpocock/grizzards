@@ -21,5 +21,7 @@ Unerase:       .block
           lda #ModeSelectSlot
           sta GameMode
 
+          jsr i2cWaitForAck
+
           rts
           .bend

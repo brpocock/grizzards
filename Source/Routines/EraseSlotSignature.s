@@ -19,6 +19,8 @@ EraseSlotSignature: .block
           lda #$ff
           sta SaveSlotChecked
 
+          jsr i2cWaitForAck
+
           rts
 
           .bend
