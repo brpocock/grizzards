@@ -2,6 +2,8 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 DrawMonsterGroup:   .block
 
+          .FarJSR EndAnimationsBank, ServiceGetMonsterColors
+
 GetMonsterPointer:
           lda #>MonsterArt
           sta CombatSpritePointer + 1
@@ -52,33 +54,12 @@ GetImagePointer:
 +
           sta CombatSpritePointer
 
-          .if !DEMO
-
-          lda #>MonsterColorTable
-          sta MonsterColorPointer + 1
-          
-          lda CurrentMonsterNumber
-          .rept 4
-          asl a
-          bcc +
-          inc MonsterColorPointer + 1
-+
-          .next
-
-          adc #<MonsterColorTable
-          bcc +
-          inc MonsterColorPointer + 1
-+
-          sta MonsterColorPointer
-
-          .fi
-
 PrepareToDrawMonsters:
           lda # 0
           sta VDELP0
           sta VDELP1
           sta NUSIZ0
-          sta pp3l
+          sta pp5h
           lda #NUSIZDouble
           sta NUSIZ1
 ;;; 
@@ -96,7 +77,7 @@ NoTarget:
           .fi
 NoTopTarget:
           lda # 0
-          sta pp3l
+          sta pp5h
           geq PrepareTopMonsters
 
 TopTarget:
@@ -146,7 +127,7 @@ PrepareCursor2Bottom:
           cpx # 4
           bge HasBottomCursor
           lda # 0
-          sta pp3l
+          sta pp5h
           geq PrepareBottomMonsters
 
 HasBottomCursor:
@@ -225,7 +206,7 @@ CursorPosGross:
           sta HMP1
 
           lda #%11111100
-          sta pp3l
+          sta pp5h
 
           stx WSYNC
           rts
@@ -253,20 +234,24 @@ GrossPositionMonsters:
           .SleepX 71
           sta HMOVE
 
-          lda pp3l
+          lda pp5h
           sta GRP1
           rts
 ;;; 
 DrawMonsters:
           ldy # 7
+          ldx # 0
 DrawMonsterLoop:
           lda (CombatSpritePointer), y
           sta GRP0
+          lda PixelPointers, x
+          sta COLUP0
           stx WSYNC
           stx WSYNC
           .if TV != NTSC
             stx WSYNC
           .fi
+          inx
           dey
           bpl DrawMonsterLoop
 
@@ -319,7 +304,7 @@ DrawNothing:
 
           .NoPageCrossSince DrawNothing
 
-          lda pp3l
+          lda pp5h
           sta GRP1
 
           .if TV == NTSC

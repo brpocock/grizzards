@@ -19,6 +19,8 @@ DoLocal:
           beq ConfirmErase
           cpy #ServicePotion
           beq Potion
+          cpy #ServiceGetMonsterColors
+          beq GetMonsterColors
           brk
 
           .include "VSync.s"
@@ -43,6 +45,8 @@ ShowPointerText:
 ShowText:
           .FarJMP TextBank, ServiceDecodeAndShowText
 
+          .include "GetMonsterColors.s"
+          .include "MonsterColors.s"
           .include "BossArt.s"
           .include "BossArt2.s"
 

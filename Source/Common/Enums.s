@@ -230,6 +230,7 @@
           ServiceShowBossBear = $29
           ServiceGrizzardEvolution = $2d
           ServicePotion = $37
+          ServiceGetMonsterColors = $38
 
 ;;; Also the cold start / save game bank
 

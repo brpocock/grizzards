@@ -86,7 +86,7 @@ Monsters:
 
           .SignText "SKY   MUTANT"
           .byte Monster_Mutant
-          .mcolu RED, $8
+          .mcolu COLRED, $8
           .byte $05, $05, $05
           .word $0010
 

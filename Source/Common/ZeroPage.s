@@ -347,6 +347,9 @@ MoveAnnouncement:
 MonsterColorPointer:
           .word ?
 
+CurrentMonsterNumber:
+          .byte ?
+
           .struct
 ;;; The move's outcome
 MoveHitMiss:
