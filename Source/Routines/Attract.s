@@ -139,12 +139,6 @@ DoneKernel:
           beq Leave
 +
 
-          .if STARTER == 2
-          lda # 0
-          sta GRP0
-          sta GRP1
-          .fi
-
           jmp Loop
 
 Leave:
