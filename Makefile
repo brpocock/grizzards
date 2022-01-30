@@ -542,33 +542,34 @@ release:	all
 	@if [ $(RELEASE) = noreleasenamegiven ]; then echo "Usage: make RELEASE=ident release" >&2; exit 1; fi
 	mkdir -p Dist/$(RELEASE)
 	-rm Dist/$(RELEASE)/*
-	-cp -v Dist/Grizzards.{AA.,Demo.,NoSave.,}{NTSC,PAL,SECAM}.{a26,pro} \
-		Dist/Grizzards.{AA.,Demo.,NoSave.,}{NTSC,PAL,SECAM}.pdf \
+	-cp -v Dist/Grizzards.{AA.,Demo.,NoSave.,}{NTSC,PAL,SECAM}.{a26,pro,pdf} \
 		Dist/$(RELEASE) 2>/dev/null
 	cp -v Dist/Grizzards.AA.{NTSC,PAL,SECAM}-book.pdf Dist/$(RELEASE)
 	cp -v Dist/Grizzards.Manual.txt Dist/$(RELEASE)
 	@cd Dist/$(RELEASE) ; \
-	for file in Grizzards.*.{zip,a26,pdf}; do \
-		mv -v $$file $$(echo $$file | perl -pne 's(Grizzards.([^.]+).(.*)) (Grizzards.\1.$(RELEASE).\2)'); \
+	for file in Grizzards.*.{pro,a26,pdf}; do \
+		mv -v $$file $$(echo $$file | perl -pne 's(Grizzards\.(.+)\.(pdf|a26|pro)) (Grizzards.\1.$(RELEASE).\2)'); \
 	done
 	@echo "AtariAge Release $(RELEASE) of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
-		zip --archive-comment -9 \
-		Dist/$(RELEASE)/Grizzards.AtariAge.$(RELEASE).zip \
-		Dist/$(RELEASE)/Grizzards.AA.*
+		(cd Dist; zip --archive-comment -9 \
+		$(RELEASE)/Grizzards.AtariAge.$(RELEASE).zip \
+		$(RELEASE)/Grizzards.AA.{NTSC,PAL,SECAM}.$(RELEASE).{a26,pdf,pro} \
+		$(RELEASE)/Grizzards.AA.{NTSC,PAL,SECAM}-book.$(RELEASE).pdf )
 	@echo "Public Release $(RELEASE) of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
-		zip --archive-comment -9 \
-		Dist/$(RELEASE)/Grizzards.$(RELEASE).zip \
-		Dist/$(RELEASE)/Grizzards.{NTSC,PAL,SECAM}.{a26,pdf,pro}
+		(cd Dist; zip --archive-comment -9 \
+		$(RELEASE)/Grizzards.$(RELEASE).zip \
+		$(RELEASE)/Grizzards.{NTSC,PAL,SECAM}.$(RELEASE).{a26,pdf,pro} )
 	@echo "Demo Release $(RELEASE) of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
-		zip --archive-comment -9 \
-		Dist/$(RELEASE)/Grizzards.Demo.$(RELEASE).zip \
-		Dist/$(RELEASE)/Grizzards.Demo.{NTSC,PAL,SECAM}.{a26,pdf,pro}
+		(cd Dist; zip --archive-comment -9 \
+		$(RELEASE)/Grizzards.Demo.$(RELEASE).zip \
+		$(RELEASE)/Grizzards.Demo.{NTSC,PAL,SECAM}.$(RELEASE).{a26,pdf,pro} )
 	@echo "No-Save Demo Release $(RELEASE) of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
-		zip --archive-comment -9 \
-		Dist/$(RELEASE)/Grizzards.NoSave.$(RELEASE).zip \
-		Dist/$(RELEASE)/Grizzards.NoSave.{NTSC,PAL,SECAM}.{a26,pdf,pro}
+		(cd Dist; zip --archive-comment -9 \
+		$(RELEASE)/Grizzards.NoSave.$(RELEASE).zip \
+		$(RELEASE)/Grizzards.NoSave.{NTSC,PAL,SECAM}.$(RELEASE).{a26,pdf,pro} )
 
 publish-release:	release
 	until rsync -essh -v Dist/$(RELEASE)/*$(RELEASE)* \
-		star-hope.org:star-hope.org/games/Grizzards ; \
+		star-hope.org:star-hope.org/games/Grizzards ; do \
 		sleep 1 ; done
+	rsync -essh -rv Dist/$(RELEASE) Krishna.local:Projects/Grizzards/Dist/
