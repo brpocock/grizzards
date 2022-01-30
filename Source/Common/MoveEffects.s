@@ -157,7 +157,7 @@ QuickFoot:
 GreatMojo:
           .byte 5
 WindFight:
-          .byte 0
+          .byte 3
 StealAttack:
           .byte 0
 StealDefend:
