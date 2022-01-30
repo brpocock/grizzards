@@ -169,14 +169,6 @@ InvertedBitMask:
           .offs -$f000
 
           .text "grizbrp", 0
-          .switch STARTER
-          .case 0
-          .text "dirtex", 0, 0
-          .case 1
-          .text "aquax", 0, 0, 0
-          .case 2
-          .text "airex", 0, 0, 0
-          .endswitch
 
           ;; magic cookie for Stella
           nop $1fe0
