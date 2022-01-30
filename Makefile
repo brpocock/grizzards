@@ -542,8 +542,8 @@ release:	all
 	@if [ $(RELEASE) = noreleasenamegiven ]; then echo "Usage: make RELEASE=ident release" >&2; exit 1; fi
 	mkdir -p Dist/$(RELEASE)
 	-rm Dist/$(RELEASE)/*
-	-cp -v Dist/Grizzards.{AA,Demo,NoSave,}.{NTSC,PAL,SECAM}.{a26,pro} \
-		Dist/Grizzards.{AA,Demo,NoSave,}.{NTSC,PAL,SECAM}.pdf \
+	-cp -v Dist/Grizzards.{AA.,Demo.,NoSave.,}{NTSC,PAL,SECAM}.{a26,pro} \
+		Dist/Grizzards.{AA.,Demo.,NoSave.,}{NTSC,PAL,SECAM}.pdf \
 		Dist/$(RELEASE) 2>/dev/null
 	cp -v Dist/Grizzards.AA.{NTSC,PAL,SECAM}-book.pdf Dist/$(RELEASE)
 	cp -v Dist/Grizzards.Manual.txt Dist/$(RELEASE)
