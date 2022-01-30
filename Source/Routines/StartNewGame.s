@@ -69,6 +69,9 @@ InitGameVars:
 
           .if NOSAVE
 
+          lda # 1               ; Aquax
+          sta CurrentGrizzard
+          
           lda #$ff
           sta ProvinceFlags + 4
 
@@ -140,13 +143,22 @@ Leave:
           sta NameEntryBuffer
 EnterName:
           .FarJSR StretchBank, ServiceBeginName
-          .if !DEMO
+
+          .if DEMO
+
+          lda # 1               ; Aquax
+          sta CurrentGrizzard
+
+          .else
+
           .FarJSR SaveKeyBank, ServiceChooseGrizzard
           .FarJSR SaveKeyBank, ServiceConfirmNewGame
           lda GameMode
           cmp #ModeEnterName
           beq EnterName
+
           .fi
+
           .FarJSR SaveKeyBank, ServiceSaveToSlot
 
 SaveName:
