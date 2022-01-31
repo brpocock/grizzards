@@ -174,7 +174,7 @@ RogueFlare:
 DoubleFlares:
           .byte 15
 TailWhip:
-          .byte 5
+          .byte 7
 TailLash:
           .byte 10
 Bite:

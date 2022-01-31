@@ -22,7 +22,7 @@ Return:
 CheckPotions:
           lda Potions
           cmp # 5
-          bge Return
+          blt Return
           ldx # 105
           rts
 

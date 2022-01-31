@@ -61,12 +61,15 @@ StealDefend:
 StealTurn:
           .MiniText "STEAL "
           .MiniText "  TURN"
+          ;; 17
 FireStart:
           .MiniText "FIRE  "
           .MiniText " START"
+          ;; 18
 BurntEdges:
           .MiniText "BURNT "
           .MiniText " EDGES"
+          ;; 19
 RogueFlare:
           .MiniText "ROGUE "
           .MiniText " FLARE"
@@ -75,9 +78,11 @@ RogueFlare:
 DoubleFlares:
           .MiniText "DOUBLE"
           .MiniText "FLARES"
+          ;; 21
 TailWhip:
           .MiniText "TAIL  "
           .MiniText "  WHIP"
+          ;; 22
 TailLash:
           .MiniText "TAIL  "
           .MiniText "  LASH"
@@ -112,6 +117,7 @@ FirstAid:
 SimpleCure:
           .MiniText "SIMPLE"
           .MiniText "  CURE"
+          ;; 31
 CommonCure:
           .MiniText "COMMON"
           .MiniText "  CURE"
@@ -120,12 +126,15 @@ CommonCure:
 GreatCure:
           .MiniText "GREAT "
           .MiniText "  CURE"
+          ;; 33
 HealWound:
           .MiniText "HEAL  "
           .MiniText " WOUND"
+          ;; 34
 LifeReturn:
           .MiniText "LIFE  "
           .MiniText "RETURN"
+          ;; 35
 Nibble:
           .MiniText "NIBBLE"
           .MiniText "      "
@@ -134,12 +143,15 @@ Nibble:
 MuddleMind:
           .MiniText "MUDDLE"
           .MiniText "  MIND"
+          ;; 37
 GreatMuddle:
           .MiniText "GREAT "
           .MiniText "MUDDLE"
+          ;; 38
 ScareAway:
           .MiniText "SCARE "
           .MiniText "  AWAY"
+          ;; 39
 WetNoodle:
           .MiniText "WET   "
           .MiniText "NOODLE"
@@ -167,9 +179,11 @@ ClawsOut:
 DeadlySwoop:
           .MiniText "DEADLY"
           .MiniText " SWOOP"
+          ;; 46
 Shove:
           .MiniText "SHOVE "
           .MiniText "      "
+          ;; 47
 Slash:
           .MiniText "SLASH "
           .MiniText "      "
