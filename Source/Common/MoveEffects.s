@@ -204,7 +204,7 @@ HealWound:
 LifeReturn:
           .byte $ff ^ 99
 Nibble:
-          .byte 10
+          .byte 7
 MuddleMind:
           .byte 0
 GreatMuddle:
