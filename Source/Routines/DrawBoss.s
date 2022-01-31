@@ -45,7 +45,9 @@ Mult16:
           and ClockFrame
           bne AlternateFrame
 
+
           stx WSYNC
+
           geq CommonFrame
 
 AlternateFrame:
@@ -54,6 +56,8 @@ AlternateFrame:
           clc
           adc #>BossArt.Height * 2
           sta pp4h
+
+          stx WSYNC
 
           .Add16 pp5l, #<BossArt.Height * 2
           lda pp5h

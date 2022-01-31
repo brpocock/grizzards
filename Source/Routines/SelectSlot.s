@@ -243,7 +243,7 @@ EraseSlotNow:
           jmp Loop
 
 DoEraseSlot:
-          .FarJSR MonsterBank, ServiceConfirmErase
+          .FarJSR AnimationsBank, ServiceConfirmErase
           jmp Loop
 
 DoResumeSlot:

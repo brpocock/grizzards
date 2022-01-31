@@ -254,9 +254,6 @@ DrawMonsterLoop:
 
           stx WSYNC
           stx WSYNC
-          .if TV != NTSC
-            stx WSYNC
-          .fi
           inx
           dey
           bpl DrawMonsterLoop

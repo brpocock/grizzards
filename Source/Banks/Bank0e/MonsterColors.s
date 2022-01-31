@@ -84,14 +84,14 @@ WaterKitty:
           .colu COLBLUE, $e
 
 FlameDoggo:
+          .colu COLYELLOW, $c
+          .colu COLYELLOW, $c
+          .colu COLORANGE, $c
+          .colu COLORANGE, $c
           .colu COLRED, $c
           .colu COLRED, $c
-          .colu COLRED, $c
-          .colu COLRED, $c
-          .colu COLRED, $c
-          .colu COLRED, $c
-          .colu COLRED, $c
-          .colu COLRED, $c
+          .colu COLMAGENTA, $c
+          .colu COLMAGENTA, $c
 
 CreepySpider:
           colu COLBROWN, $8

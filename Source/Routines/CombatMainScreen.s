@@ -43,8 +43,8 @@ Loop:
           bne +
           .SkipLines 5
 +
-          .SkipLines 0
           .fi
+
 LoopFirst:
           .WaitScreenTopMinus 1, 3
           jsr Prepare48pxMobBlob
@@ -123,6 +123,8 @@ MajorCombatArt:
           jmp DelayAfterMonsters
 
 MinorCombatArt:
+          ldy # 0
+          sty CombatMajorP
           .FarJSR MonsterBank, ServiceDrawMonsterGroup
 DelayAfterMonsters:
           ;; no actual delay now

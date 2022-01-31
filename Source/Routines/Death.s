@@ -2,7 +2,6 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 Death:    .block
-          .WaitScreenTop
 
           ;; Blow away the stack, we're starting over
           ldx #$ff
@@ -22,12 +21,11 @@ Death:    .block
           lda # 120
           sta AlarmCountdown
 
-          jmp LoopFirst
-
 ;;; 
 Loop:
+          .WaitScreenBottom
           .WaitScreenTop
-LoopFirst:
+
           .ldacolu COLGRAY, 0
           sta COLUBK
           .ldacolu COLGRAY, 9
@@ -41,7 +39,6 @@ LoopFirst:
           .LoadString " OVER "
           .FarJSR TextBank, ServiceDecodeAndShowText
 
-          .WaitScreenBottom
 ;;; 
           lda NewSWCHB
           beq +
@@ -58,7 +55,6 @@ LoopFirst:
           jmp Loop
 
 Leave:
-          .WaitScreenTop
           .FarJMP SaveKeyBank, ServiceAttract
 
           .bend
