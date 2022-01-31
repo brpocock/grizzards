@@ -491,6 +491,13 @@ Shape:~{~{~a~}~2%~}
           append (loop for line from (1- group-height) downto 0
                        collecting (elt shape (+ group line))))))
 
+(defun reverse-16 (shape)
+  (let* ((height (length shape))
+         (group-height 16))
+    (loop for group from 0 below height by group-height
+          append (loop for line from (1- group-height) downto 0
+                       collecting (elt shape (+ group line))))))
+
 (defun compile-tia-player (png-file out-dir 
                            height width image-pixels)
   (let ((out-file-name (merge-pathnames
@@ -519,7 +526,10 @@ CoLu:~{~%	;.byte $~2,'0x~}
                 (pathname-name png-file)
                 (assembler-label-name (pathname-base-name png-file))
                 height width
-                (mapcar #'byte-and-art (reverse-7-or-8 shape))
+                (if (and (mod height 16) (> height 200))
+                    (mapcar #'byte-and-art (reverse-16 shape))
+                    (mapcar #'byte-and-art (reverse-7-or-8 shape)))
+                
                 colors))
       (format *trace-output* "~% Done writing to ~A" out-file-name))))
 
@@ -530,11 +540,11 @@ CoLu:~{~%	;.byte $~2,'0x~}
 
 (defun mob-index+bitmap+color-sets (more-mobs)
   (loop for mob = (subseq more-mobs 0 63)
-     for more on more-mobs by (curry #'nthcdr 64)
-     for i from 0
-     collect (list i
-                   (pretty-mob-data-listing-vic2 mob)
-                   (char-code (last-elt mob)))))
+        for more on more-mobs by (curry #'nthcdr 64)
+        for i from 0
+        collect (list i
+                      (pretty-mob-data-listing-vic2 mob)
+                      (char-code (last-elt mob)))))
 
 (defun compile-mob (png-file out-dir height width image-nybbles)
   (let ((out-file (merge-pathnames

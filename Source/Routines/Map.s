@@ -350,6 +350,8 @@ Leave:
           jsr Overscan
 
           lda GameMode
+          cmp #ModePotion
+          beq DoPotions
           cmp #ModeCombat
           beq GoCombat
           cmp #ModeNewGrizzard
@@ -367,6 +369,9 @@ Leave:
 
 UnknownMode:
           brk
+
+DoPotions:
+          .FarJMP MonsterBank, ServicePotion
 
 EnterGrizzardDepot:
           .FarJMP MapServicesBank, ServiceGrizzardDepot

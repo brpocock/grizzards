@@ -10,6 +10,7 @@ DoCombat:          .block
           
           ldx CurrentCombatEncounter
           lda EncounterMonster, x
+          sta CurrentMonsterNumber
 
 SetUpMonsterPointer:
           ldx # 0
@@ -49,7 +50,12 @@ SetUpMonsterHP:
           ldy # MonsterHPIndex
           lda (CurrentMonsterPointer), y
           sta Temp
-          
+
+          ldy CombatMajorP
+          beq +
+          asl Temp
++
+
           lda EncounterQuantity, x
           tay
 

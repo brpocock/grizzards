@@ -13,7 +13,7 @@ GrizzardMoves:
           ;; Soiley
           .byte 6, 7, 8, 21, 29, 30, 31, 32
           ;; Wetnas
-          .byte 10, 11, 12, 39, 29, 30, 31, 32
+          .byte 12, 11, 10, 39, 29, 30, 31, 32
           ;; Windoo
           .byte 15, 16, 21, 22, 29, 30, 31, 32
           ;; Firend
@@ -28,7 +28,7 @@ GrizzardMoves:
           ;; Burner
           .byte 4, 17, 18, 19, 20, 30, 31, 32
           ;; Splodo
-          .byte 4, 17, 18, 19, 20, 30, 31, 32
+          .byte 23, 19, 20, 42, 17, 34, 35, 21
           ;; Tyrant
           .byte 1, 2, 3, 4, 5, 6, 7, 8
           ;; Dufont

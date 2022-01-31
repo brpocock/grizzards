@@ -26,7 +26,7 @@ Hungry:
 ♂These awful monsters are making it so hard to get luxuries too
 
 HungryCookie:
-♂It's hard to get luxuries these days.May I have a ? cookie
+♂It's hard to get luxuries these days.May I have a¿cookie
 
 NoCookieForYou:
 ♂When you do defeat all the monsters there will be cookies
@@ -36,3 +36,12 @@ CookieGiven:
 
 HadCookie:
 ♂That was the best cookie.I'll name my kid after you for sure
+
+Win1:
+You have hit the final blow of the battle.The boss bear
+
+Potions:
+♀You seem to be low on potions.I will give you ten
+
+GotPotions:
+♀If you run low on potions,I will give you some

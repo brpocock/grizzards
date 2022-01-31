@@ -15,51 +15,17 @@ PlaySpeech: .block
           and #$f0
           bne ContinueSpeaking
 
-          lda CurrentUtterance
+          ldy CurrentUtterance
           beq TheEnd
 
           ;; New utterance ID is in the "mailbox"
           ;; Find it in the index.
 
-          ldy # 0
-
-          lda CurrentUtterance + 1
-          clc
-          adc #>SpeechIndexH
-          sta Pointer + 1
-
-          lda CurrentUtterance
-          clc
-          adc #<SpeechIndexH
-          bcc +
-          inc Pointer + 1
-+
-          sta Pointer
-
-          lda (Pointer), y
-          sta Temp              ; high byte of speech address
-
-          lda CurrentUtterance + 1
-          clc
-          adc #>SpeechIndexL
-          sta Pointer + 1
-
-          lda CurrentUtterance
-          clc
-          adc #<SpeechIndexL
-          bcc +
-          inc Pointer + 1
-+
-          sta Pointer
-
-          lda (Pointer), y
-          sta CurrentUtterance
-
-          lda Temp
+          lda SpeechIndexH, y
           sta CurrentUtterance + 1
 
-          ;; New utterance will start on the next frame
-          jmp TheEnd
+          lda SpeechIndexL, y
+          sta CurrentUtterance
 
 ContinueSpeaking:
 
@@ -67,10 +33,10 @@ ContinueSpeaking:
           inc SpeakJetCooldown
           inc SpeakJetCooldown
           lda SpeakJetCooldown
-          cmp #$20              ; seems to hang after 36 bytes or so
-          bmi NotOverheated
+          cmp #$20              ; SpeakJet buffer is 32 bytes
+          blt NotOverheated
           cmp #$20              ; cooldown value derived experimentally
-          bmi TheEnd
+          blt TheEnd
           lda #0
           sta SpeakJetCooldown
 
@@ -120,12 +86,12 @@ SerialDelayLoop:
           lsr Temp             ; 5 59
 
           ;; and loop (branch always taken)
-         gpl SerialSendBit    ; 3 62 cycles for loop
+          gpl SerialSendBit    ; 3 62 cycles for loop
 
 DoneSpeaking:
-          lda #0
-          sta CurrentUtterance
-          sta CurrentUtterance + 1
+          ldy # 0
+          sty CurrentUtterance
+          sty CurrentUtterance + 1
 
 TheEnd:
           lda SpeakJetCooldown

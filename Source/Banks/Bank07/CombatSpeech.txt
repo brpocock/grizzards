@@ -1,5 +1,5 @@
 NoEffect:
-but nothing happens
+.missed
 
 Monster:
 The monster
@@ -11,7 +11,7 @@ Learnt:
 Learnt
 
 UsesMove:
-uses move
+uses
 
 On:
 on
@@ -51,6 +51,9 @@ is lowered
 
 Victory:
 Victory
+
+VictoryWithPotion:
+Victory.You got a potion
 
 One:
 one

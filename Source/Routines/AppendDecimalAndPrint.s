@@ -33,6 +33,10 @@ CNVBIT:
           and #$0f
           sta StringBuffer + 5
 
+          .if BANK == TextBank
           jmp DecodeAndShowText ; tail call
+          .else
+          .FarJMP TextBank, ServiceDecodeAndShowText ; also tail call
+          .fi
 
           .bend

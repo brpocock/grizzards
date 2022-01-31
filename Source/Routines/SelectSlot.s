@@ -6,6 +6,9 @@ SelectSlot:        .block
           ;; Select a save game slot
           ;;
 
+          lda # 120
+          sta AlarmCountdown
+
           .KillMusic
           jsr Prepare48pxMobBlob
 
@@ -37,6 +40,19 @@ Erase:
           .ldacolu COLRED, $8
           sta COLUP0
           sta COLUP1
+
+          .if !DEMO
+          
+          lda SaveSlotBusy
+          bne ReallyErase
+          lda SaveSlotErased
+          beq ReallyErase
+          .SetPointer ResumeText
+          gne StartPicture
+
+          .fi
+
+ReallyErase:
           .SetPointer EraseText
           gne StartPicture
 
@@ -64,7 +80,9 @@ DestroyNow:
           jsr EraseSlotSignature
           lda #ModeSelectSlot
           sta GameMode
-          gne MidScreen
+          lda #$ff
+          sta SaveSlotChecked
+          gne Loop
 
 DoNotDestroy:
           ;; See if the slot is in use
@@ -93,6 +111,13 @@ MidScreen:
           gne ShowSaveSlot
 
 ShowVacant:
+          lda SaveSlotErased
+          beq ReallyVacant
+
+          .SetPointer ErasedText
+          jmp ShowSlotName
+
+ReallyVacant:
           .SetPointer VacantText
           gne ShowSaveSlot
 
@@ -100,7 +125,13 @@ ShowResume:
           lda GameMode
           cmp #ModeSelectSlot
           bne ShowActive
+
           .SetPointer ResumeText
+          jmp ShowSlotName
+
+ShowActive:
+          .SetPointer InUseText
+
 ShowSlotName:
           jsr ShowPointerText
           ldx # 6
@@ -112,10 +143,6 @@ ShowSlotName:
 
           .FarJSR TextBank, ServiceDecodeAndShowText
           jmp ShowSlotNumbered
-
-ShowActive:
-          .SetPointer InUseText
-          jmp ShowSlotName
 
 ShowSaveSlot:
           jsr ShowPointerText
@@ -143,15 +170,15 @@ SkipSwitches:
 
           .FarJSR 1, $fe
           cpy # 0
-          beq SkipStick
+          beq StickDone
           lda NewSWCHA
-          beq SkipStick
+          beq StickDone
           .BitBit P0StickLeft
           beq SwitchMinusSlot
           and #P0StickRight
           beq SwitchSelectSlot
 
-SkipStick:
+StickDone:
 
           lda GameMode
           cmp #ModeEraseSlot
@@ -194,16 +221,49 @@ EliminationMode:
           jmp Loop
 
 EraseSlotNow:
-          lda #SoundDeleted
-          sta NextSound
+          .if DEMO
 
-          lda #ModeErasing
-          sta GameMode
+            lda #SoundDeleted
+            sta NextSound
+
+            lda #ModeErasing
+            sta GameMode
+
+            jmp Loop
+          
+          .else
+
+          lda SaveSlotBusy
+          bne DoEraseSlot
+          lda SaveSlotErased
+          bne DoResumeSlot
+
+          lda #SoundBump
+          sta NextSound
           jmp Loop
+
+DoEraseSlot:
+          .FarJSR AnimationsBank, ServiceConfirmErase
+          jmp Loop
+
+DoResumeSlot:
+          jsr Unerase
+          jmp Loop
+          
+          .fi
+
 
 ThisIsNotAStickUp:
           lda #ModeSelectSlot
           sta GameMode
+
+          lda AlarmCountdown
+          bne StillGotTime
+
+          .WaitScreenBottom
+          jmp Attract
+
+StillGotTime:
 
           lda NewButtons
           beq SkipButton

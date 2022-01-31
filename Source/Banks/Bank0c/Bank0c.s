@@ -6,9 +6,17 @@
 
           .include "SpeakJetIDs.s" ; from this bank, not bank 7
 
-
 DoLocal:
           .include "Signpost.s"
+
+          .include "WinnerFireworks.s"
+          .include "Fireworks.s"
+          .align $100
+          .include "BossBearDies.s"
+          .align $20
+          .include "ShowPicture.s"
+
+          .include "Prepare48pxMobBlob.s"
 
           .include "VSync.s"
           .include "VBlank.s"
@@ -17,6 +25,7 @@ DoLocal:
 
           .include "SignpostText.s"
           .include "SignpostSpeech.s"
+          .include "VictorySpeech.s"
           .include "SpeakJetIndex.s"
 
           .include "PlaySpeech.s"

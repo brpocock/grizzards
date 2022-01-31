@@ -2,9 +2,13 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 DrawMonsterGroup:   .block
 
+          .if !DEMO
+          jsr GetMonsterColors
+          .fi
+
 GetMonsterPointer:
           lda #>MonsterArt
-          sta CombatSpritePointer + 1
+          sta pp4h
 
 GetMonsterArtPointer:
           lda CurrentMonsterArt
@@ -22,7 +26,7 @@ GetAnimationFrame:
           ;; clc ; not needed, BIT does not affect Carry, still clear here
           adc # MonsterArt.Height / 8
           bcc +
-          inc CombatSpritePointer + 1
+          inc pp4h
 +
           clc
           tax
@@ -43,26 +47,23 @@ GetImagePointer:
           asl a
           asl a
           bcc +
-          inc CombatSpritePointer + 1
+          inc pp4h
 +
           clc
           adc #<MonsterArt
           bcc +
-          inc CombatSpritePointer + 1
+          inc pp4h
 +
-          sta CombatSpritePointer
+          sta pp4l
 
 PrepareToDrawMonsters:
           lda # 0
           sta VDELP0
           sta VDELP1
           sta NUSIZ0
-          sta pp3l
+          sta pp5h
           lda #NUSIZDouble
           sta NUSIZ1
-
-          lda CombatMajorP      ; not Boss Bear, handled by ServiceShowBossBear
-          bne DrawMajorMonster
 ;;; 
 PrepareTopCursor:
           jsr SetCursorColor
@@ -78,7 +79,7 @@ NoTarget:
           .fi
 NoTopTarget:
           lda # 0
-          sta pp3l
+          sta pp5h
           geq PrepareTopMonsters
 
 TopTarget:
@@ -128,7 +129,7 @@ PrepareCursor2Bottom:
           cpx # 4
           bge HasBottomCursor
           lda # 0
-          sta pp3l
+          sta pp5h
           geq PrepareBottomMonsters
 
 HasBottomCursor:
@@ -175,7 +176,6 @@ FinishUp:
           stx WSYNC
 +
           .SkipLines 3
-          rts
 
           .else
 
@@ -183,51 +183,14 @@ FinishUp:
           beq +
           stx WSYNC
 +
-          rts
           .fi
-
+          rts
 ;;; 
 NoBottomMonsters:
           jsr DrawNothing
           jmp FinishUp
 ;;; 
-DrawMajorMonster:
-
-PositionMajorMonster:
-          stx WSYNC
-          lda # NUSIZQuad
-          sta NUSIZ0
-          nop
-          nop
-          nop
-          ldy #$70
-GrossPositionMajorMonster:
-          dey
-          bne GrossPositionMajorMonster
-          sta RESP0
-
-DrawMajorMonsterLines:
-          ldy # 7
-DrawMajorMonsterLoop:
-          lda (CombatSpritePointer), y
-          sta GRP0
-          .if TV == NTSC
-            .SkipLines 4
-          .else
-            .SkipLines 6
-          .fi
-          dey
-          bpl DrawMajorMonsterLoop
-
-          ldy # 0
-          sty GRP0
-          sty GRP1
-
-          .SkipLines 2
-
-          rts
-;;; 
-          .align $40
+          .fill $00             ; alignment XXX
 PositionCursor:
           stx WSYNC
           .Sleep 13
@@ -245,11 +208,12 @@ CursorPosGross:
           sta HMP1
 
           lda #%11111100
-          sta pp3l
+          sta pp5h
 
           stx WSYNC
           rts
 ;;; 
+          .fill $08             ; alignment XXX
 PositionMonsters:
           stx WSYNC
           lda SpritePresence, x
@@ -272,20 +236,25 @@ GrossPositionMonsters:
           .SleepX 71
           sta HMOVE
 
-          lda pp3l
+          lda pp5h
           sta GRP1
           rts
 ;;; 
 DrawMonsters:
           ldy # 7
+          ldx # 0
 DrawMonsterLoop:
-          lda (CombatSpritePointer), y
+          lda (pp4l), y
           sta GRP0
-          stx WSYNC
-          stx WSYNC
-          .if TV != NTSC
-            stx WSYNC
+
+          .if !DEMO
+          lda PixelPointers, x
+          sta COLUP0
           .fi
+
+          stx WSYNC
+          stx WSYNC
+          inx
           dey
           bpl DrawMonsterLoop
 
@@ -327,6 +296,7 @@ CursorColored:
 
           rts
 ;;; 
+          .fill $00             ; alignment XXX
 DrawNothing:
           lda # 0
           sta GRP0
@@ -337,7 +307,7 @@ DrawNothing:
 
           .NoPageCrossSince DrawNothing
 
-          lda pp3l
+          lda pp5h
           sta GRP1
 
           .if TV == NTSC

@@ -351,3 +351,28 @@ SetUtterance:       .macro constant
           lda #<\constant
           sta CurrentUtterance
           .endm
+          
+SetSkyColor:        .macro
+          .if TV == SECAM
+            lda #COLBLUE
+          .else
+            .ldacolu COLTURQUOISE, $e
+          .fi
+          .endm
+;;; 
+;;; From Ryan Witmer / PhaserCat
+
+mva:      .macro dest, src
+          lda \src
+          sta \dest
+          .endm
+
+mvx:      .macro dest, src
+          ldx \src
+          stx \dest
+          .endm
+
+mvy:      .macro dest, src
+          ldy \src
+          sty \dest
+          .endm          

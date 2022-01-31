@@ -2,16 +2,6 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 CopyrightMode:      .block
-          lda AttractHasSpoken
-          cmp #<Phrase_TitleCopyright
-          beq DoneCopyrightSpeech
-
-          lda #>Phrase_TitleCopyright
-          sta CurrentUtterance + 1
-          lda #<Phrase_TitleCopyright
-          sta CurrentUtterance
-          sta AttractHasSpoken
-DoneCopyrightSpeech:
           .SkipLines 24
 
           .ldacolu COLTURQUOISE, $e

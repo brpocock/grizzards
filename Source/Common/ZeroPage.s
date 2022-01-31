@@ -81,8 +81,7 @@ CurrentGrizzard:
 CurrentProvince:
           .byte ?
 
-          ;; Reserve one byte in the save file in case I forgot something
-GlobalZeroPad:
+Potions:
           .byte ?
 
 EndGlobalGameData:
@@ -307,10 +306,6 @@ CurrentMonsterPointer:
 CurrentMonsterArt:
           .byte ?
 
-;;; Pointer to the enemy's sprite graphics
-CombatSpritePointer:
-          .word ?
-
 ;;; Is the Grizzard affected by a Status Effect from combat?
 StatusFX:
           .byte ?
@@ -342,6 +337,14 @@ MoveTarget:
 MoveAnnouncement:
           .byte ?
 
+;;; Overlain: when drawing vs. executing a move
+
+MonsterColorPointer:
+          .word ?
+
+CurrentMonsterNumber:
+          .byte ?
+
 ;;; The move's outcome
 MoveHitMiss:
           .byte ?
@@ -358,7 +361,17 @@ MoveStatusFX:
 CriticalHitP:
           .byte ?
 
-* = $ec
+AttackerAttack:
+          .byte ?
+
+DefenderDefend:
+          .byte ?
+
+DefenderHP:
+          .byte ?
+
+DefenderStatusFX:
+          .byte ?
 
 ;;; Non-zero if this is a Major Combat in stead of a regular one
 ;;; (only differences are how the enemy is drawn and numbers are omitted)
@@ -381,6 +394,10 @@ SaveSlotChecked:
 
 ;;; Is the current slot in use?
 SaveSlotBusy:
+          .byte ?
+
+;;; Is the current slot recently erased?
+SaveSlotErased:
           .byte ?
 
 ;;; Jatibu Code progress

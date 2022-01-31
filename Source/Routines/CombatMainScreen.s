@@ -43,8 +43,8 @@ Loop:
           bne +
           .SkipLines 5
 +
-          .SkipLines 0
           .fi
+
 LoopFirst:
           .WaitScreenTopMinus 1, 3
           jsr Prepare48pxMobBlob
@@ -66,7 +66,7 @@ PlayerTurnBGTop:
             .ldacolu COLRED, $8
             jmp BGTop
 PlayerTurnBGTop:
-            .ldacolu COLGRAY, $2
+            .ldacolu COLGRAY, $8
 
           .case SECAM
 
@@ -91,7 +91,7 @@ MonstersDisplay:
           bne MonsterWithName
 BossBearDisplay:
           .SkipLines 20
-          .FarJSR EndAnimationsBank, ServiceShowBossBear
+          .FarJSR StretchBank, ServiceShowBossBear
           .SkipLines 20
           jmp DelayAfterMonsters
 
@@ -101,13 +101,31 @@ MonsterWithName:
           ldy # MonsterColorIndex
           lda (CurrentMonsterPointer), y
           sta COLUP0
+          ;; COLUP1 overwritten for “regular” fights but needed for bosses
+          sta COLUP1
 
           lda WhoseTurn         ; show highlight on monster moving
           beq +
           sta MoveTarget
 +
 
-          .FarJSR AnimationsBank, ServiceDrawMonsterGroup
+          lda CombatMajorP
+          beq MinorCombatArt
+          lda MonsterHP + 1
+          ora MonsterHP + 2
+          ora MonsterHP + 3
+          ora MonsterHP + 4
+          ora MonsterHP + 5
+          bne MinorCombatArt
+
+MajorCombatArt:
+          .FarJSR MonsterBank, ServiceDrawBoss
+          jmp DelayAfterMonsters
+
+MinorCombatArt:
+          ldy # 0
+          sty CombatMajorP
+          .FarJSR MonsterBank, ServiceDrawMonsterGroup
 DelayAfterMonsters:
           ;; no actual delay now
 ;;; 
@@ -188,7 +206,7 @@ FullPF1:                        ; ∈ 8…12
           ;; fall through
 
 DoneHealth:
-          .SkipLines 2
+          .SkipLines 4
           lda # 0
           sta PF0
           sta PF1
@@ -301,9 +319,6 @@ RunningAway:
           .SkipLines 3
           .fi
 ScreenDone:
-          .if NTSC == TV
-          .SkipLines 4
-          .fi
 
           lda GameMode
           cmp #ModeCombat

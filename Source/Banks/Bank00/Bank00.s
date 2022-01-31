@@ -15,33 +15,15 @@
 
 ;;; Start with page-aligned bitmaps
           .include "Title1.s"
-          .align $100, 0
 
-          .switch STARTER
-          .case 0
-          .include "Grizzard0-0.s"
+          .if DEMO
           .align $100, 0
-          .include "Grizzard0-1.s"
-          Title2=Grizzard00
-          Title3=Grizzard01
-
-          .case 1
-          .include "Grizzard1-0.s"
+          .include "Source/Generated/Bank0d/Grizzard1-0.s"
           .align $100, 0
-          .include "Grizzard1-1.s"
+          .include "Source/Generated/Bank0d/Grizzard1-1.s"
           Title2=Grizzard10
           Title3=Grizzard11
-
-          .case 2
-          .include "Grizzard2-0.s"
-          .align $100, 0
-          .include "Grizzard2-1.s"
-          Title2=Grizzard20
-          Title3=Grizzard21
-
-          .default
-          .error "STARTER ∈ (0 1 2), not ", STARTER
-          .endswitch
+          .fi
 
           .align $100, 0
           .if PUBLISHER
@@ -67,18 +49,25 @@ DoLocal:
           beq SaveGrizzard
           cpy #ServiceAttract
           beq Attract.WarmStart
+
           .if !NOSAVE
           cpy #ServiceLoadGrizzard
           beq LoadGrizzardData
           cpy #ServiceSetCurrentGrizzard
           beq SetCurrentGrizzard
           .fi
+
           .if !DEMO
           cpy #ServiceSaveProvinceData
           beq SaveProvinceData
           cpy #ServiceLoadProvinceData
           beq LoadProvinceData
+          cpy #ServiceChooseGrizzard
+          beq GrizzardChooser
+          cpy #ServiceConfirmNewGame
+          beq ConfirmNewGame
           .fi
+
           brk
 
           ;; falls through to
@@ -114,11 +103,13 @@ PeekGrizzard:
           .include "PeekGrizzard.s"
           .include "SelectSlot.s"
           .include "LoadSaveSlot.s"
+
           .if ATARIAGESAVE
           .include "AtariAgeSave-EEPROM-Driver.s"
           .else
           .include "AtariVox-EEPROM-Driver.s"
           .fi
+
           .include "CheckSaveSlot.s"
           .include "LoadGrizzardData.s"
           .include "LoadProvinceData.s"
@@ -128,6 +119,14 @@ PeekGrizzard:
           .include "SaveGrizzard.s"
           .include "SetCurrentGrizzard.s"
 
+          .fi
+
+          .if DEMO
+          .include "DrawStarter.s"
+          .else
+          .include "GrizzardChooser.s"
+          .include "ConfirmNewGame.s"
+          .include "Unerase.s"
           .fi
 
           .include "Random.s"

@@ -5,7 +5,7 @@
 EndBank:
 
           .if DEMO
-          BankEndAddress = $ff4c      ; keep this as high as possible
+          BankEndAddress = $ff4e      ; keep this as high as possible
           .else
           BankEndAddress = $ff3a      ; keep this as high as possible
           .fi

@@ -1,9 +1,6 @@
 TitleIntro:
 Grizzards
 
-TitleCopyright:
-Copyright twenty-twenty-two Bruce-Robert Pocock
-
 SelectSlot:
 Select a save game slot
 
@@ -11,7 +8,8 @@ EraseSlot:
 Erase a save game slot
 
 Credits:
-With love to Zephyr Salz
+Created by  Bruce-Robert Pocock...With  love to Zephyr  Salz...Thanks to
+every-one at the Atari Age forum for their support
 
 Story:
 Save the world of Syrex.Train your Grizzards to defeat the monsters
@@ -21,3 +19,9 @@ Enter your name
 
 GameOver:
 game over
+
+ChooseGrizzard:
+Choose your starting Grizzard
+
+ConfirmNewGame:
+Make changes,or begin now

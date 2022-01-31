@@ -59,6 +59,11 @@ PrintKilled:
           .SetPointer KilledText
           jsr CopyPointerText
           jsr DecodeAndShowText
+          lda CriticalHitP
+          beq +
+          .SetPointer CritText
+          jsr ShowPointerText
++
           jmp AfterStatusFX
 
 CheckMonsterPulse2:
@@ -414,11 +419,7 @@ CheckForLoss:
           stx TIM64T
           .fi
           .WaitScreenBottom
-          .if DEMO
           .FarJMP AnimationsBank, ServiceDeath
-          .else
-          .FarJMP EndAnimationsBank, ServiceDeath
-          .fi
 Bye:
           .WaitScreenBottomTail
 

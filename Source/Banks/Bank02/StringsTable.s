@@ -23,3 +23,7 @@ KilledText:
 
 CritText:
           .MiniText " CRIT!"    ; critical hit
+
+PotionText:
+          .MiniText "GOT A "
+          .MiniText "POTION"

@@ -297,7 +297,7 @@ SpriteList:
           .if !DEMO
           .byte $ff, SpriteWander
           .byte 140, 45
-          .byte SpritePerson, 77 ; Random villager
+          .byte SpritePerson, 77 ; used to be fun
           .fi
 
           .byte 0
@@ -542,10 +542,6 @@ SpriteList:
           .byte 0
 
           ;; Room 21
-          .byte 24, SpriteRandomEncounter
-          .byte 0, 0
-          .byte SpriteCombat, 24
-
           .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 28
@@ -561,9 +557,9 @@ SpriteList:
           .byte 0
 
           ;; Room 22
-          .byte 24, SpriteRandomEncounter
+          .byte 24, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 24
+          .byte SpriteMajorCombat, 24
 
           .byte $ff, SpriteWander
           .byte 0, 0
@@ -580,10 +576,6 @@ SpriteList:
           .byte 0
 
           ;; Room 23
-          .byte 24, SpriteRandomEncounter
-          .byte 0, 0
-          .byte SpriteMajorCombat, 24
-
           .byte 24, SpriteFixed
           .byte $77, $27
           .byte SpriteSign, 20  ; beware of grue
@@ -735,7 +727,7 @@ SpriteList:
           ;; Room 34
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpritePerson, 77 ; random villager
+          .byte SpritePerson, 104 ; potions
 
           .byte 0
 

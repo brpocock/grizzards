@@ -39,7 +39,7 @@ Loop:
           bne WhiteSadFace
 
           .ldacolu COLRED, $6
-          jmp CommonSadness
+          gne CommonSadness
 
 WhiteSadFace:
           lda #COLGRAY | $f

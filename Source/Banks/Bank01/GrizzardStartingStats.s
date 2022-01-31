@@ -13,27 +13,27 @@ Aquax:
 Airex:
           .byte  8,  1,  1, 10,  $0f
 Flamex:
-          .byte 10,  4,  4, 11,  $0f
+          .byte 12,  6,  4, 11,  $0f
 Soiley:
-          .byte 10,  4,  4,  0,  $0f
+          .byte 12,  6,  4,  0,  $0f
 Wetnas:
-          .byte 10,  4,  4,  0,  $0f
+          .byte 12,  6,  4,  0,  $0f
 Windoo:
-          .byte 10,  4,  4,  0,  $0f
+          .byte 15,  6,  4,  0,  $0f
 Firend:
           .byte 12,  6,  6,  0,  $0f
           ;; 8
 Lander:
-          .byte 12,  6,  6,  0,  $0f
+          .byte 16,  8,  8,  0,  $0f
 Sailor:
-          .byte 12,  6,  6,  0,  $0f
+          .byte 16,  8,  8,  0,  $0f
           ;; 10
 Flyer:
-          .byte 12,  6,  6,  0,  $0f
-Burner:
           .byte 16,  8,  8,  0,  $0f
+Burner:
+          .byte 20,  10,  8,  0,  $0f
 Splodo:
-          .byte  5, 75, 15,  0,  $0f
+          .byte  5, 75, 15,  0,  $ff
 Tyrant:
           .byte 20, 20, 20,  0,  $0f
 Dufont:

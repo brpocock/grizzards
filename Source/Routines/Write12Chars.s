@@ -65,8 +65,11 @@ DrawLeftField:
 
           .Add16 SignpostWork, # 9
 
-          ;; fall through
+          jmp AlignedLeft
 ;;; 
+          .if BANK > 3
+          .align $100             ; alignment XXX
+          .fi
 AlignedLeft:
           .option allow_branch_across_page = false
 
@@ -155,7 +158,7 @@ DoneDrawing:
           rts
 ;;; 
 
-          .align $40
+          .align $100             ; alignment XXX
 
 AlignedRight:
           .option allow_branch_across_page = false

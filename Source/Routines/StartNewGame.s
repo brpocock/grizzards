@@ -36,8 +36,6 @@ InitGameVars:
           sta BlessedY
           sta PlayerY
 
-          lda # STARTER         ; STARTER Grizzard
-          sta CurrentGrizzard
           lda # 1
           sta GrizzardAttack
           sta GrizzardDefense
@@ -71,6 +69,9 @@ InitGameVars:
 
           .if NOSAVE
 
+          lda # 1               ; Aquax
+          sta CurrentGrizzard
+          
           lda #$ff
           sta ProvinceFlags + 4
 
@@ -138,12 +139,36 @@ WaitForScreenEnd:
           jmp Loop
 
 Leave:
-          .FarJSR SaveKeyBank, ServiceSaveToSlot
-          .FarJSR AnimationsBank, ServiceBeginName
+          lda # 0
+          sta NameEntryBuffer
+EnterName:
+          .FarJSR StretchBank, ServiceBeginName
 
-          .WaitScreenBottom
-          .WaitScreenTop
+          .if DEMO
+
+          lda # 1               ; Aquax
+          sta CurrentGrizzard
+
+          .else
+
+          .FarJSR SaveKeyBank, ServiceChooseGrizzard
+          .FarJSR SaveKeyBank, ServiceConfirmNewGame
+          lda GameMode
+          cmp #ModeEnterName
+          beq EnterName
+
+          .fi
+
+          .FarJSR SaveKeyBank, ServiceSaveToSlot
+
 SaveName:
+          .if NTSC == TV
+          .SkipLines 2
+          .else
+          .SkipLines 1
+          .fi
+          .WaitScreenTop
+
           jsr i2cStartWrite
           lda SaveGameSlot
           clc

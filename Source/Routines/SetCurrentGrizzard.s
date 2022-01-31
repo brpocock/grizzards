@@ -3,6 +3,8 @@
 
 SetCurrentGrizzard:       .block
 
+          jsr i2cWaitForAck
+
           jsr i2cStartWrite
 
           lda #>SaveGameSlotPrefix
@@ -10,7 +12,7 @@ SetCurrentGrizzard:       .block
           adc SaveGameSlot
           jsr i2cTxByte
 
-          lda # 5 + CurrentGrizzard - GlobalGameDataLength
+          lda # 5 + CurrentGrizzard - GlobalGameData
           jsr i2cTxByte
 
           lda CurrentGrizzard

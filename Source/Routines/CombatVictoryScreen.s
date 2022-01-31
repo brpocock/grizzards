@@ -48,12 +48,38 @@ DoesEvolve:
           .else
 
           sty NextMap
-          .FarJMP EndAnimationsBank, ServiceGrizzardEvolution
+          .FarJMP AnimationsBank, ServiceGrizzardEvolution
 
           .fi
 
           .fi                   ; !NOSAVE
+
 AfterEvolution:
+          .SetUtterance Phrase_Victory
+
+          ldy # 0
+          sty DeltaY
+
+          .if !DEMO
+
+          lda Potions
+          cmp # 99
+          bge AfterPotions
+
+          jsr Random
+          and #$03
+          bne AfterPotions
+
+          lda # 1
+          sta DeltaY
+
+          inc Potions
+
+          .SetUtterance Phrase_VictoryWithPotion
+
+          .fi
+
+AfterPotions:
           lda CurrentCombatEncounter
           cmp # 92               ; Boss Bear Battle
           beq WonGame
@@ -61,8 +87,6 @@ AfterEvolution:
           bge DefeatDragon
 
 NormalVictory:
-          .SetUtterance Phrase_Victory
-
           lda #SoundVictory
           sta NextSound
 
@@ -94,6 +118,21 @@ Loop:
           jsr CopyPointerText
           jsr DecodeAndShowText
 
+          .SkipLines KernelLines / 5
+
+          lda DeltaY
+          beq DonePrintingPotions
+
+          .SetPointer PotionText
+          jsr CopyPointerText
+          jsr DecodeAndShowText
+
+          .SetPointer PotionText + 6
+          jsr CopyPointerText
+          jsr DecodeAndShowText
+
+DonePrintingPotions:
+
           lda AlarmCountdown
           bne Loop
 
@@ -114,9 +153,14 @@ DefeatDragon:
           cmp #%00011100
           bne NormalVictory
 
-          .FarJMP EndAnimationsBank, ServiceRevealBear
+          .FarJMP StretchBank, ServiceRevealBear
           
 WonGame:
-          .FarJMP EndAnimationsBank, ServiceFireworks
+          lda # 103             ; Game_Won
+          sta SignpostIndex
+          lda #ModeSignpost
+          sta GameMode
+          ldx #SignpostBank
+          jmp FarCall
            
           .bend

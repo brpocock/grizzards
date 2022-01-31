@@ -5,18 +5,18 @@
           .include "StartBank.s"
 
           .include "Source/Generated/Bank07/SpeakJetIDs.s"
+          .include "6BitCompression.s"
 
           .include "Font.s"
           .include "FontExtended.s"
-          .include "6BitCompression.s"
-          .include "DecodeText.s"
+
+          ;; these have some annoying alignment requirements
+          ;; keep them early to avoid adjusting it too often
           .include "Write12Chars.s"
+
+          .include "DecodeText.s"
           .include "Inquire.s"
-
-          .include "BeginNamePrompt.s"
-
           .include "AttractStory.s"
-          .include "DrawMonsterGroup.s"
           .include "DrawGrizzard.s"
 
           .include "CombatVBlank.s"
@@ -35,8 +35,6 @@ ShowPointerText:
           .FarJMP TextBank, ServiceDecodeAndShowText ; tail call
 
 DoLocal:
-          cpy #ServiceDrawMonsterGroup
-          beq DrawMonsterGroup
           cpy #ServiceDrawGrizzard
           beq DrawGrizzard
           cpy #ServiceWrite12Chars
@@ -47,12 +45,23 @@ DoLocal:
           beq AttractStory
           cpy #ServiceInquire
           beq Inquire
-          cpy #ServiceBeginName
-          beq BeginNamePrompt
+          cpy #ServiceFinalScore
+          beq FinalScore
+          cpy #ServiceGrizzardEvolution
+          beq GrizzardEvolution
+          cpy #ServiceDeath
+          beq Death
+          cpy #ServiceConfirmErase
+          beq ConfirmErase
           brk
 
-          .include "MonsterArt.s"
-          .include "MonsterArt2.s"
+          .include "GrizzardEvolution.s"
+          .include "ConfirmErase.s"
+          .include "Death.s"
+          .include "FinalScore.s"
+
+          .include "DecodeScore.s"
+
           .include "GrizzardImages.s"
           .include "GrizzardArt.s"
           .include "CombatSpriteTables.s"

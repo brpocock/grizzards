@@ -157,7 +157,7 @@ QuickFoot:
 GreatMojo:
           .byte 5
 WindFight:
-          .byte 0
+          .byte 3
 StealAttack:
           .byte 0
 StealDefend:
@@ -174,7 +174,7 @@ RogueFlare:
 DoubleFlares:
           .byte 15
 TailWhip:
-          .byte 5
+          .byte 7
 TailLash:
           .byte 10
 Bite:
@@ -204,7 +204,7 @@ HealWound:
 LifeReturn:
           .byte $ff ^ 99
 Nibble:
-          .byte 10
+          .byte 7
 MuddleMind:
           .byte 0
 GreatMuddle:
@@ -212,7 +212,7 @@ GreatMuddle:
 ScareAway:
           .byte 0
 WetNoodle:
-          .byte 0
+          .byte 4
           ;; 40
 StompDown:
           .byte 19

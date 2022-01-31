@@ -104,6 +104,8 @@ CheckStick:
 
           and #P0StickUp
           bne DoneStickUp
+          lda #SoundChirp
+          sta NextSound
           lda CombatMajorP
           beq CanSelectMoveUp
           dex
@@ -111,7 +113,8 @@ CheckStick:
           gne DoneStickUp
 CanSelectMoveUp:
           dex
-          bpl DoneStickUp
+          cpx #$ff
+          bne DoneStickUp
 WrapMoveForUp:
           ldx # 8
 
@@ -119,7 +122,9 @@ DoneStickUp:
           lda NewSWCHA
           and #P0StickDown
           bne DoneStickDown
-          inx
+          inx 
+          lda #SoundChirp
+          sta NextSound
           cpx #9              ; max moves = 8
           blt DoneStickDown
           ldy CombatMajorP
@@ -195,10 +200,10 @@ CheckSwitches:
           ldx # 0
           stx VBLANK
           .if TV == NTSC
-          .TimeLines KernelLines - 1
+            .TimeLines KernelLines - 1
           .else
-          lda #$ff
-          sta TIM64T
+            lda #$ff
+            sta TIM64T
           .fi
 
           .FarJMP SaveKeyBank, ServiceAttract

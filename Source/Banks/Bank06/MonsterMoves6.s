@@ -22,9 +22,9 @@ MonsterMoves:       .block
           .byte 19, 20, 30, 31  ; Will-O-Wisp
           .byte 1, 2, 3, 4      ; Butterfly
           ;; 16
-          .byte 1, 2, 3, 4      ; Scary Rat
-          .byte 1, 2, 3, 4      ; Cave Grue
-          .byte 1, 2, 3, 4      ; Cave Bat
+          .byte 35, 35, 35, 21  ; Scary Rat
+          .byte 36, 31, 22, 35  ; Cave Grue
+          .byte 45, 13, 16, 31  ; Cave Bat
           .byte 25, 24, 24, 36  ; Venom Sheep
           .byte 40, 41, 43, 43  ; 1-Eyed Cyclops
           .byte 1, 2, 3, 4      ; Fierce Raptor
@@ -46,7 +46,7 @@ MonsterMoves:       .block
           .byte 1, 2, 3, 4      ; Poison Asp
           .byte 1, 2, 3, 4      ; Grabby Crabby
           .byte 45, 48, 23, 30  ; Giant Bat
-          .byte 1, 2, 3, 4      ; Maze Jaguar
+          .byte 22, 23, 44, 32  ; Maze Jaguar
           .byte 1, 2, 3, 4
           ;; 40
           .byte 1, 2, 3, 4

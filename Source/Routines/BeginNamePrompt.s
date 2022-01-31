@@ -5,6 +5,9 @@ BeginNamePrompt:
 
           .SetUtterance Phrase_EnterName
 
+          lda NameEntryBuffer
+          bne BufferReady
+
           lda #$28              ; blank
           ldx # 5
 -
@@ -15,10 +18,16 @@ BeginNamePrompt:
           lda #$0a              ; letter “A”
           sta NameEntryBuffer
 
+BufferReady:
           lda # 0
           sta NameEntryPosition
 
+          .if NTSC != TV
+          .WaitScreenBottom
+          .SkipLines 1
           jmp FirstTime
+          .fi
+
 Loop:
           .WaitScreenBottom
 FirstTime:
@@ -61,6 +70,15 @@ FirstTime:
           bne -
 
           ldx NameEntryPosition
+          jmp BeginGrossPosition
+
+          .if 3 == BANK
+          .align $40            ; XXX alignment
+          .else
+          .align $20            ; XXX
+          .fi
+
+BeginGrossPosition:
           stx WSYNC
           .Sleep 13
           lda CursorPositionIndex, x
@@ -78,6 +96,8 @@ CursorPosGross:
           stx WSYNC
           .SleepX 71
           sta HMOVE
+
+          .NoPageCrossSince BeginGrossPosition
 
           jsr Prepare48pxMobBlob
 
@@ -100,6 +120,16 @@ CursorPosGross:
 
           ldx NameEntryPosition
 
+          lda NewSWCHB
+          beq DoneSwitches
+          and #SWCHBReset
+          bne DoneSwitches
+
+          .WaitScreenBottom
+          jmp GoColdStart
+
+DoneSwitches:
+
           lda NewSWCHA
           beq NoStick
           .BitBit P0StickUp
@@ -121,6 +151,8 @@ ButtonPressed:
           cpx # 5
           beq Submit
 
+          .if !DEMO
+
           lda # SoundBlip
           sta NextSound
 
@@ -131,6 +163,9 @@ ButtonPressed:
           bne Done
           lda #$0a              ; letter “A”
           sta NameEntryBuffer, x
+
+          .fi
+
           gne Done
 
 LetterInc:

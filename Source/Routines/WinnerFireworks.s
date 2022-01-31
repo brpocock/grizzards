@@ -2,56 +2,40 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 WinnerFireworks:    .block
 
-          lda # 60
-          sta AlarmCountdown
+          lda #SoundRoar
+          sta NextSound
+          .SetUtterance Phrase_BossBearDefeated
 
-          .WaitScreenBottom
 Loop:
+          .WaitScreenBottom
           .WaitScreenTop
-          .ldacolu COLCYAN, $c
+          .ldacolu COLRED, $8
           sta COLUBK
-          .ldacolu COLRED, $2
+          .ldacolu COLGOLD, $0
           sta COLUP0
           sta COLUP1
 
-          .SetPointer WinnerText
-          jsr ShowPointerText12
-          .SetPointer WinnerText + 9
-          jsr ShowPointerText12
-          .SetPointer WinnerText + 9 * 2
-          jsr ShowPointerText12
-          .SetPointer WinnerText + 9 * 3
-          jsr ShowPointerText12
-          .SetPointer WinnerText + 9 * 4
-          jsr ShowPointerText12
-          ;; TODO: Fireworks display for the winner of the game
-          .fill $180, $ea
+          jsr Prepare48pxMobBlob
 
-          .WaitScreenBottom
+          .FarJSR AnimationsBank, ServiceFinalScore
+
+          .SkipLines KernelLines / 5
+          
+          .SetUpFortyEight BossBearDies
+          ldy #BossBearDies.Height
+          sty LineCounter
+          jsr ShowPicture
+
 ;;; 
           lda NewSWCHB
           beq +
-          .BitBit SWCHBReset
+          and #SWCHBReset
           beq Leave
 +
-	lda NewButtons
-          beq +
-          .BitBit PRESSED
-          beq Leave
-+
-          lda AlarmCountdown
-          beq Leave
           jmp Loop
 
 Leave:
-          .WaitScreenTop
-          .FarJMP SaveKeyBank, ServiceAttract
+          jmp GoColdStart
 
           .bend
 
-WinnerText:
-          .SignText "YOU'VE WON  "
-          .SignText "THE GAME,   "
-          .SignText "BUT IT'S NOT"
-          .SignText "FINISHED YET"
-          .SignText "SO NO REWARD"

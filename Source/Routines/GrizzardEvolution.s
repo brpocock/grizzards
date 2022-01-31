@@ -28,6 +28,7 @@ GrizzardEvolution:  .block
           ;; We have to also switch the current Grizzard to the new form
           ;; or if they quit, they'll come back with a zombie Grizzard
           ;; with 0 HP still selected as their current companion.
+          ;; This came back as BUG #352
           .FarJSR SaveKeyBank, ServiceSetCurrentGrizzard
 
           lda # 3
@@ -61,7 +62,7 @@ Loop:
           lda DeltaY
           sta CurrentGrizzard
 
-          .FarJSR AnimationsBank, ServiceDrawGrizzard
+          jsr DrawGrizzard
           .SkipLines 3
           
           jsr Prepare48pxMobBlob
@@ -90,7 +91,7 @@ Loop:
           sta CurrentGrizzard
 
           .SkipLines 3
-          .FarJSR AnimationsBank, ServiceDrawGrizzard
+          jsr DrawGrizzard
           .SkipLines 3
           jsr Prepare48pxMobBlob
           .ldacolu COLGRAY, 0
