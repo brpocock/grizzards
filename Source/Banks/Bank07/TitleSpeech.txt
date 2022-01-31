@@ -8,7 +8,8 @@ EraseSlot:
 Erase a save game slot
 
 Credits:
-With love to Zephyr Salz
+Created by  Bruce-Robert Pocock...With  love to Zephyr  Salz...Thanks to
+every-one at the Atari Age forum for their support
 
 Story:
 Save the world of Syrex.Train your Grizzards to defeat the monsters
