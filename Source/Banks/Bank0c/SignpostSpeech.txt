@@ -39,3 +39,9 @@ HadCookie:
 
 Win1:
 You have hit the final blow of the battle.The boss bear
+
+Potions:
+♀You seem to be low on potions.I will give you ten
+
+GotPotions:
+♀If you run low on potions,I will give you some

@@ -5,7 +5,7 @@
 
           FirstSignpost = 90
 
-          Signs = ( NPC_GetArtifacts, NPC_NoArtifacts, NPC_DoTrain, NPC_DoNotTrain, Sign_Grue, NPC_TunnelAlreadyOpen, Sign_SailBackToTreble, Sign_StayInPortLion, NPC_Hungry, NPC_HungryCookie, NPC_NoCookieForYou, NPC_CookieGiven, NPC_HadCookie, Game_Win1 )
+          Signs = ( NPC_GetArtifacts, NPC_NoArtifacts, NPC_DoTrain, NPC_DoNotTrain, Sign_Grue, NPC_TunnelAlreadyOpen, Sign_SailBackToTreble, Sign_StayInPortLion, NPC_Hungry, NPC_HungryCookie, NPC_NoCookieForYou, NPC_CookieGiven, NPC_HadCookie, Game_Win1, NPC_Potions, NPC_GotPotions )
 
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
@@ -169,3 +169,26 @@ Game_Win1:
           .SignText "BATTLE! THE "
           .SignText "BOSS BEAR..."
           .byte ModeWinnerFireworks
+
+;;; 104
+NPC_Potions:
+          .colu COLMAGENTA, $e
+          .colu COLGREEN, $2
+          .SignText "YOU SEEM TO "
+          .SignText "BE LOW ON   "
+          .SignText "POTIONS. I  "
+          .SignText "WILL GIVE   "
+          .SignText "YOU TEN.    "
+          .byte ModeSignpostPotions, 10
+          .byte ModeSignpostDone
+
+;;; 105
+NPC_GotPotions:
+          .colu COLMAGENTA, $e
+          .colu COLGREEN, $2
+          .SignText "IF YOU RUN  "
+          .SignText "LOW ON      "
+          .SignText "POTIONS, I  "
+          .SignText "WILL GIVE   "
+          .SignText "YOU SOME.   "
+          .byte ModeSignpostDone
