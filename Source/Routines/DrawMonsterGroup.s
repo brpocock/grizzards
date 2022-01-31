@@ -246,8 +246,12 @@ DrawMonsters:
 DrawMonsterLoop:
           lda (CombatSpritePointer), y
           sta GRP0
+
+          .if !DEMO
           lda PixelPointers, x
           sta COLUP0
+          .fi
+
           stx WSYNC
           stx WSYNC
           .if TV != NTSC
