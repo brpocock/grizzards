@@ -116,6 +116,9 @@ JatibuFF: .block
           cpx #$ff
           bne NotCompleted
 
+          lda # 99
+          sta Potions
+
           lda # 29
           sta CurrentGrizzard
           lda # 90
