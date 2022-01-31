@@ -14,34 +14,34 @@ WickedSlime:
           .colu COLSPRINGGREEN, $0
 
 HorridSlime:
-          .colu COLRED, $f
-          .colu COLRED, $f
-          .colu COLRED, $f
-          .colu COLRED, $f
-          .colu COLRED, $f
-          .colu COLRED, $f
-          .colu COLRED, $f
-          .colu COLRED, $f
+          .colu COLRED, $e
+          .colu COLRED, $c
+          .colu COLRED, $a
+          .colu COLRED, $8
+          .colu COLRED, $6
+          .colu COLRED, $4
+          .colu COLRED, $2
+          .colu COLRED, $0
 
 VorpalBunny:
-          .colu COLGOLD, $4
-          .colu COLGOLD, $4
-          .colu COLGOLD, $4
-          .colu COLGOLD, $4
-          .colu COLGOLD, $4
-          .colu COLGOLD, $4
+          .colu COLGOLD, $a
+          .colu COLGOLD, $a
+          .colu COLGOLD, $8
+          .colu COLGOLD, $8
+          .colu COLGOLD, $6
+          .colu COLGOLD, $6
           .colu COLGOLD, $4
           .colu COLGOLD, $4
 
 ROUS:
+          .colu COLBROWN, $e
+          .colu COLBROWN, $c
+          .colu COLBROWN, $a
           .colu COLBROWN, $8
-          .colu COLBROWN, $8
-          .colu COLBROWN, $8
-          .colu COLBROWN, $8
-          .colu COLBROWN, $8
-          .colu COLBROWN, $8
-          .colu COLBROWN, $8
-          .colu COLBROWN, $8
+          .colu COLBROWN, $6
+          .colu COLBROWN, $4
+          .colu COLBROWN, $2
+          .colu COLBROWN, $0
 
 LectroSheep:
           .colu COLBLUE, $8
