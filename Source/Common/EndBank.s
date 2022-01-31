@@ -27,6 +27,7 @@ EndBank:
 BankJump: .macro label, bank
           .block
 BankSwitch:
+          ldx #\bank
           stx BankControl
 
           .if BANK == \bank
