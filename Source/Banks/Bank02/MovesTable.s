@@ -5,58 +5,66 @@ MovesTable:         .block
 RunAway:
           .MiniText " RUN  "
           .MiniText " AWAY "
+          ;; 1
 KickDirt:
           .MiniText "KICK  "
           .MiniText "  DIRT"
+          ;; 2
 SplishSplash:
           .MiniText "SPLISH"
           .MiniText "SPLASH"
+          ;; 3
 MildShock:
           .MiniText "MILD  "
           .MiniText " SHOCK"
-
           ;; 4
 HotSpark:
           .MiniText "HOT   "
           .MiniText " SPARK"
+          ;; 5
 BuryDeep:
           .MiniText "BURY  "
           .MiniText "  DEEP"
+          ;; 6
 DirtyFoot:
           .MiniText "DIRTY "
           .MiniText "  FOOT"
+          ;; 7
 LoamyFear:
           .MiniText "LOAMY "
           .MiniText "  FEAR"
-
           ;; 8
 DustyEyes:
           .MiniText "DUSTY "
           .MiniText "  EYES"
+          ;; 9
 RaiseHope:
           .MiniText "RAISE "
           .MiniText "  HOPE"
+          ;; 10
 SureSplash:
           .MiniText "SURE  "
           .MiniText "SPLASH"
+          ;; 11
 QuickFoot:
           .MiniText "QUICK "
           .MiniText "  FOOT"
-
           ;; 12
 GreatMojo:
           .MiniText "GREAT "
           .MiniText "  MOJO"
+          ;; 13
 WindFight:
           .MiniText "WIND  "
           .MiniText " FIGHT"
+          ;; 14
 StealAttack:
           .MiniText "STEAL "
           .MiniText "ATTACK"
+          ;; 15
 StealDefend:
           .MiniText "STEAL "
           .MiniText "DEFEND"
-
           ;; 16
 StealTurn:
           .MiniText "STEAL "
@@ -73,7 +81,6 @@ BurntEdges:
 RogueFlare:
           .MiniText "ROGUE "
           .MiniText " FLARE"
-
           ;; 20
 DoubleFlares:
           .MiniText "DOUBLE"
@@ -90,21 +97,22 @@ TailLash:
 Bite:
           .MiniText " BITE "
           .MiniText "      "
-
           ;; 24
 PoisonBite:
           .MiniText "POISON"
           .MiniText "  BITE"
+          ;; 25
 CruelStab:
           .MiniText "CRUEL "
           .MiniText "  STAB"
+          ;; 26
 BlindBlob:
           .MiniText "BLIND "
           .MiniText "  BLOB"
+          ;; 27
 SlimyTrick:
           .MiniText "SLIMY "
           .MiniText " TRICK"
-
           ;; 28
 GuardDown:
           .MiniText "GUARD "
@@ -121,7 +129,6 @@ SimpleCure:
 CommonCure:
           .MiniText "COMMON"
           .MiniText "  CURE"
-
           ;; 32
 GreatCure:
           .MiniText "GREAT "
