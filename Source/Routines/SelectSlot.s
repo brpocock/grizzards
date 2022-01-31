@@ -82,7 +82,7 @@ DestroyNow:
           sta GameMode
           lda #$ff
           sta SaveSlotChecked
-          gne MidScreen
+          gne Loop
 
 DoNotDestroy:
           ;; See if the slot is in use
