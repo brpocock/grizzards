@@ -46,7 +46,7 @@ MonsterMoves:       .block
           .byte 1, 2, 3, 4      ; Poison Asp
           .byte 1, 2, 3, 4      ; Grabby Crabby
           .byte 45, 48, 23, 30  ; Giant Bat
-          .byte 1, 2, 3, 4      ; Maze Jaguar
+          .byte 22, 23, 44, 32  ; Maze Jaguar
           .byte 1, 2, 3, 4
           ;; 40
           .byte 1, 2, 3, 4
