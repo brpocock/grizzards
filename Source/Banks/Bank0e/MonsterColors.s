@@ -4,14 +4,14 @@
 MonsterColors:      .block
 
 WickedSlime:
-          .colu COLGREEN, $f
-          .colu COLGREEN, $f
-          .colu COLGREEN, $f
-          .colu COLGREEN, $f
-          .colu COLGREEN, $f
-          .colu COLGREEN, $f
-          .colu COLGREEN, $f
-          .colu COLGREEN, $f
+          .colu COLSPRINGGREEN, $e
+          .colu COLSPRINGGREEN, $c
+          .colu COLSPRINGGREEN, $a
+          .colu COLSPRINGGREEN, $8
+          .colu COLSPRINGGREEN, $6
+          .colu COLSPRINGGREEN, $4
+          .colu COLSPRINGGREEN, $2
+          .colu COLSPRINGGREEN, $0
 
 HorridSlime:
           .colu COLRED, $f
@@ -304,14 +304,14 @@ DragonAndrew:
           .colu COLCYAN, $4
 
 DragonTimmy:
+          .colu COLSPRINGGREEN, $e
+          .colu COLGREEN, $e
+          .colu COLGREEN, $c
+          .colu COLGREEN, $c
+          .colu COLGREEN, $a
+          .colu COLGREEN, $a
           .colu COLGREEN, $8
-          .colu COLGREEN, $8
-          .colu COLGREEN, $8
-          .colu COLGREEN, $8
-          .colu COLGREEN, $8
-          .colu COLGREEN, $8
-          .colu COLGREEN, $8
-          .colu COLGREEN, $8
+          .colu COLSPRINGGREEN, $8
 
 UberSlime:
           .colu COLBROWN, $f

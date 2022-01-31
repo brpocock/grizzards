@@ -417,7 +417,7 @@ CheckForLoss:
           .if DEMO
           .FarJMP AnimationsBank, ServiceDeath
           .else
-          .FarJMP EndAnimationsBank, ServiceDeath
+          .FarJMP MonsterBank, ServiceDeath
           .fi
 Bye:
           .WaitScreenBottomTail

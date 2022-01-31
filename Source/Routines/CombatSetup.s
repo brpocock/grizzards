@@ -10,6 +10,7 @@ DoCombat:          .block
           
           ldx CurrentCombatEncounter
           lda EncounterMonster, x
+          sta CurrentMonsterNumber
 
 SetUpMonsterPointer:
           ldx # 0

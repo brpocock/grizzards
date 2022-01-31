@@ -83,7 +83,7 @@ StoryPhase0:
           lda DeltaX
           sta COLUP0
 
-          jsr DrawMonsterGroup
+          .FarJSR MonsterBank, ServiceDrawMonsterGroup
 
           lda # KernelLines / 4
           sec
@@ -172,7 +172,7 @@ NotSix:
           lda DeltaX
           sta COLUP0
 
-          jsr DrawMonsterGroup
+          .FarJSR MonsterBank, ServiceDrawMonsterGroup
 
           ldy # 0               ; should not need this but … do.
           sty GRP0

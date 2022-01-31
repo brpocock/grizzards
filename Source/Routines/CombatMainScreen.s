@@ -119,11 +119,11 @@ MonsterWithName:
           bne MinorCombatArt
 
 MajorCombatArt:
-          .FarJSR EndAnimationsBank, ServiceDrawBoss
+          .FarJSR MonsterBank, ServiceDrawBoss
           jmp DelayAfterMonsters
 
 MinorCombatArt:
-          .FarJSR AnimationsBank, ServiceDrawMonsterGroup
+          .FarJSR MonsterBank, ServiceDrawMonsterGroup
 DelayAfterMonsters:
           ;; no actual delay now
 ;;; 

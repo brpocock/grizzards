@@ -5,36 +5,27 @@
           .include "StartBank.s"
 
           .include "Source/Generated/Bank07/SpeakJetIDs.s"
+          .include "48Pixels.s"
 
           .include "DrawBoss.s"
+          .include "DrawMonsterGroup.s"
 
 DoLocal:
-          cpy #ServiceGrizzardEvolution
-          beq GrizzardEvolution
-          cpy #ServiceDeath
-          beq Death
           cpy #ServiceDrawBoss
           beq DrawBoss
-          cpy #ServiceConfirmErase
-          beq ConfirmErase
-          cpy #ServicePotion
-          beq Potion
           cpy #ServiceGetMonsterColors
           beq GetMonsterColors
+          cpy #ServiceDrawMonsterGroup
+          beq DrawMonsterGroup
+          cpy #ServicePotion
+          beq Potion
           brk
 
           .include "VSync.s"
           .include "VBlank.s"
-          .include "Random.s"
-          .include "48Pixels.s"
           .include "Prepare48pxMobBlob.s"
           .include "AppendDecimalAndPrint.s"
 
-          .include "GrizzardEvolution.s"
-
-          .include "ConfirmErase.s"
-
-          .include "Death.s"
           .include "Potion.s"
 
           .include "CopyPointerText.s"
@@ -46,9 +37,13 @@ ShowText:
           .FarJMP TextBank, ServiceDecodeAndShowText
 
           .include "GetMonsterColors.s"
+
+          .include "CombatSpriteTables.s"
           .include "MonsterColors.s"
           .include "BossArt.s"
           .include "BossArt2.s"
+          .include "MonsterArt.s"
+          .include "MonsterArt2.s"
 
           .include "EndBank.s"
 

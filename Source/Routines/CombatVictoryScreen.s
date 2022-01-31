@@ -48,7 +48,7 @@ DoesEvolve:
           .else
 
           sty NextMap
-          .FarJMP EndAnimationsBank, ServiceGrizzardEvolution
+          .FarJMP MonsterBank, ServiceGrizzardEvolution
 
           .fi
 
