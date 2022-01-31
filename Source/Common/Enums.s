@@ -181,10 +181,37 @@
           FinaleBank = $0f
           .fi
 ;;; 
-;;; Text bank provides multiple services, selected with .y
+;;; The cold start / save game bank
+
+          ServiceAttract = $1e
+          ServiceChooseGrizzard = $31
+          ServiceColdStart = $00
+          ServiceConfirmNewGame = $32
+          ServiceLoadGrizzard = $22
+          ServiceLoadProvinceData = $21
+          ServicePeekGrizzard = $12
+          ServiceSaveGrizzard = $11
+          ServiceSaveProvinceData = $20
+          ServiceSaveToSlot = $10
+          ServiceSetCurrentGrizzard = $2f
+
+;;; Map services bank
+
+          ServiceBottomOfScreen = $09
+          ServiceGrizzardDefaults = $2e
+          ServiceGrizzardDepot = $07
+          ServiceGrizzardEvolveP = $2c
+          ServiceGrizzardStatsScreen = $19
+          ServiceNewGrizzard = $0c
+          ServiceTopOfScreen = $08
+          ServiceValidateMap = $1d
+
+;;; Text bank
 
           ServiceAppendDecimalAndPrint = $0e
+          ServiceCombatIntro = $1b
           ServiceCombatOutcome = $14
+          ServiceCombatVictory = $1c
           ServiceDecodeAndShowText = $01
           ServiceFetchGrizzardMove = $13
           ServiceLearntMove = $18
@@ -195,64 +222,38 @@
           ServiceShowMove = $06
           ServiceShowMoveDecoded = $17
           ServiceShowText = $02
-          ServiceCombatIntro = $1b
-          ServiceCombatVictory = $1c
-
-;;; Map services bank, same
-
-          ServiceBottomOfScreen = $09
-          ServiceGrizzardDepot = $07
-          ServiceGrizzardStatsScreen = $19
-          ServiceNewGrizzard = $0c
-          ServiceTopOfScreen = $08
-          ServiceValidateMap = $1d
-          ServiceGrizzardEvolveP = $2c
-          ServiceGrizzardDefaults = $2e
-
-;;; Animations services
-
-          ServiceDrawGrizzard = $05
-          ServiceAttractStory = $15
-          ServiceDeath = $0d
-          ServiceDrawMonsterGroup = $0b
-          ServiceWrite12Chars = $23
-          ServiceInquire = $24
-          ServiceFinalScore = $36
-
-;;; Combat services (stuffed into same bank as animation)
-
-          ServiceCombatVBlank = $2b
-          
-;;; End of game animation services
-
-          ServiceRevealBear = $27
-          ServiceFireworks = $0a
-          ServiceShowBossBear = $29
-          ServiceGrizzardEvolution = $2d
-          ServicePotion = $37
-          ServiceGetMonsterColors = $38
-
-;;; Also the cold start / save game bank
-
-          ServiceColdStart = $00
-          ServicePeekGrizzard = $12
-          ServiceSaveGrizzard = $11
-          ServiceSaveToSlot = $10
-          ServiceAttract = $1e
-          ServiceSaveProvinceData = $20
-          ServiceLoadProvinceData = $21
-          ServiceLoadGrizzard = $22
-          ServiceSetCurrentGrizzard = $2f
-          ServiceChooseGrizzard = $31
-          ServiceConfirmNewGame = $32
 
 ;;; Stretch goals bank
 
           ServiceBeginName = $2a
           ServiceDrawStarter = $30
+          ServiceRevealBear = $27
+          ServiceShowBossBear = $29
           ServiceUnerase = $33
-          ServiceConfirmErase = $34
+
+;;; Monster art
+
           ServiceDrawBoss = $35
+          ServiceDrawMonsterGroup = $0b
+          ServiceGetMonsterColors = $38
+          ServicePotion = $37
+
+;;; Animations services
+
+          ServiceAttractStory = $15
+          ServiceConfirmErase = $34
+          ServiceDeath = $0d
+          ServiceDrawGrizzard = $05
+          ServiceFinalScore = $36
+          ServiceFireworks = $0a
+          ServiceInquire = $24
+          ServiceWrite12Chars = $23
+          ServiceGrizzardEvolution = $2d
+
+;;; Combat services (stuffed into same bank as animation)
+
+          ServiceCombatVBlank = $2b
+
 
 ;;; 
 ;;; Maximum number of Grizzards allowed
