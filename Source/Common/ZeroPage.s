@@ -350,7 +350,7 @@ MonsterColorPointer:
 
 CurrentMonsterNumber:
           .byte ?
-          .endstruct
+          .ends
 
           .struct
 ;;; The move's outcome
@@ -369,8 +369,8 @@ MoveStatusFX:
 CriticalHitP:
           .byte ?
 
-          .endstruct
-          .endunion
+          .ends
+          .endu
 AttackerAttack:
           .byte ?
 
