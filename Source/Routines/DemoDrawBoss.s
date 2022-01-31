@@ -8,7 +8,7 @@ DemoDrawBoss:       .block
 
 GetMonsterPointer:
           lda #>MonsterArt
-          sta CombatSpritePointer + 1
+          sta pp3h
 
 GetMonsterArtPointer:
           lda CurrentMonsterArt
@@ -30,14 +30,14 @@ GetImagePointer:
           asl a
           asl a
           bcc +
-          inc CombatSpritePointer + 1
+          inc pp3h
 +
           clc
           adc #<MonsterArt
           bcc +
-          inc CombatSpritePointer + 1
+          inc pp3h
 +
-          sta CombatSpritePointer
+          sta pp3l
 
 PrepareToDrawMonsters:
           lda # 0
@@ -62,7 +62,7 @@ GrossPositionMajorMonster:
 DrawMajorMonsterLines:
           ldy # 7
 DrawMajorMonsterLoop:
-          lda (CombatSpritePointer), y
+          lda (pp3l), y
           sta GRP0
           .if TV == NTSC
             .SkipLines 4
