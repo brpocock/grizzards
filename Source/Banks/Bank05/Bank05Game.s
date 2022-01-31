@@ -12,7 +12,8 @@ DoLocal:
           .include "MapsProvince2.s"
           .include "Maps2RLE.s"
 
-          .include "Province2.s"
+SongProvince2:
+          .include "Peaceful.s"
 
           .include "VSync.s"
           .include "VBlank.s"
