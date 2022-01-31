@@ -66,7 +66,7 @@ PlayerTurnBGTop:
             .ldacolu COLRED, $8
             jmp BGTop
 PlayerTurnBGTop:
-            .ldacolu COLGRAY, $2
+            .ldacolu COLGRAY, $8
 
           .case SECAM
 
