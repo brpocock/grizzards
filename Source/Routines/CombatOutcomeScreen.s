@@ -59,6 +59,11 @@ PrintKilled:
           .SetPointer KilledText
           jsr CopyPointerText
           jsr DecodeAndShowText
+          lda CriticalHitP
+          beq +
+          .SetPointer CritText
+          jsr ShowPointerText
++
           jmp AfterStatusFX
 
 CheckMonsterPulse2:
