@@ -2,7 +2,9 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 DrawMonsterGroup:   .block
 
+          .if !DEMO
           jsr GetMonsterColors
+          .fi
 
 GetMonsterPointer:
           lda #>MonsterArt
