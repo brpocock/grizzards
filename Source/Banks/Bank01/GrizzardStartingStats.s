@@ -33,7 +33,7 @@ Flyer:
 Burner:
           .byte 20,  10,  8,  0,  $0f
 Splodo:
-          .byte  5, 75, 15,  0,  $0f
+          .byte  5, 75, 15,  0,  $ff
 Tyrant:
           .byte 20, 20, 20,  0,  $0f
 Dufont:

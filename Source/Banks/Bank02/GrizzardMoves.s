@@ -28,7 +28,7 @@ GrizzardMoves:
           ;; Burner
           .byte 4, 17, 18, 19, 20, 30, 31, 32
           ;; Splodo
-          .byte 4, 17, 18, 19, 20, 30, 31, 32
+          .byte 23, 19, 20, 42, 17, 34, 35, 21
           ;; Tyrant
           .byte 1, 2, 3, 4, 5, 6, 7, 8
           ;; Dufont

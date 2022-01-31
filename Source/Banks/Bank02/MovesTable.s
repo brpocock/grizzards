@@ -162,7 +162,6 @@ ScareAway:
 WetNoodle:
           .MiniText "WET   "
           .MiniText "NOODLE"
-
           ;; 40
 StompDown:
           .MiniText "STOMP "
