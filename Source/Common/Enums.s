@@ -60,6 +60,7 @@
           ModeTrainLastMove = $86
           ModeSignpostPoints = $87
           ModeSignpostInquire = $88
+          ModeSignpostPotions = $89
 
           ModeWinnerFireworks = $90
 ;;; 
@@ -253,7 +254,6 @@
 ;;; Combat services (stuffed into same bank as animation)
 
           ServiceCombatVBlank = $2b
-
 
 ;;; 
 ;;; Maximum number of Grizzards allowed

@@ -307,6 +307,21 @@ SetFlag:
           jmp ByeBye
 
 NotSetFlag:
+          cmp #ModeSignpostPotions
+          bne NotPotions
+GetPotions:
+          ldy # (9 * 5) + 1
+          lda (SignpostText), y
+          adc Potions
+          sta Potions
+
+          lda #SoundVictory
+          sta NextSound
+
+          .Add16 SignpostText, # 2
+          jmp GetNextMode
+
+NotPotions:
           cmp #ModeSignpostPoints
           bne NotPoints
 GetPoints:
