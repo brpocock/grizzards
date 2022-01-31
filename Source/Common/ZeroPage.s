@@ -344,11 +344,13 @@ MoveAnnouncement:
 ;;; Overlain: when drawing vs. executing a move
 
           .union
+          .struct
 MonsterColorPointer:
           .word ?
 
 CurrentMonsterNumber:
           .byte ?
+          .endstruct
 
           .struct
 ;;; The move's outcome
