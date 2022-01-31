@@ -371,7 +371,7 @@ UnknownMode:
           brk
 
 DoPotions:
-          .FarJMP AnimationsBank, ServicePotion
+          .FarJMP MonsterBank, ServicePotion
 
 EnterGrizzardDepot:
           .FarJMP MapServicesBank, ServiceGrizzardDepot
