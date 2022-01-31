@@ -3,6 +3,8 @@
           
 DrawBoss: .block
 
+          jsr GetMonsterColors
+
 GetMonsterPointer:
           lda #>BossArt - 1
           sta CombatSpritePointer + 1
@@ -26,34 +28,38 @@ GetImagePointer:
           inc CombatSpritePointer + 1
 +
           sta CombatSpritePointer
-          sta pp2l
+          sta pp4l
           ldx CombatSpritePointer + 1
-          stx pp2h
-          stx pp3h
+          stx pp4h
+          stx pp5h
           clc
           adc #<BossArt.Height
           bcc +
-          inc pp3h
+          inc pp5h
 +
-          sta pp3l
-          lda pp3h
+          sta pp5l
+          lda pp5h
           clc
           adc #>BossArt.Height
-          sta pp3h
+          sta pp5h
 
           lda #$20
           and ClockFrame
-          beq CommonFrame
+          bne AlternateFrame
 
-          .Add16 pp2l, #<BossArt.Height * 2
-          lda pp2h
-          adc #>BossArt.Height * 2
-          sta pp2h
+          stx WSYNC
+          geq CommonFrame
 
-          .Add16 pp3l, #<BossArt.Height * 2
-          lda pp3h
+AlternateFrame:
+          .Add16 pp4l, #<BossArt.Height * 2
+          lda pp4h
           adc #>BossArt.Height * 2
-          sta pp3h
+          sta pp4h
+
+          .Add16 pp5l, #<BossArt.Height * 2
+          lda pp5h
+          adc #>BossArt.Height * 2
+          sta pp5h
 
 CommonFrame:
           ldy #0
@@ -98,16 +104,35 @@ SetUpRightHanded:
 
 DrawMonster:
           ldy # 16
+          ldx # 0
 DrawMonsterLoop:
-          lda (pp2l), y
+          lda PixelPointers, x
+          sta COLUP0
+          sta COLUP1
+
+          lda (pp4l), y
           sta GRP0
-          lda (pp3l), y
+          lda (pp5l), y
           sta GRP1
           stx WSYNC
           stx WSYNC
           .if TV != NTSC
           stx WSYNC
           .fi
+
+          dey
+
+          lda (pp4l), y
+          sta GRP0
+          lda (pp5l), y
+          sta GRP1
+          stx WSYNC
+          stx WSYNC
+          .if TV != NTSC
+          stx WSYNC
+          .fi
+
+          inx
           dey
           bne DrawMonsterLoop
 

@@ -61,7 +61,7 @@ Loop:
           lda DeltaY
           sta CurrentGrizzard
 
-          .FarJSR AnimationsBank, ServiceDrawGrizzard
+          jsr DrawGrizzard
           .SkipLines 3
           
           jsr Prepare48pxMobBlob
@@ -90,7 +90,7 @@ Loop:
           sta CurrentGrizzard
 
           .SkipLines 3
-          .FarJSR AnimationsBank, ServiceDrawGrizzard
+          jsr DrawGrizzard
           .SkipLines 3
           jsr Prepare48pxMobBlob
           .ldacolu COLGRAY, 0

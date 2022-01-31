@@ -148,12 +148,12 @@
           .if DEMO
           AnimationsBank = $03
           CombatServicesBank = $03
-          EndAnimationsBank = $03
+          MonsterBank = $03
           StretchBank = $03
           .else
           AnimationsBank = $0f
           CombatServicesBank = $0f
-          EndAnimationsBank = $0e
+          MonsterBank = $0e
           StretchBank = $0d
           .fi
           TextBank = $02
@@ -230,6 +230,7 @@
           ServiceShowBossBear = $29
           ServiceGrizzardEvolution = $2d
           ServicePotion = $37
+          ServiceGetMonsterColors = $38
 
 ;;; Also the cold start / save game bank
 

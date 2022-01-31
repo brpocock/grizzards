@@ -341,6 +341,16 @@ MoveTarget:
 MoveAnnouncement:
           .byte ?
 
+;;; Overlain: when drawing vs. executing a move
+
+          .union
+MonsterColorPointer:
+          .word ?
+
+CurrentMonsterNumber:
+          .byte ?
+
+          .struct
 ;;; The move's outcome
 MoveHitMiss:
           .byte ?
@@ -357,6 +367,8 @@ MoveStatusFX:
 CriticalHitP:
           .byte ?
 
+          .endstruct
+          .endunion
 AttackerAttack:
           .byte ?
 

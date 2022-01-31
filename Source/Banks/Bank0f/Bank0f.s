@@ -13,7 +13,6 @@
           ;; these have some annoying alignment requirements
           ;; keep them early to avoid adjusting it too often
           .include "Write12Chars.s"
-          .include "DrawMonsterGroup.s"
 
           .include "DecodeText.s"
           .include "Inquire.s"
@@ -36,8 +35,6 @@ ShowPointerText:
           .FarJMP TextBank, ServiceDecodeAndShowText ; tail call
 
 DoLocal:
-          cpy #ServiceDrawMonsterGroup
-          beq DrawMonsterGroup
           cpy #ServiceDrawGrizzard
           beq DrawGrizzard
           cpy #ServiceWrite12Chars
@@ -50,13 +47,21 @@ DoLocal:
           beq Inquire
           cpy #ServiceFinalScore
           beq FinalScore
+          cpy #ServiceGrizzardEvolution
+          beq GrizzardEvolution
+          cpy #ServiceDeath
+          beq Death
+          cpy #ServiceConfirmErase
+          beq ConfirmErase
           brk
 
+          .include "GrizzardEvolution.s"
+          .include "ConfirmErase.s"
+          .include "Death.s"
           .include "FinalScore.s"
+
           .include "DecodeScore.s"
 
-          .include "MonsterArt.s"
-          .include "MonsterArt2.s"
           .include "GrizzardImages.s"
           .include "GrizzardArt.s"
           .include "CombatSpriteTables.s"
