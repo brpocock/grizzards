@@ -204,7 +204,7 @@ FullPF1:                        ; ∈ 8…12
           ;; fall through
 
 DoneHealth:
-          .SkipLines 2
+          .SkipLines 4
           lda # 0
           sta PF0
           sta PF1
@@ -318,7 +318,7 @@ RunningAway:
           .fi
 ScreenDone:
           .if NTSC == TV
-          .SkipLines 4
+          .SkipLines 1
           .fi
 
           lda GameMode

@@ -8,7 +8,7 @@ DrawMonsterGroup:   .block
 
 GetMonsterPointer:
           lda #>MonsterArt
-          sta CombatSpritePointer + 1
+          sta pp4h
 
 GetMonsterArtPointer:
           lda CurrentMonsterArt
@@ -26,7 +26,7 @@ GetAnimationFrame:
           ;; clc ; not needed, BIT does not affect Carry, still clear here
           adc # MonsterArt.Height / 8
           bcc +
-          inc CombatSpritePointer + 1
+          inc pp4h
 +
           clc
           tax
@@ -47,14 +47,14 @@ GetImagePointer:
           asl a
           asl a
           bcc +
-          inc CombatSpritePointer + 1
+          inc pp4h
 +
           clc
           adc #<MonsterArt
           bcc +
-          inc CombatSpritePointer + 1
+          inc pp4h
 +
-          sta CombatSpritePointer
+          sta pp4l
 
 PrepareToDrawMonsters:
           lda # 0
@@ -244,7 +244,7 @@ DrawMonsters:
           ldy # 7
           ldx # 0
 DrawMonsterLoop:
-          lda (CombatSpritePointer), y
+          lda (pp4l), y
           sta GRP0
 
           .if !DEMO

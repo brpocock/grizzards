@@ -306,10 +306,6 @@ CurrentMonsterPointer:
 CurrentMonsterArt:
           .byte ?
 
-;;; Pointer to the enemy's sprite graphics
-CombatSpritePointer:
-          .word ?
-
 ;;; Is the Grizzard affected by a Status Effect from combat?
 StatusFX:
           .byte ?
