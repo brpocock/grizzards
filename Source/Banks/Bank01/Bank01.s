@@ -113,7 +113,7 @@ SkipStick:
           
 JatibuFF: .block
           ldx SelectJatibuProgress
-          cpx #$ff
+          inx                   ; text for $ff by rolling over to $00
           bne NotCompleted
 
           lda # 99
