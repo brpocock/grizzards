@@ -317,9 +317,6 @@ RunningAway:
           .SkipLines 3
           .fi
 ScreenDone:
-          .if NTSC == TV
-          .SkipLines 1
-          .fi
 
           lda GameMode
           cmp #ModeCombat

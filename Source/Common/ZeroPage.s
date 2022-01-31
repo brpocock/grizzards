@@ -339,16 +339,12 @@ MoveAnnouncement:
 
 ;;; Overlain: when drawing vs. executing a move
 
-          .union
-          .struct
 MonsterColorPointer:
           .word ?
 
 CurrentMonsterNumber:
           .byte ?
-          .ends
 
-          .struct
 ;;; The move's outcome
 MoveHitMiss:
           .byte ?
@@ -365,8 +361,6 @@ MoveStatusFX:
 CriticalHitP:
           .byte ?
 
-          .ends
-          .endu
 AttackerAttack:
           .byte ?
 
