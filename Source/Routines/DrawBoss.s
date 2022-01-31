@@ -7,31 +7,29 @@ DrawBoss: .block
 
 GetMonsterPointer:
           lda #>BossArt - 1
-          sta CombatSpritePointer + 1
+          sta pp4h
 
-GetMonsterArtPointer:
           lda CurrentMonsterArt
-
-GetImagePointer:
+Mult16:
           ldx # 4
 -
           clc
           asl a
           bcc +
-          inc CombatSpritePointer + 1
+          inc pp4h
 +
           dex
           bne -
+
           clc
           adc #<BossArt - 1
           bcc +
-          inc CombatSpritePointer + 1
+          inc pp4h
 +
-          sta CombatSpritePointer
           sta pp4l
-          ldx CombatSpritePointer + 1
-          stx pp4h
-          stx pp5h
+
+          mvx pp5h, pp4h
+
           clc
           adc #<BossArt.Height
           bcc +
@@ -53,11 +51,13 @@ GetImagePointer:
 AlternateFrame:
           .Add16 pp4l, #<BossArt.Height * 2
           lda pp4h
+          clc
           adc #>BossArt.Height * 2
           sta pp4h
 
           .Add16 pp5l, #<BossArt.Height * 2
           lda pp5h
+          clc
           adc #>BossArt.Height * 2
           sta pp5h
 
