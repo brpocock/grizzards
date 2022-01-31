@@ -292,7 +292,7 @@ SpriteList:
 
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteGrizzard, 8 ; Lander
+          .byte SpriteGrizzard, 12 ; Splodo
 
           .byte 0
 
