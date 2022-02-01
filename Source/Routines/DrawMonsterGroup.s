@@ -80,9 +80,8 @@ SetCursorColor:
 
           ldx MoveTarget
           bne TargetIsMonster
-          stx WSYNC
-          stx WSYNC
-          geq CursorColored
+          .SkipLines 4
+          jmp CursorColored
 
 TargetIsMonster:
           lda MonsterHP - 1, x
