@@ -45,7 +45,7 @@ Mult16:
           and ClockFrame
           bne AlternateFrame
 
-
+          stx WSYNC
           stx WSYNC
 
           geq CommonFrame
