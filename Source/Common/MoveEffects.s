@@ -132,13 +132,13 @@ MoveDeltaHP:        .block
 RunAway:
           .byte $ff             ; RUN AWAY has fake value to indicate there's no target
 KickDirt:
-          .byte 1
-SplishSplash:
-          .byte 1
-MildShock:
-          .byte 1
-HotSpark:
           .byte 2
+SplishSplash:
+          .byte 2
+MildShock:
+          .byte 2
+HotSpark:
+          .byte 4
 BuryDeep:
           .byte 0
 DirtyFoot:
