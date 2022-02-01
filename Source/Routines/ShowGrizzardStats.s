@@ -44,12 +44,13 @@ ShowGrizzardStats:  .block
           lda MaxHP
           jmp AppendDecimalAndPrint ; tail call
 
-          .align $20
+          .align $20            ; XXX alignment
+          .page
 StatsText:
           .MiniText "ATK 00"
           .MiniText "DEF 00"
           .MiniText "HP  00"
           .MiniText "MAX 00"
-          .NoPageCrossSince StatsText
+          .endp
 
           .bend

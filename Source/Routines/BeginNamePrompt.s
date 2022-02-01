@@ -79,6 +79,8 @@ FirstTime:
           .fi
 
 BeginGrossPosition:
+          .page
+
           stx WSYNC
           .Sleep 13
           lda CursorPositionIndex, x
@@ -97,7 +99,7 @@ CursorPosGross:
           .SleepX 71
           sta HMOVE
 
-          .NoPageCrossSince BeginGrossPosition
+          .endp
 
           jsr Prepare48pxMobBlob
 

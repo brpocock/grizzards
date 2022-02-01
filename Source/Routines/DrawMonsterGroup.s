@@ -2,7 +2,7 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
           .if BANK == 3
-          .fill $24             ; XXX alignment
+          .fill $00             ; XXX alignment
           .fi
 DrawMonsterGroup:   .block
 
@@ -122,10 +122,11 @@ TopTarget:
 SetUpCursor:
           dex
 ;;; 
+          .align $10, $ea       ; XXX alignment NOPs
 PositionCursor:
           stx HMCLR
 
-          .option allow_branch_across_page=0
+          .page
 
           stx WSYNC
           .Sleep 13
@@ -141,8 +142,7 @@ CursorPosGross:
           lda CursorPosition, x
           sta HMP1
 
-          .option allow_branch_across_page=1
-          .NoPageCrossSince PositionCursor
+          .endp
 
 CursorReady:
 
@@ -241,9 +241,8 @@ FinishUp:
 
           rts
 ;;; 
+          .page
 PositionMonsters:
-          .option allow_branch_across_page=0
-
           stx WSYNC
           lda SpritePresence, x ; 4 / 4
           sta NUSIZ0            ; 3 / 7
@@ -257,8 +256,7 @@ GrossPositionMonsters:
           bne GrossPositionMonsters
           stx RESP0
 
-          .option allow_branch_across_page=1
-          .NoPageCrossSince PositionMonsters
+          .endp
 
           lda SpritePosition, x
           sta HMP0
@@ -295,9 +293,8 @@ DrawMonsterLoop:
           ;; must return with Y=0 and Z flag set
           rts
 ;;; 
-          .fill $00             ; alignment XXX
+          .page
 DrawNothing:
-          .option allow_branch_across_page=0
 
           ldy # 0
           sty GRP0
@@ -306,8 +303,7 @@ DrawNothing:
           .SleepX 71
           stx HMOVE
 
-          .option allow_branch_across_page=1
-          .NoPageCrossSince DrawNothing
+          .endp
 
           lda pp5h
           sta GRP1

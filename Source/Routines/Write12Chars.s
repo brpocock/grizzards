@@ -1,6 +1,7 @@
 ;;; Grizzards Source/Routines/Write12Chars.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
+          .align $20            ; XXX alignment
 Write12Chars:       .block
 
 TextLineLoop:
@@ -12,7 +13,7 @@ TextLineLoop:
 ;;; 
 DrawRightField:
 
-          .option allow_branch_across_page = false
+          .page
 
           stx WSYNC
           sta HMCLR
@@ -26,8 +27,7 @@ DrawRightField:
           .SleepX 13
           sta HMOVE             ; Cycle 74 HMOVE
 
-          .option allow_branch_across_page = true
-          .NoPageCrossSince AlignedLeft
+          .endp
 
           ldy # 4
           .UnpackRight SignpostLineCompressed
@@ -39,7 +39,7 @@ DrawRightField:
           jmp AlignedRight
 ;;; 
 DrawLeftField:
-          .option allow_branch_across_page = false
+          .page
 
           stx WSYNC
           sta HMCLR
@@ -53,7 +53,7 @@ DrawLeftField:
           .SleepX 35
           sta HMOVE             ; Cycle 74 HMOVE
 
-          .option allow_branch_across_page = true
+          .endp
 
           ;; Unpack 6-bits-per-character packed text
           ;; This saves 25% of string storage space at the cost of
@@ -71,7 +71,7 @@ DrawLeftField:
           .align $100             ; alignment XXX
           .fi
 AlignedLeft:
-          .option allow_branch_across_page = false
+          .page
 
           stx WSYNC
           ldy # 4
@@ -141,6 +141,8 @@ LeftLoop:
 	dec SignpostScanline
           bpl LeftLoop
 
+          .endp
+
           stx WSYNC
           ;; fall through
 ;;; 
@@ -161,7 +163,7 @@ DoneDrawing:
           .align $100             ; alignment XXX
 
 AlignedRight:
-          .option allow_branch_across_page = false
+          .page
 
           stx WSYNC
           ldy # 4
@@ -231,8 +233,7 @@ RightLoop:
 	dec SignpostScanline
           bpl RightLoop
 
-          .option allow_branch_across_page = true
-          .NoPageCrossSince AlignedRight
+          .endp
 
           jmp DrawCommon
 

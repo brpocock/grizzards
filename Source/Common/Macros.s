@@ -101,14 +101,6 @@ SleepLoop:
 
 ;;; 
           
-NoPageCrossSince:          .macro start
-          .if (>(* - 1)) > (>\start)
-          .error "Page crossing where not allowed, between ", \start, " and ", * - 1
-          .fi
-          .endm
-
-;;; 
-
 Push16 .macro address
           lda \address +1
           pha

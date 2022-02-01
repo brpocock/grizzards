@@ -83,13 +83,15 @@ PrepareToDrawMonster:
           sty REFP1
 
 SetUpLeftHanded:
+          .page
           stx WSYNC
           sta HMCLR
           .SleepX 36
           sta RESP0
           nop
           sta RESP1
-          .NoPageCrossSince SetUpLeftHanded
+          .endp
+
           jmp DrawMonster
 
 PrepareToDrawMonsterFlipped:
@@ -98,13 +100,14 @@ PrepareToDrawMonsterFlipped:
           sta REFP1
 
 SetUpRightHanded:
+          .page
           stx WSYNC
           sta HMCLR
           .SleepX 36
           sta RESP1
           nop
           sta RESP0
-          .NoPageCrossSince SetUpRightHanded
+          .endp
 
 DrawMonster:
           ldy # 16
