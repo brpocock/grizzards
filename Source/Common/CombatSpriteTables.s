@@ -1,7 +1,10 @@
 ;;; Grizzards Source/Common/CombatSpriteTables.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 ;;; Combat sprite tables
-          
+
+
+;;; Cycle 74 HMOVEs:  -8  -9 -10 -11 -12 -13 -14 -15   0  -1  -2  -3  -4  -5  -6  -7 
+
 SpritePresence:
           .byte 0                 ; 0 0 0
           .byte NUSIZNorm         ; 1 0 0
@@ -23,6 +26,6 @@ SpritePosition:
           .byte $03             ; 1 1 1
 
 CursorPosition:
-          .byte $f3             ; x - -
-          .byte $f5             ; - x -
-          .byte $d7             ; - - x
+          .byte $23             ; x - -
+          .byte $05             ; - x -
+          .byte $c7             ; - - x
