@@ -15,7 +15,7 @@ GetMonsterArtPointer:
           clc
 
           tax
-
+;;; 
           .if !DEMO
 GetAnimationFrame:
           lda #$20
@@ -32,7 +32,7 @@ GetAnimationFrame:
           tax
 GotFrame:
           .fi
-
+;;; 
           ldy # 0
           lda # 1
           bit ClockSeconds
@@ -57,39 +57,65 @@ GetImagePointer:
           sta pp4l
 
 PrepareToDrawMonsters:
-          lda # 0
-          sta VDELP0
-          sta VDELP1
-          sta NUSIZ0
-          sta pp5h
+          ldy # 0
+          sty VDELP0
+          sty VDELP1
+          sty NUSIZ0
+          sty pp5h
           lda #NUSIZDouble
           sta NUSIZ1
 ;;; 
 PrepareTopCursor:
           jsr SetCursorColor
 
-PrepareCursor2:
           ldx MoveTarget
-          beq NoTarget
+          beq NoTopTarget
+
           cpx # 4
           blt TopTarget
-NoTarget:
-          .if SECAM == TV
-          stx WSYNC
-          .fi
+
+          .rept 3
+          dex
+          .next
+          
 NoTopTarget:
-          lda # 0
-          sta pp5h
-          geq PrepareTopMonsters
+          ldy # 0
+          sty pp5h
+          lda MoveTarget
+          beq CursorReady
+
+          gne SetUpCursor
 
 TopTarget:
+          lda #%11111100
+          sta pp5h
+SetUpCursor:
           dex
+;;; 
+PositionCursor:
+          .option allow_branch_across_page=0
 
-PositionTopCursor:
-          jsr PositionCursor
+          stx HMCLR
+          stx WSYNC
+          .Sleep 13
+          lda CursorPosition, x ; 4 / 17
+          and #$0f              ; 2 / 19
+          tay                   ; 2 / 21
+
+CursorPosGross:
+          dey
+          bne CursorPosGross
+          stx RESP1
+
+          lda CursorPosition, x
+          sta HMP1
+
+          .option allow_branch_across_page=1
+          .NoPageCrossSince PositionCursor
+
+CursorReady:
 
 PrepareTopMonsters:
-          stx WSYNC
           lda # 0
           ldx MonsterHP + 0
           beq +
@@ -110,35 +136,34 @@ PositionTopMonsters:
           jsr PositionMonsters
 
 DrawTopMonsters:
-          jsr DrawMonsters
+          jsr DrawMonsters        ; returns with Y = 0 and +Z
           geq PrepareBottomCursor
 
 NoTopMonsters:
-          jsr DrawNothing
+          jsr DrawNothing       ; returns with Y = 0
           ;; fall through
 ;;; 
 PrepareBottomCursor:
-          lda # 0
-          sta GRP1
-          sta GRP0
+          sty GRP1
+          sty GRP0
 
           jsr SetCursorColor
 
-PrepareCursor2Bottom:
           ldx MoveTarget
+          beq NoBottomTarget
+
+          stx WSYNC
+          stx WSYNC
           cpx # 4
-          bge HasBottomCursor
-          lda # 0
+          bge BottomTarget
+
+NoBottomTarget:
+          sty pp5h
+          jmp PrepareBottomMonsters
+
+BottomTarget:
+          lda #%11111100
           sta pp5h
-          geq PrepareBottomMonsters
-
-HasBottomCursor:
-          .rept 4
-          dex
-          .next
-
-PostionBottomCursor:
-          jsr PositionCursor
 
 PrepareBottomMonsters:
           lda # 0
@@ -155,14 +180,18 @@ PrepareBottomMonsters:
           ora #$04
 +
           tax
-          beq NoBottomMonsters
+          bne PositionBottomMonsters
+
+          jsr DrawNothing
+          jmp FinishUp
 
 PositionBottomMonsters:
+          lda #$80
+          sta HMP1              ; do not move cursor on HMOVE
           jsr PositionMonsters
 
 DrawBottomMonsters:
-          jsr DrawMonsters
-          stx WSYNC
+          jsr DrawMonsters      ; returns with Y =0 and +Z
           ;; fall through
 ;;; 
 FinishUp:
@@ -176,57 +205,27 @@ FinishUp:
           stx WSYNC
 +
           .SkipLines 3
-
-          .else
-
-          ;; NTSC and PAL for some reason (Weird!)
-          beq +
-          stx WSYNC
-+
           .fi
+
           rts
 ;;; 
-NoBottomMonsters:
-          jsr DrawNothing
-          jmp FinishUp
-;;; 
-          .fill $00             ; alignment XXX
-PositionCursor:
-          stx WSYNC
-          .Sleep 13
-          lda CursorPosition, x
-          and #$0f
-          tay
-
-CursorPosGross:
-          dey
-          bne CursorPosGross
-          sta RESP1
-          .NoPageCrossSince PositionCursor
-
-          lda CursorPosition, x
-          sta HMP1
-
-          lda #%11111100
-          sta pp5h
-
-          stx WSYNC
-          rts
-;;; 
-          .fill $08             ; alignment XXX
 PositionMonsters:
+          .option allow_branch_across_page=0
+
           stx WSYNC
-          lda SpritePresence, x
-          sta NUSIZ0
-          .Sleep 6
-          lda SpritePosition, x
-          and #$0f
-          tay
+          lda SpritePresence, x ; 4 / 4
+          sta NUSIZ0            ; 3 / 7
+          .Sleep 6              ; 6 / 13
+          lda SpritePosition, x ; 4 / 17
+          and #$0f              ; 2 / 19
+          tay                   ; 2 / 21
 
 GrossPositionMonsters:
           dey
           bne GrossPositionMonsters
-          sta RESP0
+          stx RESP0
+
+          .option allow_branch_across_page=1
           .NoPageCrossSince PositionMonsters
 
           lda SpritePosition, x
@@ -234,7 +233,8 @@ GrossPositionMonsters:
 
           stx WSYNC
           .SleepX 71
-          sta HMOVE
+          stx HMOVE
+          stx HMCLR
 
           lda pp5h
           sta GRP1
@@ -265,7 +265,6 @@ DrawMonsterLoop:
           rts
 ;;; 
 SetCursorColor:
-          sta HMCLR
 
           .if TV == SECAM
 
@@ -298,23 +297,27 @@ CursorColored:
 ;;; 
           .fill $00             ; alignment XXX
 DrawNothing:
-          lda # 0
-          sta GRP0
+          .option allow_branch_across_page=0
+
+          ldy # 0
+          sty GRP0
 
           stx WSYNC
           .SleepX 71
-          sta HMOVE
+          stx HMOVE
+          stx HMCLR
 
+          .option allow_branch_across_page=1
           .NoPageCrossSince DrawNothing
 
           lda pp5h
           sta GRP1
 
           .if TV == NTSC
-            .SkipLines 17
+            .SkipLines 16
           .else
             .SkipLines 24
           .fi
-          rts
+          rts                   ; return with Y = 0
 ;;; 
           .bend
