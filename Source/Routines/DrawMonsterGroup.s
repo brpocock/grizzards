@@ -65,18 +65,45 @@ PrepareToDrawMonsters:
           lda #NUSIZDouble
           sta NUSIZ1
 ;;; 
-PrepareTopCursor:
-          jsr SetCursorColor
+SetCursorColor:
 
+          .if TV == SECAM
+
+          lda #COLWHITE
+          sta COLUP1
+
+          .else
+
+          ldx MoveTarget
+          bne TargetIsMonster
+          stx WSYNC
+          stx WSYNC
+          geq CursorColored
+
+TargetIsMonster:
+          lda MonsterHP - 1, x
+          beq MonsterGone
+          .ldacolu COLGRAY, $0
+          geq SetColor
+
+MonsterGone:
+          .ldacolu COLGRAY, $e
+SetColor:
+          sta COLUP1
+CursorColored:
+
+          .fi
+;;; 
+PrepareTopCursor:
           ldx MoveTarget
           beq NoTopTarget
 
           cpx # 4
           blt TopTarget
 
-          .rept 3
+          dex                   ; get column number
+          dex                   ; for monsters 4-6
           dex
-          .next
           
 NoTopTarget:
           ldy # 0
@@ -93,9 +120,10 @@ SetUpCursor:
           dex
 ;;; 
 PositionCursor:
+          stx HMCLR
+
           .option allow_branch_across_page=0
 
-          stx HMCLR
           stx WSYNC
           .Sleep 13
           lda CursorPosition, x ; 4 / 17
@@ -147,8 +175,6 @@ PrepareBottomCursor:
           sty GRP1
           sty GRP0
 
-          jsr SetCursorColor
-
           ldx MoveTarget
           beq NoBottomTarget
 
@@ -180,14 +206,17 @@ PrepareBottomMonsters:
           ora #$04
 +
           tax
+
+          lda #$80              ; don't move cursor again
+          sta HMP1
+
+          cpx # 0
           bne PositionBottomMonsters
 
           jsr DrawNothing
           jmp FinishUp
 
 PositionBottomMonsters:
-          lda #$80
-          sta HMP1              ; do not move cursor on HMOVE
           jsr PositionMonsters
 
 DrawBottomMonsters:
@@ -234,7 +263,6 @@ GrossPositionMonsters:
           stx WSYNC
           .SleepX 71
           stx HMOVE
-          stx HMCLR
 
           lda pp5h
           sta GRP1
@@ -264,37 +292,6 @@ DrawMonsterLoop:
           ;; must return with Y=0 and Z flag set
           rts
 ;;; 
-SetCursorColor:
-
-          .if TV == SECAM
-
-          lda #COLWHITE
-          sta COLUP1
-
-          .else
-
-          ldx MoveTarget
-          bne TargetIsMonster
-          stx WSYNC
-          stx WSYNC
-          geq CursorColored
-
-TargetIsMonster:
-          lda MonsterHP - 1, x
-          beq MonsterGone
-          .ldacolu COLGRAY, $0
-          geq SetColor
-
-MonsterGone:
-          .ldacolu COLGRAY, $e
-SetColor:
-          sta COLUP1
-CursorColored:
-
-          .fi
-
-          rts
-;;; 
           .fill $00             ; alignment XXX
 DrawNothing:
           .option allow_branch_across_page=0
@@ -305,7 +302,6 @@ DrawNothing:
           stx WSYNC
           .SleepX 71
           stx HMOVE
-          stx HMCLR
 
           .option allow_branch_across_page=1
           .NoPageCrossSince DrawNothing
@@ -318,6 +314,8 @@ DrawNothing:
           .else
             .SkipLines 24
           .fi
+
+          stx HMCLR
           rts                   ; return with Y = 0
 ;;; 
           .bend
