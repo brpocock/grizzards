@@ -16,7 +16,6 @@ NoCollision:
 
           ;; This sprite has moved, so clear its bit (above)
           ;; and get out (because no collision)
-          sta MapFlags
           rts
 
 EndRandomSpawn:
