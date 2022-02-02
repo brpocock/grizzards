@@ -62,14 +62,13 @@ Loop:
             lda CombatMajorP
             bne +
             ;; minor combats only
-            .SkipLines 6
+            .SkipLines 7
 +
             lda WhoseTurn
             bne +
             .SkipLines 3
 +
-            ;; both major and minor 
-            .SkipLines 40
+            .SkipLines 39
             lda MoveSelection
             bne +
             .SkipLines 2
@@ -342,7 +341,7 @@ RunAway:
           .case PAL
             .SkipLines 22
           .case SECAM
-            .SkipLines 15
+            .SkipLines 19
           .endswitch
 ;;; 
 ScreenDone:
