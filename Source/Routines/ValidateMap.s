@@ -91,6 +91,7 @@ CheckForRandomSpawns:
           ldx SpriteCount
           beq Bye
           dex
+
 CheckSpriteSpawn:
           lda SpriteMotion, x
           .BitBit SpriteRandomEncounter

@@ -6,38 +6,53 @@ CheckSpriteCollision:         .block
           lda CXP1FB
           and #$c0           ; collision with playfield or ball
           bne CollisionHasOccurred
+
 NoCollision:
-          lda InvertedBitMask + 4, x    ; MapFlagSprite𝑥Moved
-          and MapFlags
-          cmp #MapFlagRandomSpawn | MapFlagAnySpriteMoved
-          bne EndRandomSpawn
+          lda MapFlags
+          and InvertedBitMask + 4, x ; MapFlagSprite𝑥Moved
+          sta MapFlags
+          cmp #MapFlagRandomSpawn
+          beq EndRandomSpawn
+
+          ;; This sprite has moved, so clear its bit (above)
+          ;; and get out (because no collision)
           sta MapFlags
           rts
 
 EndRandomSpawn:
+          ;; Every sprite has been checked at least once,
+          ;; and has not had to be repositioned, so we must
+          ;; be OK to exit "poof" mode.
           lda MapFlags
           and #~MapFlagRandomSpawn
           sta MapFlags
           rts
 
 CollisionHasOccurred:
-          ;; If we  are in random  spawn mode,  and nobody had  to move,
-          ;; we must have gotten  through a round of validations without
-	;; any collisions, so we can turn off RandomSpawn mode
+          ;; If we are still in random spawn "poof" mode, we can
+          ;; (should) just randomly reposition the sprite, it
+          ;; probably materialized inside a wall or something.
           lda MapFlags
           .BitBit MapFlagRandomSpawn
           beq NoRePosition    ; Not in RandomSpawn mode
+
 NotCertainOfPositions:
-          lda BitMask + 4, x    ; MapFlagSprite𝑥Moved
-          ora MapFlags
-          sta MapFlags          ; mark sprite as being moved (by warping, in this case)
+          ;; We are still in Random Spawn interval, and this
+          ;; sprite had a collision; write a zero location to it
+          ;; and jump back to ValidateMap to pick a new
+          ;; random position that hopefull won't collide.
           lda # 0
           sta SpriteX, x
           jmp ValidateMap.CheckSpriteSpawn ; tail call
 
 NoRePosition:
+          ;; We are not in random spawn "poof" mode
+          ;; We can't just reposition sprites any more
+          ;; They must have moved to where they got stuck
+          ;; If they didn't move, we're S-O-L.
           lda SpriteMotion, x
           beq Bye
+
 CheckLeft:
           .BitBit SpriteMoveLeft
           beq CheckRight
@@ -54,7 +69,7 @@ CheckRight:
           dec SpriteX, x
           dec SpriteX, x
           eor # SpriteMoveLeft | SpriteMoveRight
-          ;; fall through
+
 CheckUp:
           .BitBit SpriteMoveUp
           beq CheckDown
@@ -71,7 +86,7 @@ CheckDown:
           dec SpriteY, x
           dec SpriteY, x
           eor # SpriteMoveUp | SpriteMoveDown
-          ;; fall through
+
 Done:
           sta SpriteMotion, x
 Bye:
