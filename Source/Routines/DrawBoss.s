@@ -146,7 +146,11 @@ DrawMonsterLoop:
           sty GRP0
           sty GRP1
 
-          .SkipLines 5
+          .if SECAM == TV
+            .SkipLines 13
+          .else
+            .SkipLines 5
+          .fi
 
           rts
 

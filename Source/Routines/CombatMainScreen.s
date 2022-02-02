@@ -1,5 +1,6 @@
 ;;; Grizzards Source/Routines/CombatMainScreen.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
+
 CombatMainScreen:   .block
 
 BackToPlayer:
@@ -37,13 +38,44 @@ TargetFirst:
           jmp LoopFirst
 ;;; 
 Loop:
-          .WaitScreenBottom
-          .if TV != NTSC
+          .switch TV
+
+          .case NTSC
+
+            .WaitScreenBottom
+
+          .case PAL
+
+            .WaitScreenBottom
             lda WhoseTurn
             bne +
-            .SkipLines 5
+            .SkipLines 4
 +
-          .fi
+            .SkipLines 1
+
+          .case SECAM
+
+            ;; Modified WaitScreenBottom
+-
+            lda INSTAT
+            bpl -
+            lda CombatMajorP
+            bne +
+            ;; minor combats only
+            .SkipLines 6
++
+            lda WhoseTurn
+            bne +
+            .SkipLines 3
++
+            ;; both major and minor 
+            .SkipLines 40
+            lda MoveSelection
+            bne +
+            .SkipLines 2
++
+
+          .endswitch
 
 LoopFirst:
           .WaitScreenTopMinus 1, 3
@@ -52,30 +84,27 @@ LoopFirst:
           .switch TV
           .case NTSC
 
-            lda WhoseTurn
-            beq PlayerTurnBGTop
             .ldacolu COLRED, 0
-            gne BGTop
-PlayerTurnBGTop:
+            ldx WhoseTurn
+            beq +
             .ldacolu COLGRAY, $8
++
 
           .case PAL
 
-            lda WhoseTurn
-            beq PlayerTurnBGTop
             .ldacolu COLRED, $8
-            gne BGTop
-PlayerTurnBGTop:
+            ldx WhoseTurn
+            bne +
             .ldacolu COLGRAY, $8
-
++
+          
           .case SECAM
 
-            ;; black background normally, but red for Boss Bear
+            lda #COLWHITE
+            ldx WhoseTurn
+            bne +
             lda #COLBLACK
-            ldx CurrentCombatEncounter
-            cpx # 92            ; Boss Bear encounter
-            bne BGTop
-            lda #COLRED
++
 
           .endswitch
 BGTop:
@@ -98,11 +127,13 @@ BossBearDisplay:
 MonsterWithName:
           jsr ShowMonsterName
 
-          ldy # MonsterColorIndex
-          lda (CurrentMonsterPointer), y
-          sta COLUP0
-          ;; COLUP1 overwritten for “regular” fights but needed for bosses
-          sta COLUP1
+          .if DEMO
+            ldy # MonsterColorIndex
+            lda (CurrentMonsterPointer), y
+            sta COLUP0
+            ;; COLUP1 overwritten for “regular” fights but needed for bosses
+            sta COLUP1
+          .fi
 
           lda WhoseTurn         ; show highlight on monster moving
           beq +
@@ -245,18 +276,20 @@ Muddled:
           lda GameMode
           cmp #ModeCombatDoMove
           beq MoveOK
-          jmp ScreenDone
+          gne ScreenDone
 
 NotMuddled:
           ldx MoveSelection
           bne NotRunAway
-          .ldacolu COLRED , $a
+
+          .ldacolu COLRED, $a
           gne ShowSelectedMove
 
 NotRunAway:
           lda BitMask - 1, x
           bit MovesKnown
           beq NotMoveKnown
+
           .ldacolu COLTURQUOISE, $e
           gne ShowSelectedMove
 
@@ -285,7 +318,6 @@ GoDoMove:
 MoveNotOK:
           lda #SoundBump
           sta NextSound
-
           gne ScreenDone
 
 DoUseMove:
@@ -306,17 +338,13 @@ RunAway:
 
           lda #ModeMap
           sta GameMode
-          .if TV != NTSC
-            .SkipLines 19
-          .fi
+          .switch TV
+          .case PAL
+            .SkipLines 22
+          .case SECAM
+            .SkipLines 15
+          .endswitch
 ;;; 
-RunningAway:
-          .if SECAM == TV
-            .SkipLines 1
-          .fi
-          .if PAL == TV
-            .SkipLines 3
-          .fi
 ScreenDone:
 
           lda GameMode
@@ -332,6 +360,7 @@ Leave:
           bne +
           .SkipLines 32
           jmp GoMap
+
 +
           cmp #ModeGrizzardStats
           bne +
@@ -341,7 +370,8 @@ Leave:
           .if NTSC != TV
           .SkipLines 5
           .fi
-          jmp GrizzardStatsScreen
+	jmp GrizzardStatsScreen
+
 +
           cmp #ModeCombatAnnouncement
           beq CombatAnnouncementScreen

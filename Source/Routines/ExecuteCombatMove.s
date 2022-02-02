@@ -377,6 +377,7 @@ NextTurn:
           ldx # 0
           stx WhoseTurn
           jmp CombatMainScreen.BackToPlayer
+
 NotLastMonster:
           lda MonsterHP, x
           beq NextTurn

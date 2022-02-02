@@ -1,9 +1,7 @@
 ;;; Grizzards Source/Routines/DrawMonsterGroup.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
-          .if BANK == 3
-          .fill $00             ; XXX alignment
-          .fi
+          .fill 0            ; XXX alignment
 DrawMonsterGroup:   .block
 
           .if !DEMO
@@ -24,7 +22,11 @@ GetMonsterArtPointer:
 GetAnimationFrame:
           lda #$20
           bit ClockFrame
+          .if SECAM == TV
+          beq Frame1
+          .else
           beq GotFrame
+          .fi
           ;; skip over the MonsterArt to get to the MonsterArt2 frames
           txa
           ;; clc ; not needed, BIT does not affect Carry, still clear here
@@ -34,8 +36,15 @@ GetAnimationFrame:
 +
           clc
           tax
-GotFrame:
+
+          .if SECAM == TV
+            gcc GotFrame
+Frame1:
+            stx WSYNC
           .fi
+;;; 
+GotFrame:
+          .fi                   ; if DEMO
 ;;; 
           ldy # 0
           lda # 1
@@ -75,6 +84,10 @@ SetCursorColor:
 
           lda #COLWHITE
           sta COLUP1
+          ldx MoveTarget
+          bne +
+          stx WSYNC
++
 
           .else
 
@@ -86,7 +99,7 @@ SetCursorColor:
 TargetIsMonster:
           lda MonsterHP - 1, x
           beq MonsterGone
-          .ldacolu COLGRAY, $0
+          lda # 0               ; black
           geq SetColor
 
 MonsterGone:
@@ -112,16 +125,18 @@ NoTopTarget:
           ldy # 0
           sty pp5h
           lda MoveTarget
-          beq CursorReady
-
-          gne SetUpCursor
+          bne SetUpCursor
+          .if SECAM == TV
+            .SkipLines 2
+          .fi
+          jmp CursorReady
 
 TopTarget:
           lda #%11111100
           sta pp5h
 SetUpCursor:
           dex
-;;; 
+;;;
           .align $10, $ea       ; XXX alignment NOPs
 PositionCursor:
           stx HMCLR
@@ -232,13 +247,6 @@ FinishUp:
           sty REFP0
           lda MoveTarget
 
-          .if SECAM == TV
-          bne +
-          stx WSYNC
-+
-          .SkipLines 3
-          .fi
-
           rts
 ;;; 
           .page
@@ -258,11 +266,10 @@ GrossPositionMonsters:
 
           .endp
 
-          lda SpritePosition, x
-          sta HMP0
-
           stx WSYNC
-          .SleepX 71
+          lda SpritePosition, x ; 4
+          sta HMP0              ; 3
+          .SleepX 71 - 7
           stx HMOVE
 
           lda pp5h
@@ -283,6 +290,13 @@ DrawMonsterLoop:
 
           stx WSYNC
           stx WSYNC
+          .if TV != NTSC
+          ;; tya
+          ;; and # 1
+          ;; beq +
+          stx WSYNC
++
+          .fi
           inx
           dey
           bpl DrawMonsterLoop

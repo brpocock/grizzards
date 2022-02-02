@@ -4,25 +4,28 @@
 CombatAnnouncementScreen:     .block
 ;;; Set up for the combat move announcement & execution
 ;;; (this whole first page is really a separate step from the announcement screen)
-          .WaitScreenBottom
           .switch TV
 
           .case NTSC
           ;; no lines skipped
+          .WaitScreenBottom
 
           .case PAL
+          .WaitScreenBottom
           .SkipLines 5
 
           .case SECAM
           ;; This is all crazy shit discovered by experiment
           ;; There is no rational explanation
-          lda CombatMajorP
-          ora WhoseTurn
-          beq Skip4
-Skip5:
-          stx WSYNC
-Skip4:
-          .SkipLines 4
+-
+          lda INSTAT
+          bpl -
+          lda WhoseTurn
+          beq SkipFew
+SkipMore:
+          .SkipLines 3
+SkipFew:
+          .SkipLines 48
 
           .endswitch
 
