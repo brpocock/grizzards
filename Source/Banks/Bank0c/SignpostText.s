@@ -58,8 +58,8 @@ NPC_DoNotTrain:
 Sign_Grue:
           .colu COLRED, $4
           .colu COLGRAY, $a
-          .SignText "CAVES BEYOND"
-          .SignText "CAN BE DARK."
+          .SignText "CAVES ARE   "
+          .SignText "PITCH BLACK."
           .SignText "YOU MAY BE  "
           .SignText "EATEN BY A  "
           .SignText "GRUE.       "

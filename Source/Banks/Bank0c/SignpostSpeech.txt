@@ -11,7 +11,7 @@ DoNotTrain:
 ♂Bring me any Grizzard you want me to train and I will do it
 
 Grue:
-Caves beyond can be dark.You may be eaten by a Grue
+Caves are pitch black.You may be eaten by a Grue
 
 TunnelAlreadyOpen:
 ♀The tunnels are open.Go carefully.Anchor is in danger

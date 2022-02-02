@@ -19,7 +19,7 @@ ShowPicture:  .block
         ;; 
         ;; You'll need to set up everything else beforehand.
 
-	.option allow_branch_across_page = false
+          .page
 	
           stx WSYNC
 	.SleepX 61
@@ -45,8 +45,7 @@ Loop:
 	dec LineCounter
 	bne Loop
 
-          .option allow_branch_across_page = true
-          .NoPageCrossSince ShowPicture
+          .endp
 
 	ldy #0
 	sty GRP0
