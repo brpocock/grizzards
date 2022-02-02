@@ -322,11 +322,14 @@ DrawNothing:
           lda pp5h
           sta GRP1
 
-          .if TV == NTSC
+          .switch TV
+          .case NTSC
             .SkipLines 16
-          .else
+          .case PAL
             .SkipLines 24
-          .fi
+          .case SECAM
+            .SkipLines 25
+          .endswitch
 
           stx HMCLR
           rts                   ; return with Y = 0

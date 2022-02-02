@@ -59,20 +59,27 @@ Loop:
 -
             lda INSTAT
             bpl -
-            lda CombatMajorP
-            bne +
-            ;; minor combats only
-            .SkipLines 7
-+
+            .SkipLines 10
             lda WhoseTurn
             bne +
-            .SkipLines 3
+            stx WSYNC
+            stx WSYNC
 +
-            .SkipLines 39
             lda MoveSelection
             bne +
-            .SkipLines 2
+            stx WSYNC
 +
+            lda MoveTarget
+            bne +
+            stx WSYNC
++
+          
+            ;; lda #COLRED         ; XXX debugging
+            ;; sta COLUBK
+
+            stx WSYNC
+
+            jsr Overscan
 
           .endswitch
 

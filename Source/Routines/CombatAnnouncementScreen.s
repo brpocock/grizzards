@@ -23,9 +23,10 @@ CombatAnnouncementScreen:     .block
           lda WhoseTurn
           beq SkipFew
 SkipMore:
-          .SkipLines 3
+          .SkipLines 4
 SkipFew:
-          .SkipLines 48
+          .SkipLines 12
+          jsr Overscan
 
           .endswitch
 
