@@ -39,9 +39,9 @@ TargetFirst:
 Loop:
           .WaitScreenBottom
           .if TV != NTSC
-          lda WhoseTurn
-          bne +
-          .SkipLines 5
+            lda WhoseTurn
+            bne +
+            .SkipLines 5
 +
           .fi
 
@@ -55,7 +55,7 @@ LoopFirst:
             lda WhoseTurn
             beq PlayerTurnBGTop
             .ldacolu COLRED, 0
-            jmp BGTop
+            gne BGTop
 PlayerTurnBGTop:
             .ldacolu COLGRAY, $8
 
@@ -64,7 +64,7 @@ PlayerTurnBGTop:
             lda WhoseTurn
             beq PlayerTurnBGTop
             .ldacolu COLRED, $8
-            jmp BGTop
+            gne BGTop
 PlayerTurnBGTop:
             .ldacolu COLGRAY, $8
 
@@ -139,9 +139,9 @@ BeginPlayerSection:
           jmp BGBottom
 PlayerBGBottom:
           .if TV == SECAM
-          lda #COLMAGENTA
+            lda #COLMAGENTA
           .else
-          .ldacolu COLINDIGO, $4
+            .ldacolu COLINDIGO, $4
           .fi
 BGBottom:
           stx WSYNC
@@ -307,16 +307,15 @@ RunAway:
           lda #ModeMap
           sta GameMode
           .if TV != NTSC
-          .SkipLines 19
+            .SkipLines 19
           .fi
-          ;; gne RunningAway
 ;;; 
 RunningAway:
           .if SECAM == TV
-          .SkipLines 1
+            .SkipLines 1
           .fi
           .if PAL == TV
-          .SkipLines 3
+            .SkipLines 3
           .fi
 ScreenDone:
 
