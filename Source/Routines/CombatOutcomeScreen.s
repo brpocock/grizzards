@@ -29,6 +29,21 @@ Loop:
           .WaitScreenTop
 LoopFirst:
           stx WSYNC
+          .if SECAM == TV
+
+          lda #COLBLACK
+          sta COLUBK
+
+          lda #COLWHITE
+          ldx CriticalHitP
+          beq +
+          lda #COLRED
++
+          sta COLUP0
+          sta COLUP1
+
+          .else
+          
           .ldacolu COLBLUE, 0
           ldx CriticalHitP
           beq +
@@ -38,6 +53,8 @@ LoopFirst:
           .ldacolu COLGRAY, $f
           sta COLUP0
           sta COLUP1
+
+          .fi
 ;;; 
           lda MoveAnnouncement
           cmp # 5
