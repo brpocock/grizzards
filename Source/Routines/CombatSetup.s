@@ -51,10 +51,17 @@ SetUpMonsterHP:
           lda (CurrentMonsterPointer), y
           sta Temp
 
-          ldy CombatMajorP
-          beq +
+          lda Potions
+          bpl NotCrowned
           asl Temp
-+
+NotCrowned:
+          ldy CombatMajorP
+          beq NoHPBoost
+          asl Temp
+          bcc NoHPBoost
+          lda #$ff
+          sta Temp
+NoHPBoost:
 
           lda EncounterQuantity, x
           tay
