@@ -94,6 +94,51 @@ BeforeKernel:
           lda #ENABLED
           sta VBLANK
           ldx CurrentMap
+
+          .if BANK == Province2MapBank
+
+          lda # 0
+          sta ENAM1
+          cpx # 28              ; Labyrinth entrance
+          bne DoneMagicRing
+          lda ProvinceFlags + 6
+          .BitBit $40              ; flag # 54
+          beq DoneMagicRing
+DoMagicRing:
+          stx WSYNC
+          .SleepX 41
+          stx RESM1
+          ldx #ENABLED
+          stx ENAM1
+          .if SECAM == TV
+          ldx #COLWHITE
+          .else
+          ldx #COLGRAY | $e
+          .fi
+          stx COLUP1
+          ldx #NUSIZMISSILE4
+          stx NUSIZ1
+
+          ldx # SoundSweepUp
+          stx NextSound
+
+          ldx AlarmCountdown
+          bne NoBallsNoWSync
+
+          ;; A has ProvinceFlags + 6
+          and #~$40             ; clear bit $40
+          sta ProvinceFlags + 6
+          lda ProvinceFlags + 7
+          and #$fe              ; clear bit 1 = flag 56
+          sta ProvinceFlags + 7
+
+          lda #ModeMapNewRoom
+          sta GameMode
+          gne NoBallsNoWSync
+
+DoneMagicRing:
+          .fi
+
           lda MapSides, x
           bmi LeftBall
           and #$40
@@ -103,7 +148,7 @@ BeforeKernel:
 LeftBall:
           stx WSYNC
           sta RESBL
-          lda # $20
+          lda #$20
           gne EnableBall
 
 RightBall:
@@ -119,6 +164,7 @@ EnableBall:
 
 NoBalls:
           stx WSYNC
+NoBallsNoWSync:
           lda # 0
           sta ENABL
 
@@ -229,14 +275,17 @@ P1Done:
           bne DrawMap
 ;;; 
 FillBottomScreen:
-          lda # 0
-          sta COLUBK
-          sta PF0
-          sta ENABL
-          sta PF1
-          sta PF2
-          sta GRP0
-          sta GRP1
+          ldy # 0
+          sty COLUBK
+          sty PF0
+          sty ENABL
+          sty PF1
+          sty PF2
+          sty GRP0
+          sty GRP1
+          .if BANK == Province2MapBank
+          sty ENAM1
+          .fi
 ;;; 
 ScreenJumpLogic:
           lda PlayerY
@@ -362,6 +411,8 @@ Leave:
           bne UnknownMode
           ldx #SignpostBank
           jsr FarCall
+          lda CurrentMap
+          sta NextMap
           lda #ModeMap
           sta GameMode
           .WaitScreenBottom

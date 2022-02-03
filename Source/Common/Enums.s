@@ -61,6 +61,7 @@
           ModeSignpostPoints = $87
           ModeSignpostInquire = $88
           ModeSignpostPotions = $89
+          ModeSignpostSetTimer = $8a
 
           ModeWinnerFireworks = $90
 ;;; 

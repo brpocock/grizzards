@@ -235,6 +235,19 @@ SpritesDone:
           lda #ModeMap
           sta GameMode
 
+          .if BANK == Province2MapBank
+          
+          lda CurrentMap
+          cmp # 28              ; labyrinth entrance
+          bne DoneLabyrinth
+          lda # 10
+          sta AlarmCountdown
+          gne Map
+
+DoneLabyrinth:
+
+          .fi
+
           lda # 2
           sta AlarmCountdown
 

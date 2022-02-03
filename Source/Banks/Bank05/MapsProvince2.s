@@ -432,20 +432,20 @@ SpriteList:
           .byte 0
 
           ;;Room 28
-          .byte $ff, SpriteWander
-          .byte 0, 0
-          .byte SpriteCombat, 32
-
-          .byte 0
-
-          ;;Room 29
           .byte 56, SpriteFixed
           .byte $6f, $12
           .byte SpriteProvinceDoor | $10, 36
 
-          .byte $ff, SpriteWander
+          .byte $ff, SpriteFixed
           .byte $6f, $3c
           .byte SpritePerson, 47 ; road to Hades
+
+          .byte 0
+
+          ;;Room 29
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 32
 
           .byte 0
 

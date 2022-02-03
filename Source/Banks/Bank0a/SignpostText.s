@@ -148,7 +148,7 @@ NPC_GotRing:
           .SignText "I WILL NOW  "
           .SignText "REVEAL THE  "
           .SignText "LABYRINTH.  "
-          .byte ModeSignpostClearFlag, 56
+          .byte ModeSignpostSetFlag, 54
 
 ;;; 59
 NPC_FixedRadio:

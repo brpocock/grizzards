@@ -497,7 +497,7 @@ SpriteList:
 
           .byte $ff, SpriteFixed
           .byte $bf, $38
-          .byte SpriteProvinceDoor | $20, 29
+          .byte SpriteProvinceDoor | $20, 28 ; door to cliffs
 
           .byte 0
 
