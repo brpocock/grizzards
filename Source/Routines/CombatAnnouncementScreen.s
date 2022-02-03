@@ -7,26 +7,28 @@ CombatAnnouncementScreen:     .block
           .switch TV
 
           .case NTSC
-          ;; no lines skipped
-          .WaitScreenBottom
+            ;; no lines skipped
+            .WaitScreenBottom
 
           .case PAL
-          .WaitScreenBottom
-          .SkipLines 5
+            .WaitScreenBottom
+            .SkipLines 1
+            lda WhoseTurn
+            beq +
+            .SkipLines 4
++
 
           .case SECAM
           ;; This is all crazy shit discovered by experiment
           ;; There is no rational explanation
--
-          lda INSTAT
-          bpl -
-          lda WhoseTurn
-          beq SkipFew
+            .WaitForTimer
+            lda WhoseTurn
+            beq SkipFew
 SkipMore:
-          .SkipLines 5
+            .SkipLines 5
 SkipFew:
-          .SkipLines 11
-          jsr Overscan
+            .SkipLines 11
+            jsr Overscan
 
           .endswitch
 

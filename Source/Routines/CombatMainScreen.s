@@ -35,6 +35,7 @@ TargetFirst:
           stx MoveTarget
 
           .WaitScreenBottom
+
           jmp LoopFirst
 ;;; 
 Loop:
@@ -49,9 +50,11 @@ Loop:
             .WaitScreenBottom
             lda WhoseTurn
             bne +
-            .SkipLines 4
-+
+            .SkipLines 2
+            lda MoveSelection
+            bne +
             .SkipLines 1
++
 
           .case SECAM
 
