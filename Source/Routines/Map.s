@@ -275,15 +275,10 @@ P1Done:
           bne DrawMap
 ;;; 
 FillBottomScreen:
-          ldy # 0
-          sty COLUBK
-          sty PF0
-          sty ENABL
-          sty PF1
-          sty PF2
-          sty GRP0
-          sty GRP1
+          lda #ENABLED
+          sta VBLANK
           .if BANK == Province2MapBank
+          ldy # 0
           sty ENAM1
           .fi
 ;;; 
