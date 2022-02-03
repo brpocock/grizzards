@@ -358,7 +358,7 @@ RunAway:
 
           .switch TV
           .case PAL
-            .SkipLines 22
+            .SkipLines 17
           .case SECAM
             .SkipLines 19
           .endswitch
