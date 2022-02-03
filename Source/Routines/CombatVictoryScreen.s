@@ -148,7 +148,7 @@ DefeatDragon:
           cmp # 2
           bne NormalVictory
 
-          lda ProvinceFlags + 5
+          lda ProvinceFlags + 6
           and #%00011100        ; Dragon Bits
           cmp #%00011100
           bne NormalVictory
@@ -160,6 +160,7 @@ WonGame:
           sta SignpostIndex
           lda #ModeSignpost
           sta GameMode
+          .WaitScreenBottom
           ldx #SignpostBank
           jmp FarCall
            

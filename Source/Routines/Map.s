@@ -277,10 +277,6 @@ P1Done:
 FillBottomScreen:
           lda #ENABLED
           sta VBLANK
-          .if BANK == Province2MapBank
-          ldy # 0
-          sty ENAM1
-          .fi
 ;;; 
 ScreenJumpLogic:
           lda PlayerY

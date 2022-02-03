@@ -83,9 +83,6 @@ NWait0:
             .SkipLines 4
 +
 
-            ;; lda #COLRED         ; XXX debugging
-            ;; sta COLUBK
-
             stx WSYNC
 
             jsr Overscan
@@ -101,7 +98,7 @@ LoopFirst:
 
             .ldacolu COLRED, 0
             ldx WhoseTurn
-            beq +
+            bne +
             .ldacolu COLGRAY, $8
 +
 

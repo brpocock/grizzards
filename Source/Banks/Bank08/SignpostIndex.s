@@ -21,6 +21,7 @@ Return:
 
 CheckPotions:
           lda Potions
+          and #$7f
           cmp # 5
           blt Return
           ldx # 105

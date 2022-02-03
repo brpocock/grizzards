@@ -126,6 +126,12 @@ ShowResume:
           cmp #ModeSelectSlot
           bne ShowActive
 
+          bit Potions
+          bpl +
+          .ldacolu COLYELLOW, $e
+          sta COLUP0
+          sta COLUP1
++
           .SetPointer ResumeText
           jmp ShowSlotName
 

@@ -36,6 +36,7 @@ FirstLoop:
 
           .SetPointer ZeroText
           lda Potions
+          and #$7f
           jsr AppendDecimalAndPrint
 
           .SkipLines KernelLines / 3
@@ -75,6 +76,7 @@ DoneSwitches:
           bne DoneUp
 
           lda Potions
+          and #$7f
           beq DoneUp
 
           lda # 0
@@ -112,8 +114,17 @@ DoneButton:
 UsePotion:
           lda MaxHP
           sta CurrentHP
+          lda Potions
+          bpl NotCrowned
+          and #$7f
+          sec
+          sbc # 1
+          ora #$80
+          sta Potions
+          gne +
+NotCrowned:
           dec Potions
-
++
           lda #SoundHappy
           sta NextSound
 Leave:

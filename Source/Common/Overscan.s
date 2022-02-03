@@ -4,6 +4,16 @@
 Overscan: .block
           .TimeLines OverscanLines
 
+          ldy # 0
+          sty ENAM0
+          sty ENAM1
+          sty GRP0
+          sty GRP1
+          sty ENABL
+          sty PF0
+          sty PF1
+          sty PF2
+
           ldx #SFXBank
           jsr FarCall
 

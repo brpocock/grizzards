@@ -16,6 +16,11 @@ DoLocal:
           .align $20
           .include "ShowPicture.s"
 
+          .include "CopyPointerText.s"
+ShowPointerText:
+          jsr CopyPointerText
+          .FarJMP TextBank, ServiceDecodeAndShowText
+          
           .include "Prepare48pxMobBlob.s"
 
           .include "VSync.s"

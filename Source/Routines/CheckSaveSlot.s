@@ -86,6 +86,22 @@ LoadNameLoop:
 
           jsr i2cStopRead
 
+ReadCrownBit:
+          jsr i2cWaitForAck
+
+          jsr i2cStartWrite
+          lda SaveGameSlot
+          clc
+          adc #>SaveGameSlotPrefix
+          jsr i2cTxByte
+          lda #<SaveGameSlotPrefix + 5 + Potions - GlobalGameData
+          jsr i2cK
+
+          jsr i2cRxByte
+          sta Potions
+
+          jsr i2cStopRead
+
           rts
 
 	.bend

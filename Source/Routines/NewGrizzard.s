@@ -4,9 +4,6 @@
 NewGrizzard:        .block
           .WaitScreenTop
 
-          ldx #$ff
-          stx s
-
           ;; Call with new Grizzard in Temp
           lda Temp
           pha
@@ -21,7 +18,8 @@ NewGrizzard:        .block
           lda CurrentMap
           sta NextMap
           jsr WaitScreenBottomSub
-          jmp GoMap
+
+          rts
 
 CatchEm:
           ;; New Grizzard found, save current Grizzard …

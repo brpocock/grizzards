@@ -19,8 +19,13 @@ Loop:
 
           .FarJSR AnimationsBank, ServiceFinalScore
 
-          .SkipLines KernelLines / 5
-          
+          bit Potions
+          bpl NotAgain
+          .SetPointer AgainText
+          jsr ShowPointerText
+NotAgain:
+          .SkipLines 30
+
           .SetUpFortyEight BossBearDies
           ldy #BossBearDies.Height
           sty LineCounter
@@ -35,7 +40,53 @@ Loop:
           jmp Loop
 
 Leave:
+          .WaitScreenBottom
+          .WaitScreenTop
+NewGamePlus:
+          lda Potions
+          ora #$80
+          sta Potions
+
+          lda # 2
+          sta CurrentGrizzard
+
+ConsiderGrizzard:
+          .FarJSR SaveKeyBank, ServicePeekGrizzardXP
+          bcs SeenGrizzardBefore
+
+          .FarJSR MapServicesBank, ServiceNewGrizzard
+          .FarJSR SaveKeyBank, ServiceSaveGrizzard
+SeenGrizzardBefore:
+          dec CurrentGrizzard
+          bpl ConsiderGrizzard
+
+          ldy # 0
+          sty CurrentGrizzard
+          sty CurrentProvince
+
+          ldx # 8
+-
+          sta ProvinceFlags - 1, x
+          dex
+          bne -
+
+          .FarJSR SaveKeyBank, ServiceSaveProvinceData
+          inc CurrentProvince
+          .FarJSR SaveKeyBank, ServiceSaveProvinceData
+          inc CurrentProvince
+          .FarJSR SaveKeyBank, ServiceSaveProvinceData
+
+          lda # 0
+          sta CurrentMap
+          sta CurrentProvince
+          sta NextMap
+
+          .FarJSR SaveKeyBank, ServiceSaveToSlot
+
           jmp GoColdStart
 
+AgainText:
+          .MiniText "AGAIN!"
+          
           .bend
 

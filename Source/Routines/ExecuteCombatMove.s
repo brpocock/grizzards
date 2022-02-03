@@ -48,6 +48,9 @@ MonsterAttacks:
           asl a
           tay
 +
+
+          ;;  TODO #359 crown mode double attack scores
+
           sty AttackerAttack
 
           lda GrizzardDefense
@@ -68,13 +71,13 @@ MonsterAttacks:
 +
           sty DefenderDefend
 
-          mva DefenderHP, CurrentHP
-          mva DefenderStatusFX, StatusFX
+          .mva DefenderHP, CurrentHP
+          .mva DefenderStatusFX, StatusFX
 
           jsr CoreAttack
 
-          mva CurrentHP, DefenderHP
-          mva StatusFX, DefenderStatusFX
+          .mva CurrentHP, DefenderHP
+          .mva StatusFX, DefenderStatusFX
 
           jmp WaitOutScreen
 ;;; 
@@ -190,6 +193,8 @@ PlayerAttacks:
           tay
 +
 
+          ;; Crown mode TODO #359 double defend scores
+
           sty DefenderDefend
 
           lda MonsterHP - 1, x
@@ -213,9 +218,22 @@ PlayerKilledMonster:
           bge +
           inc GrizzardXP
 +
+
+          ldx # 1               ; 1× scoring…
+          lda CombatMajorP
+          beq +
+          inx                   ; 2 × scoring
++
+          lda Potions
+          bpl +
+          inx                   ; 2-3× scoring
++
+
+          sed
+
+IncrementScore:
           ldy # MonsterPointsIndex
           lda (CurrentMonsterPointer), y
-          sed
           clc
           adc Score
           bcc ScoreNoCarry
@@ -244,6 +262,9 @@ ScoreNoCarry:
           sta Score + 2
 ScoreNoCarry2:
           sta Score + 1
+
+          dex
+          bne IncrementScore
 
           cld
 
