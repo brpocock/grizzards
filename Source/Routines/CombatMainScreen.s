@@ -49,11 +49,15 @@ Loop:
 
             .WaitScreenBottom
             lda WhoseTurn
-            bne +
+            bne NWait0
             .SkipLines 2
             lda MoveSelection
-            bne +
+            bne NWait0
             .SkipLines 1
+NWait0:
+            lda CombatMajorP
+            beq +
+            stx WSYNC
 +
 
           .case SECAM
