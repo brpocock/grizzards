@@ -57,12 +57,12 @@ Loop:
 
             ;; Modified WaitScreenBottom
             .WaitForTimer
-            .SkipLines 10
+            .SkipLines 9
             lda WhoseTurn
             bne +
             stx WSYNC
-            stx WSYNC
 +
+            stx WSYNC
             lda MoveSelection
             bne +
             stx WSYNC
@@ -71,9 +71,13 @@ Loop:
             bne +
             stx WSYNC
 +
-          
-            lda #COLRED         ; XXX debugging
-            sta COLUBK
+            lda CombatMajorP
+            beq +
+            .SkipLines 4
++
+
+            ;; lda #COLRED         ; XXX debugging
+            ;; sta COLUBK
 
             stx WSYNC
 
@@ -220,11 +224,10 @@ FullPF2:
           lda #$ff
           sta PF2
           txa                   ; ∈ 8…99
-          clc
           and #$f8
-          ror a                  ; ∈ 4…50
-          ror a                  ; ∈ 2…25
-          ror a                  ; ∈ 1…12
+          lsr a                  ; ∈ 4…50
+          lsr a                  ; ∈ 2…25
+          lsr a                  ; ∈ 1…12
           tax
           cpx # 8
           bge FullPF1
@@ -272,6 +275,7 @@ Asleep:
 NotAsleep:
           and #StatusMuddle
           beq NotMuddled
+
 Muddled:
           .ldacolu COLGRAY, $e
           sta COLUP0
@@ -292,6 +296,8 @@ NotMuddled:
           gne ShowSelectedMove
 
 NotRunAway:
+          stx WSYNC
+
           lda BitMask - 1, x
           bit MovesKnown
           beq NotMoveKnown
@@ -305,7 +311,6 @@ NotMoveKnown:
 ShowSelectedMove:
           sta COLUP0
           sta COLUP1
-
           stx WSYNC
           .FarJSR TextBank, ServiceShowMove
 
@@ -322,6 +327,7 @@ GoDoMove:
           lda BitMask, x
           and MovesKnown
           bne DoUseMove
+
 MoveNotOK:
           lda #SoundBump
           sta NextSound
@@ -332,6 +338,7 @@ DoUseMove:
           beq MoveOK
           lda MonsterHP - 1, x
           beq MoveNotOK
+
 MoveOK:
           lda #ModeCombat
           sta GameMode
@@ -345,6 +352,7 @@ RunAway:
 
           lda #ModeMap
           sta GameMode
+
           .switch TV
           .case PAL
             .SkipLines 22
@@ -357,6 +365,7 @@ ScreenDone:
           lda GameMode
           cmp #ModeCombat
           bne Leave
+
 GoLoop:
           jmp Loop
 
@@ -364,13 +373,15 @@ Leave:
           cmp #ModeCombatDoMove
           beq GoLoop
           cmp #ModeMap
-          bne +
+          bne NotGoingToMap
+
           .SkipLines 32
           jmp GoMap
 
-+
+NotGoingToMap:
           cmp #ModeGrizzardStats
-          bne +
+          bne NotGoingToStats
+
           lda #ModeCombat
           sta DeltaY
           .WaitScreenBottom
@@ -379,11 +390,13 @@ Leave:
           .fi
 	jmp GrizzardStatsScreen
 
-+
+NotGoingToStats:
           cmp #ModeCombatAnnouncement
           beq CombatAnnouncementScreen
+
           cmp #ModeCombatNextTurn
           beq ExecuteCombatMove.NextTurn
+
           brk
 ;;; 
 HealthyPF2:
