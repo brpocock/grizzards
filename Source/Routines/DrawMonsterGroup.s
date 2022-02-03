@@ -1,7 +1,12 @@
 ;;; Grizzards Source/Routines/DrawMonsterGroup.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
-          .fill 0            ; XXX alignment
+          .if 3 == BANK
+          .switch TV
+          .case SECAM
+          .align $20            ; XXX alignment
+          .endswitch
+          .fi
 DrawMonsterGroup:   .block
 
           .if !DEMO
