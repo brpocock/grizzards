@@ -5,7 +5,7 @@
 
           FirstSignpost = 90
 
-          Signs = ( NPC_GetArtifacts, NPC_NoArtifacts, NPC_DoTrain, NPC_DoNotTrain, Sign_Grue, NPC_TunnelAlreadyOpen, Sign_SailBackToTreble, Sign_StayInPortLion, NPC_Hungry, NPC_HungryCookie, NPC_NoCookieForYou, NPC_CookieGiven, NPC_HadCookie, Game_Win1, NPC_Potions, NPC_GotPotions )
+          Signs = ( NPC_GetArtifacts, NPC_NoArtifacts, NPC_DoTrain, NPC_DoNotTrain, Sign_Grue, NPC_TunnelAlreadyOpen, Sign_SailBackToTreble, Sign_StayInPortLion, NPC_Hungry, NPC_HungryCookie, NPC_NoCookieForYou, NPC_CookieGiven, NPC_HadCookie, Game_Win1, NPC_Potions, NPC_GotPotions, NPC_MineHint )
 
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
@@ -191,4 +191,15 @@ NPC_GotPotions:
           .SignText "POTIONS, I  "
           .SignText "WILL GIVE   "
           .SignText "YOU SOME.   "
+          .byte ModeSignpostDone
+
+;;; 106
+NPC_MineHint:
+          .colu COLGRAY, 0
+          .colu COLSEAFOAM, $e
+          .SignText "DOWN, UP,   "
+          .SignText "DOWN, RIGHT "
+          .SignText "IN THE MINE "
+          .SignText "IS THE      "
+          .SignText "SECRET.     "
           .byte ModeSignpostDone

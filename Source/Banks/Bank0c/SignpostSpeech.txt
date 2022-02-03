@@ -45,3 +45,6 @@ Potions:
 
 GotPotions:
 ♀If you run low on potions,I will give you some
+
+MineHint:
+♀Down,up,down,right in the mine is the secret

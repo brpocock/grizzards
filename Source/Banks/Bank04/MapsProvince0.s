@@ -734,7 +734,7 @@ SpriteList:
           ;; Room 35
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpritePerson, 10 ; random villager
+          .byte SpritePerson, 106 ; mine hint
 
           .byte 0
 
