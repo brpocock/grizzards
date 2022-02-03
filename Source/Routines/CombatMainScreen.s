@@ -221,15 +221,19 @@ AtMinHP:
           sta COLUPF
 
 DrawHealthPF:
+          ldy # 0
+          sty pp0l
+          sty pp1l
+          sty pp2l
           cpx # 8
           bge FullPF2
           lda HealthyPF2, x
-          sta PF2
+          sta pp2l
           gne DoneHealth
 
 FullPF2:
           lda #$ff
-          sta PF2
+          sta pp2l
           txa                   ; ∈ 8…99
           and #$f8
           lsr a                  ; ∈ 4…50
@@ -239,7 +243,7 @@ FullPF2:
           cpx # 8
           bge FullPF1
           lda HealthyPF1, x
-          sta PF1
+          sta pp1l
           gne DoneHealth
 
 FullPF1:                        ; ∈ 8…12
@@ -247,17 +251,24 @@ FullPF1:                        ; ∈ 8…12
           sbc # 8               ; ∈ 0…4
           tax
           lda #$ff
-          sta PF1
+          sta pp1l
           lda HealthyPF2, x
-          sta PF0
+          sta pp0l
           ;; fall through
 
 DoneHealth:
-          .SkipLines 4
-          lda # 0
+          stx WSYNC
+          lda pp0l
           sta PF0
+          lda pp1l
           sta PF1
+          lda pp2l
           sta PF2
+          .SkipLines 4
+          ldy # 0
+          sty PF0
+          sty PF1
+          sty PF2
 ;;; 
           lda WhoseTurn
           beq PlayerChooseMove
