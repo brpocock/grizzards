@@ -1,5 +1,6 @@
 ;;; Grizzards Source/Routines/GrizzardDepot.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
+
 GrizzardDepot:    .block
           ldx MaxHP
           stx CurrentHP
@@ -48,9 +49,10 @@ Loop:
           .SetPointer DepotText
           jsr ShowPointerText
 
-          .SkipLines 30
+          .SkipLines 10
 
           .FarJSR TextBank, ServiceShowGrizzardName
+
           .FarJSR AnimationsBank, ServiceDrawGrizzard
 
           jsr Prepare48pxMobBlob
@@ -310,3 +312,5 @@ PlayTimeText:
           .MiniText "PLAYED"
 PlayHoursText:
           .MiniText "HOURS "
+NumText:
+          .MiniText "NUM.00"
