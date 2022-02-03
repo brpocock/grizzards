@@ -56,9 +56,7 @@ Loop:
           .case SECAM
 
             ;; Modified WaitScreenBottom
--
-            lda INSTAT
-            bpl -
+            .WaitForTimer
             .SkipLines 10
             lda WhoseTurn
             bne +
@@ -74,8 +72,8 @@ Loop:
             stx WSYNC
 +
           
-            ;; lda #COLRED         ; XXX debugging
-            ;; sta COLUBK
+            lda #COLRED         ; XXX debugging
+            sta COLUBK
 
             stx WSYNC
 
@@ -191,6 +189,8 @@ DrawGrizzard:
           .FarJSR AnimationsBank, ServiceDrawGrizzard
 ;;; 
 DrawHealthBar:
+          stx WSYNC
+
           ldx CurrentHP
           cpx MaxHP
           beq AtMaxHP
@@ -306,6 +306,7 @@ ShowSelectedMove:
           sta COLUP0
           sta COLUP1
 
+          stx WSYNC
           .FarJSR TextBank, ServiceShowMove
 
 UserControls:
