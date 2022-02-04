@@ -16,7 +16,7 @@ SetUpFortyEight:	.macro Graphics
           sta pp5h
 
           .else
-          
+
 	lda #>(\Graphics + \Graphics.Height * 0 - 1)
 	sta pp0h
 	lda #>(\Graphics + \Graphics.Height * 1 - 1)
@@ -31,7 +31,7 @@ SetUpFortyEight:	.macro Graphics
 	sta pp5h
 
           .fi
- 
+
 	lda #<(\Graphics + \Graphics.Height * 0 - 1)
 	sta pp0l
 	lda #<(\Graphics + \Graphics.Height * 1 - 1)
