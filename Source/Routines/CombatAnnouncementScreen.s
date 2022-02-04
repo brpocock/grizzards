@@ -102,6 +102,7 @@ AnnounceSubject:
 DrawSubject:
           lda WhoseTurn
           beq PlayerSubject
+
 MonsterSubject:
           jsr ShowMonsterNameAndNumber
           jmp AnnounceVerb
@@ -212,6 +213,7 @@ Speech3:
 Speech4:
           cmp # 5
           bge Speech5
+
           .SetUtterance Phrase_On
           gne SpeechQueued
 
@@ -225,6 +227,7 @@ Speech5:
 SayPlayerObject:
           bit CombatMoveDeltaHP
           bpl +
+
           jsr SayMonster
           jmp SpeechQueued
 +
@@ -234,6 +237,7 @@ SayPlayerObject:
 SayMonsterObject:
           bit CombatMoveDeltaHP
           bpl +
+
           jsr SayPlayerGrizzard
           jmp SpeechQueued
 +
@@ -253,21 +257,23 @@ Speech6:
 SayObjectNumberOnMonstersTurn:
           bit CombatMoveDeltaHP
           bpl SpeechQueued
+
           gmi SayThatObjectNumber
 
 SayObjectNumberOnPlayersTurn:
           bit CombatMoveDeltaHP
           bmi SpeechQueued
+
 SayThatObjectNumber:
           lda CombatMajorP
           bne SpeechQueued
+
           lda #>(Phrase_One - 1)
           sta CurrentUtterance + 1
           lda #<(Phrase_One - 1)
           clc
           adc MoveTarget
 	sta CurrentUtterance
-
 SpeechQueued:
           inc SpeechSegment
           ;; fall through
@@ -280,13 +286,12 @@ CheckForAlarm:
           inc MoveAnnouncement
           lda # 2
           sta AlarmCountdown
-
 KeepWaiting:
           .WaitScreenBottom
-
           lda MoveAnnouncement
           cmp # 4
           beq CombatMoveDone
+
 GoBack:
           jmp Loop
 
