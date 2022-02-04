@@ -67,9 +67,4 @@ DoneSwitches:
 
           .fi
 
-          .if SECAM != TV
-          ;; Out of space for such niceties ☹
-          brk
-          .fi
-
           .bend
