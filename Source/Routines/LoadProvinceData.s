@@ -16,10 +16,7 @@ LoadProvinceData:   .block
           asl a
           asl a                 ; × 8
           ora # $20
-          jsr i2cTxByte
-
-          jsr i2cStopWrite
-          jsr i2cStartRead
+          jsr i2cK
 
           ldx # 0
 -
