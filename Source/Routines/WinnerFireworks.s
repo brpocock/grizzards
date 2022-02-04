@@ -41,8 +41,7 @@ Leave:
           .WaitScreenBottom
           .WaitScreenTop
 NewGamePlus:
-          lda Potions
-          ora #$80
+          lda #$80 | 25
           sta Potions
 
           lda # 2
