@@ -8,9 +8,9 @@ Sleep:    .macro Cycles
           .error "Can't sleep back-in-time for ", \Cycles, " cycles"
           .else
           .switch \Cycles
-        
+
           .case 0
-        
+
           .case 1
           .error "Cannot sleep 1 cycle (must be 2+)"
 
@@ -61,11 +61,11 @@ Sleep:    .macro Cycles
           ;; countdown register. Exits with .x = 0
 SleepX: .macro Cycles
           .block
-        
+
           .if \Cycles < 10
           .Sleep \Cycles
           .else
-          
+
           Loopable = \Cycles - 1
           .if (((* % $100) >= $fc) && ((* % $100) <= $fe))
           ;; going to cross page boundary on branch
@@ -100,7 +100,7 @@ SleepLoop:
           .endm
 
 ;;; 
-          
+
 Push16 .macro address
           lda \address +1
           pha
@@ -128,7 +128,7 @@ Set16 .macro target, value
           lda #>(\value)
           sta \target + 1
           .endm         
-          
+
 ;;; 
 
 Locale .macro ThisLang, string
@@ -136,7 +136,7 @@ Locale .macro ThisLang, string
           .MiniText \string
           .fi
           .endm
-          
+
 ;;; 
 
 StyAllGraphics:   .macro
@@ -153,7 +153,7 @@ StyAllGraphics:   .macro
           sty VDELP0
           sty VDELP1
           .endm
-          
+
 ClearAllGraphics: .macro
           ldy #0
           .StyAllGraphics
@@ -179,7 +179,7 @@ TimeLines:          .macro lines
           .error "Cannot skip ", \lines, " lines with TIM64T"
           .fi
           .endm
-          
+
 WaitScreenTop:      .macro
           jsr VSync
           .if TV == NTSC
@@ -343,7 +343,7 @@ SetUtterance:       .macro constant
           lda #<\constant
           sta CurrentUtterance
           .endm
-          
+
 SetSkyColor:        .macro
           .if TV == SECAM
             lda #COLBLUE
@@ -367,4 +367,4 @@ mvx:      .macro dest, src
 mvy:      .macro dest, src
           ldy \src
           sty \dest
-          .endm          
+          .endm
