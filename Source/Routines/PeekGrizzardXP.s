@@ -21,6 +21,7 @@ PeekGrizzardXP:       .block
           beq NoGrizzard        ; XP = 0 = no Grizzard
           cmp #$ff
           beq NoGrizzard        ; Garbage read = no Grizzard
+
           jsr i2cStopRead
           ;; Grizzard found!
           sec
