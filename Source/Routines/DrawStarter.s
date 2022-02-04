@@ -185,10 +185,10 @@ AirexBottom:
           .SetSkyColor
           sta COLUBK
 
-          lda #$ff
-          sta GRP0
-          sta GRP1
-
+          ldy # 0
+          sty VDELP0
+          sty VDELP1
+          
           lda # NUSIZQuad
           sta NUSIZ0
           sta NUSIZ1
@@ -202,8 +202,11 @@ AirexBottom:
           nop
           nop
           nop
-          nop
           sta RESP1
+
+          lda #$ff
+          sta GRP0
+          sta GRP1
 
           lda # 0
           sta PF0

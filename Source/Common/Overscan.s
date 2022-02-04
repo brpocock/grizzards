@@ -13,6 +13,8 @@ Overscan: .block
           sty PF0
           sty PF1
           sty PF2
+          sty COLUPF
+          sty COLUBK
 
           ldx #SFXBank
           jsr FarCall
