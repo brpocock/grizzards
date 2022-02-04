@@ -12,10 +12,12 @@ PeekGrizzardXP:       .block
           jsr i2cStopWrite
           jsr i2cStartRead
 
-          jsr i2cRxByte         ; HP
-          jsr i2cRxByte         ; Attack
-          jsr i2cRxByte         ; Defend
-          jsr i2cRxByte         ; XP
+          ;; Max HP, Attack, Defend, XP
+          ldx # 4
+-
+          jsr i2cRxByte
+          dex
+          bne 0
           beq NoGrizzard        ; XP = 0 = no Grizzard
           cmp #$ff
           beq NoGrizzard        ; Garbage read = no Grizzard
