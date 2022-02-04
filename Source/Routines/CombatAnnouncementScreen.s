@@ -19,8 +19,8 @@ CombatAnnouncementScreen:     .block
 +
 
           .case SECAM
-          ;; This is all crazy shit discovered by experiment
-          ;; There is no rational explanation
+            ;; This is all crazy shit discovered by experiment
+            ;; There is no rational explanation
             .WaitForTimer
             lda WhoseTurn
             beq SkipFew
@@ -34,9 +34,9 @@ SkipFew:
 
           .WaitScreenTop
 
-          lda # 0
-          sta MoveAnnouncement
-          sta SpeechSegment
+          ldy # 0
+          sty MoveAnnouncement
+          sty SpeechSegment
 
           ldy MoveSelection
 
@@ -97,8 +97,7 @@ MonsterTurnColor:
 ;;; 
 AnnounceSubject:
           lda MoveAnnouncement
-          cmp # 1
-          blt AnnounceVerb
+          beq AnnounceVerb
 
 DrawSubject:
           lda WhoseTurn
