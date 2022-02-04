@@ -692,10 +692,6 @@ SpriteList:
           .byte $7c, $18
           .byte SpritePerson, 52 ; Sue
 
-          .byte $ff, SpriteRandomEncounter
-          .byte 0, 0
-          .byte SpritePerson, 51 ; Sue (Mirror)
-
           .byte 0
 
           ;; Room 60

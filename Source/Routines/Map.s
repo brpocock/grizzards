@@ -278,6 +278,36 @@ FillBottomScreen:
           lda #ENABLED
           sta VBLANK
 ;;; 
+
+          .if BANK == Province2MapBank
+
+          ;; Still in Province 2!
+          ;; This is another special-case
+          ;; It's here because bank 1 is just full.
+          lda CurrentMap
+          cmp # 59              ; interior of Sue's house
+          bne DoneMirror
+
+          lda ProvinceFlags + 1
+          and # 1
+          bne DoneMirror
+
+          lda PlayerX
+          cmp #$a7
+          blt DoneMirror
+          lda PlayerY
+          cmp #$3b
+          blt DoneMirror
+
+          lda # 51              ; Found the mirror
+          sta SignpostIndex
+          lda #ModeSignpost
+          sta GameMode
+
+DoneMirror:
+
+          .fi
+
 ScreenJumpLogic:
           lda PlayerY
           cmp #ScreenTopEdge
