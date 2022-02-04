@@ -1,38 +1,33 @@
 ;;; Grizzards Source/Routines/FindHighBit.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
-;;; XXX These two routines are nearly identical
-;;; is it worth it to factor out a common prefix subroutine?
-
 FindHighBit:        .block
-          tay
-          ldx # 7
+          ldx # 8
+          clc
 -
-          tya
-          and BitMask, x
-          bne +
           dex
-          bne -
-          lda # 0
+          beq Return0
+          rol a
+          bcc -
+
+          lda BitMask, x
           rts
-+
-          lda BitMask, x        ; the only line that differs
+
+Return0
+          lda # 0
           rts
 
           .bend
 
 CalculateAttackMask:          .block
-          tay
-          ldx # 7
+          ldx # 8
+          clc
 -
-          tya
-          and BitMask, x
-          bne +
           dex
-          bne -
-          lda # 0
-          rts
-+
+          beq FindHighBit.Return0
+          rol a
+          bcc -
+
           lda AttackMask, x     ; the only line that differs
           rts
 
