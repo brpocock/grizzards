@@ -65,6 +65,7 @@ DoneButtons:
 
           .if DoVBlankWork != 0
           jsr DoVBlankWork
+          ldy # 0
           .fi
 
           .WaitForTimer
