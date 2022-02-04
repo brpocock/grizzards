@@ -5,9 +5,9 @@
 
 SetUpFortyEight:	.macro Graphics
 
-          .if <(\Graphics) == 0
+          .if (< \Graphics) == 0
 
-          lda #>(\Graphics)
+          lda #>\Graphics
 	sta pp0h
           sta pp1h
           sta pp2h
@@ -17,6 +17,8 @@ SetUpFortyEight:	.macro Graphics
           dec pp0h
 
           .else
+
+          .warn "Graphics not page-aligned: ", \Graphics
 
 	lda #>(\Graphics + \Graphics.Height * 0 - 1)
 	sta pp0h
