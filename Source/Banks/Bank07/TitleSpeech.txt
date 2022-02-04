@@ -1,3 +1,6 @@
+Reset:
+\Reset
+
 TitleIntro:
 Grizzards
 

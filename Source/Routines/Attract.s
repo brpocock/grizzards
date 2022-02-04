@@ -15,6 +15,9 @@ ZeroRAM:
           dex
           bne ZeroRAM
 
+          lda # Phrase_Reset
+          sta CurrentUtterance
+
 WarmStart:
           ldx #$ff
           txs
