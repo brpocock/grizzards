@@ -217,7 +217,7 @@ KnownZeroInEveryBank:
 
           .fi
 
-;;; 6502 special vectors
+;;; 6507 special vectors
 ;;;
           * = NMIVEC
           .offs -$f000
