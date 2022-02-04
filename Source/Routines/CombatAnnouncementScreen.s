@@ -226,22 +226,18 @@ Speech5:
           beq SayMonsterObject
 SayPlayerObject:
           bit CombatMoveDeltaHP
-          bpl +
+          bpl SayPlayerAndGo
 
+SayMonsterAndGo:
           jsr SayMonster
-          jmp SpeechQueued
-+
-          jsr SayPlayerGrizzard
           jmp SpeechQueued
 
 SayMonsterObject:
           bit CombatMoveDeltaHP
-          bpl +
+          bmi SayMonsterAndGo
 
+SayPlayerAndGo:
           jsr SayPlayerGrizzard
-          jmp SpeechQueued
-+
-          jsr SayMonster
           jmp SpeechQueued
 
 Speech6:
