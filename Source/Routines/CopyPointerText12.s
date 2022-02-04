@@ -2,10 +2,10 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 CopyPointerText12:
           ldy # 8
--
+Loop:
           lda (Pointer), y
           sta SignpostLineCompressed, y
           dey
-          bpl -
+          bpl Loop
           
           rts
