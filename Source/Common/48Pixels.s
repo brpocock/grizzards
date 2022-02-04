@@ -5,17 +5,16 @@
 
 SetUpFortyEight:	.macro Graphics
 
-          .if <\Graphics == 0
+          .if <(\Graphics) == 0
 
-	lda #>(\Graphics + \Graphics.Height * 0 - 1)
+          lda #>(\Graphics)
 	sta pp0h
-          clc
-          adc # 1
           sta pp1h
           sta pp2h
           sta pp3h
           sta pp4h
           sta pp5h
+          dec pp0h
 
           .else
 
