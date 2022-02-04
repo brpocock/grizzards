@@ -9,7 +9,6 @@ PublisherPresentsMode:
           .SetUpFortyEight AtariAgeLogo
           .ldacolu COLGRAY, $f
           sta COLUBK
-          ldy # AtariAgeLogo.Height
           .if SECAM == TV
             lda #COLBLUE
           .else
@@ -20,7 +19,6 @@ PublisherPresentsMode:
 
 BRPPreambleMode:
           .SetUpFortyEight BRPCredit
-          ldy # BRPCredit.Height
           .ldacolu COLINDIGO, $8
 
           .fi
@@ -50,14 +48,11 @@ SingleGraphicAttract:
 
           .SkipLines 71
 
-          sty LineCounter
           jsr ShowPicture
 
           .if PUBLISHER
             .SetUpFortyEight AtariAgeText
-            ldy #AtariAgeText.Height
-          sty LineCounter
-          sty WSYNC
+            stx WSYNC
             jsr ShowPicture
           .fi
 

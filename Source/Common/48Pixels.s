@@ -28,6 +28,8 @@ SetUpFortyEight:	.macro Graphics
 	sta pp5l
 	lda #>(\Graphics + \Graphics.Height * 5 - 1)
 	sta pp5h
+          ldy #\Graphics.Height
+          sty LineCounter
 
 	.endm
 

@@ -86,10 +86,10 @@ DoLocal:
           .if NOSAVE
 
           ;; Dummy out SaveKey routines
-SaveToSlot:
-SaveGrizzard:
+SaveToSlot:                     ; NOSAVE
+SaveGrizzard:                   ; NOSAVE
           rts
-PeekGrizzard:
+PeekGrizzard:                   ; NOSAVE
           lda Temp
           cmp # 1
           beq +
@@ -101,7 +101,7 @@ PeekGrizzard:
 
           .include "BeginOrResume.s"
 
-          .else
+          .else                 ; Not the NOSAVE build
           
           .include "SaveToSlot.s"
           .include "PeekGrizzard.s"

@@ -12,15 +12,12 @@ ShowBossBear:       .block
           bit ClockFrame
           beq AltFrame
           .SetUpFortyEight BossBear
-          ldy #BossBear.Height
           gne Ready
 
 AltFrame:
           .SetUpFortyEight BossBear2
-          ldy #BossBear2.Height
 
 Ready:
-          sty LineCounter
           jmp ShowPicture       ; tail call
 
           .bend

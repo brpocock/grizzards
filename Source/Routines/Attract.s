@@ -104,8 +104,6 @@ DoneTitleSpeech:
           sta COLUBK
 
           .SetUpFortyEight Title1
-          ldy #Title1.Height
-          sty LineCounter
           jsr ShowPicture
 
           .if DEMO

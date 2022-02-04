@@ -44,8 +44,8 @@ DrawDirtex1:
 
           rts
 
-          .fi                   ; start of Demo/Aquax only version
-
+          .fi                   ; if !DEMO block ends
+          ;; start of Demo/Aquax only version
 AquaxTop: 
           .SkipLines 30
           .ldacolu COLSPRINGGREEN, $4
@@ -71,8 +71,6 @@ AquaxTop:
 
 DrawAquax1:
           .SetUpFortyEight Grizzard11
-          ldy #Grizzard11.Height
-          sty LineCounter
           jsr ShowPicture
 
           ldy # 0
@@ -164,16 +162,12 @@ Foliage:
           beq DrawAirex1
 
           .SetUpFortyEight Grizzard20
-          ldy #Grizzard20.Height
-          sty LineCounter
           jsr ShowPicture
 
           jmp AirexBottom
 
 DrawAirex1:
           .SetUpFortyEight Grizzard21
-          ldy #Grizzard21.Height
-          sty LineCounter
           jsr ShowPicture
 
           ldy # 0

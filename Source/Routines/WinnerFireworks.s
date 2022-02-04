@@ -27,8 +27,6 @@ NotAgain:
           .SkipLines 30
 
           .SetUpFortyEight BossBearDies
-          ldy #BossBearDies.Height
-          sty LineCounter
           jsr ShowPicture
 
 ;;; 
