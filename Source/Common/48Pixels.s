@@ -15,47 +15,35 @@ SetUpFortyEight:	.macro Graphics
           sta pp4h
           sta pp5h
 
-	lda #<(\Graphics + \Graphics.Height * 0 - 1)
-	sta pp0l
-	lda #<(\Graphics + \Graphics.Height * 1 - 1)
-	sta pp1l
-	lda #<(\Graphics + \Graphics.Height * 2 - 1)
-	sta pp2l
-	lda #<(\Graphics + \Graphics.Height * 3 - 1)
-	sta pp3l
-	lda #<(\Graphics + \Graphics.Height * 4 - 1)
-	sta pp4l
-	lda #<(\Graphics + \Graphics.Height * 5 - 1)
-	sta pp5l
-
           .else
           
-	lda #<(\Graphics + \Graphics.Height * 0 - 1)
-	sta pp0l
 	lda #>(\Graphics + \Graphics.Height * 0 - 1)
 	sta pp0h
-	lda #<(\Graphics + \Graphics.Height * 1 - 1)
-	sta pp1l
 	lda #>(\Graphics + \Graphics.Height * 1 - 1)
 	sta pp1h
-	lda #<(\Graphics + \Graphics.Height * 2 - 1)
-	sta pp2l
 	lda #>(\Graphics + \Graphics.Height * 2 - 1)
 	sta pp2h
-	lda #<(\Graphics + \Graphics.Height * 3 - 1)
-	sta pp3l
 	lda #>(\Graphics + \Graphics.Height * 3 - 1)
 	sta pp3h
-	lda #<(\Graphics + \Graphics.Height * 4 - 1)
-	sta pp4l
 	lda #>(\Graphics + \Graphics.Height * 4 - 1)
 	sta pp4h
-	lda #<(\Graphics + \Graphics.Height * 5 - 1)
-	sta pp5l
 	lda #>(\Graphics + \Graphics.Height * 5 - 1)
 	sta pp5h
 
           .fi
+ 
+	lda #<(\Graphics + \Graphics.Height * 0 - 1)
+	sta pp0l
+	lda #<(\Graphics + \Graphics.Height * 1 - 1)
+	sta pp1l
+	lda #<(\Graphics + \Graphics.Height * 2 - 1)
+	sta pp2l
+	lda #<(\Graphics + \Graphics.Height * 3 - 1)
+	sta pp3l
+	lda #<(\Graphics + \Graphics.Height * 4 - 1)
+	sta pp4l
+	lda #<(\Graphics + \Graphics.Height * 5 - 1)
+	sta pp5l
 
           ldy #\Graphics.Height
           sty LineCounter
