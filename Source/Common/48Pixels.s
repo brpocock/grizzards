@@ -4,6 +4,32 @@
 
 
 SetUpFortyEight:	.macro Graphics
+
+          .if >\Graphics == >(\Graphics + \Graphics.Height * 5 - 1)
+
+	lda #>(\Graphics + \Graphics.Height * 0 - 1)
+	sta pp0h
+          sta pp1h
+          sta pp2h
+          sta pp3h
+          sta pp4h
+          sta pp5h
+
+	lda #<(\Graphics + \Graphics.Height * 0 - 1)
+	sta pp0l
+	lda #<(\Graphics + \Graphics.Height * 1 - 1)
+	sta pp1l
+	lda #<(\Graphics + \Graphics.Height * 2 - 1)
+	sta pp2l
+	lda #<(\Graphics + \Graphics.Height * 3 - 1)
+	sta pp3l
+	lda #<(\Graphics + \Graphics.Height * 4 - 1)
+	sta pp4l
+	lda #<(\Graphics + \Graphics.Height * 5 - 1)
+	sta pp5l
+
+          .else
+          
 	lda #<(\Graphics + \Graphics.Height * 0 - 1)
 	sta pp0l
 	lda #>(\Graphics + \Graphics.Height * 0 - 1)
@@ -28,6 +54,9 @@ SetUpFortyEight:	.macro Graphics
 	sta pp5l
 	lda #>(\Graphics + \Graphics.Height * 5 - 1)
 	sta pp5h
+
+          .fi
+
           ldy #\Graphics.Height
           sty LineCounter
 
