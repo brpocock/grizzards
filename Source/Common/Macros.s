@@ -10,6 +10,7 @@ Sleep:    .macro Cycles
           .switch \Cycles
 
           .case 0
+          ;; sleep 0 = nothing
 
           .case 1
           .error "Cannot sleep 1 cycle (must be 2+)"
