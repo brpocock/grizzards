@@ -1,5 +1,6 @@
 ;;; Grizzards Source/Routines/GrizzardStatsScreen.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
+
 GrizzardStatsScreen: .block
           .WaitScreenTop
           lda #ModeGrizzardStats
@@ -13,22 +14,20 @@ Loop:
           .WaitScreenTop
 FirstLoop:
           .FarJSR TextBank, ServiceShowGrizzardStats
-
 ;;; 
-
           lda NewButtons
           beq NoButton
           and #PRESSED
           beq Select
 NoButton:
           lda NewSWCHB
-          beq Bouncey1
+          beq DoneSwitches
           .BitBit SWCHBReset
           bne +
           .FarJMP SaveKeyBank, ServiceAttract
 +
-          .BitBit SWCHBSelect
-          bne Bouncey1
+          and #SWCHBSelect
+          bne DoneSwitches
 
 Select:
           lda DeltaY
@@ -36,7 +35,7 @@ Select:
           ldy # 0
           sty DeltaY
 
-Bouncey1:
+DoneSwitches:
           lda GameMode
           cmp #ModeGrizzardStats
           bne +
@@ -68,5 +67,9 @@ Bouncey1:
 
           .fi
 
+          .if SECAM != TV
+          ;; Out of space for such niceties ☹
           brk
+          .fi
+
           .bend
