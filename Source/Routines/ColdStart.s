@@ -46,7 +46,7 @@ ResetStack:
           ldx #$ff
           txs
 
-          ldx #0
+          inx                   ; X = 0
           stx GameMode
           
           ;; Fall through to DetectConsole
