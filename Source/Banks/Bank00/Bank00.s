@@ -45,8 +45,10 @@ DoLocal:
           beq SaveToSlot
           cpy #ServicePeekGrizzard
           beq PeekGrizzard
+          .if !DEMO
           cpy #ServicePeekGrizzardXP
           beq PeekGrizzardXP
+          .fi
           cpy #ServiceSaveGrizzard
           beq SaveGrizzard
           cpy #ServiceAttract
@@ -103,7 +105,9 @@ PeekGrizzard:
           
           .include "SaveToSlot.s"
           .include "PeekGrizzard.s"
+          .if !DEMO
           .include "PeekGrizzardXP.s"
+          .fi
           .include "SelectSlot.s"
           .include "LoadSaveSlot.s"
 
