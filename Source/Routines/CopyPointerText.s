@@ -1,6 +1,6 @@
 ;;; Grizzards Source/Routines/CopyPointerText.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
-CopyPointerText:
+CopyPointerText:    .block
           ldy # 5
 Loop:
           lda (Pointer), y
@@ -9,3 +9,5 @@ Loop:
           bpl Loop
           
           rts
+
+          .bend
