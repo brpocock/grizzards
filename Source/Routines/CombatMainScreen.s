@@ -64,12 +64,13 @@ NWait0:
 
             ;; Modified WaitScreenBottom
             .WaitForTimer
-            .SkipLines 9
+            .SkipLines 8
             lda WhoseTurn
             bne +
             stx WSYNC
 +
             stx WSYNC
+            ;; if not RUN AWAY 
             lda MoveSelection
             bne +
             stx WSYNC
