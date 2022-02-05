@@ -6,16 +6,16 @@ Overscan: .block
 
           ldy # 0
           stx WSYNC
-          sty ENAM0
-          sty ENAM1
+          sty COLUPF
+          sty COLUBK
           sty GRP0
           sty GRP1
+          sty ENAM0
+          sty ENAM1
           sty ENABL
           sty PF0
           sty PF1
           sty PF2
-          sty COLUPF
-          sty COLUBK
 
           ldx #SFXBank
           jsr FarCall
