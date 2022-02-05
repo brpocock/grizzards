@@ -21,9 +21,11 @@ Death:    .block
           lda # 120
           sta AlarmCountdown
 
+          jmp LoopFirst
 ;;; 
 Loop:
           .WaitScreenBottom
+LoopFirst:
           .WaitScreenTop
 
           .ldacolu COLGRAY, 0
