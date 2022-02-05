@@ -13,7 +13,7 @@ SaveGameSignatureString:
           ;; The AtariVox EEPROM driver is about 192 bytes ($c0)
           ;; This fill maxxes out bank 0,1 for AA Airex PAL/SECAM
           ;; if we need more room things gonna get ugly 😎
-          .fill $b0, $ea
+          .fill $ac, $ea
 
 i2cStartRead:
           ;; TODO
