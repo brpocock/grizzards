@@ -390,7 +390,12 @@ Leave:
           cmp #ModeMap
           bne NotGoingToMap
 
-          .SkipLines 32
+          .switch TV
+          .case PAL,SECAM
+            .SkipLines 32
+          .case NTSC
+            .SkipLines 31
+          .endswitch
           jmp GoMap
 
 NotGoingToMap:
