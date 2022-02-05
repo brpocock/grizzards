@@ -55,25 +55,25 @@ DoneSwitches:
           bne DoneLeft
 
           dec CurrentGrizzard
+          lda #SoundChirp
+          sta NextSound
           lda CurrentGrizzard
           bpl DoneLeft
           lda # 2
           sta CurrentGrizzard
-          lda #SoundChirp
-          sta NextSound
 DoneLeft:
           lda NewSWCHA
           and #P0StickRight
           bne DoneRight
 DoRight:
           inc CurrentGrizzard
+          lda #SoundChirp
+          sta NextSound
           lda CurrentGrizzard
           cmp # 3
           blt DoneRight
           lda # 0
           sta CurrentGrizzard
-          lda #SoundChirp
-          sta NextSound
 DoneRight:
 DoneStick:
           lda NewButtons
