@@ -10,9 +10,6 @@ DrawGrizzard:       .block
           sta NUSIZ1
 
           ldx CurrentGrizzard
-          lda GrizzardColor, x
-          sta COLUP0
-          sta COLUP1
 
           stx WSYNC
           sta HMCLR
@@ -43,8 +40,16 @@ DrawGrizzard:       .block
 +
           sta pp3l
 
+          lda GrizzardColor, x
+          .if SECAM != TV
+          ;; Carry doesn't matter, low bit is ignored
+          adc #$02
+          .fi
+          sta COLUP0
+          sta COLUP1
+
           ldy # 8
--
+DrawLoop:
           lda (pp2l), y
           sta GRP0
           lda (pp3l), y
@@ -54,8 +59,23 @@ DrawGrizzard:       .block
           .if TV != NTSC
           stx WSYNC
           .fi
+
+          .if SECAM != TV
+          cpy # 8
+          bge NoColorChange
+          lda GrizzardColor, x          
+          cpy # 4
+          bge +
+          ;; Carry doesn't matter, low bit is ignored
+          sbc #$02
++
+          sta COLUP0
+          sta COLUP1
+NoColorChange:
+          .fi
+
           dey
-          bne -
+          bne DrawLoop
 
           sty GRP0
           sty GRP1
