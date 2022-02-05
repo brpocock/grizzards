@@ -5,6 +5,7 @@ Overscan: .block
           .TimeLines OverscanLines
 
           ldy # 0
+          stx WSYNC
           sty ENAM0
           sty ENAM1
           sty GRP0
