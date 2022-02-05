@@ -223,8 +223,8 @@ Speech5:
 
           ldx CombatMoveSelected
           lda WhoseTurn
-          beq SayMonsterObject
-SayPlayerObject:
+          beq SayObjectForPlayer
+SayObjectForMonster:
           bit CombatMoveDeltaHP
           bpl SayPlayerAndGo
 
@@ -232,9 +232,9 @@ SayMonsterAndGo:
           jsr SayMonster
           jmp SpeechQueued
 
-SayMonsterObject:
+SayObjectForPlayer:
           bit CombatMoveDeltaHP
-          bmi SayMonsterAndGo
+          bpl SayMonsterAndGo
 
 SayPlayerAndGo:
           jsr SayPlayerGrizzard
