@@ -10,6 +10,9 @@ TopOfScreenService: .block
 
           jsr VSync
           .TimeLines 32
+          .if NTSC != TV
+          stx WSYNC
+          .fi
           jsr Prepare48pxMobBlob
 
           .ldacolu COLGRAY, $f
@@ -21,7 +24,7 @@ TopOfScreenService: .block
           lda Pause
           beq DrawScore
           .LoadString "PAUSED"
-          jmp ScoreDone
+          gne ScoreDone
 
 DrawScore:
           jsr DecodeScore
