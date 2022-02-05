@@ -13,7 +13,8 @@ Loop:
 ;;; to change  depending on whether  the tunnels have  been opened
 ;;; yet. If they have not been, we swap out the background for the
 ;;; BowClosed one.
-          .if BANK == 4 && !DEMO
+          .if BANK == Province0MapBank && !DEMO
+
           cpx # 17
           bne NoChangeRLE
 
@@ -30,6 +31,38 @@ Loop:
           sta pp5h
           jmp GotRLE
 NoChangeRLE:
+          .fi
+
+          .if BANK == Province2MapBank && !DEMO
+
+          ;; Still in Province 2. Is this waterfront?
+          lda ClockSeconds
+          and # 1
+          beq DoneShore
+
+          cpx # 1
+          beq SouthShoreAlt
+
+          cpx # 14
+          blt DoneShore
+
+          cpx # 18
+          bge MaybeNorthShore
+
+SouthShoreAlt:
+          ldx # 67              ; SouthShore2
+          gne DoneShore
+
+MaybeNorthShore:
+          cpx # 51
+          blt DoneShore
+
+          cpx # 54
+          bge DoneShore
+
+          ldx # 68              ; NorthShore2
+DoneShore:
+
           .fi
 
           lda MapRLEL, x
@@ -137,6 +170,7 @@ DoMagicRing:
           gne NoBallsNoWSync
 
 DoneMagicRing:
+
           .fi
 
           lda MapSides, x

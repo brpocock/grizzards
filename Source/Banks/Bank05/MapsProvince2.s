@@ -198,7 +198,8 @@ MapLinks:
           ;; 60
           _ ..= ( Map_InHouse, Map_InHouse, Map_OpenSidesDoorTop, Map_OpenSides, Map_ClosedTop )
           ;; 65
-          _ ..= ( Map_EWOval, Map_OpenTopDoorSides )
+          ;; special non-existing rooms 67 & 68 define alternate RLE backgrounds for “wave motions”
+          _ ..= ( Map_EWOval, Map_OpenTopDoorSides, Map_SouthShore2, Map_NorthShore2 )
 
           MapRLE = _
 
