@@ -73,7 +73,7 @@ FirstTime:
           jmp BeginGrossPosition
 
           .if 3 == BANK
-          .align $40            ; XXX alignment
+          ;;.align $00            ; XXX alignment
           .else
           .align $20            ; XXX
           .fi
