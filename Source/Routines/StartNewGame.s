@@ -21,6 +21,7 @@ InitGameVars:
           sty CurrentProvince
           sty NextMap
           sty CurrentMap
+          sty Potions
           sty Score
           sty Score + 1
           sty Score + 2
