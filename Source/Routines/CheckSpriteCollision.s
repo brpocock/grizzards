@@ -11,6 +11,7 @@ NoCollision:
           lda MapFlags
           and InvertedBitMask + 4, x ; MapFlagSprite𝑥Moved
           sta MapFlags
+          and #~MapFlagFacing
           cmp #MapFlagRandomSpawn
           beq EndRandomSpawn
 
