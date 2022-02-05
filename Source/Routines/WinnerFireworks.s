@@ -2,10 +2,27 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 WinnerFireworks:    .block
 
+          .KillMusic
           lda #SoundRoar
           sta NextSound
           .SetUtterance Phrase_BossBearDefeated
 
+          .WaitScreenBottom
+
+          ldy # 0
+          sty CurrentGrizzard
+          sty CurrentHP         ; now = Grizzards Count
+CheckCaughtLoop:
+          .FarJSR SaveKeyBank, ServicePeekGrizzardXP
+          bcc +
+          inc CurrentHP
++
+          inc CurrentGrizzard
+          lda CurrentGrizzard
+          cmp # 30
+          blt CheckCaughtLoop
+
+          .WaitScreenTop
 Loop:
           .WaitScreenBottom
           .WaitScreenTop
@@ -23,8 +40,31 @@ Loop:
           bpl NotAgain
           .SetPointer AgainText
           jsr ShowPointerText
+          jmp +
 NotAgain:
-          .SkipLines 30
+          .SkipLines 16
++
+
+          .SetPointer CaughtText
+          jsr ShowPointerText
+
+          lda CurrentHP
+          cmp # 30
+          beq CaughtEmAll
+
+          sta Temp
+          lda #$28              ; blank
+          ldx # 6
+-
+          sta StringBuffer - 1, x
+          dex
+          bne -
+          .FarJSR TextBank, ServiceAppendDecimalAndPrint
+
+          jmp +
+CaughtEmAll:
+          .SetPointer EmAllText
+          jsr ShowPointerText
 
           .SetUpFortyEight BossBearDies
           jsr ShowPicture
@@ -84,6 +124,10 @@ SeenGrizzardBefore:
 
 AgainText:
           .MiniText "AGAIN!"
-          
+CaughtText:
+          .MiniText "CAUGHT"
+EmAllText:
+          .MiniText "EM ALL"
+
           .bend
 
