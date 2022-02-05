@@ -228,13 +228,11 @@ skipping MIDI music with ~:d note~:p"
                                     (nearest (null-if-zero-note (best-tia-ntsc-note-for note 4))
                                              (null-if-zero-note (best-tia-ntsc-note-for note 5))
                                              (null-if-zero-note (best-tia-ntsc-note-for note 2))
-                                             (null-if-zero-note (best-tia-ntsc-note-for note 1))
                                              (list 0 0 most-positive-fixnum)))
                                    (:pal
                                     (nearest (null-if-zero-note (best-tia-pal-note-for note 4))
                                              (null-if-zero-note (best-tia-pal-note-for note 5))
                                              (null-if-zero-note (best-tia-pal-note-for note 2))
-                                             (null-if-zero-note (best-tia-pal-note-for note 1))
                                              (list 0 0 most-positive-fixnum))))
                                  (list nil nil))
             do (setf (aref array i 0) (when (elt note 0)
