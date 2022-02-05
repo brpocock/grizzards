@@ -26,13 +26,7 @@ Overscan: .block
 
           .if !DEMO
           .switch BANK
-          .case 3
-          jsr DoMusic
-
-          .case 4
-          jsr DoMusic
-
-          .case 5
+          .case 3, 4, 5
           jsr DoMusic
 
           .default
