@@ -72,8 +72,8 @@ FirstTime:
           ldx NameEntryPosition
           jmp BeginGrossPosition
 
-          .if 3 == BANK
-          ;;.align $00            ; XXX alignment
+          .if 3 == BANK && NTSC == TV
+          .align $10            ; XXX alignment
           .else
           .align $20            ; XXX
           .fi
