@@ -11,35 +11,35 @@ GrizzardPictureSelect:
 
 GrizzardColor:
 
-          .colu COLGREEN, $e
+          .colu COLGREEN, $c
           .colu COLBROWN, $6
-          .colu COLTEAL, $e
-          .colu COLRED, $f
+          .colu COLTEAL, $c
+          .colu COLRED, $c
           .colu COLBROWN, $4
-          .colu COLTURQUOISE, $f
-          .colu COLTEAL, $e
-          .colu COLGREEN, $f
-          .colu COLGREEN, $f
-          .colu COLGREEN, $f
+          .colu COLTURQUOISE, $c
+          .colu COLTEAL, $c
+          .colu COLGREEN, $c
+          .colu COLGREEN, $c
+          .colu COLGREEN, $c
           ;; 10
-          .colu COLTURQUOISE, $f
-          .colu COLTURQUOISE, $f
-          .colu COLTURQUOISE, $f
-          .colu COLTURQUOISE, $f
-          .colu COLTURQUOISE, $f
-          .colu COLTURQUOISE, $f
-          .colu COLTURQUOISE, $f
-          .colu COLTURQUOISE, $f
-          .colu COLTURQUOISE, $f
-          .colu COLTURQUOISE, $f
+          .colu COLTURQUOISE, $c
+          .colu COLTURQUOISE, $c
+          .colu COLTURQUOISE, $c
+          .colu COLTURQUOISE, $c
+          .colu COLTURQUOISE, $c
+          .colu COLTURQUOISE, $c
+          .colu COLTURQUOISE, $c
+          .colu COLTURQUOISE, $c
+          .colu COLTURQUOISE, $c
+          .colu COLTURQUOISE, $c
           ;; 20
-          .colu COLINDIGO, $f
-          .colu COLINDIGO, $f
-          .colu COLINDIGO, $f
-          .colu COLINDIGO, $f
-          .colu COLINDIGO, $f
-          .colu COLINDIGO, $f
-          .colu COLINDIGO, $f
-          .colu COLINDIGO, $f
-          .colu COLINDIGO, $f
-          .colu COLINDIGO, $f
+          .colu COLINDIGO, $c
+          .colu COLINDIGO, $c
+          .colu COLINDIGO, $c
+          .colu COLINDIGO, $c
+          .colu COLINDIGO, $c
+          .colu COLINDIGO, $c
+          .colu COLINDIGO, $c
+          .colu COLINDIGO, $c
+          .colu COLINDIGO, $c
+          .colu COLINDIGO, $c
