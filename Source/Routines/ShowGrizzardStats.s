@@ -16,7 +16,7 @@ ShowGrizzardStats:  .block
           lda CurrentGrizzard
           clc
           adc # 1
-          jsr  AppendDecimalAndPrint
+          jsr AppendDecimalAndPrint
 
           .ldacolu COLINDIGO, 0
           sta COLUP0
