@@ -199,47 +199,52 @@ skipping MIDI music with ~:d note~:p"
 (defun best-tia-ntsc-note-for (freq &optional (voice 1))
   (let ((notes (mapcar #'first
                        (cdr (elt +atari-voices+ voice)))))
-    (when-let (freq (position (first (sort (copy-list notes) #'<
-                                           :key (curry #'frequency-distance freq)))
-                              notes :test #'=))
-      (list voice freq))))
+    (when-let (freq-code (position (first (sort (copy-list notes) #'<
+                                                :key (curry #'frequency-distance freq)))
+                                   notes :test #'=))
+      (list voice freq-code (frequency-distance freq (elt notes freq-code))))))
 
 (defun best-tia-pal-note-for (freq &optional (voice 1))
   (let ((notes (mapcar #'second
                        (cdr (elt +atari-voices+ voice)))))
-    (when-let (freq (position (first (sort (copy-list notes) #'<
-                                           :key (curry #'frequency-distance freq)))
-                              notes :test #'=))
-      (list voice freq))))
+    (when-let (freq-code (position (first (sort (copy-list notes) #'<
+                                                :key (curry #'frequency-distance freq)))
+                                   notes :test #'=))
+      (list voice freq-code (frequency-distance freq (elt notes freq-code))))))
 
 (defun null-if-zero-note (n)
   (if (or (null n) (zerop (lastcar n))) nil n))
 
 (defun array<-tia-notes-list (list output-coding)
-  (let ((array (make-array (list (length list) 5))))
-    (loop for note in list
-          for i from 0
-          for (control freq) = (if-let (note (elt note 2))
+  (labels ((nearest (&rest set)
+             (first (sort set #'< :key #'third))))
+    (let ((array (make-array (list (length list) 5))))
+      (loop for note in list
+            for i from 0
+            for (control freq) = 
+                               (if-let (note (elt note 2))
                                  (ecase output-coding
                                    (:ntsc
-                                    (or (null-if-zero-note (best-tia-ntsc-note-for note 1))
-                                        (null-if-zero-note (best-tia-ntsc-note-for note 2))
-                                        (null-if-zero-note (best-tia-ntsc-note-for note 4))
-                                        (list 0 0)))
+                                    (nearest (null-if-zero-note (best-tia-ntsc-note-for note 4))
+                                             (null-if-zero-note (best-tia-ntsc-note-for note 5))
+                                             (null-if-zero-note (best-tia-ntsc-note-for note 2))
+                                             (null-if-zero-note (best-tia-ntsc-note-for note 1))
+                                             (list 0 0 most-positive-fixnum)))
                                    (:pal
-                                    (or (null-if-zero-note (best-tia-pal-note-for note 1))
-                                        (null-if-zero-note (best-tia-pal-note-for note 2))
-                                        (null-if-zero-note (best-tia-pal-note-for note 4))
-                                        (list 0 0))))
+                                    (nearest (null-if-zero-note (best-tia-pal-note-for note 4))
+                                             (null-if-zero-note (best-tia-pal-note-for note 5))
+                                             (null-if-zero-note (best-tia-pal-note-for note 2))
+                                             (null-if-zero-note (best-tia-pal-note-for note 1))
+                                             (list 0 0 most-positive-fixnum))))
                                  (list nil nil))
-          do (setf (aref array i 0) (when (elt note 0)
-                                      (floor (max (/ (elt note 0) +midi-duration-divisor+) 1))) ; duration
-                   (aref array i 1) control        ;control
-                   (aref array i 2) freq ;frequency
-                   (aref array i 3) (when (elt note 3)
-                                      (floor (elt note 3)))  ; volume
-                   (aref array i 4) (elt note 4))) ;comment
-    array))
+            do (setf (aref array i 0) (when (elt note 0)
+                                        (floor (max (/ (elt note 0) +midi-duration-divisor+) 1))) ; duration
+                     (aref array i 1) control ;control
+                     (aref array i 2) freq    ;frequency
+                     (aref array i 3) (when (elt note 3)
+                                        (floor (elt note 3))) ; volume
+                     (aref array i 4) (elt note 4)))          ;comment
+      array)))
 
 (defun midi-translate-notes (notes)
   (let ((volume 8)
