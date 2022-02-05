@@ -76,10 +76,10 @@ PlayMusic:
           bne TheEnd
 
           ;; make the notes slightly more staccatto
-          lda # 0
-          sta AUDF1
-          sta AUDC1
-          sta AUDV1
+          ldy # 0
+          sty AUDF1
+          sty AUDC1
+          sty AUDV1
 
 ReallyPlayMusic:
           ldy #0
