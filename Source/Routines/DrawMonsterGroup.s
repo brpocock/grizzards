@@ -98,7 +98,7 @@ SetCursorColor:
 
             ldx MoveTarget
             bne TargetIsMonster
-            .SkipLines 4
+            .SkipLines 3
             jmp CursorColored
 
 TargetIsMonster:
@@ -141,6 +141,7 @@ TopTarget:
           sta CursorBits
 SetUpCursor:
           dex
+          jmp PositionCursor
 ;;;
           .align $10, $ea       ; XXX alignment NOPs
 PositionCursor:
@@ -201,7 +202,9 @@ PrepareBottomCursor:
           ldx MoveTarget
           beq NoBottomTarget
 
-          stx WSYNC
+          .if SECAM == TV
+            stx WSYNC
+          .fi
           stx WSYNC
           cpx # 4
           bge BottomTarget
@@ -308,16 +311,15 @@ DrawMonsterLoop:
           ;; must return with Y=0 and Z flag set
           rts
 ;;; 
-          .page
 DrawNothing:
 
           ldy # 0
           sty GRP0
 
+          .page
           stx WSYNC
           .SleepX 71
           stx HMOVE
-
           .endp
 
           lda CursorBits
