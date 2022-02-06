@@ -64,6 +64,5 @@ DoLocal:
 
           .include "GrizzardImages.s"
           .include "GrizzardArt.s"
-          .include "CombatSpriteTables.s"
 
           .include "EndBank.s"
