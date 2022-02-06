@@ -327,7 +327,7 @@ DrawNothing:
 
           .switch TV
           .case NTSC
-            .SkipLines 16
+            .SkipLines 17
           .case PAL
             .SkipLines 24
           .case SECAM
