@@ -124,7 +124,7 @@ PrepareTopCursor:
           dex                   ; get column number
           dex                   ; for monsters 4-6
           dex
-          
+
 NoTopTarget:
           ldy # 0
           sty CursorBits
