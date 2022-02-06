@@ -5,9 +5,6 @@ Map:    .block
 Loop:
           .FarJSR MapServicesBank, ServiceTopOfScreen
 
-          lda #ModeMap
-          sta GameMode
-
           .TimeLines KernelLines - 34
 
           ldx CurrentMap

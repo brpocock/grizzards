@@ -2,11 +2,6 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 CheckSpriteCollision:         .block
-          lda GameMode
-          cmp #ModeMap
-          beq +
-          rts
-+
           ldx SpriteFlicker
           lda CXP1FB
           and #$c0           ; collision with playfield or ball
@@ -25,12 +20,19 @@ NoCollision:
           rts
 
 EndRandomSpawn:
+          ;; Make sure the timer has run out.
+          ;; Else we may not have drawn the screen at all yet.
+          ;; This delay is overkill, but it works.
+          ;; (we only really need 1-4 frames)
+          lda AlarmCountdown
+          bne +
           ;; Every sprite has been checked at least once,
           ;; and has not had to be repositioned, so we must
           ;; be OK to exit "poof" mode.
           lda MapFlags
           and #~MapFlagRandomSpawn
           sta MapFlags
++
           rts
 
 CollisionHasOccurred:

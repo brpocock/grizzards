@@ -86,6 +86,8 @@ NotADoor:
           cmp SpriteCount
           bne CheckNextSpriteForDoor
 DonePlacing:
+          lda #ModeMap
+          sta GameMode
 ;;; 
 CheckForRandomSpawns:
           ldx SpriteCount
