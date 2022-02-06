@@ -133,7 +133,7 @@ SetUpSprites:
           lda # SpriteDoor
 +
           cpy #MapFlagRandomSpawn
-          beq +                 ; keep puffs until stabilized
+          beq +                 ; keep poofs until stabilized
           ldy AlarmCountdown
           beq NoPuff            ; otherwise just for countdown time
 +
@@ -142,7 +142,7 @@ SetUpSprites:
           cmp #SpriteCombat
           bne NoPuff
 Puff:
-          lda SpriteColor + SpriteCombatPuff ; get color for puffs
+          lda SpriteColor + SpriteCombatPuff ; get color for poofs
           sta COLUP1
           lda #SpriteCombatPuff
 NoPuff:
