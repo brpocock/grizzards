@@ -5,16 +5,12 @@
 EndBank:
 
           .if DEMO
-          BankEndAddress = $ff4e      ; keep this as high as possible
+            BankEndAddress = $ff70      ; keep this as high as possible
           .else
-          BankEndAddress = $ff3a      ; keep this as high as possible
+            BankEndAddress = $ff50      ; keep this as high as possible
           .fi
-          ;; The magic number  above: you can just raise it  to, say,
-          ;; $ff70,  and then  the assembler  will bitch  at you  about its
-          ;; being too high, and tell you  what to lower it to. Careful,
-          ;; though, this has to be more than any bank uses.
           .if (* > BankEndAddress) || (* < $f000)
-          .error "Bank ", BANK, " overran ROM space (ending at ", *, "; must end by ", BankEndAddress, ")" 
+            .error "Bank ", BANK, " overran ROM space (ending at ", *, "; must end by ", BankEndAddress, ")"
           .fi
 
           .proff
@@ -27,13 +23,13 @@ EndBank:
 BankJump: .macro label, bank
           .block
 BankSwitch:
-          sta BankSwitch0 + \bank
+            sta BankSwitch0 + \bank
 
-          .if BANK == \bank
-          jmp \label
-          .else
-          jmp BankSwitch             ; try again if didn't switch fast enough
-          .fi
+            .if BANK == \bank
+              jmp \label
+            .else
+              jmp BankSwitch             ; try again if didn't switch fast enough
+            .fi
           .bend
           .endm
 
@@ -58,7 +54,7 @@ GoColdStart:
 GoMap:
           ldx #$ff              ; smash the stack
           txs
-          
+
           .if DEMO
 
           sta BankSwitch0 + Province0MapBank
@@ -117,21 +113,7 @@ Break:
           pha
           BankJump Failure, FailureBank
 
-;;; End of wired memory
-WiredEnd:
-          .if $ff80 < WiredEnd
-          .error "Wired ROM ends at ", *, " ; must end before $ff80. Adjust start of wired ROM at top of EndBank.s to ", format("$%x", (Wired + ($ff80 - WiredEnd)))
-          .fi
-
-          .if $ff70 > WiredEnd
-          .warn "Wired memory could be moved up, ended at ", format("%x", WiredEnd), " but can end as late as $ff7f"
-          .fi
-
 ;;; 
-;;; This stuff is just set to make sure the ProSystem will drop to VCS
-;;; compatibility mode for sure.
-          * = $ff80
-          .offs -$f000
 
           ;; Useful constants to save time bit-shifting. Used all over.
 BitMask:
@@ -143,36 +125,15 @@ InvertedBitMask:
           ;; a tiny little routine that's used all over the place.
           ;; free up from some wasted space here.
           .if BANK != 7
-          .include "WaitScreenBottom.s"
+            .include "WaitScreenBottom.s"
           .fi
 
           .if BANK != 7
-          .if !DEMO || BANK != 5
-          .if BANK < 8 || BANK >= 13
-          .include "Overscan.s"
-          .fi
-          .fi
-          .fi
-          
-          .fill ($fff7 - * + 1), 0        ; 7800 crypto key (designed to fail)
-
-          .if DEMO
-          
-          * = $fff4
-          .offs -$f000
-
-          .text "grizbrp", 0
-
-          .else
-
-          * = $ffe0
-          .offs -$f000
-
-          .text "grizbrp", 0
-
-          ;; magic cookie for Stella
-          nop $1fe0
-
+            .if !DEMO || BANK != 5
+              .if BANK < 8 || BANK >= 13
+                .include "Overscan.s"
+              .fi
+            .fi
           .fi
 
 ;;; The KnownZeroInEveryBank allows pointer to point to a fixed zero,
@@ -180,13 +141,20 @@ InvertedBitMask:
 
 KnownZeroInEveryBank:
           .byte 0                                ; 7800 region code: no regions enabled
-          .byte $f0                              ; 7800 recognition
-          ;; on the 7800 this says ROM begins at $f000 (true) and
-          ;; since 0 ≠ 7 we are not a 7800 tape (also true)
 
-;;; Bank switch hotspots for F4 style bank switching that we're using for now.
+;;; End of wired memory
+WiredEnd:
+          .if BankSwitch0 < WiredEnd || WiredEnd < $f000
+            .error "Wired ROM ends at ", WiredEnd, " ; must end before ", BankSwitch0, ". Adjust start of wired ROM at top of EndBank.s to ", format("$%x", (BankEndAddress + (BankSwitch0 - WiredEnd)))
+          .fi
+
+          .if BankSwitch0 > WiredEnd
+            .warn "Wired memory could be moved up, ended at ", *, " but can end as late as ", BankSwitch0, " wasting ", (BankSwitch0 - WiredEnd), ", move BankEndAddress up to ", format("$%x", (BankEndAddress + (BankSwitch0 - WiredEnd)))
+          .fi
+
           .if DEMO
-          
+
+          ;; Bank switch hotspots for F4 style bank switching that we're using for the demo.
           BankSwitch0 = $fff4
           BankSwitch1 = $fff5
           BankSwitch2 = $fff6
@@ -198,6 +166,7 @@ KnownZeroInEveryBank:
 
           .else
 
+          ;; EF bank switching
           BankSwitch0 = $ffe0
           BankSwitch1 = $ffe1
           BankSwitch2 = $ffe2
@@ -217,6 +186,22 @@ KnownZeroInEveryBank:
 
           .fi
 
+          .if DEMO
+
+            * = $fff4
+            .offs -$f000
+            .text "grizbrp", 0
+
+          .else
+
+            * = $ffe0
+            .offs -$f000
+            .text "grizbrp", 0
+            ;; magic cookie for Stella
+            nop $1fe0
+
+          .fi
+
 ;;; 6507 special vectors
 ;;;
           * = NMIVEC
@@ -232,7 +217,7 @@ KnownZeroInEveryBank:
           .word Break
 
           .if * != $0000
-          .error "Bank ", BANK, " does not end at $ffff, but ", * - 1
+            .error "Bank ", BANK, " does not end at $ffff, but ", * - 1
           .fi
 
 
