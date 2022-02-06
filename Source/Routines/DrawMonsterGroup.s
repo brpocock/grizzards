@@ -25,9 +25,9 @@ GetAnimationFrame:
           lda #$20
           bit ClockFrame
           .if SECAM == TV
-          beq Frame1
+            beq Frame1
           .else
-          beq GotFrame
+            beq GotFrame
           .fi
           ;; skip over the MonsterArt to get to the MonsterArt2 frames
           txa
