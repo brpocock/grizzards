@@ -43,7 +43,7 @@ NotCertainOfPositions:
           ;; random position that hopefull won't collide.
           lda # 0
           sta SpriteX, x
-          jmp ValidateMap.CheckSpriteSpawn ; tail call
+          geq ValidateMap.CheckSpriteSpawn ; tail call
 
 NoRePosition:
           ;; We are not in random spawn "poof" mode
