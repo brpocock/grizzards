@@ -103,7 +103,7 @@ StoryPhase0:
           .if SECAM == TV
           lda #COLBLACK
           .else
-          .ldacolu COLGREEN, $8
+          .ldacolu COLGREEN, $4
           .fi
           stx WSYNC
           sta COLUBK
@@ -189,7 +189,7 @@ NotSix:
           .if SECAM == TV
           lda #COLBLACK
           .else
-          .ldacolu COLGREEN, $8
+          .ldacolu COLGREEN, $4
           .fi
           stx WSYNC
           sta COLUBK
