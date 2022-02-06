@@ -761,6 +761,10 @@ SpriteList:
           .byte 0, 0
           .byte SpriteCombat, 69    ; jaguars
 
+          .byte $ff, SpriteFixed
+          .byte 0, 0
+          .byte SpriteGrizzard, 15 ; Theref
+
           .byte 0
 
           ;; Room 67

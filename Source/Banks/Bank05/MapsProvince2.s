@@ -402,6 +402,10 @@ SpriteList:
           .byte $70, $10
           .byte SpritePerson, 46 ; Fat Tony look up @ cliffs
 
+          .byte $ff, SpriteFixed
+          .byte 0, 0
+          .byte SpriteGrizzard, 4 ; Petty
+
           .byte 0
 
           ;;Room 24
@@ -593,6 +597,10 @@ SpriteList:
           .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 61
+
+          .byte $ff, SpriteFixed
+          .byte 0, 0
+          .byte SpriteGrizzard, 7 ; Firend
 
           .byte 0
 
