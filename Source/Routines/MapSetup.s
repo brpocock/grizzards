@@ -232,15 +232,12 @@ SpritesDone:
 ;;; 
           .WaitScreenBottom
 
-          lda #ModeMap
-          sta GameMode
-
           .if BANK == Province2MapBank
           
           lda CurrentMap
           cmp # 28              ; labyrinth entrance
           bne DoneLabyrinth
-          lda # 10
+          lda # 9               ; 4½ seconds for “magic ray” effect
           sta AlarmCountdown
           gne Map
 

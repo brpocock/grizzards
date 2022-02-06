@@ -2,6 +2,11 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 CheckSpriteCollision:         .block
+          lda GameMode
+          cmp #ModeMap
+          beq +
+          rts
++
           ldx SpriteFlicker
           lda CXP1FB
           and #$c0           ; collision with playfield or ball
