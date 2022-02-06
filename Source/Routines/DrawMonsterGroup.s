@@ -6,6 +6,8 @@
           .fi
 DrawMonsterGroup:   .block
 
+          CursorBits = pp5h
+
           .if !DEMO
           jsr GetMonsterColors
           .fi
@@ -76,7 +78,7 @@ PrepareToDrawMonsters:
           sty VDELP0
           sty VDELP1
           sty NUSIZ0
-          sty pp5h
+          sty CursorBits
           lda #NUSIZDouble
           sta NUSIZ1
 ;;; 
@@ -84,30 +86,30 @@ SetCursorColor:
 
           .if TV == SECAM
 
-          lda #COLWHITE
-          sta COLUP1
-          ldx MoveTarget
-          bne +
-          stx WSYNC
+            lda #COLWHITE
+            sta COLUP1
+            ldx MoveTarget
+            bne +
+            stx WSYNC
 +
 
           .else
 
-          ldx MoveTarget
-          bne TargetIsMonster
-          .SkipLines 4
-          jmp CursorColored
+            ldx MoveTarget
+            bne TargetIsMonster
+            .SkipLines 4
+            jmp CursorColored
 
 TargetIsMonster:
-          lda MonsterHP - 1, x
-          beq MonsterGone
-          lda # 0               ; black
-          geq SetColor
+            lda MonsterHP - 1, x
+            beq MonsterGone
+            lda # 0               ; black
+            geq SetColor
 
 MonsterGone:
-          .ldacolu COLGRAY, $e
+            .ldacolu COLGRAY, $e
 SetColor:
-          sta COLUP1
+            sta COLUP1
 CursorColored:
 
           .fi
@@ -125,7 +127,7 @@ PrepareTopCursor:
           
 NoTopTarget:
           ldy # 0
-          sty pp5h
+          sty CursorBits
           lda MoveTarget
           bne SetUpCursor
           .if SECAM == TV
@@ -135,7 +137,7 @@ NoTopTarget:
 
 TopTarget:
           lda #%11111100
-          sta pp5h
+          sta CursorBits
 SetUpCursor:
           dex
 ;;;
@@ -204,12 +206,12 @@ PrepareBottomCursor:
           bge BottomTarget
 
 NoBottomTarget:
-          sty pp5h
+          sty CursorBits
           jmp PrepareBottomMonsters
 
 BottomTarget:
           lda #%11111100
-          sta pp5h
+          sta CursorBits
 
 PrepareBottomMonsters:
           lda # 0
@@ -274,7 +276,7 @@ GrossPositionMonsters:
           .SleepX 71 - 7
           stx HMOVE
 
-          lda pp5h
+          lda CursorBits
           sta GRP1
           rts
 ;;; 
@@ -321,7 +323,7 @@ DrawNothing:
 
           .endp
 
-          lda pp5h
+          lda CursorBits
           sta GRP1
 
           .switch TV
