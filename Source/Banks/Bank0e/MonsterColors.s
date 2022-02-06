@@ -41,7 +41,7 @@ ROUS:
           .mcolu COLBROWN, $8
           .mcolu COLBROWN, $8
           .mcolu COLBROWN, $8
-          .mcolu COLBROWN, $4
+          .mcolu COLBROWN, $a
 
 LectroSheep:
           .mcolu COLBLUE, $a
@@ -171,7 +171,7 @@ ScaryRat:
           .mcolu COLGOLD, $8
           .mcolu COLGOLD, $8
           .mcolu COLGOLD, $8
-          .mcolu COLBROWN, $6
+          .mcolu COLBROWN, $a
 
 CaveGrue:
           .mcolu COLTEAL, $c
@@ -181,7 +181,7 @@ CaveGrue:
           .mcolu COLBLUE, $a
           .mcolu COLBLUE, $8
           .mcolu COLBLUE, $8
-          .mcolu COLBLUE, $4
+          .mcolu COLBLUE, $a
 
 CaveBat:
           .mcolu COLGRAY, $4
