@@ -4,7 +4,7 @@
 SpriteColor:                       ; For map sprites
           .block
 Monsters:
-          .colu COLGREEN, $6
+          .colu COLGREEN, $4
 Depot:
           .colu COLMAGENTA, $6
 Grizzard:
