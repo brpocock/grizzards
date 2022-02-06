@@ -3,7 +3,7 @@
 GrizzardStartingStats:        .block
           ;; For each Grizzard there are 5 bytes
           ;; the order of which is the same as ZeroPage:
-          ;; Max HP, ATK, DEF, Evolution, and MovesKnown
+          ;; Max HP, ATK, DEF, Metamorphosis, and MovesKnown
 
           ;; 0
 Dirtex:
