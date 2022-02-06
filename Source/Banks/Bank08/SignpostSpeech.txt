@@ -66,3 +66,7 @@ LostPendant:
 
 FoundPendant:
 You have found a pendant on a leaf on the ground
+
+ReturnPendant:
+♀You're great.That's my pendant.You can have this key
+
