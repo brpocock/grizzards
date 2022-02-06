@@ -2,14 +2,14 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
           .if 3 == BANK && SECAM == TV
-          .align $20            ; XXX alignment
+            .align $20            ; XXX alignment
           .fi
 DrawMonsterGroup:   .block
 
           CursorBits = pp5h
 
           .if !DEMO
-          jsr GetMonsterColors
+            jsr GetMonsterColors
           .fi
 
 GetMonsterPointer:
@@ -23,6 +23,7 @@ GetMonsterArtPointer:
           tax
 ;;; 
           .if !DEMO
+
 GetAnimationFrame:
           lda #$20
           bit ClockFrame
@@ -48,7 +49,7 @@ Frame1:
           .fi
 ;;; 
 GotFrame:
-          .fi                   ; if DEMO
+          .fi                   ; if !DEMO
 ;;; 
           ldy # 0
           lda # 1
@@ -288,18 +289,14 @@ DrawMonsterLoop:
           sta GRP0
 
           .if !DEMO
-          lda PixelPointers, x
-          sta COLUP0
+            lda PixelPointers, x
+            sta COLUP0
           .fi
 
           stx WSYNC
           stx WSYNC
           .if TV != NTSC
-          ;; tya
-          ;; and # 1
-          ;; beq +
-          stx WSYNC
-+
+            stx WSYNC
           .fi
           inx
           dey
