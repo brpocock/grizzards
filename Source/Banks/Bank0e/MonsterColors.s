@@ -174,14 +174,14 @@ ScaryRat:
           .mcolu COLBROWN, $8
 
 CaveGrue:
+          .mcolu COLTEAL, $c
+          .mcolu COLTEAL, $a
+          .mcolu COLTEAL, $8
+          .mcolu COLBLUE, $c
+          .mcolu COLBLUE, $a
           .mcolu COLBLUE, $8
           .mcolu COLBLUE, $8
-          .mcolu COLBLUE, $8
-          .mcolu COLBLUE, $8
-          .mcolu COLBLUE, $8
-          .mcolu COLBLUE, $8
-          .mcolu COLBLUE, $8
-          .mcolu COLBLUE, $8
+          .mcolu COLBLUE, $6
 
 CaveBat:
           .mcolu COLGRAY, $4
