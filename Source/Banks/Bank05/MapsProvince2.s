@@ -607,7 +607,7 @@ SpriteList:
           ;; Room 51
           .byte $ff, SpriteFixed
           .byte $b0, $2a
-          .byte SpritePerson, 40 ; fishing
+          .byte SpritePerson, 107 ; fishing fisherman
 
           .byte 19, SpriteWander
           .byte 0, 0

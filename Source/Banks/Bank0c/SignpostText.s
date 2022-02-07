@@ -5,7 +5,7 @@
 
           FirstSignpost = 100
 
-          Signs = ( NPC_NoCookieForYou, NPC_CookieGiven, NPC_HadCookie, Game_Win1, NPC_Potions, NPC_GotPotions, NPC_MineHint )
+          Signs = ( NPC_NoCookieForYou, NPC_CookieGiven, NPC_HadCookie, Game_Win1, NPC_Potions, NPC_GotPotions, NPC_MineHint, NPC_FishMonsters )
 
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
@@ -89,4 +89,16 @@ NPC_MineHint:
           .SignText "IN THE MINE "
           .SignText "IS THE      "
           .SignText "SECRET.     "
+          .byte ModeSignpostDone
+
+;;; 107
+NPC_FishMonsters:
+          .colu COLINDIGO, 0
+          .colu COLCYAN, $9
+          .byte $ff, 19, 40    ; monsters defeated?
+          .SignText "I JUST CAME "
+          .SignText "HERE TO FISH"
+          .SignText "BUT THESE   "
+          .SignText "MONSTERS ARE"
+          .SignText "ATTACKING ME"
           .byte ModeSignpostDone
