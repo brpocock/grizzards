@@ -12,6 +12,10 @@ DrawMonsterGroup:   .block
             jsr GetMonsterColors
           .fi
 
+          .if PAL == TV
+            stx WSYNC
+          .fi
+
 GetMonsterPointer:
           lda #>MonsterArt
           sta pp4h
@@ -329,7 +333,7 @@ DrawNothing:
           .case NTSC
             .SkipLines 17
           .case PAL
-            .SkipLines 24
+            .SkipLines 25
           .case SECAM
             .SkipLines 25
           .endswitch

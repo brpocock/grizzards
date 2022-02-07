@@ -171,7 +171,9 @@ MinorCombatArt:
           sty CombatMajorP
           .FarJSR MonsterBank, ServiceDrawMonsterGroup
 DelayAfterMonsters:
-          ;; no actual delay now
+          .if SECAM == TV
+            stx WSYNC
+          .fi
 ;;; 
 BeginPlayerSection:
           .ldacolu COLBLUE, $f
