@@ -23,6 +23,7 @@ DoLocal:
           .include "MapsProvince0.s"
           .include "Maps0RLE.s"
 
+SongProvince:
           .include "Province0.s"
 
           
