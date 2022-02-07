@@ -18,3 +18,6 @@ GotPotions:
 
 MineHint:
 ♀Down,up,down,right in the mine is the secret
+
+FishMonsters:
+♂I just came here to fish,but these monsters are attacking me
