@@ -35,11 +35,12 @@ ContinueSpeaking:
           lda SpeakJetCooldown
           cmp #$20              ; SpeakJet buffer is 32 bytes
           blt NotOverheated
+
           cmp #$20              ; cooldown value derived experimentally
           blt TheEnd
+
           lda #0
           sta SpeakJetCooldown
-
 NotOverheated:
           ;; check buffer-full status
           lda SWCHA
