@@ -24,7 +24,8 @@
           
           .include "Prepare48pxMobBlob.s"
           .include "Random.s"
-          
+
+          .align $20
           .include "BeginNamePrompt.s"
           
 DoLocal:
