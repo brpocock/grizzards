@@ -107,11 +107,11 @@ MetalMouse:
           .mcolu COLGRAY, $c
           .mcolu COLTURQUOISE, $e
           .mcolu COLGRAY, $c
-          .mcolu COLGRAY, $8
-          .mcolu COLGRAY, $a
-          .mcolu COLGRAY, $8
-          .mcolu COLGRAY, $8
           .mcolu COLGRAY, $6
+          .mcolu COLGRAY, $a
+          .mcolu COLGRAY, $6
+          .mcolu COLGRAY, $6
+          .mcolu COLGRAY, $4
 
 FirePanda:
           .mcolu COLORANGE, $e
@@ -262,7 +262,7 @@ BiggerCrab:
           .mcolu COLSEAFOAM, $4
           .mcolu COLSEAFOAM, $4
           .mcolu COLSEAFOAM, $4
-          
+
 MeanRobber:
           .mcolu COLBROWN, $8
           .mcolu COLBROWN, $8
@@ -413,44 +413,44 @@ FireDrake:
           .mcolu COLORANGE, $2
           .mcolu COLRED, $0
 
-Monster41:
-          .mcolu COLGRAY, $0
-          .mcolu COLGRAY, $0
-          .mcolu COLGRAY, $0
-          .mcolu COLGRAY, $0
-          .mcolu COLGRAY, $0
-          .mcolu COLGRAY, $0
-          .mcolu COLGRAY, $0
-          .mcolu COLGRAY, $0
+ManBull:
+          .mcolu COLGOLD, $6
+          .mcolu COLGOLD, $6
+          .mcolu COLBROWN, $8
+          .mcolu COLBROWN, $6
+          .mcolu COLBROWN, $6
+          .mcolu COLBROWN, $6
+          .mcolu COLBROWN, $4
+          .mcolu COLRED, $4
 
 Monster42:
-          .mcolu COLGRAY, $0
-          .mcolu COLGRAY, $0
-          .mcolu COLGRAY, $0
-          .mcolu COLGRAY, $0
-          .mcolu COLGRAY, $0
-          .mcolu COLGRAY, $0
-          .mcolu COLGRAY, $0
-          .mcolu COLGRAY, $0
+          .mcolu COLSEAFOAM, $e
+          .mcolu COLSEAFOAM, $e
+          .mcolu COLSEAFOAM, $e
+          .mcolu COLSEAFOAM, $e
+          .mcolu COLSEAFOAM, $e
+          .mcolu COLSEAFOAM, $e
+          .mcolu COLSEAFOAM, $e
+          .mcolu COLSEAFOAM, $e
 
 Monster43:
-          .mcolu COLGRAY, $0
-          .mcolu COLGRAY, $0
-          .mcolu COLGRAY, $0
-          .mcolu COLGRAY, $0
-          .mcolu COLGRAY, $0
-          .mcolu COLGRAY, $0
-          .mcolu COLGRAY, $0
-          .mcolu COLGRAY, $0
+          .mcolu COLSEAFOAM, $e
+          .mcolu COLSEAFOAM, $e
+          .mcolu COLSEAFOAM, $e
+          .mcolu COLSEAFOAM, $e
+          .mcolu COLSEAFOAM, $e
+          .mcolu COLSEAFOAM, $e
+          .mcolu COLSEAFOAM, $e
+          .mcolu COLSEAFOAM, $e
 
 Monster44:
-          .mcolu COLGRAY, $0
-          .mcolu COLGRAY, $0
-          .mcolu COLGRAY, $0
-          .mcolu COLGRAY, $0
-          .mcolu COLGRAY, $0
-          .mcolu COLGRAY, $0
-          .mcolu COLGRAY, $0
-          .mcolu COLGRAY, $0
+          .mcolu COLSEAFOAM, $e
+          .mcolu COLSEAFOAM, $e
+          .mcolu COLSEAFOAM, $e
+          .mcolu COLSEAFOAM, $e
+          .mcolu COLSEAFOAM, $e
+          .mcolu COLSEAFOAM, $e
+          .mcolu COLSEAFOAM, $e
+          .mcolu COLSEAFOAM, $e
 
           .bend

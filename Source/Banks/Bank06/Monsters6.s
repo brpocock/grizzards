@@ -252,9 +252,9 @@ Monsters:
           .byte 99, 10, 30
           .word $0180
 ;;; 41
-          .SignText "MONSTR  41  "
-          .byte Monster_Bunny
-          .mcolu COLBLUE, $8
+          .SignText " MAN   BULL "
+          .byte Monster_Minotaur
+          .mcolu COLBROWN, $8
           .byte 10, 10, 10
           .word $0010
 ;;; 42
