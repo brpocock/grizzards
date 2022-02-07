@@ -105,10 +105,10 @@ CreepySpider:
 
 MetalMouse:
           .mcolu COLGRAY, $c
-          .mcolu COLTURQUOISE, $e
-          .mcolu COLGRAY, $c
           .mcolu COLGRAY, $6
           .mcolu COLGRAY, $a
+          .mcolu COLTURQUOISE, $e
+          .mcolu COLGRAY, $c
           .mcolu COLGRAY, $6
           .mcolu COLGRAY, $6
           .mcolu COLGRAY, $4
@@ -423,25 +423,25 @@ ManBull:
           .mcolu COLBROWN, $4
           .mcolu COLRED, $2
 
-Monster42:
-          .mcolu COLSEAFOAM, $e
-          .mcolu COLSEAFOAM, $e
-          .mcolu COLSEAFOAM, $e
-          .mcolu COLSEAFOAM, $e
-          .mcolu COLSEAFOAM, $e
-          .mcolu COLSEAFOAM, $e
-          .mcolu COLSEAFOAM, $e
-          .mcolu COLSEAFOAM, $e
+RadishGoblin:
+          .mcolu COLSPRINGGREEN, $a
+          .mcolu COLGREEN, $a
+          .mcolu COLRED, $8
+          .mcolu COLRED, $a
+          .mcolu COLRED, $a
+          .mcolu COLRED, $8
+          .mcolu COLMAGENTA, $8
+          .mcolu COLMAGENTA, $a
 
-Monster43:
-          .mcolu COLSEAFOAM, $e
-          .mcolu COLSEAFOAM, $e
-          .mcolu COLSEAFOAM, $e
-          .mcolu COLSEAFOAM, $e
-          .mcolu COLSEAFOAM, $e
-          .mcolu COLSEAFOAM, $e
-          .mcolu COLSEAFOAM, $e
-          .mcolu COLSEAFOAM, $e
+TurnipGoblin:
+          .mcolu COLSPRINGGREEN, $a
+          .mcolu COLGREEN, $a
+          .mcolu COLGRAY, $8
+          .mcolu COLGRAY, $a
+          .mcolu COLGRAY, $a
+          .mcolu COLGRAY, $8
+          .mcolu COLGOLD, $8
+          .mcolu COLGOLD, $a
 
 Monster44:
           .mcolu COLSEAFOAM, $e

@@ -304,7 +304,7 @@
           Monster_Cat = 5
           Monster_Dog = 6
           Monster_Spider = 7
-          Monster_Mouse = 8
+          Monster_Radish = 8
           Monster_Firefox = 9
           Monster_TwoLegs = 10
           Monster_Mutant = 11

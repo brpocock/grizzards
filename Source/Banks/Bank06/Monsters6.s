@@ -67,7 +67,7 @@ Monsters:
 ;;; 10
 
           .SignText "METAL  MOUSE"
-          .byte Monster_Mouse
+          .byte Monster_Rodent
           .mcolu COLGRAY, $6
           .byte 12, 20, 10
           .word $0053
@@ -258,14 +258,14 @@ Monsters:
           .byte 10, 10, 10
           .word $0010
 ;;; 42
-          .SignText "MONSTR  42  "
-          .byte Monster_Bunny
-          .mcolu COLBLUE, $8
+          .SignText "RADISHGOBLIN"
+          .byte Monster_Radish
+          .mcolu COLRED, $8
           .byte 10, 10, 10
           .word $0010
 ;;; 43
-          .SignText "MONSTR  43  "
-          .byte Monster_Bunny
+          .SignText "TURNIPGOBLIN"
+          .byte Monster_Radish
           .mcolu COLBLUE, $8
           .byte 10, 10, 10
           .word $0010
