@@ -21,28 +21,28 @@ LoopMusic:
           .switch BANK
           .case 7
 
-          lda GameMode
-          .if PUBLISHER
-            cmp #ModePublisherPresents
-          .else
-            cmp #ModeBRPPreamble
-          .fi
-          beq TheEnd
-          and #$f0
-          cmp #ModeAttract
-          bne TheEnd
+            lda GameMode
+            .if PUBLISHER
+              cmp #ModePublisherPresents
+            .else
+              cmp #ModeBRPPreamble
+            .fi
+            beq TheEnd
+            and #$f0
+            cmp #ModeAttract
+            bne TheEnd
 
-          lda #>SongTheme
-          sta CurrentMusic + 1
-          lda #<SongTheme
-          sta CurrentMusic
+            lda #>SongTheme
+            sta CurrentMusic + 1
+            lda #<SongTheme
+            sta CurrentMusic
 
           .case 3,4,5
 
-          lda #>SongProvince
-          sta CurrentMusic + 1
-          lda #<SongProvince
-          sta CurrentMusic
+            lda #>SongProvince
+            sta CurrentMusic + 1
+            lda #<SongProvince
+            sta CurrentMusic
 
           .default
             .error "Not expecting to be in bank ", BANK
