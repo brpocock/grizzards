@@ -21,7 +21,7 @@ Overscan: .block
           jsr FarCall
 
           .if DEMO && BANK == 4
-          jsr DoMusic
+            jsr DoMusic
           .fi
 
           .if !DEMO
