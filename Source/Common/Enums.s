@@ -312,9 +312,9 @@
           Monster_Butterfly = 13
           Monster_SlimeSmall = 14
           Monster_Serpent = 15
-          Monster_Bird = 16
+          Monster_UNUSED = 16
           Monster_Crab = 17
-          Monster_Raptor = 18
+          Monster_Bird = 18
           Monster_Human = 19
           Monster_Bat = 20
           Monster_Skull = 21

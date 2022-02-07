@@ -133,7 +133,7 @@ Monsters:
           .word $0500
 
           .SignText "FIERCERAPTOR"
-          .byte Monster_Raptor
+          .byte Monster_Bird
           .mcolu COLORANGE, $8
           .byte 10, 10, 10
           .word $0030
