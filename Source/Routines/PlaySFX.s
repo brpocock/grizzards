@@ -22,8 +22,7 @@ PlayNewSoundReally:
           sta CurrentSound + 1
           lda #0
           sta NextSound
-
-          jmp PlayNextSFXNote
+          geq PlayNextSFXNote
 
 PlaySound:
           dec SFXNoteTimer
@@ -64,7 +63,7 @@ PlayNextSFXNote:
 +
           sta CurrentSound
 
-          jmp DoMusic
+          jmp TheEnd
 
 EndOfSound:
 
@@ -75,6 +74,7 @@ EndOfSound:
           sta AUDV0
           sta SFXNoteTimer
 
+TheEnd:
           ;; fall through to DoMusic
 
           .bend
