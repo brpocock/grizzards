@@ -29,6 +29,7 @@ DoLocal:
           .include "TitleSpeech.s"
           .include "FinalSpeech.s"
 
+          ;; Sounds & music converted from MIDI files:
           .include "AtariToday.s"
           .include "Theme.s"
           .include "Victory.s"
