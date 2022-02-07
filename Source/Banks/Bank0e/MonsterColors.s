@@ -214,13 +214,13 @@ Cyclops:
           .mcolu COLPURPLE, $6
 
 FierceRaptor:
+          .mcolu COLORANGE, $a
           .mcolu COLORANGE, $8
           .mcolu COLORANGE, $8
           .mcolu COLORANGE, $8
           .mcolu COLORANGE, $8
-          .mcolu COLORANGE, $8
-          .mcolu COLGOLD, $a
-          .mcolu COLGOLD, $a
+          .mcolu COLORANGE, $6
+          .mcolu COLGOLD, $e
           .mcolu COLGOLD, $e
 
 DevilSkull:
@@ -234,14 +234,14 @@ DevilSkull:
           .mcolu COLRED, $8
 
 RoundRobin:
+          .mcolu COLBLUE, $a
           .mcolu COLBLUE, $8
           .mcolu COLBLUE, $8
           .mcolu COLBLUE, $8
           .mcolu COLBLUE, $8
-          .mcolu COLBLUE, $8
-          .mcolu COLBLUE, $8
-          .mcolu COLBLUE, $8
-          .mcolu COLBLUE, $8
+          .mcolu COLBLUE, $6
+          .mcolu COLGOLD, $e
+          .mcolu COLGOLD, $e
 
 GiantCrab:
           .mcolu COLTURQUOISE, $a
@@ -421,7 +421,7 @@ ManBull:
           .mcolu COLBROWN, $6
           .mcolu COLBROWN, $6
           .mcolu COLBROWN, $4
-          .mcolu COLRED, $4
+          .mcolu COLRED, $2
 
 Monster42:
           .mcolu COLSEAFOAM, $e
