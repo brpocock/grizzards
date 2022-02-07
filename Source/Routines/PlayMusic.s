@@ -28,6 +28,7 @@ LoopMusic:
               cmp #ModeBRPPreamble
             .fi
             beq TheEnd
+
             and #$f0
             cmp #ModeAttract
             bne TheEnd
@@ -102,6 +103,6 @@ ReallyPlayMusic:
 +
           sta CurrentMusic
 
-          jmp TheEnd
+          ;; jmp TheEnd
 
 TheEnd:
