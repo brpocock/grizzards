@@ -23,9 +23,9 @@ LoopMusic:
 
           lda GameMode
           .if PUBLISHER
-          cmp #ModePublisherPresents
+            cmp #ModePublisherPresents
           .else
-          cmp #ModeBRPPreamble
+            cmp #ModeBRPPreamble
           .fi
           beq TheEnd
           and #$f0
@@ -37,39 +37,25 @@ LoopMusic:
           lda #<SongTheme
           sta CurrentMusic
 
-          .case 3
+          .case 3,4,5
 
-          lda #>SongProvince1
+          lda #>SongProvince
           sta CurrentMusic + 1
-          lda #<SongProvince1
-          sta CurrentMusic
-
-          .case 4
-
-          lda #>SongProvince0
-          sta CurrentMusic + 1
-          lda #<SongProvince0
-          sta CurrentMusic
-
-          .case 5
-
-          lda #>SongProvince2
-          sta CurrentMusic + 1
-          lda #<SongProvince2
+          lda #<SongProvince
           sta CurrentMusic
 
           .default
-          .error "Not expecting to be in bank ", BANK
+            .error "Not expecting to be in bank ", BANK
           .endswitch
 
           jmp ReallyPlayMusic
 
 PlayMusic:
           .if BANK == 7
-          lda GameMode
-          and #$f0
-          cmp #ModeAttract
-          bne TheEnd
+            lda GameMode
+            and #$f0
+            cmp #ModeAttract
+            bne TheEnd
           .fi
 
           dec NoteTimer
