@@ -10,9 +10,11 @@
 
 DoLocal:
           .include "PlaySFX.s"
+          ;; falls through to
           .include "PlayMusic.s"
+          ;; falls through to
           .include "PlaySpeech.s"
-          rts
+          ;; ↑ returns
 
           .include "SoundEffects.s"
 
