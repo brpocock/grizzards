@@ -166,6 +166,7 @@ WetNoodle:
 StompDown:
           .MiniText "STOMP "
           .MiniText "  DOWN"
+          ;; 41
 Crush:
           .MiniText "CRUSH "
           .MiniText "      "
@@ -197,13 +198,16 @@ Slash:
 VampyBite:
           .MiniText "VAMPY "
           .MiniText "  BITE"
-
+          ;; 49
+HeartyThump:
           .MiniText "HEARTY"
           .MiniText "THUMP "
-
+          ;; 50
+HardJab:
           .MiniText " HARD "
           .MiniText "  JAB "
-
+          ;; 51
+ClawBadly:
           .MiniText " CLAW "
           .MiniText " BADLY"
 
