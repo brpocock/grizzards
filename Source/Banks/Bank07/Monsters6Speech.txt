@@ -116,19 +116,19 @@ Monster6_38:
 Maze Jaguar
 
 Monster6_39:
-Monster thirty-nine
+Giant Spider
 
 Monster6_40:
-Monster forty
+Fire Drake
 
 Monster6_41:
-Monster forty-one
+Man Bull
 
 Monster6_42:
-Monster forty-two
+Radish Goblin
 
 Monster6_43:
-Monster forty-three
+Turnip Goblin
 
 Monster6_44:
 Monster forty-four
