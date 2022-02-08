@@ -198,14 +198,14 @@ VampyBite:
           .MiniText "VAMPY "
           .MiniText "  BITE"
 
-          .MiniText " MOVE "
-          .MiniText "  49  "
+          .MiniText "HEARTY"
+          .MiniText "THUMP "
 
-          .MiniText " MOVE "
-          .MiniText "  50  "
+          .MiniText " HARD "
+          .MiniText "  JAB "
 
-          .MiniText " MOVE "
-          .MiniText "  51  "
+          .MiniText " CLAW "
+          .MiniText " BADLY"
 
           ;; 52
           .MiniText " MOVE "

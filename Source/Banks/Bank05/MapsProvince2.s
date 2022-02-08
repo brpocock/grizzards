@@ -244,7 +244,7 @@ MapSides:
 ;;; Random encounters occupy a sprite data slot but are not actually
 ;;; visible on the screen.
 SpriteList:
-          ;; Room 0
+          ;; Room 0, Tier 0
           .byte $ff, SpriteWander
           .byte $4d, $1a
           .byte SpritePerson, 45 ; Fat Tony is best at geography
@@ -255,21 +255,21 @@ SpriteList:
           
           .byte 0
 
-          ;; Room 1
+          ;; Room 1, Tier 9
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 60
+          .byte SpriteCombat, 60 ; Grabby Crabby
 
           .byte 0
 
-          ;; Room 2
+          ;; Room 2, Dragon
           .byte 50, SpriteWander
           .byte 0, 0
           .byte SpriteMajorCombat, 93 ; Fred
 
           .byte 0
 
-          ;; Room 3
+          ;; Room 3, Dragon's Lair Entrance
           .byte $ff, SpriteFixed
           .byte $b3, $35
           .byte SpriteGrizzardDepot, 0
@@ -278,126 +278,161 @@ SpriteList:
           .byte $52, $34
           .byte SpritePerson, 26 ; Peter (found now)
 
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 49
+
           .byte 0
 
-          ;; Room 4
+          ;; Room 4, Dragon's Lair Entrance / Tier 15
           .byte $ff, SpriteFixed
           .byte $7a, $36
           .byte SpriteProvinceDoor | $10, 57
 
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 48
           .byte 0
 
-          ;; Room 5
+          ;; Room 5, Dragon
           .byte 51, SpriteWander
           .byte 0, 0
           .byte SpriteMajorCombat, 93 ; Andrew
 
           .byte 0
 
-          ;; Room 6
+          ;; Room 6, Tier 15
           .byte $ff, SpriteFixed
           .byte $3e, $1d
           .byte SpriteGrizzardDepot, 0
 
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 79
+
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 78
+
           .byte 0
 
-          ;; Room 7
+          ;; Room 7, Tier 15
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 73
+
           .byte 0
 
-          ;; Room 8
+          ;; Room 8, Tier 15
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 72
+
           .byte 0
 
-          ;; Room 9
+          ;; Room 9, Tier 15
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 53 ; Crazy Skull
+
           .byte $ff, SpriteFixed
           .byte $80, $10
           .byte SpriteProvinceDoor | $10, 37
 
           .byte 0
 
-          ;; Room 10
+          ;; Room 10, Dragon
           .byte 52, SpriteWander
           .byte 0, 0
           .byte SpriteMajorCombat, 95 ; Timmy
 
           .byte 0
 
-          ;; Room 11
+          ;; Room 11, Tier 15
           .byte $ff, SpriteFixed
           .byte $60, $10
           .byte SpriteGrizzardDepot, 0
 
           .byte 0
 
-          ;; Room 12
-          .byte 0
-
-          ;; Room 13
-          .byte 0
-
-          ;;Room 14
+          ;; Room 12, Tier 15
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 60
+          .byte SpriteCombat, 49
 
           .byte 0
 
-          ;;Room 15
+          ;; Room 13, Tier 15
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 60
+          .byte SpriteCombat, 48
 
           .byte 0
 
-          ;;Room 16
+          ;;Room 14, Tier 9
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 60
+          .byte SpriteCombat, 61
 
           .byte 0
 
-          ;;Room 17
+          ;;Room 15, Tier 9
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 60
+          .byte SpriteCombat, 62
 
           .byte 0
 
-          ;;Room 18
+          ;;Room 16, Tier 9
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 63
+
+          .byte 0
+
+          ;;Room 17, Tier 9
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 39
+
+          .byte 0
+
+          ;;Room 18, Tier 10
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 22
+
+          .byte 0
+
+          ;;Room 19, Tier 10
           .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 30
 
           .byte 0
 
-          ;;Room 19
+          ;;Room 20, Tier 10
           .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 31
 
           .byte 0
 
-          ;;Room 20
+          ;;Room 21, Tier 10
           .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 32
 
           .byte 0
 
-          ;;Room 21
+          ;;Room 22, Tier 10
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 33
+          .byte SpriteCombat, 22
 
           .byte 0
 
-          ;;Room 22
-          .byte $ff, SpriteWander
-          .byte 0, 0
-          .byte SpriteCombat, 34
-
-          .byte 0
-
-          ;;Room 23
+          ;;Room 23, Tier 0
           .byte $ff, SpriteFixed
           .byte $70, $10
           .byte SpritePerson, 46 ; Fat Tony look up @ cliffs
@@ -408,38 +443,38 @@ SpriteList:
 
           .byte 0
 
-          ;;Room 24
-          .byte $ff, SpriteWander
-          .byte 0, 0
-          .byte SpriteCombat, 35
-
-          .byte 0
-
-          ;;Room 25
-          .byte $ff, SpriteWander
-          .byte 0, 0
-          .byte SpriteCombat, 36
-
-          .byte 0
-
-          ;;Room 26
+          ;;Room 24, Tier 10
           .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 30
 
           .byte 0
 
-          ;;Room 27
+          ;;Room 25, Tier 10
           .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 31
 
           .byte 0
 
-          ;;Room 28
+          ;;Room 26, Tier 10
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 32
+
+          .byte 0
+
+          ;;Room 27, Tier 10
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 22
+
+          .byte 0
+
+          ;;Room 28, Tier 10
           .byte 56, SpriteFixed
           .byte $6f, $12
-          .byte SpriteProvinceDoor | $10, 36
+          .byte SpriteProvinceDoor | $10, 36 ; Labyrinth Entrance
 
           .byte $ff, SpriteFixed
           .byte $6f, $3c
@@ -447,7 +482,7 @@ SpriteList:
 
           .byte 0
 
-          ;;Room 29
+          ;;Room 29, Tier 10
           .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 32
@@ -519,84 +554,92 @@ SpriteList:
           .byte SpritePerson, 98 ; hungry
           .byte 0
 
-          ;;Room 40
+          ;;Room 40, Tier 11
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 19 ; metal mouse
+          .byte SpriteCombat, 14
 
           .byte 0
 
-          ;;Room 41
+          ;;Room 41, Tier 11
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 19 ; metal mouse
+          .byte SpriteCombat, 20
 
           .byte 0
 
-          ;;Room 42
+          ;;Room 42, Tier 11
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 19 ; metal mouse
+          .byte SpriteCombat, 80
 
           .byte 0
 
-          ;;Room 43
+          ;;Room 43, Tier 11
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 19 ; metal mouse
+          .byte SpriteCombat, 81
 
           .byte 0
 
-          ;;Room 44
+          ;;Room 44, Tier 11
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 19 ; metal mouse
+          .byte SpriteCombat, 20
 
           .byte 0
 
-          ;;Room 45
+          ;;Room 45, Tier 11
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 19 ; metal mouse
+          .byte SpriteCombat, 14
 
           .byte 0
 
-          ;;Room 46
+          ;;Room 46, Tier 11
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 80
+
           .byte 0
 
-          ;; Room 47
+          ;; Room 47, Tier 11
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 81
+
           .byte 0
 
-          ;; Room 48
+          ;; Room 48, Tier 11
           .byte 16, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 37
+          .byte SpriteCombat, 14
 
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 60
+          .byte SpriteCombat, 20
 
           .byte 0
 
-          ;; Room 49
+          ;; Room 49, Tier 11
           .byte 17, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 38
+          .byte SpriteCombat, 80
 
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 60
+          .byte SpriteCombat, 81
 
           .byte 0
 
-          ;; Room 50
+          ;; Room 50, Tier 11
           .byte 18, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 39
+          .byte SpriteCombat, 14
 
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 61
+          .byte SpriteCombat, 20
 
           .byte $ff, SpriteFixed
           .byte 0, 0
@@ -604,36 +647,36 @@ SpriteList:
 
           .byte 0
 
-          ;; Room 51
+          ;; Room 51, Tier 9
           .byte $ff, SpriteFixed
           .byte $b0, $2a
           .byte SpritePerson, 107 ; fishing fisherman
 
           .byte 19, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 40
+          .byte SpriteCombat, 63
 
           .byte 0
 
-          ;; Room 52
+          ;; Room 52, Tier 9
           .byte 20, SpriteWander
-          .byte 0, 0
-          .byte SpriteCombat, 40
-
-          .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 62
 
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 38
+
           .byte 0
 
-          ;; Room 53
+          ;; Room 53, Tier 9
           .byte 11, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 40
+          .byte SpriteCombat, 61
 
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 63
+          .byte SpriteCombat, 39
 
           .byte 0
 
@@ -729,21 +772,37 @@ SpriteList:
 
           .byte 0
 
-          ;; Room 62
+          ;; Room 62, Tier 15
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 72
+
           .byte 0
 
-          ;; Room 63
+          ;; Room 63, Tier 15
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 53
+
           .byte 0
 
-          ;; Room 64
+          ;; Room 64, Tier 15
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 49
+
           .byte 0
 
-          ;; Room 65
+          ;; Room 65, Tier 15
           .byte $ff, SpriteFixed
           .byte $47, $20
           .byte SpriteProvinceDoor | $10, 46
 
           .byte 0
 
-          ;; Room 66
+          ;; Room 66, Tier 15
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 79
+
           .byte 0
