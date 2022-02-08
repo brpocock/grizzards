@@ -242,50 +242,94 @@ MapSides:
 
 ;;; 
 SpriteList:
-          ;; Room 0
+          ;; Room 0 (unused)
           .byte 0
 
-          ;; Room 1
+          ;; Room 1 (unused)
           .byte 0
 
-          ;; Room 2
+          ;; Room 2 (Mine Entrance), Tier 8
           .byte $ff, SpriteFixed
           .byte $b6, $20
           .byte SpriteProvinceDoor | $00, 8
 
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 18
+
           .byte 0
 
-          ;; Room 3
+          ;; Room 3, Tier 8
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 19
+
           .byte 0
 
-          ;; Room 4
+          ;; Room 4, Tier 8
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 41
+
           .byte 0
 
-          ;; Room 5
+          ;; Room 5, Tier 8
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 18
+
           .byte 0
 
-          ;; Room 6
+          ;; Room 6, Tier 8
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 19
+
           .byte 0
 
-          ;; Room 7
+          ;; Room 7, Tier 8
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 41
+
           .byte 0
 
-          ;; Room 8
+          ;; Room 8, Tier 8
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 18
+
           .byte 0
 
-          ;; Room 9
+          ;; Room 9, Tier 8
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 19
+
           .byte 0
 
-          ;; Room 10
+          ;; Room 10, Tier 8
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 41
+
           .byte 0
 
-          ;; Room 11
+          ;; Room 11, Tier 8
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 18
+
           .byte 0
 
-          ;; Room 12
+          ;; Room 12, Tier 8
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 19
+
           .byte 0
  
-          ;; Room 13
+          ;; Room 13, Tier 8
           .byte $ff, SpriteFixed
           .byte $ac, $3c
           .byte SpriteGrizzardDepot, 0

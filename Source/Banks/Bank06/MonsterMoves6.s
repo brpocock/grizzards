@@ -40,20 +40,20 @@ MonsterMoves:       .block
           .byte 40, 41, 42, 43  ; Dragon Timmy
           .byte 1, 2, 3, 4      ; Uber Slime
           ;; 32
-          .byte 1, 2, 3, 4      ; Desert Eagle
-          .byte 1, 2, 3, 4      ; Crazed Robber
+          .byte 1, 2, 3, 4      ; Flying Skull
+          .byte 1, 2, 3, 4      ; Crazy Skull
           .byte 1, 2, 3, 4      ; Great Wyrm
           .byte 1, 2, 3, 4      ; Poison Asp
           .byte 1, 2, 3, 4      ; Grabby Crabby
           .byte 45, 48, 23, 30  ; Giant Bat
           .byte 22, 23, 44, 32  ; Maze Jaguar
-          .byte 1, 2, 3, 4
+          .byte 1, 2, 3, 4      ; Giant Spider
           ;; 40
-          .byte 1, 2, 3, 4
-          .byte 1, 2, 3, 4
-          .byte 1, 2, 3, 4
-          .byte 1, 2, 3, 4
-          .byte 1, 2, 3, 4
+          .byte 1, 2, 3, 4      ; Fire Drake
+          .byte 1, 2, 3, 3      ; Man Bull
+          .byte 1, 2, 3, 4      ; Radish Goblin
+          .byte 1, 2, 3, 4      ; Turnip Goblin
+          .byte 1, 2, 3, 4      ; ? Monster 44
           .byte 1, 2, 3, 4      ; Boss Bear
           ;; ↑ 45
 
