@@ -179,7 +179,7 @@ Move59:
 Pound Sand
 
 Move60:
-A Move
+Wings flap
 
 Move61:
 A Move

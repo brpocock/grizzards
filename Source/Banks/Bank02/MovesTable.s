@@ -239,8 +239,8 @@ PoundSand:
           .MiniText " SAND "
 
           ;; 60
-          .MiniText " MOVE "
-          .MiniText "  60  "
+          .MiniText "WINGS "
+          .MiniText " FLAP "
 
           .MiniText " MOVE "
           .MiniText "  61  "
