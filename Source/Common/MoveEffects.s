@@ -183,10 +183,13 @@ Bite:
           ;; 24
 PoisonBite:
           .byte 24
+          ;; 25
 CruelStab:
           .byte 22
+          ;; 26
 BlindBlob:
           .byte 0
+          ;; 27
 SlimyTrick:
           .byte 0
 GuardDown:

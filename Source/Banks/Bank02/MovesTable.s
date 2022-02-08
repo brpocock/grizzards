@@ -233,9 +233,10 @@ ClawBadly:
 
           .MiniText " MOVE "
           .MiniText "  58  "
-
-          .MiniText " MOVE "
-          .MiniText "  59  "
+          ;; 59
+PoundSand:
+          .MiniText "POUND "
+          .MiniText " SAND "
 
           ;; 60
           .MiniText " MOVE "

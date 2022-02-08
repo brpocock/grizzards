@@ -134,25 +134,25 @@ Move44:
 Claws Out
 
 Move45:
-A Move
+Deadly Swoop
 
 Move46:
-A Move
+Shove
 
 Move47:
-A Move
+Slash
 
 Move48:
-A Move
+Vamp-E Bite
 
 Move49:
-A Move
+Hearty Thump
 
 Move50:
-A Move
+Hard Jab
 
 Move51:
-A Move
+Claw Badly
 
 Move52:
 A Move
@@ -176,7 +176,7 @@ Move58:
 A Move
 
 Move59:
-A Move
+Pound Sand
 
 Move60:
 A Move
