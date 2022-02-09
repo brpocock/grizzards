@@ -266,9 +266,9 @@ Monsters:
           .byte 44, 44, 45
           .word $0120
 ;;; 44
-          .SignText "MONSTR  44  " ; Tier 15
-          .byte Monster_Bunny
-          .mcolu COLBLUE, $8
+          .SignText "ANUBISJACKAL" ; Tier 15
+          .byte Monster_Dog
+          .mcolu COLRED, $8
           .byte 58, 58, 60
           .word $0150
 ;;; 45

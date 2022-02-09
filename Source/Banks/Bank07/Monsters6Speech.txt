@@ -131,7 +131,7 @@ Monster6_43:
 Turnip Goblin
 
 Monster6_44:
-Monster forty-four
+Anubis Jackal
 
 Monster6_45:
 The Terrifying Boss Bear
