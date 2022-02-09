@@ -212,27 +212,27 @@ ClawBadly:
           .MiniText " BADLY"
 
           ;; 52
-          .MiniText " MOVE "
-          .MiniText "  52  "
+          .MiniText " BACK "
+          .MiniText " KICK "
 
-          .MiniText " MOVE "
-          .MiniText "  53  "
+          .MiniText " HEAD "
+          .MiniText " BUTT "
 
-          .MiniText " MOVE "
-          .MiniText "  54  "
+          .MiniText "PIRATE"
+          .MiniText " CURSE"
 
-          .MiniText " MOVE "
-          .MiniText "  55  "
+          .MiniText "SHARP "
+          .MiniText " FANGS"
 
           ;; 56
-          .MiniText " MOVE "
-          .MiniText "  56  "
+          .MiniText "NASTY "
+          .MiniText "  GOOP"
 
-          .MiniText " MOVE "
-          .MiniText "  57  "
+          .MiniText "TALON "
+          .MiniText "  VISE"
 
-          .MiniText " MOVE "
-          .MiniText "  58  "
+          .MiniText "DEATH "
+          .MiniText " GLARE"
           ;; 59
 PoundSand:
           .MiniText "POUND "
@@ -242,11 +242,11 @@ PoundSand:
           .MiniText "WINGS "
           .MiniText " FLAP "
 
-          .MiniText " MOVE "
-          .MiniText "  61  "
+          .MiniText "CURSED"
+          .MiniText "GLANCE"
 
-          .MiniText " MOVE "
-          .MiniText "  62  "
+          .MiniText "SLIME "
+          .MiniText "IMPACT"
 
           .MiniText "MEGA  "
           .MiniText "  KILL"

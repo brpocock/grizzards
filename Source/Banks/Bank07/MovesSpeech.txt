@@ -155,25 +155,25 @@ Move51:
 Claw Badly
 
 Move52:
-A Move
+Back kick
 
 Move53:
-A Move
+Head butt
 
 Move54:
-A Move
+Pirate curse
 
 Move55:
-A Move
+Sharp fangs
 
 Move56:
-A Move
+Nasty Goop
 
 Move57:
-A Move
+Talon Vise
 
 Move58:
-A Move
+Death glare
 
 Move59:
 Pound Sand
@@ -182,10 +182,10 @@ Move60:
 Wings flap
 
 Move61:
-A Move
+Cursed glance
 
 Move62:
-A Move
+Slime impact
 
 Move63:
 Mega Kill
