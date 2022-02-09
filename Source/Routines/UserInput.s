@@ -119,7 +119,6 @@ FractionalMovement: .macro deltaVar, fractionVar, positionVar, pxPerSecond
           .block
           lda \fractionVar
           ldx \deltaVar
-          cpx #0
           beq DoneMovement
           bpl MovePlus
 MoveMinus:
