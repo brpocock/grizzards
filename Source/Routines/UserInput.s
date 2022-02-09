@@ -114,7 +114,7 @@ DoneStickLeft:
 DoneStickRight:
 
 ApplyStick:
-
+;;; 
 FractionalMovement: .macro deltaVar, fractionVar, positionVar, pxPerSecond
           .block
           lda \fractionVar
