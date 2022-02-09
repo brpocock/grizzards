@@ -163,25 +163,25 @@ ButterFly:
 	.mcolu COLINDIGO, $8
 	.mcolu COLINDIGO, $6
 
-ScaryRat:                       ; TODO recolor
-          .mcolu COLBROWN, $6
-          .mcolu COLBROWN, $6
-          .mcolu COLBROWN, $6
-          .mcolu COLGOLD, $8
-          .mcolu COLGOLD, $8
-          .mcolu COLGOLD, $8
-          .mcolu COLGOLD, $8
-          .mcolu COLBROWN, $a
+ScaryRat:
+	.mcolu COLBROWN, $6
+	.mcolu COLBROWN, $8
+	.mcolu COLBROWN, $6
+	.mcolu COLBROWN, $8
+	.mcolu COLBROWN, $6
+	.mcolu COLBROWN, $8
+	.mcolu COLBROWN, $6
+	.mcolu COLRED, $4
 
-CaveGrue:                       ; TODO recolor
-          .mcolu COLTEAL, $c
-          .mcolu COLTEAL, $a
-          .mcolu COLTEAL, $8
-          .mcolu COLBLUE, $c
-          .mcolu COLBLUE, $a
-          .mcolu COLBLUE, $8
-          .mcolu COLBLUE, $8
-          .mcolu COLBLUE, $a
+CaveGrue:
+       	.mcolu COLBLUE, $A
+	.mcolu COLTURQUOISE, $8
+	.mcolu COLBLUE, $6
+	.mcolu COLTURQUOISE, $8
+	.mcolu COLTURQUOISE, $6
+	.mcolu COLTURQUOISE, $8
+	.mcolu COLTURQUOISE, $6
+	.mcolu COLTURQUOISE, $4
 
 CaveBat:
        	.mcolu COLGRAY, $4
@@ -193,15 +193,15 @@ CaveBat:
 	.mcolu COLGRAY, $2
 	.mcolu COLGRAY, $0
 
-VenomSheep:                     ; TODO recolor
-          .mcolu COLGREEN, $e
-          .mcolu COLGREEN, $e
-          .mcolu COLGREEN, $a
-          .mcolu COLGREEN, $8
-          .mcolu COLGREEN, $8
-          .mcolu COLGREEN, $e
-          .mcolu COLGREEN, $4
-          .mcolu COLGREEN, $4
+VenomSheep:
+	.mcolu COLPURPLE, $A
+	.mcolu COLPURPLE, $A
+	.mcolu COLPURPLE, $A
+	.mcolu COLMAGENTA, $A
+	.mcolu COLMAGENTA, $A
+	.mcolu COLPURPLE, $A
+	.mcolu COLPURPLE, $6
+	.mcolu COLPURPLE, $6
 
 Cyclops:
           .mcolu COLPURPLE, $A
@@ -253,15 +253,15 @@ GiantCrab:
 	.mcolu COLINDIGO, $8
 	.mcolu COLINDIGO, $8
 
-BiggerCrab:                     ; TODO recolor
-          .mcolu COLSEAFOAM, $a
-          .mcolu COLSEAFOAM, $a
-          .mcolu COLSEAFOAM, $8
-          .mcolu COLSEAFOAM, $8
-          .mcolu COLSEAFOAM, $8
-          .mcolu COLSEAFOAM, $4
-          .mcolu COLSEAFOAM, $4
-          .mcolu COLSEAFOAM, $4
+BiggerCrab:
+	.mcolu COLRED, $8
+	.mcolu COLRED, $8
+	.mcolu COLMAGENTA, $8
+	.mcolu COLPURPLE, $8
+	.mcolu COLINDIGO, $8
+	.mcolu COLINDIGO, $8
+	.mcolu COLINDIGO, $8
+	.mcolu COLINDIGO, $8
 
 MeanRobber:
 	.mcolu COLGOLD, $2
@@ -363,15 +363,15 @@ PoisonAsp:
 	.mcolu COLGOLD, $4
 	.mcolu COLGOLD, $2
 
-GrabbyCrabby:                   ; TODO recolor
-          .mcolu COLGOLD, $a
-          .mcolu COLGOLD, $a
-          .mcolu COLGOLD, $8
-          .mcolu COLGOLD, $8
-          .mcolu COLGOLD, $8
-          .mcolu COLGOLD, $4
-          .mcolu COLGOLD, $4
-          .mcolu COLGOLD, $4
+GrabbyCrabby:
+	.mcolu COLGOLD, $C
+	.mcolu COLGOLD, $C
+	.mcolu COLYELLOW, $C
+	.mcolu COLBROWN, $C
+	.mcolu COLBROWN, $8
+	.mcolu COLBROWN, $8
+	.mcolu COLBROWN, $8
+	.mcolu COLBROWN, $8
 
 GiantBat:
           .mcolu COLGOLD, $4
@@ -432,7 +432,6 @@ RadishGoblin:
 	.mcolu COLRED, $6
 	.mcolu COLMAGENTA, $8
 	.mcolu COLMAGENTA, $6
-
 
 TurnipGoblin:
           .mcolu COLSEAFOAM, $4
