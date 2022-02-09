@@ -3,13 +3,26 @@
 
 ;;; Order of sign texts MUST match the texts in SignpostSpeech.txt or it all goes to Hell.
 
-          FirstSignpost = 100
+          FirstSignpost = 99
 
-          Signs = ( NPC_NoCookieForYou, NPC_CookieGiven, NPC_HadCookie, Game_Win1, NPC_Potions, NPC_GotPotions, NPC_MineHint, NPC_FishMonsters, Credits_1, Credits_2, Credits_3, Credits_4, Credits_5 )
+          Signs = ( NPC_HungryCookie, NPC_NoCookieForYou, NPC_CookieGiven, NPC_HadCookie, Game_Win1, NPC_Potions, NPC_GotPotions, NPC_MineHint, NPC_FishMonsters, Credits_1, Credits_2, Credits_3, Credits_4, Credits_5 )
 
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
 
+;;; 99
+NPC_HungryCookie:
+          .colu COLSPRINGGREEN, $e
+          .colu COLGOLD, $2
+          .byte $ff, 22, 102
+          .SignText "IT'S HARD TO"
+          .SignText "GET LUXURIES"
+          .SignText "THESE DAYS. "
+          .SignText "MAY I HAVE A"
+          .SignText "COOKIE?     "
+          .byte ModeSignpostInquire
+          .byte 101, 100
+          .SignText " GIVE  KEEP "
 
 ;;; 100
 NPC_NoCookieForYou:

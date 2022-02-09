@@ -5,7 +5,7 @@
 
           FirstSignpost = 0
 
-          Signs = ( Sign_Beware, Sign_FireSwamp, NPC_SouthGate, NPC_TunnelBlocked, NPC_TunnelOpen, NPC_Artifact, NPC_TakeArtifact1, NPC_TakeArtifact2, NPC_TookArtifact, Sign_LostMines, NPC_RandomVillager, Sign_TrebleVillage, NPC_TrebleVillage, Sign_TrebleDocks, Sign_WesternRoad, NPC_Artifact1Scared, NPC_BrokenRadio, Sign_TunnelClosed, Sign_SpiralWoodsOpen, Sign_PortLionShip, Sign_TunnelMazeBlocked, NPC_LostPendant, Random_FoundPendant, NPC_ReturnPendant )
+          Signs = ( Sign_Beware, Sign_FireSwamp, NPC_SouthGate, NPC_TunnelBlocked, NPC_TunnelOpen, NPC_Artifact, NPC_TakeArtifact1, NPC_TakeArtifact2, NPC_TookArtifact, Sign_LostMines, NPC_RandomVillager, Sign_TrebleVillage, NPC_TrebleVillage, Sign_TrebleDocks, Sign_WesternRoad, NPC_Artifact1Scared, NPC_BrokenRadio, Sign_TunnelClosed, Sign_SpiralWoodsOpen, Sign_PortLionShip, Sign_TunnelMazeBlocked, NPC_LostPendant, Random_FoundPendant )
           
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
@@ -279,14 +279,4 @@ Random_FoundPendant:
           .SignText "THE GROUND. "
           .byte ModeSignpostSetFlag, 28
 
-;;; 23
-NPC_ReturnPendant:
-          .colu COLINDIGO, 0
-          .colu COLTURQUOISE, $9
-          .SignText "YOU'RE GREAT"
-          .SignText "THAT'S MY   "
-          .SignText "PENDANT. YOU"
-          .SignText "CAN HAVE    "
-          .SignText "THIS KEY.   "
-          .byte ModeSignpostClearFlag, 63
           

@@ -1,3 +1,6 @@
+ReturnPendant:
+♀You're great.That's my pendant.You can have this key
+
 HaveKey:
 ♀That key can open my cave to the north where I left my Grizzards
 
@@ -69,7 +72,3 @@ LookUpCliff:
 
 Hellmouth:
 ♂It's me,Fat Tony.In an old story,this was the road to Hell
-
-CanYouSwim:
-♂It's me,Fat Tony.Can you¿swim.♂If not,the sea is dangerous
-

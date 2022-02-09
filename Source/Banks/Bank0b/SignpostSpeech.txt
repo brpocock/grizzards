@@ -1,3 +1,6 @@
+Radio:
+♂My radio repair shop is going to have to shut for monsters
+
 RadioFix:
 ♂O.I can totally fix that radio for you.No problem
 
@@ -71,6 +74,3 @@ We'll wait to return to Treble until you're ready then
 
 Hungry:
 ♂These awful monsters are making it so hard to get luxuries too
-
-HungryCookie:
-♂It's hard to get luxuries these days.May I have a¿cookie

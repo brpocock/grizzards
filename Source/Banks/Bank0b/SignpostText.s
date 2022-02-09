@@ -3,12 +3,24 @@
 
 ;;; Order of sign texts MUST match the texts in SignpostSpeech.txt or it all goes to Hell.
 
-          FirstSignpost = 74
+          FirstSignpost = 73
 
-          Signs = ( NPC_RadioFix, NPC_RadioDone, NPC_Villager2, NPC_Villager3, Sign_BewareCyclops, NPC_Lover1, NPC_Lover2, NPC_Lover2NoNote, NPC_Lover1Requited, NPC_Lover1End, Sign_ShipToPortLion, Sign_StayInTreble, NPC_FishingWantRing, NPC_FishingWantMirror, NPC_RouteToAnchor, NPC_RouteToPortLion, NPC_GetArtifacts, NPC_NoArtifacts, NPC_DoTrain, NPC_DoNotTrain, Sign_Grue, NPC_TunnelAlreadyOpen, Sign_SailBackToTreble, Sign_StayInPortLion, NPC_Hungry, NPC_HungryCookie )
+          Signs = ( NPC_Radio, NPC_RadioFix, NPC_RadioDone, NPC_Villager2, NPC_Villager3, Sign_BewareCyclops, NPC_Lover1, NPC_Lover2, NPC_Lover2NoNote, NPC_Lover1Requited, NPC_Lover1End, Sign_ShipToPortLion, Sign_StayInTreble, NPC_FishingWantRing, NPC_FishingWantMirror, NPC_RouteToAnchor, NPC_RouteToPortLion, NPC_GetArtifacts, NPC_NoArtifacts, NPC_DoTrain, NPC_DoNotTrain, Sign_Grue, NPC_TunnelAlreadyOpen, Sign_SailBackToTreble, Sign_StayInPortLion, NPC_Hungry )
 
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
+
+;;; 73
+NPC_Radio:
+          .colu COLYELLOW, $f
+          .colu COLBLUE, $4
+          .byte $ff, 25, 74     ; asked to fix radio
+          .SignText "MY RADIO    "
+          .SignText "REPAIR SHOP "
+          .SignText "IS GOING TO "
+          .SignText "HAVE TO SHUT"
+          .SignText "FOR MONSTERS"
+          .byte ModeSignpostDone
 
 ;;; 74
 NPC_RadioFix:
@@ -294,17 +306,3 @@ NPC_Hungry:
           .SignText "HARD TO GET "
           .SignText "LUXURIES TOO"
           .byte ModeSignpostDone
-
-;;; 99
-NPC_HungryCookie:
-          .colu COLSPRINGGREEN, $e
-          .colu COLGOLD, $2
-          .byte $ff, 22, 102
-          .SignText "IT'S HARD TO"
-          .SignText "GET LUXURIES"
-          .SignText "THESE DAYS. "
-          .SignText "MAY I HAVE A"
-          .SignText "COOKIE?     "
-          .byte ModeSignpostInquire
-          .byte 101, 100
-          .SignText " GIVE  KEEP "
