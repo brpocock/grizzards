@@ -256,7 +256,7 @@ SpriteList:
           ;; Room 1, Tier 1
           .byte 2, SpriteWander
           .byte $bd, $21
-          .byte SpriteCombat, 2 ; Wicked Slime
+          .byte SpriteCombat, 1 ; 2 Wicked Slimes
 
           .byte 3, SpriteWander
           .byte $7b, $2c
@@ -379,11 +379,11 @@ SpriteList:
 
           .byte 9, SpriteFixed
           .byte $c8, $24
-          .byte SpriteCombat, 21 ; Sky Mutants
+          .byte SpriteCombat, 90 ; Sky Mutants
 
           .byte 10, SpriteFixed
           .byte $c8, $2c
-          .byte SpriteCombat, 21 ; Sky Mutants
+          .byte SpriteCombat, 90 ; Sky Mutants
 
           .byte 0
 
