@@ -5,7 +5,7 @@
 
           FirstSignpost = 100
 
-          Signs = ( NPC_NoCookieForYou, NPC_CookieGiven, NPC_HadCookie, Game_Win1, NPC_Potions, NPC_GotPotions, NPC_MineHint, NPC_FishMonsters )
+          Signs = ( NPC_NoCookieForYou, NPC_CookieGiven, NPC_HadCookie, Game_Win1, NPC_Potions, NPC_GotPotions, NPC_MineHint, NPC_FishMonsters, Credits_1, Credits_2, Credits_3, Credits_4, Credits_5 )
 
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
@@ -102,3 +102,59 @@ NPC_FishMonsters:
           .SignText "MONSTERS ARE"
           .SignText "ATTACKING ME"
           .byte ModeSignpostDone
+
+;;; 108
+Credits_1:
+          .colu COLTURQUOISE, 0
+          .colu COLGRAY, $e
+          .SignText "YOU HAVE WON"
+          .SignText " GRIZZARDS! "
+          .SignText "            "
+          .SignText "SYREX HAS   "
+          .SignText "BEEN SAVED! "
+          .byte ModeSignpostNext, 109
+
+;;; 109
+Credits_2:
+          .colu COLTURQUOISE, 0
+          .colu COLGRAY, $e
+          .SignText "DESIGNED AND"
+          .SignText "PROGRAMMED  "
+          .SignText "     BY     "
+          .SignText "BRUCE-ROBERT"
+          .SignText "POCOCK      "
+          .byte ModeSignpostNext, 110
+
+;;; 110
+Credits_3:
+          .colu COLTURQUOISE, 0
+          .colu COLGRAY, $e
+          .SignText "MUSIC AND   "
+          .SignText "ADDITIONAL  "
+          .SignText "ART BY      "
+          .SignText "ZEPHYR SALZ "
+          .SignText "            "
+          .byte ModeSignpostNext, 111
+
+;;; 111
+Credits_4:
+          .colu COLTURQUOISE, 0
+          .colu COLGRAY, $e
+          .SignText "HARDWARE BY "
+          .SignText " FRED QUIMBY"
+          .SignText "PUBLISHED BY"
+          .SignText " ALBERT     "
+          .SignText " YARUSSO    "
+          .byte ModeSignpostNext, 112
+
+;;; 112
+Credits_5:
+          .colu COLTURQUOISE, 0
+          .colu COLGRAY, $e
+          .SignText "THANKS TO   "
+          .SignText "OUR TESTERS "
+          .SignText "AND EVERYONE"
+          .SignText "IN ATARIAGE "
+          .SignText "FORUMS.     "
+          .byte ModeSignpostNext, 108
+

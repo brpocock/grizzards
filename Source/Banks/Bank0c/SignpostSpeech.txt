@@ -21,3 +21,18 @@ MineHint:
 
 FishMonsters:
 ♂I just came here to fish,but these monsters are attacking me
+
+Credits1:
+You have won Grizzards..Syrex has been saved
+
+Credits2:
+Designed and programmed by Bruce-Robert Pocock
+
+Credits3:
+Music and additional art by Zephyr Salz
+
+Credits4:
+Hardware by Fred Quimby..Published by Albert Yarusso
+
+Credits5:
+Thanks to our testers and everyone in the Atari Age forums
