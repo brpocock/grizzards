@@ -134,7 +134,7 @@ LeggyMutant:
 	.mcolu COLBLUE, $4
 
 SkyMutant:
-       	.mcolug COLRED, $4
+       	.mcolu COLRED, $4
 	.mcolu COLRED, $4
 	.mcolu COLRED, $2
 	.mcolu COLRED, $4
