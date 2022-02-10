@@ -406,10 +406,15 @@ DefendLevelUpDone:
           lda MaxHP
           cmp # 99
           bge HPLevelUpDone
+          ;; HP needs to level up faster than other stats
+          lsr a
+          lsr a
+          lsr a
           jsr CalculateAttackMask
           and Temp
           bne HPLevelUpDone
           inc MaxHP
+          inc CurrentHP
           lda # LevelUpMaxHP
           ora DeltaX
           sta DeltaX
