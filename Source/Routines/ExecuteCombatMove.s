@@ -49,7 +49,13 @@ MonsterAttacks:
           tay
 +
 
-          ;;  TODO #359 crown mode double attack ratings
+          ;; Crowned players, double attack as well
+          bit Potions
+          bpl +
+          tya
+          asl a
+          tay
++
 
           sty AttackerAttack
 
@@ -193,7 +199,13 @@ PlayerAttacks:
           tay
 +
 
-          ;; Crown mode TODO #359 double defend ratings
+          ;; Crown mode double defend ratings
+          bit Potions
+          bpl +
+          tya
+          asl a
+          tay
++
 
           sty DefenderDefend
 
