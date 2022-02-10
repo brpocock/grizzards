@@ -408,7 +408,6 @@ NotLastMonster:
 BackToMain:
           jmp CombatMainScreen
 ;;; 
-
 CoreAttack:
           jsr Random
           and #$0f
@@ -512,6 +511,5 @@ KilledDefender:
           sta DefenderHP
           sta DefenderStatusFX
           geq NoStatusFX
-
 ;;; 
           .bend
