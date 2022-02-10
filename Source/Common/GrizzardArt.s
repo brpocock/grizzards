@@ -16,14 +16,14 @@ GrizzardColor:
           .colu COLTEAL, $c
           .colu COLRED, $c
           .colu COLBROWN, $4
-          .colu COLTURQUOISE, $c
+          .colu COLTURQUOISE, $6
           .colu COLTEAL, $c
           .colu COLGREEN, $6
           .colu COLSEAFOAM, $c
           .colu COLGOLD, $6
           ;; 10
           .colu COLBROWN, $c
-          .colu COLTURQUOISE, $c
+          .colu COLTURQUOISE, $6
           .colu COLTEAL, $6
           .colu COLYELLOW, $c
           .colu COLBLUE, $6
@@ -36,7 +36,7 @@ GrizzardColor:
           .colu COLBROWN, $c
           .colu COLTEAL, $6
           .colu COLRED, $c
-          .colu COLTURQUOISE, $c
+          .colu COLTURQUOISE, $6
           .colu COLTEAL, $6
           .colu COLSEAFOAM, $c
           .colu COLGOLD, $c
