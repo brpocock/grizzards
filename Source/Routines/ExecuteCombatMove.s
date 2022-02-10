@@ -24,7 +24,7 @@ MonsterMove:
 MonsterAttacks:
           ldy #MonsterAttackIndex
           lda (CurrentMonsterPointer), y
-          tay                   ; Attack score
+          tay                   ; Attack rating
           ldx WhoseTurn
           lda EnemyStatusFX - 1, x
           and #StatusAttackDown
@@ -41,7 +41,7 @@ MonsterAttacks:
           tay
 +
 
-          ;; Bosses get double attack scores
+          ;; Bosses get double attack ratings
           lda CombatMajorP
           beq +
           tya
@@ -49,7 +49,7 @@ MonsterAttacks:
           tay
 +
 
-          ;;  TODO #359 crown mode double attack scores
+          ;;  TODO #359 crown mode double attack ratings
 
           sty AttackerAttack
 
@@ -185,7 +185,7 @@ PlayerAttacks:
           tay
 +
 
-          ;; Bosses get double defend scores
+          ;; Bosses get double defend ratings
           lda CombatMajorP
           beq +
           tya
@@ -193,7 +193,7 @@ PlayerAttacks:
           tay
 +
 
-          ;; Crown mode TODO #359 double defend scores
+          ;; Crown mode TODO #359 double defend ratings
 
           sty DefenderDefend
 
