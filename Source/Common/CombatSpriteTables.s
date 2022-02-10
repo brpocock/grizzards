@@ -33,5 +33,5 @@ CursorPosition:
           .page
           .byte $33             ; x - -
           .byte $15             ; - x -
-          .byte $27             ; - - x
+          .byte $f7             ; - - x
           .endp
