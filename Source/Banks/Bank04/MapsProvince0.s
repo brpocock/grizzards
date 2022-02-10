@@ -262,6 +262,10 @@ SpriteList:
           .byte $7b, $2c
           .byte SpriteCombat, 3 ; Horrid Slime
 
+          .byte $ff, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 1 ; 2 Wicked Slimes
+
           .byte 0
 
           ;; Room 2, Tier 1
@@ -424,11 +428,11 @@ SpriteList:
           .byte SpriteSign, 14  ; western road sign
 
           .byte 9, SpriteFixed
-          .byte $c8, $24
+          .byte $c8, $22
           .byte SpriteCombat, 90 ; Sky Mutants
 
           .byte 10, SpriteFixed
-          .byte $c8, $2c
+          .byte $c8, $2e
           .byte SpriteCombat, 90 ; Sky Mutants
 
           .byte 15, SpriteWander
@@ -455,7 +459,7 @@ SpriteList:
           ;; Room 13, Tier 2
           .byte 5, SpriteWander
           .byte $7e, $27
-          .byte SpriteCombat, 29 ; Sky Mutants
+          .byte SpriteCombat, 21 ; Sky Mutants
 
           .byte $ff, SpriteRandomEncounter
           .byte 0, 0
