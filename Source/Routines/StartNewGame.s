@@ -43,7 +43,7 @@ InitGameVars:
           
           sty GrizzardXP
 
-          lda #$0f              ; learn 4 moves to start TODO
+          lda #$03
           sta MovesKnown
 
           ldx # 7

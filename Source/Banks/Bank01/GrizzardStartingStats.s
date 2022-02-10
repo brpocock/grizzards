@@ -6,30 +6,30 @@ GrizzardStartingStats:        .block
           ;; Max HP, ATK, DEF, Metamorphosis, and MovesKnown
 
           ;; 0
-Dirtex:                         ; starter
-          .byte 10, 1, 1, 8, $0f
+Dirtex:                         ; starter (see StartNewGame for duplicates of starter values)
+          .byte 10, 1, 1, 8, $03
 Aquax:                          ; starter
-          .byte 10, 1, 1, 9, $0f
+          .byte 10, 1, 1, 9, $03
 Airex:                          ; starter
-          .byte 10, 1, 1, 10, $0f
+          .byte 10, 1, 1, 10, $03
 Flamex:                         ; Fire Bog
-          .byte 12, 6, 4, 11, $0f
+          .byte 20, 6, 4, 11, $03
 Petty:                         ; Cliffs near Port Lion
           .byte 30, 1, 1, 13, $ff
 Wetnas:                         ; near Treble
-          .byte 12, 6, 4, 0, $0f
-Windoo:                         ; Spriral Woods
           .byte 15, 6, 4, 0, $0f
+Windoo:                         ; Spriral Woods
+          .byte 20, 6, 4, 0, $0f
 Firend:                         ; Beach near Port Lion
-          .byte 12, 6, 6, 14, $0f
+          .byte 30, 6, 6, 14, $0f
           ;; 8
 Lander:                           ; from Dirtex
-          .byte 16, 8, 8, 21, $0f
+          .byte 20, 8, 8, 21, $0f
 Sailor:                         ; from Aquax
-          .byte 16, 8, 8, 22, $0f
+          .byte 20, 8, 8, 22, $0f
           ;; 10
 Flyer:                            ; from Airex
-          .byte 16, 8, 8, 23, $0f
+          .byte 20, 8, 8, 23, $0f
 Burner:                         ; from Flamex
           .byte 20, 10, 8, 24, $0f
 Splodo:                         ; Lost Mine
