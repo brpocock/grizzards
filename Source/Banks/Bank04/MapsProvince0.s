@@ -377,14 +377,6 @@ SpriteList:
           .byte $38, $20
           .byte SpriteSign, 9   ; lost mine
 
-          .byte 9, SpriteFixed
-          .byte $c8, $24
-          .byte SpriteCombat, 90 ; Sky Mutants
-
-          .byte 10, SpriteFixed
-          .byte $c8, $2c
-          .byte SpriteCombat, 90 ; Sky Mutants
-
           .byte 0
 
           ;; Room 9, Tier 3
@@ -427,28 +419,36 @@ SpriteList:
           .byte 0
 
           ;; Room 11, Tier 2
-          .byte 15, SpriteWander
-          .byte $7e, $27
-          .byte SpriteCombat, 35 ; Robins
-
-          .byte $ff, SpriteRandomEncounter
-          .byte 0, 0
-          .byte SpriteCombat, 36 ; Robins
-
-          .byte 0
-
-          ;; Room 12, Tier 2
           .byte $ff, SpriteFixed
           .byte $7e, $27
           .byte SpriteSign, 14  ; western road sign
           
+          .byte 9, SpriteFixed
+          .byte $c8, $24
+          .byte SpriteCombat, 90 ; Sky Mutants
+
+          .byte 10, SpriteFixed
+          .byte $c8, $2c
+          .byte SpriteCombat, 90 ; Sky Mutants
+
+          .byte 15, SpriteWander
+          .byte $7e, $27
+          .byte SpriteCombat, 35 ; 3 Robins
+
+          .byte 0
+
+          ;; Room 12, Tier 2
           .byte 4, SpriteWander
           .byte $7e, $27
-          .byte SpriteCombat, 29 ; Sky mutants
+          .byte SpriteCombat, 21 ; Sky mutants
 
           .byte $ff, SpriteRandomEncounter
           .byte 0, 0
-          .byte SpriteCombat, 36 ; Robins
+          .byte SpriteCombat, 35 ; Robins
+
+          .byte $ff, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 36 ; 5 Robins
 
           .byte 0
 
