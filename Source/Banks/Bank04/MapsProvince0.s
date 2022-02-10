@@ -3,7 +3,7 @@
 
 
 ;;; TODO There is room left for precisely 8 more sprites in this memory bank and I intend to use every one.
-          
+
           ;; How many maps are in these tables?
 MapCount = 62
 ;;; 
@@ -403,15 +403,15 @@ SpriteList:
           .byte 20, SpriteWander
           .byte $80, $28
           .byte SpriteCombat, 4 ; Vorpal bunny
-          
+
           .byte 21, SpriteWander
           .byte $80, $28
           .byte SpriteCombat, 4 ; Vorpal bunny
-          
+
           .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 15 ; Will O' Wisp
-          
+
           .byte $ff, SpriteWander
           .byte $80, $28
           .byte SpritePerson, 6 ; artifact 1
@@ -422,7 +422,7 @@ SpriteList:
           .byte $ff, SpriteFixed
           .byte $7e, $27
           .byte SpriteSign, 14  ; western road sign
-          
+
           .byte 9, SpriteFixed
           .byte $c8, $24
           .byte SpriteCombat, 90 ; Sky Mutants
@@ -456,7 +456,7 @@ SpriteList:
           .byte 5, SpriteWander
           .byte $7e, $27
           .byte SpriteCombat, 29 ; Sky Mutants
-          
+
           .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 36 ; Robins
@@ -486,7 +486,7 @@ SpriteList:
           .byte 6, SpriteWander
           .byte $af, $2b
           .byte SpriteCombat, 15 ; Will O' Wisp
-          
+
           .byte $ff, SpriteFixed
           .byte $c0, $2b
           .if DEMO
@@ -610,7 +610,7 @@ SpriteList:
           .byte $ff, SpriteFixed
           .byte $7d, $10
           .byte SpriteDoor, 31
-          
+
           .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteGrizzard, 16 ; Cornet
@@ -828,7 +828,7 @@ SpriteList:
           .byte 40, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 75 ; radishes
-          
+
           .byte 41, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 71 ; three foxes
