@@ -280,6 +280,32 @@ ScoreNoCarry2:
 
           cld
 
+RandomLearn:
+          ;; Player has a small chance of learning a random move here
+          jsr Random
+          sta Temp
+          and #$30
+          bne DoneRandomLearn
+
+          lda #$07
+          and Temp
+          tax
+          lda BitMask, x
+          ora MovesKnown
+          cmp MovesKnown
+          beq DoneRandomLearn   ; already knew that move
+
+DidRandomLearn:
+          sta MovesKnown
+
+          inx
+          stx MoveSelection
+          .FarJSR TextBank, ServiceFetchGrizzardMove
+          ;; Return value is in Temp, which is input for LearntMove
+          .FarJSR MapServicesBank, ServiceLearntMove
+
+DoneRandomLearn:
+
           lda # 0               ; zero on negative
 
           jmp WaitOutScreen
@@ -368,20 +394,19 @@ CheckMove:
           cmp CombatMoveSelected
           bne CheckNextMove
 
-          sta pp1l
-          jsr Random
-          and #$01
-          bne DidNotLearn
+          sta pp1l              ; Move number
 
-          ldx pp1h
+          jsr Random            ; 50/50 chance of learning
+          bpl NextTurn
+
+          ldx pp1h              ; Loop index
           dex                   ; bit index of move to learn
           lda BitMask, x
-          bit MovesKnown
-          bne DidNotLearn       ; already know this move
-LearntMove:
           ora MovesKnown
+          cmp MovesKnown
+          beq DidNotLearn       ; already know this move
+LearntMove:
           sta MovesKnown
-          ldy # 1
           gne AfterTryingToLearn
 
 CheckNextMove:
@@ -391,14 +416,11 @@ CheckNextMove:
           blt CheckMove
           ;; fall through
 DidNotLearn:
-          ldy # 0
+          gge NextTurn
 
 AfterTryingToLearn:
-          cpy # 0
-          beq NextTurn
-
-          lda pp1l
-          sta Temp
+          ;; Move number is still in Temp from above
+          ;; … which is the input for ServiceLearntMove
           .FarJSR MapServicesBank, ServiceLearntMove
 ;;; 
 NextTurn:
