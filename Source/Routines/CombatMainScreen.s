@@ -8,8 +8,10 @@ BackToPlayer:
           sta MoveSelection
           lda #ModeCombat
           sta GameMode
+
           lda # 4
           sta AlarmCountdown
+
           lda StatusFX
           .BitBit StatusSleep
           beq NotAsleep1
@@ -202,23 +204,28 @@ DrawGrizzard:
 DrawHealthBar:
           stx WSYNC
 
-          ldx CurrentHP
-          cpx MaxHP
-          beq AtMaxHP
-          cpx # 4
-          blt AtMinHP
-          .ldacolu COLYELLOW, $f
-          sta COLUPF
-          gne DrawHealthPF
+          .if SECAM == TV       ; XXX no color for SECAM due to space limits!
+            .ldacolu COLGREEN, $f
+            sta COLUPF
+          .else
+            ldx CurrentHP
+            cpx MaxHP
+            beq AtMaxHP
+            cpx # 4
+            blt AtMinHP
+            .ldacolu COLYELLOW, $f
+            sta COLUPF
+            gne DrawHealthPF
 
 AtMaxHP:
-          .ldacolu COLGREEN, $8
-          sta COLUPF
-          gne DrawHealthPF
+            .ldacolu COLGREEN, $8
+            sta COLUPF
+            gne DrawHealthPF
 
 AtMinHP:
-          .ldacolu COLRED, $8
-          sta COLUPF
+            .ldacolu COLRED, $8
+            sta COLUPF
+          .fi
 
 DrawHealthPF:
           ldy # 0
@@ -409,7 +416,7 @@ NotGoingToMap:
           sta DeltaY
           .WaitScreenBottom
           .if NTSC != TV
-          .SkipLines 5
+            .SkipLines 5
           .fi
 	jmp GrizzardStatsScreen
 
@@ -420,7 +427,7 @@ NotGoingToStats:
           cmp #ModeCombatNextTurn
           beq ExecuteCombatMove.NextTurn
 
-          brk
+          ;; brk ; same as $00 in the next byte
 ;;; 
 HealthyPF2:
           .byte %00000000
