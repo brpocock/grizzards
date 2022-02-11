@@ -381,10 +381,13 @@ SpriteList:
           .byte $38, $20
           .byte SpriteSign, 9   ; lost mine
 
+          .byte $ff, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteCombat, 21 ; Sky mutants
+
           .byte 0
 
           ;; Room 9, Tier 3
-
           .byte 11, SpriteWander
           .byte 0,0
           .byte SpriteCombat, 6 ; Flame Doggos
@@ -428,11 +431,11 @@ SpriteList:
           .byte SpriteSign, 14  ; western road sign
 
           .byte 9, SpriteFixed
-          .byte $c8, $22
+          .byte $b8, $22
           .byte SpriteCombat, 90 ; Sky Mutants
 
           .byte 10, SpriteFixed
-          .byte $c8, $2e
+          .byte $b8, $2e
           .byte SpriteCombat, 90 ; Sky Mutants
 
           .byte 15, SpriteWander
