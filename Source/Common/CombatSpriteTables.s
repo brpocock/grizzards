@@ -5,7 +5,7 @@
           .if DEMO
             .align $08          ; XXX alignment
           .else
-            .align $10          ; XXX alignment
+            .align $20          ; XXX alignment
           .fi
 SpritePresence:
           .page

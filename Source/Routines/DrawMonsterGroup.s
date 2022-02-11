@@ -21,13 +21,9 @@ GetMonsterPointer:
           sta pp4h
 
 GetMonsterArtPointer:
-          ldy # MonsterArtIndex
-          lda (CurrentMonsterPointer), y
-          sta CurrentMonsterArt
+          ldx CurrentMonsterArt
 
           clc
-
-          tax
 ;;; 
           .if !DEMO
 

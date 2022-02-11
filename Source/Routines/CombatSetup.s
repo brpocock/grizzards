@@ -80,9 +80,14 @@ NoHPBoost:
           sta MonsterHP - 1, y
           dey
           bne -
-                    
+
+SetUpMonsterArt:
+          ldy # MonsterArtIndex
+          lda (CurrentMonsterPointer), y
+          sta CurrentMonsterArt
+
 SetUpOtherCombatVars:         
-          ;; Y = 0 from above
+          ldy # 0
           sty WhoseTurn         ; Player's turn
           sty MoveAnnouncement
           sty StatusFX
