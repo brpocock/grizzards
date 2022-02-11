@@ -13,9 +13,9 @@ DoCombat:          .block
           sta CurrentMonsterNumber
 
 SetUpMonsterPointer:
-          ldx # 0
+          ldy # 0
           sta CurrentMonsterPointer
-          stx CurrentMonsterPointer + 1
+          sty CurrentMonsterPointer + 1
 
           ldx # 4
 -
@@ -47,7 +47,7 @@ AnnounceMonsterSpeech:
           sta CurrentUtterance
           
 SetUpMonsterHP:     
-          ldy # MonsterHPIndex
+          ldy #MonsterHPIndex
           lda (CurrentMonsterPointer), y
           sta Temp
 
@@ -80,20 +80,16 @@ NoHPBoost:
           sta MonsterHP - 1, y
           dey
           bne -
-
-SetUpMonsterArt:
-          ldy # MonsterArtIndex
-          lda (CurrentMonsterPointer), y
-          sta CurrentMonsterArt
                     
 SetUpOtherCombatVars:         
-          lda # 0
-          sta WhoseTurn         ; Player's turn
-          sta MoveAnnouncement
-          sta StatusFX
+          ;; Y = 0 from above
+          sty WhoseTurn         ; Player's turn
+          sty MoveAnnouncement
+          sty StatusFX
+          tya
           ldx #6
 -
-          sta EnemyStatusFX - 1, x
+          sty EnemyStatusFX - 1, x
           dex
           bne -
 
