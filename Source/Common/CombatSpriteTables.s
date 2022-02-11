@@ -2,6 +2,9 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 ;;; Combat sprite tables
 
+          .if DEMO
+            .align $08             ; XXX alignment
+          .fi
 SpritePresence:
           .page
           .byte 0                 ; 0 0 0
@@ -16,7 +19,6 @@ SpritePresence:
 
 ;;; Cycle 74 HMOVEs:  (0) -8  -9 -10 -11 -12 -13 -14 -15  ($80)  0  -1  -2  -3  -4  -5  -6  ($f0) -7
 
-          .align $10            ; XXX alignment
 SpritePosition:
           .page
           .byte $03             ; 0 0 0
