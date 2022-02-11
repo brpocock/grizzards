@@ -20,6 +20,10 @@ MapSetup: .block
           sta CurrentMusic + 1
           sta NewButtons
 
+          lda MapFlags          ; clear all flags but facing
+          and #MapFlagFacing
+          sta MapFlags
+
           lda BlessedX
           sta PlayerX
           lda BlessedY
