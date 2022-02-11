@@ -29,8 +29,8 @@ MapColors:
           .colors COLCYAN, COLGRAY
           .colors COLGREEN, COLSPRINGGREEN
           .colors COLGREEN, COLSPRINGGREEN
-          .colors COLTURQUOISE, COLGRAY
-          .colors COLTURQUOISE, COLGRAY
+          .colors COLTURQUOISE, COLBLUE
+          .colors COLTURQUOISE, COLBLUE
           .colors COLBLUE, COLBROWN
           ;; 20
           .colors COLBLUE, COLGRAY

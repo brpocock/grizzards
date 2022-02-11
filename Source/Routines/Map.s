@@ -76,25 +76,46 @@ GotRLE:
           ;; Set up the effective color,
           ;; the brightness is based on province,
           ;; in province 1 the floor is darker than the walls
-          .switch TV
-          .case SECAM
-          lsr a
-          lsr a
-          lsr a
-          lsr a
-          .case NTSC
-          .if Province1MapBank == BANK
-          ora #$0e
+          .if SECAM == TV
+            lsr a
+            lsr a
+            lsr a
+            lsr a
           .else
-          ora #$02              ; dim
-          .fi
-          .case PAL
-          .if Province1MapBank == BANK
-          ora #$0e
-          .else
-          ora #$04              ; not quite as dim on PAL
-          .fi
-          .endswitch
+            .switch BANK
+            .case Province1MapBank ; Province 1 is Dark
+
+              ora #$0e
+
+            .case Province0MapBank ; only dark in caves
+
+              .block
+              ldy CurrentMap
+              cpy #18
+              blt NotDark
+              cpy #19
+              beq NotDark
+              cpy #29
+              bge NotDark
+
+              ora #$08          ; dimmer than usual
+              gne GotPF
+NotDark:                        ; since room is not dark, walls are darker
+              .switch TV
+              .case NTSC
+                ora #$02
+              .case PAL
+                ora #$04
+              .endswitch
+GotPF:
+              .bend
+
+            .case Province2MapBank ; never dark
+
+              ora #$0e
+
+            .endswitch
+          .fi                   ; end of "not SECAM" section
           sta COLUPF
 
           ;; Force a load of the next (first) run of map data
@@ -209,24 +230,55 @@ DoneBall:
           ;; Prepare for the DrawMap loop
           ldx CurrentMap
 
-          lda MapColors, x
-          and #$0f
-          .if TV != SECAM
-          asl a
-          asl a
-          asl a
-          asl a
-          .if Province1MapBank == BANK ; Province 1 is Dark
-          .switch TV
-          .case NTSC
-          ora #$02
-          .case PAL
-          ora #$04
-          .endswitch
-          .else                 ; not province 1
-          ora #$0e
-          .fi
-          .fi
+          .if TV == SECAM
+            lda # 0
+          .else
+            lda MapColors, x
+            and #$0f
+            asl a
+            asl a
+            asl a
+            asl a
+            .switch BANK
+            .case Province1MapBank ; Province 1 is Dark
+
+              .switch TV
+              .case NTSC
+                ora #$02
+              .case PAL
+                ora #$04
+              .endswitch
+
+            .case Province0MapBank ; only dark in caves
+
+              .block
+              ldy CurrentMap
+              cpy #18
+              blt NotDark
+              cpy #19
+              beq NotDark
+              cpy #29
+              bge NotDark
+
+              ;;  floor darker than walls in caves
+              .switch TV
+              .case NTSC
+                ora #$02
+              .case PAL
+                ora #$04
+              .endswitch
+              gne GotBK
+NotDark:  
+              ora #$0e
+GotBK:
+              .bend
+
+            .case Province2MapBank ; never dark
+
+              ora #$0e
+
+            .endswitch
+          .fi                   ; end of "not SECAM" section
 
           ldx # 0
           stx VBLANK
