@@ -3,7 +3,9 @@
 ;;; Combat sprite tables
 
           .if DEMO
-            .align $08             ; XXX alignment
+            .align $08          ; XXX alignment
+          .else
+            .align $10          ; XXX alignment
           .fi
 SpritePresence:
           .page
