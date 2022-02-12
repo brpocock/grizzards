@@ -471,19 +471,19 @@ SpriteList:
           .byte 0
 
           ;; Room 14, Tier 2 + 3
-          .byte 11, SpriteWander
+          .byte 51, SpriteWander
           .byte 0,0
-          .byte SpriteCombat, 29 ; Sky Mutants
+          .byte SpriteCombat, 21 ; Sky Mutants
 
-          .byte 12, SpriteWander
+          .byte 52, SpriteWander
           .byte 0,0
           .byte SpriteCombat, 10 ; Fire Pando
 
-          .byte 13, SpriteWander
+          .byte 53, SpriteWander
           .byte 0,0
           .byte SpriteCombat, 11 ; Flame Doggo
 
-          .byte 14, SpriteWander
+          .byte 54, SpriteWander
           .byte 0,0
           .byte SpriteCombat, 36 ; Robins
 
