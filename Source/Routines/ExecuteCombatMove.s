@@ -7,11 +7,11 @@ ExecuteCombatMove:  .block
 
           .WaitScreenTopMinus 2, 0
 
-          lda # 0
-          sta MoveHP
-          sta MoveHitMiss
-          sta MoveStatusFX
-          sta CriticalHitP
+          ldy # 0
+          sty MoveHP
+          sty MoveHitMiss
+          sty MoveStatusFX
+          sty CriticalHitP
 
 DetermineOutcome:
           lda WhoseTurn
@@ -24,58 +24,43 @@ MonsterMove:
 MonsterAttacks:
           ldy #MonsterAttackIndex
           lda (CurrentMonsterPointer), y
-          tay                   ; Attack rating
+          sta AttackerAttack
           ldx WhoseTurn
           lda EnemyStatusFX - 1, x
           and #StatusAttackDown
           beq +
-          tya
-          lsr a
-          tay
+          lsr AttackerAttack
 +
           lda EnemyStatusFX - 1, x
           and #StatusAttackUp
           beq +
-          tya
-          asl a
-          tay
+          asl AttackerAttack
 +
 
           ;; Bosses get double attack ratings
           lda CombatMajorP
           beq +
-          tya
-          asl a
-          tay
+          asl AttackerAttack
 +
 
           ;; Crowned players, double attack as well
           bit Potions
           bpl +
-          tya
-          asl a
-          tay
+          asl AttackerAttack
 +
 
-          sty AttackerAttack
-
           lda GrizzardDefense
-          tay
+          sta DefenderDefend
           lda StatusFX
           and #StatusDefendUp
           beq +
-          tya
-          asl a
-          tay
+          asl DefenderDefend
 +
           lda StatusFX
           and #StatusDefendDown
           beq +
-          tya
-          lsr a
-          tay
+          lsr DefenderDefend
 +
-          sty DefenderDefend
 
           .mva DefenderHP, CurrentHP
           .mva DefenderStatusFX, StatusFX
@@ -105,8 +90,8 @@ MonsterHealsPlusHP:
           gne MonsterHealsCommon
 
 MonsterHealsZero:
-          lda # 0
-          sta MoveHP
+          ldy # 0
+          sty MoveHP
           geq MonsterHealsCommon
 
 MonsterHealsMinusHP:
@@ -156,58 +141,46 @@ PlayerMove:
 
 PlayerAttacks:
           ldx GrizzardAttack
+          stx AttackerAttack
           lda StatusFX
           .BitBit StatusAttackDown
           beq +
-          txa
-          ror a
-          tax
+          lsr AttackerAttack
 +
           lda StatusFX
           .BitBit StatusAttackUp
           beq +
-          txa
-          asl a
-          tax
+          asl AttackerAttack
 +
-          txa
-          sta AttackerAttack
 
           ldx MoveTarget
+          lda MonsterHP - 1, x
+          sta DefenderDefend
+
           lda EnemyStatusFX - 1, x
           sta DefenderStatusFX
 
-          and #StatusDefendDown
+          .BitBit StatusDefendDown
           beq +
-          tya
-          lsr a
-          tay
+          lsr DefenderDefend
 +
           lda DefenderStatusFX
           and #StatusDefendUp
           beq +
-          tya
-          asl a
-          tay
+          asl DefenderDefend
 +
 
           ;; Bosses get double defend ratings
           lda CombatMajorP
           beq +
-          tya
-          asl a
-          tay
+          asl DefenderDefend
 +
 
           ;; Crown mode double defend ratings
           bit Potions
           bpl +
-          tya
-          asl a
-          tay
+          asl DefenderDefend
 +
-
-          sty DefenderDefend
 
           lda MonsterHP - 1, x
           sta DefenderHP
@@ -509,7 +482,6 @@ HitMinus:
           bpl HitCommon
 
           lda # 0
-
 HitCommon:
           sta MoveHP
           lda DefenderHP
@@ -517,9 +489,9 @@ HitCommon:
           bge DidNotKill
 
 KilledDefender:
-          lda # 0
-          sta DefenderHP
-          sta DefenderStatusFX
+          ldy # 0
+          sty DefenderHP
+          sty DefenderStatusFX
           geq NoStatusFX
           
 DidNotKill:
