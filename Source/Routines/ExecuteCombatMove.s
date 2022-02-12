@@ -434,9 +434,9 @@ PositiveRandom:
 
 CriticalHit:
           lda CombatMoveDeltaHP
-          sta CriticalHitP
           asl a
-          gne AttackHit
+          sta CriticalHitP
+          gne AttackHit1
 
 NegativeRandom:
           and Temp
