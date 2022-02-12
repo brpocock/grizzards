@@ -182,6 +182,7 @@ LetterInc:
           lda NameEntryBuffer, x
           cmp #$29              ; past end of font
           blt Done
+
           lda # 0
           sta NameEntryBuffer, x
           geq Done
@@ -194,6 +195,7 @@ LetterDec:
           lda NameEntryBuffer, x
           cmp #$ff
           bne Done
+
           lda #$28              ; blank
           sta NameEntryBuffer, x
           gne Done
@@ -217,6 +219,7 @@ CursorMoveRight:
           cpx # 5
           blt +
           beq +
+
           lda # 0
           ldx # 5
 +
@@ -230,6 +233,37 @@ Done:
 Submit:
           lda #SoundHappy
           sta NextSound
+
+          .if !DEMO
+
+            ldx # 6
+-
+            lda NameEntryBuffer - 1, x
+            cmp SecondQuest - 1, x
+            bne FirstQuest
+            dex
+            bne -
+
+            lda #$80 | 25
+            sta Potions
+
+            lda # 0
+            sta CurrentGrizzard
+            .FarJSR SaveKeyBank, ServiceSaveGrizzard
+            lda # 1
+            sta CurrentGrizzard
+            .FarJSR SaveKeyBank, ServiceSaveGrizzard
+            lda # 2
+            sta CurrentGrizzard
+            .FarJSR SaveKeyBank, ServiceSaveGrizzard
+
+            rts
+
+FirstQuest:
+            ldy # 0
+            sty Potions
+
+          .fi
 
           rts
 
