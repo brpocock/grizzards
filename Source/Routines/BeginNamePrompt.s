@@ -131,21 +131,25 @@ CursorPosGross:
           jmp GoColdStart
 
 DoneSwitches:
-
           lda NewSWCHA
           beq NoStick
+
           .BitBit P0StickUp
           beq LetterInc
+
           .BitBit P0StickDown
           beq LetterDec
+
           .BitBit P0StickLeft
           beq CursorMoveLeft
+
           .BitBit P0StickRight
           beq CursorMoveRight
 
 NoStick:
           lda NewButtons
           beq Done
+
           and # PRESSED
           bne Done
 
