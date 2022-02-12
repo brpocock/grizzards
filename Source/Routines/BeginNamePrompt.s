@@ -196,7 +196,7 @@ LetterDec:
 
 CursorMoveLeft:
           lda #SoundBlip
-          
+
           dex
           bpl +
           ldx # 0
@@ -220,8 +220,7 @@ CursorMoveRight:
           stx NameEntryPosition
           ;; fall through to Done
 
-Done:     
-
+Done:
           jmp Loop
 
 Submit:
@@ -236,6 +235,9 @@ YourText:
           .MiniText " YOUR "
 NameText:
           .MiniText "  NAME"
+
+SecondQuest:
+          .MiniText "KINGME"
 
 CursorPositionIndex:
           .byte $a4
