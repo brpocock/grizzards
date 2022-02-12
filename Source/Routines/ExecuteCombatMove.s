@@ -523,7 +523,7 @@ KilledDefender:
           geq NoStatusFX
           
 DidNotKill:
-          ;; sec — BLT = BCC, so carry is set here
+          sec
           sbc MoveHP
           sta DefenderHP
           jsr Random
