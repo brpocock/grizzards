@@ -514,9 +514,14 @@ HitCommon:
           sta MoveHP
           lda DefenderHP
           cmp MoveHP
-          beq KilledDefender
-          blt KilledDefender
+          bge DidNotKill
 
+KilledDefender:
+          lda # 0
+          sta DefenderHP
+          sta DefenderStatusFX
+          geq NoStatusFX
+          
 DidNotKill:
           ;; sec — BLT = BCC, so carry is set here
           sbc MoveHP
@@ -540,10 +545,5 @@ NoStatusFX:
           sta MoveHitMiss
           rts
 
-KilledDefender:
-          lda # 0
-          sta DefenderHP
-          sta DefenderStatusFX
-          geq NoStatusFX
 ;;; 
           .bend
