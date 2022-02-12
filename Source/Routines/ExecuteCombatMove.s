@@ -278,7 +278,6 @@ DidRandomLearn:
           .FarJSR MapServicesBank, ServiceLearntMove
 
 DoneRandomLearn:
-
           lda # 0               ; zero on negative
 
           jmp WaitOutScreen
@@ -292,6 +291,7 @@ PlayerHeals:
           sta Temp
           jsr Random
           bmi PlayerHealsMinusHP
+
 PlayerHealsPlusHP:
           and Temp
           clc
@@ -425,6 +425,7 @@ CoreAttack:
           sta Temp
           jsr Random
           bmi NegativeRandom
+
 PositiveRandom:
           and Temp
           clc
@@ -444,6 +445,7 @@ NegativeRandom:
           sec
           sbc Temp
           bpl HitMissP
+
           lda # 0
 
 HitMissP:
@@ -458,6 +460,7 @@ AttackHit1:
           sta Temp
           jsr Random
           bmi HitMinus
+
 HitPlus:
           and Temp
           clc
