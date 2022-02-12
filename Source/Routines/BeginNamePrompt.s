@@ -23,9 +23,9 @@ BufferReady:
           sta NameEntryPosition
 
           .if NTSC != TV
-          .WaitScreenBottom
-          .SkipLines 1
-          jmp FirstTime
+            .WaitScreenBottom
+            .SkipLines 1
+            jmp FirstTime
           .fi
 
 Loop:
@@ -73,9 +73,9 @@ FirstTime:
           jmp BeginGrossPosition
 
           .if 3 == BANK && NTSC == TV
-          .align $10            ; XXX alignment
+            .align $10            ; XXX alignment
           .else
-          .align $20            ; XXX
+            .align $20            ; XXX
           .fi
 
 BeginGrossPosition:
@@ -155,16 +155,16 @@ ButtonPressed:
 
           .if !DEMO
 
-          lda # SoundBlip
-          sta NextSound
+            lda # SoundBlip
+            sta NextSound
 
-          inc NameEntryPosition
-          inx
-          lda NameEntryBuffer, x
-          cmp #$28              ; blank
-          bne Done
-          lda #$0a              ; letter “A”
-          sta NameEntryBuffer, x
+            inc NameEntryPosition
+            inx
+            lda NameEntryBuffer, x
+            cmp #$28              ; blank
+            bne Done
+            lda #$0a              ; letter “A”
+            sta NameEntryBuffer, x
 
           .fi
 
