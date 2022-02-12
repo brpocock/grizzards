@@ -190,8 +190,8 @@ CaveBat:
 	.mcolu COLGRAY, $4
 	.mcolu COLGRAY, $4
 	.mcolu COLGRAY, $4
-	.mcolu COLGRAY, $2
-	.mcolu COLGRAY, $0
+	.mcolu COLGRAY, $4
+	.mcolu COLGRAY, $4
 
 VenomSheep:
 	.mcolu COLPURPLE, $A
