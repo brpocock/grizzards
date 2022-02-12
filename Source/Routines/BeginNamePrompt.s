@@ -274,8 +274,10 @@ YourText:
 NameText:
           .MiniText "  NAME"
 
+          .if !DEMO
 SecondQuest:
-          .MiniText "KINGME"
+           .MiniText "KINGME"
+          .fi
 
 CursorPositionIndex:
           .byte $a4
