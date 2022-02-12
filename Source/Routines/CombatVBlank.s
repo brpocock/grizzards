@@ -218,26 +218,27 @@ NoSelect:
 
           .if TV == SECAM
 
-          lda DebounceSWCHB
-          and #SWCHBP0Advanced
-          sta Pause
+            lda DebounceSWCHB
+            and #SWCHBP1Advanced ; SECAM pause
+            sta Pause
 
           .else
 
-          lda DebounceSWCHB
-          .BitBit SWCHBColor
-          bne NoPause
-          and #SWCHB7800
-          beq +
-          lda Pause
-          eor #$ff
+            lda DebounceSWCHB
+            .BitBit SWCHBColor
+            bne NoPause
+            and #SWCHB7800
+            beq +
+            lda Pause
+            eor #$ff
 +
-          sta Pause
-          rts
+            sta Pause
+            rts
 
 NoPause:
-          lda # 0
-          sta Pause
+            lda # 0
+            sta Pause
+
           .fi
 
 SkipSwitches:

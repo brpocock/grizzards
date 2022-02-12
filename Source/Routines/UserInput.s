@@ -39,33 +39,33 @@ NoReset:
 NoSelect:
           .if TV == SECAM
 
-          lda DebounceSWCHB
-          and # SWCHBP0Advanced
-          sta Pause
+            lda DebounceSWCHB
+            and # SWCHBP1Advanced ; SECAM pause
+            sta Pause
 
           .else
 
-          lda DebounceSWCHB
-          .BitBit SWCHBColor
-          bne NoPause
-          .BitBit SWCHB7800
-          beq +
-          lda Pause
-          eor #$ff
+            lda DebounceSWCHB
+            .BitBit SWCHBColor
+            bne NoPause
+            .BitBit SWCHB7800
+            beq +
+            lda Pause
+            eor #$ff
 +
-          sta Pause
-          jmp SkipSwitches
+            sta Pause
+            jmp SkipSwitches
 
 NoPause:
-          lda # 0
-          sta Pause
+            lda # 0
+            sta Pause
 
           .fi
 SkipSwitches:
 ;;; 
 
 HandleStick:
-          lda #0
+          lda # 0
           sta DeltaX
           sta DeltaY
 
@@ -84,7 +84,7 @@ DoneStickUp:
           .BitBit P0StickDown
           bne DoneStickDown
 
-          ldx #1
+          ldx # 1
           stx DeltaY
 
 DoneStickDown:

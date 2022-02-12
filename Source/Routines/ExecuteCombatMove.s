@@ -200,19 +200,26 @@ PlayerKilledMonster:
           ;; add to score the amount for that monster
           lda GrizzardXP
           cmp # 199
-          bge +
+          bge DoneIncXP
           inc GrizzardXP
-+
+DoneIncXP:
 
           ldx # 1               ; 1× scoring…
           lda CombatMajorP
-          beq +
+          beq DoneScoreMajorCombat
           inx                   ; 2 × scoring
-+
+DoneScoreMajorCombat:
+
           lda Potions
-          bpl +
+          bpl DoneScoreCrowned
           inx                   ; 2-3× scoring
-+
+DoneScoreCrowned:
+
+          lda DebounceSWCHB
+          and #SWCHBP0Advanced
+          bne DoneScoreDifficulty
+          inx
+DoneScoreDifficulty:
 
           sed
 
@@ -223,30 +230,18 @@ IncrementScore:
           adc Score
           bcc ScoreNoCarry
           clc
-          inc Score + 1
+          iny                   ; MonsterPointsIndex + 1
+          lda (CurrentMonsterPointer), y
+          adc Score + 1
+          sta Score +1
           bcc ScoreNoCarry
-          clc
           inc Score + 2
-          bcc ScoreNoCarry
+          bne ScoreNoCarry
           lda #$99
           sta Score + 1
           sta Score + 2
 ScoreNoCarry:
           sta Score
-
-          iny                   ; MonsterPointsIndex + 1
-          lda (CurrentMonsterPointer), y
-          clc
-          adc Score + 1
-          bcc ScoreNoCarry2
-          clc
-          inc Score + 2
-          bcc ScoreNoCarry2
-          lda #$99
-          sta Score
-          sta Score + 2
-ScoreNoCarry2:
-          sta Score + 1
 
           dex
           bne IncrementScore
@@ -257,7 +252,7 @@ RandomLearn:
           ;; Player has a small chance of learning a random move here
           jsr Random
           sta Temp
-          and #$30
+          and #$30              ; 1:4 odds
           bne DoneRandomLearn
 
           lda #$07
@@ -423,6 +418,7 @@ CoreAttack:
           lda AttackerAttack
           jsr CalculateAttackMask
           sta Temp
+
           jsr Random
           bmi NegativeRandom
 
@@ -430,7 +426,7 @@ PositiveRandom:
           and Temp
           clc
           adc AttackerAttack
-          jmp HitMissP
+          gne HitMissP
 
 CriticalHit:
           lda CombatMoveDeltaHP
@@ -458,6 +454,17 @@ AttackHit:
 AttackHit1:
           jsr CalculateAttackMask
           sta Temp
+
+          lda WhoseTurn
+	beq ExtraDifficult    ; player always hits hard
+          lda DebounceSWCHB
+          and #SWCHBP0Advanced
+          bne ExtraDifficult    ; monsters only hit hard in Advanced mode
+
+          jsr Random
+          gne HitMinus
+
+ExtraDifficult:
           jsr Random
           bmi HitMinus
 
