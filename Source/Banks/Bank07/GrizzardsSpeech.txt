@@ -11,7 +11,7 @@ Grizzard3:
 Flame-X
 
 Grizzard4:
-Soil-E
+Petty
 
 Grizzard5:
 Wet-Nass
