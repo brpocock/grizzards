@@ -26,7 +26,7 @@ Monster6_8:
 Flame Dog o
 
 Monster6_9:
-Fuzzy Bear
+Creepy Spider
 
 Monster6_10:
 Metal Mouse
