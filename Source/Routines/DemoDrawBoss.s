@@ -72,7 +72,7 @@ DrawMajorMonsterLoop:
           dey
           bpl DrawMajorMonsterLoop
 
-          ldy # 0
+          iny                   ; Y was $ff
           sty GRP0
           sty GRP1
           sty REFP0
