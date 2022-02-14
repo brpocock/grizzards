@@ -5,7 +5,6 @@ WinnerFireworks:    .block
           .KillMusic
           lda #SoundRoar
           sta NextSound
-          .SetUtterance Phrase_BossBearDefeated
 
           .WaitScreenBottom
 
