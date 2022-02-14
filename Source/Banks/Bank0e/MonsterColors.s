@@ -20,7 +20,7 @@ HorridSlime:
 	.mcolu COLRED, $A
 	.mcolu COLRED, $8
 	.mcolu COLRED, $6
-	.mcolu COLORANGE, $6
+	.mcolu COLRED, $6
 	.mcolu COLRED, $4
 
 VorpalBunny:
