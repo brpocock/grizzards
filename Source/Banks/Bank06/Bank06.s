@@ -1,5 +1,6 @@
 ;;; Grizzards Source/Banks/Bank06/Bank06.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
+
           BANK = $06
 
           ;; Combat for encounters $00 … $7f
@@ -33,6 +34,7 @@ DoLocal:
           .include "GrizzardStatsScreen.s"
           .include "CombatAnnouncementScreen.s"
           .include "ExecuteCombatMove.s"
+          .include "CoreAttack.s"
 
           .include "FindHighBit.s"
           .include "CopyPointerText.s"
