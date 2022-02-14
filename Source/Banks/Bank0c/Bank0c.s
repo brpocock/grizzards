@@ -30,7 +30,6 @@ ShowPointerText:
 
           .include "SignpostText.s"
           .include "SignpostSpeech.s"
-          .include "VictorySpeech.s"
           .include "SpeakJetIndex.s"
 
           .include "PlaySpeech.s"
