@@ -322,3 +322,6 @@
           Monster_Dragon = 22
           Monster_SlimeBig = 23
           Monster_Cyclops = 24
+;;; 
+;;; Game tunable
+          GrizzardEvolutionXP = 35
