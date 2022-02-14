@@ -2,11 +2,6 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 ;;; Combat sprite tables
 
-          .if DEMO
-            .align $08          ; XXX alignment
-          .else
-            .align $20          ; XXX alignment
-          .fi
 SpritePresence:
           .page
           .byte 0                 ; 0 0 0

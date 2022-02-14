@@ -5,6 +5,7 @@
 
           .include "Font.s"
           .include "FontExtended.s"
+          .include "CombatSpriteTables.s"
           .include "6BitCompression.s"
           .include "DecodeText.s"
           .include "Write12Chars.s"
@@ -28,6 +29,13 @@
           .align $20
           .include "BeginNamePrompt.s"
           
+          .include "DemoDrawBoss.s"
+
+          .include "CopyPointerText.s"
+ShowPointerText:
+          jsr CopyPointerText
+          .FarJMP TextBank, ServiceDecodeAndShowText ; tail call
+
 DoLocal:
           cpy #ServiceCombatVBlank
           beq CombatVBlank
@@ -49,15 +57,7 @@ DoLocal:
           beq DemoDrawBoss
           brk
 
-          .include "DemoDrawBoss.s"
-
-          .include "CopyPointerText.s"
-ShowPointerText:
-          jsr CopyPointerText
-          .FarJMP TextBank, ServiceDecodeAndShowText ; tail call
-
           .include "MonsterArt.s"
           .include "GrizzardImages.s"
           .include "GrizzardArt.s"
-          .include "CombatSpriteTables.s"
 

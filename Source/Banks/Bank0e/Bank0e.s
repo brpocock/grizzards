@@ -38,6 +38,7 @@ ShowText:
 
           .include "GetMonsterColors.s"
 
+          .align $20           ; XXX alignment
           .include "CombatSpriteTables.s"
           .include "MonsterColors.s"
           .include "BossArt.s"

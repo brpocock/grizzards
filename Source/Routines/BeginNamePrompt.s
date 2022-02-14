@@ -2,7 +2,6 @@
 ;;; Copyright © 2022 Bruce-Robert Pocock
 
 BeginNamePrompt:
-
           .SetUtterance Phrase_EnterName
 
           lda NameEntryBuffer

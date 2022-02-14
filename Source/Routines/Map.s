@@ -90,6 +90,7 @@ GotRLE:
             .case Province0MapBank ; only dark in caves
 
               .block
+
               ldy CurrentMap
               cpy #18
               blt NotDark

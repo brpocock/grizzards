@@ -560,6 +560,8 @@ SpriteList:
 
           .byte 0
 
+          .if !DEMO
+
           ;; Room 21, Tier 5
           .byte $ff, SpriteWander
           .byte 0, 0
@@ -971,4 +973,6 @@ SpriteList:
           .byte SpriteGrizzard, 6 ; Windoo
 
           .byte 0
+
+          .fi                   ; if !DEMO
 
