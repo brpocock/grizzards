@@ -3,6 +3,10 @@
 
 Inquire:  .block
 
+          ldy # 0
+          sty CurrentUtterance
+          sty CurrentUtterance + 1
+
           jsr Prepare48pxMobBlob
           .WaitScreenBottom
 
