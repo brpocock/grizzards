@@ -24,18 +24,18 @@ Firend:                         ; Beach near Port Lion
           .byte 30, 6, 6, 14, $0f
           ;; 8
 Lander:                           ; from Dirtex
-          .byte 20, 8, 8, 21, $0f
+          .byte 30, 8, 8, 21, $0f
 Sailor:                         ; from Aquax
-          .byte 20, 8, 8, 22, $0f
+          .byte 30, 8, 8, 22, $0f
           ;; 10
 Flyer:                            ; from Airex
-          .byte 20, 8, 8, 23, $0f
+          .byte 30, 8, 8, 23, $0f
 Burner:                         ; from Flamex
-          .byte 20, 10, 8, 24, $0f
+          .byte 30, 10, 8, 24, $0f
 Splodo:                         ; Lost Mine
           .byte  5, 75, 15, 0, $ff
 Tyrant:                         ; from Petty
-          .byte 30, 30, 40, 29, $0f
+          .byte 40, 30, 40, 29, $0f
 Dufont:                         ; from Firend
           .byte 30, 15, 15, 20, $0f
 Theref:                         ; in Labyrinth level C
@@ -53,11 +53,11 @@ Corlyn:                         ; Lost Mine
 Wapow:                       ; from Dufont
           .byte 45, 24, 24, 0, $0f
 Zendex:                         ; from Lander
-          .byte 45, 24, 24, 0, $0f
+          .byte 45, 25, 25, 0, $0f
 Oceax:                          ; from Sailor
-          .byte 45, 24, 24, 0, $0f
+          .byte 45, 25, 25, 0, $0f
 Flitex:                         ; from Flyer
-          .byte 50, 25, 25, 0, $0f
+          .byte 45, 25, 25, 0, $0f
           ;; 24
 Flarex:                          ; from Burner
           .byte 50, 25, 25, 0, $0f
