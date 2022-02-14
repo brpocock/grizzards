@@ -3,9 +3,11 @@
 
 Inquire:  .block
 
-          ldy # 0
-          sty CurrentUtterance
-          sty CurrentUtterance + 1
+          .if !DEMO
+            ldy # 0
+            sty CurrentUtterance
+            sty CurrentUtterance + 1
+          .fi
 
           jsr Prepare48pxMobBlob
           .WaitScreenBottom
