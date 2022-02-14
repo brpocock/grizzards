@@ -229,8 +229,6 @@ IncrementScore:
           clc
           adc Score
           sta Score
-          bcc ScoreNoCarry
-          clc
           iny                   ; MonsterPointsIndex + 1
           lda (CurrentMonsterPointer), y
           adc Score + 1
@@ -241,8 +239,8 @@ IncrementScore:
           lda #$99
           sta Score + 1
           sta Score + 2
-ScoreNoCarry:
           sta Score
+ScoreNoCarry:
 
           dex
           bne IncrementScore
