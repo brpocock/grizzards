@@ -20,16 +20,6 @@ AttractStory:       .block
           lda # 0
           sta CombatMajorP
 RandomColor:
-          jsr Random
-          .if TV == SECAM
-          and #$0e
-          cmp #COLBLUE & $0e
-          beq RandomColor
-          .else
-          and $f7               ; don't get really bright
-          .fi
-          sta DeltaX
-
           lda # 0
           sta DeltaY
 
@@ -82,9 +72,6 @@ StoryPhase0:
 +
 
           stx MoveTarget        ; always zero
-
-          lda DeltaX
-          sta COLUP0
 
           .if DEMO
           jsr DrawMonsterGroup
@@ -175,9 +162,6 @@ Six:
 
 NotSix:
           .SkipLines KernelLines / 4
-
-          lda DeltaX
-          sta COLUP0
 
           .if DEMO
           jsr DrawMonsterGroup
