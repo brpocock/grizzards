@@ -654,7 +654,7 @@ SpriteList:
 
           .byte 19, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 60 ; grabby crabby × 1
+          .byte SpriteCombat, 61 ; grabby crabby × 2
 
           .byte 0
 
