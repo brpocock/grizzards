@@ -12,8 +12,11 @@ AttractStory:       .block
 
           jsr Random
           and #$07
-          adc # 2
+          tax
+          lda MonsterShapes, x
           sta CurrentMonsterArt
+          lda Monsters, x
+          sta CurrentMonsterNumber
           lda # 0
           sta CombatMajorP
 RandomColor:
@@ -286,4 +289,16 @@ LoopMe:
           .WaitScreenBottom
           jmp Loop
 ;;; 
+Monsters:
+          .byte 0, 1, 2, 8, 11, 13, 18, 23
+MonsterShapes:
+          .byte Monster_SlimeSmall
+          .byte Monster_SlimeSmall
+          .byte Monster_Bunny
+          .byte Monster_Dog
+          .byte Monster_Firefox
+          .byte Monster_Mutant
+          .byte Monster_Bat
+          .byte Monster_Bird
+
           .bend
