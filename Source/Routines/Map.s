@@ -111,8 +111,13 @@ GotPF:
               .bend
 
             .case Province2MapBank ; never dark
-
-              ora #$0e
+              ;;  walls are always darker than floors here
+              .switch TV
+              .case NTSC
+                ora #$02
+              .case PAL
+                ora #$04
+              .endswitch
 
             .endswitch
           .fi                   ; end of "not SECAM" section
