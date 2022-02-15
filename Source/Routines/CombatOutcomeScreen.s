@@ -445,7 +445,7 @@ DefendLevelUpDone:
 
           sta Temp
           lda MaxHP
-          cmp # 99
+          cmp #$ff
           bge HPLevelUpDone
 
           ;; HP needs to level up faster than other stats
