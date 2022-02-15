@@ -16,7 +16,6 @@ Loop:
           stx WSYNC
           .ldacolu COLRED, $6
           sta COLUBK
-
           .ldacolu COLGRAY, 0
           sta COLUP0
           sta COLUP1
