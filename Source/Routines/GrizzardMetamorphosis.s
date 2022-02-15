@@ -3,10 +3,10 @@
 
 GrizzardMetamorphosis:  .block
           ldx #$ff
-          stx s
+          txs
 
           lda CurrentGrizzard
-          sta DeltaY
+          sta DeltaY            ; stash here ("before")
 
           ;; The  actual  metamorphosis  logic  (for  the  demo)  is  mostly
 	;; duplicated in CombatVictoryScreen.s
@@ -34,45 +34,48 @@ GrizzardMetamorphosis:  .block
           lda # 3
           sta AlarmCountdown
 
-          lda # 0
-          sta DeltaX
-          sta SpeechSegment
+          ldy # 0
+          sty DeltaX            ; we're using this as a screen φ timer
+          sty SpeechSegment
 
           lda #SoundDepot
           sta NextSound
-
+;;; 
 Loop:
           .WaitScreenBottom
           .WaitScreenTop
 
           stx WSYNC
           .if SECAM == TV
-          lda #COLBLACK
+            lda #COLBLACK
           .else
-          .ldacolu COLORANGE, $e
+            .ldacolu COLORANGE, $e
           .fi
           sta COLUBK
 
           .SkipLines KernelLines / 5
 
-          lda DeltaX
+          lda DeltaX            ; screen φ
           cmp # 1
           blt DoneDrawing
 
-          lda DeltaY
+          lda DeltaY            ; "before" Grizzard
           sta CurrentGrizzard
 
           jsr DrawGrizzard
+
           .SkipLines 3
           
           jsr Prepare48pxMobBlob
+
           .ldacolu COLGRAY, 0
           sta COLUP0
           sta COLUP1
           .FarJSR TextBank, ServiceShowGrizzardName
+
           .SkipLines 5
 
-          lda DeltaX
+          lda DeltaX            ; screen φ
           cmp # 2
           blt DoneDrawing
 
@@ -83,7 +86,7 @@ Loop:
           .SetPointer BecameText
           jsr ShowPointerText
 
-          lda DeltaX
+          lda DeltaX            ; screen φ
           cmp # 3
           blt DoneDrawing
 
@@ -92,8 +95,10 @@ Loop:
 
           .SkipLines 3
           jsr DrawGrizzard
+
           .SkipLines 3
           jsr Prepare48pxMobBlob
+
           .ldacolu COLGRAY, 0
           sta COLUP0
           sta COLUP1
@@ -111,15 +116,15 @@ DoneDrawing:
           sta CurrentUtterance + 1
           lda #<Phrase_Grizzard0
           clc
-          adc DeltaY
+          adc DeltaY            ; "before" Grizzard
           sta CurrentUtterance
-
           gne SpeechReady
 
 Speech1:
           cmp # 2
           bge Speech2
-          lda DeltaX
+
+          lda DeltaX            ; screen φ
           cmp # 2
           blt DoneTalking
 
@@ -129,7 +134,8 @@ Speech1:
 Speech2:
           cmp # 3
           bge DoneTalking
-          lda DeltaX
+
+          lda DeltaX            ; screen φ
           cmp # 3
           blt DoneTalking
 
@@ -139,10 +145,8 @@ Speech2:
           clc
           adc NextMap
           sta CurrentUtterance
-
 SpeechReady:
           inc SpeechSegment
-
 DoneTalking:
           lda AlarmCountdown
           bne Loop
@@ -150,7 +154,7 @@ DoneTalking:
           lda # 3
           sta AlarmCountdown
 
-          inc DeltaX
+          inc DeltaX            ; screen φ
           lda DeltaX
           cmp # 4
           blt Loop
@@ -159,8 +163,10 @@ Leave:
           lda CurrentMap
           sta NextMap
           .FarJMP TextBank, ServiceCombatVictory
-
+;;; 
 BecameText:
           .MiniText "BECAME"
 
           .bend
+
+;;; Audited 2022-02-15 BRPocock
