@@ -42,7 +42,7 @@ DoLocal:
 
           .include "VSync.s"
           .include "VBlank.s"
-          
+
           .include "Random.s"
           .include "48Pixels.s"
 
