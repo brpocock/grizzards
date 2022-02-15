@@ -22,13 +22,16 @@ CombatLogic:
 DoAutoMove:
           lda WhoseTurn
           bne DoMonsterMove
+
 MaybeDoPlayerMove:
           lda StatusFX
           .BitBit StatusSleep
           beq NotPlayerSleep
+
 DoPlayerSleep:
           jsr Random
           bpl PlayerNotAwaken
+
           lda StatusFX
           and #~StatusSleep
           sta StatusFX
@@ -40,9 +43,12 @@ PlayerNotAwaken:
 NotPlayerSleep:
           and #StatusMuddle
           beq CheckStick
+
 DoPlayerMuddled:
           jsr Random
+
           bpl PlayerNotClearUp
+
           lda StatusFX
           and #~StatusMuddle
           sta StatusFX
@@ -56,20 +62,25 @@ SetMuddledMove:
           lda BitMask, x
           bit MovesKnown
           beq SetMuddledMove
+
           inx
           stx MoveSelection
 
 PickMonster:
           jsr Random
+
           and #$07
           tax
 CheckMonsterPulse:
           cpx # 6
           bge PickMonster
+
           lda EnemyHP, x
           bne GotMonster
+
           inx
           gne CheckMonsterPulse
+
 GotMonster:
           inx
           stx MoveTarget
@@ -83,12 +94,14 @@ DoMonsterMove:
           lda EnemyStatusFX, x
           and #StatusSleep
           beq MonsterMoves
+
           lda #ModeCombatNextTurn
           sta GameMode
           gne CheckStick
 
 MonsterMoves:
           jsr Random
+
           and #$03
           sta MoveSelection
 
@@ -104,17 +117,22 @@ CheckStick:
 
           and #P0StickUp
           bne DoneStickUp
+
           lda #SoundChirp
           sta NextSound
           lda CombatMajorP
           beq CanSelectMoveUp
+
           dex
           beq WrapMoveForUp
+
           gne DoneStickUp
+
 CanSelectMoveUp:
           dex
           cpx #$ff
           bne DoneStickUp
+
 WrapMoveForUp:
           ldx # 8
 
@@ -122,15 +140,19 @@ DoneStickUp:
           lda NewSWCHA
           and #P0StickDown
           bne DoneStickDown
+
           inx 
           lda #SoundChirp
           sta NextSound
           cpx #9              ; max moves = 8
           blt DoneStickDown
+
           ldy CombatMajorP
           beq CanRunAwayDown
+
           ldx # 1
           gne DoneStickDown
+
 CanRunAwayDown:
           ldx # 0
 
@@ -139,11 +161,14 @@ DoneStickDown:
 StickLeftRight:
           lda CombatMoveDeltaHP
           bmi SelfTarget
+
 ChooseTarget:
           lda CombatMajorP
           beq ChooseMinorTarget
+
           ldx # 1
           gne ForcedTarget
+
 SelfTarget:
           ldx # 0
 ForcedTarget:
@@ -160,9 +185,11 @@ TargetFirstMonster:
 TargetNextMonster:
           lda EnemyHP, x
           bne TargetFirst
+
           inx
           cpx # 5
           bne TargetNextMonster
+
 TargetFirst:
           inx
           stx MoveTarget
@@ -174,16 +201,20 @@ NormalizeMinorTarget:
           lda NewSWCHA
           .BitBit P0StickLeft
           bne DoneStickLeft
+
           dex
           bne DoneStickLeft
+
           ldx # 6
 DoneStickLeft:
           lda NewSWCHA
           .BitBit P0StickRight
           bne DoneStickRight
+
           inx
           cpx # 7
           blt DoneStickRight
+
           ldx # 1
 DoneStickRight:
           stx MoveTarget
@@ -193,9 +224,11 @@ CheckSwitches:
           stx WSYNC
 
           lda NewSWCHB
-          beq SkipSwitches
+          beq DoneSwitches
+
           .BitBit SWCHBReset
           bne NoReset
+
           .WaitForTimer
           ldx # 0
           stx VBLANK
@@ -211,11 +244,14 @@ CheckSwitches:
 NoReset:
           .BitBit SWCHBSelect
           bne NoSelect
+
           lda #ModeGrizzardStats
           sta GameMode
 
 NoSelect:
 
+;;; XXX the pause code should be in some other place rather than being duplicated here
+;;; Moreover, Pause does not even affect combat mode, so this is maybe wasted code?
           .if TV == SECAM
 
             lda DebounceSWCHB
@@ -227,6 +263,7 @@ NoSelect:
             lda DebounceSWCHB
             .BitBit SWCHBColor
             bne NoPause
+
             and #SWCHB7800
             beq +
             lda Pause
@@ -241,8 +278,7 @@ NoPause:
 
           .fi
 
-SkipSwitches:
-
+DoneSwitches:
           rts
 
           .bend
