@@ -22,6 +22,7 @@ Loop:
 
           lda SaveGameSlot
           beq ShowBegin
+
           lda ProvinceFlags + 4
           beq ShowBegin
 
@@ -32,31 +33,34 @@ ShowBegin:
           .SetPointer BeginText
 ShowBeginOrResume:  
           jsr ShowPointerText
-
 ;;; 
           lda NewSWCHB
           beq SkipSwitches
+
           .BitBit SWCHBReset
           beq SlotOK
 
           .BitBit SWCHBSelect
           beq SwitchSelectSlot
-SkipSwitches:
 
+SkipSwitches:
           lda NewSWCHA
           beq SkipStick
+
           .BitBit P0StickLeft
           beq SwitchSelectSlot
+
           .BitBit P0StickRight
           beq SwitchSelectSlot
-SkipStick:
 
+SkipStick:
           lda NewButtons
           beq SkipButton
+
           .BitBit PRESSED
           beq SlotOK
-SkipButton:
 
+SkipButton:
           .WaitScreenBottom
           jmp Loop
 ;;; 
@@ -79,6 +83,7 @@ SlotOK:
 
           lda SaveGameSlot
           beq BeginAnew
+
           lda ProvinceFlags + 4
           beq BeginAnew
 
@@ -108,3 +113,5 @@ BeginAnew:
           .FarJMP MapServicesBank, ServiceNewGame
 
           .bend
+
+;;; Audited 2022-02-15 BRPocock
