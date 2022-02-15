@@ -105,7 +105,7 @@ SetCursorColor:
             jmp CursorColored
 
 TargetIsMonster:
-            lda MonsterHP - 1, x
+            lda EnemyHP - 1, x
             beq MonsterGone
             lda # 0               ; black
             geq SetColor
@@ -172,15 +172,15 @@ CursorReady:
 
 PrepareTopMonsters:
           lda # 0
-          ldx MonsterHP + 0
+          ldx EnemyHP + 0
           beq +
           ora #$01
 +
-          ldx MonsterHP + 1
+          ldx EnemyHP + 1
           beq +
           ora #$02
 +
-          ldx MonsterHP + 2
+          ldx EnemyHP + 2
           beq +
           ora #$04
 +
@@ -222,15 +222,15 @@ BottomTarget:
 
 PrepareBottomMonsters:
           lda # 0
-          ldx MonsterHP + 3
+          ldx EnemyHP + 3
           beq +
           ora #$01
 +
-          ldx MonsterHP + 4
+          ldx EnemyHP + 4
           beq +
           ora #$02
 +
-          ldx MonsterHP + 5
+          ldx EnemyHP + 5
           beq +
           ora #$04
 +

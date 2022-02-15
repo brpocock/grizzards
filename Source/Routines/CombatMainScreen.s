@@ -27,7 +27,7 @@ NotMuddled1:
 TargetFirstMonster:
           ldx #0
 -
-          lda MonsterHP, x
+          lda EnemyHP, x
           bne TargetFirst
           inx
           cpx # 5
@@ -157,11 +157,11 @@ MonsterWithName:
 
           lda CombatMajorP
           beq MinorCombatArt
-          lda MonsterHP + 1
-          ora MonsterHP + 2
-          ora MonsterHP + 3
-          ora MonsterHP + 4
-          ora MonsterHP + 5
+          lda EnemyHP + 1
+          ora EnemyHP + 2
+          ora EnemyHP + 3
+          ora EnemyHP + 4
+          ora EnemyHP + 5
           bne MinorCombatArt
 
 MajorCombatArt:
@@ -361,7 +361,7 @@ MoveNotOK:
 DoUseMove:
           ldx MoveTarget
           beq MoveOK
-          lda MonsterHP - 1, x
+          lda EnemyHP - 1, x
           beq MoveNotOK
 
 MoveOK:

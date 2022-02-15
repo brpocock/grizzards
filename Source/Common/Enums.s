@@ -283,7 +283,7 @@
           MonsterColorIndex = 10
           MonsterAttackIndex = 11
           MonsterDefendIndex = 12
-          MonsterHPIndex = 13
+          EnemyHPIndex = 13
           MonsterPointsIndex = 14 ; two bytes, low byte, high byte order
 
 ;;; 

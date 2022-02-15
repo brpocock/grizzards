@@ -46,8 +46,8 @@ AnnounceMonsterSpeech:
           adc EncounterMonster, x
           sta CurrentUtterance
           
-SetUpMonsterHP:     
-          ldy #MonsterHPIndex
+SetUpEnemyHP:     
+          ldy #EnemyHPIndex
           lda (CurrentMonsterPointer), y
           sta Temp
 
@@ -70,14 +70,14 @@ NoHPBoost:
           lda # 0
           ldx # 5
 -
-          sta MonsterHP, x
+          sta EnemyHP, x
           dex
           bne -
 
           ;; … actually set the HP for monsters present (per .y)
           lda Temp
 -  
-          sta MonsterHP - 1, y
+          sta EnemyHP - 1, y
           dey
           bne -
 

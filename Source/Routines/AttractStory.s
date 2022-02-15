@@ -27,7 +27,7 @@ RandomColor:
 -
           jsr Random
           and #$03
-          sta MonsterHP - 1, x
+          sta EnemyHP - 1, x
           dex
           bne -
 
@@ -133,23 +133,23 @@ Six:
           jsr Random
           and #$07
           tax
-          lda MonsterHP, x
+          lda EnemyHP, x
           beq +
           lda # SoundHit
           sta NextSound
           stx WSYNC
           stx WSYNC
 +
-          lda MonsterHP, x
+          lda EnemyHP, x
           beq NotSix
           lda # 0
-          dec MonsterHP, x
-          lda MonsterHP
-          ora MonsterHP + 1
-          ora MonsterHP + 2
-          ora MonsterHP + 3
-          ora MonsterHP + 4
-          ora MonsterHP + 5
+          dec EnemyHP, x
+          lda EnemyHP
+          ora EnemyHP + 1
+          ora EnemyHP + 2
+          ora EnemyHP + 3
+          ora EnemyHP + 4
+          ora EnemyHP + 5
           bne NotSix
 
           lda # SoundVictory

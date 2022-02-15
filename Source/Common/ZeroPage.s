@@ -311,7 +311,7 @@ StatusFX:
           .byte ?
 
 ;;; HP for each enemy (up to six)
-MonsterHP:
+EnemyHP:
           .byte ?, ?, ?, ?, ?, ?
 
 ;;; Status effects for each enemy

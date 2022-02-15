@@ -108,12 +108,12 @@ MonsterHealsMinusHP:
 MonsterHealsCommon:
           ldx WhoseTurn
           clc
-          adc MonsterHP - 1, x
+          adc EnemyHP - 1, x
           cmp # 199
           blt +
           lda # 199
 +
-          sta MonsterHP - 1, x
+          sta EnemyHP - 1, x
           lda MoveHP
           eor #$ff              ; negate the value to mean "gained"
           sta MoveHP
@@ -154,7 +154,7 @@ PlayerAttacks:
 +
 
           ldx MoveTarget
-          lda MonsterHP - 1, x
+          lda EnemyHP - 1, x
           sta DefenderDefend
 
           lda EnemyStatusFX - 1, x
@@ -182,7 +182,7 @@ PlayerAttacks:
           asl DefenderDefend
 +
 
-          lda MonsterHP - 1, x
+          lda EnemyHP - 1, x
           sta DefenderHP
 
           jsr CoreAttack
@@ -192,7 +192,7 @@ PlayerAttacks:
           sta EnemyStatusFX - 1, x
 
           lda DefenderHP
-          sta MonsterHP - 1, x
+          sta EnemyHP - 1, x
 
           bne WaitOutScreen
 
@@ -401,7 +401,7 @@ NextTurn:
           jmp CombatMainScreen.BackToPlayer
 
 NotLastMonster:
-          lda MonsterHP, x
+          lda EnemyHP, x
           beq NextTurn
 
           lda # 6

@@ -85,7 +85,7 @@ PrintKilled:
 
 CheckMonsterPulse2:
           ldx MoveTarget
-          lda MonsterHP - 1, x
+          lda EnemyHP - 1, x
           beq PrintKilled
 PrintInjured:
           .SetPointer HPLostText
@@ -248,7 +248,7 @@ SayKilled:
 
 CheckMonsterPulse:
           ldx MoveTarget
-          lda MonsterHP - 1, x
+          lda EnemyHP - 1, x
           beq SayKilled
 SayInjured:
           .SetUtterance Phrase_IsInjured
@@ -359,7 +359,7 @@ CombatOutcomeDone:
 CheckForWin:
           ldx # 6
 -
-          lda MonsterHP - 1, x
+          lda EnemyHP - 1, x
           bne Bye
           dex
           bne -

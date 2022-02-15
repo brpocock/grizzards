@@ -66,7 +66,7 @@ PickMonster:
 CheckMonsterPulse:
           cpx # 6
           bge PickMonster
-          lda MonsterHP, x
+          lda EnemyHP, x
           bne GotMonster
           inx
           gne CheckMonsterPulse
@@ -158,7 +158,7 @@ ChooseMinorTarget:
 TargetFirstMonster:
           ldx #0
 TargetNextMonster:
-          lda MonsterHP, x
+          lda EnemyHP, x
           bne TargetFirst
           inx
           cpx # 5
