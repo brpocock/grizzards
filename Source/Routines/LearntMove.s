@@ -1,6 +1,7 @@
 ;;; Grizzards Source/Routines/LearntMove.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
+          ;; Announce having learnt the move whose ID is in Temp
 LearntMove:        .block
           .WaitScreenBottom
 
@@ -16,18 +17,15 @@ LearntMove:        .block
           sta GameMode
 
           lda Temp
-          sta DeltaX
+          sta DeltaX            ; Move learnt
 
           lda # 8
           sta AlarmCountdown
 
-          lda #>Phrase_Learnt
-          sta CurrentUtterance + 1
-          lda #<Phrase_Learnt
-          sta CurrentUtterance
+          .SetUtterance Phrase_Learnt
 
-          lda # 0
-          sta DeltaY
+          ldy # 0
+          sty DeltaY            ; ??
           .WaitScreenBottom
 Loop:
           .WaitScreenTop
@@ -45,12 +43,12 @@ Loop:
           jsr CopyPointerText
           .FarJSR TextBank, ServiceDecodeAndShowText
 
-          ldy DeltaX
+          ldy DeltaX            ; move learnt
           sty Temp
           .FarJSR TextBank, ServiceShowMoveDecoded
 
 CheckForSpeech:
-          lda DeltaY
+          lda DeltaY            ; ???
           bne CheckForAlarm
 
           lda CurrentUtterance + 1
@@ -60,10 +58,10 @@ CheckForSpeech:
           sta CurrentUtterance + 1
           lda #<Phrase_Move01 - 1
           clc
-          adc DeltaX
+          adc DeltaX            ; move learnt
           sta CurrentUtterance
           lda # 1
-          sta DeltaY
+          sta DeltaY            ; ???
 
 CheckForAlarm:
           lda AlarmCountdown
@@ -75,25 +73,27 @@ AlarmDone:
 
           lda NewSWCHB
           beq SwitchesDone
+
           .BitBit SWCHBReset
           bne SwitchesDone
+
           lda #ModeColdStart
           sta GameMode
 SwitchesDone:
-
           lda GameMode
           cmp #ModeLearntMove
-          beq +
-          cmp #ModeColdStart
-          beq GoColdStart
-
-          rts
-
-+
+          bne Leave
           .WaitScreenBottom
           jmp Loop
+
+Leave:
+          cmp #ModeColdStart
+          beq GoColdStart
+          rts
 
 LearntText:
           .MiniText "LEARNT"
           
           .bend
+
+;;; Audited 2022-02-15 BRPocock
