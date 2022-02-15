@@ -7,26 +7,30 @@ FromTemp:
 
           ;; Doing +100/200 we want to adjust to make room
           ;; in the case of "-##" we want "-###" to appear
+
+          .enc "minifont"
+
           lda Temp
           cmp # 200
           blt Done200
           ldx StringBuffer + 3
-          cpx # 39              ; "-"
+          cpx #"-"
           bne +
           stx StringBuffer + 2
 +
           ldx # 2
           stx StringBuffer + 3
-Done200
+Done200:
           cmp # 100
           blt Done100
           ldx StringBuffer + 3
-          cpx # 39              ; "-"
+          cpx #"-"
           bne +
           stx StringBuffer + 2
           ldx # 1
           stx StringBuffer + 3
-Done100
+Done100:
+          .enc "none"
 
           ;; based on  https://stackoverflow.com/questions/65432063/6502-assembly-binary-to-bcd-is-that-possible-on-x86
           ;; Not to self, consider also https://atariage.com/forums/topic/330847-binary-to-bcd/?do=findComment&comment=4999910 ?
