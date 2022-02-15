@@ -25,16 +25,17 @@ EndRandomSpawn:
           ;; This delay is overkill, but it works.
           ;; (we only really need 1-4 frames)
           lda AlarmCountdown
-          bne +
+          bne Return
+
           ;; Every sprite has been checked at least once,
           ;; and has not had to be repositioned, so we must
           ;; be OK to exit "poof" mode.
           lda MapFlags
           and #~MapFlagRandomSpawn
           sta MapFlags
-+
+Return:
           rts
-
+;;; 
 CollisionHasOccurred:
           ;; If we are still in random spawn "poof" mode, we can
           ;; (should) just randomly reposition the sprite, it
@@ -99,3 +100,5 @@ Done:
 Bye:
           rts
           .bend
+
+;;; Audited 2022-02-15 BRPocock
