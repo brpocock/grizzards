@@ -6,11 +6,12 @@ AttractStory:       .block
           cmp #<Phrase_Story
           beq Loop
 
-          lda # 0
-          sta AttractStoryPanel
-          sta AttractStoryProgress
+          ldy # 0
+          sty AttractStoryPanel
+          sty AttractStoryProgress
 
           jsr Random
+
           and #$07
           tax
           lda MonsterShapes, x
@@ -20,16 +21,16 @@ AttractStory:       .block
           lda # 0
           sta CombatMajorP
 RandomColor:
-          lda # 0
-          sta DeltaY
+          ;; ldy # 0 ; already zero from above
+          sty DeltaY            ; XXX used for a timer
 
           ldx # 6
--
+RandomHP:
           jsr Random
           and #$03
           sta EnemyHP - 1, x
           dex
-          bne -
+          bne RandomHP
 
           beq LoopFirst
 ;;; 
@@ -47,16 +48,18 @@ LoopFirst:
           lda AttractStoryProgress
           adc # 1
           cmp # FramesPerSecond * 2
-          beq +
+          beq ProgressedToPhase0
+
           sta AttractStoryProgress
--
+GoToStoryDone:
           jmp StoryDone
-+
+
+ProgressedToPhase0:
           lda # 0
           sta AttractStoryProgress
           lda # 1
           sta AttractStoryPanel
-          gne -
+          gne GoToStoryDone
 
 StoryPhase0:
           ;; Introducing the monsters
@@ -64,46 +67,49 @@ StoryPhase0:
           bge StoryPhase1
 
           ldx AttractStoryProgress
-          beq +
--
+          beq DoneSkipping
+
+SkipLinesForPhase0:
           stx WSYNC
           dex
-          bne -
-+
+          bne SkipLinesForPhase0
+DoneSkipping:
 
           stx MoveTarget        ; always zero
 
           .if DEMO
-          jsr DrawMonsterGroup
+            jsr DrawMonsterGroup
           .else
-          .FarJSR MonsterBank, ServiceDrawMonsterGroup
+            .FarJSR MonsterBank, ServiceDrawMonsterGroup
           .fi
 
           lda # KernelLines / 4
           sec
           sbc AttractStoryProgress
           tax
-          beq +
--
+          beq DoneSkippingLower
+
+SkipLower:
           stx WSYNC
           dex
-          bne -
-+
+          bne SkipLower
 
+DoneSkippingLower:
           .if SECAM == TV
-          lda #COLBLACK
+            lda #COLBLACK
           .else
-          .ldacolu COLGREEN, $4
+            .ldacolu COLGREEN, $4
           .fi
           stx WSYNC
           sta COLUBK
-          
-          lda DeltaY
+
+          lda DeltaY            ; XXX using this for a timer
           clc
           adc # ceil( $40 * ( FramesPerSecond / 24.0 ) )
           sta DeltaY
           cmp #$40
           blt StoryDone
+
           sec
           sbc #$40
           sta DeltaY
@@ -111,6 +117,7 @@ StoryPhase0:
           lda AttractStoryProgress
           cmp # KernelLines / 4
           blt StoryDone
+
           inc AttractStoryPanel
 ;;; 
 StoryPhase1:
@@ -134,12 +141,13 @@ Six:
           and #$07
           tax
           lda EnemyHP, x
-          beq +
+          beq DoneHitSound
+
           lda # SoundHit
           sta NextSound
           stx WSYNC
           stx WSYNC
-+
+DoneHitSound:
           lda EnemyHP, x
           beq NotSix
           lda # 0
@@ -164,36 +172,37 @@ NotSix:
           .SkipLines KernelLines / 4
 
           .if DEMO
-          jsr DrawMonsterGroup
+            jsr DrawMonsterGroup
           .else
-          .FarJSR MonsterBank, ServiceDrawMonsterGroup
+            .FarJSR MonsterBank, ServiceDrawMonsterGroup
           .fi
 
-          ldy # 0               ; should not need this but … do.
+          ldy # 0               ; XXX should not need this but … do.
           sty GRP0
           sty GRP1
 
           .if SECAM == TV
-          lda #COLBLACK
+            lda #COLBLACK
           .else
-          .ldacolu COLGREEN, $4
+            .ldacolu COLGREEN, $4
           .fi
           stx WSYNC
           sta COLUBK
           
           ldx AttractStoryProgress
-          beq +
--
+          beq DoneSkipPhase1
+SkipPhase1:
           stx WSYNC
           dex
-          bne -
-+
+          bne SkipPhase1
 
+DoneSkipPhase1:
           jsr DrawGrizzard
 
           lda AttractStoryPanel
           cmp # 3
           bge StoryPhase1b
+
 StoryPhase1a:
           lda DeltaY
           clc
@@ -201,6 +210,7 @@ StoryPhase1a:
           sta DeltaY
           cmp #$40
           blt StoryDone
+
           sec
           sbc #$40
           sta DeltaY
@@ -220,6 +230,7 @@ StoryPhase1b:
           lda DeltaY
           cmp # 2 * FramesPerSecond
           blt StoryDone
+
           inc AttractStoryPanel
           lda # 0
           sta DeltaY
@@ -242,10 +253,11 @@ NextGrizzard:
           inc CurrentGrizzard
           lda CurrentGrizzard
           cmp # 3
-          blt +
-          lda # 0
-          sta CurrentGrizzard
-+
+          blt DoneNextGrizzard
+
+          ldy # 0
+          sty CurrentGrizzard
+DoneNextGrizzard:
 
           lda #ModeAttractTitle
           sta GameMode
@@ -261,6 +273,7 @@ StillStory:
 CheckFire:
           lda NewButtons
           beq LoopMe
+
           and #PRESSED
           bne LoopMe
 
