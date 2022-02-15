@@ -1,7 +1,9 @@
 ;;; Grizzards Source/Routines/AppendDecimalAndPrint.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
+
 AppendDecimalAndPrint:        .block
           sta Temp
+
 FromTemp:
           jsr CopyPointerText
 
