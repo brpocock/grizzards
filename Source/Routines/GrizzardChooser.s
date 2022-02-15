@@ -33,6 +33,7 @@ Loop:
           jsr ShowPointerText
 
           jsr FindGrizzardName
+
           jsr ShowPointerText
 
           .FarJSR StretchBank, ServiceDrawStarter
@@ -45,12 +46,14 @@ Loop:
           lda NewSWCHB
           and #SWCHBReset
           bne DoneSwitches
+
           .WaitScreenBottom
           jmp GoColdStart
 
 DoneSwitches:       
           lda NewSWCHA
           beq DoneStick
+
           and #P0StickLeft
           bne DoneLeft
 
@@ -59,12 +62,14 @@ DoneSwitches:
           sta NextSound
           lda CurrentGrizzard
           bpl DoneLeft
+
           lda # 2
           sta CurrentGrizzard
 DoneLeft:
           lda NewSWCHA
           and #P0StickRight
           bne DoneRight
+
 DoRight:
           inc CurrentGrizzard
           lda #SoundChirp
@@ -72,12 +77,14 @@ DoRight:
           lda CurrentGrizzard
           cmp # 3
           blt DoneRight
+
           lda # 0
           sta CurrentGrizzard
 DoneRight:
 DoneStick:
           lda NewButtons
           beq DoneButtons
+
           and #PRESSED
           bne DoneButtons
 
@@ -87,7 +94,6 @@ DoneStick:
           sta GameMode
 
 DoneButtons:
-
           lda GameMode
           cmp #ModeGrizzardChooser
           bne Leave
@@ -102,8 +108,10 @@ Leave:
 FindGrizzardName:   .block
           lda CurrentGrizzard
           beq DirtexName
+
           cmp # 1
           beq AquaxName
+
 AirexName:
           .SetPointer AirexText
           rts
@@ -117,3 +125,5 @@ AquaxName:
           rts
 
           .bend
+
+;;; Audited 2022-02-15 BRPocock
