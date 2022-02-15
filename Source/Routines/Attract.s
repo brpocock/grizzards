@@ -15,7 +15,7 @@ ZeroRAM:
           dex
           bne ZeroRAM
 
-          lda # Phrase_Reset
+          lda #Phrase_Reset
           sta CurrentUtterance
 
 WarmStart:
@@ -23,7 +23,7 @@ WarmStart:
           txs
           jsr SeedRandom
 
-          lda # SoundAtariToday
+          lda #SoundAtariToday
           sta NextSound
 
           .if PUBLISHER
