@@ -25,7 +25,7 @@ EOF
         m)
             minmode=1
             ;;
-        s)
+        v)
             case $OPTARG in
                 Public)
                     variant='';
