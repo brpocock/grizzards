@@ -145,6 +145,7 @@ i2cStopWrite:
           ;; standard library code
 i2cK:                           ; K is "switch over to (you) sending" in Morse code
           jsr i2cTxByte
+i2cK2:                          ; switch without a final byte to send
           jsr i2cStopWrite
           jmp i2cStartRead      ; tail call
 
