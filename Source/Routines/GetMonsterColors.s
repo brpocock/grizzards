@@ -1,8 +1,9 @@
 ;;; Grizzards Source/Routines/GetMonsterColors.s
 ;;; Copyright © 2022 Bruce-Robert Pocock
 
+          ;; Takes CurrentMonsterNumber, and fills out the 8 color band values
+          ;; into the PixelPointers + 0 … + 7
 GetMonsterColors:   .block
-
           lda #>MonsterColors
           sta Pointer + 1
 
@@ -19,7 +20,7 @@ GetMonsterColors:   .block
 +
           sta Pointer
 
-          ;; unclear what I did wrong here.
+          ;; unclear what I did wrong here. XXX there is an arithmetic error, this fixes
           lda #$20
           and CurrentMonsterNumber
           beq +
@@ -27,14 +28,15 @@ GetMonsterColors:   .block
 +
 
           ldy # 0
-          ldx # 8
 -
           lda (Pointer), y
           sta PixelPointers, y
           iny
-          dex
+          cpy # 8
           bne -
 
           rts
 
           .bend
+
+;;; Audited 2022-02-15 BRPocock
