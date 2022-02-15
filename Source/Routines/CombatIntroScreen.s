@@ -25,11 +25,16 @@ Loop:
 
           .SetPointer CombatText
           jsr CopyPointerText
+
           jsr Prepare48pxMobBlob
+
           jsr DecodeAndShowText
 
           lda AlarmCountdown
           bne Loop
 
           rts
+
           .bend
+
+;;; Audited 2022-02-15 BRPocock
