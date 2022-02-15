@@ -4,7 +4,7 @@
 ;;;
 ;;; By Alex Herbert, 2004
 ;;;
-;;; Converted for 64tass by Bruce-Robert Pocock, 2017, 2020
+;;; Converted for 64tass by Bruce-Robert Pocock, 2017, 2020-2022
 
 SaveGameSignatureString:
           .text SaveGameSignature
