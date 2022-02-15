@@ -5,11 +5,15 @@ DrawStarter:        .block
 
           ;; 0 = Dirtex, 1 = Aquax, 2 = Airex
           
-          .if !DEMO
+          .if !DEMO             ; all of the stuff that isn't Aquax-only
+          ;; demo only gets the Aquax screen
+
           lda CurrentGrizzard
           beq DirtexTop
+
           cmp # 1
           beq AquaxTop
+
           gne AirexTop
 
 DirtexTop:
@@ -82,6 +86,7 @@ AquaxBottom:
           bne +
 
           jsr Random
+
           and # 1
           sta PlayerXFraction
 +
@@ -89,6 +94,7 @@ AquaxBottom:
           beq +
           inc PlayerYFraction
           jmp SetWaveLevel
+
 +
           dec PlayerYFraction
 SetWaveLevel:
@@ -123,25 +129,27 @@ SetWaveLevel:
 
           .if !DEMO
 
-AirexTop: 
+AirexTop:
 
           .SkipLines 20
           .ldacolu COLGREEN, $4
           sta COLUPF
 
-          lda # 43
+          lda # 43              ; We don't actually want legit random here.
           sta Rand
           sta Rand + 1
 
           ldy # 4
 Foliage:
-          jsr Random
+          jsr Random            ; not really random, seeded just above
+
           sta PF0
           .if NTSC == TV
-          jsr Random
+            jsr Random          ; XXX out of space for non-NTSC
           .fi
           sta PF1
           jsr Random
+
           sta PF2
           .SkipLines 5
           dey
@@ -188,7 +196,7 @@ AirexBottom:
           ldy # 0
           sty VDELP0
           sty VDELP1
-          
+
           lda # NUSIZQuad
           sta NUSIZ0
           sta NUSIZ1
@@ -208,12 +216,14 @@ AirexBottom:
           sta GRP0
           sta GRP1
 
-          lda # 0
-          sta PF0
-          sta PF1
-          sta PF2
+          ldy # 0
+          sty PF0
+          sty PF1
+          sty PF2
 
           rts
           .fi
 
           .bend
+
+;;; Audited 2022-02-15 BRPocock
