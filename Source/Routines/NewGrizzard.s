@@ -95,36 +95,34 @@ Defaults:
 
           lda GrizzardStartingStats, y
           .if NOSAVE
-          cmp MaxHP
-          blt +
+            cmp MaxHP
+            blt +
           .fi
           sta MaxHP
 +
           .if NOSAVE
-          lda MaxHP
+            lda MaxHP
           .fi
           sta CurrentHP
           iny
           lda GrizzardStartingStats, y
           .if NOSAVE
-          cmp GrizzardAttack
-          blt +
+            cmp GrizzardAttack
+            blt +
           .fi
           sta GrizzardAttack
 +
           iny
           lda GrizzardStartingStats, y
           .if NOSAVE
-          cmp GrizzardDefense
-          blt +
+            cmp GrizzardDefense
+            blt +
           .fi
           sta GrizzardDefense
 +
           iny
-          .if !NOSAVE
           lda # 0               ; XP always starts at zero
           sta GrizzardXP
-          .fi
           iny
           lda GrizzardStartingStats, y
           sta MovesKnown
