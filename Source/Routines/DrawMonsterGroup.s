@@ -1,9 +1,6 @@
 ;;; Grizzards Source/Routines/DrawMonsterGroup.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
-          .if 3 == BANK && SECAM == TV
-            .align $20            ; XXX alignment
-          .fi
 DrawMonsterGroup:   .block
 
           CursorBits = pp5h
@@ -25,7 +22,7 @@ GetMonsterArtPointer:
 
           clc
 ;;; 
-          .if !DEMO
+          .if !DEMO             ; demo does not have room for MonsterArt2
 
 GetAnimationFrame:
           lda #$20
@@ -50,7 +47,6 @@ GetAnimationFrame:
 Frame1:
             stx WSYNC
           .fi
-;;; 
 GotFrame:
           .fi                   ; if !DEMO
 ;;; 
@@ -87,7 +83,6 @@ PrepareToDrawMonsters:
           sta NUSIZ1
 ;;; 
 SetCursorColor:
-
           .if TV == SECAM
 
             lda #COLWHITE
@@ -146,7 +141,7 @@ SetUpCursor:
           dex
           jmp PositionCursor
 ;;;
-          .align $10, $ea       ; XXX alignment NOPs
+          .align $10       ; XXX alignment
 PositionCursor:
           stx HMCLR
 
@@ -243,6 +238,7 @@ PrepareBottomMonsters:
           bne PositionBottomMonsters
 
           jsr DrawNothing
+
           jmp FinishUp
 
 PositionBottomMonsters:
@@ -253,7 +249,7 @@ DrawBottomMonsters:
           ;; fall through
 ;;; 
 FinishUp:
-          sty GRP0
+          sty GRP0              ; Y = 0
           sty GRP1
           sty REFP0
           lda MoveTarget
@@ -341,3 +337,5 @@ DrawNothing:
           rts                   ; return with Y = 0
 ;;; 
           .bend
+
+;;; Audited 2022-02-15 BRPocock
