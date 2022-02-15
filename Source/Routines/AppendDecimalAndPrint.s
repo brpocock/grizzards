@@ -10,22 +10,22 @@ FromTemp:
           lda Temp
           cmp # 200
           blt Done200
-          lda StringBuffer + 3
-          cmp # 39              ; "-"
+          ldx StringBuffer + 3
+          cpx # 39              ; "-"
           bne +
-          sta StringBuffer + 2
+          stx StringBuffer + 2
 +
-          lda # 2
-          sta StringBuffer + 3
+          ldx # 2
+          stx StringBuffer + 3
 Done200
           cmp # 100
           blt Done100
-          lda StringBuffer + 3
-          cmp # 39              ; "-"
+          ldx StringBuffer + 3
+          cpx # 39              ; "-"
           bne +
-          sta StringBuffer + 2
-          lda # 1
-          sta StringBuffer + 3
+          stx StringBuffer + 2
+          ldx # 1
+          stx StringBuffer + 3
 Done100
 
           ;; based on  https://stackoverflow.com/questions/65432063/6502-assembly-binary-to-bcd-is-that-possible-on-x86
@@ -33,7 +33,6 @@ Done100
 
 BINBCD8:
           sed
-          lda Temp
 
           ldx # 8
 CNVBIT:                         
