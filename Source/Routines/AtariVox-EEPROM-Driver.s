@@ -9,10 +9,11 @@
 SaveGameSignatureString:
           .text SaveGameSignature
 
-
           i2cSDAMask = $04
           i2cSCLMask = $08
 
+          SaveWritesPerScreen = $20
+;;; 
 i2cSCL0:  .macro
           lda #0
           sta SWCHA
@@ -88,9 +89,7 @@ i2cRxACK: .macro
 
           EEPROMRead = %10100001
           EEPROMWrite = %10100000
-
 ;;; 
-
 i2cStartRead:
           clv               ; Use V to flag if previous byte needs ACK
           .i2cStart
@@ -142,7 +141,7 @@ i2cStopWrite:
           .i2cStop
           rts
 
-i2cK:
+i2cK:                           ; K is "switch over to (you) sending" in Morse code
           jsr i2cTxByte
           jsr i2cStopWrite
           jmp i2cStartRead      ; tail call
@@ -153,5 +152,3 @@ i2cWaitForAck:
           jsr i2cStartWrite
           bcs -
           jmp i2cStopWrite      ; tail call
-
-          SaveWritesPerScreen = $20
