@@ -34,13 +34,13 @@ WarmStart:
           sta GameMode
 
           lda #$80
-          sta PlayerYFraction
+          sta PlayerYFraction   ; what is this being used for??
 
           lda # CTRLPFREF
           sta CTRLPF
 
           lda # 4
-          sta DeltaY
+          sta DeltaY            ; what is this being used for??
           lda # 8
           sta AlarmCountdown
 ;;; 
@@ -61,10 +61,13 @@ Loop:
           lda GameMode
           cmp #ModeAttractTitle
           beq TitleMode
+
           cmp #ModeAttractCopyright
           beq CopyrightMode
+  
           cmp #ModeCreditSecret
           beq Credits
+
           .if PUBLISHER
             cmp #ModePublisherPresents
             beq Preamble.PublisherPresentsMode
@@ -79,8 +82,10 @@ StoryMode:
           lda GameMode
           cmp #ModeAttractStory
           beq Loop
+
           cmp #ModeAttractTitle
           beq Loop
+
           jmp Leave
 ;;; 
 TitleMode:
@@ -110,13 +115,11 @@ DoneTitleSpeech:
           jsr ShowPicture
 
           .if DEMO
-          lda # 1               ; Aquax
-          sta CurrentGrizzard
-          jsr DrawStarter
+            lda # 1               ; Aquax
+            sta CurrentGrizzard
+            jsr DrawStarter
           .else
-
-          .FarJSR StretchBank, ServiceDrawStarter
-
+            .FarJSR StretchBank, ServiceDrawStarter
           .fi
 
           lda AlarmCountdown
@@ -130,25 +133,28 @@ DoneTitleSpeech:
 ;;; 
 DoneKernel:
           lda NewSWCHB
-          beq +
+          beq DoneSelect
+
           and #SWCHBSelect
           beq Leave
-+
+
+DoneSelect:
           lda NewButtons
-          beq +
+          beq DoneButtons
+
           and #PRESSED
           beq Leave
-+
 
+DoneButtons:
           jmp Loop
 
 Leave:
           lda #ModeSelectSlot
           sta GameMode
           .if NOSAVE
-          jmp BeginOrResume
+            jmp BeginOrResume
           .else
-          jmp SelectSlot
+            jmp SelectSlot
           .fi
 ;;; 
           .bend
