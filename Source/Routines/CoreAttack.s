@@ -8,9 +8,11 @@ CoreAttack:         .block
 
           lda AttackerAttack
           jsr CalculateAttackMask
+
           sta Temp
 
           jsr Random
+
           bmi NegativeRandom
 
 PositiveRandom:
@@ -44,16 +46,19 @@ AttackHit:
           lda CombatMoveDeltaHP
 AttackHit1:
           jsr CalculateAttackMask
+
           sta Temp
 
           lda WhoseTurn
 	beq ExtraDifficult    ; player always hits hard
+
           lda DebounceSWCHB
           and #SWCHBP0Advanced
           bne ExtraDifficult    ; monsters only hit hard in Advanced mode
 
           jsr Random
-          gne HitMinus
+
+          jmp HitMinus
 
 ExtraDifficult:
           jsr Random
@@ -94,21 +99,24 @@ KilledDefender:
           sty DefenderHP
           sty DefenderStatusFX
           geq NoStatusFX
-          
+
 DidNotKill:
           sec
           sbc MoveHP
           sta DefenderHP
           jsr Random
+
           ldx CombatMoveSelected
           and MoveEffects, x
           jsr FindHighBit
+
           beq NoStatusFX
 
 SetStatusFX:
           tay
           bit DefenderStatusFX
           bne NoStatusFX
+
           sta MoveStatusFX
           ora DefenderStatusFX
           sta DefenderStatusFX
