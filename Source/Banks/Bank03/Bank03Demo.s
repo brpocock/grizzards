@@ -9,6 +9,7 @@
           .include "6BitCompression.s"
           .include "DecodeText.s"
           .include "Write12Chars.s"
+          .align $20            ; XXX alignment
           .include "DrawMonsterGroup.s"
 
           .include "Inquire.s"
