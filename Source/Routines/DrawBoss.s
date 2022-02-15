@@ -1,6 +1,6 @@
 ;;; Grizzards Source/Routines/DrawBoss.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
-          
+
 DrawBoss: .block
 
           jsr GetMonsterColors
@@ -28,7 +28,7 @@ Mult16:
 +
           sta pp4l
 
-          mvx pp5h, pp4h
+          .mvx pp5h, pp4h
 
           clc
           adc #<BossArt.Height
@@ -77,9 +77,9 @@ DecideFlipFrame:
           lda # 1
           and ClockSeconds
           bne PrepareToDrawMonsterFlipped
-          
+
 PrepareToDrawMonster:
-          sty REFP0
+          sty REFP0             ; Y = 0
           sty REFP1
 
 SetUpLeftHanded:
@@ -124,7 +124,7 @@ DrawMonsterLoop:
           stx WSYNC
           stx WSYNC
           .if TV != NTSC
-          stx WSYNC
+            stx WSYNC
           .fi
 
           dey
@@ -136,18 +136,20 @@ DrawMonsterLoop:
           stx WSYNC
           stx WSYNC
           .if TV != NTSC
-          stx WSYNC
+            stx WSYNC
           .fi
 
           inx
           dey
           bne DrawMonsterLoop
 
-          sty GRP0
+          sty GRP0              ; Y = 0
           sty GRP1
 
           .SkipLines 5
- 
+
           rts
 
           .bend
+
+;;; Audited 2022-02-15 BRPocock
