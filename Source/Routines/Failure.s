@@ -16,23 +16,23 @@ Failure:	.block
           jmp DoneWithStack
 
 NoStack:
-          lda # 0
-          sta Score
-          sta Score + 1
-          sta Score + 2
+          ldy # 0
+          sty Score
+          sty Score + 1
+          sty Score + 2
 
 DoneWithStack:
 Loop:
           .WaitScreenTop
 
-          lda # 0
-          sta GRP0
-          sta GRP1
-          sta ENAM0
-          sta ENAM1
-          sta ENABL
-          sta AUDV0
-          sta AUDV1
+          ldy # 0
+          sty GRP0
+          sty GRP1
+          sty ENAM0
+          sty ENAM1
+          sty ENABL
+          sty AUDV0
+          sty AUDV1
 
           lda GameMode
           cmp #ModeNoAtariVox
@@ -42,7 +42,7 @@ Loop:
           gne CommonSadness
 
 WhiteSadFace:
-          lda #COLGRAY | $f
+          .ldacolu COLGRAY, $e
 
 CommonSadness:      
           sta COLUPF
@@ -60,9 +60,8 @@ DrawSadFace:
           dey
           bne DrawSadFace
 
-          sty PF2               ; always 0
+          sty PF2               ; Y = 0
 
-          tya
           .SkipLines 20
 
           jsr Prepare48pxMobBlob
@@ -72,17 +71,20 @@ DrawSadFace:
           bne Crashed
 NoVoxMessage:
           .SetPointer MemoryText
-          jsr DrawPointerText
+          jsr ShowPointerText
+
           .SetPointer DeviceText
-          jsr DrawPointerText
+          jsr ShowPointerText
+
           .SetPointer NeededText
-          jsr DrawPointerText
+          jsr ShowPointerText
+
           jmp ShowReturnAddress
 
 Crashed:
           .SetPointer ErrorText
-          jsr DrawPointerText
-          
+          jsr ShowPointerText
+
 ShowReturnAddress:
           jsr DecodeScore
           .FarJSR TextBank, ServiceDecodeAndShowText
@@ -97,24 +99,18 @@ ShowReturnAddress:
           .WaitScreenBottom
 
           lda NewSWCHB
-          beq SkipSwitches
+          beq DoneSwitches
+
           .BitBit SWCHBReset
           beq Reset
-SkipSwitches:	
 
+DoneSwitches:	
           jmp Loop
 
 Reset:
           jmp GoColdStart
 
 ;;; 
-
-DrawPointerText:
-          jsr CopyPointerText
-          .FarJMP TextBank, ServiceDecodeAndShowText
-
-;;; 
-
 MemoryText:
           .MiniText "MEMORY"
 DeviceText:
@@ -123,6 +119,7 @@ NeededText:
           .MiniText "NEEDED"
 ErrorText:
           .MiniText "ERROR "
+
 SadFace:
           .byte %11111100
           .byte %00000010
@@ -134,3 +131,5 @@ SadFace:
           .byte %11111100
 
           .bend
+
+;;; Audited 2022-02-15 BRPocock
