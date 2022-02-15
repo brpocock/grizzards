@@ -15,6 +15,7 @@ Loop:
 
           .SetPointer WithLoveText
           jsr ShowPointerText12
+
           .SetPointer ZephyrText
           jsr ShowPointerText12
 
@@ -22,10 +23,10 @@ Loop:
 
           .SetPointer DatestampText
           jsr ShowPointerText12
-          
+
           lda NewButtons
           beq StayCredits
-          bmi StayCredits
+          bmi StayCredits       ; XXX is this right?
 
 Bye:
           lda #ModeAttractCopyright
@@ -33,7 +34,6 @@ Bye:
           jmp Attract.DoneKernel
 
 StayCredits:
-
           .WaitScreenBottom
           jmp Loop
 
