@@ -3,7 +3,7 @@
 bankmode=
 minmode=
 
-while getopts "s:t:ahb:m" opt; do
+while getopts "v:t:ahb:m" opt; do
     case $opt in
         h)
             cat <<EOF >&2
