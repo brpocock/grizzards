@@ -141,6 +141,8 @@ i2cStopWrite:
           .i2cStop
           rts
 
+          ;; The following functions added by BRPocock, not found in the
+          ;; standard library code
 i2cK:                           ; K is "switch over to (you) sending" in Morse code
           jsr i2cTxByte
           jsr i2cStopWrite
@@ -152,3 +154,5 @@ i2cWaitForAck:
           jsr i2cStartWrite
           bcs -
           jmp i2cStopWrite      ; tail call
+
+;;; Audited 2022-02-15 BRP
