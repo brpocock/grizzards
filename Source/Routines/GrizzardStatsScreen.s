@@ -17,11 +17,14 @@ FirstLoop:
 ;;; 
           lda NewButtons
           beq NoButton
+
           and #PRESSED
           beq Select
+
 NoButton:
           lda NewSWCHB
           beq DoneSwitches
+
           .BitBit SWCHBReset
           bne +
           .FarJMP SaveKeyBank, ServiceAttract
@@ -47,24 +50,26 @@ DoneSwitches:
 
           .if ((BANK == CombatBank0To127) || (BANK == CombatBank128To255))
 
-          cmp #ModeCombat
-          bne +
-          lda # 2
-          sta AlarmCountdown
-
-          jmp CombatMainScreen
+            cmp #ModeCombat
+            bne +
+            lda # 2
+            sta AlarmCountdown
+            jmp CombatMainScreen
 +
 
           .else
 
-          cmp #ModeGrizzardDepot
-          bne +
-          .WaitScreenBottom
-          jmp GrizzardDepot.Loop
+            cmp #ModeGrizzardDepot
+            bne +
+            .WaitScreenBottom
+            jmp GrizzardDepot.Loop
 +
-          .WaitScreenBottom
-          rts
+            .WaitScreenBottom
 
           .fi
 
+          rts
+
           .bend
+
+;;; Audited 2022-02-15 BRPocock
