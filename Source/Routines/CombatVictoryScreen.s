@@ -5,18 +5,18 @@ CombatVictoryScreen:  .block
           .if !NOSAVE
 
           lda GrizzardXP
-          cmp # GrizzardEvolutionXP
-          blt AfterEvolution
+          cmp # GrizzardMetamorphosisXP
+          blt AfterMetamorphosis
 
-          .FarJSR MapServicesBank, ServiceGrizzardEvolveP
+          .FarJSR MapServicesBank, ServiceGrizzardMetamorphoseP
 
           cpy # 0
-          beq AfterEvolution
+          beq AfterMetamorphosis
 
-DoesEvolve:
+DoesMetamorphose:
           .if DEMO
-          ;; No room for evolution screen!
-          ;; This logic is mostly duplicated in GrizzardEvolution.s
+          ;; No room for metamorphosis screen!
+          ;; This logic is mostly duplicated in GrizzardMetamorphosis.s
 
           sty NextMap
 
@@ -43,18 +43,18 @@ DoesEvolve:
           lda #SoundDepot
           sta NextSound
 
-          jmp AfterEvolution
+          jmp AfterMetamorphosis
 
           .else
 
           sty NextMap
-          .FarJMP AnimationsBank, ServiceGrizzardEvolution
+          .FarJMP AnimationsBank, ServiceGrizzardMetamorphosis
 
           .fi
 
           .fi                   ; !NOSAVE
 
-AfterEvolution:
+AfterMetamorphosis:
           .SetUtterance Phrase_Victory
 
           ldy # 0

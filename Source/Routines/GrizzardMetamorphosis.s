@@ -1,14 +1,14 @@
-;;; Grizzards Source/Routines/GrizzardEvolution.s
+;;; Grizzards Source/Routines/GrizzardMetamorphosis.s
 ;;; Copyright © 2022 Bruce-Robert Pocock
 
-GrizzardEvolution:  .block
+GrizzardMetamorphosis:  .block
           ldx #$ff
           stx s
 
           lda CurrentGrizzard
           sta DeltaY
 
-          ;; The  actual  evolution  logic  (for  the  demo)  is  mostly
+          ;; The  actual  metamorphosis  logic  (for  the  demo)  is  mostly
 	;; duplicated in CombatVictoryScreen.s
 
           ;; Destroy current Grizzard's file

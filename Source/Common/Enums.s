@@ -47,7 +47,7 @@
           ModeGrizzardDepot = $50
 
           ModeNewGrizzard = $60
-          ModeGrizzardEvolution = $61
+          ModeGrizzardMetamorphosis = $61
 
           ModeGrizzardStats = $70
 
@@ -204,7 +204,7 @@
           ServiceBottomOfScreen = $09
           ServiceGrizzardDefaults = $2e
           ServiceGrizzardDepot = $07
-          ServiceGrizzardEvolveP = $2c
+          ServiceGrizzardMetamorphoseP = $2c
           ServiceGrizzardStatsScreen = $19
           ServiceNewGrizzard = $0c
           ServiceTopOfScreen = $08
@@ -252,7 +252,7 @@
           ServiceFireworks = $0a
           ServiceInquire = $24
           ServiceWrite12Chars = $23
-          ServiceGrizzardEvolution = $2d
+          ServiceGrizzardMetamorphosis = $2d
 
 ;;; Combat services (stuffed into same bank as animation)
 
@@ -324,4 +324,4 @@
           Monster_Cyclops = 24
 ;;; 
 ;;; Game tunable
-          GrizzardEvolutionXP = 35
+          GrizzardMetamorphosisXP = 35

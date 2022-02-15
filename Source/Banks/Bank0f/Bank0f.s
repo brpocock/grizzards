@@ -47,15 +47,15 @@ DoLocal:
           beq Inquire
           cpy #ServiceFinalScore
           beq FinalScore
-          cpy #ServiceGrizzardEvolution
-          beq GrizzardEvolution
+          cpy #ServiceGrizzardMetamorphosis
+          beq GrizzardMetamorphosis
           cpy #ServiceDeath
           beq Death
           cpy #ServiceConfirmErase
           beq ConfirmErase
           brk
 
-          .include "GrizzardEvolution.s"
+          .include "GrizzardMetamorphosis.s"
           .include "ConfirmErase.s"
           .include "Death.s"
           .include "FinalScore.s"

@@ -1,7 +1,7 @@
-;;; Grizzards Source/Routines/GrizzardEvolveP.s
+;;; Grizzards Source/Routines/GrizzardMetamorphoseP.s
 ;;; Copyright © 2022 Bruce-Robert Pocock
 
-GrizzardEvolveP:    .block
+GrizzardMetamorphoseP:    .block
 
           lda CurrentGrizzard
           ;; × 5

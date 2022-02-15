@@ -37,11 +37,11 @@ DoLocal:
           beq JatibuFE
           cpy #$ff
           beq JatibuFF
-          cpy #ServiceGrizzardEvolveP
-          beq GrizzardEvolveP
+          cpy #ServiceGrizzardMetamorphoseP
+          beq GrizzardMetamorphoseP
           brk
 
-          .include "GrizzardEvolveP.s"
+          .include "GrizzardMetamorphoseP.s"
 
 JatibuCode:
           .byte P0StickUp, P0StickUp, P0StickDown, P0StickDown
