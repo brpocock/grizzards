@@ -21,6 +21,7 @@ LoadProvinceData:   .block
           ldx # 0
 -
           jsr i2cRxByte
+
           sta ProvinceFlags, x
           inx
           cpx # 8
@@ -41,3 +42,5 @@ LoadProvinceData:   .block
           rts
 
           .bend
+
+;;; Audited 2022-02-15 BRPocock
