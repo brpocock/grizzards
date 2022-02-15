@@ -29,9 +29,11 @@ TargetFirstMonster:
 -
           lda EnemyHP, x
           bne TargetFirst
+
           inx
           cpx # 5
           bne -
+
 TargetFirst:
           inx
           stx MoveTarget
@@ -133,9 +135,11 @@ MonstersDisplay:
           lda CurrentCombatEncounter
           cmp # 92              ; Boss Bear encounter
           bne MonsterWithName
+
 BossBearDisplay:
           .SkipLines 20
           .FarJSR StretchBank, ServiceShowBossBear
+
           .SkipLines 20
           jmp DelayAfterMonsters
 
@@ -172,6 +176,7 @@ MinorCombatArt:
           ldy # 0
           sty CombatMajorP
           .FarJSR MonsterBank, ServiceDrawMonsterGroup
+
 DelayAfterMonsters:
           .if SECAM == TV
             stx WSYNC
@@ -183,8 +188,10 @@ BeginPlayerSection:
           sta COLUP1
           lda WhoseTurn
           beq PlayerBGBottom
+
           .ldacolu COLGRAY, $2
           jmp BGBottom
+
 PlayerBGBottom:
           .if TV == SECAM
             lda #COLMAGENTA
@@ -211,8 +218,10 @@ DrawHealthBar:
             ldx CurrentHP
             cpx MaxHP
             beq AtMaxHP
+
             cpx # 4
             blt AtMinHP
+
             .ldacolu COLYELLOW, $f
             sta COLUPF
             gne DrawHealthPF
@@ -234,6 +243,7 @@ DrawHealthPF:
           sty pp2l
           cpx # 8
           bge FullPF2
+
           lda HealthyPF2, x
           sta pp2l
           gne DoneHealth
@@ -249,6 +259,7 @@ FullPF2:
           tax
           cpx # 8
           bge FullPF1
+
           lda HealthyPF1, x
           sta pp1l
           gne DoneHealth
@@ -288,13 +299,16 @@ PlayerChooseMove:
           lda StatusFX
           .BitBit StatusSleep
           beq NotAsleep
+
 Asleep:
           .ldacolu COLORANGE, $e
           sta COLUP0
           sta COLUP1
           .SetPointer SleepsText
           jsr CopyPointerText
+
           .FarJSR TextBank, ServiceDecodeAndShowText
+
           jmp ScreenDone
 
 NotAsleep:
@@ -307,10 +321,13 @@ Muddled:
           sta COLUP1
           .SetPointer MuddleText
           jsr CopyPointerText
+
           .FarJSR TextBank, ServiceDecodeAndShowText
+
           lda GameMode
           cmp #ModeCombatDoMove
           beq MoveOK
+
           gne ScreenDone
 
 NotMuddled:
@@ -342,12 +359,14 @@ ShowSelectedMove:
 UserControls:
           lda NewButtons
           beq ScreenDone
+
           and #PRESSED
           bne ScreenDone
 
 GoDoMove:
           ldx MoveSelection
           beq RunAway
+
           dex
           lda BitMask, x
           and MovesKnown
@@ -361,6 +380,7 @@ MoveNotOK:
 DoUseMove:
           ldx MoveTarget
           beq MoveOK
+
           lda EnemyHP - 1, x
           beq MoveNotOK
 
@@ -397,6 +417,7 @@ GoLoop:
 Leave:
           cmp #ModeCombatDoMove
           beq GoLoop
+
           cmp #ModeMap
           bne NotGoingToMap
 
