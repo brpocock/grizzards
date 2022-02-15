@@ -2,7 +2,7 @@
 ;;; Copyright © 2022 Bruce-Robert Pocock
 
 GrizzardMetamorphosis:  .block
-          ldx #$ff
+          ldx #$ff              ; trash the stack
           txs
 
           lda CurrentGrizzard
@@ -28,7 +28,7 @@ GrizzardMetamorphosis:  .block
           ;; We have to also switch the current Grizzard to the new form
           ;; or if they quit, they'll come back with a zombie Grizzard
           ;; with 0 HP still selected as their current companion.
-          ;; This came back as BUG #352
+          ;; This came back as Issue #352
           .FarJSR SaveKeyBank, ServiceSetCurrentGrizzard
 
           lda # 3
