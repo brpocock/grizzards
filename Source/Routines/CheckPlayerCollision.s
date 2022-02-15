@@ -5,8 +5,9 @@ CheckPlayerCollision:         .block
           lda CXP0FB
           and #$c0              ; hit playfield or ball
           beq NoBumpWall
-          jmp BumpWall          ; tail call
 
+          jmp BumpWall          ; tail call
+;;; 
 NoBumpWall:
           bit CXPPMM
           bpl PlayerMoveOK         ; did not hit
@@ -26,21 +27,28 @@ BumpSprite:
 ActionWithSpriteX:
           cmp #SpriteCombat
           beq FightWithSpriteMinor
+
           cmp #SpriteMajorCombat
           beq FightWithSpriteMajor
+
           cmp #SpriteGrizzardDepot
           beq EnterDepot
+
           cmp #SpriteGrizzard
           beq GetNewGrizzard
+
           cmp #SpriteSign
           beq ReadSign
+
           cmp #SpritePerson
           beq ReadSign
+
           and #SpriteProvinceDoor
           cmp #SpriteProvinceDoor
           bne PlayerMoveOK      ; No action
-          geq ProvinceChange
 
+          geq ProvinceChange
+;;; 
 ReadSign:
           lda SpriteParam, x
           sta SignpostIndex
@@ -85,11 +93,13 @@ GetNewGrizzard:
 PlayerMoveOK:
           lda BumpCooldown
           beq Cool
+
           dec BumpCooldown
 Cool:
           lda ClockFrame
           and #$03
           bne DonePlayerMove
+
           lda PlayerX
           sta BlessedX
           lda PlayerY
@@ -112,13 +122,14 @@ ProvinceChange:
           stx VBLANK
           ;; WaitScreenTop without VSync/VBlank
           .if TV == NTSC
-          .TimeLines KernelLines - 2
+            .TimeLines KernelLines - 2
           .else
-          lda #$fe
-          sta TIM64T
+            lda #$fe
+            sta TIM64T
           .fi
           .WaitScreenBottom
           .FarJSR SaveKeyBank, ServiceSaveProvinceData
+
           .WaitScreenTop
           ldx P0LineCounter
           lda SpriteAction, x
@@ -133,9 +144,9 @@ ProvinceChange:
           ldy #ModeMapNewRoomDoor
           sty GameMode
           .FarJSR SaveKeyBank, ServiceLoadProvinceData
+
           .WaitScreenBottom
           jmp GoMap
-
 ;;; 
 BumpWall:
           sta CXCLR
@@ -143,33 +154,42 @@ BumpWall:
           lda BlessedX
           cmp PlayerX
           beq NeedsXShove
+
           sta PlayerX
-          jmp BumpY
+          gne BumpY
+
 NeedsXShove:
           lda DeltaX
           bne ShoveX
+
           jsr Random
+
           and # 1
-          bne ShoveX
+          beq ShoveX
+
           lda #-1
 ShoveX:
           sta DeltaX
           clc
           adc PlayerX
           sta PlayerX
-
 BumpY:
           lda BlessedY
           cmp PlayerY
           beq NeedsYShove
+
           sta PlayerY
           jmp DoneBump
+
 NeedsYShove:
           lda DeltaY
           bne ShoveY
+
           jsr Random
+
           and # 1
-          bne ShoveY
+          beq ShoveY
+
           lda #-1
 ShoveY:
           sta DeltaY
@@ -177,12 +197,14 @@ ShoveY:
           adc PlayerY
           sta PlayerY
 
-          lda # 0
-          sta PlayerXFraction
-          sta PlayerYFraction
+          ldy # 0
+          sty PlayerXFraction
+          sty PlayerYFraction
 DoneBump:
           lda #SoundBump
           sta NextSound
 
           rts
           .bend
+
+;;; Audited 2022-02-15 BRPocock
