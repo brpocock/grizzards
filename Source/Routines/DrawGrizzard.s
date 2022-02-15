@@ -1,10 +1,10 @@
 ;;; Grizzards Source/Routines/DrawGrizzard.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 DrawGrizzard:       .block
-          lda #0
-          sta VDELP0
-          sta VDELP1
-          sta REFP0
+          ldy #0
+          sty VDELP0
+          sty VDELP1
+          sty REFP0
           lda #NUSIZDouble
           sta NUSIZ0
           sta NUSIZ1
@@ -18,7 +18,7 @@ DrawGrizzard:       .block
           nop
           sta RESP1
 
-          lda # >GrizzardImages
+          lda #>GrizzardImages
           sta pp2h
           sta pp3h
           ldx CurrentGrizzard
@@ -27,14 +27,14 @@ DrawGrizzard:       .block
           asl a
           asl a
           asl a
-          adc # <GrizzardImages - 1
+          adc #<GrizzardImages - 1
           bcc +
           inc pp2h
           inc pp3h
 +
           sta pp2l
           clc
-          adc # GrizzardImages.Height
+          adc #GrizzardImages.Height
           bcc +
           inc pp3h
 +
@@ -43,7 +43,7 @@ DrawGrizzard:       .block
           lda GrizzardColor, x
           .if SECAM != TV
           ;; Carry doesn't matter, low bit is ignored
-          adc #$02
+            adc #$02
           .fi
           sta COLUP0
           sta COLUP1
@@ -57,29 +57,31 @@ DrawLoop:
           stx WSYNC
           stx WSYNC
           .if TV != NTSC
-          stx WSYNC
+            stx WSYNC
           .fi
 
           .if SECAM != TV
-          cpy # 8
-          bge NoColorChange
-          lda GrizzardColor, x          
-          cpy # 4
-          bge +
-          ;; Carry doesn't matter, low bit is ignored
-          sbc #$02
+            cpy # 8
+            bge NoColorChange
+            lda GrizzardColor, x          
+            cpy # 4
+            bge +
+            ;; Carry doesn't matter, low bit is ignored
+            sbc #$02
 +
-          sta COLUP0
-          sta COLUP1
+            sta COLUP0
+            sta COLUP1
 NoColorChange:
           .fi
 
           dey
           bne DrawLoop
 
-          sty GRP0
+          sty GRP0              ; Y = 0
           sty GRP1
 
           rts
 
           .bend
+
+;;; Audited 2022-02-15 BRPocock
