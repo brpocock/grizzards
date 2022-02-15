@@ -4,6 +4,12 @@
 LearntMove:        .block
           .WaitScreenBottom
 
+          lda GameMode
+          cmp #ModeCombat
+          bne +
+          stx WSYNC
++
+
           .WaitScreenTop
           ;; Call with the move ID stashed in Temp
           lda #ModeLearntMove
