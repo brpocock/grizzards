@@ -4,7 +4,7 @@
 ConfirmErase:       .block
           .SetUtterance Phrase_ConfirmErase
           ldx # 1
-          stx DeltaX
+          stx DeltaX            ; current selection = not to erase
 
           lda #ModeConfirmEraseSlot
           sta GameMode
@@ -26,11 +26,11 @@ Loop:
           .SkipLines 10
 
           ldx # 6
--
+CopyNameForPrint:
           lda NameEntryBuffer - 1, x
           sta StringBuffer - 1, x
           dex
-          bne -
+          bne CopyNameForPrint
 
           .FarJSR TextBank, ServiceDecodeAndShowText
 
@@ -45,7 +45,7 @@ Loop:
           .SkipLines KernelLines / 4
 
           .ldacolu COLORANGE, $a
-          ldx DeltaX
+          ldx DeltaX            ; erase? 0 = erase
           beq +
           .ldacolu COLRED, 0
 +
@@ -58,7 +58,7 @@ Loop:
           .SkipLines 2
 
           .ldacolu COLSPRINGGREEN, $a
-          ldx DeltaX
+          ldx DeltaX            ; erase? 0 = erase
           bne +
           .ldacolu COLRED, 0
 +
@@ -74,30 +74,33 @@ Loop:
           stx WSYNC
           sta COLUBK
 
-                    lda NewSWCHB
+          lda NewSWCHB
           beq DoneSwitches
+
           and #SWCHBSelect
           bne DoneSelect
 
-          lda DeltaX
+          lda DeltaX            ; erase?
           eor # 1
-          sta DeltaX
+          sta DeltaX            ; erase?
 
 DoneSelect:
           lda NewSWCHB
           and #SWCHBReset
           bne DoneSwitches
+
           .WaitScreenBottom
           jmp GoColdStart
 
-DoneSwitches:       
+DoneSwitches:
           lda NewSWCHA
           beq DoneStick
+
           and #P0StickUp
           bne DoneUp
 
           lda # 0
-          sta DeltaX
+          sta DeltaX            ; erase? 0 = erase
           lda #SoundChirp
           sta NextSound
 DoneUp:
@@ -106,20 +109,21 @@ DoneUp:
           bne DoneDown
 
           lda # 1
-          sta DeltaX
+          sta DeltaX            ; erase? 0 = erase
           lda #SoundChirp
           sta NextSound
 DoneDown:
 DoneStick:
           lda NewButtons
           beq DoneButtons
+
           and #PRESSED
           bne DoneButtons
 
           lda #SoundBlip
           sta NextSound
           lda #ModeSelectSlot
-          ldx DeltaX
+          ldx DeltaX            ; erase? 0 = erase
           bne +
           lda #SoundDeleted
           sta NextSound
@@ -137,7 +141,7 @@ DoneButtons:
 
 Leave:
           rts
-
+;;; 
 EraseQText:
           .MiniText "ERASE?"
 EraseText:
@@ -148,3 +152,5 @@ SlotOneText:
           .MiniText "SLOT 1"
 
           .bend
+
+;;; Audited 2022-02-15 BRPocock
