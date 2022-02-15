@@ -310,8 +310,8 @@ PlayerHealsCommon:
           lda MaxHP
 +
           sta CurrentHP
-          lda MoveHP
-          eor #$ff              ; negate the value to mean "gained"
+          lda #$ff              ; negate the value to mean "gained"
+          eor MoveHP
           sta MoveHP
 
 PlayerBuff:
