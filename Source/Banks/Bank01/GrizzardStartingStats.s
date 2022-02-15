@@ -24,14 +24,14 @@ Firend:                         ; Beach near Port Lion
           .byte 30, 6, 6, 14, $0f
           ;; 8
 Lander:                           ; from Dirtex
-          .byte 30, 8, 8, 21, $23
+          .byte 30, 8, 8, 21, $27
 Sailor:                         ; from Aquax
-          .byte 30, 8, 8, 22, $23
+          .byte 30, 8, 8, 22, $27
           ;; 10
 Flyer:                            ; from Airex
-          .byte 30, 8, 8, 23, $23
+          .byte 30, 8, 8, 23, $27
 Burner:                         ; from Flamex
-          .byte 30, 10, 8, 24, $23
+          .byte 30, 10, 8, 24, $27
 Splodo:                         ; Lost Mine
           .byte  5, 75, 15, 0, $ff
 Tyrant:                         ; from Petty
