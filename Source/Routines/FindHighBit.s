@@ -7,24 +7,26 @@ FindHighBit:        .block
 -
           dex
           beq Return0
+
           rol a
           bcc -
 
           lda BitMask, x
           rts
 
-Return0
+Return0:                        ; also jumped to, from below in CalculateAttackMask
           lda # 0
           rts
 
           .bend
-
+;;; 
 CalculateAttackMask:          .block
           ldx # 8
           clc
 -
           dex
           beq FindHighBit.Return0
+
           rol a
           bcc -
 
@@ -33,6 +35,7 @@ CalculateAttackMask:          .block
 
           .bend
 ;;; 
-
 AttackMask:
           .byte 1, 3, 7, 15, 31, 63, 127, 255
+
+;;; Audited 2022-02-15 BRPocock
