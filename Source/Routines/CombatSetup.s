@@ -7,7 +7,7 @@ DoCombat:          .block
           .KillMusic
 
           jsr SeedRandom
-          
+
           ldx CurrentCombatEncounter
           lda EncounterMonster, x
           sta CurrentMonsterNumber
@@ -42,23 +42,26 @@ AnnounceMonsterSpeech:
           sta CurrentUtterance + 1
           lda #<MonsterPhrase
           ldx CurrentCombatEncounter
-          ;; clc ; unneeded, the adc #>Monsters won't have overflowed
+          ;; clc ; unneeded, the adc #>MonsterPhrase won't have overflowed
           adc EncounterMonster, x
           sta CurrentUtterance
-          
-SetUpEnemyHP:     
+
+SetUpEnemyHP:
           ldy #EnemyHPIndex
           lda (CurrentMonsterPointer), y
           sta Temp
 
           lda Potions
           bpl NotCrowned
+
           asl Temp
 NotCrowned:
           ldy CombatMajorP
           beq NoHPBoost
+
           asl Temp
           bcc NoHPBoost
+
           lda #$ff
           sta Temp
 NoHPBoost:
@@ -76,7 +79,7 @@ NoHPBoost:
 
           ;; … actually set the HP for monsters present (per .y)
           lda Temp
--  
+-
           sta EnemyHP - 1, y
           dey
           bne -
@@ -86,7 +89,7 @@ SetUpMonsterArt:
           lda (CurrentMonsterPointer), y
           sta CurrentMonsterArt
 
-SetUpOtherCombatVars:         
+SetUpOtherCombatVars:
           ldy # 0
           sty WhoseTurn         ; Player's turn
           sty MoveAnnouncement
@@ -100,3 +103,5 @@ SetUpOtherCombatVars:
 
           ;; fall through to CombatIntroScreen, which does WaitScreenBottom
           .bend
+
+;;; Audited 2022-02-15 BRPocock
