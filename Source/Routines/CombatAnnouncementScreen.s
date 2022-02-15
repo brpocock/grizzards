@@ -23,10 +23,9 @@ CombatAnnouncementScreen:     .block
             ;; There is no rational explanation
             .WaitForTimer
             lda WhoseTurn
-            beq SkipFew
-SkipMore:
+            beq +
             .SkipLines 5
-SkipFew:
++
             .SkipLines 11
             jsr Overscan
 
@@ -42,8 +41,10 @@ SkipFew:
 
           lda WhoseTurn
           bne FindMonsterMove
+
 FindPlayerMove:
           .FarJSR TextBank, ServiceFetchGrizzardMove
+
           ldx Temp
           stx CombatMoveSelected
           gne MoveFound
@@ -63,7 +64,7 @@ FindMonsterMove:
 +
           sta Pointer
 
-          lax (Pointer), y
+          lax (Pointer), y      ; Y = MoveSelection
           stx CombatMoveSelected
           ;; fall through:
 MoveFound:
@@ -80,7 +81,7 @@ Loop:
 FirstTime:
           jsr Prepare48pxMobBlob
 
-          ;; stx WSYNC ; commented out for space
+          ;; stx WSYNC ; XXX commented out for space
           .ldacolu COLINDIGO, 0
           sta COLUBK
 
@@ -88,7 +89,6 @@ FirstTime:
           bne MonsterTurnColor
           .ldacolu COLTURQUOISE, $f
           gne +
-
 MonsterTurnColor:
           .ldacolu COLRED, $f
 +
@@ -105,6 +105,7 @@ DrawSubject:
 
 MonsterSubject:
           jsr ShowMonsterNameAndNumber
+
           jmp AnnounceVerb
 
 PlayerSubject:
@@ -120,8 +121,8 @@ DrawVerb:
           lda CombatMoveSelected
           sta Temp
           .FarJSR TextBank, ServiceShowMoveDecoded
-          stx WSYNC
 
+          stx WSYNC
           jmp AnnounceObject
 
 SkipVerb:
@@ -134,21 +135,26 @@ AnnounceObject:
           lda MoveTarget
           cmp #$ff
           beq Speak
+
 DrawObject:
           ldx CombatMoveSelected
           bit CombatMoveDeltaHP
           bpl ObjectOther
+
 ObjectSelf:
           lda WhoseTurn
           beq PlayerObject
+
           gne MonsterTargetObject
 
 ObjectOther:
           lda WhoseTurn
           bne PlayerObject
+
           ;; fall through
 MonsterTargetObject:
           jsr ShowMonsterNameAndNumber
+
           jmp Speak
 
 PlayerObject:
@@ -158,6 +164,7 @@ PlayerObject:
 Speak:
           lda CurrentUtterance
           bne SpeechDone
+
           lda CurrentUtterance + 1
           bne SpeechDone
 
@@ -168,19 +175,24 @@ Speech0:
 
           lda WhoseTurn
           beq SayPlayerSubject
+
 SayMonsterSubject:
           jsr SayMonster
+
           gne SpeechQueued
 
 SayPlayerSubject:
           jsr SayPlayerGrizzard
+
           gne SpeechQueued
 
 Speech1:
           cmp # 2
           bge Speech2
+
           lda WhoseTurn
           beq SpeechQueued
+
           lda CombatMajorP
           bne SpeechQueued
 
@@ -195,6 +207,7 @@ Speech1:
 Speech2:
           cmp # 3
           bge Speech3
+
           .SetUtterance Phrase_UsesMove
           gne SpeechQueued
 
@@ -224,12 +237,14 @@ Speech5:
           ldx CombatMoveSelected
           lda WhoseTurn
           beq SayObjectForPlayer
+
 SayObjectForMonster:
           bit CombatMoveDeltaHP
           bpl SayPlayerAndGo
 
 SayMonsterAndGo:
           jsr SayMonster
+
           jmp SpeechQueued
 
 SayObjectForPlayer:
@@ -238,6 +253,7 @@ SayObjectForPlayer:
 
 SayPlayerAndGo:
           jsr SayPlayerGrizzard
+
           jmp SpeechQueued
 
 Speech6:
@@ -250,6 +266,7 @@ Speech6:
           ldx CombatMoveSelected
           lda WhoseTurn
           beq SayObjectNumberOnPlayersTurn
+
 SayObjectNumberOnMonstersTurn:
           bit CombatMoveDeltaHP
           bpl SpeechQueued
@@ -301,7 +318,6 @@ ShowMonsterNameAndNumber:
           beq +
           ;; major combat, no number
           rts
-
 +
           ldx # 6
           lda #$28              ; blank
