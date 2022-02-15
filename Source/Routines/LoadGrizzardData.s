@@ -5,17 +5,18 @@ LoadGrizzardData:   .block
           lda CurrentGrizzard
 
           jsr SetGrizzardAddress
-          jsr i2cStopWrite
-          jsr i2cStartRead
+
+          jsr i2cK2             ; K without send
 
           ldx # 0
 -
           jsr i2cRxByte
+
           sta MaxHP, x
           inx
           cpx # 5
           blt -
-          
+
           jsr i2cStopRead
 
           lda MaxHP
@@ -34,3 +35,5 @@ LoadGrizzardData:   .block
           rts
 
           .bend
+
+;;; Audited 2022-02-15 BRPocock
