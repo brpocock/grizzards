@@ -3,7 +3,7 @@
 
           BANK = $06
 
-          ;; Combat for encounters $00 … $7f
+          ;; Combat for encounters $00 … $3f
 
           .include "StartBank.s"
           .include "Prepare48pxMobBlob.s"
