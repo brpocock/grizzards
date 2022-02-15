@@ -2,6 +2,7 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
           ;; Call with MoveSelection set to the move index within the set of moves for this Grizzard
+          ;; Returns the move's ID amongst all possible moves in Temp
 FetchGrizzardMove:
           ldx MoveSelection
           beq FetchedRunAway
@@ -19,3 +20,5 @@ FetchGrizzardMove:
 FetchedRunAway:
           stx Temp
           rts
+
+;;; Audited 2022-02-15 BRPocock
