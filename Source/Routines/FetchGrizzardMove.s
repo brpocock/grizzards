@@ -6,6 +6,7 @@
 FetchGrizzardMove:
           ldx MoveSelection
           beq FetchedRunAway
+
           dex
           stx Temp
           lda CurrentGrizzard
