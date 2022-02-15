@@ -78,10 +78,12 @@ MonsterHeals:
           eor #$ff
           sta MoveHP
           jsr CalculateAttackMask
+
           sta Temp
           jsr Random
+
           bmi MonsterHealsMinusHP
-          ;; fall through
+
 MonsterHealsPlusHP:
           and Temp
           clc
@@ -99,12 +101,14 @@ MonsterHealsMinusHP:
           sta Temp
           cmp MoveHP
           bge MonsterHealsZero
+
           lda MoveHP
           sec
           sbc Temp
           bpl MonsterHealsCommon
+
           lda # 0
-          ;; fall through
+
 MonsterHealsCommon:
           ldx WhoseTurn
           clc
@@ -123,6 +127,7 @@ MonsterBuff:
           lda MoveEffects, x
           sta Temp
           jsr Random
+
           and Temp
           sta MoveStatusFX
 
@@ -200,27 +205,26 @@ PlayerKilledMonster:
           ;; add to score the amount for that monster
           lda GrizzardXP
           cmp # 199
-          bge DoneIncXP
+          bge +
           inc GrizzardXP
-DoneIncXP:
++
 
           ldx # 1               ; 1× scoring…
           lda CombatMajorP
-          beq DoneScoreMajorCombat
+          beq +
           inx                   ; 2 × scoring
-DoneScoreMajorCombat:
++
 
           lda Potions
-          bpl DoneScoreCrowned
+          bpl +
           inx                   ; 2-3× scoring
-DoneScoreCrowned:
++
 
           lda DebounceSWCHB
           and #SWCHBP0Advanced
           bne DoneScoreDifficulty
           inx
 DoneScoreDifficulty:
-
           sed
 
 IncrementScore:
@@ -234,8 +238,10 @@ IncrementScore:
           adc Score + 1
           sta Score +1
           bcc ScoreNoCarry
+
           inc Score + 2
           bne ScoreNoCarry
+
           lda #$99
           sta Score + 1
           sta Score + 2
@@ -282,8 +288,10 @@ PlayerHeals:
           eor #$ff
           sta MoveHP
           jsr CalculateAttackMask
+
           sta Temp
           jsr Random
+
           bmi PlayerHealsMinusHP
 
 PlayerHealsPlusHP:
@@ -300,8 +308,8 @@ PlayerHealsMinusHP:
           sec
           sbc Temp
           bpl PlayerHealsCommon
+
           lda # 0
-          ;; fall through
 PlayerHealsCommon:
           clc
           adc CurrentHP
@@ -322,6 +330,7 @@ PlayerBuff:
           lda MoveEffects, x
           sta Temp
           jsr Random
+
           and Temp
           sta MoveStatusFX
           ora StatusFX
@@ -331,6 +340,7 @@ PlayerBuff:
 WaitOutScreen:
           lda MoveHitMiss
           beq SoundForMiss
+
           lda #SoundHit
           gne +
 SoundForMiss:
@@ -357,6 +367,7 @@ SoundForMiss:
 CheckMove:
           sta MoveSelection
           .FarJSR TextBank, ServiceFetchGrizzardMove
+
           lda Temp
           cmp CombatMoveSelected
           bne CheckNextMove
@@ -364,6 +375,7 @@ CheckMove:
           sta pp1l              ; Move number
 
           jsr Random            ; 50/50 chance of learning
+
           bpl NextTurn
 
           ldx pp1h              ; Loop index
@@ -372,6 +384,7 @@ CheckMove:
           ora MovesKnown
           cmp MovesKnown
           beq DidNotLearn       ; already know this move
+
 LearntMove:
           sta MovesKnown
           gne AfterTryingToLearn
@@ -381,9 +394,9 @@ CheckNextMove:
           lda pp1h
           cmp #8
           blt CheckMove
-          ;; fall through
+
 DidNotLearn:
-          gge NextTurn
+          jmp NextTurn
 
 AfterTryingToLearn:
           ;; Move number is still in Temp from above
@@ -396,6 +409,7 @@ NextTurn:
           dex
           cpx # 6
           bne NotLastMonster
+
           ldx # 0
           stx WhoseTurn
           jmp CombatMainScreen.BackToPlayer
@@ -410,3 +424,5 @@ BackToMain:
           jmp CombatMainScreen
 ;;; 
           .bend
+
+;;; Audited 2022-02-15 BRPocock
