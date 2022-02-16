@@ -26,22 +26,18 @@ DoesMetamorphose:
             sty MaxHP
             .FarJSR SaveKeyBank, ServiceSaveGrizzard
 
-            lda NextMap
-            sta Temp
+            .mva Temp, NextMap
             .FarJSR MapServicesBank, ServiceNewGrizzard
 
-            lda NextMap
-            sta CurrentGrizzard
+            .mva CurrentGrizzard, NextMap
             ;; We have to also switch the current Grizzard to the new form
             ;; or if they quit, they'll come back with a zombie Grizzard
             ;; with 0 HP still selected as their current companion.
             .FarJSR SaveKeyBank, ServiceSetCurrentGrizzard
 
-            lda CurrentMap
-            sta NextMap
+            .mva NextMap, CurrentMap
 
-            lda #SoundDepot
-            sta NextSound
+            .mva NextSound, #SoundDepot
 
             ;; jmp AfterMetamorphosis ; fall through
 
@@ -71,8 +67,7 @@ AfterMetamorphosis:
             and #$03
             bne AfterPotions
 
-            lda # 1
-            sta DeltaY          ; potion gained
+            .mva DeltaY, #1          ; potion gained
 
             inc Potions
 
@@ -89,10 +84,8 @@ AfterPotions:
           bge DefeatDragon
 
 NormalVictory:
-          lda #SoundVictory
-          sta NextSound
-          lda # 8
-          sta AlarmCountdown
+          .mva NextSound, #SoundVictory
+          .mva AlarmCountdown, # 8
           stx WSYNC
 ;;; 
 Loop:
@@ -131,8 +124,7 @@ DonePrintingPotions:
           lda AlarmCountdown
           bne Loop
 
-          lda #ModeMap
-          sta GameMode
+          .mva GameMode, #ModeMap
 
           .WaitScreenBottom
 
@@ -151,14 +143,12 @@ DefeatDragon:
           .FarJMP StretchBank, ServiceRevealBear
           
 WonGame:
-          lda # 103             ; Game_Won
-          sta SignpostIndex
-          lda #ModeSignpost
-          sta GameMode
+          .mva SignpostIndex, # 103             ; Game_Won
+          .mva GameMode, #ModeSignpost
           .WaitScreenBottom
           ldx #SignpostBank
           jmp FarCall
 
           .bend
 
-;;; Audited 2022-02-15 BRPocock
+;;; Audited 2022-02-16 BRPocock
