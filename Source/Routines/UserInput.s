@@ -80,28 +80,21 @@ HandleStick:
           .BitBit P0StickUp
           bne DoneStickUp
 
-          ldx #-1
-          stx DeltaY
-
+          .mvx DeltaY, #-1
 DoneStickUp:
           .BitBit P0StickDown
           bne DoneStickDown
 
-          ldx # 1
-          stx DeltaY
-
+          .mvx DeltaY, # 1
 DoneStickDown:
           .BitBit P0StickLeft
           bne DoneStickLeft
 
           tay
           lda MapFlags
-          and # ~MapFlagFacing
+          and #~MapFlagFacing
           sta MapFlags
-
-          ldx #-1
-          stx DeltaX
-
+          .mvx DeltaX, #-1
           tya
 DoneStickLeft:
           .BitBit P0StickRight
@@ -110,10 +103,7 @@ DoneStickLeft:
           lda MapFlags
           ora #MapFlagFacing
           sta MapFlags
-
-          ldx #1
-          stx DeltaX
-
+          .mvx DeltaX, # 1
 DoneStickRight:
 ApplyStick:
 ;;; 
@@ -122,12 +112,15 @@ FractionalMovement: .macro deltaVar, fractionVar, positionVar, pxPerSecond
           lda \fractionVar
           ldx \deltaVar
           beq DoneMovement
+
           bpl MovePlus
+
 MoveMinus:
           sec
           sbc #ceil(\pxPerSecond * $80)
           sta \fractionVar
           bcs DoneMovement
+
           adc #$80
           sta \fractionVar
           dec \positionVar
@@ -138,6 +131,7 @@ MovePlus:
           adc #ceil(\pxPerSecond * $80)
           sta \fractionVar
           bcc DoneMovement
+
           sbc #$80
           sta \fractionVar
           inc \positionVar
@@ -152,6 +146,8 @@ DoneMovement:
           .FractionalMovement DeltaX, PlayerXFraction, PlayerX, MovementSpeedX
           MovementSpeedY = ((30.0 / MovementDivisor) / FramesPerSecond)
           .FractionalMovement DeltaY, PlayerYFraction, PlayerY, MovementSpeedY
-
+;;; 
           rts
           .bend
+
+;;; Audited 2022-02-16 BRPocock
