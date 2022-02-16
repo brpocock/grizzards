@@ -2,11 +2,12 @@
 ;;; Copyright © 2022 Bruce-Robert Pocock
 
 GrizzardMetamorphosis:  .block
-          ldx #$ff              ; trash the stack
-          txs
+          BeforeGrizzard = DeltaY
+          ScreenPhase = DeltaX
+          
+          .mvx s, #$ff              ; trash the stack
 
-          lda CurrentGrizzard
-          sta DeltaY            ; stash here ("before")
+          .mva BeforeGrizzard, CurrentGrizzard
 
           ;; The  actual  metamorphosis  logic  (for  the  demo)  is  mostly
 	;; duplicated in CombatVictoryScreen.s
@@ -18,8 +19,7 @@ GrizzardMetamorphosis:  .block
           .FarJSR SaveKeyBank, ServiceSaveGrizzard
 
           ;; This is a duplicate of logic in NewGrizzard.CatchEm:
-          lda NextMap
-          sta Temp
+          .mva Temp, NextMap
           stx WSYNC
           .FarJSR MapServicesBank, ServiceGrizzardDefaults
 
@@ -31,15 +31,13 @@ GrizzardMetamorphosis:  .block
           ;; This came back as Issue #352
           .FarJSR SaveKeyBank, ServiceSetCurrentGrizzard
 
-          lda # 3
-          sta AlarmCountdown
+          .mva AlarmCountdown, # 3
 
           ldy # 0
-          sty DeltaX            ; we're using this as a screen φ timer
+          sty ScreenPhase
           sty SpeechSegment
 
-          lda #SoundDepot
-          sta NextSound
+          .mva NextSound, #SoundDepot
 ;;; 
 Loop:
           .WaitScreenBottom
@@ -55,12 +53,11 @@ Loop:
 
           .SkipLines KernelLines / 5
 
-          lda DeltaX            ; screen φ
+          lda ScreenPhase
           cmp # 1
           blt DoneDrawing
 
-          lda DeltaY            ; "before" Grizzard
-          sta CurrentGrizzard
+          .mva CurrentGrizzard, BeforeGrizzard
 
           jsr DrawGrizzard
 
@@ -75,7 +72,7 @@ Loop:
 
           .SkipLines 5
 
-          lda DeltaX            ; screen φ
+          lda ScreenPhase
           cmp # 2
           blt DoneDrawing
 
@@ -86,12 +83,11 @@ Loop:
           .SetPointer BecameText
           jsr ShowPointerText
 
-          lda DeltaX            ; screen φ
+          lda ScreenPhase
           cmp # 3
           blt DoneDrawing
 
-          lda NextMap
-          sta CurrentGrizzard
+          .mva CurrentGrizzard, NextMap
 
           .SkipLines 3
           jsr DrawGrizzard
@@ -112,11 +108,10 @@ DoneDrawing:
           cmp # 1
           bge Speech1
 
-          lda #>Phrase_Grizzard0
-          sta CurrentUtterance + 1
+          .mva CurrentUtterance + 1, #>Phrase_Grizzard0
           lda #<Phrase_Grizzard0
           clc
-          adc DeltaY            ; "before" Grizzard
+          adc BeforeGrizzard
           sta CurrentUtterance
           gne SpeechReady
 
@@ -124,7 +119,7 @@ Speech1:
           cmp # 2
           bge Speech2
 
-          lda DeltaX            ; screen φ
+          lda ScreenPhase
           cmp # 2
           blt DoneTalking
 
@@ -135,12 +130,11 @@ Speech2:
           cmp # 3
           bge DoneTalking
 
-          lda DeltaX            ; screen φ
+          lda ScreenPhase
           cmp # 3
           blt DoneTalking
 
-          lda #>Phrase_Grizzard0
-          sta CurrentUtterance + 1
+          .mva CurrentUtterance + 1, #>Phrase_Grizzard0
           lda #<Phrase_Grizzard0
           clc
           adc NextMap
@@ -151,17 +145,15 @@ DoneTalking:
           lda AlarmCountdown
           bne Loop
 
-          lda # 3
-          sta AlarmCountdown
+          .mva AlarmCountdown, # 3
 
-          inc DeltaX            ; screen φ
-          lda DeltaX
+          inc ScreenPhase
+          lda ScreenPhase
           cmp # 4
           blt Loop
 
 Leave:
-          lda CurrentMap
-          sta NextMap
+          .mva NextMap, CurrentMap
           .FarJMP TextBank, ServiceCombatVictory
 ;;; 
 BecameText:
@@ -169,4 +161,4 @@ BecameText:
 
           .bend
 
-;;; Audited 2022-02-15 BRPocock
+;;; Audited 2022-02-16 BRPocock
