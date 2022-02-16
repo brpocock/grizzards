@@ -1,5 +1,6 @@
 ;;; Grizzards Source/Routines/ShowGrizzardStats.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
+
 ShowGrizzardStats:  .block
           stx WSYNC
           .ldacolu COLTURQUOISE, 8
@@ -28,18 +29,15 @@ ShowGrizzardStats:  .block
           lda GrizzardAttack
           jsr AppendDecimalAndPrint
 
-          lda #< StatsText + 6  ; high byte unchanged
-          sta Pointer
+          .mva Pointer, #< StatsText + 6  ; high byte unchanged
           lda GrizzardDefense
           jsr AppendDecimalAndPrint
 
-          lda #< StatsText + 12 ; high byte unchanged
-          sta Pointer
+          .mva Pointer, #< StatsText + 12 ; high byte unchanged
           lda CurrentHP
           jsr AppendDecimalAndPrint
 
-          lda #< StatsText + 18 ; high byte unchanged
-          sta Pointer
+          .mva Pointer, #< StatsText + 18 ; high byte unchanged
           lda MaxHP
           jmp AppendDecimalAndPrint ; tail call
 
@@ -47,6 +45,7 @@ NumText:
           .MiniText "NUM.00"
 
           .align $20            ; XXX alignment
+
           .page
 StatsText:
           .MiniText "ATK.00"
@@ -56,3 +55,5 @@ StatsText:
           .endp
 
           .bend
+
+;;; Audited 2022-02-16 BRPocock
