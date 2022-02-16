@@ -72,3 +72,5 @@ CNVBIT:
           .fi
 
           .bend
+
+;;; Audited 2022-02-16 BRPocock
