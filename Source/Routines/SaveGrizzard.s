@@ -17,6 +17,7 @@ SaveGrizzard:       .block
 -
           lda MaxHP, x
           jsr i2cTxByte
+
           inx
           cpx # 5
           bne -
@@ -26,3 +27,5 @@ SaveGrizzard:       .block
           jmp WaitScreenBottomSub ; tail call
    
           .bend
+
+;;; Audited 2022-02-16 BRPocock
