@@ -11,15 +11,17 @@ EndBank:
           .fi
           .if (* > BankEndAddress) || (* < $f000)
             .error "Bank ", BANK, " overran ROM space (ending at ", *, "; must end by ", BankEndAddress, ")"
+          .else
+            .warn format("bank %d ends at %x with %d bytes left (%.1f%%)", BANK, EndBank, BankEndAddress - EndBank, ( (Wired - EndBank) * 100.0 / (BankEndAddress - $f000) ) )
           .fi
-
+;;; 
           .proff
           ;; Fill with cute junk
             .enc "Unicode"
             .fill BankEndAddress - *, format("%d-%d-%d%chttps://star-hope.org/games/Grizzards%c", YEARNOW, MONTHNOW, DATENOW, 0, 0)
             .enc "none"
           .pron
-
+;;; 
 BankJump: .macro label, bank
           .block
 BankSwitch:
@@ -32,8 +34,7 @@ BankSwitch:
             .fi
           .bend
           .endm
-
-          .warn format("bank %d ends at %x with %d bytes left (%.1f%%)", BANK, EndBank, BankEndAddress - EndBank, ( (Wired - EndBank) * 100.0 / (BankEndAddress - $f000) ) )
+;;; 
 
 ;;; The "Wired memory" is present in every bank and must occupy exactly
 ;;; the same number of bytes.
@@ -135,8 +136,8 @@ InvertedBitMask:
 ;;; The KnownZeroInEveryBank allows pointer to point to a fixed zero,
 ;;; which has proven to be useful on occassion.
 
-KnownZeroInEveryBank:
-          .byte 0                                ; 7800 region code: no regions enabled
+Zero:
+          .byte 0
 
 ;;; End of wired memory
 WiredEnd:
