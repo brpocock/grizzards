@@ -3,20 +3,20 @@
 
 CoreAttack:         .block
           jsr Random
-          and #$0f
+          and #$0f              ; crit chance = 1⁄16
           beq CriticalHit
 
           lda AttackerAttack
           jsr CalculateAttackMask
 
-          sta Temp
+          sta Temp              ; attacker attack mask
 
           jsr Random
 
           bmi NegativeRandom
 
 PositiveRandom:
-          and Temp
+          and Temp              ; attacker attack mask → attack variation
           clc
           adc AttackerAttack
           gne HitMissP
@@ -28,8 +28,8 @@ CriticalHit:
           gne AttackHit1
 
 NegativeRandom:
-          and Temp
-          sta Temp
+          and Temp              ; attacker attack mask
+          sta Temp              ; attack variation
           lda AttackerAttack
           sec
           sbc Temp
@@ -47,7 +47,7 @@ AttackHit:
 AttackHit1:
           jsr CalculateAttackMask
 
-          sta Temp
+          sta Temp              ; damage variation mask
 
           lda WhoseTurn
 	beq ExtraDifficult    ; player always hits hard
@@ -122,8 +122,9 @@ SetStatusFX:
           sta DefenderStatusFX
 
 NoStatusFX:
-          lda # 1
-          sta MoveHitMiss
+          .mva MoveHitMiss, # 1
           rts
 
           .bend
+
+;;; Audited 2022-02-16 BRPocock
