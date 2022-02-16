@@ -15,7 +15,7 @@ SaveGameSignatureString:
           SaveWritesPerScreen = $20
 ;;; 
 i2cSCL0:  .macro
-          lda #0
+          lda # 0
           sta SWCHA
           .endm
 
