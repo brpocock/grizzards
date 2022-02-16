@@ -15,16 +15,14 @@ ZeroRAM:
           dex
           bne ZeroRAM
 
-          lda #Phrase_Reset
-          sta CurrentUtterance
+          .SetUtterance Phrase_Reset
 
 WarmStart:
           ldx #$ff
           txs
           jsr SeedRandom
 
-          lda #SoundAtariToday
-          sta NextSound
+          .mva NextSound, #SoundAtariToday
 
           .if PUBLISHER
             lda #ModePublisherPresents
@@ -33,16 +31,12 @@ WarmStart:
           .fi
           sta GameMode
 
-          lda #$80
-          sta PlayerYFraction   ; what is this being used for??
+          .mva PlayerYFraction, #$80   ; what is this being used for??
 
-          lda # CTRLPFREF
-          sta CTRLPF
+          .mva CTRLPF, #CTRLPFREF
 
-          lda # 4
-          sta DeltaY            ; what is this being used for??
-          lda # 8
-          sta AlarmCountdown
+          .mva DeltaY, # 4            ; what is this being used for??
+          .mva AlarmCountdown, # 8
 ;;; 
 Loop:
           .WaitScreenBottom
@@ -93,10 +87,7 @@ TitleMode:
           cmp #<Phrase_TitleIntro
           beq DoneTitleSpeech
 
-          lda #>Phrase_TitleIntro
-          sta CurrentUtterance + 1
-          lda #<Phrase_TitleIntro
-          sta CurrentUtterance
+          .SetUtterance Phrase_TitleIntro
           sta AttractHasSpoken
 DoneTitleSpeech:
           .if TV == SECAM
@@ -115,8 +106,7 @@ DoneTitleSpeech:
           jsr ShowPicture
 
           .if DEMO
-            lda # 1               ; Aquax
-            sta CurrentGrizzard
+            .mva CurrentGrizzard, # 1 ; Aquax
             jsr DrawStarter
           .else
             .FarJSR StretchBank, ServiceDrawStarter
@@ -125,11 +115,8 @@ DoneTitleSpeech:
           lda AlarmCountdown
           bne DoneKernel
 
-          lda # 16
-          sta AlarmCountdown
-          lda #ModeAttractCopyright
-          sta GameMode
-          ;; fall through
+          .mva AlarmCountdown, # 16
+          .mva GameMode, #ModeAttractCopyright
 ;;; 
 DoneKernel:
           lda NewSWCHB
@@ -149,8 +136,7 @@ DoneButtons:
           jmp Loop
 
 Leave:
-          lda #ModeSelectSlot
-          sta GameMode
+          .mva GameMode, #ModeSelectSlot
           .if NOSAVE
             jmp BeginOrResume
           .else
