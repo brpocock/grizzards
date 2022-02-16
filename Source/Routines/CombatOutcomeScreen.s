@@ -12,6 +12,7 @@ CombatOutcomeScreen:          .block
 
           lda MoveHP
           bmi SoundForHeal
+
           lda #SoundHit
           gne SoundReady
 
@@ -82,9 +83,7 @@ CheckForPulse:
 
 PrintKilled:
           .SetPointer KilledText
-          jsr CopyPointerText
-
-          jsr DecodeAndShowText
+          jsr ShowPointerText
 
           lda CriticalHitP
           beq +
@@ -183,9 +182,7 @@ FXMuddle:
           .SetPointer MuddleText
           ;; fall through
 EchoStatus:
-          jsr CopyPointerText
-
-          jsr DecodeAndShowText
+          jsr ShowPointerText
 
 SkipStatusFX:
 AfterStatusFX:
