@@ -5,8 +5,7 @@ DrawGrizzard:       .block
           sty VDELP0
           sty VDELP1
           sty REFP0
-          lda #NUSIZDouble
-          sta NUSIZ0
+          .mva NUSIZ0, #NUSIZDouble
           sta NUSIZ1
 
           ldx CurrentGrizzard
@@ -18,8 +17,7 @@ DrawGrizzard:       .block
           nop
           sta RESP1
 
-          lda #>GrizzardImages
-          sta pp2h
+          .mva pp2h, #>GrizzardImages
           sta pp3h
           ldx CurrentGrizzard
           lda GrizzardPictureSelect, x
@@ -84,4 +82,4 @@ NoColorChange:
 
           .bend
 
-;;; Audited 2022-02-15 BRPocock
+;;; Audited 2022-02-16 BRPocock
