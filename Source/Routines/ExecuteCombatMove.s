@@ -49,8 +49,7 @@ MonsterAttacks:
           asl AttackerAttack
 +
 
-          lda GrizzardDefense
-          sta DefenderDefend
+          .mva DefenderDefend, GrizzardDefense
           lda StatusFX
           and #StatusDefendUp
           beq +
@@ -135,8 +134,7 @@ MonsterBuff:
           ora EnemyStatusFX - 1, x
           sta EnemyStatusFX - 1, x
 
-          lda # 1
-          sta MoveHitMiss
+          .mva MoveHitMiss, # 1
 
           jmp WaitOutScreen
 ;;; 
@@ -323,8 +321,7 @@ PlayerHealsCommon:
           sta MoveHP
 PlayerBuff:
           ldx CombatMoveSelected
-          lda # 1
-          sta MoveHitMiss
+          .mva MoveHitMiss, # 1
 
           lda MoveEffects, x
           sta Temp
@@ -360,8 +357,7 @@ SoundForMiss:
           lda WhoseTurn
           beq NextTurn
 
-          lda #1
-          sta pp1h        ; using this as our loop counter
+          .mva pp1h, # 1        ; using this as our loop counter
 
 CheckMove:
           sta MoveSelection
@@ -389,7 +385,7 @@ LearntMove:
           gne AfterTryingToLearn
 
 CheckNextMove:
-          inc pp1h
+          inc pp1h              ; loop counter
           lda pp1h
           cmp #8
           blt CheckMove
@@ -417,11 +413,8 @@ NotLastMonster:
           lda EnemyHP, x
           beq NextTurn
 
-          lda # 6
-          sta AlarmCountdown
+          .mva AlarmCountdown, # 6
 BackToMain:
           jmp CombatMainScreen
 ;;; 
           .bend
-
-;;; Audited 2022-02-15 BRPocock
