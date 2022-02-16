@@ -15,52 +15,52 @@ Loop:
 ;;; BowClosed one.
           .if BANK == Province0MapBank && !DEMO
 
-          cpx # 17
-          bne NoChangeRLE
+            cpx # 17
+            bne NoChangeRLE
 
-          lda CurrentProvince
-          bne NoChangeRLE
+            lda CurrentProvince
+            bne NoChangeRLE
 
-          lda ProvinceFlags
-          and #$02
-          bne NoChangeRLE
+            lda ProvinceFlags
+            and #$02
+            bne NoChangeRLE
 
-          lda #<Map_BowClosed
-          sta pp5l
-          lda #>Map_BowClosed
-          sta pp5h
-          jmp GotRLE
+            lda #<Map_BowClosed
+            sta pp5l
+            lda #>Map_BowClosed
+            sta pp5h
+            jmp GotRLE
 NoChangeRLE:
           .fi
 
           .if BANK == Province2MapBank && !DEMO
 
-          ;; Still in Province 2. Is this waterfront?
-          lda ClockSeconds
-          and # 1
-          beq DoneShore
+            ;; Still in Province 2. Is this waterfront?
+            lda ClockSeconds
+            and # 1
+            beq DoneShore
 
-          cpx # 1
-          beq SouthShoreAlt
+            cpx # 1
+            beq SouthShoreAlt
 
-          cpx # 14
-          blt DoneShore
+            cpx # 14
+            blt DoneShore
 
-          cpx # 18
-          bge MaybeNorthShore
+            cpx # 18
+            bge MaybeNorthShore
 
 SouthShoreAlt:
-          ldx # 67              ; SouthShore2
-          gne DoneShore
+            ldx # 67              ; SouthShore2
+            gne DoneShore
 
 MaybeNorthShore:
-          cpx # 51
-          blt DoneShore
+            cpx # 51
+            blt DoneShore
 
-          cpx # 54
-          bge DoneShore
+            cpx # 54
+            bge DoneShore
 
-          ldx # 68              ; NorthShore2
+            ldx # 68              ; NorthShore2
 DoneShore:
 
           .fi
@@ -157,44 +157,44 @@ BeforeKernel:
 
           .if BANK == Province2MapBank
 
-          lda # 0
-          sta ENAM1
-          cpx # 28              ; Labyrinth entrance
-          bne DoneMagicRing
-          lda ProvinceFlags + 6
-          .BitBit $40              ; flag # 54
-          beq DoneMagicRing
+            lda # 0
+            sta ENAM1
+            cpx # 28              ; Labyrinth entrance
+            bne DoneMagicRing
+            lda ProvinceFlags + 6
+            .BitBit $40              ; flag # 54
+            beq DoneMagicRing
+
 DoMagicRing:
-          stx WSYNC
-          .SleepX 41
-          stx RESM1
-          ldx #ENABLED
-          stx ENAM1
-          .if SECAM == TV
-          ldx #COLWHITE
-          .else
-          ldx #COLGRAY | $e
-          .fi
-          stx COLUP1
-          ldx #NUSIZMISSILE4
-          stx NUSIZ1
+            stx WSYNC
+            .SleepX 41
+            stx RESM1
+            ldx #ENABLED
+            stx ENAM1
+            .if SECAM == TV
+              ldx #COLWHITE
+            .else
+              ldx #COLGRAY | $e
+            .fi
+            stx COLUP1
+            ldx #NUSIZMISSILE4
+            stx NUSIZ1
 
-          ldx # SoundSweepUp
-          stx NextSound
+            ldx # SoundSweepUp
+            stx NextSound
 
-          ldx AlarmCountdown
-          bne NoBallsNoWSync
+            ldx AlarmCountdown
+            bne NoBallsNoWSync
 
-          ;; A has ProvinceFlags + 6
-          and #~$40             ; clear bit $40
-          sta ProvinceFlags + 6
-          lda ProvinceFlags + 7
-          and #$fe              ; clear bit 1 = flag 56
-          sta ProvinceFlags + 7
+            ;; A has ProvinceFlags + 6
+            and #~$40             ; clear bit $40
+            sta ProvinceFlags + 6
+            lda ProvinceFlags + 7
+            and #$fe              ; clear bit 1 = flag 56
+            sta ProvinceFlags + 7
 
-          lda #ModeMapNewRoom
-          sta GameMode
-          gne NoBallsNoWSync
+            .mva GameMode, #ModeMapNewRoom
+            gne NoBallsNoWSync
 
 DoneMagicRing:
 
@@ -370,46 +370,45 @@ FillBottomScreen:
           lda #ENABLED
           sta VBLANK
 ;;; 
-
           .if BANK == Province2MapBank
+            ;; Still in Province 2!
+            ;; This is another special-case
+            ;; It's here because bank 1 is just full.
+            lda CurrentMap
+            cmp # 59              ; interior of Sue's house
+            bne DoneMirror
 
-          ;; Still in Province 2!
-          ;; This is another special-case
-          ;; It's here because bank 1 is just full.
-          lda CurrentMap
-          cmp # 59              ; interior of Sue's house
-          bne DoneMirror
+            lda ProvinceFlags + 1
+            and # 1
+            bne DoneMirror
 
-          lda ProvinceFlags + 1
-          and # 1
-          bne DoneMirror
+            lda PlayerX
+            cmp #$a7
+            blt DoneMirror
 
-          lda PlayerX
-          cmp #$a7
-          blt DoneMirror
-          lda PlayerY
-          cmp #$3b
-          blt DoneMirror
+            lda PlayerY
+            cmp #$3b
+            blt DoneMirror
 
-          lda # 51              ; Found the mirror
-          sta SignpostIndex
-          lda #ModeSignpost
-          sta GameMode
-
+            lda # 51              ; Found the mirror
+            sta SignpostIndex
+            lda #ModeSignpost
+            sta GameMode
 DoneMirror:
-
           .fi
-
+;;; 
 ScreenJumpLogic:
           lda PlayerY
           cmp #ScreenTopEdge
           blt GoScreenUp
+
           cmp #ScreenBottomEdge
           bge GoScreenDown
 
           lda PlayerX
           cmp #ScreenLeftEdge
           blt GoScreenLeft
+
           cmp #ScreenRightEdge
           bge GoScreenRight
 
