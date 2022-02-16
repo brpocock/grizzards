@@ -8,19 +8,19 @@ BeginNamePrompt:
           lda NameEntryBuffer
           bne BufferReady
 
-          lda #$28              ; blank
+          lda #" "
           ldx # 5
 BlankNameLoop:
           sta NameEntryBuffer, x
           dex
           bne BlankNameLoop
 
-          lda #$0a              ; letter “A”
+          lda #"A"
           sta NameEntryBuffer
 
 BufferReady:
-          lda # 0
-          sta NameEntryPosition
+          ldy # 0               ; XXX necessary?
+          sty NameEntryPosition
 
           .if NTSC != TV
             .WaitScreenBottom
@@ -43,8 +43,10 @@ LoopFirst:
 ShowEnterYourName:
           .SetPointer EnterText
           jsr ShowPointerText
+
           .SetPointer YourText
           jsr ShowPointerText
+
           .SetPointer NameText
           jsr ShowPointerText
 
@@ -94,26 +96,25 @@ BeginGrossPosition:
 CursorPosGross:
           dey
           bne CursorPosGross
-          sta RESBL
+
+          stx RESBL
 
           stx WSYNC
           .SleepX 71
-          sta HMOVE
+          stx HMOVE
 
           .endp
 
           jsr Prepare48pxMobBlob
 
-          lda #CTRLPFBALLSZ8
-          sta CTRLPF
-          lda #ENABLED
-          sta ENABL
+          .mva CTRLPF #CTRLPFBALLSZ8
+          .mva ENABL, #ENABLED
 
           .FarJSR TextBank, ServiceDecodeAndShowText
 
           .SkipLines 3
 
-          ldy # 0
+          ;; ldy # 0; Y = 0 since CursorPosGross
           sty ENABL
 
           .SkipLines 3
@@ -163,9 +164,8 @@ ButtonPressed:
           ;; default to A if the space is blank
           .if !DEMO
 
-            ;; This would be nice, but was cut for space.
-            lda # SoundBlip
-            sta NextSound
+            ;; XXX This would be nice, but was cut for space.
+            .mva NextSound, #SoundBlip
 
             inc NameEntryPosition
             inx
@@ -181,8 +181,7 @@ ButtonPressed:
           gne Done
 
 LetterInc:
-          lda #SoundChirp
-          sta NextSound
+          .mva NextSound, #SoundChirp
 
           inc NameEntryBuffer, x
           lda NameEntryBuffer, x
@@ -194,8 +193,7 @@ LetterInc:
           geq Done
 
 LetterDec:
-          lda #SoundChirp
-          sta NextSound
+          .mva NextSound, #SoundChirp
 
           dec NameEntryBuffer, x
           lda NameEntryBuffer, x
@@ -237,8 +235,7 @@ Done:
           jmp Loop
 ;;; 
 Submit:
-          lda #SoundHappy
-          sta NextSound
+          .mva NextSound, #SoundHappy
 
           .if !DEMO
 
@@ -302,4 +299,4 @@ CursorPositionIndex:
           .enc "none"
           rts
 
-;;; Audited 2022-02-15 BRPocock
+;;; Audited 2022-02-16 BRPocock
