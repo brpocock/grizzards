@@ -40,8 +40,7 @@ Loop:
           .SkipLines (KernelLines - 45) / 2
 
           .SetPointer LearntText
-          jsr CopyPointerText
-          .FarJSR TextBank, ServiceDecodeAndShowText
+          jsr ShowPointerText
 
           ldy DeltaX            ; move learnt
           sty Temp
@@ -83,12 +82,14 @@ SwitchesDone:
           lda GameMode
           cmp #ModeLearntMove
           bne Leave
+
           .WaitScreenBottom
           jmp Loop
 
 Leave:
           cmp #ModeColdStart
           beq GoColdStart
+
           rts
 
 LearntText:
