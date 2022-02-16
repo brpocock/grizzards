@@ -110,25 +110,4 @@ SignText: .macro string
 	.enc "none"
 	.endm
 
-LoadString:	.macro String
-	.enc "minifont"
-          .if len(\String) != 6
-          .error "String length for .LoadString must be 6 ", \String, " is ", len(\String)
-          .fi
-	lda #\String[0]
-	sta StringBuffer + 0
-	lda #\String[1]
-          sta StringBuffer + 1
-	lda #\String[2]
-	sta StringBuffer + 2
-	lda #\String[3]
-          sta StringBuffer + 3
-	lda #\String[4]
-	sta StringBuffer + 4
-	lda #\String[5]
-          sta StringBuffer + 5
-	.enc "none"
-
-	.endm
-
 	.enc "none"
