@@ -43,8 +43,7 @@ ZeroTIALoop:
           sta SWBCNT
 	
 ResetStack:
-          ldx #$ff
-          txs
+          .mvx s, #$ff
 
           inx                   ; X = 0
           stx GameMode
@@ -52,4 +51,4 @@ ResetStack:
           ;; Fall through to DetectConsole
 	.bend
 
-;;; Audited 2022-02-15 BRPocock
+;;; Audited 2022-02-16 BRPocock
