@@ -69,8 +69,7 @@ SwitchSelectSlot:
           eor #$ff
           sta SaveGameSlot
 GoBack:
-          lda #SoundChirp
-          sta NextSound
+          .mva NextSound, #SoundChirp
 
           .WaitScreenBottom
           jmp Loop
@@ -78,8 +77,7 @@ GoBack:
 SlotOK:
           .WaitScreenBottom
           .WaitScreenTop
-          lda #SoundHappy
-          sta NextSound
+          .mva NextSound, #SoundHappy
 
           lda SaveGameSlot
           beq BeginAnew
@@ -90,10 +88,10 @@ SlotOK:
           lda MaxHP
           sta CurrentHP
 
-          lda # 0
-          sta CurrentProvince
-          sta NextMap
-          sta CurrentMap
+          ldy # 0               ; XXX necessary?
+          sty CurrentProvince
+          sty NextMap
+          sty CurrentMap
 
           lda # 80              ; Player start position
           sta BlessedX
@@ -106,12 +104,10 @@ SlotOK:
           jmp GoMap
 
 BeginAnew:
-          lda #ModeStartGame
-          sta GameMode
-          lda #$ff
-          sta SaveGameSlot
+          .mva GameMode, #ModeStartGame
+          .mva SaveGameSlot, #$ff
           .FarJMP MapServicesBank, ServiceNewGame
 
           .bend
 
-;;; Audited 2022-02-15 BRPocock
+;;; Audited 2022-02-16 BRPocock
