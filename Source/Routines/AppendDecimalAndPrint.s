@@ -15,6 +15,7 @@ FromTemp:
           lda Temp
           cmp # 200
           blt Done200
+
           ldx StringBuffer + 3
           cpx #"-"
           bne +
@@ -25,10 +26,12 @@ FromTemp:
 Done200:
           cmp # 100
           blt Done100
+
           ldx StringBuffer + 3
           cpx #"-"
           bne +
           stx StringBuffer + 2
++
           ldx # 1
           stx StringBuffer + 3
 Done100:
