@@ -2,7 +2,6 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 ;;; Macros for setting up 48px graphics and text
 
-
 SetUpFortyEight:	.macro Graphics
 
           .if (< \Graphics) == 0
@@ -111,3 +110,5 @@ SignText: .macro string
 	.endm
 
 	.enc "none"
+
+;;; Audited 2022-02-16 BRPocock
