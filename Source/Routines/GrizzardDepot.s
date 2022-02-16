@@ -2,14 +2,9 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 GrizzardDepot:    .block
-          ldx MaxHP
-          stx CurrentHP
-
-          ldx #$ff              ; blow away the stack
-          txs
-
-          lda #SoundDepot
-          sta NextSound
+          .mva CurrentHP, MaxHP
+          .mvx s, #$ff              ; blow away the stack
+          .mva NextSound, #SoundDepot
 
           .if TV == NTSC
             .WaitScreenBottom
@@ -65,7 +60,8 @@ Loop:
           .SetPointer PlayTimeText
           jsr ShowPointerText
 ;;; 
-          lda # 40              ; blank space
+          .enc "minifont"
+          lda #" "
           sta StringBuffer + 0
           sta StringBuffer + 5
 
@@ -73,21 +69,15 @@ Loop:
 
 ;;; Note that our max hours = 255 × 4 where we display MANY
 
-          lda # 0
-          sta Temp
+          .mva Temp, # 0
           lda ClockFourHours
           cmp #$ff
           bne NotOverflow
 
-          .enc "minifont"
-          lda #"M"
-          sta StringBuffer + 1
-          lda #"A"
-          sta StringBuffer + 2
-          lda #"N"
-          sta StringBuffer + 3
-          lda #"Y"
-          sta StringBuffer + 4
+          .mva StringBuffer + 1, #"M"
+          .mva StringBuffer + 2, #"A"
+          .mva StringBuffer + 3, #"N"
+          .mva StringBuffer + 4, #"Y"
           jmp HTDdone
 
 NotOverflow:
@@ -176,10 +166,7 @@ HTDdone:
 ;;; 
 ;;; End of the hours decode + display routine
 
-          lda #>PlayHoursText
-          sta Pointer + 1
-          lda #<PlayHoursText
-          sta Pointer
+          .SetPointer PlayHoursText
           jsr ShowPointerText
 
           lda NewSWCHA
@@ -271,10 +258,8 @@ NoReset:
 
 Select:
           .WaitScreenBottom
-          lda #ModeGrizzardStats
-          sta GameMode
-          lda #ModeGrizzardDepot
-          sta DeltaY            ; where to return after stats display
+          .mva GameMode, #ModeGrizzardStats
+          .mva DeltaY, #ModeGrizzardDepot     ; where to return after stats displayt
           gne TriggerDone
 
 SwitchesDone:
@@ -284,10 +269,8 @@ SwitchesDone:
           .BitBit PRESSED
           bne TriggerDone
 
-          lda #ModeMap
-          sta GameMode
-          lda CurrentMap
-          sta NextMap           ; may have been overwritten
+          .mva GameMode, #ModeMap
+          .mva NextMap, CurrentMap       ; may have been overwritten
 
           .WaitScreenBottom
           jmp GoMap
@@ -327,4 +310,4 @@ PlayHoursText:
 NumText:
           .MiniText "NUM.00"
 
-;;; Audited 2022-02-15 BRPocock
+;;; Audited 2022-02-16 BRPocock
