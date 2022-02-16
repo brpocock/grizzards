@@ -71,11 +71,6 @@ ShowMoveDecoded:
           .include "MovesTable.s"
           .include "StringsTable.s"
 
-CombatText:
-          .MiniText "COMBAT"
-Victory2Text:
-          .MiniText "  WON "
-
 ShowPointerText:
           jsr CopyPointerText
           jmp DecodeAndShowText ; tail call
