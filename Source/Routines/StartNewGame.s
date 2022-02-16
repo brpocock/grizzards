@@ -84,8 +84,8 @@ Loop:
           jsr i2cStartWrite
           bcc LetsStart
           jsr i2cStopWrite
-          lda #ModeNoAtariVox
-          sta GameMode
+
+          .mva GameMode, #ModeNoAtariVox
           brk
 
 LetsStart:
@@ -96,7 +96,7 @@ LetsStart:
           clc
           ;; if this is non-zero other things will bomb
           .if ($ff & SaveGameSlotPrefix) != 0
-          .error "SaveGameSlotPrefix should be page-aligned, got ", SaveGameSlotPrefix
+            .error "SaveGameSlotPrefix should be page-aligned, got ", SaveGameSlotPrefix
           .fi
           lda #<SaveGameSlotPrefix
           adc StartGameWipeBlock
@@ -106,6 +106,7 @@ LetsStart:
 WipeBlock:
           lda # 0
           jsr i2cTxByte
+
           dex
           bne WipeBlock
 
@@ -136,8 +137,8 @@ WaitForScreenEnd:
           jmp Loop
 
 Leave:
-          lda # 0
-          sta NameEntryBuffer
+          ldy # 0               ; XXX necessary?
+          sty NameEntryBuffer
 EnterName:
           .FarJSR StretchBank, ServiceBeginName
 
