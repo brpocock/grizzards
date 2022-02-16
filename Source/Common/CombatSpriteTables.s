@@ -1,6 +1,5 @@
 ;;; Grizzards Source/Common/CombatSpriteTables.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
-;;; Combat sprite tables
 
 SpritePresence:
           .page
@@ -34,3 +33,5 @@ CursorPosition:
           .byte $15             ; - x -
           .byte $f7             ; - - x
           .endp
+
+;;; Audited 2022-02-16 BRPocock
