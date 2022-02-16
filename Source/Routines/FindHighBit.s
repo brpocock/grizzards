@@ -1,4 +1,4 @@
-;;; Grizzards Source/Routines/FindHighBit.s
+;; Grizzards Source/Routines/FindHighBit.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 FindHighBit:        .block
