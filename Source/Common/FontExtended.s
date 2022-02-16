@@ -7,7 +7,7 @@
 
 ;;; This file provides additional characters:
 
-;;;  ,'<>
+;;;  ,'◀▶
 
 FontExtended:	.block
 
