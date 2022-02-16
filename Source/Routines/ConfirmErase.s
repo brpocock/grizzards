@@ -6,8 +6,7 @@ ConfirmErase:       .block
           ldx # 1
           stx DeltaX            ; current selection = not to erase
 
-          lda #ModeConfirmEraseSlot
-          sta GameMode
+          .mva GameMode, #ModeConfirmEraseSlot
 Loop:
           .WaitScreenBottom
           .WaitScreenTop
@@ -99,19 +98,15 @@ DoneSwitches:
           and #P0StickUp
           bne DoneUp
 
-          lda # 0
-          sta DeltaX            ; erase? 0 = erase
-          lda #SoundChirp
-          sta NextSound
+          .mva DeltaX, # 0            ; erase? 0 = erase
+          .mva NextSound, #SoundChirp
 DoneUp:
           lda NewSWCHA
           and #P0StickDown
           bne DoneDown
 
-          lda # 1
-          sta DeltaX            ; erase? 0 = erase
-          lda #SoundChirp
-          sta NextSound
+          .mva DeltaX, # 1            ; erase? 0 = erase
+          .mva NextSound, #SoundChirp
 DoneDown:
 DoneStick:
           lda NewButtons
@@ -120,13 +115,11 @@ DoneStick:
           and #PRESSED
           bne DoneButtons
 
-          lda #SoundBlip
-          sta NextSound
+          .mva NextSound, #SoundBlip
           lda #ModeSelectSlot
           ldx DeltaX            ; erase? 0 = erase
           bne +
-          lda #SoundDeleted
-          sta NextSound
+          .mva NextSound, #SoundDeleted
           lda #ModeErasing
 +
           sta GameMode
@@ -153,4 +146,4 @@ SlotOneText:
 
           .bend
 
-;;; Audited 2022-02-15 BRPocock
+;;; Audited 2022-02-16 BRPocock
