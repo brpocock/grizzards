@@ -27,7 +27,7 @@
           .include "Prepare48pxMobBlob.s"
           .include "Random.s"
 
-          .align $20
+          .align $80            ; XXX alignment
           .include "BeginNamePrompt.s"
           
           .include "DemoDrawBoss.s"
