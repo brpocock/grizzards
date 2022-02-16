@@ -13,6 +13,7 @@ NewGrizzard:        .block
           .FarJSR SaveKeyBank, ServicePeekGrizzard
           ;; carry is set if the Grizzard is found
           bcc CatchEm
+
           ;; If so, nothin!g doing, return
           pla        ; discard stashed ID
           lda CurrentMap
@@ -26,7 +27,7 @@ CatchEm:
           .FarJSR SaveKeyBank, ServiceSaveGrizzard
           stx WSYNC
           .if NTSC == TV
-          stx WSYNC
+            stx WSYNC
           .fi
           ;; … and set up this one with default levels
           pla
@@ -35,21 +36,19 @@ CatchEm:
 
           stx WSYNC
           .if NTSC == TV
-          stx WSYNC
+            stx WSYNC
           .fi
           .WaitScreenTop
-          lda #SoundHappy
-          sta NextSound
+          .mva NextSound, #SoundHappy
 
-          lda #>Phrase_Grizzard0
-          sta CurrentUtterance + 1
+          .mva CurrentUtterance + 1, #>Phrase_Grizzard0
           lda #<Phrase_Grizzard0
           clc
           adc CurrentGrizzard
           sta CurrentUtterance
 
-          lda # 7
-          sta AlarmCountdown
+          .mva AlarmCountdown, # 7
+;;;
 Loop:
           .WaitScreenBottom
           .WaitScreenTop
@@ -74,17 +73,15 @@ Loop:
           jmp Loop
 +
           .WaitScreenBottom
-          lda CurrentMap
-          sta NextMap
+          .mva NextMap, CurrentMap
           jmp GoMap
-
+;;; 
 CaughtText:
           .MiniText "CAUGHT"
-
+;;; 
 Defaults:
           .WaitScreenTop
-          lda Temp
-          sta CurrentGrizzard
+          .mva CurrentGrizzard, Temp
 
           asl a
           asl a
@@ -121,8 +118,7 @@ Defaults:
           sta GrizzardDefense
 +
           iny
-          lda # 0               ; XP always starts at zero
-          sta GrizzardXP
+          .mva GrizzardXP, # 0               ; XP always starts at zero
           iny
           lda GrizzardStartingStats, y
           sta MovesKnown
@@ -133,3 +129,5 @@ Defaults:
           rts
           
           .bend
+
+;;; Audited 2022-02-16 BRPocock
