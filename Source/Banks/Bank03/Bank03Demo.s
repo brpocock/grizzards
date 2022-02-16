@@ -9,6 +9,7 @@
           .include "6BitCompression.s"
           .include "DecodeText.s"
           .include "Write12Chars.s"
+          .include "Prepare48pxMobBlob.s"
           .align $20            ; XXX alignment
           .include "DrawMonsterGroup.s"
 
@@ -24,7 +25,6 @@
 
           .include "CombatVBlank.s"
           
-          .include "Prepare48pxMobBlob.s"
           .include "Random.s"
 
           .align $80            ; XXX alignment
