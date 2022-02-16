@@ -7,3 +7,4 @@ ShowPointerText:
 ShowText:
           .FarJMP TextBank, ServiceDecodeAndShowText
 
+;;; Audited 2022-02-16 BRPocock
