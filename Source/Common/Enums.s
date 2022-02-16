@@ -93,9 +93,11 @@
           StatusAttackUp = $40
           StatusDefendUp = $80
 ;;; 
+;;; Masks for status effects bits
           MoveEffectsToEnemy = $1f
           MoveEffectsToSelf = $e0
 ;;; 
+;;; Level Up indicators for after a combat
           LevelUpAttack = $01
           LevelUpDefend = $02
           LevelUpMaxHP = $04
@@ -265,18 +267,15 @@
 ;;; 
 ;;; Maximum number of Grizzards allowed
 ;;; The save/load routines should handle up to 36
-
           NumGrizzards = 30
 ;;; 
 ;;; Screen boundaries for popping to the next screen
-
           ScreenLeftEdge = $30
           ScreenRightEdge = $c9
           ScreenTopEdge = 8
           ScreenBottomEdge = 75
 ;;; 
 ;;; Localization
-
           LangEng = $0e
           LangSpa = $05
           LangFra = $0f
@@ -289,7 +288,6 @@
           MonsterDefendIndex = 12
           EnemyHPIndex = 13
           MonsterPointsIndex = 14 ; two bytes, low byte, high byte order
-
 ;;; 
 ;;; MapFlags values
           MapFlagRandomSpawn = $04
@@ -329,3 +327,6 @@
 ;;; 
 ;;; Game tunable
           GrizzardMetamorphosisXP = 35
+
+
+;;; Audited 2022-02-16 BRPocock
