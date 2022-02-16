@@ -35,12 +35,11 @@ LoadProvinceData:   .block
 
           ora #$80
           sta ProvinceFlags + 6
-          lda #$ff
-          sta ProvinceFlags + 7
+          .mva ProvinceFlags + 7, #$ff
 
 +
           rts
 
           .bend
 
-;;; Audited 2022-02-15 BRPocock
+;;; Audited 2022-02-16 BRPocock
