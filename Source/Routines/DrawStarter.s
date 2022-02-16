@@ -182,8 +182,7 @@ DrawAirex1:
           sty PF2
 
 AirexBottom:
-          lda #$ff
-          sta PF2
+          .mva PF2, #$ff
           .SkipLines 3
           .ldacolu COLBROWN, $4
           sta COLUPF
@@ -204,6 +203,7 @@ AirexBottom:
           sta COLUP0
           sta COLUP1
 
+          .page
           stx WSYNC
           .SleepX $18
           sta RESP0
@@ -211,6 +211,7 @@ AirexBottom:
           nop
           nop
           sta RESP1
+          .endp
 
           lda #$ff
           sta GRP0
@@ -225,5 +226,3 @@ AirexBottom:
           .fi
 
           .bend
-
-;;; Audited 2022-02-15 BRPocock
