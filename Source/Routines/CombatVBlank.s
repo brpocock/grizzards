@@ -36,8 +36,7 @@ DoPlayerSleep:
           and #~StatusSleep
           sta StatusFX
 PlayerNotAwaken:
-          lda #ModeCombatNextTurn
-          sta GameMode
+          .mva GameMode, #ModeCombatNextTurn
           gne CheckStick
 
 NotPlayerSleep:
@@ -84,8 +83,7 @@ CheckMonsterPulse:
 GotMonster:
           inx
           stx MoveTarget
-          lda #ModeCombatDoMove
-          sta GameMode
+          .mva GameMode, #ModeCombatDoMove
           jmp StickDone
 
 DoMonsterMove:
@@ -95,8 +93,7 @@ DoMonsterMove:
           and #StatusSleep
           beq MonsterMoves
 
-          lda #ModeCombatNextTurn
-          sta GameMode
+          .mva GameMode, #ModeCombatNextTurn
           gne CheckStick
 
 MonsterMoves:
@@ -105,8 +102,7 @@ MonsterMoves:
           and #$03
           sta MoveSelection
 
-          lda #ModeCombatAnnouncement
-          sta GameMode
+          .mva GameMode, #ModeCombatAnnouncement
 
 CheckStick:
           ldx MoveSelection
@@ -118,8 +114,7 @@ CheckStick:
           and #P0StickUp
           bne DoneStickUp
 
-          lda #SoundChirp
-          sta NextSound
+          .mva NextSound, #SoundChirp
           lda CombatMajorP
           beq CanSelectMoveUp
 
@@ -142,8 +137,7 @@ DoneStickUp:
           bne DoneStickDown
 
           inx 
-          lda #SoundChirp
-          sta NextSound
+          .mva NextSound, #SoundChirp
           cpx #9              ; max moves = 8
           blt DoneStickDown
 
@@ -230,13 +224,12 @@ CheckSwitches:
           bne NoReset
 
           .WaitForTimer
-          ldx # 0
-          stx VBLANK
+          ldy # 0               ; necessary
+          sty VBLANK
           .if TV == NTSC
             .TimeLines KernelLines - 1
           .else
-            lda #$ff
-            sta TIM64T
+            .mva TIM64T, #$ff
           .fi
 
           .FarJMP SaveKeyBank, ServiceAttract
@@ -245,8 +238,7 @@ NoReset:
           .BitBit SWCHBSelect
           bne NoSelect
 
-          lda #ModeGrizzardStats
-          sta GameMode
+          .mva GameMode, #ModeGrizzardStats
 
 NoSelect:
 
@@ -273,8 +265,8 @@ NoSelect:
             rts
 
 NoPause:
-            lda # 0
-            sta Pause
+            ldy # 0             ; XXX necessary?
+            sty Pause
 
           .fi
 
@@ -282,3 +274,5 @@ DoneSwitches:
           rts
 
           .bend
+
+;;; Audited 2022-02-16 BRPocock
