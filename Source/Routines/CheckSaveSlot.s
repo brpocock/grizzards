@@ -4,8 +4,7 @@
 EEPROMFail:
           jsr i2cStopWrite
 
-          lda #ModeNoAtariVox
-          sta GameMode
+          .mva GameMode, #ModeNoAtariVox
           brk
 
 CheckSaveSlot: .block
@@ -122,4 +121,4 @@ ReadCrownBit:
 
 	.bend
 
-;;; Audited 2022-02-15 BRPocock
+;;; Audited 2022-02-16 BRPocock
