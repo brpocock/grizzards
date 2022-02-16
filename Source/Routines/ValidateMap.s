@@ -69,13 +69,13 @@ PlacePlayerUnderDoor:
 CheckNextSpriteForDoor:
           lda SpriteAction, x
           cmp #SpriteDoor
-          beq SpriteDoor
+          beq SpriteIsDoor
 
           and #$07
           cmp #SpriteProvinceDoor
           bne NotADoor
 
-SpriteDoor:
+SpriteIsDoor:
           lda SpriteX, x
           sta PlayerX
           sta BlessedX
