@@ -8,7 +8,8 @@ Loop:
           .TimeLines KernelLines - 34
 
           ldx CurrentMap
-
+;;; 
+AlternateBackgroundArt:
 ;;; Special case: If this  is not the demo and we're in Bank  4, the RLE has
 ;;; to change  depending on whether  the tunnels have  been opened
 ;;; yet. If they have not been, we swap out the background for the
@@ -25,10 +26,8 @@ Loop:
             and #$02
             bne NoChangeRLE
 
-            lda #<Map_BowClosed
-            sta pp5l
-            lda #>Map_BowClosed
-            sta pp5h
+            .mva pp5l, #<Map_BowClosed
+            .mva pp5h, #>Map_BowClosed
             jmp GotRLE
 NoChangeRLE:
           .fi
@@ -70,6 +69,8 @@ DoneShore:
           lda MapRLEH, x
           sta pp5h
 GotRLE:
+;;; 
+GetMapColors:
           ldx CurrentMap
           lda MapColors, x
           and #$f0
@@ -145,20 +146,17 @@ GotPF:
           inc pp5h
 +
           sta pp5l
-
 ;;; 
 BeforeKernel:
           ldy # 72              ; 72 × 2 lines = 144 lines total
           sty LineCounter       ; (72 × 2½ lines = 180 lines on PAL/SECAM)
 
-          lda #ENABLED
-          sta VBLANK
+          .mva VBLANK, #ENABLED
           ldx CurrentMap
 
           .if BANK == Province2MapBank
 
-            lda # 0
-            sta ENAM1
+            .mva ENAM1, # 0
             cpx # 28              ; Labyrinth entrance
             bne DoneMagicRing
             lda ProvinceFlags + 6
@@ -169,19 +167,16 @@ DoMagicRing:
             stx WSYNC
             .SleepX 41
             stx RESM1
-            ldx #ENABLED
-            stx ENAM1
+            .mvx ENAM1, #ENABLED
             .if SECAM == TV
               ldx #COLWHITE
             .else
               ldx #COLGRAY | $e
             .fi
             stx COLUP1
-            ldx #NUSIZMISSILE4
-            stx NUSIZ1
+            .mvx NUSIZ1, #NUSIZMISSILE4
 
-            ldx # SoundSweepUp
-            stx NextSound
+            .mvx NextSound, # SoundSweepUp
 
             ldx AlarmCountdown
             bne NoBallsNoWSync
@@ -204,6 +199,7 @@ DoneMagicRing:
           bmi LeftBall
           and #$40
           bne RightBall
+
           geq NoBalls
 
 LeftBall:
@@ -219,15 +215,13 @@ RightBall:
           lda # 0
 EnableBall:
           sta HMBL
-          lda #ENABLED
-          sta ENABL
+          .mva ENABL, #ENABLED
           gne DoneBall
 
 NoBalls:
           stx WSYNC
 NoBallsNoWSync:
-          lda # 0
-          sta ENABL
+          .mva ENABL, # 0
 
 DoneBall:
           stx WSYNC
@@ -290,12 +284,9 @@ GotBK:
           stx VBLANK
           stx WSYNC
           sta COLUBK
-          lda pp4l
-          sta PF0
-          lda pp4h
-          sta PF1
-          lda pp3l
-          sta PF2
+          .mva PF0, pp4l
+          .mva PF1, pp4h
+          .mva PF2, pp3l
           ldy # 1
           lax (pp5l), y
 ;;; 
@@ -330,24 +321,26 @@ DrawPlayers:
           lda #7
           dcp P0LineCounter
           bcc NoP0
+
           ldy P0LineCounter
           lda (pp0l), y
           sta GRP0
           jmp P0Done
+
 NoP0:
-          lda #0
-          sta GRP0
+          .mva GRP0, #0
 P0Done:
           lda #7
           dcp P1LineCounter
           bcc NoP1
+
           ldy P1LineCounter
           lda (pp1l), y
           sta GRP1
           jmp P1Done
+
 NoP1:
-          lda #0
-          sta GRP1
+          .mva GRP1, #0
 P1Done:
           .if TV != NTSC
           ;; extend every even line on PAL/SECAM
@@ -367,8 +360,7 @@ P1Done:
           bne DrawMap
 ;;; 
 FillBottomScreen:
-          lda #ENABLED
-          sta VBLANK
+          .mva VBLANK, #ENABLED
 ;;; 
           .if BANK == Province2MapBank
             ;; Still in Province 2!
@@ -390,10 +382,8 @@ FillBottomScreen:
             cmp #$3b
             blt DoneMirror
 
-            lda # 51              ; Found the mirror
-            sta SignpostIndex
-            lda #ModeSignpost
-            sta GameMode
+            .mva SignpostIndex, # 51              ; Found the mirror
+            .mva GameMode, #ModeSignpost
 DoneMirror:
           .fi
 ;;; 
@@ -415,50 +405,42 @@ ScreenJumpLogic:
           gne ShouldIStayOrShouldIGo
 
 GoScreenUp:
-          lda #ScreenBottomEdge - 1
-          sta BlessedY
+          .mva BlessedY, #ScreenBottomEdge - 1
           sta PlayerY
-          ldy #0
+          ldy # 0
           geq GoScreen
 
 GoScreenDown:
-          lda #ScreenTopEdge + 1
-          sta BlessedY
+          .mva BlessedY, #ScreenTopEdge + 1
           sta PlayerY
-          ldy #1
+          ldy # 1
           gne GoScreen
 
 GoScreenLeft:
-          lda #ScreenRightEdge - 1
-          sta BlessedX
+          .mva BlessedX, #ScreenRightEdge - 1
           sta PlayerX
-          ldy #2
+          ldy # 2
           gne GoScreen
 
 GoScreenRight:
-          lda #ScreenLeftEdge + 1
-          sta BlessedX
+          .mva BlessedX, #ScreenLeftEdge + 1
           sta PlayerX
-          ldy #3
+          ldy # 3
           ;; fall through
 GoScreen:
-          lda #0
+          lda # 0               ; Y is a link index right now
           sta DeltaX
           sta DeltaY
+	sta Temp
 
-          sta Temp
+          .mva Pointer + 1, #>MapLinks
 
-          lda #>MapLinks
-          sta Pointer + 1
-
-          clc
           lda CurrentMap
-          rol a
-          rol Temp
-          ;; carry will be clear
-          rol a
-          rol Temp
-          ;; carry will be clear
+          asl a
+          asl Temp
+          asl a
+          asl Temp
+          clc                   ; XXX necessary?
           adc #<MapLinks
           bcc +
           inc Pointer + 1
@@ -471,27 +453,25 @@ GoScreen:
           sta Pointer + 1
 
           lda (Pointer), y
-          cmp #$ff
-          beq ScreenBounce
+          bmi ScreenBounce
+
           sta NextMap
 
-          lda #ModeMapNewRoom
-          sta GameMode
+          .mva GameMode, #ModeMapNewRoom
           gne ShouldIStayOrShouldIGo
 
 ScreenBounce:
           ;; stuff the player into the middle of the screen
-          lda #$7a
-          sta PlayerX
-          lda #$21
-          sta PlayerY
-
+          .mva PlayerX, #$7a
+          .mva PlayerY, #$21
 ShouldIStayOrShouldIGo:
           lda GameMode
           cmp #ModeMap
           bne Leave
+
           .WaitForTimer
           jsr Overscan
+
           jmp Loop
 ;;; 
 Leave:
@@ -513,20 +493,24 @@ Leave:
           lda GameMode
           cmp #ModePotion
           beq DoPotions
+
           cmp #ModeCombat
           beq GoCombat
+
           cmp #ModeNewGrizzard
           beq GetNewGrizzard
+
           cmp #ModeGrizzardStats
           beq ShowStats
+
           cmp #ModeSignpost
           bne UnknownMode
+
           ldx #SignpostBank
           jsr FarCall
-          lda CurrentMap
-          sta NextMap
-          lda #ModeMap
-          sta GameMode
+
+          .mva NextMap, CurrentMap
+          .mva GameMode, #ModeMap
           .WaitScreenBottom
           jmp MapSetup
 
@@ -540,12 +524,13 @@ EnterGrizzardDepot:
           .FarJMP MapServicesBank, ServiceGrizzardDepot
 
 GetNewGrizzard:
-          lda NextMap
-          sta Temp
-          .FarJSR MapServicesBank, ServiceNewGrizzard ; does not return
+          .mva Temp, NextMap
+          .FarJMP MapServicesBank, ServiceNewGrizzard
 
 ShowStats:
           .FarJSR MapServicesBank, ServiceGrizzardStatsScreen
           jmp MapSetup
 
           .bend
+
+;;; Audited 2022-02-16 BRPocock
