@@ -39,6 +39,7 @@ i2cStopWrite:
 
 i2cK:
           jsr i2cTxByte
+i2cK2:
           jsr i2cStopWrite
           jmp i2cStartRead      ; tail call
 
