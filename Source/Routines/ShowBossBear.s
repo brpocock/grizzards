@@ -11,6 +11,7 @@ ShowBossBear:       .block
           lda #$20
           bit ClockFrame
           beq AltFrame
+
           .SetUpFortyEight BossBear
           gne Ready
 
@@ -21,3 +22,5 @@ Ready:
           jmp ShowPicture       ; tail call
 
           .bend
+
+;;; Audited 2022-02-16 BRPocock
