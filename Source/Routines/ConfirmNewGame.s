@@ -94,17 +94,14 @@ DoneSwitches:
 
           ldy # 0
           sty DeltaX            ; confirm? 0 = change
-          lda #SoundChirp
-          sta NextSound
+          .mva NextSound, #SoundChirp
 DoneUp:
           lda NewSWCHA
           and #P0StickDown
           bne DoneDown
 
-          lda # 1
-          sta DeltaX            ; confirm? 0 = change
-          lda #SoundChirp
-          sta NextSound
+          .mva DeltaX, # 1            ; confirm? 0 = change
+          .mva NextSound, #SoundChirp
 DoneDown:
 DoneStick:
           lda NewButtons
@@ -113,8 +110,7 @@ DoneStick:
           and #PRESSED
           bne DoneButtons
 
-          lda #SoundBlip
-          sta NextSound
+          .mva NextSound, #SoundBlip
           lda #ModeStartGame
           ldx DeltaX            ; confirm? 0 = change
           bne +
@@ -134,4 +130,4 @@ Leave:
 
           .bend
 
-;;; Audited 2022-02-15 BRPocock
+;;; Audited 2022-02-16 BRPocock
