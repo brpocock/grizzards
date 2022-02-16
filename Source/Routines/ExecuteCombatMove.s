@@ -321,7 +321,6 @@ PlayerHealsCommon:
           lda #$ff              ; negate the value to mean "gained"
           eor MoveHP
           sta MoveHP
-
 PlayerBuff:
           ldx CombatMoveSelected
           lda # 1
@@ -350,7 +349,7 @@ SoundForMiss:
 
           .WaitScreenBottom
           .if TV != NTSC
-          stx WSYNC
+            stx WSYNC
           .fi
 ;;; 
           .FarJSR TextBank, ServiceCombatOutcome
