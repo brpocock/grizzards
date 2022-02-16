@@ -38,8 +38,7 @@ SetUpMonsterPointer:
           sta CurrentMonsterPointer + 1
 
 AnnounceMonsterSpeech:
-          lda #>MonsterPhrase
-          sta CurrentUtterance + 1
+          .mva CurrentUtterance + 1, #>MonsterPhrase
           lda #<MonsterPhrase
           ldx CurrentCombatEncounter
           ;; clc ; unneeded, the adc #>MonsterPhrase won't have overflowed
@@ -49,21 +48,20 @@ AnnounceMonsterSpeech:
 SetUpEnemyHP:
           ldy #EnemyHPIndex
           lda (CurrentMonsterPointer), y
-          sta Temp
+          sta Temp              ; enemy HP
 
           lda Potions
           bpl NotCrowned
 
-          asl Temp
+          asl Temp              ; enemy HP
 NotCrowned:
           ldy CombatMajorP
           beq NoHPBoost
 
-          asl Temp
+          asl Temp              ; enemy HP
           bcc NoHPBoost
 
-          lda #$ff
-          sta Temp
+          .mva Temp, #$ff       ; enemy HP max
 NoHPBoost:
 
           lda EncounterQuantity, x
@@ -77,8 +75,8 @@ NoHPBoost:
           dex
           bne -
 
-          ;; … actually set the HP for monsters present (per .y)
-          lda Temp
+          ;; … actually set the HP for monsters present (per Y = quantity)
+          lda Temp              ; enemy HP
 -
           sta EnemyHP - 1, y
           dey
@@ -90,11 +88,10 @@ SetUpMonsterArt:
           sta CurrentMonsterArt
 
 SetUpOtherCombatVars:
-          ldy # 0
+          ldy # 0               ; necessary
           sty WhoseTurn         ; Player's turn
           sty MoveAnnouncement
           sty StatusFX
-          tya
           ldx #6
 -
           sty EnemyStatusFX - 1, x
@@ -104,4 +101,4 @@ SetUpOtherCombatVars:
           ;; fall through to CombatIntroScreen, which does WaitScreenBottom
           .bend
 
-;;; Audited 2022-02-15 BRPocock
+;;; Audited 2022-02-16 BRPocock
