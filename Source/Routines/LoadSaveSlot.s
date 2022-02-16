@@ -5,7 +5,7 @@ LoadSaveSlot: .block
           .WaitScreenBottom
           stx WSYNC
           .if TV != NTSC
-          stx WSYNC
+            stx WSYNC
           .fi
           .WaitScreenTop
 
@@ -44,8 +44,7 @@ ReadGlobalLoop:
 
           jsr i2cStopRead
 
-          lda CurrentMap
-          sta NextMap
+          .mva NextMap, CurrentMap
 
           .WaitScreenBottom
           .WaitScreenTop
@@ -61,10 +60,9 @@ OKLoaded:
           jmp GoMap
 
 LoadFailed:
-          lda #SoundMiss
-          sta NextSound
+          .mva NextSound, #SoundMiss
           jmp SelectSlot
 
           .bend
 
-;;; Audited 2022-02-15 BRPocock
+;;; Audited 2022-02-16 BRPocock
