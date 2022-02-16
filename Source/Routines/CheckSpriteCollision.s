@@ -88,7 +88,7 @@ CheckUp:
           gne Done
 
 CheckDown:
-          .BitBit SpriteMoveDown
+          and #SpriteMoveDown
           beq Done
 
           dec SpriteY, x
@@ -101,4 +101,4 @@ Bye:
           rts
           .bend
 
-;;; Audited 2022-02-15 BRPocock
+;;; Audited 2022-02-16 BRPocock
