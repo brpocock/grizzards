@@ -27,6 +27,7 @@ RandomColor:
           ldx # 6
 RandomHP:
           jsr Random
+
           and #$03
           sta EnemyHP - 1, x
           dex
@@ -55,10 +56,9 @@ GoToStoryDone:
           jmp StoryDone
 
 ProgressedToPhase0:
-          lda # 0
-          sta AttractStoryProgress
-          lda # 1
-          sta AttractStoryPanel
+          ldy # 0               ; necessary? XXX
+          sty AttractStoryProgress
+          .mva AttractStoryPanel, # 1
           gne GoToStoryDone
 
 StoryPhase0:
@@ -74,8 +74,7 @@ SkipLinesForPhase0:
           dex
           bne SkipLinesForPhase0
 DoneSkipping:
-
-          stx MoveTarget        ; always zero
+          stx MoveTarget        ; X = 0
 
           .if DEMO
             jsr DrawMonsterGroup
@@ -106,20 +105,20 @@ DoneSkippingLower:
           lda DeltaY            ; XXX using this for a timer
           clc
           adc # ceil( $40 * ( FramesPerSecond / 24.0 ) )
-          sta DeltaY
+          sta DeltaY            ; timer
           cmp #$40
           blt StoryDone
 
           sec
           sbc #$40
-          sta DeltaY
+          sta DeltaY            ; timer
           inc AttractStoryProgress
           lda AttractStoryProgress
           cmp # KernelLines / 4
           blt StoryDone
 
           inc AttractStoryPanel
-;;; 
+;;;
 StoryPhase1:
           ;; Grizzard attacking the monsters
           cmp # 8
@@ -129,12 +128,12 @@ Six:
           cmp # 6
           bne NotSix
 
-          lda DeltaY
+          lda DeltaY            ; timer
           cmp # ceil(FramesPerSecond / 3.0)
           bne NotSix
 
           lda # 0
-          sta DeltaY
+          sta DeltaY            ; timer
           lda AttractStoryPanel
 
           jsr Random
@@ -204,36 +203,36 @@ DoneSkipPhase1:
           bge StoryPhase1b
 
 StoryPhase1a:
-          lda DeltaY
+          lda DeltaY            ; timer
           clc
           adc # ceil( $40 * ( FramesPerSecond / 30.0 ) )
-          sta DeltaY
+          sta DeltaY            ; timer
           cmp #$40
           blt StoryDone
 
           sec
           sbc #$40
-          sta DeltaY
+          sta DeltaY            ; timer
           dec AttractStoryProgress
           lda AttractStoryProgress
           bne StoryDone
 
           inc AttractStoryPanel
           lda # 0
-          sta DeltaY
+          sta DeltaY            ; timer
           .SetUtterance Phrase_Story
           sta AttractHasSpoken
           gne StoryDone
 
 StoryPhase1b:
-          inc DeltaY
-          lda DeltaY
+          inc DeltaY            ; timer
+          lda DeltaY            ; timer
           cmp # 2 * FramesPerSecond
           blt StoryDone
 
           inc AttractStoryPanel
-          lda # 0
-          sta DeltaY
+          ldy # 0               ; XXX necessary?
+          sty DeltaY
           ;; gne StoryDone ; fall through
 ;;; 
 StoryDone:
@@ -244,10 +243,9 @@ StoryDone:
           blt StillStory
 
           ;; Return to title screen, with a new Grizzard
-          lda # 30
-          sta AlarmCountdown
-          lda # 0
-          sta DeltaY
+          .mva AlarmCountdown, # 30
+          ldy # 0               ; necessary? XXX
+          sty DeltaY
 
 NextGrizzard:
           inc CurrentGrizzard
@@ -255,12 +253,11 @@ NextGrizzard:
           cmp # 3
           blt DoneNextGrizzard
 
-          ldy # 0
+          ldy # 0               ; XXX necessary?
           sty CurrentGrizzard
 DoneNextGrizzard:
 
-          lda #ModeAttractTitle
-          sta GameMode
+          .mva GameMode, #ModeAttractTitle
           rts
 ;;; 
 StillStory:
@@ -278,8 +275,7 @@ CheckFire:
           bne LoopMe
 
 SelectSlot:
-          lda #ModeSelectSlot
-          sta GameMode
+          .mva GameMode, #ModeSelectSlot
           rts
 ;;; 
 LoopMe:
