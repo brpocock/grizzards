@@ -17,9 +17,7 @@ DoLocal:
           .include "ShowPicture.s"
 
           .include "CopyPointerText.s"
-ShowPointerText:
-          jsr CopyPointerText
-          .FarJMP TextBank, ServiceDecodeAndShowText
+          .include "ShowPointerText.s"
           
           .include "Prepare48pxMobBlob.s"
 

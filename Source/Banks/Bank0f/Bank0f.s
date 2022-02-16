@@ -29,30 +29,36 @@
           .include "Random.s"
 
           .include "CopyPointerText.s"
-
-ShowPointerText:
-          jsr CopyPointerText
-          .FarJMP TextBank, ServiceDecodeAndShowText ; tail call
+          .include "ShowPointerText.s"
 
 DoLocal:
           cpy #ServiceDrawGrizzard
           beq DrawGrizzard
+
           cpy #ServiceWrite12Chars
           beq Write12Chars
+
           cpy #ServiceCombatVBlank
           beq CombatVBlank
+
           cpy #ServiceAttractStory
           beq AttractStory
+
           cpy #ServiceInquire
           beq Inquire
+
           cpy #ServiceFinalScore
           beq FinalScore
+
           cpy #ServiceGrizzardMetamorphosis
           beq GrizzardMetamorphosis
+
           cpy #ServiceDeath
           beq Death
+
           cpy #ServiceConfirmErase
           beq ConfirmErase
+
           brk
 
           .include "GrizzardMetamorphosis.s"

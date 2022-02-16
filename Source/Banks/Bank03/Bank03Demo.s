@@ -33,29 +33,36 @@
           .include "DemoDrawBoss.s"
 
           .include "CopyPointerText.s"
-ShowPointerText:
-          jsr CopyPointerText
-          .FarJMP TextBank, ServiceDecodeAndShowText ; tail call
+          .include "ShowPointerText.s"
 
 DoLocal:
           cpy #ServiceCombatVBlank
           beq CombatVBlank
+
           cpy #ServiceWrite12Chars
           beq Write12Chars
+
           cpy #ServiceAttractStory
           beq AttractStory
+
           cpy #ServiceDeath
           beq Death
+
           cpy #ServiceDrawMonsterGroup
           beq DrawMonsterGroup
+
           cpy #ServiceDrawGrizzard
           beq DrawGrizzard
+
           cpy #ServiceInquire
           beq Inquire
+
           cpy #ServiceBeginName
           beq BeginNamePrompt
+
           cpy #ServiceDrawBoss
           beq DemoDrawBoss
+
           brk
 
           .include "MonsterArt.s"
