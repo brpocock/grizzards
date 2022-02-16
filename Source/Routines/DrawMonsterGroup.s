@@ -4,6 +4,7 @@
 DrawMonsterGroup:   .block
 
           CursorBits = pp5h
+          CursorWidth = %11111100
 
           .if !DEMO
             jsr GetMonsterColors
@@ -14,8 +15,7 @@ DrawMonsterGroup:   .block
           .fi
 
 GetMonsterPointer:
-          lda #>MonsterArt
-          sta pp4h
+          .mva pp4h, #>MonsterArt
 
 GetMonsterArtPointer:
           ldx CurrentMonsterArt
@@ -79,14 +79,12 @@ PrepareToDrawMonsters:
           sty VDELP1
           sty NUSIZ0
           sty CursorBits
-          lda #NUSIZDouble
-          sta NUSIZ1
+          .mva NUSIZ1, #NUSIZDouble
 ;;; 
 SetCursorColor:
           .if TV == SECAM
 
-            lda #COLWHITE
-            sta COLUP1
+            .mva COLUP1, #COLWHITE
             ldx MoveTarget
             bne +
             stx WSYNC
@@ -135,8 +133,7 @@ NoTopTarget:
           jmp CursorReady
 
 TopTarget:
-          lda #%11111100
-          sta CursorBits
+          .mva CursorBits, #CursorWidth
 SetUpCursor:
           dex
           jmp PositionCursor
@@ -212,10 +209,11 @@ NoBottomTarget:
           jmp PrepareBottomMonsters
 
 BottomTarget:
-          lda #%11111100
-          sta CursorBits
+          .mva CursorBits, #CursorWidth
 
 PrepareBottomMonsters:
+          .mva HMP1, #$80              ; don't move cursor again
+
           lda # 0
           ldx EnemyHP + 3
           beq +
@@ -230,11 +228,6 @@ PrepareBottomMonsters:
           ora #$04
 +
           tax
-
-          lda #$80              ; don't move cursor again
-          sta HMP1
-
-          cpx # 0
           bne PositionBottomMonsters
 
           jsr DrawNothing
@@ -279,8 +272,7 @@ GrossPositionMonsters:
           .SleepX 71 - 7
           stx HMOVE
 
-          lda CursorBits
-          sta GRP1
+          .mva GRP1, CursorBits
           rts
 ;;; 
 DrawMonsters:
@@ -321,8 +313,7 @@ DrawNothing:
           stx HMOVE
           .endp
 
-          lda CursorBits
-          sta GRP1
+          .mva GRP1, CursorBits
 
           .switch TV
           .case NTSC
@@ -338,4 +329,4 @@ DrawNothing:
 ;;; 
           .bend
 
-;;; Audited 2022-02-15 BRPocock
+;;; Audited 2022-02-16 BRPocock
