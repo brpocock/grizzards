@@ -1,5 +1,6 @@
 ;;; Grizzards Source/Routines/SaveToSlot.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
+
 SaveToSlot:	.block
           .WaitScreenBottom
           .WaitScreenTop
@@ -20,9 +21,9 @@ WriteMasterBlock:
 	jsr i2cTxByte
 
           .if (SaveGameSlotPrefix & $ff) != 0
-          .error "Save routines assume that SaveGameSlotPrefix is aligned to $100"
+            .error "Save routines assume that SaveGameSlotPrefix is aligned to $100"
           .fi
-          
+
 	lda # 0
 	jsr i2cTxByte
 
@@ -34,6 +35,7 @@ WriteMasterBlock:
 WriteSignatureLoop:
 	lda SaveGameSignatureString, x
 	jsr i2cTxByte
+
 	inx
 	cpx # 5
 	bne WriteSignatureLoop
@@ -47,7 +49,7 @@ WriteGlobalLoop:
 	inx
 	cpx # GlobalGameDataLength
 	bne WriteGlobalLoop
-          
+
           .WaitScreenBottom
           .WaitScreenTop
 
@@ -60,6 +62,7 @@ WritePadAfterGlobal:
           bne WritePadAfterGlobal
 
           jsr i2cStopWrite
+
           jsr i2cWaitForAck
 
           .WaitScreenBottom
@@ -75,4 +78,7 @@ WriteCurrentGrizzard:
 SaveRetry:
           .WaitScreenBottom
           jmp SaveToSlot
+
 	.bend
+
+;;; Audited 2022-02-16 BRPocock
