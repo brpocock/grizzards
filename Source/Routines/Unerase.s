@@ -20,7 +20,6 @@ Unerase:       .block
 
           .mva SaveSlotChecked, #$ff
           .mva GameMode, #ModeSelectSlot
-
           jsr i2cWaitForAck
 
           rts
