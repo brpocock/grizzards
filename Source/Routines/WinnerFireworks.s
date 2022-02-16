@@ -3,18 +3,17 @@
 WinnerFireworks:    .block
 
           .KillMusic
-          lda #SoundRoar
-          sta NextSound
+          .mva NextSound, #SoundRoar
 
           .WaitScreenBottom
 
           ldy # 0
-          sty CurrentGrizzard
           sty CurrentHP         ; now = Grizzards Count
+          sty CurrentGrizzard   ; search each Grizzard, 0 - 29
 CheckCaughtLoop:
           .FarJSR SaveKeyBank, ServicePeekGrizzardXP
           bcc +
-          inc CurrentHP
+          inc CurrentHP         ; Grizzards Count
 +
           inc CurrentGrizzard
           lda CurrentGrizzard
@@ -37,6 +36,7 @@ Loop:
 
           bit Potions
           bpl NotAgain
+
           .SetPointer AgainText
           jsr ShowPointerText
           jmp +
@@ -47,12 +47,13 @@ NotAgain:
           .SetPointer CaughtText
           jsr ShowPointerText
 
-          lda CurrentHP
+          lda CurrentHP         ; Grizzards Count
           cmp # 30
           beq CaughtEmAll
 
+          .enc "minifont"
           sta Temp
-          lda #$28              ; blank
+          lda #" "
           ldx # 6
 -
           sta StringBuffer - 1, x
@@ -67,7 +68,6 @@ CaughtEmAll:
 
           .SetUpFortyEight BossBearDies
           jsr ShowPicture
-
 ;;; 
           lda NewSWCHB
           beq +
@@ -100,6 +100,7 @@ SeenGrizzardBefore:
           sty CurrentGrizzard
           sty CurrentProvince
 
+WipeProvinceFlags:
           ldx # 8
 -
           sta ProvinceFlags - 1, x
@@ -107,8 +108,10 @@ SeenGrizzardBefore:
           bne -
 
           .FarJSR SaveKeyBank, ServiceSaveProvinceData
+
           inc CurrentProvince
           .FarJSR SaveKeyBank, ServiceSaveProvinceData
+
           inc CurrentProvince
           .FarJSR SaveKeyBank, ServiceSaveProvinceData
 
@@ -121,6 +124,7 @@ SeenGrizzardBefore:
 
           jmp GoColdStart
 
+;;; 
 AgainText:
           .MiniText "AGAIN!"
 CaughtText:
