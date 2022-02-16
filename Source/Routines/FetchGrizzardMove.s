@@ -13,7 +13,7 @@ FetchGrizzardMove:
           asl a
           asl a
           asl a
-          clc                   ; XXX isn't this already clear per asl a?
+          ;; clc                   ; already clear per asl a, CurrentGrizzard < 30
           adc Temp
           tax
           lda GrizzardMoves, x
@@ -22,4 +22,4 @@ FetchedRunAway:
           stx Temp
           rts
 
-;;; Audited 2022-02-15 BRPocock
+;;; Audited 2022-02-16 BRPocock
