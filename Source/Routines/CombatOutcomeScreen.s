@@ -36,8 +36,7 @@ LoopFirst:
           stx WSYNC
           .if SECAM == TV
 
-            lda #COLBLACK
-            sta COLUBK
+            .mva COLUBK, #COLBLACK
 
             lda #COLWHITE
             ldx CriticalHitP
@@ -190,8 +189,7 @@ AfterStatusFX:
           lda AlarmCountdown
           bne AlarmDone
 
-          lda # 4
-          sta AlarmCountdown
+          .mva AlarmCountdown, # 4
           inc MoveAnnouncement
           lda MoveAnnouncement
           cmp # 6
@@ -220,8 +218,7 @@ ScheduleSpeech:
 
 NothingHappened:
           .SetUtterance Phrase_NoEffect
-          lda # $ff
-          sta SpeechSegment
+          .mva SpeechSegment, # $ff
           gne SpeechDone
 
 SomethingHappened:
@@ -265,8 +262,7 @@ SayInjuredOrKilled:
 
 SayKilled:
           .SetUtterance Phrase_IsKilled
-          lda # 5
-          sta SpeechSegment
+          .mva SpeechSegment, # 5
           gne SpeechQueued
 
 CheckMonsterPulse:
@@ -403,8 +399,7 @@ WonBattle:
           ;; The likelihood decreases the higher that stat is.
           ;; Use DeltaX to store which level(s) was (were) raised
 +
-          lda # 0
-          sta DeltaX
+          .mva DeltaX, # 0      ; Y ≠ 0 after SetBitFlag
 
           jsr Random
           sta Temp
@@ -418,8 +413,7 @@ WonBattle:
           bne AttackLevelUpDone
 
           inc GrizzardAttack
-          lda # LevelUpAttack
-          sta DeltaX
+          .mva DeltaX, # LevelUpAttack
 AttackLevelUpDone:
           jsr Random
 
@@ -486,3 +480,5 @@ Bye:
           .WaitScreenBottomTail
 
           .bend
+
+;;; Audited 2022-02-16 BRPocock
