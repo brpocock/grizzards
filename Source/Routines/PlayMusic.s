@@ -1,14 +1,15 @@
 ;;; Grizzards Source/Routines/PlayMusic.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
+
 DoMusic:
           lda CurrentMusic + 1
           bne PlayMusic
 
           ;; a phantom read of $ffe1 was happening on branch
           .if $fee1 == *
-          nop
-          nop
-          nop
+            nop
+            nop
+            nop
           .fi
 LoopMusic:
           ;; Don't loop if there's currently a sound effect playing
@@ -33,17 +34,13 @@ LoopMusic:
             cmp #ModeAttract
             bne TheEnd
 
-            lda #>SongTheme
-            sta CurrentMusic + 1
-            lda #<SongTheme
-            sta CurrentMusic
+            .mva CurrentMusic + 1, #>SongTheme
+            .mva CurrentMusic, #<SongTheme
 
           .case 3,4,5
 
-            lda #>SongProvince
-            sta CurrentMusic + 1
-            lda #<SongProvince
-            sta CurrentMusic
+            .mva CurrentMusic + 1, #>SongProvince
+            .mva CurrentMusic, #<SongProvince
 
           .default
             .error "Not expecting to be in bank ", BANK
@@ -106,3 +103,5 @@ ReallyPlayMusic:
           ;; jmp TheEnd
 
 TheEnd:
+
+;;; Audited 2022-02-16 BRPocock
