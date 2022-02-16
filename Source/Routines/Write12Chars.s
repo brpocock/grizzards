@@ -114,11 +114,11 @@ LeftLoop:
           ;; fall through
 ;;; 
 DrawCommon:
-          lda # 0
-          sta GRP0
-          sta GRP1
-          sta GRP0
-          sta GRP1
+          ldy # 0
+          sty GRP0
+          sty GRP1
+          sty GRP0
+          sty GRP1
 
           stx WSYNC
           stx WSYNC
@@ -170,3 +170,5 @@ RightLoop:
           jmp DrawCommon
 
           .bend
+
+;;; Audited 2022-02-16 BRPocock
