@@ -58,13 +58,11 @@ DoneSwitches:
           bne DoneLeft
 
           dec CurrentGrizzard
-          lda #SoundChirp
-          sta NextSound
+          .mva NextSound, #SoundChirp
           lda CurrentGrizzard
           bpl DoneLeft
 
-          lda # 2
-          sta CurrentGrizzard
+          .mva CurrentGrizzard, # 2
 DoneLeft:
           lda NewSWCHA
           and #P0StickRight
@@ -72,14 +70,12 @@ DoneLeft:
 
 DoRight:
           inc CurrentGrizzard
-          lda #SoundChirp
-          sta NextSound
+          .mva NextSound, #SoundChirp
           lda CurrentGrizzard
           cmp # 3
           blt DoneRight
 
-          lda # 0
-          sta CurrentGrizzard
+          .mva CurrentGrizzard, # 0
 DoneRight:
 DoneStick:
           lda NewButtons
@@ -88,10 +84,8 @@ DoneStick:
           and #PRESSED
           bne DoneButtons
 
-          lda #SoundBlip
-          sta NextSound
-          lda #ModeConfirmNewGame
-          sta GameMode
+          .mva NextSound, #SoundBlip
+          .mva GameMode, #ModeConfirmNewGame
 
 DoneButtons:
           lda GameMode
@@ -126,4 +120,4 @@ AquaxName:
 
           .bend
 
-;;; Audited 2022-02-15 BRPocock
+;;; Audited 2022-02-16 BRPocock
