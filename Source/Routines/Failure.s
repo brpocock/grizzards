@@ -49,12 +49,11 @@ CommonSadness:
           .ldacolu COLRED, $a
           sta COLUP0
           sta COLUP1
-          lda #CTRLPFREF
-          sta CTRLPF
+          .mva CTRLPF, #CTRLPFREF
 
           ldy # 8
 DrawSadFace:
-          lda SadFace-1,y
+          lda SadFace-1, y
           sta PF2
           .SkipLines 10
           dey
