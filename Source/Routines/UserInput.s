@@ -1,46 +1,48 @@
 ;;; Grizzards Source/Routines/UserInput.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
-UserInput: .block
+UserInput:          .block
 
 CheckButton:
           lda NewButtons
           beq CheckSwitches
+
           and #PRESSED
           bne CheckSwitches
 
           .if !DEMO
-          lda #ModePotion
-          sta GameMode
+            .mva GameMode, #ModePotion
           .fi 
 
 CheckSwitches:
           lda NewSWCHB
           beq NoSelect
+
           .BitBit SWCHBReset
           bne NoReset
+
           .WaitForTimer
-          ldx # 0
-          stx VBLANK
+          ldy # 0
+          sty VBLANK
           .if TV == NTSC
-          .TimeLines KernelLines - 1
+            .TimeLines KernelLines - 1
           .else
-          lda #$ff
-          sta TIM64T
+            dey                 ; Y ← $ff
+            sty TIM64T
           .fi
 
           .FarJMP SaveKeyBank, ServiceAttract
 
 NoReset:
-          and # SWCHBSelect
+          and #SWCHBSelect
           bne NoSelect
-          lda #ModeGrizzardStats
-          sta GameMode
+
+          .mva GameMode, #ModeGrizzardStats
 NoSelect:
           .if TV == SECAM
 
             lda DebounceSWCHB
-            and # SWCHBP1Advanced ; SECAM pause
+            and #SWCHBP1Advanced        ; SECAM pause
             sta Pause
 
           .else
@@ -48,7 +50,8 @@ NoSelect:
             lda DebounceSWCHB
             .BitBit SWCHBColor
             bne NoPause
-            .BitBit SWCHB7800
+
+            and #SWCHB7800
             beq +
             lda Pause
             eor #$ff
@@ -57,23 +60,23 @@ NoSelect:
             jmp SkipSwitches
 
 NoPause:
-            lda # 0
-            sta Pause
+            ldy # 0             ; XXX necessary?
+            sty Pause
 
           .fi
 SkipSwitches:
 ;;; 
 
 HandleStick:
-          lda # 0
-          sta DeltaX
-          sta DeltaY
+          ldy # 0               ; XXX necessary?
+          sty DeltaX
+          sty DeltaY
 
           lda Pause
           beq +
           rts
 +
-          lda SWCHA
+          lda DebounceSWCHA
           .BitBit P0StickUp
           bne DoneStickUp
 
@@ -91,19 +94,19 @@ DoneStickDown:
           .BitBit P0StickLeft
           bne DoneStickLeft
 
+          tay
           lda MapFlags
           and # ~MapFlagFacing
           sta MapFlags
-          lda SWCHA
 
           ldx #-1
           stx DeltaX
 
+          tya
 DoneStickLeft:
           .BitBit P0StickRight
           bne DoneStickRight
 
-          tax
           lda MapFlags
           ora #MapFlagFacing
           sta MapFlags
@@ -112,7 +115,6 @@ DoneStickLeft:
           stx DeltaX
 
 DoneStickRight:
-
 ApplyStick:
 ;;; 
 FractionalMovement: .macro deltaVar, fractionVar, positionVar, pxPerSecond
@@ -142,7 +144,7 @@ MovePlus:
 DoneMovement:
           .bend
           .endm
-
+;;; 
           MovementDivisor = 0.85
           ;; Make MovementDivisor  relatively the same in  both directions
 	;; so diagonal movement forms a 45° line
