@@ -6,8 +6,7 @@ DrawBoss: .block
           jsr GetMonsterColors
 
 GetMonsterPointer:
-          lda #>BossArt - 1
-          sta pp4h
+          .mva pp4h, #>BossArt - 1
 
           lda CurrentMonsterArt
 Mult16:
@@ -69,8 +68,7 @@ CommonFrame:
           ldy #0
           sty VDELP0
           sty VDELP1
-          lda #NUSIZDouble
-          sta NUSIZ0
+          .mva NUSIZ0, #NUSIZDouble
           sta NUSIZ1
 
 DecideFlipFrame:
@@ -95,8 +93,7 @@ SetUpLeftHanded:
           jmp DrawMonster
 
 PrepareToDrawMonsterFlipped:
-          lda #REFLECTED
-          sta REFP0
+          .mva REFP0, #REFLECTED
           sta REFP1
 
 SetUpRightHanded:
@@ -152,4 +149,4 @@ DrawMonsterLoop:
 
           .bend
 
-;;; Audited 2022-02-15 BRPocock
+;;; Audited 2022-02-16 BRPocock
