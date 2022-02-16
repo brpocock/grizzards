@@ -37,3 +37,5 @@ FontExtended:	.block
           .byte %11111000
           .byte %11100000
 	.bend
+
+;; Audited 2022-02-16 BRPocock
