@@ -13,14 +13,9 @@ LearntMove:        .block
 
           .WaitScreenTop
           ;; Call with the move ID stashed in Temp
-          lda #ModeLearntMove
-          sta GameMode
-
-          lda Temp
-          sta DeltaX            ; Move learnt
-
-          lda # 8
-          sta AlarmCountdown
+          .mva GameMode, #ModeLearntMove
+          .mva DeltaX, Temp            ; Move learnt
+          .mva AlarmCountdown, # 8
 
           .SetUtterance Phrase_Learnt
 
@@ -53,15 +48,12 @@ CheckForSpeech:
           lda CurrentUtterance + 1
           bne CheckForAlarm
 
-          lda #>Phrase_Move01 - 1
-          sta CurrentUtterance + 1
+          .mva CurrentUtterance + 1, #>Phrase_Move01 - 1
           lda #<Phrase_Move01 - 1
           clc
           adc DeltaX            ; move learnt
           sta CurrentUtterance
-          lda # 1
-          sta DeltaY            ; ???
-
+          .mva DeltaY, # 1            ; ???
 CheckForAlarm:
           lda AlarmCountdown
           bne AlarmDone
@@ -69,15 +61,13 @@ CheckForAlarm:
           rts
 
 AlarmDone:
-
           lda NewSWCHB
           beq SwitchesDone
 
           .BitBit SWCHBReset
           bne SwitchesDone
 
-          lda #ModeColdStart
-          sta GameMode
+          .mva GameMode, #ModeColdStart
 SwitchesDone:
           lda GameMode
           cmp #ModeLearntMove
@@ -97,4 +87,4 @@ LearntText:
 
           .bend
 
-;;; Audited 2022-02-15 BRPocock
+;;; Audited 2022-02-16 BRPocock
