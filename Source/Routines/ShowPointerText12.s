@@ -6,3 +6,5 @@ ShowPointerText12:
           ;; fall through
 ShowText12:
           .FarJMP AnimationsBank, ServiceWrite12Chars
+
+;;; Audited 2022-02-16 BRPocock
