@@ -7,8 +7,7 @@ DetectGenesis:      .block
           ;; their levels after a frame
 
           .WaitScreenTop
-          lda # VBlankGroundINPT0123
-          sta VBLANK
+          .mva VBLANK, # VBlankGroundINPT0123
           .WaitScreenBottom
           .WaitScreenTop
 
@@ -33,4 +32,4 @@ DoneGenesis:
           ;; falls through to Attract.s
           .bend
 
-;;; Audited 2022-02-15 BRPocock
+;;; Audited 2022-02-16 BRPocock
