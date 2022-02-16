@@ -3,12 +3,8 @@
 
 Potion:   .block
 
-          lda # 1
-          sta DeltaX
-
-          lda #ModePotion
-          sta GameMode
-          
+          .mva DeltaX, # 1
+          .mva GameMode, #ModePotion
           .SetUtterance Phrase_Potion
           .KillMusic
           geq FirstLoop
@@ -23,7 +19,6 @@ FirstLoop:
           .ldacolu COLBLUE, $8
           stx WSYNC
           sta COLUBK
-
           .ldacolu COLYELLOW, $e
           sta COLUP0
           sta COLUP1
@@ -51,6 +46,7 @@ FirstLoop:
 
           .SetPointer UseText
           jsr ShowPointerText
+
           .SkipLines 2
 
           .ldacolu COLINDIGO, $4
@@ -69,9 +65,10 @@ FirstLoop:
           stx WSYNC
           sta COLUBK
 
-DoneSwitches:       
+DoneSwitches:
           lda NewSWCHA
           beq DoneStick
+
           and #P0StickUp
           bne DoneUp
 
@@ -79,43 +76,38 @@ DoneSwitches:
           and #$7f
           beq DoneUp
 
-          lda # 0
-          sta DeltaX
-          lda #SoundChirp
-          sta NextSound
+          .mva DeltaX, # 0
+          .mva NextSound, #SoundChirp
 DoneUp:
           lda NewSWCHA
           and #P0StickDown
           bne DoneDown
 
-          lda # 1
-          sta DeltaX
-          lda #SoundChirp
-          sta NextSound
+          .mva DeltaX, # 1
+          .mva NextSound, #SoundChirp
 DoneDown:
 DoneStick:
           lda NewButtons
           beq DoneButton
+
           and #PRESSED
           bne DoneButton
 
           ldx DeltaX
           beq UsePotion
-          
-          lda #ModeMap
-          sta GameMode
+
+          .mva GameMode, #ModeMap
           gne Leave
 
 DoneButton:
 
           jmp Loop
 ;;; 
-
 UsePotion:
-          lda MaxHP
-          sta CurrentHP
+          .mva CurrentHP, MaxHP
           lda Potions
           bpl NotCrowned
+
           and #$7f
           sec
           sbc # 1
@@ -125,13 +117,11 @@ UsePotion:
 NotCrowned:
           dec Potions
 +
-          lda #SoundHappy
-          sta NextSound
+          .mva NextSound, #SoundHappy
 Leave:
           .WaitScreenBottom
           jmp GoMap
 ;;; 
-
 PotionText:
           .MiniText "POTION"
 CountText:
@@ -142,4 +132,7 @@ UseText:
           .MiniText " USE  "
 DontText:
           .MiniText "DO NOT"
+
           .bend
+
+;;; Audited 2022-02-16 BRPocock
