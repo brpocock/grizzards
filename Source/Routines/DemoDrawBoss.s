@@ -6,8 +6,7 @@
           ;; so this alternate (older) boss drawing routine is needed
 DemoDrawBoss:       .block
 GetMonsterPointer:
-          lda #>MonsterArt
-          sta pp3h
+          .mva pp3h, #>MonsterArt
 GetMonsterArtPointer:
           lda CurrentMonsterArt
           clc
@@ -41,8 +40,7 @@ PrepareToDrawMonsters:
 DrawMajorMonster:
 PositionMajorMonster:
           stx WSYNC
-          lda # NUSIZQuad
-          sta NUSIZ0
+          .mva NUSIZ0, # NUSIZQuad
           nop
           nop
           nop
@@ -76,4 +74,4 @@ DrawMajorMonsterLoop:
 
           .bend
 
-;;; Audited 2022-02-15 BRPocock
+;;; Audited 2022-02-16 BRPocock
