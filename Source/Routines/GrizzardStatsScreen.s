@@ -3,8 +3,7 @@
 
 GrizzardStatsScreen: .block
           .WaitScreenTop
-          lda #ModeGrizzardStats
-          sta GameMode
+          .mva GameMode, #ModeGrizzardStats
 
           .KillMusic
           sta NewSWCHB
@@ -33,8 +32,7 @@ NoButton:
           bne DoneSwitches
 
 Select:
-          lda DeltaY
-          sta GameMode
+          .mva GameMode, DeltaY ; previous game mode stashed here
           ldy # 0
           sty DeltaY
 
@@ -52,8 +50,7 @@ DoneSwitches:
 
             cmp #ModeCombat
             bne +
-            lda # 2
-            sta AlarmCountdown
+            .mva AlarmCountdown, # 2
             jmp CombatMainScreen
 +
 
@@ -72,4 +69,4 @@ DoneSwitches:
 
           .bend
 
-;;; Audited 2022-02-15 BRPocock
+;;; Audited 2022-02-16 BRPocock
