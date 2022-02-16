@@ -36,6 +36,7 @@
             .fill 66, 0            ; leave space for publisher name
           .fi
 
+          .include "Prepare48pxMobBlob.s"
           .include "ShowPicture.s"
 
 DoLocal:
@@ -147,7 +148,6 @@ PeekGrizzard:                   ; NOSAVE
 
           .include "Random.s"
           .include "48Pixels.s"
-          .include "Prepare48pxMobBlob.s"
           .include "VSync.s"
           .include "VBlank.s"
 
