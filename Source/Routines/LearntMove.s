@@ -65,7 +65,7 @@ CheckForSpeech:
 CheckForAlarm:
           lda AlarmCountdown
           bne AlarmDone
-          
+
           rts
 
 AlarmDone:
@@ -94,7 +94,7 @@ Leave:
 
 LearntText:
           .MiniText "LEARNT"
-          
+
           .bend
 
 ;;; Audited 2022-02-15 BRPocock
