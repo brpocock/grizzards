@@ -9,21 +9,30 @@ PeekGrizzard:       .block
 
           lda Temp
           jsr SetGrizzardAddress ; takes input in .A as well
+
           jsr i2cStopWrite
+
           jsr i2cStartRead
 
           jsr i2cRxByte
+
           beq NoGrizzard        ; MaxHP = 0 = no Grizzard
+
           cmp #$ff
           beq NoGrizzard        ; Garbage read = no Grizzard
+
           jsr i2cStopRead
+
           ;; Grizzard found!
           sec
           rts
 
 NoGrizzard:
           jsr i2cStopRead
+
           clc
           rts
 
           .bend
+
+;;; Audited 2022-02-16 BRPocock
