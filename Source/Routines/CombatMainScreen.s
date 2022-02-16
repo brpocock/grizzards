@@ -4,22 +4,20 @@
 CombatMainScreen:   .block
 
 BackToPlayer:
-          lda #1
-          sta MoveSelection
-          lda #ModeCombat
-          sta GameMode
-
-          lda # 4
-          sta AlarmCountdown
+          .mva MoveSelection, # 1
+          .mva GameMode, #ModeCombat
+          .mva AlarmCountdown, # 4
 
           lda StatusFX
           .BitBit StatusSleep
           beq NotAsleep1
+
           .SetUtterance Phrase_Sleeping
 
 NotAsleep1:
           and #StatusMuddle
           beq NotMuddled1
+
           .SetUtterance Phrase_Muddled
 
 NotMuddled1:
@@ -54,9 +52,11 @@ Loop:
             .WaitScreenBottom
             lda WhoseTurn
             bne NWait0
+
             .SkipLines 2
             lda MoveSelection
             bne NWait0
+
             .SkipLines 1
 NWait0:
             lda CombatMajorP
@@ -170,10 +170,11 @@ MonsterWithName:
 
 MajorCombatArt:
           .FarJSR MonsterBank, ServiceDrawBoss
+
           jmp DelayAfterMonsters
 
 MinorCombatArt:
-          ldy # 0
+          ldy # 0               ; necessary here
           sty CombatMajorP
           .FarJSR MonsterBank, ServiceDrawMonsterGroup
 
@@ -237,7 +238,7 @@ AtMinHP:
           .fi
 
 DrawHealthPF:
-          ldy # 0
+          ldy # 0               ; XXX necessary?
           sty pp0l
           sty pp1l
           sty pp2l
@@ -249,8 +250,7 @@ DrawHealthPF:
           gne DoneHealth
 
 FullPF2:
-          lda #$ff
-          sta pp2l
+          .mva pp2l, #$ff
           txa                   ; ∈ 8…99
           and #$f8
           lsr a                  ; ∈ 4…50
@@ -268,20 +268,16 @@ FullPF1:                        ; ∈ 8…12
           sec
           sbc # 8               ; ∈ 0…4
           tax
-          lda #$ff
-          sta pp1l
+          .mva pp1l, #$ff
           lda HealthyPF2, x
           sta pp0l
           ;; fall through
 
 DoneHealth:
           stx WSYNC
-          lda pp0l
-          sta PF0
-          lda pp1l
-          sta PF1
-          lda pp2l
-          sta PF2
+          .mva PF0, pp0l
+          .mva PF1, pp1l
+          .mva PF2, pp2l
           .SkipLines 4
           ldy # 0
           sty PF0
@@ -373,8 +369,7 @@ GoDoMove:
           bne DoUseMove
 
 MoveNotOK:
-          lda #SoundBump
-          sta NextSound
+          .mva NextSound, #SoundBump
           gne ScreenDone
 
 DoUseMove:
@@ -385,18 +380,13 @@ DoUseMove:
           beq MoveNotOK
 
 MoveOK:
-          lda #ModeCombat
-          sta GameMode
-          lda #SoundBlip
-          sta NextSound
+          .mva GameMode, #ModeCombat
+          .mva NextSound, #SoundBlip
           gne CombatAnnouncementScreen
 
 RunAway:
-          lda #SoundHappy
-          sta NextSound
-
-          lda #ModeMap
-          sta GameMode
+          .mva NextSound, #SoundHappy
+          .mva GameMode, #ModeMap
 
           .switch TV
           .case PAL
@@ -406,7 +396,6 @@ RunAway:
           .endswitch
 ;;; 
 ScreenDone:
-
           lda GameMode
           cmp #ModeCombat
           bne Leave
@@ -433,8 +422,7 @@ NotGoingToMap:
           cmp #ModeGrizzardStats
           bne NotGoingToStats
 
-          lda #ModeCombat
-          sta DeltaY
+          .mva DeltaY, #ModeCombat
           .WaitScreenBottom
           .if NTSC != TV
             .SkipLines 5
@@ -476,3 +464,5 @@ MuddleText:
           .MiniText "MUDDLE"
 
           .bend
+
+;;; Audited 2022-02-16 BRPocock
