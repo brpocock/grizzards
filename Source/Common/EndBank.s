@@ -15,9 +15,9 @@ EndBank:
 
           .proff
           ;; Fill with cute junk
-          .enc "Unicode"
-          .fill BankEndAddress - *, format("%d-%d-%d%chttps://star-hope.org/games/Grizzards%c", YEARNOW, MONTHNOW, DATENOW, 0, 0)
-          .enc "none"
+            .enc "Unicode"
+            .fill BankEndAddress - *, format("%d-%d-%d%chttps://star-hope.org/games/Grizzards%c", YEARNOW, MONTHNOW, DATENOW, 0, 0)
+            .enc "none"
           .pron
 
 BankJump: .macro label, bank
@@ -52,35 +52,33 @@ GoColdStart:
 
 ;;; Go to the current map memory bank, and jump to DoMap.
 GoMap:
-          ldx #$ff              ; smash the stack
-          txs
+          .mvx s, #$ff              ; smash the stack
 
           .if DEMO
 
-          sta BankSwitch0 + Province0MapBank
-          jmp DoLocal
+            sta BankSwitch0 + Province0MapBank
+            jmp DoLocal
 
           .else
 
-          lda CurrentProvince
-          bne +
-          sta BankSwitch0 + Province0MapBank
-          jmp DoLocal
+            lda CurrentProvince
+            bne +
+            sta BankSwitch0 + Province0MapBank
+            jmp DoLocal
 +
-          cmp #2
-          beq +
-          sta BankSwitch0 + Province1MapBank
-          jmp DoLocal
+            cmp # 2
+            beq +
+            sta BankSwitch0 + Province1MapBank
+            jmp DoLocal
 +
-          sta BankSwitch0 + Province2MapBank
-          jmp DoLocal
+            sta BankSwitch0 + Province2MapBank
+            jmp DoLocal
 
           .fi
 
 ;;; Go to the current combat memory bank, and jump to DoCombat.
 GoCombat:
-          ldx #$ff              ; smash the stack
-          txs
+          .mvx s, #$ff              ; smash the stack
           sta BankSwitch0 + CombatBank0To127
           jmp DoLocal
 
@@ -112,9 +110,7 @@ Break:
           lda # BANK
           pha
           BankJump Failure, FailureBank
-
 ;;; 
-
           ;; Useful constants to save time bit-shifting. Used all over.
 BitMask:
           .byte $01, $02, $04, $08, $10, $20, $40, $80
@@ -154,35 +150,35 @@ WiredEnd:
 
           .if DEMO
 
-          ;; Bank switch hotspots for F4 style bank switching that we're using for the demo.
-          BankSwitch0 = $fff4
-          BankSwitch1 = $fff5
-          BankSwitch2 = $fff6
-          BankSwitch3 = $fff7
-          BankSwitch4 = $fff8
-          BankSwitch5 = $fff9
-          BankSwitch6 = $fffa
-          BankSwitch7 = $fffb
+            ;; Bank switch hotspots for F4 style bank switching that we're using for the demo.
+            BankSwitch0 = $fff4
+            BankSwitch1 = $fff5
+            BankSwitch2 = $fff6
+            BankSwitch3 = $fff7
+            BankSwitch4 = $fff8
+            BankSwitch5 = $fff9
+            BankSwitch6 = $fffa
+            BankSwitch7 = $fffb
 
           .else
 
-          ;; EF bank switching
-          BankSwitch0 = $ffe0
-          BankSwitch1 = $ffe1
-          BankSwitch2 = $ffe2
-          BankSwitch3 = $ffe3
-          BankSwitch4 = $ffe4
-          BankSwitch5 = $ffe5
-          BankSwitch6 = $ffe6
-          BankSwitch7 = $ffe7
-          BankSwitch8 = $ffe8
-          BankSwitch9 = $ffe9
-          BankSwitchA = $ffea
-          BankSwitchB = $ffeb
-          BankSwitchC = $ffec
-          BankSwitchD = $ffed
-          BankSwitchE = $ffee
-          BankSwitchF = $ffef
+            ;; EF bank switching
+            BankSwitch0 = $ffe0
+            BankSwitch1 = $ffe1
+            BankSwitch2 = $ffe2
+            BankSwitch3 = $ffe3
+            BankSwitch4 = $ffe4
+            BankSwitch5 = $ffe5
+            BankSwitch6 = $ffe6
+            BankSwitch7 = $ffe7
+            BankSwitch8 = $ffe8
+            BankSwitch9 = $ffe9
+            BankSwitchA = $ffea
+            BankSwitchB = $ffeb
+            BankSwitchC = $ffec
+            BankSwitchD = $ffed
+            BankSwitchE = $ffee
+            BankSwitchF = $ffef
 
           .fi
 
@@ -220,6 +216,7 @@ WiredEnd:
             .error "Bank ", BANK, " does not end at $ffff, but ", * - 1
           .fi
 
+;;; Audited 2022-02-16 BRPocock
 
 ;;;
 ;;; Grizzards © 2021-2022 Bruce-Robert Pocock.
