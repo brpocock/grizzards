@@ -3,11 +3,8 @@
 
 CombatIntroScreen:  .block
 
-          lda #SoundSweepUp
-          sta NextSound
-
-          lda # 4
-          sta AlarmCountdown
+          .mva NextSound, #SoundSweepUp
+          .mva AlarmCountdown, # 4
 
 Loop:
           .WaitScreenBottom
@@ -36,4 +33,4 @@ Loop:
 
           .bend
 
-;;; Audited 2022-02-15 BRPocock
+;;; Audited 2022-02-16 BRPocock
