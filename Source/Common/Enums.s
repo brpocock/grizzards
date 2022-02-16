@@ -128,18 +128,22 @@
           ;; Must be page-aligned
           ;; Uses the subsequent 12 64-byte blocks
           .if DEMO
-          SaveGameSlotPrefix = $3000
+            SaveGameSlotPrefix = $3000
           .else
-          ;; https://atariage.com/atarivox/atarivox_mem_list.html
-          SaveGameSlotPrefix = $1100
+            .if ATARIAGESAVE
+              SaveGameSlotPrefix = $0000
+            .else
+              ;; https://atariage.com/atarivox/atarivox_mem_list.html
+              SaveGameSlotPrefix = $1100
+            .fi
           .fi
           
           ;; Must be exactly 5 bytes for the driver routines to work
           .enc "ascii"
           .if ATARIAGESAVE
-          SaveGameSignature = "griz1"
+            SaveGameSignature = "griz1"
           .else
-          SaveGameSignature = "griz0"
+            SaveGameSignature = "griz0"
           .fi
           .enc "none"
 ;;; 
@@ -149,39 +153,39 @@
           SaveKeyBank = $00
           MapServicesBank = $01
           .if DEMO
-          AnimationsBank = $03
-          CombatServicesBank = $03
-          MonsterBank = $03
-          StretchBank = $03
+            AnimationsBank = $03
+            CombatServicesBank = $03
+            MonsterBank = $03
+            StretchBank = $03
           .else
-          AnimationsBank = $0f
-          CombatServicesBank = $0f
-          MonsterBank = $0e
-          StretchBank = $0d
+            AnimationsBank = $0f
+            CombatServicesBank = $0f
+            MonsterBank = $0e
+            StretchBank = $0d
           .fi
           TextBank = $02
           FailureBank = $01
           Province0MapBank = $04
           .if DEMO
-          Province1MapBank = $ff
-          Province2MapBank = $ff
+            Province1MapBank = $ff
+            Province2MapBank = $ff
           .else
-          Province1MapBank = $03
-          Province2MapBank = $05
+            Province1MapBank = $03
+            Province2MapBank = $05
           .fi
           CombatBank0To127 = $06
           CombatBank128To255 = $06
           SFXBank = $07
           .if DEMO
-          SignpostBank = $05
-          SignpostBankCount = 1
+            SignpostBank = $05
+            SignpostBankCount = 1
           .else
-          SignpostBank = $08
-          SignpostBankCount = 7
+            SignpostBank = $08
+            SignpostBankCount = 7
           .fi
 
           .if !DEMO
-          FinaleBank = $0f
+            FinaleBank = $0f
           .fi
 ;;; 
 ;;; The cold start / save game bank
