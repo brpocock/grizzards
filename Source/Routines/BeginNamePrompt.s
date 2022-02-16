@@ -107,7 +107,7 @@ CursorPosGross:
 
           jsr Prepare48pxMobBlob
 
-          .mva CTRLPF #CTRLPFBALLSZ8
+          .mva CTRLPF, #CTRLPFBALLSZ8
           .mva ENABL, #ENABLED
 
           .FarJSR TextBank, ServiceDecodeAndShowText
