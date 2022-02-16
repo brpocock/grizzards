@@ -1,5 +1,6 @@
 ;;; Grizzards Source/Banks/Bank02/StringsTable.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
+
 SleepText:
           .MiniText "SLEEP "    ; sleep
 AttackDownText:
@@ -27,3 +28,8 @@ CritText:
 PotionText:
           .MiniText "GOT A "
           .MiniText "POTION"
+
+CombatText:
+          .MiniText "COMBAT"
+Victory2Text:
+          .MiniText "  WON "
