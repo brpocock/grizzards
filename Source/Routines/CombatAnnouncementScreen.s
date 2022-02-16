@@ -33,7 +33,7 @@ CombatAnnouncementScreen:     .block
 
           .WaitScreenTop
 
-          ldy # 0
+          ldy # 0               ; XXX necessary?
           sty MoveAnnouncement
           sty SpeechSegment
 
@@ -45,13 +45,11 @@ CombatAnnouncementScreen:     .block
 FindPlayerMove:
           .FarJSR TextBank, ServiceFetchGrizzardMove
 
-          ldx Temp
-          stx CombatMoveSelected
+          .mvx CombatMoveSelected, Temp
           gne MoveFound
 
 FindMonsterMove:
-          lda #>MonsterMoves
-          sta Pointer + 1
+          .mva Pointer + 1, #>MonsterMoves
 
           clc
           ldx CurrentCombatEncounter
@@ -110,7 +108,6 @@ MonsterSubject:
 
 PlayerSubject:
           .FarJSR TextBank, ServiceShowGrizzardName
-          ;; fall through
 ;;; 
 AnnounceVerb:
           lda MoveAnnouncement
@@ -118,8 +115,7 @@ AnnounceVerb:
           blt SkipVerb
 
 DrawVerb:
-          lda CombatMoveSelected
-          sta Temp
+          .mva Temp, CombatMoveSelected
           .FarJSR TextBank, ServiceShowMoveDecoded
 
           stx WSYNC
@@ -159,7 +155,6 @@ MonsterTargetObject:
 
 PlayerObject:
           .FarJSR TextBank, ServiceShowGrizzardName
-
 ;;; 
 Speak:
           lda CurrentUtterance
@@ -289,7 +284,6 @@ SayThatObjectNumber:
 	sta CurrentUtterance
 SpeechQueued:
           inc SpeechSegment
-          ;; fall through
 SpeechDone:
 ;;; 
 CheckForAlarm:
@@ -320,11 +314,13 @@ ShowMonsterNameAndNumber:
           rts
 +
           ldx # 6
-          lda #$28              ; blank
--
+          .enc "minifont"
+          lda #" "
+BlankStringLoop:
           sta StringBuffer - 1, x
           dex
-          bne -
+          bne BlankStringLoop
+
           lda WhoseTurn
           bne +
           lda MoveTarget
@@ -352,3 +348,5 @@ SayPlayerGrizzard:
           rts
 ;;; 
           .bend
+
+;;; Audited 2022-02-16 BRPocock
