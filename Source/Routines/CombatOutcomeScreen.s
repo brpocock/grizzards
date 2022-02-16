@@ -21,7 +21,7 @@ SoundForHeal:
           beq SoundForMiss
 
           lda #SoundHappy
-          gne +
+          gne SoundReady
 
 SoundForMiss:
           lda #SoundMiss
