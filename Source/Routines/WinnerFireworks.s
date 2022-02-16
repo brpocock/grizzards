@@ -75,28 +75,28 @@ CaughtEmAll:
           beq Leave
 +
           jmp Loop
-
+;;; 
 Leave:
           .WaitScreenBottom
           .WaitScreenTop
 NewGamePlus:
-          lda #$80 | 25
-          sta Potions
-
-          lda # 2
-          sta CurrentGrizzard
+          .mva Potions, #$80 | 25
+          .mva CurrentGrizzard, # 2
 
 ConsiderGrizzard:
           .FarJSR SaveKeyBank, ServicePeekGrizzardXP
+
           bcs SeenGrizzardBefore
 
           .FarJSR MapServicesBank, ServiceNewGrizzard
+
           .FarJSR SaveKeyBank, ServiceSaveGrizzard
+
 SeenGrizzardBefore:
           dec CurrentGrizzard
           bpl ConsiderGrizzard
 
-          ldy # 0
+          ldy # 0               ; XXX necessary?
           sty CurrentGrizzard
           sty CurrentProvince
 
@@ -115,15 +115,14 @@ WipeProvinceFlags:
           inc CurrentProvince
           .FarJSR SaveKeyBank, ServiceSaveProvinceData
 
-          lda # 0
-          sta CurrentMap
-          sta CurrentProvince
-          sta NextMap
+          ldy # 0               ; XXX necessary?
+          sty CurrentMap
+          sty CurrentProvince
+          sty NextMap
 
           .FarJSR SaveKeyBank, ServiceSaveToSlot
 
           jmp GoColdStart
-
 ;;; 
 AgainText:
           .MiniText "AGAIN!"
@@ -134,3 +133,4 @@ EmAllText:
 
           .bend
 
+;;; Audited 2022-02-16 BRPocock
