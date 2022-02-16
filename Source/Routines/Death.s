@@ -9,14 +9,9 @@ Death:    .block
 
           .SetUtterance Phrase_GameOver
 
-          lda #ModeDeath
-          sta GameMode
-
-          lda #SoundGameOver
-          sta NextSound
-
-          lda # 120
-          sta AlarmCountdown
+          .mva GameMode, #ModeDeath
+          .mva NextSound, #SoundGameOver
+          .mva AlarmCountdown, # 120
 
           jmp LoopFirst
 ;;; 
@@ -33,6 +28,7 @@ LoopFirst:
 
           .SkipLines KernelLines / 3
           jsr Prepare48pxMobBlob
+
           .SetPointer GameOverText
           jsr ShowPointerText
 
@@ -62,4 +58,4 @@ GameOverText:
 
           .bend
 
-;;; Audited 2022-02-15 BRPocock
+;;; Audited 2022-02-16 BRPocock
