@@ -29,8 +29,7 @@ Loop:
           bmi StayCredits       ; XXX is this right?
 
 Bye:
-          lda #ModeAttractCopyright
-          sta GameMode
+          .mva GameMode, #ModeAttractCopyright
           jmp Attract.DoneKernel
 
 StayCredits:
@@ -38,3 +37,5 @@ StayCredits:
           jmp Loop
 
           .bend
+
+;;; Audited 2022-02-16 BRPocock
