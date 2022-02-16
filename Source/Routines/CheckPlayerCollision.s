@@ -52,13 +52,12 @@ ActionWithSpriteX:
 ReadSign:
           lda SpriteParam, x
           sta SignpostIndex
-          lda #ModeSignpost
-          sta GameMode
+          .mva GameMode, #ModeSignpost
           rts
 
 FightWithSpriteMinor:
-          lda # 0
-          sta CombatMajorP
+          ldy # 0               ; XXX necessary?
+          sty CombatMajorP
           geq FightWithSprite
 
 FightWithSpriteMajor:
@@ -71,20 +70,18 @@ FightWithSpriteX:
           sta CurrentCombatEncounter
           lda SpriteIndex, x
           sta CurrentCombatIndex
-          lda #ModeCombat
-          sta GameMode
+          .mva GameMode, #ModeCombat
           rts
 
 DoorWithSprite:
           lda SpriteParam, x
           sta NextMap
-          ldy #ModeMapNewRoomDoor
+          ldy #ModeMapNewRoomDoor ; XXX why Y?
           sty GameMode
           rts
 
 GetNewGrizzard:
-          lda #ModeNewGrizzard
-          sta GameMode
+          .mva GameMode, #ModeNewGrizzard
           ldx SpriteFlicker
           lda SpriteParam, x
           sta NextMap
@@ -100,10 +97,8 @@ Cool:
           and #$03
           bne DonePlayerMove
 
-          lda PlayerX
-          sta BlessedX
-          lda PlayerY
-          sta BlessedY
+          .mva BlessedX, PlayerX
+          .mva BlessedY, PlayerY
 DonePlayerMove:
           rts
 
@@ -141,8 +136,7 @@ ProvinceChange:
           sta CurrentProvince
           lda SpriteParam, x
           sta NextMap
-          ldy #ModeMapNewRoomDoor
-          sty GameMode
+          .mvy GameMode, #ModeMapNewRoomDoor ; XXX why Y?
           .FarJSR SaveKeyBank, ServiceLoadProvinceData
 
           .WaitScreenBottom
@@ -197,14 +191,13 @@ ShoveY:
           adc PlayerY
           sta PlayerY
 
-          ldy # 0
+          ldy # 0               ; XXX necessary?
           sty PlayerXFraction
           sty PlayerYFraction
 DoneBump:
-          lda #SoundBump
-          sta NextSound
+          .mva NextSound, #SoundBump
 
           rts
           .bend
 
-;;; Audited 2022-02-15 BRPocock
+;;; Audited 2022-02-16 BRPocock
