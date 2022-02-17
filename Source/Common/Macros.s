@@ -99,9 +99,7 @@ SleepLoop:
 
           .bend
           .endm
-
 ;;; 
-
 Push16 .macro address
           lda \address +1
           pha
@@ -129,17 +127,13 @@ Set16 .macro target, value
           lda #>(\value)
           sta \target + 1
           .endm         
-
 ;;; 
-
 Locale .macro ThisLang, string
           .if \ThisLang == LANG
           .MiniText \string
           .fi
           .endm
-
 ;;; 
-
 StyAllGraphics:   .macro
           sty PF0
           sty PF1
