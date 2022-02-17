@@ -38,10 +38,10 @@ Prepare48pxMobBlob: .block
           ldy #$b0
           stx HMP0
           sty HMP1
-          .Sleep 24
+          .SleepX 24
           sta RESP0
           sta RESP1
-          .Sleep 28
+          .SleepX 28
           sta HMOVE		; Cycle 74 HMOVE
 
           .endp
@@ -50,4 +50,4 @@ Prepare48pxMobBlob: .block
 
           .bend
 
-;;; Audited 2022-02-16 BRPocock
+;;; Audited 2022-02-17 BRPocock
