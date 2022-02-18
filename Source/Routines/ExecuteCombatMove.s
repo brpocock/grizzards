@@ -284,31 +284,33 @@ PlayerHeals:
           ;; .A has the inverted HP to be gained
           ;; (alter by random factor)
           eor #$ff
-          sta MoveHP
+          sta MoveHP            ; base HP to gain
           jsr CalculateAttackMask
 
-          sta Temp
+          sta Temp              ; attack mask
           jsr Random
 
           bmi PlayerHealsMinusHP
 
 PlayerHealsPlusHP:
-          and Temp
+          and Temp              ; attack mask
           clc
-          adc MoveHP
-          sta MoveHP
+          adc MoveHP            ; base HP to gain
           gne PlayerHealsCommon
 
 PlayerHealsMinusHP:
-          and Temp
-          sta Temp
-          lda MoveHP
+          and Temp              ; attack mask
+          sta Temp              ; masked HP to negate
+          lda MoveHP            ; base HP to gain
           sec
-          sbc Temp
+          sbc Temp              ; masked HP to negate
           bpl PlayerHealsCommon
 
+          ;; You'll never actually LOSE HP this way
           lda # 0
 PlayerHealsCommon:
+          ;; A has the HP to be gained
+          sta MoveHP
           clc
           adc CurrentHP
           cmp MaxHP
