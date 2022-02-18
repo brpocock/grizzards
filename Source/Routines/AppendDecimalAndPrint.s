@@ -23,6 +23,8 @@ FromTemp:
 +
           ldx # 2
           stx StringBuffer + 3
+          gne Done100
+
 Done200:
           cmp # 100
           blt Done100
