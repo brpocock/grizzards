@@ -7,15 +7,15 @@ DoCombat:          .block
           .KillMusic
 
           jsr SeedRandom
-          
+
           ldx CurrentCombatEncounter
           lda EncounterMonster, x
           sta CurrentMonsterNumber
 
 SetUpMonsterPointer:
-          ldx # 0
+          ldy # 0
           sta CurrentMonsterPointer
-          stx CurrentMonsterPointer + 1
+          sty CurrentMonsterPointer + 1
 
           ldx # 4
 -
@@ -38,23 +38,31 @@ SetUpMonsterPointer:
           sta CurrentMonsterPointer + 1
 
 AnnounceMonsterSpeech:
-          lda #>MonsterPhrase
-          sta CurrentUtterance + 1
+          .mva CurrentUtterance + 1, #>MonsterPhrase
           lda #<MonsterPhrase
           ldx CurrentCombatEncounter
-          ;; clc ; unneeded, the adc #>Monsters won't have overflowed
+          ;; clc ; unneeded, the adc #>MonsterPhrase won't have overflowed
           adc EncounterMonster, x
           sta CurrentUtterance
-          
-SetUpMonsterHP:     
-          ldy # MonsterHPIndex
-          lda (CurrentMonsterPointer), y
-          sta Temp
 
+SetUpEnemyHP:
+          ldy #EnemyHPIndex
+          lda (CurrentMonsterPointer), y
+          sta Temp              ; enemy HP
+
+          lda Potions
+          bpl NotCrowned
+
+          asl Temp              ; enemy HP
+NotCrowned:
           ldy CombatMajorP
-          beq +
-          asl Temp
-+
+          beq NoHPBoost
+
+          asl Temp              ; enemy HP
+          bcc NoHPBoost
+
+          .mva Temp, #$ff       ; enemy HP max
+NoHPBoost:
 
           lda EncounterQuantity, x
           tay
@@ -63,14 +71,14 @@ SetUpMonsterHP:
           lda # 0
           ldx # 5
 -
-          sta MonsterHP, x
+          sta EnemyHP, x
           dex
           bne -
 
-          ;; … actually set the HP for monsters present (per .y)
-          lda Temp
--  
-          sta MonsterHP - 1, y
+          ;; … actually set the HP for monsters present (per Y = quantity)
+          lda Temp              ; enemy HP
+-
+          sta EnemyHP - 1, y
           dey
           bne -
 
@@ -78,17 +86,19 @@ SetUpMonsterArt:
           ldy # MonsterArtIndex
           lda (CurrentMonsterPointer), y
           sta CurrentMonsterArt
-                    
-SetUpOtherCombatVars:         
-          lda # 0
-          sta WhoseTurn         ; Player's turn
-          sta MoveAnnouncement
-          sta StatusFX
+
+SetUpOtherCombatVars:
+          ldy # 0               ; necessary
+          sty WhoseTurn         ; Player's turn
+          sty MoveAnnouncement
+          sty StatusFX
           ldx #6
 -
-          sta EnemyStatusFX - 1, x
+          sty EnemyStatusFX - 1, x
           dex
           bne -
 
           ;; fall through to CombatIntroScreen, which does WaitScreenBottom
           .bend
+
+;;; Audited 2022-02-16 BRPocock

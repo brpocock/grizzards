@@ -18,11 +18,11 @@ Prepare48pxMobBlob: .block
 
           ;; Sets P0₀ position to 55px, P1₀ to 63px
 
-          lda # 0
-          sta REFP0
-          sta REFP1
-          sta GRP0
-          sta GRP1
+          ldy # 0
+          sty REFP0
+          sty REFP1
+          sty GRP0
+          sty GRP1
           lda #NUSIZ3CopiesClose
           sta NUSIZ0
           sta NUSIZ1
@@ -30,7 +30,7 @@ Prepare48pxMobBlob: .block
           sta VDELP0
           sta VDELP1
 
-          .option allow_branch_across_page = false
+          .page
 
           stx WSYNC           ; Critical timing from here …
           sta HMCLR 
@@ -38,14 +38,16 @@ Prepare48pxMobBlob: .block
           ldy #$b0
           stx HMP0
           sty HMP1
-          .Sleep 24
+          .SleepX 24
           sta RESP0
           sta RESP1
-          .Sleep 28
+          .SleepX 28
           sta HMOVE		; Cycle 74 HMOVE
 
-          .option allow_branch_across_page = true
+          .endp
 
           rts
 
           .bend
+
+;;; Audited 2022-02-17 BRPocock

@@ -166,6 +166,7 @@ WetNoodle:
 StompDown:
           .MiniText "STOMP "
           .MiniText "  DOWN"
+          ;; 41
 Crush:
           .MiniText "CRUSH "
           .MiniText "      "
@@ -197,51 +198,55 @@ Slash:
 VampyBite:
           .MiniText "VAMPY "
           .MiniText "  BITE"
-
-          .MiniText " MOVE "
-          .MiniText "  49  "
-
-          .MiniText " MOVE "
-          .MiniText "  50  "
-
-          .MiniText " MOVE "
-          .MiniText "  51  "
+          ;; 49
+HeartyThump:
+          .MiniText "HEARTY"
+          .MiniText "THUMP "
+          ;; 50
+HardJab:
+          .MiniText " HARD "
+          .MiniText "  JAB "
+          ;; 51
+ClawBadly:
+          .MiniText " CLAW "
+          .MiniText " BADLY"
 
           ;; 52
-          .MiniText " MOVE "
-          .MiniText "  52  "
+          .MiniText " BACK "
+          .MiniText " KICK "
 
-          .MiniText " MOVE "
-          .MiniText "  53  "
+          .MiniText " HEAD "
+          .MiniText " BUTT "
 
-          .MiniText " MOVE "
-          .MiniText "  54  "
+          .MiniText "PIRATE"
+          .MiniText " CURSE"
 
-          .MiniText " MOVE "
-          .MiniText "  55  "
+          .MiniText "SHARP "
+          .MiniText " FANGS"
 
           ;; 56
-          .MiniText " MOVE "
-          .MiniText "  56  "
+          .MiniText "NASTY "
+          .MiniText "  GOOP"
 
-          .MiniText " MOVE "
-          .MiniText "  57  "
+          .MiniText "TALON "
+          .MiniText "  VISE"
 
-          .MiniText " MOVE "
-          .MiniText "  58  "
-
-          .MiniText " MOVE "
-          .MiniText "  59  "
+          .MiniText "DEATH "
+          .MiniText " GLARE"
+          ;; 59
+PoundSand:
+          .MiniText "POUND "
+          .MiniText " SAND "
 
           ;; 60
-          .MiniText " MOVE "
-          .MiniText "  60  "
+          .MiniText "WINGS "
+          .MiniText " FLAP "
 
-          .MiniText " MOVE "
-          .MiniText "  61  "
+          .MiniText "CURSED"
+          .MiniText "GLANCE"
 
-          .MiniText " MOVE "
-          .MiniText "  62  "
+          .MiniText "SLIME "
+          .MiniText "IMPACT"
 
           .MiniText "MEGA  "
           .MiniText "  KILL"

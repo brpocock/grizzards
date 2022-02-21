@@ -214,6 +214,14 @@ GetNextMode:
           sta GameMode
 
 NoButton:
+          lda NewSWCHB
+          beq NoSwitches
+          and #SWCHBReset
+          bne NoSwitches
+
+          ;; TODO reset the game
+
+NoSwitches:
           lda GameMode
           cmp #ModeSignpost
           bne Leave
@@ -387,6 +395,17 @@ NotInquire:
           .fi
 
 NotFireworks:
+          cmp #ModeSignpostNext
+          bne NotNext
+
+          ldy # (9 * 5) + 1
+          lda (SignpostText), y
+          sta SignpostIndex
+
+          lda #ModeSignpost
+          sta GameMode
+
+NotNext:
           cmp #ModeSignpostDone
           beq ByeBye
 

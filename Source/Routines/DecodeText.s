@@ -1,5 +1,6 @@
 ;;; Grizzards Source/Routines/DecodeText.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
+
 DecodeText:	.block
 	lda #>Font
 	sta pp0h
@@ -12,7 +13,7 @@ DecodeText:	.block
           clc
           ldx # 6
           ldy # 11
-StringTimes5:
+StringTimes5:                   ; multiply char by 5 (scan lines)
           lda StringBuffer - 1, x
           asl a
           asl a
@@ -25,3 +26,5 @@ StringTimes5:
 
 	rts
 	.bend
+
+;;; Audited 2022-02-15 BRPocock

@@ -5,40 +5,37 @@
 EndBank:
 
           .if DEMO
-          BankEndAddress = $ff4e      ; keep this as high as possible
+            BankEndAddress = $ff78      ; keep this as high as possible
           .else
-          BankEndAddress = $ff36      ; keep this as high as possible
+            BankEndAddress = $ff50      ; keep this as high as possible
           .fi
-          ;; The magic number  above: you can just raise it  to, say,
-          ;; $ff70,  and then  the assembler  will bitch  at you  about its
-          ;; being too high, and tell you  what to lower it to. Careful,
-          ;; though, this has to be more than any bank uses.
           .if (* > BankEndAddress) || (* < $f000)
-          .error "Bank ", BANK, " overran ROM space (ending at ", *, "; must end by ", BankEndAddress, ")" 
+            .error "Bank ", BANK, " overran ROM space (ending at ", *, "; must end by ", BankEndAddress, ")"
+          .else
+            .warn format("bank %d ends at %x with %d bytes left (%.1f%%)", BANK, EndBank, BankEndAddress - EndBank, ( (Wired - EndBank) * 100.0 / (BankEndAddress - $f000) ) )
           .fi
-
+;;; 
           .proff
           ;; Fill with cute junk
-          .enc "Unicode"
-          .fill BankEndAddress - *, format("%d-%d-%d%chttps://star-hope.org/games/Grizzards%c", YEARNOW, MONTHNOW, DATENOW, 0, 0)
-          .enc "none"
+            .enc "Unicode"
+            .fill BankEndAddress - *, format("%d-%d-%d%chttps://star-hope.org/games/Grizzards%c", YEARNOW, MONTHNOW, DATENOW, 0, 0)
+            .enc "none"
           .pron
-
+;;; 
 BankJump: .macro label, bank
           .block
 BankSwitch:
           ldx #\bank
           stx BankControl
 
-          .if BANK == \bank
-          jmp \label
-          .else
-          jmp BankSwitch             ; try again if didn't switch fast enough
-          .fi
+            .if BANK == \bank
+              jmp \label
+            .else
+              jmp BankSwitch             ; try again if didn't switch fast enough
+            .fi
           .bend
           .endm
-
-          .warn format("bank %d ends at %x with %d bytes left (%.1f%%)", BANK, EndBank, BankEndAddress - EndBank, ( (Wired - EndBank) * 100.0 / (BankEndAddress - $f000) ) )
+;;; 
 
 ;;; The "Wired memory" is present in every bank and must occupy exactly
 ;;; the same number of bytes.
@@ -57,9 +54,8 @@ GoColdStart:
 
 ;;; Go to the current map memory bank, and jump to DoMap.
 GoMap:
-          ldx #$ff              ; smash the stack
-          txs
-          
+          .mvx s, #$ff              ; smash the stack
+
           .if DEMO
 
           sta BankControl
@@ -86,8 +82,7 @@ GoGoMap:
 
 ;;; Go to the current combat memory bank, and jump to DoCombat.
 GoCombat:
-          ldx #$ff              ; smash the stack
-          txs
+          .mvx s, #$ff              ; smash the stack
           lda #CombatBank0To127
           sta BankControl
           jmp DoLocal
@@ -147,18 +142,39 @@ InvertedBitMask:
           ;; a tiny little routine that's used all over the place.
           ;; free up from some wasted space here.
           .if BANK != 7
-          .include "WaitScreenBottom.s"
+            .include "WaitScreenBottom.s"
           .fi
 
           .if BANK != 7
-          .if !DEMO || BANK != 5
-          .if BANK < 8 || BANK >= 13
-          .include "Overscan.s"
+            .if !DEMO || BANK != 5
+              .if BANK < 8 || BANK >= 13
+                .include "Overscan.s"
+              .fi
+            .fi
           .fi
           .fi
           .fi
           
           .fill ($fff7 - * + 1), 0        ; 7800 crypto key (designed to fail)
+
+          .if DEMO
+          
+          * = $fff4
+          .offs -$f000
+
+          .text "grizbrp", 0
+
+          .else
+
+          * = $ffe0
+          .offs -$f000
+
+          .text "grizbrp", 0
+
+          ;; magic cookie for Stella
+          nop $1fe0
+
+          .fi
 
 ;;; The KnownZeroInEveryBank allows pointer to point to a fixed zero,
 ;;; which has proven to be useful on occassion.

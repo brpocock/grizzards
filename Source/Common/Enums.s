@@ -47,7 +47,7 @@
           ModeGrizzardDepot = $50
 
           ModeNewGrizzard = $60
-          ModeGrizzardEvolution = $61
+          ModeGrizzardMetamorphosis = $61
 
           ModeGrizzardStats = $70
 
@@ -61,6 +61,8 @@
           ModeSignpostPoints = $87
           ModeSignpostInquire = $88
           ModeSignpostPotions = $89
+          ModeSignpostSetTimer = $8a
+          ModeSignpostNext = $8b
 
           ModeWinnerFireworks = $90
 ;;; 
@@ -91,9 +93,11 @@
           StatusAttackUp = $40
           StatusDefendUp = $80
 ;;; 
+;;; Masks for status effects bits
           MoveEffectsToEnemy = $1f
           MoveEffectsToSelf = $e0
 ;;; 
+;;; Level Up indicators for after a combat
           LevelUpAttack = $01
           LevelUpDefend = $02
           LevelUpMaxHP = $04
@@ -126,18 +130,22 @@
           ;; Must be page-aligned
           ;; Uses the subsequent 12 64-byte blocks
           .if DEMO
-          SaveGameSlotPrefix = $3000
+            SaveGameSlotPrefix = $3000
           .else
-          ;; https://atariage.com/atarivox/atarivox_mem_list.html
-          SaveGameSlotPrefix = $1100
+            .if ATARIAGESAVE
+              SaveGameSlotPrefix = $0000
+            .else
+              ;; https://atariage.com/atarivox/atarivox_mem_list.html
+              SaveGameSlotPrefix = $1100
+            .fi
           .fi
           
           ;; Must be exactly 5 bytes for the driver routines to work
           .enc "ascii"
           .if ATARIAGESAVE
-          SaveGameSignature = "griz1"
+            SaveGameSignature = "griz1"
           .else
-          SaveGameSignature = "griz0"
+            SaveGameSignature = "griz0"
           .fi
           .enc "none"
 ;;; 
@@ -147,39 +155,39 @@
           SaveKeyBank = $00
           MapServicesBank = $01
           .if DEMO
-          AnimationsBank = $03
-          CombatServicesBank = $03
-          MonsterBank = $03
-          StretchBank = $03
+            AnimationsBank = $03
+            CombatServicesBank = $03
+            MonsterBank = $03
+            StretchBank = $03
           .else
-          AnimationsBank = $0f
-          CombatServicesBank = $0f
-          MonsterBank = $0e
-          StretchBank = $0d
+            AnimationsBank = $0f
+            CombatServicesBank = $0f
+            MonsterBank = $0e
+            StretchBank = $0d
           .fi
           TextBank = $02
           FailureBank = $01
           Province0MapBank = $04
           .if DEMO
-          Province1MapBank = $ff
-          Province2MapBank = $ff
+            Province1MapBank = $ff
+            Province2MapBank = $ff
           .else
-          Province1MapBank = $03
-          Province2MapBank = $05
+            Province1MapBank = $03
+            Province2MapBank = $05
           .fi
           CombatBank0To127 = $06
           CombatBank128To255 = $06
           SFXBank = $07
           .if DEMO
-          SignpostBank = $05
-          SignpostBankCount = 1
+            SignpostBank = $05
+            SignpostBankCount = 1
           .else
-          SignpostBank = $08
-          SignpostBankCount = 7
+            SignpostBank = $08
+            SignpostBankCount = 7
           .fi
 
           .if !DEMO
-          FinaleBank = $0f
+            FinaleBank = $0f
           .fi
 ;;; 
 ;;; The cold start / save game bank
@@ -191,6 +199,7 @@
           ServiceLoadGrizzard = $22
           ServiceLoadProvinceData = $21
           ServicePeekGrizzard = $12
+          ServicePeekGrizzardXP = $12
           ServiceSaveGrizzard = $11
           ServiceSaveProvinceData = $20
           ServiceSaveToSlot = $10
@@ -201,7 +210,7 @@
           ServiceBottomOfScreen = $09
           ServiceGrizzardDefaults = $2e
           ServiceGrizzardDepot = $07
-          ServiceGrizzardEvolveP = $2c
+          ServiceGrizzardMetamorphoseP = $2c
           ServiceGrizzardStatsScreen = $19
           ServiceNewGrizzard = $0c
           ServiceTopOfScreen = $08
@@ -249,7 +258,7 @@
           ServiceFireworks = $0a
           ServiceInquire = $24
           ServiceWrite12Chars = $23
-          ServiceGrizzardEvolution = $2d
+          ServiceGrizzardMetamorphosis = $2d
 
 ;;; Combat services (stuffed into same bank as animation)
 
@@ -258,18 +267,15 @@
 ;;; 
 ;;; Maximum number of Grizzards allowed
 ;;; The save/load routines should handle up to 36
-
           NumGrizzards = 30
 ;;; 
 ;;; Screen boundaries for popping to the next screen
-
           ScreenLeftEdge = $30
           ScreenRightEdge = $c9
           ScreenTopEdge = 8
           ScreenBottomEdge = 75
 ;;; 
 ;;; Localization
-
           LangEng = $0e
           LangSpa = $05
           LangFra = $0f
@@ -280,9 +286,8 @@
           MonsterColorIndex = 10
           MonsterAttackIndex = 11
           MonsterDefendIndex = 12
-          MonsterHPIndex = 13
+          EnemyHPIndex = 13
           MonsterPointsIndex = 14 ; two bytes, low byte, high byte order
-
 ;;; 
 ;;; MapFlags values
           MapFlagRandomSpawn = $04
@@ -302,7 +307,7 @@
           Monster_Cat = 5
           Monster_Dog = 6
           Monster_Spider = 7
-          Monster_Mouse = 8
+          Monster_Radish = 8
           Monster_Firefox = 9
           Monster_TwoLegs = 10
           Monster_Mutant = 11
@@ -310,12 +315,18 @@
           Monster_Butterfly = 13
           Monster_SlimeSmall = 14
           Monster_Serpent = 15
-          Monster_Bird = 16
+          Monster_Minotaur = 16
           Monster_Crab = 17
-          Monster_Raptor = 18
+          Monster_Bird = 18
           Monster_Human = 19
           Monster_Bat = 20
           Monster_Skull = 21
           Monster_Dragon = 22
           Monster_SlimeBig = 23
           Monster_Cyclops = 24
+;;; 
+;;; Game tunable
+          GrizzardMetamorphosisXP = 35
+
+
+;;; Audited 2022-02-16 BRPocock

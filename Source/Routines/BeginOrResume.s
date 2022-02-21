@@ -22,6 +22,7 @@ Loop:
 
           lda SaveGameSlot
           beq ShowBegin
+
           lda ProvinceFlags + 4
           beq ShowBegin
 
@@ -32,31 +33,34 @@ ShowBegin:
           .SetPointer BeginText
 ShowBeginOrResume:  
           jsr ShowPointerText
-
 ;;; 
           lda NewSWCHB
           beq SkipSwitches
+
           .BitBit SWCHBReset
           beq SlotOK
 
           .BitBit SWCHBSelect
           beq SwitchSelectSlot
-SkipSwitches:
 
+SkipSwitches:
           lda NewSWCHA
           beq SkipStick
+
           .BitBit P0StickLeft
           beq SwitchSelectSlot
+
           .BitBit P0StickRight
           beq SwitchSelectSlot
-SkipStick:
 
+SkipStick:
           lda NewButtons
           beq SkipButton
+
           .BitBit PRESSED
           beq SlotOK
-SkipButton:
 
+SkipButton:
           .WaitScreenBottom
           jmp Loop
 ;;; 
@@ -65,8 +69,7 @@ SwitchSelectSlot:
           eor #$ff
           sta SaveGameSlot
 GoBack:
-          lda #SoundChirp
-          sta NextSound
+          .mva NextSound, #SoundChirp
 
           .WaitScreenBottom
           jmp Loop
@@ -74,21 +77,21 @@ GoBack:
 SlotOK:
           .WaitScreenBottom
           .WaitScreenTop
-          lda #SoundHappy
-          sta NextSound
+          .mva NextSound, #SoundHappy
 
           lda SaveGameSlot
           beq BeginAnew
+
           lda ProvinceFlags + 4
           beq BeginAnew
 
           lda MaxHP
           sta CurrentHP
 
-          lda # 0
-          sta CurrentProvince
-          sta NextMap
-          sta CurrentMap
+          ldy # 0               ; XXX necessary?
+          sty CurrentProvince
+          sty NextMap
+          sty CurrentMap
 
           lda # 80              ; Player start position
           sta BlessedX
@@ -101,10 +104,10 @@ SlotOK:
           jmp GoMap
 
 BeginAnew:
-          lda #ModeStartGame
-          sta GameMode
-          lda #$ff
-          sta SaveGameSlot
+          .mva GameMode, #ModeStartGame
+          .mva SaveGameSlot, #$ff
           .FarJMP MapServicesBank, ServiceNewGame
 
           .bend
+
+;;; Audited 2022-02-16 BRPocock

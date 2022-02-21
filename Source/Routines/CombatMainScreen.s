@@ -1,22 +1,23 @@
 ;;; Grizzards Source/Routines/CombatMainScreen.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
+
 CombatMainScreen:   .block
 
 BackToPlayer:
-          lda #1
-          sta MoveSelection
-          lda #ModeCombat
-          sta GameMode
-          lda # 4
-          sta AlarmCountdown
+          .mva MoveSelection, # 1
+          .mva GameMode, #ModeCombat
+          .mva AlarmCountdown, # 4
+
           lda StatusFX
           .BitBit StatusSleep
           beq NotAsleep1
+
           .SetUtterance Phrase_Sleeping
 
 NotAsleep1:
           and #StatusMuddle
           beq NotMuddled1
+
           .SetUtterance Phrase_Muddled
 
 NotMuddled1:
@@ -24,26 +25,74 @@ NotMuddled1:
 TargetFirstMonster:
           ldx #0
 -
-          lda MonsterHP, x
+          lda EnemyHP, x
           bne TargetFirst
+
           inx
           cpx # 5
           bne -
+
 TargetFirst:
           inx
           stx MoveTarget
 
           .WaitScreenBottom
+
           jmp LoopFirst
 ;;; 
 Loop:
-          .WaitScreenBottom
-          .if TV != NTSC
-          lda WhoseTurn
-          bne +
-          .SkipLines 5
+          .switch TV
+
+          .case NTSC
+
+            .WaitScreenBottom
+
+          .case PAL
+
+            .WaitScreenBottom
+            lda WhoseTurn
+            bne NWait0
+
+            .SkipLines 2
+            lda MoveSelection
+            bne NWait0
+
+            .SkipLines 1
+NWait0:
+            lda CombatMajorP
+            beq +
+            stx WSYNC
 +
-          .fi
+
+          .case SECAM
+
+            ;; Modified WaitScreenBottom
+            .WaitForTimer
+            .SkipLines 8
+            lda WhoseTurn
+            bne +
+            stx WSYNC
++
+            stx WSYNC
+            ;; if not RUN AWAY 
+            lda MoveSelection
+            bne +
+            stx WSYNC
++
+            lda MoveTarget
+            bne +
+            stx WSYNC
++
+            lda CombatMajorP
+            beq +
+            .SkipLines 4
++
+
+            stx WSYNC
+
+            jsr Overscan
+
+          .endswitch
 
 LoopFirst:
           .WaitScreenTopMinus 1, 3
@@ -52,30 +101,27 @@ LoopFirst:
           .switch TV
           .case NTSC
 
-            lda WhoseTurn
-            beq PlayerTurnBGTop
             .ldacolu COLRED, 0
-            jmp BGTop
-PlayerTurnBGTop:
+            ldx WhoseTurn
+            bne +
             .ldacolu COLGRAY, $8
++
 
           .case PAL
 
-            lda WhoseTurn
-            beq PlayerTurnBGTop
             .ldacolu COLRED, $8
-            jmp BGTop
-PlayerTurnBGTop:
+            ldx WhoseTurn
+            bne +
             .ldacolu COLGRAY, $8
-
++
+          
           .case SECAM
 
-            ;; black background normally, but red for Boss Bear
+            lda #COLWHITE
+            ldx WhoseTurn
+            bne +
             lda #COLBLACK
-            ldx CurrentCombatEncounter
-            cpx # 92            ; Boss Bear encounter
-            bne BGTop
-            lda #COLRED
++
 
           .endswitch
 BGTop:
@@ -89,20 +135,24 @@ MonstersDisplay:
           lda CurrentCombatEncounter
           cmp # 92              ; Boss Bear encounter
           bne MonsterWithName
+
 BossBearDisplay:
           .SkipLines 20
           .FarJSR StretchBank, ServiceShowBossBear
+
           .SkipLines 20
           jmp DelayAfterMonsters
 
 MonsterWithName:
           jsr ShowMonsterName
 
-          ldy # MonsterColorIndex
-          lda (CurrentMonsterPointer), y
-          sta COLUP0
-          ;; COLUP1 overwritten for “regular” fights but needed for bosses
-          sta COLUP1
+          .if DEMO
+            ldy # MonsterColorIndex
+            lda (CurrentMonsterPointer), y
+            sta COLUP0
+            ;; COLUP1 overwritten for “regular” fights but needed for bosses
+            sta COLUP1
+          .fi
 
           lda WhoseTurn         ; show highlight on monster moving
           beq +
@@ -111,23 +161,27 @@ MonsterWithName:
 
           lda CombatMajorP
           beq MinorCombatArt
-          lda MonsterHP + 1
-          ora MonsterHP + 2
-          ora MonsterHP + 3
-          ora MonsterHP + 4
-          ora MonsterHP + 5
+          lda EnemyHP + 1
+          ora EnemyHP + 2
+          ora EnemyHP + 3
+          ora EnemyHP + 4
+          ora EnemyHP + 5
           bne MinorCombatArt
 
 MajorCombatArt:
           .FarJSR MonsterBank, ServiceDrawBoss
+
           jmp DelayAfterMonsters
 
 MinorCombatArt:
-          ldy # 0
+          ldy # 0               ; necessary here
           sty CombatMajorP
           .FarJSR MonsterBank, ServiceDrawMonsterGroup
+
 DelayAfterMonsters:
-          ;; no actual delay now
+          .if SECAM == TV
+            stx WSYNC
+          .fi
 ;;; 
 BeginPlayerSection:
           .ldacolu COLBLUE, $f
@@ -135,13 +189,15 @@ BeginPlayerSection:
           sta COLUP1
           lda WhoseTurn
           beq PlayerBGBottom
+
           .ldacolu COLGRAY, $2
           jmp BGBottom
+
 PlayerBGBottom:
           .if TV == SECAM
-          lda #COLMAGENTA
+            lda #COLMAGENTA
           .else
-          .ldacolu COLINDIGO, $4
+            .ldacolu COLINDIGO, $4
           .fi
 BGBottom:
           stx WSYNC
@@ -154,63 +210,79 @@ DrawGrizzard:
           .FarJSR AnimationsBank, ServiceDrawGrizzard
 ;;; 
 DrawHealthBar:
-          ldx CurrentHP
-          cpx MaxHP
-          beq AtMaxHP
-          cpx # 4
-          blt AtMinHP
-          .ldacolu COLYELLOW, $f
-          sta COLUPF
-          gne DrawHealthPF
+          stx WSYNC
+
+          .if SECAM == TV       ; XXX no color for SECAM due to space limits!
+            .ldacolu COLGREEN, $f
+            sta COLUPF
+          .else
+            ldx CurrentHP
+            cpx MaxHP
+            beq AtMaxHP
+
+            cpx # 4
+            blt AtMinHP
+
+            .ldacolu COLYELLOW, $f
+            sta COLUPF
+            gne DrawHealthPF
 
 AtMaxHP:
-          .ldacolu COLGREEN, $8
-          sta COLUPF
-          gne DrawHealthPF
+            .ldacolu COLGREEN, $8
+            sta COLUPF
+            gne DrawHealthPF
 
 AtMinHP:
-          .ldacolu COLRED, $8
-          sta COLUPF
+            .ldacolu COLRED, $8
+            sta COLUPF
+          .fi
 
 DrawHealthPF:
+          ldy # 0               ; XXX necessary?
+          sty pp0l
+          sty pp1l
+          sty pp2l
           cpx # 8
           bge FullPF2
+
           lda HealthyPF2, x
-          sta PF2
+          sta pp2l
           gne DoneHealth
 
 FullPF2:
-          lda #$ff
-          sta PF2
+          .mva pp2l, #$ff
           txa                   ; ∈ 8…99
-          clc
           and #$f8
-          ror a                  ; ∈ 4…50
-          ror a                  ; ∈ 2…25
-          ror a                  ; ∈ 1…12
+          lsr a                  ; ∈ 4…50
+          lsr a                  ; ∈ 2…25
+          lsr a                  ; ∈ 1…12
           tax
           cpx # 8
           bge FullPF1
+
           lda HealthyPF1, x
-          sta PF1
+          sta pp1l
           gne DoneHealth
 
 FullPF1:                        ; ∈ 8…12
           sec
           sbc # 8               ; ∈ 0…4
           tax
-          lda #$ff
-          sta PF1
+          .mva pp1l, #$ff
           lda HealthyPF2, x
-          sta PF0
+          sta pp0l
           ;; fall through
 
 DoneHealth:
+          stx WSYNC
+          .mva PF0, pp0l
+          .mva PF1, pp1l
+          .mva PF2, pp2l
           .SkipLines 4
-          lda # 0
-          sta PF0
-          sta PF1
-          sta PF2
+          ldy # 0
+          sty PF0
+          sty PF1
+          sty PF2
 ;;; 
           lda WhoseTurn
           beq PlayerChooseMove
@@ -223,40 +295,51 @@ PlayerChooseMove:
           lda StatusFX
           .BitBit StatusSleep
           beq NotAsleep
+
 Asleep:
           .ldacolu COLORANGE, $e
           sta COLUP0
           sta COLUP1
           .SetPointer SleepsText
           jsr CopyPointerText
+
           .FarJSR TextBank, ServiceDecodeAndShowText
+
           jmp ScreenDone
 
 NotAsleep:
           and #StatusMuddle
           beq NotMuddled
+
 Muddled:
           .ldacolu COLGRAY, $e
           sta COLUP0
           sta COLUP1
           .SetPointer MuddleText
           jsr CopyPointerText
+
           .FarJSR TextBank, ServiceDecodeAndShowText
+
           lda GameMode
           cmp #ModeCombatDoMove
           beq MoveOK
-          jmp ScreenDone
+
+          gne ScreenDone
 
 NotMuddled:
           ldx MoveSelection
           bne NotRunAway
-          .ldacolu COLRED , $a
+
+          .ldacolu COLRED, $a
           gne ShowSelectedMove
 
 NotRunAway:
+          stx WSYNC
+
           lda BitMask - 1, x
           bit MovesKnown
           beq NotMoveKnown
+
           .ldacolu COLTURQUOISE, $e
           gne ShowSelectedMove
 
@@ -266,89 +349,94 @@ NotMoveKnown:
 ShowSelectedMove:
           sta COLUP0
           sta COLUP1
-
+          stx WSYNC
           .FarJSR TextBank, ServiceShowMove
 
 UserControls:
           lda NewButtons
           beq ScreenDone
+
           and #PRESSED
           bne ScreenDone
 
 GoDoMove:
           ldx MoveSelection
           beq RunAway
+
           dex
           lda BitMask, x
           and MovesKnown
           bne DoUseMove
-MoveNotOK:
-          lda #SoundBump
-          sta NextSound
 
+MoveNotOK:
+          .mva NextSound, #SoundBump
           gne ScreenDone
 
 DoUseMove:
           ldx MoveTarget
           beq MoveOK
-          lda MonsterHP - 1, x
+
+          lda EnemyHP - 1, x
           beq MoveNotOK
+
 MoveOK:
-          lda #ModeCombat
-          sta GameMode
-          lda #SoundBlip
-          sta NextSound
+          .mva GameMode, #ModeCombat
+          .mva NextSound, #SoundBlip
           gne CombatAnnouncementScreen
 
 RunAway:
-          lda #SoundHappy
-          sta NextSound
+          .mva NextSound, #SoundHappy
+          .mva GameMode, #ModeMap
 
-          lda #ModeMap
-          sta GameMode
-          .if TV != NTSC
-          .SkipLines 19
-          .fi
-          ;; gne RunningAway
+          .switch TV
+          .case PAL
+            .SkipLines 17
+          .case SECAM
+            .SkipLines 19
+          .endswitch
 ;;; 
-RunningAway:
-          .if SECAM == TV
-          .SkipLines 1
-          .fi
-          .if PAL == TV
-          .SkipLines 3
-          .fi
 ScreenDone:
-
           lda GameMode
           cmp #ModeCombat
           bne Leave
+
 GoLoop:
           jmp Loop
 
 Leave:
           cmp #ModeCombatDoMove
           beq GoLoop
+
           cmp #ModeMap
-          bne +
-          .SkipLines 32
+          bne NotGoingToMap
+
+          .switch TV
+          .case PAL,SECAM
+            .SkipLines 32
+          .case NTSC
+            .SkipLines 31
+          .endswitch
           jmp GoMap
-+
+
+NotGoingToMap:
           cmp #ModeGrizzardStats
-          bne +
-          lda #ModeCombat
-          sta DeltaY
+          bne NotGoingToStats
+
+          .mva DeltaY, #ModeCombat
           .WaitScreenBottom
           .if NTSC != TV
-          .SkipLines 5
+            .SkipLines 5
           .fi
-          jmp GrizzardStatsScreen
-+
+	jmp GrizzardStatsScreen
+
+NotGoingToStats:
           cmp #ModeCombatAnnouncement
           beq CombatAnnouncementScreen
+
           cmp #ModeCombatNextTurn
           beq ExecuteCombatMove.NextTurn
-          brk
+
+          ;; brk ; same as $00 in the next byte
 ;;; 
 HealthyPF2:
           .byte %00000000
@@ -376,3 +464,5 @@ MuddleText:
           .MiniText "MUDDLE"
 
           .bend
+
+;;; Audited 2022-02-16 BRPocock

@@ -4,453 +4,453 @@
 MonsterColors:      .block
 
 WickedSlime:
-          .colu COLSPRINGGREEN, $e
-          .colu COLSPRINGGREEN, $c
-          .colu COLSPRINGGREEN, $a
-          .colu COLSPRINGGREEN, $8
-          .colu COLSPRINGGREEN, $6
-          .colu COLSPRINGGREEN, $4
-          .colu COLSPRINGGREEN, $2
-          .colu COLSPRINGGREEN, $0
+    	.mcolu COLSEAFOAM, $8
+	.mcolu COLSEAFOAM, $6
+	.mcolu COLGREEN, $6
+	.mcolu COLGREEN, $8
+	.mcolu COLGREEN, $6
+	.mcolu COLGREEN, $4
+	.mcolu COLSPRINGGREEN, $4
+	.mcolu COLSPRINGGREEN, $2
 
 HorridSlime:
-          .colu COLRED, $e
-          .colu COLRED, $c
-          .colu COLRED, $a
-          .colu COLRED, $8
-          .colu COLRED, $6
-          .colu COLRED, $4
-          .colu COLRED, $2
-          .colu COLRED, $0
+          .mcolu COLRED, $a
+          .mcolu COLRED, $8
+	.mcolu COLRED, $8
+	.mcolu COLRED, $A
+	.mcolu COLRED, $8
+	.mcolu COLRED, $6
+	.mcolu COLRED, $6
+	.mcolu COLRED, $4
 
 VorpalBunny:
-          .colu COLGOLD, $a
-          .colu COLGOLD, $a
-          .colu COLGOLD, $8
-          .colu COLGOLD, $8
-          .colu COLGOLD, $6
-          .colu COLGOLD, $6
-          .colu COLGOLD, $4
-          .colu COLGOLD, $4
+          .mcolu COLGOLD, $8
+          .mcolu COLGOLD, $8
+          .mcolu COLGOLD, $8
+          .mcolu COLGOLD, $4
+          .mcolu COLGOLD, $6
+          .mcolu COLGOLD, $4
+          .mcolu COLGOLD, $6
+          .mcolu COLGOLD, $2
 
 ROUS:
-          .colu COLBROWN, $e
-          .colu COLBROWN, $c
-          .colu COLBROWN, $a
-          .colu COLBROWN, $8
-          .colu COLBROWN, $6
-          .colu COLBROWN, $4
-          .colu COLBROWN, $2
-          .colu COLBROWN, $0
+       	.mcolu COLGOLD, $4
+	.mcolu COLGOLD, $6
+	.mcolu COLGOLD, $4
+	.mcolu COLGOLD, $6
+	.mcolu COLGOLD, $6
+	.mcolu COLGOLD, $6
+	.mcolu COLGOLD, $6
+	.mcolu COLGOLD, $4
 
 LectroSheep:
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
+          .mcolu COLTEAL, $6
+	.mcolu COLTEAL, $6
+	.mcolu COLTEAL, $6
+	.mcolu COLTEAL, $8
+	.mcolu COLTEAL, $8
+	.mcolu COLTEAL, $6
+	.mcolu COLTEAL, $4
+	.mcolu COLTEAL, $4
 
 VikingTurtle:
-          .colu COLTURQUOISE, $8
-          .colu COLTURQUOISE, $8
-          .colu COLTURQUOISE, $8
-          .colu COLTURQUOISE, $8
-          .colu COLTURQUOISE, $8
-          .colu COLTURQUOISE, $8
-          .colu COLTURQUOISE, $8
-          .colu COLTURQUOISE, $8
+         	.mcolu COLTEAL, $8
+	.mcolu COLTEAL, $8
+	.mcolu COLSEAFOAM, $8
+	.mcolu COLSEAFOAM, $6
+	.mcolu COLSEAFOAM, $6
+	.mcolu COLSEAFOAM, $6
+	.mcolu COLSEAFOAM, $6
+	.mcolu COLSEAFOAM, $4
 
 CrazyFox:
-          .colu COLRED, $e
-          .colu COLRED, $e
-          .colu COLRED, $e
-          .colu COLRED, $e
-          .colu COLRED, $e
-          .colu COLRED, $e
-          .colu COLRED, $e
-          .colu COLRED, $e
+         	.mcolu COLRED, $6
+	.mcolu COLRED, $6
+	.mcolu COLRED, $2
+	.mcolu COLRED, $4
+	.mcolu COLRED, $2
+	.mcolu COLRED, $4
+	.mcolu COLRED, $4
+	.mcolu COLRED, $2
 
 WaterKitty:
-          .colu COLBLUE, $e
-          .colu COLBLUE, $e
-          .colu COLBLUE, $e
-          .colu COLBLUE, $e
-          .colu COLBLUE, $e
-          .colu COLBLUE, $e
-          .colu COLBLUE, $e
-          .colu COLBLUE, $e
+          .mcolu COLCYAN, $8
+	.mcolu COLCYAN, $6
+	.mcolu COLCYAN, $8
+	.mcolu COLCYAN, $6
+	.mcolu COLCYAN, $6
+	.mcolu COLCYAN, $6
+	.mcolu COLTEAL, $6
+	.mcolu COLCYAN, $4
 
 FlameDoggo:
-          .colu COLYELLOW, $c
-          .colu COLYELLOW, $c
-          .colu COLORANGE, $c
-          .colu COLORANGE, $c
-          .colu COLRED, $c
-          .colu COLRED, $c
-          .colu COLMAGENTA, $c
-          .colu COLMAGENTA, $c
+       	.mcolu COLYELLOW, $E
+	.mcolu COLBROWN, $C
+	.mcolu COLORANGE, $A
+	.mcolu COLRED, $A
+	.mcolu COLMAGENTA, $A
+	.mcolu COLRED, $A
+	.mcolu COLRED, $8
+	.mcolu COLORANGE, $8
 
 CreepySpider:
-          colu COLBROWN, $8
-          colu COLBROWN, $8
-          colu COLBROWN, $8
-          colu COLBROWN, $8
-          colu COLBROWN, $8
-          colu COLBROWN, $8
-          colu COLBROWN, $8
-          colu COLBROWN, $8
+       	.mcolu COLGRAY, $0
+	.mcolu COLGOLD, $6
+	.mcolu COLGOLD, $8
+	.mcolu COLGOLD, $6
+	.mcolu COLGOLD, $4
+	.mcolu COLGOLD, $2
+	.mcolu COLGOLD, $2
+	.mcolu COLGOLD, $2
 
 MetalMouse:
-          .colu COLGRAY, $6
-          .colu COLGRAY, $6
-          .colu COLGRAY, $6
-          .colu COLGRAY, $6
-          .colu COLGRAY, $6
-          .colu COLGRAY, $6
-          .colu COLGRAY, $6
-          .colu COLGRAY, $6
+	.mcolu COLGRAY, $A
+	.mcolu COLGRAY, $C
+	.mcolu COLCYAN, $E
+	.mcolu COLGRAY, $8
+	.mcolu COLGRAY, $A
+	.mcolu COLGRAY, $8
+	.mcolu COLGRAY, $A
+	.mcolu COLGRAY, $6
 
 FirePanda:
-          .colu COLORANGE, $e
-          .colu COLORANGE, $e
-          .colu COLORANGE, $e
-          .colu COLORANGE, $e
-          .colu COLORANGE, $e
-          .colu COLORANGE, $e
-          .colu COLORANGE, $e
-          .colu COLORANGE, $e
+       	.mcolu COLBROWN, $E
+	.mcolu COLYELLOW, $E
+	.mcolu COLYELLOW, $C
+	.mcolu COLBROWN, $A
+	.mcolu COLYELLOW, $A
+	.mcolu COLBROWN, $8
+	.mcolu COLORANGE, $6
+	.mcolu COLORANGE, $4
 
 LeggyMutant:
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
+        	.mcolu COLBLUE, $6
+	.mcolu COLBLUE, $8
+	.mcolu COLBLUE, $6
+	.mcolu COLBLUE, $6
+	.mcolu COLBLUE, $4
+	.mcolu COLBLUE, $4
+	.mcolu COLBLUE, $4
+	.mcolu COLBLUE, $4
 
 SkyMutant:
-          .colu COLRED, $8
-          .colu COLRED, $8
-          .colu COLRED, $8
-          .colu COLRED, $8
-          .colu COLRED, $8
-          .colu COLRED, $8
-          .colu COLRED, $8
-          .colu COLRED, $8
+       	.mcolu COLRED, $4
+	.mcolu COLRED, $4
+	.mcolu COLRED, $2
+	.mcolu COLRED, $4
+	.mcolu COLRED, $2
+	.mcolu COLRED, $2
+	.mcolu COLRED, $4
+	.mcolu COLRED, $4
 
 WillOWisp:
-          .colu COLCYAN, $e
-          .colu COLCYAN, $e
-          .colu COLCYAN, $e
-          .colu COLCYAN, $e
-          .colu COLCYAN, $e
-          .colu COLCYAN, $e
-          .colu COLCYAN, $e
-          .colu COLCYAN, $e
+        	.mcolu COLCYAN, $C
+	.mcolu COLCYAN, $A
+	.mcolu COLCYAN, $E
+	.mcolu COLGRAY, $E
+	.mcolu COLCYAN, $E
+	.mcolu COLCYAN, $A
+	.mcolu COLCYAN, $C
+	.mcolu COLGRAY, $0
 
 ButterFly:
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
+       	.mcolu COLGOLD, $A
+	.mcolu COLBLUE, $8
+	.mcolu COLINDIGO, $8
+	.mcolu COLINDIGO, $8
+	.mcolu COLBLUE, $8
+	.mcolu COLBLUE, $8
+	.mcolu COLINDIGO, $8
+	.mcolu COLINDIGO, $6
 
 ScaryRat:
-          .colu COLBROWN, $8
-          .colu COLBROWN, $8
-          .colu COLBROWN, $8
-          .colu COLBROWN, $8
-          .colu COLBROWN, $8
-          .colu COLBROWN, $8
-          .colu COLBROWN, $8
-          .colu COLBROWN, $8
+	.mcolu COLBROWN, $6
+	.mcolu COLBROWN, $8
+	.mcolu COLBROWN, $6
+	.mcolu COLBROWN, $8
+	.mcolu COLBROWN, $6
+	.mcolu COLBROWN, $8
+	.mcolu COLBROWN, $6
+	.mcolu COLRED, $4
 
 CaveGrue:
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
+       	.mcolu COLBLUE, $A
+	.mcolu COLTURQUOISE, $8
+	.mcolu COLBLUE, $6
+	.mcolu COLTURQUOISE, $8
+	.mcolu COLTURQUOISE, $6
+	.mcolu COLTURQUOISE, $8
+	.mcolu COLTURQUOISE, $6
+	.mcolu COLTURQUOISE, $4
 
 CaveBat:
-          .colu COLGRAY, $4
-          .colu COLGRAY, $4
-          .colu COLGRAY, $4
-          .colu COLGRAY, $4
-          .colu COLGRAY, $4
-          .colu COLGRAY, $4
-          .colu COLGRAY, $4
-          .colu COLGRAY, $4
+       	.mcolu COLGRAY, $4
+	.mcolu COLGRAY, $4
+	.mcolu COLGRAY, $6
+	.mcolu COLGRAY, $4
+	.mcolu COLGRAY, $4
+	.mcolu COLGRAY, $4
+	.mcolu COLGRAY, $4
+	.mcolu COLGRAY, $4
 
 VenomSheep:
-          .colu COLGREEN, $f
-          .colu COLGREEN, $f
-          .colu COLGREEN, $f
-          .colu COLGREEN, $f
-          .colu COLGREEN, $f
-          .colu COLGREEN, $f
-          .colu COLGREEN, $f
-          .colu COLGREEN, $f
+	.mcolu COLPURPLE, $A
+	.mcolu COLPURPLE, $A
+	.mcolu COLPURPLE, $A
+	.mcolu COLMAGENTA, $A
+	.mcolu COLMAGENTA, $A
+	.mcolu COLPURPLE, $A
+	.mcolu COLPURPLE, $6
+	.mcolu COLPURPLE, $6
 
 Cyclops:
-          .colu COLPURPLE, $8
-          .colu COLPURPLE, $8
-          .colu COLPURPLE, $8
-          .colu COLPURPLE, $8
-          .colu COLPURPLE, $8
-          .colu COLPURPLE, $8
-          .colu COLPURPLE, $8
-          .colu COLPURPLE, $8
+          .mcolu COLPURPLE, $A
+	.mcolu COLPURPLE, $C
+	.mcolu COLPURPLE, $C
+	.mcolu COLPURPLE, $A
+	.mcolu COLPURPLE, $A
+	.mcolu COLPURPLE, $A
+	.mcolu COLPURPLE, $A
+	.mcolu COLPURPLE, $8
 
 FierceRaptor:
-          .colu COLORANGE, $8
-          .colu COLORANGE, $8
-          .colu COLORANGE, $8
-          .colu COLORANGE, $8
-          .colu COLORANGE, $8
-          .colu COLORANGE, $8
-          .colu COLORANGE, $8
-          .colu COLORANGE, $8
+        	.mcolu COLRED, $6
+	.mcolu COLRED, $6
+	.mcolu COLRED, $6
+	.mcolu COLRED, $6
+	.mcolu COLRED, $8
+	.mcolu COLRED, $6
+	.mcolu COLBROWN, $4
+	.mcolu COLBROWN, $4
 
 DevilSkull:
-          .colu COLRED, $8
-          .colu COLRED, $8
-          .colu COLRED, $8
-          .colu COLRED, $8
-          .colu COLRED, $8
-          .colu COLRED, $8
-          .colu COLRED, $8
-          .colu COLRED, $8
+	.mcolu COLBROWN, $8
+	.mcolu COLORANGE, $8
+	.mcolu COLORANGE, $A
+	.mcolu COLORANGE, $8
+	.mcolu COLBROWN, $8
+	.mcolu COLORANGE, $6
+	.mcolu COLORANGE, $6
+	.mcolu COLORANGE, $6
 
 RoundRobin:
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
+ 	.mcolu COLBLUE, $8
+	.mcolu COLBLUE, $6
+	.mcolu COLBLUE, $6
+	.mcolu COLBLUE, $6
+	.mcolu COLBLUE, $8
+	.mcolu COLBLUE, $6
+	.mcolu COLBROWN, $4
+	.mcolu COLBROWN, $4
 
 GiantCrab:
-          .colu COLTURQUOISE, $8
-          .colu COLTURQUOISE, $8
-          .colu COLTURQUOISE, $8
-          .colu COLTURQUOISE, $8
-          .colu COLTURQUOISE, $8
-          .colu COLTURQUOISE, $8
-          .colu COLTURQUOISE, $8
-          .colu COLTURQUOISE, $8
+	.mcolu COLBLUE, $C
+	.mcolu COLBLUE, $C
+	.mcolu COLBLUE, $A
+	.mcolu COLBLUE, $A
+	.mcolu COLINDIGO, $A
+	.mcolu COLINDIGO, $8
+	.mcolu COLINDIGO, $8
+	.mcolu COLINDIGO, $8
 
 BiggerCrab:
-          .colu COLCYAN, $8
-          .colu COLCYAN, $8
-          .colu COLCYAN, $8
-          .colu COLCYAN, $8
-          .colu COLCYAN, $8
-          .colu COLCYAN, $8
-          .colu COLCYAN, $8
-          .colu COLCYAN, $8
-          
+	.mcolu COLRED, $8
+	.mcolu COLRED, $8
+	.mcolu COLMAGENTA, $8
+	.mcolu COLPURPLE, $8
+	.mcolu COLINDIGO, $8
+	.mcolu COLINDIGO, $8
+	.mcolu COLINDIGO, $8
+	.mcolu COLINDIGO, $8
+
 MeanRobber:
-          .colu COLBROWN, $e
-          .colu COLBROWN, $e
-          .colu COLBROWN, $e
-          .colu COLBROWN, $e
-          .colu COLBROWN, $e
-          .colu COLBROWN, $e
-          .colu COLBROWN, $e
-          .colu COLBROWN, $e
+	.mcolu COLGOLD, $2
+	.mcolu COLGOLD, $A
+	.mcolu COLBLUE, $8
+	.mcolu COLGRAY, $0
+	.mcolu COLGOLD, $A
+	.mcolu COLGOLD, $A
+	.mcolu COLGOLD, $A
+	.mcolu COLBLUE, $2
 
 GiantSlime:
-          .colu COLINDIGO, $8
-          .colu COLINDIGO, $8
-          .colu COLINDIGO, $8
-          .colu COLINDIGO, $8
-          .colu COLINDIGO, $8
-          .colu COLINDIGO, $8
-          .colu COLINDIGO, $8
-          .colu COLINDIGO, $8
+         	.mcolu COLTEAL, $C
+	.mcolu COLTEAL, $A
+	.mcolu COLTEAL, $C
+	.mcolu COLTEAL, $C
+	.mcolu COLTEAL, $A
+	.mcolu COLTEAL, $A
+	.mcolu COLTEAL, $A
+	.mcolu COLTEAL, $8
 
 DragonFred:
-          .colu COLBLUE, $0
-          .colu COLBLUE, $0
-          .colu COLBLUE, $0
-          .colu COLBLUE, $0
-          .colu COLBLUE, $0
-          .colu COLBLUE, $0
-          .colu COLBLUE, $0
-          .colu COLBLUE, $0
+	.mcolu COLBLUE, $A
+	.mcolu COLTURQUOISE, $8
+	.mcolu COLTURQUOISE, $8
+	.mcolu COLTURQUOISE, $8
+	.mcolu COLTURQUOISE, $6
+	.mcolu COLTURQUOISE, $6
+	.mcolu COLTURQUOISE, $6
+	.mcolu COLBLUE, $4
 
 DragonAndrew:
-          .colu COLCYAN, $4
-          .colu COLCYAN, $4
-          .colu COLCYAN, $4
-          .colu COLCYAN, $4
-          .colu COLCYAN, $4
-          .colu COLCYAN, $4
-          .colu COLCYAN, $4
-          .colu COLCYAN, $4
+	.mcolu COLTEAL, $C
+	.mcolu COLTEAL, $A
+	.mcolu COLTEAL, $A
+	.mcolu COLTEAL, $A
+	.mcolu COLTEAL, $8
+	.mcolu COLTEAL, $8
+	.mcolu COLTEAL, $8
+	.mcolu COLTEAL, $6
 
 DragonTimmy:
-          .colu COLSPRINGGREEN, $e
-          .colu COLGREEN, $e
-          .colu COLGREEN, $c
-          .colu COLGREEN, $c
-          .colu COLGREEN, $a
-          .colu COLGREEN, $a
-          .colu COLGREEN, $8
-          .colu COLSPRINGGREEN, $8
+	.mcolu COLSEAFOAM, $8
+	.mcolu COLSEAFOAM, $6
+	.mcolu COLSEAFOAM, $6
+	.mcolu COLSEAFOAM, $6
+	.mcolu COLSEAFOAM, $4
+	.mcolu COLSEAFOAM, $4
+	.mcolu COLSEAFOAM, $4
+	.mcolu COLSEAFOAM, $2
 
 UberSlime:
-          .colu COLBROWN, $f
-          .colu COLBROWN, $f
-          .colu COLBROWN, $f
-          .colu COLBROWN, $f
-          .colu COLBROWN, $f
-          .colu COLBROWN, $f
-          .colu COLBROWN, $f
-          .colu COLBROWN, $f
+         	.mcolu COLBROWN, $C
+	.mcolu COLSPRINGGREEN, $6
+	.mcolu COLGOLD, $8
+	.mcolu COLGOLD, $8
+	.mcolu COLSPRINGGREEN, $6
+	.mcolu COLSPRINGGREEN, $6
+	.mcolu COLSPRINGGREEN, $6
+	.mcolu COLGOLD, $4
 
 FlyingSkull:
-          .colu COLTURQUOISE, $e
-          .colu COLTURQUOISE, $e
-          .colu COLTURQUOISE, $e
-          .colu COLTURQUOISE, $e
-          .colu COLTURQUOISE, $e
-          .colu COLTURQUOISE, $e
-          .colu COLTURQUOISE, $e
-          .colu COLTURQUOISE, $e
+	.mcolu COLGRAY, $A
+	.mcolu COLGRAY, $8
+	.mcolu COLGRAY, $A
+	.mcolu COLGRAY, $8
+	.mcolu COLGRAY, $8
+	.mcolu COLGRAY, $6
+	.mcolu COLGRAY, $8
+	.mcolu COLGRAY, $8
 
 CrazySkull:
-          .colu COLMAGENTA, $a
-          .colu COLMAGENTA, $a
-          .colu COLMAGENTA, $a
-          .colu COLMAGENTA, $a
-          .colu COLMAGENTA, $a
-          .colu COLMAGENTA, $a
-          .colu COLMAGENTA, $a
-          .colu COLMAGENTA, $a
+	.mcolu COLMAGENTA, $A
+	.mcolu COLMAGENTA, $8
+	.mcolu COLMAGENTA, $A
+	.mcolu COLMAGENTA, $8
+	.mcolu COLMAGENTA, $8
+	.mcolu COLMAGENTA, $6
+	.mcolu COLMAGENTA, $8
+	.mcolu COLMAGENTA, $6
 
 GreatWyrm:
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
+	.mcolu COLBLUE, $6
+	.mcolu COLBLUE, $4
+	.mcolu COLBLUE, $6
+	.mcolu COLBLUE, $4
+	.mcolu COLBLUE, $6
+	.mcolu COLBLUE, $4
+	.mcolu COLBLUE, $6
+	.mcolu COLBLUE, $4
 
 PoisonAsp:
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
+	.mcolu COLGOLD, $6
+	.mcolu COLGOLD, $6
+	.mcolu COLGOLD, $4
+	.mcolu COLSPRINGGREEN, $6
+	.mcolu COLSPRINGGREEN, $6
+	.mcolu COLSPRINGGREEN, $6
+	.mcolu COLGOLD, $4
+	.mcolu COLGOLD, $2
 
 GrabbyCrabby:
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
+	.mcolu COLGOLD, $C
+	.mcolu COLGOLD, $C
+	.mcolu COLYELLOW, $C
+	.mcolu COLBROWN, $C
+	.mcolu COLBROWN, $8
+	.mcolu COLBROWN, $8
+	.mcolu COLBROWN, $8
+	.mcolu COLBROWN, $8
 
 GiantBat:
-          .colu COLGRAY, $4
-          .colu COLGRAY, $4
-          .colu COLGRAY, $4
-          .colu COLGRAY, $4
-          .colu COLGRAY, $4
-          .colu COLGRAY, $4
-          .colu COLGRAY, $4
-          .colu COLGRAY, $4
+          .mcolu COLGOLD, $4
+          .mcolu COLGOLD, $4
+          .mcolu COLGOLD, $6
+          .mcolu COLGOLD, $8
+          .mcolu COLGOLD, $6
+          .mcolu COLGOLD, $4
+          .mcolu COLGOLD, $4
+          .mcolu COLGOLD, $4
 
 MazeJaguar:
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
-          .colu COLBLUE, $8
+	.mcolu COLORANGE, $8
+	.mcolu COLORANGE, $6
+	.mcolu COLORANGE, $8
+	.mcolu COLORANGE, $6
+	.mcolu COLBROWN, $4
+	.mcolu COLBROWN, $4
+	.mcolu COLBROWN, $4
+	.mcolu COLORANGE, $4
 
 GiantSpider:
-          .colu COLORANGE, $e
-          .colu COLORANGE, $e
-          .colu COLORANGE, $e
-          .colu COLORANGE, $e
-          .colu COLORANGE, $e
-          .colu COLORANGE, $e
-          .colu COLORANGE, $e
-          .colu COLORANGE, $e
+          .mcolu COLRED, $2
+          .mcolu COLRED, $2
+          .mcolu COLORANGE, $2
+          .mcolu COLBROWN, $2
+          .mcolu COLRED, $2
+          .mcolu COLRED, $2
+          .mcolu COLRED, $2
+          .mcolu COLRED, $2
 
 FireDrake:
-          .colu COLORANGE, $8
-          .colu COLORANGE, $8
-          .colu COLORANGE, $8
-          .colu COLORANGE, $8
-          .colu COLORANGE, $8
-          .colu COLORANGE, $8
-          .colu COLORANGE, $8
-          .colu COLORANGE, $8
+	.mcolu COLRED, $8
+	.mcolu COLRED, $6
+	.mcolu COLRED, $6
+	.mcolu COLRED, $6
+	.mcolu COLRED, $4
+	.mcolu COLRED, $4
+	.mcolu COLRED, $4
+	.mcolu COLORANGE, $4
 
-Monster41:
-          .colu COLGRAY, $0
-          .colu COLGRAY, $0
-          .colu COLGRAY, $0
-          .colu COLGRAY, $0
-          .colu COLGRAY, $0
-          .colu COLGRAY, $0
-          .colu COLGRAY, $0
-          .colu COLGRAY, $0
+ManBull:
+	.mcolu COLGOLD, $C
+	.mcolu COLGOLD, $C
+	.mcolu COLGOLD, $4
+	.mcolu COLGOLD, $6
+	.mcolu COLGOLD, $4
+	.mcolu COLGOLD, $4
+	.mcolu COLGOLD, $2
+	.mcolu COLORANGE, $2
 
-Monster42:
-          .colu COLGRAY, $0
-          .colu COLGRAY, $0
-          .colu COLGRAY, $0
-          .colu COLGRAY, $0
-          .colu COLGRAY, $0
-          .colu COLGRAY, $0
-          .colu COLGRAY, $0
-          .colu COLGRAY, $0
+RadishGoblin:
+	.mcolu COLSEAFOAM, $4
+	.mcolu COLSEAFOAM, $2
+	.mcolu COLRED, $6
+	.mcolu COLRED, $4
+	.mcolu COLRED, $4
+	.mcolu COLRED, $6
+	.mcolu COLMAGENTA, $8
+	.mcolu COLMAGENTA, $6
 
-Monster43:
-          .colu COLGRAY, $0
-          .colu COLGRAY, $0
-          .colu COLGRAY, $0
-          .colu COLGRAY, $0
-          .colu COLGRAY, $0
-          .colu COLGRAY, $0
-          .colu COLGRAY, $0
-          .colu COLGRAY, $0
+TurnipGoblin:
+          .mcolu COLSEAFOAM, $4
+	.mcolu COLSEAFOAM, $2
+	.mcolu COLGOLD, $C
+	.mcolu COLGOLD, $A
+	.mcolu COLGOLD, $A
+	.mcolu COLGOLD, $8
+	.mcolu COLGRAY, $8
+	.mcolu COLGRAY, $6
 
-Monster44:
-          .colu COLGRAY, $0
-          .colu COLGRAY, $0
-          .colu COLGRAY, $0
-          .colu COLGRAY, $0
-          .colu COLGRAY, $0
-          .colu COLGRAY, $0
-          .colu COLGRAY, $0
-          .colu COLGRAY, $0
+AnubisJackal:
+	.mcolu COLBLUE, $4
+	.mcolu COLTURQUOISE, $6
+	.mcolu COLBLUE, $4
+	.mcolu COLBLUE, $2
+	.mcolu COLINDIGO, $2
+	.mcolu COLINDIGO, $2
+	.mcolu COLINDIGO, $2
+	.mcolu COLPURPLE, $2
 
           .bend

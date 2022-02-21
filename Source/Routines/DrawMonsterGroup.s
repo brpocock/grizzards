@@ -1,30 +1,37 @@
 ;;; Grizzards Source/Routines/DrawMonsterGroup.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
-          .if BANK == 3
-          .fill $00             ; XXX alignment
-          .fi
 DrawMonsterGroup:   .block
 
+          CursorBits = pp5h
+          CursorWidth = %11111100
+
           .if !DEMO
-          jsr GetMonsterColors
+            jsr GetMonsterColors
+          .fi
+
+          .if PAL == TV
+            stx WSYNC
           .fi
 
 GetMonsterPointer:
-          lda #>MonsterArt
-          sta pp4h
+          .mva pp4h, #>MonsterArt
 
 GetMonsterArtPointer:
-          lda CurrentMonsterArt
-          clc
+          ldx CurrentMonsterArt
 
-          tax
+          clc
 ;;; 
-          .if !DEMO
+          .if !DEMO             ; demo does not have room for MonsterArt2
+
 GetAnimationFrame:
           lda #$20
           bit ClockFrame
-          beq GotFrame
+          .if SECAM == TV
+            beq Frame1
+          .else
+            beq GotFrame
+          .fi
           ;; skip over the MonsterArt to get to the MonsterArt2 frames
           txa
           ;; clc ; not needed, BIT does not affect Carry, still clear here
@@ -34,8 +41,14 @@ GetAnimationFrame:
 +
           clc
           tax
-GotFrame:
+
+          .if SECAM == TV
+            gcc GotFrame
+Frame1:
+            stx WSYNC
           .fi
+GotFrame:
+          .fi                   ; if !DEMO
 ;;; 
           ldy # 0
           lda # 1
@@ -65,34 +78,35 @@ PrepareToDrawMonsters:
           sty VDELP0
           sty VDELP1
           sty NUSIZ0
-          sty pp5h
-          lda #NUSIZDouble
-          sta NUSIZ1
+          sty CursorBits
+          .mva NUSIZ1, #NUSIZDouble
 ;;; 
 SetCursorColor:
-
           .if TV == SECAM
 
-          lda #COLWHITE
-          sta COLUP1
+            .mva COLUP1, #COLWHITE
+            ldx MoveTarget
+            bne +
+            stx WSYNC
++
 
           .else
 
-          ldx MoveTarget
-          bne TargetIsMonster
-          .SkipLines 4
-          jmp CursorColored
+            ldx MoveTarget
+            bne TargetIsMonster
+            .SkipLines 3
+            jmp CursorColored
 
 TargetIsMonster:
-          lda MonsterHP - 1, x
-          beq MonsterGone
-          .ldacolu COLGRAY, $0
-          geq SetColor
+            lda EnemyHP - 1, x
+            beq MonsterGone
+            lda # 0               ; black
+            geq SetColor
 
 MonsterGone:
-          .ldacolu COLGRAY, $e
+            .ldacolu COLGRAY, $e
 SetColor:
-          sta COLUP1
+            sta COLUP1
 CursorColored:
 
           .fi
@@ -107,22 +121,24 @@ PrepareTopCursor:
           dex                   ; get column number
           dex                   ; for monsters 4-6
           dex
-          
+
 NoTopTarget:
           ldy # 0
-          sty pp5h
+          sty CursorBits
           lda MoveTarget
-          beq CursorReady
-
-          gne SetUpCursor
+          bne SetUpCursor
+          .if SECAM == TV
+            .SkipLines 2
+          .fi
+          jmp CursorReady
 
 TopTarget:
-          lda #%11111100
-          sta pp5h
+          .mva CursorBits, #CursorWidth
 SetUpCursor:
           dex
-;;; 
-          .align $10, $ea       ; XXX alignment NOPs
+          jmp PositionCursor
+;;;
+          .align $10       ; XXX alignment
 PositionCursor:
           stx HMCLR
 
@@ -148,15 +164,15 @@ CursorReady:
 
 PrepareTopMonsters:
           lda # 0
-          ldx MonsterHP + 0
+          ldx EnemyHP + 0
           beq +
           ora #$01
 +
-          ldx MonsterHP + 1
+          ldx EnemyHP + 1
           beq +
           ora #$02
 +
-          ldx MonsterHP + 2
+          ldx EnemyHP + 2
           beq +
           ora #$04
 +
@@ -181,42 +197,41 @@ PrepareBottomCursor:
           ldx MoveTarget
           beq NoBottomTarget
 
-          stx WSYNC
+          .if SECAM == TV
+            stx WSYNC
+          .fi
           stx WSYNC
           cpx # 4
           bge BottomTarget
 
 NoBottomTarget:
-          sty pp5h
+          sty CursorBits
           jmp PrepareBottomMonsters
 
 BottomTarget:
-          lda #%11111100
-          sta pp5h
+          .mva CursorBits, #CursorWidth
 
 PrepareBottomMonsters:
+          .mva HMP1, #$80              ; don't move cursor again
+
           lda # 0
-          ldx MonsterHP + 3
+          ldx EnemyHP + 3
           beq +
           ora #$01
 +
-          ldx MonsterHP + 4
+          ldx EnemyHP + 4
           beq +
           ora #$02
 +
-          ldx MonsterHP + 5
+          ldx EnemyHP + 5
           beq +
           ora #$04
 +
           tax
-
-          lda #$80              ; don't move cursor again
-          sta HMP1
-
-          cpx # 0
           bne PositionBottomMonsters
 
           jsr DrawNothing
+
           jmp FinishUp
 
 PositionBottomMonsters:
@@ -227,17 +242,10 @@ DrawBottomMonsters:
           ;; fall through
 ;;; 
 FinishUp:
-          sty GRP0
+          sty GRP0              ; Y = 0
           sty GRP1
           sty REFP0
           lda MoveTarget
-
-          .if SECAM == TV
-          bne +
-          stx WSYNC
-+
-          .SkipLines 3
-          .fi
 
           rts
 ;;; 
@@ -258,15 +266,13 @@ GrossPositionMonsters:
 
           .endp
 
-          lda SpritePosition, x
-          sta HMP0
-
           stx WSYNC
-          .SleepX 71
+          lda SpritePosition, x ; 4
+          sta HMP0              ; 3
+          .SleepX 71 - 7
           stx HMOVE
 
-          lda pp5h
-          sta GRP1
+          .mva GRP1, CursorBits
           rts
 ;;; 
 DrawMonsters:
@@ -277,12 +283,15 @@ DrawMonsterLoop:
           sta GRP0
 
           .if !DEMO
-          lda PixelPointers, x
-          sta COLUP0
+            lda PixelPointers, x
+            sta COLUP0
           .fi
 
           stx WSYNC
           stx WSYNC
+          .if TV != NTSC
+            stx WSYNC
+          .fi
           inx
           dey
           bpl DrawMonsterLoop
@@ -293,28 +302,31 @@ DrawMonsterLoop:
           ;; must return with Y=0 and Z flag set
           rts
 ;;; 
-          .page
 DrawNothing:
 
           ldy # 0
           sty GRP0
 
+          .page
           stx WSYNC
           .SleepX 71
           stx HMOVE
-
           .endp
 
-          lda pp5h
-          sta GRP1
+          .mva GRP1, CursorBits
 
-          .if TV == NTSC
-            .SkipLines 16
-          .else
-            .SkipLines 24
-          .fi
+          .switch TV
+          .case NTSC
+            .SkipLines 17
+          .case PAL
+            .SkipLines 25
+          .case SECAM
+            .SkipLines 25
+          .endswitch
 
           stx HMCLR
           rts                   ; return with Y = 0
 ;;; 
           .bend
+
+;;; Audited 2022-02-16 BRPocock

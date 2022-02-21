@@ -17,55 +17,69 @@
           .include "Title1.s"
 
           .if DEMO
-          .align $100, 0
-          .include "Source/Generated/Bank0d/Grizzard1-0.s"
-          .align $100, 0
-          .include "Source/Generated/Bank0d/Grizzard1-1.s"
-          Title2=Grizzard10
-          Title3=Grizzard11
+            .align $100
+            .include "Source/Generated/Bank0d/Grizzard1-0.s"
+            .align $100
+            .include "Source/Generated/Bank0d/Grizzard1-1.s"
+            Title2=Grizzard10
+            Title3=Grizzard11
           .fi
 
-          .align $100, 0
+          .align $100
           .if PUBLISHER
             .include "AtariAgeLogo.s"
-            .align $100, 0
+            .align $100
             .include "AtariAgeText.s"
           .else
             .include "BRPCredit.s"
-            .align $100, 0
+            .align $100
             .fill 66, 0            ; leave space for publisher name
           .fi
 
+          .include "Prepare48pxMobBlob.s"
           .include "ShowPicture.s"
 
 DoLocal:
           cpy #ServiceColdStart
           beq ColdStart
+
           cpy #ServiceSaveToSlot
           beq SaveToSlot
+
           cpy #ServicePeekGrizzard
           beq PeekGrizzard
+
+          .if !DEMO
+            cpy #ServicePeekGrizzardXP
+            beq PeekGrizzardXP
+          .fi
+
           cpy #ServiceSaveGrizzard
           beq SaveGrizzard
+
           cpy #ServiceAttract
           beq Attract.WarmStart
 
           .if !NOSAVE
-          cpy #ServiceLoadGrizzard
-          beq LoadGrizzardData
-          cpy #ServiceSetCurrentGrizzard
-          beq SetCurrentGrizzard
+            cpy #ServiceLoadGrizzard
+            beq LoadGrizzardData
+
+            cpy #ServiceSetCurrentGrizzard
+            beq SetCurrentGrizzard
           .fi
 
           .if !DEMO
-          cpy #ServiceSaveProvinceData
-          beq SaveProvinceData
-          cpy #ServiceLoadProvinceData
-          beq LoadProvinceData
-          cpy #ServiceChooseGrizzard
-          beq GrizzardChooser
-          cpy #ServiceConfirmNewGame
-          beq ConfirmNewGame
+            cpy #ServiceSaveProvinceData
+            beq SaveProvinceData
+
+            cpy #ServiceLoadProvinceData
+            beq LoadProvinceData
+
+            cpy #ServiceChooseGrizzard
+            beq GrizzardChooser
+
+            cpy #ServiceConfirmNewGame
+            beq ConfirmNewGame
           .fi
 
           brk
@@ -81,77 +95,70 @@ DoLocal:
 
           .if NOSAVE
 
-          ;; Dummy out SaveKey routines
-SaveToSlot:
-SaveGrizzard:
-          rts
-PeekGrizzard:
-          lda Temp
-          cmp # 1
-          beq +
-          clc
-          rts
+            ;; Dummy out SaveKey routines
+SaveToSlot:                     ; NOSAVE
+SaveGrizzard:                   ; NOSAVE
+            rts
+PeekGrizzard:                   ; NOSAVE
+            lda Temp
+            cmp # 1
+            beq +
+            clc
+            rts
 +
-          sec
-          rts
+            sec
+            rts
 
-          .include "BeginOrResume.s"
+            .include "BeginOrResume.s"
 
-          .else
-          
-          .include "SaveToSlot.s"
-          .include "PeekGrizzard.s"
-          .include "SelectSlot.s"
-          .include "LoadSaveSlot.s"
+          .else                 ; Not the NOSAVE build
 
-          .if ATARIAGESAVE
-          .include "AtariAgeSave-EEPROM-Driver.s"
-          .else
-          .include "AtariVox-EEPROM-Driver.s"
-          .fi
+            .include "SaveToSlot.s"
+            .include "PeekGrizzard.s"
+            .if !DEMO
+              .include "PeekGrizzardXP.s"
+            .fi
+            .include "SelectSlot.s"
+            .include "LoadSaveSlot.s"
 
-          .include "CheckSaveSlot.s"
-          .include "LoadGrizzardData.s"
-          .include "LoadProvinceData.s"
-          .include "SaveProvinceData.s"
-          .include "EraseSlotSignature.s"
-          .include "SetGrizzardAddress.s"
-          .include "SaveGrizzard.s"
-          .include "SetCurrentGrizzard.s"
+            .if ATARIAGESAVE
+              .include "AtariAgeSave-EEPROM-Driver.s"
+            .else
+              .include "AtariVox-EEPROM-Driver.s"
+            .fi
+
+            .include "CheckSaveSlot.s"
+            .include "LoadGrizzardData.s"
+            .include "LoadProvinceData.s"
+            .include "SaveProvinceData.s"
+            .include "EraseSlotSignature.s"
+            .include "SetGrizzardAddress.s"
+            .include "SaveGrizzard.s"
+            .include "SetCurrentGrizzard.s"
 
           .fi
 
           .if DEMO
-          .include "DrawStarter.s"
+            .include "DrawStarter.s"
           .else
-          .include "GrizzardChooser.s"
-          .include "ConfirmNewGame.s"
-          .include "Unerase.s"
+            .include "GrizzardChooser.s"
+            .include "ConfirmNewGame.s"
+            .include "Unerase.s"
           .fi
 
           .include "Random.s"
           .include "48Pixels.s"
-          .include "Prepare48pxMobBlob.s"
           .include "VSync.s"
           .include "VBlank.s"
-          
+
           .include "PreambleAttracts.s"
           .include "AttractCopyright.s"
           .include "Credits.s"
           .include "CopyPointerText.s"
           .include "CopyPointerText12.s"
+          .include "ShowPointerText.s"
+          .include "ShowPointerText12.s"
+
           .include "Bank0Strings.s"
-          
-ShowPointerText:
-          jsr CopyPointerText
-          ;; fall through
-ShowText:
-          .FarJMP TextBank, ServiceDecodeAndShowText
-          
-ShowPointerText12:
-          jsr CopyPointerText12
-          ;; fall through
-ShowText12:
-          .FarJMP AnimationsBank, ServiceWrite12Chars
 
           .include "EndBank.s"

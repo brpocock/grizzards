@@ -5,11 +5,15 @@ DrawStarter:        .block
 
           ;; 0 = Dirtex, 1 = Aquax, 2 = Airex
           
-          .if !DEMO
+          .if !DEMO             ; all of the stuff that isn't Aquax-only
+          ;; demo only gets the Aquax screen
+
           lda CurrentGrizzard
           beq DirtexTop
+
           cmp # 1
           beq AquaxTop
+
           gne AirexTop
 
 DirtexTop:
@@ -44,8 +48,8 @@ DrawDirtex1:
 
           rts
 
-          .fi                   ; start of Demo/Aquax only version
-
+          .fi                   ; if !DEMO block ends
+          ;; start of Demo/Aquax only version
 AquaxTop: 
           .SkipLines 30
           .ldacolu COLSPRINGGREEN, $4
@@ -71,8 +75,6 @@ AquaxTop:
 
 DrawAquax1:
           .SetUpFortyEight Grizzard11
-          ldy #Grizzard11.Height
-          sty LineCounter
           jsr ShowPicture
 
           ldy # 0
@@ -84,6 +86,7 @@ AquaxBottom:
           bne +
 
           jsr Random
+
           and # 1
           sta PlayerXFraction
 +
@@ -91,6 +94,7 @@ AquaxBottom:
           beq +
           inc PlayerYFraction
           jmp SetWaveLevel
+
 +
           dec PlayerYFraction
 SetWaveLevel:
@@ -125,25 +129,27 @@ SetWaveLevel:
 
           .if !DEMO
 
-AirexTop: 
+AirexTop:
 
           .SkipLines 20
           .ldacolu COLGREEN, $4
           sta COLUPF
 
-          lda # 43
+          lda # 43              ; We don't actually want legit random here.
           sta Rand
           sta Rand + 1
 
           ldy # 4
 Foliage:
-          jsr Random
+          jsr Random            ; not really random, seeded just above
+
           sta PF0
           .if NTSC == TV
-          jsr Random
+            jsr Random          ; XXX out of space for non-NTSC
           .fi
           sta PF1
           jsr Random
+
           sta PF2
           .SkipLines 5
           dey
@@ -164,24 +170,19 @@ Foliage:
           beq DrawAirex1
 
           .SetUpFortyEight Grizzard20
-          ldy #Grizzard20.Height
-          sty LineCounter
           jsr ShowPicture
 
           jmp AirexBottom
 
 DrawAirex1:
           .SetUpFortyEight Grizzard21
-          ldy #Grizzard21.Height
-          sty LineCounter
           jsr ShowPicture
 
           ldy # 0
           sty PF2
 
 AirexBottom:
-          lda #$ff
-          sta PF2
+          .mva PF2, #$ff
           .SkipLines 3
           .ldacolu COLBROWN, $4
           sta COLUPF
@@ -191,9 +192,9 @@ AirexBottom:
           .SetSkyColor
           sta COLUBK
 
-          lda #$ff
-          sta GRP0
-          sta GRP1
+          ldy # 0
+          sty VDELP0
+          sty VDELP1
 
           lda # NUSIZQuad
           sta NUSIZ0
@@ -202,19 +203,24 @@ AirexBottom:
           sta COLUP0
           sta COLUP1
 
+          .page
           stx WSYNC
           .SleepX $18
           sta RESP0
           nop
           nop
           nop
-          nop
           sta RESP1
+          .endp
 
-          lda # 0
-          sta PF0
-          sta PF1
-          sta PF2
+          lda #$ff
+          sta GRP0
+          sta GRP1
+
+          ldy # 0
+          sty PF0
+          sty PF1
+          sty PF2
 
           rts
           .fi

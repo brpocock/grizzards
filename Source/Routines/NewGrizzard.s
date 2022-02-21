@@ -4,9 +4,6 @@
 NewGrizzard:        .block
           .WaitScreenTop
 
-          ldx #$ff
-          stx s
-
           ;; Call with new Grizzard in Temp
           lda Temp
           pha
@@ -16,19 +13,21 @@ NewGrizzard:        .block
           .FarJSR SaveKeyBank, ServicePeekGrizzard
           ;; carry is set if the Grizzard is found
           bcc CatchEm
+
           ;; If so, nothin!g doing, return
           pla        ; discard stashed ID
           lda CurrentMap
           sta NextMap
           jsr WaitScreenBottomSub
-          jmp GoMap
+
+          rts
 
 CatchEm:
           ;; New Grizzard found, save current Grizzard …
           .FarJSR SaveKeyBank, ServiceSaveGrizzard
           stx WSYNC
           .if NTSC == TV
-          stx WSYNC
+            stx WSYNC
           .fi
           ;; … and set up this one with default levels
           pla
@@ -37,21 +36,19 @@ CatchEm:
 
           stx WSYNC
           .if NTSC == TV
-          stx WSYNC
+            stx WSYNC
           .fi
           .WaitScreenTop
-          lda #SoundHappy
-          sta NextSound
+          .mva NextSound, #SoundHappy
 
-          lda #>Phrase_Grizzard0
-          sta CurrentUtterance + 1
+          .mva CurrentUtterance + 1, #>Phrase_Grizzard0
           lda #<Phrase_Grizzard0
           clc
           adc CurrentGrizzard
           sta CurrentUtterance
 
-          lda # 7
-          sta AlarmCountdown
+          .mva AlarmCountdown, # 7
+;;;
 Loop:
           .WaitScreenBottom
           .WaitScreenTop
@@ -76,17 +73,15 @@ Loop:
           jmp Loop
 +
           .WaitScreenBottom
-          lda CurrentMap
-          sta NextMap
+          .mva NextMap, CurrentMap
           jmp GoMap
-
+;;; 
 CaughtText:
           .MiniText "CAUGHT"
-
+;;; 
 Defaults:
           .WaitScreenTop
-          lda Temp
-          sta CurrentGrizzard
+          .mva CurrentGrizzard, Temp
 
           asl a
           asl a
@@ -97,36 +92,33 @@ Defaults:
 
           lda GrizzardStartingStats, y
           .if NOSAVE
-          cmp MaxHP
-          blt +
+            cmp MaxHP
+            blt +
           .fi
           sta MaxHP
 +
           .if NOSAVE
-          lda MaxHP
+            lda MaxHP
           .fi
           sta CurrentHP
           iny
           lda GrizzardStartingStats, y
           .if NOSAVE
-          cmp GrizzardAttack
-          blt +
+            cmp GrizzardAttack
+            blt +
           .fi
           sta GrizzardAttack
 +
           iny
           lda GrizzardStartingStats, y
           .if NOSAVE
-          cmp GrizzardDefense
-          blt +
+            cmp GrizzardDefense
+            blt +
           .fi
           sta GrizzardDefense
 +
           iny
-          .if !NOSAVE
-          lda # 0               ; XP always starts at zero
-          sta GrizzardXP
-          .fi
+          .mva GrizzardXP, # 0               ; XP always starts at zero
           iny
           lda GrizzardStartingStats, y
           sta MovesKnown
@@ -137,3 +129,5 @@ Defaults:
           rts
           
           .bend
+
+;;; Audited 2022-02-16 BRPocock

@@ -14,34 +14,46 @@ DoVBlankWork:
           .include "VBlank.s"
           
           .include "48Pixels.s"
+          .align $10            ; XXX alignment
           .include "Prepare48pxMobBlob.s"
 
 DoLocal:
           cpy #ServiceTopOfScreen
           beq TopOfScreenService
+
           cpy #ServiceNewGrizzard
           beq NewGrizzard
+
           cpy #ServiceGrizzardDefaults
           beq NewGrizzard.Defaults
+
           cpy #ServiceNewGame
           beq StartNewGame
+
           cpy #ServiceLearntMove
           beq LearntMove
+
           cpy #ServiceGrizzardDepot
           beq GrizzardDepot
+
           cpy #ServiceGrizzardStatsScreen
           beq GrizzardStatsScreen
+
           cpy #ServiceValidateMap
           beq ValidateMap
+
           cpy #$fe
           beq JatibuFE
+
           cpy #$ff
           beq JatibuFF
-          cpy #ServiceGrizzardEvolveP
-          beq GrizzardEvolveP
+
+          cpy #ServiceGrizzardMetamorphoseP
+          beq GrizzardMetamorphoseP
+
           brk
 
-          .include "GrizzardEvolveP.s"
+          .include "GrizzardMetamorphoseP.s"
 
 JatibuCode:
           .byte P0StickUp, P0StickUp, P0StickDown, P0StickDown
@@ -137,6 +149,7 @@ NotCompleted:
           .bend
 
           .include "CopyPointerText.s"
+          .include "ShowPointerText.s"
           .include "MapTopService.s"
           .include "NewGrizzard.s"
           .include "Random.s"
@@ -153,20 +166,16 @@ NotCompleted:
           .include "SpriteMovement.s"
           .include "UserInput.s"
 
-          .if NOSAVE
-          .else
-          .if ATARIAGESAVE
-          .include "AtariAgeSave-EEPROM-Driver.s"
-          .else
-          .include "AtariVox-EEPROM-Driver.s"
+          .if !NOSAVE
+            .if ATARIAGESAVE
+              .include "AtariAgeSave-EEPROM-Driver.s"
+            .else
+              .include "AtariVox-EEPROM-Driver.s"
+            .fi
           .fi
-          .fi
+
 
           .include "GrizzardStartingStats.s"
           .include "SpriteColor.s"
-
-ShowPointerText:
-          jsr CopyPointerText
-          .FarJMP TextBank, ServiceDecodeAndShowText ; tail call
 
 	.include "EndBank.s"

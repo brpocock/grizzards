@@ -452,6 +452,20 @@ PNG image in an unsuitable format:
   (subseq (pathname-name pathname)
           0 (position #\. (pathname-name pathname))))
 
+(define-constant +atari-color-names+
+    '(COLGRAY COLYELLOW COLBROWN COLORANGE COLRED COLMAGENTA
+      COLPURPLE COLINDIGO COLBLUE COLTURQUOISE COLCYAN COLTEAL
+      COLSEAFOAM COLGREEN COLSPRINGGREEN COLGOLD)
+  :test 'equalp)
+
+(defun atari-color-name (index)
+  (elt +atari-color-names+ index))
+
+(defun atari-colu (byte)
+  (let ((co (ash (logand byte #x78) -3))
+        (lu (ash (logand byte #x07) 1)))
+    (list (atari-color-name co) lu)))
+
 (defun compile-tia-48px (png-file out-dir height image-pixels)
   (let ((out-file-name (merge-pathnames
                         (make-pathname :name
@@ -473,7 +487,7 @@ PNG image in an unsuitable format:
 	Height = ~d
 	Width = 48
 Shape:~{~{~a~}~2%~}
-;CoLu:~{~%	;.byte $~2,'0x~}
+;CoLu:~{~%	;.colu ~{~a, $~1x~}~}
 	.bend
 "
                 (pathname-name png-file)
@@ -481,7 +495,7 @@ Shape:~{~{~a~}~2%~}
                 (assembler-label-name (pathname-base-name png-file))
                 height
                 (mapcar (curry #'mapcar #'byte-and-art) shape)
-                colors))
+                (mapcar #'atari-colu colors)))
       (format *trace-output* "~% Done writing to ~A" out-file-name))))
 
 (defun reverse-7-or-8 (shape)
@@ -520,7 +534,7 @@ Shape:~{~{~a~}~2%~}
 	Height = ~d
 	Width = ~d
 Shape:~{~a~}
-CoLu:~{~%	;.byte $~2,'0x~}
+;CoLu:~{~%	;.colu ~{~a, $~1x~}~}
 	.bend
 "
                 (pathname-name png-file)
@@ -530,7 +544,7 @@ CoLu:~{~%	;.byte $~2,'0x~}
                     (mapcar #'byte-and-art (reverse-16 shape))
                     (mapcar #'byte-and-art (reverse-7-or-8 shape)))
                 
-                colors))
+                (mapcar #'atari-colu colors)))
       (format *trace-output* "~% Done writing to ~A" out-file-name))))
 
 (defun pretty-mob-data-listing-vic2 (mob)

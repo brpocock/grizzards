@@ -13,12 +13,16 @@
 DoLocal:
           cpy #ServiceDrawBoss
           beq DrawBoss
+
           cpy #ServiceGetMonsterColors
           beq GetMonsterColors
+
           cpy #ServiceDrawMonsterGroup
           beq DrawMonsterGroup
+
           cpy #ServicePotion
           beq Potion
+
           brk
 
           .include "VSync.s"
@@ -29,15 +33,11 @@ DoLocal:
           .include "Potion.s"
 
           .include "CopyPointerText.s"
-
-ShowPointerText:
-          jsr CopyPointerText
-          ;; fall through
-ShowText:
-          .FarJMP TextBank, ServiceDecodeAndShowText
+          .include "ShowPointerText.s"
 
           .include "GetMonsterColors.s"
 
+          .align $20           ; XXX alignment
           .include "CombatSpriteTables.s"
           .include "MonsterColors.s"
           .include "BossArt.s"

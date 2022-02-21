@@ -1,132 +1,136 @@
 ;;; Grizzards Source/Routines/UserInput.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
-UserInput: .block
+UserInput:          .block
 
 CheckButton:
           lda NewButtons
           beq CheckSwitches
+
           and #PRESSED
           bne CheckSwitches
 
           .if !DEMO
-          lda #ModePotion
-          sta GameMode
+            .mva GameMode, #ModePotion
           .fi 
 
 CheckSwitches:
           lda NewSWCHB
           beq NoSelect
+
           .BitBit SWCHBReset
           bne NoReset
+
           .WaitForTimer
-          ldx # 0
-          stx VBLANK
+          ldy # 0
+          sty VBLANK
           .if TV == NTSC
-          .TimeLines KernelLines - 1
+            .TimeLines KernelLines - 1
           .else
-          lda #$ff
-          sta TIM64T
+            dey                 ; Y ← $ff
+            sty TIM64T
           .fi
 
           .FarJMP SaveKeyBank, ServiceAttract
 
 NoReset:
-          and # SWCHBSelect
+          and #SWCHBSelect
           bne NoSelect
-          lda #ModeGrizzardStats
-          sta GameMode
+
+          .mva GameMode, #ModeGrizzardStats
 NoSelect:
           .if TV == SECAM
 
-          lda DebounceSWCHB
-          and # SWCHBP0Advanced
-          sta Pause
+            lda DebounceSWCHB
+            and #SWCHBP1Advanced        ; SECAM pause
+            sta Pause
 
           .else
 
-          lda DebounceSWCHB
-          .BitBit SWCHBColor
-          bne NoPause
-          .BitBit SWCHB7800
-          beq +
-          lda Pause
-          eor #$ff
-+
-          sta Pause
-          jmp SkipSwitches
+            lda DebounceSWCHB
+            .BitBit SWCHB7800   ; '2600 or '7800?
+            bne Pause7800
+
+            and #SWCHBColor
+            bne NoPause
+            lda #$80
+            gne DonePause
+
+            ;; On '7800, we have to debounce the pause button
+Pause7800:
+            lda NewSWCHB
+            beq DoneSwitches
+            and #SWCHBColor
+            bne DoneSwitches
+
+            lda Pause           ; OK, toggle pause mode
+            eor #$80
+DonePause:
+            sta Pause
+            jmp DoneSwitches
 
 NoPause:
-          lda # 0
-          sta Pause
+            ldy # 0             ; XXX necessary?
+            sty Pause
 
           .fi
-SkipSwitches:
+DoneSwitches:
 ;;; 
 
 HandleStick:
-          lda #0
-          sta DeltaX
-          sta DeltaY
+          ldy # 0               ; XXX necessary?
+          sty DeltaX
+          sty DeltaY
 
           lda Pause
           beq +
           rts
 +
-          lda SWCHA
+          lda DebounceSWCHA
           .BitBit P0StickUp
           bne DoneStickUp
 
-          ldx #-1
-          stx DeltaY
-
+          .mvx DeltaY, #-1
 DoneStickUp:
           .BitBit P0StickDown
           bne DoneStickDown
 
-          ldx #1
-          stx DeltaY
-
+          .mvx DeltaY, # 1
 DoneStickDown:
           .BitBit P0StickLeft
           bne DoneStickLeft
 
+          tay
           lda MapFlags
-          and # ~MapFlagFacing
+          and #~MapFlagFacing
           sta MapFlags
-          lda SWCHA
-
-          ldx #-1
-          stx DeltaX
-
+          .mvx DeltaX, #-1
+          tya
 DoneStickLeft:
           .BitBit P0StickRight
           bne DoneStickRight
 
-          tax
           lda MapFlags
           ora #MapFlagFacing
           sta MapFlags
-
-          ldx #1
-          stx DeltaX
-
+          .mvx DeltaX, # 1
 DoneStickRight:
-
 ApplyStick:
-
+;;; 
 FractionalMovement: .macro deltaVar, fractionVar, positionVar, pxPerSecond
           .block
           lda \fractionVar
           ldx \deltaVar
-          cpx #0
           beq DoneMovement
+
           bpl MovePlus
+
 MoveMinus:
           sec
           sbc #ceil(\pxPerSecond * $80)
           sta \fractionVar
           bcs DoneMovement
+
           adc #$80
           sta \fractionVar
           dec \positionVar
@@ -137,13 +141,14 @@ MovePlus:
           adc #ceil(\pxPerSecond * $80)
           sta \fractionVar
           bcc DoneMovement
+
           sbc #$80
           sta \fractionVar
           inc \positionVar
 DoneMovement:
           .bend
           .endm
-
+;;; 
           MovementDivisor = 0.85
           ;; Make MovementDivisor  relatively the same in  both directions
 	;; so diagonal movement forms a 45° line
@@ -151,6 +156,8 @@ DoneMovement:
           .FractionalMovement DeltaX, PlayerXFraction, PlayerX, MovementSpeedX
           MovementSpeedY = ((30.0 / MovementDivisor) / FramesPerSecond)
           .FractionalMovement DeltaY, PlayerYFraction, PlayerY, MovementSpeedY
-
+;;; 
           rts
           .bend
+
+;;; Audited 2022-02-16 BRPocock

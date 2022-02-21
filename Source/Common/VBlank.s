@@ -9,10 +9,10 @@ VBlank: .block
           stx WSYNC
           .TimeLines VBlankLines
 
-          lda # 0
-          sta NewSWCHA
-          sta NewSWCHB
-          sta NewButtons
+          ldy # 0
+          sty NewSWCHA
+          sty NewSWCHB
+          sty NewButtons
 
           lda SWCHA
           and #$f0
@@ -28,7 +28,6 @@ VBlank: .block
           ora #$40              ; guarantee at least one "1" bit
           sta NewSWCHB
 +
-
           lda SWCHB
           .BitBit SWCHBP0Genesis
           beq NotGenesis
@@ -66,11 +65,12 @@ DoneButtons:
 
           .if DoVBlankWork != 0
           jsr DoVBlankWork
+          ldy # 0
           .fi
 
           .WaitForTimer
 
-          ldx # 0
-          stx VBLANK
+          ;; Y = 0 from up top
+          sty VBLANK
           rts
           .bend

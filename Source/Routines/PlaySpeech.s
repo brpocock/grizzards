@@ -1,12 +1,11 @@
 ;;; Grizzards Source/Routines/PlaySpeech.s
-;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 ;;; The following  subroutine based upon  AtariVox Speech Synth  Driver, by
-;;; Alex Herbert, 2004; altered by Bruce-Robert Pocock, 2017, 2020
+;;; Alex Herbert, 2004; altered by Bruce-Robert Pocock, 2017, 2020-2022
 
 PlaySpeech: .block
 
-          .if !(NOSAVE)
+          .if !NOSAVE           ; pretty much the whole file
 
           SerialOutput = $01
           SerialReady = $02
@@ -35,11 +34,12 @@ ContinueSpeaking:
           lda SpeakJetCooldown
           cmp #$20              ; SpeakJet buffer is 32 bytes
           blt NotOverheated
+
           cmp #$20              ; cooldown value derived experimentally
           blt TheEnd
+
           lda #0
           sta SpeakJetCooldown
-
 NotOverheated:
           ;; check buffer-full status
           lda SWCHA
@@ -53,16 +53,17 @@ NotOverheated:
           ;; invert data and check for end of string
           eor #$ff
           beq DoneSpeaking
+
           sta Temp                    ; byte being transmitted
 
           ;; increment speech pointer
           inc CurrentUtterance
           bne UtteranceNoPageCrossed
+
           inc CurrentUtterance + 1
 UtteranceNoPageCrossed:
 
           ;; output byte as serial data
-
           sec            ; start bit
 SerialSendBit:
           ;; put carry flag into bit 0 of SWACNT, perserving other bits
@@ -103,3 +104,5 @@ TheEnd:
 
           rts
           .bend
+
+;;; Audited 2022-02-16 BRPocock

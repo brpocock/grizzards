@@ -10,9 +10,11 @@
 
 DoLocal:
           .include "PlaySFX.s"
+          ;; falls through to
           .include "PlayMusic.s"
+          ;; falls through to
           .include "PlaySpeech.s"
-          rts
+          ;; ↑ returns
 
           .include "SoundEffects.s"
 
@@ -27,6 +29,7 @@ DoLocal:
           .include "TitleSpeech.s"
           .include "FinalSpeech.s"
 
+          ;; Sounds & music converted from MIDI files:
           .include "AtariToday.s"
           .include "Theme.s"
           .include "Victory.s"

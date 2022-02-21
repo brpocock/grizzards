@@ -2,282 +2,278 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 Monsters:
 ;;; 0
-          .SignText "WICKEDSLIME "
-          .byte Monster_SlimeSmall               ; art
+          .SignText "WICKEDSLIME " ; Tier 1
+          .byte Monster_SlimeSmall
           .mcolu COLGREEN, $f
           .byte 2, 1, 2         ; ATK, DEF, HP
-          .word $0006           ;  score for defeating (BCD)
-
+          .word $0005
 ;;; 1
-          .SignText "HORRIDSLIME "
-          .byte Monster_SlimeSmall               ; art
+          .SignText "HORRIDSLIME " ; Tier 1
+          .byte Monster_SlimeSmall
           .mcolu COLRED, $f
-          .byte 3, 2, 3       ; ATK, DEF, HP
-          .word $0007
-
+          .byte 2, 2, 4
+          .word $0008
 ;;; 2
-          .SignText "VORPALBUNNY "
+          .SignText "VORPALBUNNY " ; Tier 4
           .byte Monster_Bunny
           .mcolu COLGOLD, $4
-          .byte 6, 4, 10
-          .word $0010
-          
-          .SignText "R.O.    U.S."
+          .byte 12, 12, 15
+          .word $0040
+;;; 3
+          .SignText "R.O.    U.S." ; Tier 3
           .byte Monster_Rodent
           .mcolu COLBROWN, $8
-          .byte 2, 2, 6
-          .word $0015
-
+          .byte 7, 8, 8
+          .word $0035
 ;;; 4
-          .SignText "LECTRO SHEEP"
+          .SignText "LECTRO SHEEP" ; Tier 11
           .byte Monster_Sheep
           .mcolu COLBLUE, $8
-          .byte 2, 5, 7
-          .word $0015
-
-          .SignText "VIKINGTURTLE"
+          .byte 39, 39, 38
+          .word $0110
+;;; 5
+          .SignText "VIKINGTURTLE" ; Tier 7
           .byte Monster_Turtle
           .mcolu COLTURQUOISE, $8
-          .byte 5, 15, 9
-          .word $0015
-
-          .SignText "CRAZY    FOX"
+          .byte 23, 24, 25
+          .word $0070
+;;; 6
+          .SignText "CRAZY    FOX" ; Tier 7
           .byte Monster_Fox
           .mcolu COLRED, $e
-          .byte 15, 15, 15
-          .word $0050
-
-          .SignText "WATER  KITTY"
+          .byte 25, 26, 27
+          .word $0070
+;;; 7
+          .SignText "WATER  KITTY" ; Tier 9
           .byte Monster_Cat
           .mcolu COLBLUE, $e
-          .byte 10, 6, 9
-          .word $0020
+          .byte 33, 33, 34
+          .word $0090
 ;;; 8
-          .SignText "FLAME  DOGGO"
+          .SignText "FLAME  DOGGO" ; Tier 3
           .byte Monster_Dog
           .mcolu COLRED, $c
-          .byte 15, 6, 8
-          .word $0035
-
-          .SignText "CREEPYSPIDER"
+          .byte 6, 7, 9
+          .word $0030
+;;; 9
+          .SignText "CREEPYSPIDER" ; Tier 8
           .byte Monster_Spider
           .mcolu COLBROWN, $8
-          .byte 12, 12, 12
-          .word $0010
+          .byte 28, 28, 29
+          .word $0080
 ;;; 10
-
-          .SignText "METAL  MOUSE"
-          .byte Monster_Mouse
+          .SignText "METAL  MOUSE" ; Tier 8
+          .byte Monster_Rodent
           .mcolu COLGRAY, $6
-          .byte 12, 20, 10
-          .word $0053
-
-          .SignText "FIRE   PANDA"
+          .byte 30, 30, 32
+          .word $0080
+;;; 11
+          .SignText "FIRE   PANDA" ; Tier 3
           .byte Monster_Firefox
           .mcolu COLORANGE, $e
-          .byte 15, 10, 10
-          .word $0035
-
-          .SignText "LEGGY MUTANT"
+          .byte 10, 10, 12
+          .word $0030
+;;; 12
+          .SignText "LEGGY MUTANT" ; Tier 11
           .byte Monster_TwoLegs
           .mcolu COLBLUE, $8
-          .byte $05, $05, $05
-          .word $0010
-
-          .SignText "SKY   MUTANT"
+          .byte 40, 40, 43
+          .word $0110
+;;; 13
+          .SignText "SKY   MUTANT" ; Tier 2
           .byte Monster_Mutant
           .mcolu COLRED, $8
-          .byte $05, $05, $05
-          .word $0010
-
-          .SignText "WILL-O -WISP"
+          .byte 4, 5, 6
+          .word $0020
+;;; 14
+          .SignText "WILL-O -WISP" ; Tier 4
           .byte Monster_WillOWisp
           .mcolu COLCYAN, $e
-          .byte 20, 5, 1
-          .word $0010
-
-          .SignText "BUTTER   FLY"
+          .byte 14, 14, 2
+          .word $0040
+;;; 15
+          .SignText "BUTTER   FLY" ; Tier 10
           .byte Monster_Butterfly
           .mcolu COLBLUE, $8
-          .byte 0, $03, $03
-          .word $0010
+          .byte 36, 36, 39
+          .word $0100
 ;;; 16
-          .SignText "SCARY    RAT"
+          .SignText "SCARY    RAT" ; Tier 12
           .byte Monster_Rodent
           .mcolu COLBROWN, $8
-          .byte 10, 5, 25
-          .word $0026
-
-          .SignText "CAVE    GRUE"
+          .byte 43, 43, 44
+          .word $0120
+;;; 17
+          .SignText "CAVE    GRUE" ; Tier 5
           .byte Monster_Rodent
           .mcolu COLBLUE, $8
-          .byte 6, 5, 30
-          .word $0045
-
-          .SignText "CAVE  BAT   "
+          .byte 16, 16, 17
+          .word $0050
+;;; 18
+          .SignText "CAVE  BAT   " ; Tier 5
           .byte Monster_Bat
           .mcolu COLGRAY, $4
-          .byte 4, 2, 10
-          .word $0010
-
-          .SignText "VENOM  SHEEP"
+          .byte 18, 18, 20
+          .word $0050
+;;; 19
+          .SignText "VENOM  SHEEP" ; Tier 6
           .byte Monster_Sheep
           .mcolu COLGREEN, $f
-          .byte 9, 4, 50
-          .word $0035
+          .byte 20, 20, 21
+          .word $0060
 ;;; 20
-          .SignText "1 EYEDCYCLOP"
+          .SignText "1 EYEDCYCLOP" ; Tier 6
           .byte Monster_Cyclops
           .mcolu COLPURPLE, $8
-          .byte 20, 20, 60
-          .word $0500
-
-          .SignText "FIERCERAPTOR"
-          .byte Monster_Raptor
+          .byte 22, 22, 24
+          .word $0060
+;;; 21
+          .SignText "FIERCERAPTOR" ; Tier 10
+          .byte Monster_Bird
           .mcolu COLORANGE, $8
-          .byte 10, 10, 10
-          .word $0010
-
-          .SignText "DEVIL SKULL "
+          .byte 38, 38, 40
+          .word $0100
+;;; 22
+          .SignText "DEVIL SKULL " ; Tier 12
           .byte Monster_Skull
           .mcolu COLRED, $8
-          .byte 10, 10, 10
-          .word $0010
-
-          .SignText "ROUND  ROBIN"
+          .byte 43, 42, 46
+          .word $0120
+;;; 23
+          .SignText "ROUND  ROBIN" ; Tier 2
           .byte Monster_Bird
           .mcolu COLBLUE, $8
-          .byte 10, 10, 10
-          .word $0010
+          .byte 6, 6, 8
+          .word $0020
 ;;; 24
-          .SignText "GIANT  CRAB "
+          .SignText "GIANT  CRAB " ; Tier 9
           .byte Monster_Crab
           .mcolu COLTURQUOISE, $8
-          .byte 16, 16, 16
-          .word $0160
+          .byte 32, 32, 35
+          .word $0090
 ;;; 25
-          .SignText "BIGGER CRAB "
+          .SignText "BIGGER CRAB " ; Tier 13
           .byte Monster_Crab
           .mcolu COLCYAN, $8
-          .byte 14, 14, 14
-          .word $0140
-
-          .SignText " MEAN ROBBER"
+          .byte 47, 47, 50
+          .word $0130
+;;; 26
+          .SignText " MEAN ROBBER" ; 8
           .byte Monster_Human
           .mcolu COLBROWN, $e
-          .byte 10, 10, 10
-          .word $0010
+          .byte 29, 29, 31
+          .word $0080
 ;;; 27
-          .SignText "GIANT SLIME "
+          .SignText "GIANT SLIME " ; Tier 13
           .byte Monster_SlimeBig
           .mcolu COLINDIGO, $8
-          .byte 10, 10, 10
-          .word $0010
+          .byte 48, 48, 51
+          .word $0130
 ;;; 28
           .SignText "DRAGON FRED "
           .byte Monster_Dragon
           .mcolu COLBLUE, $0
-          .byte 60, 60, 175
-          .word $2000
+          .byte 30, 30, 87
+          .word $1000
 ;;; 29
           .SignText "DRAGONANDREW"
           .byte Monster_Dragon
           .mcolu COLCYAN, $4
-          .byte 50, 50, 150
-          .word $1500
+          .byte 25, 25, 75
+          .word $0750
 ;;; 30
           .SignText "DRAGON TIMMY"
           .byte Monster_Dragon
           .mcolu COLGREEN, $8
-          .byte 70, 70, 200
-          .word $2500
+          .byte 35, 35, 100
+          .word $1250
 ;;; 31
-          .SignText " UBER  SLIME"
+          .SignText " UBER  SLIME" ; Tier 15
           .byte Monster_SlimeBig
           .mcolu COLBROWN, $f
-          .byte 10, 10, 10
-          .word $0010
+          .byte 55, 55, 57
+          .word $0150
 ;;; 32
-          .SignText "FLYINGSKULL "
+          .SignText "FLYINGSKULL " ; Tier 13
           .byte Monster_Skull
           .mcolu COLTURQUOISE, $e
-          .byte 10, 10, 10
-          .word $0010
+          .byte 50, 50, 52
+          .word $0130
 ;;; 33
-          .SignText "CRAZY SKULL "
+          .SignText "CRAZY SKULL " ; Tier 15
           .byte Monster_Skull
           .mcolu COLMAGENTA, $a
-          .byte 10, 10, 10
-          .word $0010
+          .byte 56, 56, 58
+          .word $0150
 ;;; 34
-          .SignText "GREAT  WYRM "
+          .SignText "GREAT  WYRM " ; Tier 15
           .byte Monster_Serpent
           .mcolu COLBLUE, $8
-          .byte 10, 10, 10
-          .word $0010
+          .byte 51, 51, 54
+          .word $0150
 ;;; 35
-          .SignText "POISON ASP  "
+          .SignText "POISON ASP  " ; Tier 12
           .byte Monster_Serpent
           .mcolu COLBLUE, $8
-          .byte 10, 10, 10
-          .word $0010
+          .byte 44, 44, 47
+          .word $0120
 ;;; 36
-          .SignText "GRABBYCRABBY"
+          .SignText "GRABBYCRABBY" ; Tier 9
           .byte Monster_Crab
           .mcolu COLBLUE, $8
-          .byte 10, 10, 10
-          .word $0010
+          .byte 34, 34, 36
+          .word $0090
 ;;; 37
-          .SignText "GIANT  BAT  "
+          .SignText "GIANT  BAT  " ; Tier 14
           .byte Monster_Bat
           .mcolu COLGRAY, $4
-          .byte 10, 10, 10
-          .word $0100
+          .byte 52, 52, 55
+          .word $0140
 ;;; 38
-          .SignText " MAZE JAGUAR"
+          .SignText " MAZE JAGUAR" ; Tier 14
           .byte Monster_Cat
           .mcolu COLBLUE, $8
-          .byte 10, 10, 10
-          .word $0010
+          .byte 54, 54, 56
+          .word $0140
 ;;; 39
-          .SignText "GIANT SPIDER"
+          .SignText "GIANT SPIDER" ; Tier 15
           .byte Monster_Spider
           .mcolu COLORANGE, $e
-          .byte 50, 5, 40
-          .word $0038
+          .byte 57, 57, 59
+          .word $0150
 ;;; 40
-          .SignText " FIRE DRAKE "
+          .SignText " FIRE DRAKE " ; Tier 11
           .byte Monster_Dragon
           .mcolu COLORANGE, $8
-          .byte 99, 10, 30
-          .word $0035
+          .byte 42, 42, 44
+          .word $0110
 ;;; 41
-          .SignText "MONSTR  41  "
-          .byte Monster_Bunny
-          .mcolu COLBLUE, $8
-          .byte 10, 10, 10
-          .word $0010
+          .SignText " MAN   BULL " ; Tier 12
+          .byte Monster_Minotaur
+          .mcolu COLBROWN, $8
+          .byte 46, 46, 48
+          .word $0120
 ;;; 42
-          .SignText "MONSTR  42  "
-          .byte Monster_Bunny
-          .mcolu COLBLUE, $8
-          .byte 10, 10, 10
-          .word $0010
+          .SignText "RADISHGOBLIN" ; Tier 7
+          .byte Monster_Radish
+          .mcolu COLRED, $8
+          .byte 26, 26, 28
+          .word $0070
 ;;; 43
-          .SignText "MONSTR  43  "
-          .byte Monster_Bunny
+          .SignText "TURNIPGOBLIN" ; Tier 12
+          .byte Monster_Radish
           .mcolu COLBLUE, $8
-          .byte 10, 10, 10
-          .word $0010
+          .byte 44, 44, 45
+          .word $0120
 ;;; 44
-          .SignText "MONSTR  44  "
-          .byte Monster_Bunny
-          .mcolu COLBLUE, $8
-          .byte 10, 10, 10
-          .word $0010
+          .SignText "ANUBISJACKAL" ; Tier 15
+          .byte Monster_Dog
+          .mcolu COLRED, $8
+          .byte 58, 58, 60
+          .word $0150
 ;;; 45
           .SignText " BOSS  BEAR "
           .byte $ff             ; special graphics
           .mcolu COLGRAY, 0
-          .byte 80, 80, 250
-          .word $5000
+          .byte 40, 40, 127
+          .word $2500

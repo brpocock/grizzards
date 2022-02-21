@@ -7,23 +7,17 @@ Death:    .block
           ldx #$ff
           txs
 
-          lda #>Phrase_GameOver
-          sta CurrentUtterance + 1
-          lda #<Phrase_GameOver
-          sta CurrentUtterance
+          .SetUtterance Phrase_GameOver
 
-          ldx #ModeDeath
-          stx GameMode
+          .mva GameMode, #ModeDeath
+          .mva NextSound, #SoundGameOver
+          .mva AlarmCountdown, # 120
 
-          ldx #SoundGameOver
-          stx NextSound
-
-          lda # 120
-          sta AlarmCountdown
-
+          jmp LoopFirst
 ;;; 
 Loop:
           .WaitScreenBottom
+LoopFirst:
           .WaitScreenTop
 
           .ldacolu COLGRAY, 0
@@ -34,20 +28,21 @@ Loop:
 
           .SkipLines KernelLines / 3
           jsr Prepare48pxMobBlob
-          .LoadString " GAME "
-          .FarJSR TextBank, ServiceDecodeAndShowText
-          .LoadString " OVER "
-          .FarJSR TextBank, ServiceDecodeAndShowText
 
+          .SetPointer GameOverText
+          jsr ShowPointerText
+
+          .SetPointer GameOverText + 6
+          jsr ShowPointerText
 ;;; 
           lda NewSWCHB
           beq +
-          .BitBit SWCHBReset
+          and #SWCHBReset
           beq Leave
 +
 	lda NewButtons
           beq +
-          .BitBit PRESSED
+          and #PRESSED
           beq Leave
 +
           lda AlarmCountdown
@@ -56,5 +51,11 @@ Loop:
 
 Leave:
           .FarJMP SaveKeyBank, ServiceAttract
+;;; 
+GameOverText:
+          .MiniText " GAME "
+          .MiniText " OVER "
 
           .bend
+
+;;; Audited 2022-02-16 BRPocock

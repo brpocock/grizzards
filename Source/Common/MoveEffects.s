@@ -142,7 +142,7 @@ HotSpark:
 BuryDeep:
           .byte 0
 DirtyFoot:
-          .byte 5
+          .byte 6
 LoamyFear:
           .byte 0
           ;; 8
@@ -153,11 +153,11 @@ RaiseHope:
 SureSplash:
           .byte $ff
 QuickFoot:
-          .byte 5
+          .byte 6
 GreatMojo:
-          .byte 5
+          .byte 8
 WindFight:
-          .byte 3
+          .byte 6
 StealAttack:
           .byte 0
 StealDefend:
@@ -168,24 +168,28 @@ StealTurn:
 FireStart:
           .byte $ff
 BurntEdges:
-          .byte 5
+          .byte 8
 RogueFlare:
-          .byte 10
+          .byte 12
+          ;; 20
 DoubleFlares:
-          .byte 15
+          .byte 18
 TailWhip:
-          .byte 7
-TailLash:
           .byte 10
+TailLash:
+          .byte 14
 Bite:
-          .byte 15
+          .byte 16
           ;; 24
 PoisonBite:
-          .byte 25
+          .byte 24
+          ;; 25
 CruelStab:
-          .byte 25
+          .byte 22
+          ;; 26
 BlindBlob:
           .byte 0
+          ;; 27
 SlimyTrick:
           .byte 0
 GuardDown:
@@ -204,50 +208,67 @@ HealWound:
 LifeReturn:
           .byte $ff ^ 99
 Nibble:
-          .byte 7
+          .byte 10
 MuddleMind:
           .byte 0
 GreatMuddle:
-          .byte 0
+          .byte 8
 ScareAway:
           .byte 0
 WetNoodle:
-          .byte 4
+          .byte 12
           ;; 40
 StompDown:
-          .byte 19
+          .byte 20
 Crush:
-          .byte 27
+          .byte 26
 FireyBreath:
-          .byte 39
+          .byte 30
 EvilEye:
-          .byte 33
+          .byte 28
 ClawsOut:
-          .byte 12
+          .byte 14
 DeadlySwoop:
           .byte 10
 Shove:
-          .byte 7
+          .byte 8
 Slash:
-          .byte 14
+          .byte 18
           ;; 48
 VampyBite:
-          .byte 5
-          .byte 0
-          .byte 0
-          .byte 0
-          .byte 0
-          .byte 0
-          .byte 0
-          .byte 0
+          .byte 14
+          ;; 49
+HeartyThump:
+          .byte 16
+          ;; 50
+HardJab:
+          .byte 16
+          ;; 51
+ClawBadly:
+          .byte 20
+          ;; 52
+          .byte 22
+          ;; 53
+          .byte 24
+          ;; 54
+          .byte 26
+          ;; 55
+          .byte 28
           ;; 56
-          .byte 0
-          .byte 0
-          .byte 0
-          .byte 0
-          .byte 0
-          .byte 0
-          .byte 0
+          .byte 30
+          ;; 57
+          .byte 28
+          ;; 58
+          .byte 30
+          ;; 59
+          .byte 12
+          ;; 60
+          .byte 16
+          ;; 61
+          .byte 22
+          ;; 62
+          .byte 26
+          ;; 63
 MegaKill:
           .byte 50
           ;; ↑ 63

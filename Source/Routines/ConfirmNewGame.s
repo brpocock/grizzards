@@ -3,8 +3,8 @@
 
 ConfirmNewGame:    .block
 
-          lda # 0
-          sta DeltaX
+          ldy # 0
+          sty DeltaX            ; confirm? 0 = change
 
           .SetUtterance Phrase_ConfirmNewGame
 
@@ -32,12 +32,13 @@ Loop:
           .FarJSR TextBank, ServiceDecodeAndShowText
 
           jsr FindGrizzardName
+
           jsr ShowPointerText
 
           .SkipLines KernelLines / 3
 
           .ldacolu COLGREEN, $0
-          ldx DeltaX
+          ldx DeltaX            ; confirm? 0 = change
           bne +
           .ldacolu COLMAGENTA, $4
 +
@@ -46,10 +47,11 @@ Loop:
 
           .SetPointer ChangeText
           jsr ShowPointerText
+
           .SkipLines 2
 
           .ldacolu COLINDIGO, $4
-          ldx DeltaX
+          ldx DeltaX            ; confirm? 0 = change
           bne +
           .ldacolu COLGREEN, $0
 +
@@ -58,6 +60,7 @@ Loop:
 
           .SetPointer BeginText
           jsr ShowPointerText
+
           .SkipLines 2
 
           .ldacolu COLGREEN, $0
@@ -66,57 +69,56 @@ Loop:
 
           lda NewSWCHB
           beq DoneSwitches
+
           and #SWCHBSelect
           bne DoneSelect
 
-          lda DeltaX
+          lda DeltaX            ; confirm? 0 = change
           eor # 1
-          sta DeltaX
+          sta DeltaX            ; confirm? 0 = change
 
 DoneSelect:
           lda NewSWCHB
           and #SWCHBReset
           bne DoneSwitches
+
           .WaitScreenBottom
           jmp GoColdStart
 
 DoneSwitches:       
           lda NewSWCHA
           beq DoneStick
+
           and #P0StickUp
           bne DoneUp
 
-          lda # 0
-          sta DeltaX
-          lda #SoundChirp
-          sta NextSound
+          ldy # 0
+          sty DeltaX            ; confirm? 0 = change
+          .mva NextSound, #SoundChirp
 DoneUp:
           lda NewSWCHA
           and #P0StickDown
           bne DoneDown
 
-          lda # 1
-          sta DeltaX
-          lda #SoundChirp
-          sta NextSound
+          .mva DeltaX, # 1            ; confirm? 0 = change
+          .mva NextSound, #SoundChirp
 DoneDown:
 DoneStick:
           lda NewButtons
           beq DoneButtons
+
           and #PRESSED
           bne DoneButtons
 
-          lda #SoundBlip
-          sta NextSound
+          .mva NextSound, #SoundBlip
           lda #ModeStartGame
-          ldx DeltaX
+          ldx DeltaX            ; confirm? 0 = change
           bne +
           lda #ModeEnterName
 +
           sta GameMode
 
 DoneButtons:
-
           lda GameMode
           cmp #ModeConfirmNewGame
           bne Leave
@@ -127,3 +129,5 @@ Leave:
           rts
 
           .bend
+
+;;; Audited 2022-02-16 BRPocock

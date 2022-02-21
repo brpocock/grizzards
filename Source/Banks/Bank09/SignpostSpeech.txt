@@ -69,3 +69,6 @@ WelcomePortLion:
 
 LookUpCliff:
 ♂It's me,Fat Tony.Look up at how tall the cliffs are
+
+Hellmouth:
+♂It's me,Fat Tony.In an old story,this was the road to Hell

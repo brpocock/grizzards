@@ -10,8 +10,8 @@ Airex:
           .MiniText "AIREX "
 Flamex:
           .MiniText "FLAMEX"
-Soiley:
-          .MiniText "SOILEY"
+Petty:
+          .MiniText "PETTY "
 Wetnas:
           .MiniText "WETNAS"
 Windoo:

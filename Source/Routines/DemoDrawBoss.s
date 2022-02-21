@@ -5,26 +5,21 @@
           ;; we only have the one frame and its flipped version at 8×8px
           ;; so this alternate (older) boss drawing routine is needed
 DemoDrawBoss:       .block
-
 GetMonsterPointer:
-          lda #>MonsterArt
-          sta pp3h
-
+          .mva pp3h, #>MonsterArt
 GetMonsterArtPointer:
           lda CurrentMonsterArt
           clc
-
           tax
-
           ldy # 0
           lda # 1
           bit ClockSeconds
           beq GotFlip
+
           ldy #REFLECTED
 GotFlip:
           sty REFP0
           txa
-
 GetImagePointer:
           asl a
           asl a
@@ -38,18 +33,14 @@ GetImagePointer:
           inc pp3h
 +
           sta pp3l
-
 PrepareToDrawMonsters:
-          lda # 0
-          sta VDELP0
-          sta NUSIZ0
-
+          ldy # 0
+          sty VDELP0
+          sty NUSIZ0
 DrawMajorMonster:
-
 PositionMajorMonster:
           stx WSYNC
-          lda # NUSIZQuad
-          sta NUSIZ0
+          .mva NUSIZ0, # NUSIZQuad
           nop
           nop
           nop
@@ -57,8 +48,8 @@ PositionMajorMonster:
 GrossPositionMajorMonster:
           dey
           bne GrossPositionMajorMonster
-          sta RESP0
 
+          sta RESP0
 DrawMajorMonsterLines:
           ldy # 7
 DrawMajorMonsterLoop:
@@ -72,7 +63,7 @@ DrawMajorMonsterLoop:
           dey
           bpl DrawMajorMonsterLoop
 
-          ldy # 0
+          iny                   ; Y ← 0
           sty GRP0
           sty GRP1
           sty REFP0
@@ -82,3 +73,5 @@ DrawMajorMonsterLoop:
           rts
 
           .bend
+
+;;; Audited 2022-02-16 BRPocock

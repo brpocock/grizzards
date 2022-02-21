@@ -15,8 +15,6 @@
 
 Font:	.block
 
-	.align $100
-	
 	Height = 5
 
 Zero:	
@@ -263,3 +261,5 @@ Blank:
 	.byte 0, 0, 0, 0, 0
 
 	.bend
+
+;; Audited 2022-02-16 BRPocock

@@ -278,3 +278,5 @@ Random_FoundPendant:
           .SignText "A LEAF ON   "
           .SignText "THE GROUND. "
           .byte ModeSignpostSetFlag, 28
+
+          

@@ -3,43 +3,43 @@
 
 GrizzardPictureSelect:
 
-          .byte 0, 3, 1, 8, 5, 2, 6, 7, 8, 9
+          .byte 0, 3, 1, 8, 5, 2, 6, 7, 0, 3
           ;; 10
-          .byte 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+          .byte 1, 8, 4, 9, 2, 5, 6, 7, 5, 7
           ;; 20
-          .byte 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+          .byte 4, 0, 3, 1, 8, 0, 3, 1, 8, 9
 
 GrizzardColor:
 
-          .colu COLGREEN, $e
+          .colu COLGREEN, $c
           .colu COLBROWN, $6
-          .colu COLTEAL, $e
-          .colu COLRED, $f
+          .colu COLTEAL, $c
+          .colu COLRED, $c
           .colu COLBROWN, $4
-          .colu COLTURQUOISE, $f
-          .colu COLTEAL, $e
-          .colu COLGREEN, $f
-          .colu COLGREEN, $f
-          .colu COLGREEN, $f
+          .colu COLTURQUOISE, $6
+          .colu COLTEAL, $c
+          .colu COLSEAFOAM, $6
+          .colu COLGREEN, $c
+          .colu COLGOLD, $6
           ;; 10
-          .colu COLTURQUOISE, $f
-          .colu COLTURQUOISE, $f
-          .colu COLTURQUOISE, $f
-          .colu COLTURQUOISE, $f
-          .colu COLTURQUOISE, $f
-          .colu COLTURQUOISE, $f
-          .colu COLTURQUOISE, $f
-          .colu COLTURQUOISE, $f
-          .colu COLTURQUOISE, $f
-          .colu COLTURQUOISE, $f
+          .colu COLBROWN, $c
+          .colu COLTURQUOISE, $6
+          .colu COLTEAL, $6
+          .colu COLYELLOW, $c
+          .colu COLBLUE, $6
+          .colu COLINDIGO, $6
+          .colu COLMAGENTA, $c
+          .colu COLORANGE, $c
+          .colu COLCYAN, $6
+          .colu COLGREEN, $c
           ;; 20
-          .colu COLINDIGO, $f
-          .colu COLINDIGO, $f
-          .colu COLINDIGO, $f
-          .colu COLINDIGO, $f
-          .colu COLINDIGO, $f
-          .colu COLINDIGO, $f
-          .colu COLINDIGO, $f
-          .colu COLINDIGO, $f
-          .colu COLINDIGO, $f
-          .colu COLINDIGO, $f
+          .colu COLBROWN, $c
+          .colu COLTEAL, $6
+          .colu COLRED, $c
+          .colu COLTURQUOISE, $6
+          .colu COLTEAL, $6
+          .colu COLSEAFOAM, $c
+          .colu COLGOLD, $c
+          .colu COLPURPLE, $6
+          .colu COLYELLOW, $c
+          .colu COLINDIGO, $8

@@ -6,22 +6,20 @@ Preamble: .block
           .if PUBLISHER
 
 PublisherPresentsMode:
-          .SetUpFortyEight AtariAgeLogo
-          .ldacolu COLGRAY, $f
-          sta COLUBK
-          ldy # AtariAgeLogo.Height
-          .if SECAM == TV
-            lda #COLBLUE
-          .else
-            .ldacolu COLTURQUOISE, $8
-          .fi
+            .SetUpFortyEight AtariAgeLogo
+            .ldacolu COLGRAY, $f
+            sta COLUBK
+            .if SECAM == TV
+              lda #COLBLUE
+            .else
+              .ldacolu COLTURQUOISE, $8
+            .fi
 
           .else
 
 BRPPreambleMode:
-          .SetUpFortyEight BRPCredit
-          ldy # BRPCredit.Height
-          .ldacolu COLINDIGO, $8
+            .SetUpFortyEight BRPCredit
+            .ldacolu COLINDIGO, $8
 
           .fi
 
@@ -35,32 +33,29 @@ BRPPreambleMode:
 
 RandomGrizzard:
           jsr Random
+
           and #$03
           cmp # 3
           beq RandomGrizzard
+
           sta CurrentGrizzard
 
-          lda # 60
-          sta AlarmCountdown
-          lda #ModeAttractTitle
-          sta GameMode
-          
+          .mva AlarmCountdown, # 60
+          .mva GameMode, #ModeAttractTitle
+
 StillPresenting:
 SingleGraphicAttract:
-
           .SkipLines 71
-
-          sty LineCounter
           jsr ShowPicture
 
           .if PUBLISHER
             .SetUpFortyEight AtariAgeText
-            ldy #AtariAgeText.Height
-          sty LineCounter
-          sty WSYNC
+            stx WSYNC
             jsr ShowPicture
           .fi
 
           jmp Attract.DoneKernel
 
           .bend
+
+;;; Audited 2022-02-16 BRPocock

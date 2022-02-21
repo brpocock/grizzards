@@ -5,32 +5,31 @@ LoadGrizzardData:   .block
           lda CurrentGrizzard
 
           jsr SetGrizzardAddress
-          jsr i2cStopWrite
-          jsr i2cStartRead
+
+          jsr i2cK2             ; K without send
 
           ldx # 0
 -
           jsr i2cRxByte
+
           sta MaxHP, x
           inx
           cpx # 5
           blt -
-          
+
           jsr i2cStopRead
 
-          lda MaxHP
-          sta CurrentHP
+          .mva CurrentHP, MaxHP
 
           ;; Make sure debounced switch doesn't return us to the title screen immediately
-          lda SWCHB
-          sta DebounceSWCHB
+          .mva DebounceSWCHB, SWCHB
 
           ;; Return to place last blessed
-          lda BlessedX
-          sta PlayerX
-          lda BlessedY
-          sta PlayerY
+          .mva PlayerX, BlessedX
+          .mva PlayerY, BlessedY
 
           rts
 
           .bend
+
+;;; Audited 2022-02-16 BRPocock

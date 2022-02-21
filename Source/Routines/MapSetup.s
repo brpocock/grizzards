@@ -5,25 +5,28 @@ MapSetup: .block
           .WaitScreenTopMinus 2, -1
 
           jsr Random
+
           and #$4f
           ora #$20
           sta BumpCooldown
           sta CXCLR
 
-          lda # 0
-          sta SpriteFlicker
-          sta SpriteCount
-          sta DeltaX
-          sta DeltaY
-          sta PlayerXFraction
-          sta PlayerYFraction
-          sta CurrentMusic + 1
-          sta NewButtons
+          ldy # 0
+          sty SpriteFlicker
+          sty SpriteCount
+          sty DeltaX
+          sty DeltaY
+          sty PlayerXFraction
+          sty PlayerYFraction
+          sty CurrentMusic + 1
+          sty NewButtons
 
-          lda BlessedX
-          sta PlayerX
-          lda BlessedY
-          sta PlayerY
+          lda MapFlags          ; clear all flags but facing
+          and #MapFlagFacing
+          sta MapFlags
+
+          .mva PlayerX, BlessedX
+          .mva PlayerY, BlessedY
 
           jmp NewRoomTimerRunning
 ;;; 
@@ -31,7 +34,7 @@ NewRoom:
           .WaitForTimer
           stx WSYNC
           .if TV == NTSC
-          stx WSYNC
+            stx WSYNC
           .fi
 
           jsr Overscan
@@ -44,26 +47,22 @@ NewRoomTimerRunning:
 
           .switch BANK
           .case 4
-          ;; no op (province 0)
+            ;; no op (province 0)
           .case 3
-          cmp # 1
+            cmp # 1
           .case 5
-          cmp # 2
+            cmp # 2
           .endswitch
 
           beq +
           .WaitScreenBottom
           jmp GoMap
 +
-          lda NextMap
-          sta CurrentMap
+          .mva CurrentMap, NextMap
 
           ;; Got to figure out the sprites
           ;; Start at the head of the sprite list
-          lda #<SpriteList
-          sta Pointer
-          lda #>SpriteList
-          sta Pointer + 1
+          .SetPointer SpriteList
 
           ldy # 0
 FindSprites:
@@ -84,6 +83,7 @@ SkipRoom:
           lda (Pointer), y         ; .y = 0
           ;; End of list? Then one room down, .x more to go
           beq SkipRoomDone
+
           ;; Not end of list, so we have to skip 6 bytes
           lda Pointer
           clc
@@ -100,6 +100,7 @@ SkipRoomDone:
           dex
           ;; Are we done? Then the next entry is this room
           beq FoundSprites
+
           ;; Not done yet — skip a/more room[s]
           lda Pointer
           clc
@@ -119,19 +120,18 @@ FoundSprites:
           inc Pointer + 1
 +
           sta Pointer
-
 DoneFinding:
           ;; Start with 0 sprites
           ;; There can be up to 4
           ;;; ldx # 0                ; this is already the case
           stx SpriteCount
           stx SpriteFlicker
-
 SetUpSprite:
           ;; .y varies from 0 to max 25 when all 4 sprites are used
           lda (Pointer), y         ; .y = .x × 6 + 0
           ;; End of sprite list?
           beq SpritesDone
+
           iny
           sty Temp
           sta SpriteIndex, x
@@ -153,7 +153,7 @@ SetUpSprite:
           ldx SpriteCount
           and BitMask, y
           beq SpritePresent
-          ;; fall through
+
 SpriteAbsent:
           lda Temp
           clc
@@ -174,9 +174,10 @@ SpritePresentAndYSet:
           lda (Pointer), y
           cmp #SpriteFixed
           beq AddFixedSprite
+
           cmp #SpriteWander
           beq AddWanderingSprite
-          ;; fall through
+
 AddRandomEncounter:
           iny
           lda (Pointer), y
@@ -196,6 +197,7 @@ AddRandomEncounter:
 
 AddFixedSprite:
           jsr AddPlacedSprite
+
           lda # 0
           ;; .y = .x⁺¹ × 6   (start of next entry)
           ;; Go back looking for more sprites
@@ -203,6 +205,7 @@ AddFixedSprite:
 
 AddWanderingSprite:
           jsr AddPlacedSprite
+
           lda # SpriteMoveIdle
           ;; .y = .x⁺¹ × 6   (start of next entry)
           ;; Go back looking for more sprites
@@ -232,11 +235,18 @@ SpritesDone:
 ;;; 
           .WaitScreenBottom
 
-          lda #ModeMap
-          sta GameMode
+          .if BANK == Province2MapBank
+            lda CurrentMap
+            cmp # 28              ; labyrinth entrance
+            bne DoneLabyrinth
+            .mva AlarmCountdown, # 9               ; 4½ seconds for “magic ray” effect
+            gne Map
+DoneLabyrinth:
+          .fi
 
-          lda # 2
-          sta AlarmCountdown
+          .mva AlarmCountdown, # 2
 
           ;; fall through to Map
           .bend
+
+;;; Audited 2022-02-16 BRPocock

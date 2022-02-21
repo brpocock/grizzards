@@ -3,6 +3,12 @@
 
 Inquire:  .block
 
+          .if !DEMO
+            ldy # 0
+            sty CurrentUtterance
+            sty CurrentUtterance + 1
+          .fi
+
           jsr Prepare48pxMobBlob
           .WaitScreenBottom
 
@@ -27,6 +33,7 @@ Loop:
           ldy # 0
           .UnpackLeft SignpostLineCompressed
           .FarJSR TextBank, ServiceDecodeAndShowText
+
           .SkipLines 4
 
           .ldacolu COLGRAY, 0
@@ -44,6 +51,7 @@ Loop:
           ldy # 4
           .UnpackRight SignpostLineCompressed
           .FarJSR TextBank, ServiceDecodeAndShowText
+
           .SkipLines 4
 
           .ldacolu COLGRAY, 0
@@ -54,16 +62,20 @@ Loop:
 
           .BitBit P0StickUp
           bne DoneStickUp
+
           lda SignpostInquiry
           beq StickDone
+
           lda # 0
           geq StickMoved
 
 DoneStickUp:
           .BitBit P0StickDown
           bne DoneStickDown
+
           lda SignpostInquiry
           bne StickDone
+
           lda # 1
 StickMoved:
           sta SignpostInquiry
@@ -78,6 +90,7 @@ DoneStickDown:
 StickDone:
           lda NewButtons
           beq NoButton
+
           .BitBit PRESSED
           bne NoButton
 
@@ -89,8 +102,8 @@ StickDone:
           sta SignpostIndex
 
 BackToSignpost:
-          lda # 0
-          sta NewButtons
+          ldy # 0
+          sty NewButtons
 
           .WaitScreenBottom
           .WaitScreenTopMinus 2, 0
@@ -98,7 +111,7 @@ BackToSignpost:
           .if NTSC != TV
             .SkipLines 2
           .fi
-          ldx # SignpostBank
+          ldx #SignpostBank
           jmp FarCall
 
 NoButton:
@@ -106,3 +119,5 @@ NoButton:
           jmp Loop
 
           .bend
+
+;;; Audited 2022-02-15 BRPocock

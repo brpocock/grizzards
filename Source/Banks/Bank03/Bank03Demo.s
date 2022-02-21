@@ -5,9 +5,12 @@
 
           .include "Font.s"
           .include "FontExtended.s"
+          .include "CombatSpriteTables.s"
           .include "6BitCompression.s"
           .include "DecodeText.s"
           .include "Write12Chars.s"
+          .include "Prepare48pxMobBlob.s"
+          .align $20            ; XXX alignment
           .include "DrawMonsterGroup.s"
 
           .include "Inquire.s"
@@ -22,41 +25,47 @@
 
           .include "CombatVBlank.s"
           
-          .include "Prepare48pxMobBlob.s"
           .include "Random.s"
-          
+
+          .align $80            ; XXX alignment
           .include "BeginNamePrompt.s"
           
-DoLocal:
-          cpy #ServiceCombatVBlank
-          beq CombatVBlank
-          cpy #ServiceWrite12Chars
-          beq Write12Chars
-          cpy #ServiceAttractStory
-          beq AttractStory
-          cpy #ServiceDeath
-          beq Death
-          cpy #ServiceDrawMonsterGroup
-          beq DrawMonsterGroup
-          cpy #ServiceDrawGrizzard
-          beq DrawGrizzard
-          cpy #ServiceInquire
-          beq Inquire
-          cpy #ServiceBeginName
-          beq BeginNamePrompt
-          cpy #ServiceDrawBoss
-          beq DemoDrawBoss
-          brk
-
           .include "DemoDrawBoss.s"
 
           .include "CopyPointerText.s"
-ShowPointerText:
-          jsr CopyPointerText
-          .FarJMP TextBank, ServiceDecodeAndShowText ; tail call
+          .include "ShowPointerText.s"
+
+DoLocal:
+          cpy #ServiceCombatVBlank
+          beq CombatVBlank
+
+          cpy #ServiceWrite12Chars
+          beq Write12Chars
+
+          cpy #ServiceAttractStory
+          beq AttractStory
+
+          cpy #ServiceDeath
+          beq Death
+
+          cpy #ServiceDrawMonsterGroup
+          beq DrawMonsterGroup
+
+          cpy #ServiceDrawGrizzard
+          beq DrawGrizzard
+
+          cpy #ServiceInquire
+          beq Inquire
+
+          cpy #ServiceBeginName
+          beq BeginNamePrompt
+
+          cpy #ServiceDrawBoss
+          beq DemoDrawBoss
+
+          brk
 
           .include "MonsterArt.s"
           .include "GrizzardImages.s"
           .include "GrizzardArt.s"
-          .include "CombatSpriteTables.s"
 

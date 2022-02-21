@@ -1,13 +1,12 @@
 ;;; Grizzards Source/Routines/DrawBoss.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
-          
+
 DrawBoss: .block
 
           jsr GetMonsterColors
 
 GetMonsterPointer:
-          lda #>BossArt - 1
-          sta pp4h
+          .mva pp4h, #>BossArt - 1
 
           lda CurrentMonsterArt
 Mult16:
@@ -28,7 +27,7 @@ Mult16:
 +
           sta pp4l
 
-          mvx pp5h, pp4h
+          .mvx pp5h, pp4h
 
           clc
           adc #<BossArt.Height
@@ -69,17 +68,16 @@ CommonFrame:
           ldy #0
           sty VDELP0
           sty VDELP1
-          lda #NUSIZDouble
-          sta NUSIZ0
+          .mva NUSIZ0, #NUSIZDouble
           sta NUSIZ1
 
 DecideFlipFrame:
           lda # 1
           and ClockSeconds
           bne PrepareToDrawMonsterFlipped
-          
+
 PrepareToDrawMonster:
-          sty REFP0
+          sty REFP0             ; Y = 0
           sty REFP1
 
 SetUpLeftHanded:
@@ -95,8 +93,7 @@ SetUpLeftHanded:
           jmp DrawMonster
 
 PrepareToDrawMonsterFlipped:
-          lda #REFLECTED
-          sta REFP0
+          .mva REFP0, #REFLECTED
           sta REFP1
 
 SetUpRightHanded:
@@ -124,7 +121,7 @@ DrawMonsterLoop:
           stx WSYNC
           stx WSYNC
           .if TV != NTSC
-          stx WSYNC
+            stx WSYNC
           .fi
 
           dey
@@ -136,14 +133,14 @@ DrawMonsterLoop:
           stx WSYNC
           stx WSYNC
           .if TV != NTSC
-          stx WSYNC
+            stx WSYNC
           .fi
 
           inx
           dey
           bne DrawMonsterLoop
 
-          sty GRP0
+          sty GRP0              ; Y = 0
           sty GRP1
 
           .SkipLines 5
@@ -151,3 +148,5 @@ DrawMonsterLoop:
           rts
 
           .bend
+
+;;; Audited 2022-02-16 BRPocock

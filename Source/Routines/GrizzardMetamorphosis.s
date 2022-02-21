@@ -1,14 +1,15 @@
-;;; Grizzards Source/Routines/GrizzardEvolution.s
+;;; Grizzards Source/Routines/GrizzardMetamorphosis.s
 ;;; Copyright © 2022 Bruce-Robert Pocock
 
-GrizzardEvolution:  .block
-          ldx #$ff
-          stx s
+GrizzardMetamorphosis:  .block
+          BeforeGrizzard = DeltaY
+          ScreenPhase = DeltaX
+          
+          .mvx s, #$ff              ; trash the stack
 
-          lda CurrentGrizzard
-          sta DeltaY
+          .mva BeforeGrizzard, CurrentGrizzard
 
-          ;; The  actual  evolution  logic  (for  the  demo)  is  mostly
+          ;; The  actual  metamorphosis  logic  (for  the  demo)  is  mostly
 	;; duplicated in CombatVictoryScreen.s
 
           ;; Destroy current Grizzard's file
@@ -18,8 +19,7 @@ GrizzardEvolution:  .block
           .FarJSR SaveKeyBank, ServiceSaveGrizzard
 
           ;; This is a duplicate of logic in NewGrizzard.CatchEm:
-          lda NextMap
-          sta Temp
+          .mva Temp, NextMap
           stx WSYNC
           .FarJSR MapServicesBank, ServiceGrizzardDefaults
 
@@ -28,51 +28,51 @@ GrizzardEvolution:  .block
           ;; We have to also switch the current Grizzard to the new form
           ;; or if they quit, they'll come back with a zombie Grizzard
           ;; with 0 HP still selected as their current companion.
-          ;; This came back as BUG #352
+          ;; This came back as Issue #352
           .FarJSR SaveKeyBank, ServiceSetCurrentGrizzard
 
-          lda # 3
-          sta AlarmCountdown
+          .mva AlarmCountdown, # 3
 
-          lda # 0
-          sta DeltaX
-          sta SpeechSegment
+          ldy # 0
+          sty ScreenPhase
+          sty SpeechSegment
 
-          lda #SoundDepot
-          sta NextSound
-
+          .mva NextSound, #SoundDepot
+;;; 
 Loop:
           .WaitScreenBottom
           .WaitScreenTop
 
           stx WSYNC
           .if SECAM == TV
-          lda #COLBLACK
+            lda #COLBLACK
           .else
-          .ldacolu COLORANGE, $e
+            .ldacolu COLORANGE, $e
           .fi
           sta COLUBK
 
           .SkipLines KernelLines / 5
 
-          lda DeltaX
+          lda ScreenPhase
           cmp # 1
           blt DoneDrawing
 
-          lda DeltaY
-          sta CurrentGrizzard
+          .mva CurrentGrizzard, BeforeGrizzard
 
           jsr DrawGrizzard
+
           .SkipLines 3
           
           jsr Prepare48pxMobBlob
+
           .ldacolu COLGRAY, 0
           sta COLUP0
           sta COLUP1
           .FarJSR TextBank, ServiceShowGrizzardName
+
           .SkipLines 5
 
-          lda DeltaX
+          lda ScreenPhase
           cmp # 2
           blt DoneDrawing
 
@@ -83,17 +83,18 @@ Loop:
           .SetPointer BecameText
           jsr ShowPointerText
 
-          lda DeltaX
+          lda ScreenPhase
           cmp # 3
           blt DoneDrawing
 
-          lda NextMap
-          sta CurrentGrizzard
+          .mva CurrentGrizzard, NextMap
 
           .SkipLines 3
           jsr DrawGrizzard
+
           .SkipLines 3
           jsr Prepare48pxMobBlob
+
           .ldacolu COLGRAY, 0
           sta COLUP0
           sta COLUP1
@@ -107,19 +108,18 @@ DoneDrawing:
           cmp # 1
           bge Speech1
 
-          lda #>Phrase_Grizzard0
-          sta CurrentUtterance + 1
+          .mva CurrentUtterance + 1, #>Phrase_Grizzard0
           lda #<Phrase_Grizzard0
           clc
-          adc DeltaY
+          adc BeforeGrizzard
           sta CurrentUtterance
-
           gne SpeechReady
 
 Speech1:
           cmp # 2
           bge Speech2
-          lda DeltaX
+
+          lda ScreenPhase
           cmp # 2
           blt DoneTalking
 
@@ -129,38 +129,36 @@ Speech1:
 Speech2:
           cmp # 3
           bge DoneTalking
-          lda DeltaX
+
+          lda ScreenPhase
           cmp # 3
           blt DoneTalking
 
-          lda #>Phrase_Grizzard0
-          sta CurrentUtterance + 1
+          .mva CurrentUtterance + 1, #>Phrase_Grizzard0
           lda #<Phrase_Grizzard0
           clc
           adc NextMap
           sta CurrentUtterance
-
 SpeechReady:
           inc SpeechSegment
-
 DoneTalking:
           lda AlarmCountdown
           bne Loop
 
-          lda # 3
-          sta AlarmCountdown
+          .mva AlarmCountdown, # 3
 
-          inc DeltaX
-          lda DeltaX
+          inc ScreenPhase
+          lda ScreenPhase
           cmp # 4
           blt Loop
 
 Leave:
-          lda CurrentMap
-          sta NextMap
+          .mva NextMap, CurrentMap
           .FarJMP TextBank, ServiceCombatVictory
-
+;;; 
 BecameText:
           .MiniText "BECAME"
 
           .bend
+
+;;; Audited 2022-02-16 BRPocock

@@ -1,28 +1,25 @@
 ;;; Grizzards Source/Routines/GrizzardDepot.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
+
 GrizzardDepot:    .block
-          ldx MaxHP
-          stx CurrentHP
-
-          ldx #$ff              ; blow away the stack
-          txs
-
-          lda #SoundDepot
-          sta NextSound
+          .mva CurrentHP, MaxHP
+          .mvx s, #$ff              ; blow away the stack
+          .mva NextSound, #SoundDepot
 
           .if TV == NTSC
-          .WaitScreenBottom
+            .WaitScreenBottom
           .else
-          .WaitForTimer
-          jsr Overscan
+            .WaitForTimer
+            jsr Overscan
           .fi
 
           stx WSYNC
           .WaitScreenTop
           .FarJSR SaveKeyBank, ServiceSaveToSlot
+
           stx WSYNC
           .if NTSC == TV
-          stx WSYNC
+            stx WSYNC
           .fi
           .WaitScreenTop
           .KillMusic
@@ -45,12 +42,14 @@ Loop:
           .SkipLines 5
 
           jsr Prepare48pxMobBlob
+
           .SetPointer DepotText
           jsr ShowPointerText
 
-          .SkipLines 30
+          .SkipLines 10
 
           .FarJSR TextBank, ServiceShowGrizzardName
+
           .FarJSR AnimationsBank, ServiceDrawGrizzard
 
           jsr Prepare48pxMobBlob
@@ -61,7 +60,8 @@ Loop:
           .SetPointer PlayTimeText
           jsr ShowPointerText
 ;;; 
-          lda # 40              ; blank space
+          .enc "minifont"
+          lda #" "
           sta StringBuffer + 0
           sta StringBuffer + 5
 
@@ -69,23 +69,18 @@ Loop:
 
 ;;; Note that our max hours = 255 × 4 where we display MANY
 
-          lda # 0
-          sta Temp
+          .mva Temp, # 0
           lda ClockFourHours
           cmp #$ff
-          bne +
+          bne NotOverflow
 
-          lda # 22              ; M
-          sta StringBuffer + 1
-          lda # 10              ; A
-          sta StringBuffer + 2
-          lda # 23              ; N
-          sta StringBuffer + 3
-          lda # 34              ; Y
-          sta StringBuffer + 4
+          .mva StringBuffer + 1, #"M"
+          .mva StringBuffer + 2, #"A"
+          .mva StringBuffer + 3, #"N"
+          .mva StringBuffer + 4, #"Y"
           jmp HTDdone
 
-+
+NotOverflow:
           clc
           asl a
           rol Temp
@@ -108,7 +103,7 @@ Loop:
           blt HTD
           inc DeltaX
 ;;; 
-HTD:
+HTD:                            ; hex to decimal
           sed             ; Output gets added up in decimal.
           ldy #0
           sty StringBuffer+1
@@ -171,10 +166,7 @@ HTDdone:
 ;;; 
 ;;; End of the hours decode + display routine
 
-          lda #>PlayHoursText
-          sta Pointer + 1
-          lda #<PlayHoursText
-          sta Pointer
+          .SetPointer PlayHoursText
           jsr ShowPointerText
 
           lda NewSWCHA
@@ -185,8 +177,9 @@ HTDdone:
           bne Select
 
 NotLeftRight:
+;;; 
+          .if !NOSAVE           ; all of the following is save related
 
-          .if !NOSAVE
           lda NewSWCHA
           .BitBit P0StickUp
           bne NoStickUp
@@ -214,14 +207,17 @@ SeekScreen:
 KeepSeeking:
           dec AlarmCountdown
           beq SeekScreen
+
           lda CurrentGrizzard
           clc
           adc NextMap
           cmp # 30
           blt SeekOK
+
           lda NextMap
           cmp # 1
           beq SeekWrapped
+
           lda # 29
           gne SeekOK
 
@@ -233,6 +229,7 @@ SeekOK:
           .FarJSR SaveKeyBank, ServicePeekGrizzard
           ;; carry is set if found
           bcc KeepSeeking
+
           .WaitScreenBottom
           .WaitScreenTop
           .if SECAM == TV
@@ -244,34 +241,36 @@ SeekOK:
           .FarJSR SaveKeyBank, ServiceLoadGrizzard
 
           .fi                   ; end of block disabled for NoSave
-
+;;; 
 DoneStick:
 
           lda NewSWCHB
           beq SwitchesDone
+
           .BitBit SWCHBReset
           bne NoReset
+
           .FarJMP SaveKeyBank, ServiceAttract
+
 NoReset:
           .BitBit SWCHBSelect
           bne SwitchesDone
+
 Select:
           .WaitScreenBottom
-          lda #ModeGrizzardStats
-          sta GameMode
-          lda #ModeGrizzardDepot
-          sta DeltaY            ; where to return after stats display
+          .mva GameMode, #ModeGrizzardStats
+          .mva DeltaY, #ModeGrizzardDepot     ; where to return after stats displayt
           gne TriggerDone
 
 SwitchesDone:
           lda NewButtons
           beq TriggerDone
+
           .BitBit PRESSED
           bne TriggerDone
-          lda #ModeMap
-          sta GameMode
-          lda CurrentMap
-          sta NextMap           ; may have been overwritten
+
+          .mva GameMode, #ModeMap
+          .mva NextMap, CurrentMap       ; may have been overwritten
 
           .WaitScreenBottom
           jmp GoMap
@@ -281,6 +280,7 @@ TriggerDone:
           lda GameMode
           cmp #ModeGrizzardDepot
           bne Leave
+
 ReturnToLoop:
           .WaitScreenBottom
           jmp Loop
@@ -292,10 +292,6 @@ Leave:
 +
           brk
 ;;; 
-ShowPointerText:
-          jsr CopyPointerText
-          .FarJMP TextBank, ServiceDecodeAndShowText
-;;; 
           ;; The table below has high byte first just to
           ;; make it easier to see the number progression.
 DecimalTable:
@@ -304,9 +300,14 @@ DecimalTable:
           .byte    0,2,5,6,  0,5,1,2
 
           .bend
+;;; 
 DepotText:
           .MiniText "DEPOT "
 PlayTimeText:
           .MiniText "PLAYED"
 PlayHoursText:
           .MiniText "HOURS "
+NumText:
+          .MiniText "NUM.00"
+
+;;; Audited 2022-02-16 BRPocock

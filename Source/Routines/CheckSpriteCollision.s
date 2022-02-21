@@ -11,6 +11,7 @@ NoCollision:
           lda MapFlags
           and InvertedBitMask + 4, x ; MapFlagSprite𝑥Moved
           sta MapFlags
+          and #~MapFlagFacing
           cmp #MapFlagRandomSpawn
           beq EndRandomSpawn
 
@@ -19,14 +20,22 @@ NoCollision:
           rts
 
 EndRandomSpawn:
+          ;; Make sure the timer has run out.
+          ;; Else we may not have drawn the screen at all yet.
+          ;; This delay is overkill, but it works.
+          ;; (we only really need 1-4 frames)
+          lda AlarmCountdown
+          bne Return
+
           ;; Every sprite has been checked at least once,
           ;; and has not had to be repositioned, so we must
           ;; be OK to exit "poof" mode.
           lda MapFlags
           and #~MapFlagRandomSpawn
           sta MapFlags
+Return:
           rts
-
+;;; 
 CollisionHasOccurred:
           ;; If we are still in random spawn "poof" mode, we can
           ;; (should) just randomly reposition the sprite, it
@@ -42,7 +51,7 @@ NotCertainOfPositions:
           ;; random position that hopefull won't collide.
           lda # 0
           sta SpriteX, x
-          jmp ValidateMap.CheckSpriteSpawn ; tail call
+          geq ValidateMap.CheckSpriteSpawn ; tail call
 
 NoRePosition:
           ;; We are not in random spawn "poof" mode
@@ -79,7 +88,7 @@ CheckUp:
           gne Done
 
 CheckDown:
-          .BitBit SpriteMoveDown
+          and #SpriteMoveDown
           beq Done
 
           dec SpriteY, x
@@ -91,3 +100,5 @@ Done:
 Bye:
           rts
           .bend
+
+;;; Audited 2022-02-16 BRPocock

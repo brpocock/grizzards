@@ -2,25 +2,26 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 StartNewGame:          .block
           .if NOSAVE
-          .WaitScreenBottom
+            .WaitScreenBottom
           .fi
           .WaitScreenTopMinus 1, -1
 
-          lda #ModeStartGame
-          sta GameMode
+          .mva GameMode, #ModeStartGame ; XXX unused?
 
           ldx #$ff              ; destroy stack. We are here to stay.
           txs
 
 InitGameVars:
           ;; Set up actual game vars for a new game
-          lda #ModeMap
-          sta GameMode
+          .mva GameMode, #ModeMap
 
           ldy # 0
           sty CurrentProvince
           sty NextMap
           sty CurrentMap
+          .if DEMO
+            sty Potions
+          .fi
           sty Score
           sty Score + 1
           sty Score + 2
@@ -42,7 +43,7 @@ InitGameVars:
           
           sty GrizzardXP
 
-          lda #$0f              ; learn 4 moves to start TODO
+          lda #$03
           sta MovesKnown
 
           ldx # 7
@@ -52,28 +53,24 @@ InitGameVars:
           dex
           bne -
 
-          lda #$ff
-          sta ProvinceFlags + 7
+          .mva ProvinceFlags + 7, #$ff
 
           lda # 10
           sta MaxHP
           sta CurrentHP
 
-          lda #0
-          sta StartGameWipeBlock
+          ldy # 0               ; XXX necessary?
+          sty StartGameWipeBlock
 
           .WaitScreenBottom
           .if TV != NTSC
-          stx WSYNC
+            stx WSYNC
           .fi
 
           .if NOSAVE
 
-          lda # 1               ; Aquax
-          sta CurrentGrizzard
-          
-          lda #$ff
-          sta ProvinceFlags + 4
+            .mva CurrentGrizzard, # 1               ; Aquax
+            .mva ProvinceFlags + 4, #$ff
 
           .else
 
@@ -87,8 +84,8 @@ Loop:
           jsr i2cStartWrite
           bcc LetsStart
           jsr i2cStopWrite
-          lda #ModeNoAtariVox
-          sta GameMode
+
+          .mva GameMode, #ModeNoAtariVox
           brk
 
 LetsStart:
@@ -99,7 +96,7 @@ LetsStart:
           clc
           ;; if this is non-zero other things will bomb
           .if ($ff & SaveGameSlotPrefix) != 0
-          .error "SaveGameSlotPrefix should be page-aligned, got ", SaveGameSlotPrefix
+            .error "SaveGameSlotPrefix should be page-aligned, got ", SaveGameSlotPrefix
           .fi
           lda #<SaveGameSlotPrefix
           adc StartGameWipeBlock
@@ -109,6 +106,7 @@ LetsStart:
 WipeBlock:
           lda # 0
           jsr i2cTxByte
+
           dex
           bne WipeBlock
 
@@ -134,28 +132,30 @@ WaitForScreenEnd:
           beq Leave
           .WaitScreenBottom
           .if TV != NTSC
-          stx WSYNC
+            stx WSYNC
           .fi
           jmp Loop
 
 Leave:
-          lda # 0
-          sta NameEntryBuffer
+          ldy # 0               ; XXX necessary?
+          sty NameEntryBuffer
 EnterName:
           .FarJSR StretchBank, ServiceBeginName
 
           .if DEMO
 
-          lda # 1               ; Aquax
-          sta CurrentGrizzard
+            lda # 1               ; Aquax
+            sta CurrentGrizzard
 
           .else
 
-          .FarJSR SaveKeyBank, ServiceChooseGrizzard
-          .FarJSR SaveKeyBank, ServiceConfirmNewGame
-          lda GameMode
-          cmp #ModeEnterName
-          beq EnterName
+            .FarJSR SaveKeyBank, ServiceChooseGrizzard
+
+            .FarJSR SaveKeyBank, ServiceConfirmNewGame
+
+            lda GameMode
+            cmp #ModeEnterName
+            beq EnterName
 
           .fi
 
@@ -163,17 +163,19 @@ EnterName:
 
 SaveName:
           .if NTSC == TV
-          .SkipLines 2
+            .SkipLines 2
           .else
-          .SkipLines 1
+            .SkipLines 1
           .fi
           .WaitScreenTop
 
           jsr i2cStartWrite
+
           lda SaveGameSlot
           clc
           adc #>SaveGameSlotPrefix
           jsr i2cTxByte
+
           clc
           lda #<SaveGameSlotPrefix
           adc #$1a
@@ -183,6 +185,7 @@ SaveName:
 -
           lda NameEntryBuffer, x
           jsr i2cTxByte
+
           inx
           cpx # 6
           bne -

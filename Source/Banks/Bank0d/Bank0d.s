@@ -26,17 +26,9 @@
           .align $100
           .include "ShowPicture.s"
           .include "CopyPointerText.s"
-ShowPointerText12:
-          jsr CopyPointerText12
-          ;; fall through
-ShowText12:
-          .FarJMP AnimationsBank, ServiceWrite12Chars
-
           .include "CopyPointerText12.s"
-
-ShowPointerText:
-          jsr CopyPointerText
-          .FarJMP TextBank, ServiceDecodeAndShowText ; tail call
+          .include "ShowPointerText.s"
+          .include "ShowPointerText12.s"
 
           .include "BeginNamePrompt.s"
 

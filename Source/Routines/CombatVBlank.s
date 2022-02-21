@@ -22,27 +22,32 @@ CombatLogic:
 DoAutoMove:
           lda WhoseTurn
           bne DoMonsterMove
+
 MaybeDoPlayerMove:
           lda StatusFX
           .BitBit StatusSleep
           beq NotPlayerSleep
+
 DoPlayerSleep:
           jsr Random
           bpl PlayerNotAwaken
+
           lda StatusFX
           and #~StatusSleep
           sta StatusFX
 PlayerNotAwaken:
-          lda #ModeCombatNextTurn
-          sta GameMode
+          .mva GameMode, #ModeCombatNextTurn
           gne CheckStick
 
 NotPlayerSleep:
           and #StatusMuddle
           beq CheckStick
+
 DoPlayerMuddled:
           jsr Random
+
           bpl PlayerNotClearUp
+
           lda StatusFX
           and #~StatusMuddle
           sta StatusFX
@@ -56,25 +61,29 @@ SetMuddledMove:
           lda BitMask, x
           bit MovesKnown
           beq SetMuddledMove
+
           inx
           stx MoveSelection
 
 PickMonster:
           jsr Random
+
           and #$07
           tax
 CheckMonsterPulse:
           cpx # 6
           bge PickMonster
-          lda MonsterHP, x
+
+          lda EnemyHP, x
           bne GotMonster
+
           inx
           gne CheckMonsterPulse
+
 GotMonster:
           inx
           stx MoveTarget
-          lda #ModeCombatDoMove
-          sta GameMode
+          .mva GameMode, #ModeCombatDoMove
           jmp StickDone
 
 DoMonsterMove:
@@ -83,17 +92,17 @@ DoMonsterMove:
           lda EnemyStatusFX, x
           and #StatusSleep
           beq MonsterMoves
-          lda #ModeCombatNextTurn
-          sta GameMode
+
+          .mva GameMode, #ModeCombatNextTurn
           gne CheckStick
 
 MonsterMoves:
           jsr Random
+
           and #$03
           sta MoveSelection
 
-          lda #ModeCombatAnnouncement
-          sta GameMode
+          .mva GameMode, #ModeCombatAnnouncement
 
 CheckStick:
           ldx MoveSelection
@@ -104,17 +113,21 @@ CheckStick:
 
           and #P0StickUp
           bne DoneStickUp
-          lda #SoundChirp
-          sta NextSound
+
+          .mva NextSound, #SoundChirp
           lda CombatMajorP
           beq CanSelectMoveUp
+
           dex
           beq WrapMoveForUp
+
           gne DoneStickUp
+
 CanSelectMoveUp:
           dex
           cpx #$ff
           bne DoneStickUp
+
 WrapMoveForUp:
           ldx # 8
 
@@ -122,15 +135,18 @@ DoneStickUp:
           lda NewSWCHA
           and #P0StickDown
           bne DoneStickDown
+
           inx 
-          lda #SoundChirp
-          sta NextSound
+          .mva NextSound, #SoundChirp
           cpx #9              ; max moves = 8
           blt DoneStickDown
+
           ldy CombatMajorP
           beq CanRunAwayDown
+
           ldx # 1
           gne DoneStickDown
+
 CanRunAwayDown:
           ldx # 0
 
@@ -139,11 +155,14 @@ DoneStickDown:
 StickLeftRight:
           lda CombatMoveDeltaHP
           bmi SelfTarget
+
 ChooseTarget:
           lda CombatMajorP
           beq ChooseMinorTarget
+
           ldx # 1
           gne ForcedTarget
+
 SelfTarget:
           ldx # 0
 ForcedTarget:
@@ -158,11 +177,13 @@ ChooseMinorTarget:
 TargetFirstMonster:
           ldx #0
 TargetNextMonster:
-          lda MonsterHP, x
+          lda EnemyHP, x
           bne TargetFirst
+
           inx
           cpx # 5
           bne TargetNextMonster
+
 TargetFirst:
           inx
           stx MoveTarget
@@ -174,16 +195,20 @@ NormalizeMinorTarget:
           lda NewSWCHA
           .BitBit P0StickLeft
           bne DoneStickLeft
+
           dex
           bne DoneStickLeft
+
           ldx # 6
 DoneStickLeft:
           lda NewSWCHA
           .BitBit P0StickRight
           bne DoneStickRight
+
           inx
           cpx # 7
           blt DoneStickRight
+
           ldx # 1
 DoneStickRight:
           stx MoveTarget
@@ -193,17 +218,18 @@ CheckSwitches:
           stx WSYNC
 
           lda NewSWCHB
-          beq SkipSwitches
+          beq DoneSwitches
+
           .BitBit SWCHBReset
           bne NoReset
+
           .WaitForTimer
-          ldx # 0
-          stx VBLANK
+          ldy # 0               ; necessary
+          sty VBLANK
           .if TV == NTSC
             .TimeLines KernelLines - 1
           .else
-            lda #$ff
-            sta TIM64T
+            .mva TIM64T, #$ff
           .fi
 
           .FarJMP SaveKeyBank, ServiceAttract
@@ -211,37 +237,42 @@ CheckSwitches:
 NoReset:
           .BitBit SWCHBSelect
           bne NoSelect
-          lda #ModeGrizzardStats
-          sta GameMode
+
+          .mva GameMode, #ModeGrizzardStats
 
 NoSelect:
 
+;;; XXX the pause code should be in some other place rather than being duplicated here
+;;; Moreover, Pause does not even affect combat mode, so this is maybe wasted code?
           .if TV == SECAM
 
-          lda DebounceSWCHB
-          and #SWCHBP0Advanced
-          sta Pause
+            lda DebounceSWCHB
+            and #SWCHBP1Advanced ; SECAM pause
+            sta Pause
 
           .else
 
-          lda DebounceSWCHB
-          .BitBit SWCHBColor
-          bne NoPause
-          and #SWCHB7800
-          beq +
-          lda Pause
-          eor #$ff
+            lda DebounceSWCHB
+            .BitBit SWCHBColor
+            bne NoPause
+
+            and #SWCHB7800
+            beq +
+            lda Pause
+            eor #$ff
 +
-          sta Pause
-          rts
+            sta Pause
+            rts
 
 NoPause:
-          lda # 0
-          sta Pause
+            ldy # 0             ; XXX necessary?
+            sty Pause
+
           .fi
 
-SkipSwitches:
-
+DoneSwitches:
           rts
 
           .bend
+
+;;; Audited 2022-02-16 BRPocock

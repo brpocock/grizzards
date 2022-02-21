@@ -13,14 +13,14 @@
 ;;;      https://www.biglist.com/lists/stella/archives/199804/msg00198.html
 
 ShowPicture:  .block
-        ;; This  version  is  for  straight-up  displaying  some  bitmap  data.
-        ;; It needs a table  of pointers to the bitmap data,  and it pushes one
-        ;; byte into Temp
-        ;; 
-        ;; You'll need to set up everything else beforehand.
+          ;; This  version  is  for  straight-up  displaying  some  bitmap  data.
+          ;; It needs a table  of pointers to the bitmap data,  and it pushes one
+          ;; byte into Temp
+          ;; 
+          ;; You'll need to set up everything else beforehand.
 
           .page
-	
+
           stx WSYNC
 	.SleepX 61
 Loop:
@@ -55,3 +55,5 @@ Loop:
 	rts
 
           .bend
+
+;;; Audited 2022-02-16 BRPocock

@@ -17,6 +17,7 @@ CheckForGrizzard:
           txa
           pha
           .FarJSR SaveKeyBank, ServicePeekGrizzard
+
           bcc DidNotCatchGrizzardYet
 
 AlreadyCaughtGrizzard:
@@ -27,14 +28,19 @@ AlreadyCaughtGrizzard:
 ShiftSpritesDownOne:
           lda SpriteIndex + 1, x
           sta SpriteIndex, x
+
           lda SpriteX + 1, x
           sta SpriteX, x
+
           lda SpriteY + 1, x
           sta SpriteY, x
+
           lda SpriteMotion + 1, x
           sta SpriteMotion, x
+
           lda SpriteAction + 1, x
           sta SpriteAction, x
+
           lda SpriteParam + 1, x
           sta SpriteParam, x
 
@@ -49,13 +55,12 @@ DidNotCatchGrizzardYet:
           tax
 
           jmp CheckForGrizzard
-
-DoneCheckingGrizzards:
-
 ;;; 
+DoneCheckingGrizzards:
           lda GameMode
           cmp #ModeMapNewRoomDoor
           bne DonePlacing
+
 PlacePlayerUnderDoor:
           ldx SpriteCount
           beq DonePlacing
@@ -64,11 +69,13 @@ PlacePlayerUnderDoor:
 CheckNextSpriteForDoor:
           lda SpriteAction, x
           cmp #SpriteDoor
-          beq +
+          beq SpriteIsDoor
+
           and #$07
           cmp #SpriteProvinceDoor
           bne NotADoor
-+
+
+SpriteIsDoor:
           lda SpriteX, x
           sta PlayerX
           sta BlessedX
@@ -83,9 +90,11 @@ CheckNextSpriteForDoor:
 
 NotADoor:
           inx
-          cmp SpriteCount
+          cpx SpriteCount
           bne CheckNextSpriteForDoor
+
 DonePlacing:
+          .mva GameMode, #ModeMap
 ;;; 
 CheckForRandomSpawns:
           ldx SpriteCount
@@ -94,7 +103,7 @@ CheckForRandomSpawns:
 
 CheckSpriteSpawn:
           lda SpriteMotion, x
-          .BitBit SpriteRandomEncounter
+          and #SpriteRandomEncounter
           bne NextMayBeRandom
 
           lda SpriteX, x
@@ -104,12 +113,14 @@ RandomX:
           jsr Random
           cmp #ScreenLeftEdge
           blt RandomX
+
           cmp #ScreenRightEdge
           bge RandomX
-          sta SpriteX, x
 
+          sta SpriteX, x
 RandomY:
           jsr Random
+
           and #$3f
           adc #ScreenTopEdge    ; who cares what Carry says, it'll fit either way
           sta SpriteY, x
@@ -125,4 +136,7 @@ NextMayBeRandom:
 ;;; 
 Bye:
           rts
+
           .bend
+
+;;; Audited 2022-02-16 BRPocock

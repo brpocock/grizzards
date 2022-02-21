@@ -1,29 +1,28 @@
 ;;; Grizzards Source/Routines/LearntMove.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
+          ;; Announce having learnt the move whose ID is in Temp
 LearntMove:        .block
           .WaitScreenBottom
 
+          lda GameMode
+          cmp #ModeCombat
+          bne +
+          stx WSYNC
++
+
           .WaitScreenTop
           ;; Call with the move ID stashed in Temp
-          lda #ModeLearntMove
-          sta GameMode
+          .mva GameMode, #ModeLearntMove
+          .mva DeltaX, Temp            ; Move learnt
+          .mva AlarmCountdown, # 8
 
-          lda Temp
-          sta DeltaX
+          .SetUtterance Phrase_Learnt
 
-          lda # 8
-          sta AlarmCountdown
-
-          lda #>Phrase_Learnt
-          sta CurrentUtterance + 1
-          lda #<Phrase_Learnt
-          sta CurrentUtterance
-
-          lda # 0
-          sta DeltaY
-          .WaitScreenBottom
+          ldy # 0
+          sty DeltaY            ; ??
 Loop:
+          .WaitScreenBottom
           .WaitScreenTop
 
           .ldacolu COLGRAY, 0
@@ -36,58 +35,56 @@ Loop:
           .SkipLines (KernelLines - 45) / 2
 
           .SetPointer LearntText
-          jsr CopyPointerText
-          .FarJSR TextBank, ServiceDecodeAndShowText
+          jsr ShowPointerText
 
-          ldy DeltaX
+          ldy DeltaX            ; move learnt
           sty Temp
           .FarJSR TextBank, ServiceShowMoveDecoded
 
 CheckForSpeech:
-          lda DeltaY
+          lda DeltaY            ; ???
           bne CheckForAlarm
 
           lda CurrentUtterance + 1
           bne CheckForAlarm
 
-          lda #>Phrase_Move01 - 1
-          sta CurrentUtterance + 1
+          .mva CurrentUtterance + 1, #>Phrase_Move01 - 1
           lda #<Phrase_Move01 - 1
           clc
-          adc DeltaX
+          adc DeltaX            ; move learnt
           sta CurrentUtterance
-          lda # 1
-          sta DeltaY
-
+          .mva DeltaY, # 1            ; ???
 CheckForAlarm:
           lda AlarmCountdown
           bne AlarmDone
-          
+
           rts
 
 AlarmDone:
-
           lda NewSWCHB
           beq SwitchesDone
+
           .BitBit SWCHBReset
           bne SwitchesDone
-          lda #ModeColdStart
-          sta GameMode
-SwitchesDone:
 
+          .mva GameMode, #ModeColdStart
+SwitchesDone:
           lda GameMode
           cmp #ModeLearntMove
-          beq +
-          cmp #ModeColdStart
-          beq GoColdStart
+          bne Leave
 
-          rts
-
-+
-          .WaitScreenBottom
           jmp Loop
+
+Leave:
+          cmp #ModeColdStart
+          bne +
+          .WaitScreenBottom
++
+          rts
 
 LearntText:
           .MiniText "LEARNT"
-          
+
           .bend
+
+;;; Audited 2022-02-16 BRPocock

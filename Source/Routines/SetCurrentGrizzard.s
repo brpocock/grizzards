@@ -2,7 +2,6 @@
 ;;; Copyright © 2022 Bruce-Robert Pocock
 
 SetCurrentGrizzard:       .block
-
           jsr i2cWaitForAck
 
           jsr i2cStartWrite
@@ -21,3 +20,5 @@ SetCurrentGrizzard:       .block
           jmp i2cStopWrite      ; tail call
 
           .bend
+
+;;; Audited 2022-02-16 BRPocock

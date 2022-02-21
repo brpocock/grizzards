@@ -29,33 +29,39 @@
           .include "Random.s"
 
           .include "CopyPointerText.s"
-
-ShowPointerText:
-          jsr CopyPointerText
-          .FarJMP TextBank, ServiceDecodeAndShowText ; tail call
+          .include "ShowPointerText.s"
 
 DoLocal:
           cpy #ServiceDrawGrizzard
           beq DrawGrizzard
+
           cpy #ServiceWrite12Chars
           beq Write12Chars
+
           cpy #ServiceCombatVBlank
           beq CombatVBlank
+
           cpy #ServiceAttractStory
           beq AttractStory
+
           cpy #ServiceInquire
           beq Inquire
+
           cpy #ServiceFinalScore
           beq FinalScore
-          cpy #ServiceGrizzardEvolution
-          beq GrizzardEvolution
+
+          cpy #ServiceGrizzardMetamorphosis
+          beq GrizzardMetamorphosis
+
           cpy #ServiceDeath
           beq Death
+
           cpy #ServiceConfirmErase
           beq ConfirmErase
+
           brk
 
-          .include "GrizzardEvolution.s"
+          .include "GrizzardMetamorphosis.s"
           .include "ConfirmErase.s"
           .include "Death.s"
           .include "FinalScore.s"
@@ -64,6 +70,5 @@ DoLocal:
 
           .include "GrizzardImages.s"
           .include "GrizzardArt.s"
-          .include "CombatSpriteTables.s"
 
           .include "EndBank.s"
