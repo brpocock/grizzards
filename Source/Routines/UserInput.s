@@ -48,32 +48,33 @@ NoSelect:
           .else
 
             lda DebounceSWCHB
-            .BitBit SWCHBColor
-            bne NoPause
-
-            ;; On '7800, we have to debounce the pause button
-            .BitBit SWCHB7800
-            beq Done7800        ; Not a '7800, don't worry about it
+            .BitBit SWCHB7800   ; '2600 or '7800?
+            bne Pause7800
 
             and #SWCHBColor
-            bne SkipSwitches    ; Not pressed, no worries
+            bne NoPause
+            lda #$80
+            gne DonePause
 
-            lda #SWCHBColor
-            bit NewSWCHB   ; Was it already pressed?
-            bne SkipSwitches
+            ;; On '7800, we have to debounce the pause button
+Pause7800:
+            lda NewSWCHB
+            beq DoneSwitches
+            and #SWCHBColor
+            bne DoneSwitches
 
             lda Pause           ; OK, toggle pause mode
             eor #$80
-Done7800:
+DonePause:
             sta Pause
-            jmp SkipSwitches
+            jmp DoneSwitches
 
 NoPause:
             ldy # 0             ; XXX necessary?
             sty Pause
 
           .fi
-SkipSwitches:
+DoneSwitches:
 ;;; 
 
 HandleStick:
