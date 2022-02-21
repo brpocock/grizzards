@@ -24,12 +24,12 @@ TopOfScreenService: .block
           lda Pause
           beq DrawScore
           .enc "minifont"
-          .mva StringBuffer + 0, "P"
-          .mva StringBuffer + 1, "A"
-          .mva StringBuffer + 2, "U"
-          .mva StringBuffer + 3, "S"
-          .mva StringBuffer + 4, "E"
-          .mva StringBuffer + 5, "D"
+          .mva StringBuffer + 0, #"P"
+          .mva StringBuffer + 1, #"A"
+          .mva StringBuffer + 2, #"U"
+          .mva StringBuffer + 3, #"S"
+          .mva StringBuffer + 4, #"E"
+          .mva StringBuffer + 5, #"D"
           gne ScoreDone
 
 DrawScore:

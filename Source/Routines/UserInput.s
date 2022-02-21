@@ -54,8 +54,8 @@ NoSelect:
             and #SWCHB7800
             beq +
             lda Pause
-            eor #$ff
 +
+            eor #$80
             sta Pause
             jmp SkipSwitches
 
