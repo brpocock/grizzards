@@ -51,11 +51,20 @@ NoSelect:
             .BitBit SWCHBColor
             bne NoPause
 
-            and #SWCHB7800
-            beq +
-            lda Pause
-            eor #$ff
-+
+            ;; On '7800, we have to debounce the pause button
+            .BitBit SWCHB7800
+            beq Done7800        ; Not a '7800, don't worry about it
+
+            and #SWCHBColor
+            bne SkipSwitches    ; Not pressed, no worries
+
+            lda #SWCHBColor
+            bit NewSWCHB   ; Was it already pressed?
+            bne SkipSwitches
+
+            lda Pause           ; OK, toggle pause mode
+            eor #$80
+Done7800:
             sta Pause
             jmp SkipSwitches
 
