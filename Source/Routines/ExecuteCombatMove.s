@@ -274,10 +274,6 @@ DidRandomLearn:
           .FarJSR TextBank, ServiceFetchGrizzardMove
           ;; Return value is in Temp, which is input for LearntMove
           .FarJSR MapServicesBank, ServiceLearntMove
-          ldx INTIM
-          stx TIM64T
-          .WaitScreenBottom
-          .WaitScreenTop
 
 DoneRandomLearn:
           lda # 0               ; zero on negative
@@ -285,74 +281,58 @@ DoneRandomLearn:
           jmp WaitOutScreen
 ;;; 
 PlayerHeals:
-          ;; “A” has the inverted HP to be gained
+          ;; .A has the inverted HP to be gained
           ;; (alter by random factor)
-          eor #$ff              ; A = HP to gain (base)
+          eor #$ff
           sta MoveHP            ; base HP to gain
           jsr CalculateAttackMask
 
           sta Temp              ; attack mask
-          jsr Random            ; get a value for ΔHP
+          jsr Random
 
           bmi PlayerHealsMinusHP
 
 PlayerHealsPlusHP:
-          ;; ΔHP is positive
           and Temp              ; attack mask
-          ;; now ΔHP is within the acceptable range
           clc
           adc MoveHP            ; base HP to gain
-          ;; A has the HP to be gained now
           gne PlayerHealsCommon
 
 PlayerHealsMinusHP:
-          ;; ΔHP is negative
           and Temp              ; attack mask
-          ;; now ΔHP is positive and within the acceptable range
           sta Temp              ; masked HP to negate
           lda MoveHP            ; base HP to gain
           sec
           sbc Temp              ; masked HP to negate
-          ;; A has the HP to be gained, if it's still positive.
-          beq PlayerHealsMinimum
           bpl PlayerHealsCommon
 
-PlayerHealsMinimum:
-          ;; If A is zero or negative, change it to 1
           ;; You'll never actually LOSE HP this way
-          lda # 1
+          lda # 0
 PlayerHealsCommon:
           ;; A has the HP to be gained
           sta MoveHP
           clc
-          adc CurrentHP         ; A = potential new HP
+          adc CurrentHP
           cmp MaxHP
           blt +
-          lda MaxHP             ; pin to no more than MaxHP
+          lda MaxHP
 +
-          sta CurrentHP         ; set new HP value,
-          lda #$ff              ; invert the value to mean “gained,”
+          sta CurrentHP
+          lda #$ff              ; negate the value to mean "gained"
           eor MoveHP
-          sta MoveHP            ; and store to MoveHP for the next φ
+          sta MoveHP
 PlayerBuff:
           ldx CombatMoveSelected
           .mva MoveHitMiss, # 1
 
           lda MoveEffects, x
-          sta Temp              ; potential status FX that may be imparted
+          sta Temp
           jsr Random
 
-          and Temp              ; A = actual status FX to impart
-          sta Temp              ; Temp = status FX trying to impart
+          and Temp
+          sta MoveStatusFX
           ora StatusFX
-          cmp StatusFX          ; any actual changes?
-          beq PlayerDoneBuff
-
-          sta StatusFX          ; actual changed value
-          sec
-          sbc Temp              ; status FX tried to impart
-          sta MoveStatusFX      ; actual change made
-PlayerDoneBuff:
+          sta StatusFX
           ;;  fall through
 ;;; 
 WaitOutScreen:
@@ -404,7 +384,7 @@ CheckMove:
 
 LearntMove:
           sta MovesKnown
-          gne AnnounceLearntMove
+          gne AfterTryingToLearn
 
 CheckNextMove:
           inc pp1h              ; loop counter
@@ -415,11 +395,10 @@ CheckNextMove:
 DidNotLearn:
           jmp NextTurn
 
-AnnounceLearntMove:
+AfterTryingToLearn:
           ;; Move number is still in Temp from above
           ;; … which is the input for ServiceLearntMove
           .FarJSR MapServicesBank, ServiceLearntMove
-          .WaitScreenBottom
 ;;; 
 NextTurn:
           inc WhoseTurn
