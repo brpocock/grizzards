@@ -4,7 +4,8 @@ all:	game demo no-save doc atariage
 
 atariage:	Dist/Grizzards.AtariAge.zip
 
-publish:	demo game no-save doc Dist/Grizzards.Source.tar.gz Dist/Grizzards.AtariAge.zip
+publish:	demo game no-save doc Dist/Grizzards.Source.tar.gz Dist/Grizzards.AtariAge.zip \
+		Dist/Grizzards.Portable.NTSC.bin
 	@until rsync -essh --progress \
 		Dist/Grizzards.Demo.NTSC.a26 Dist/Grizzards.Demo.PAL.a26 Dist/Grizzards.Demo.SECAM.a26 \
 		Dist/Grizzards.Demo.zip Dist/Grizzards.Source.tar.gz \
