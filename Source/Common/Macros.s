@@ -363,3 +363,13 @@ mvy:      .macro dest, src
           ldy \src
           sty \dest
           .endm
+
+;;; 
+;;; From Lee Davison
+
+between:  .macro low, high
+          clc
+          adc #$ff - \high
+          adc #\high - \low + 1
+          ;; C is set iff (low < A < high)
+          .endm
