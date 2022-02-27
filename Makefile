@@ -53,7 +53,7 @@ harmony:	Dist/Grizzards.Demo.NTSC.a26 \
 		Dist/Grizzards.NoSave.NTSC.a26
 	[ "$(USBMOUNT)" != "" ]
 	@if [ $$(uname -s) = 'Linux' ] ; then \
-	  mkdir $(USBMOUNT)/Grizzards ;\
+	  mkdir -p $(USBMOUNT)/Grizzards ;\
 	  cp -v Dist/Grizzards.Demo.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.Demo.F4 ;\
 	  cp -v Dist/Grizzards.NoSave.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.NoSave.F4 ;\
 	else \
@@ -65,7 +65,7 @@ encore:	Dist/Grizzards.Demo.NTSC.a26 \
 	Dist/Grizzards.NTSC.a26
 	[ "$(USBMOUNT)" != "" ]
 	@if [ $$(uname -s) = 'Linux' ] ; then \
-	  mkdir $(USBMOUNT)/Grizzards ;\
+	  mkdir -p $(USBMOUNT)/Grizzards ;\
 	  cp -v Dist/Grizzards.Demo.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.Demo.F4 ;\
 	  cp -v Dist/Grizzards.NoSave.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.NoSave.F4 ;\
 	  cp -v Dist/Grizzards.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.EF ;\
@@ -84,6 +84,15 @@ uno:	Dist/Grizzards.NTSC.a26 \
 	  cp -v Dist/Grizzards.NTSC.a26 $(USBMOUNT)/GRIZZARDS/GRIZZARDS.NTSC.EF ;\
 	  cp -v Dist/Grizzards.Demo.NTSC.a26 $(USBMOUNT)/GRIZZARDS/DEMO.NTSC.F4 ;\
 	  cp -v Dist/Grizzards.NoSave.NTSC.a26 $(USBMOUNT)/GRIZZARDS/NOSAVE.NTSC.F4 ;\
+	else \
+	  echo "Patch Makefile for your $$(uname -s) OS" ; \
+	fi
+
+portable:	Dist/Grizzards.NoSave.NTSC.a26
+	[ "$(USBMOUNT)" != "" ]
+	@if [ $$(uname -s) = 'Linux' ] ; then \
+	  mkdir -p $(USBMOUNT)/Game ;\
+	  cp -v Dist/Grizzards.NoSave.NTSC.a26 $(USBMOUNT)/Game/Grizzards.bin ;\
 	else \
 	  echo "Patch Makefile for your $$(uname -s) OS" ; \
 	fi
