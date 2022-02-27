@@ -11,6 +11,7 @@ publish:	demo game no-save doc Dist/Grizzards.Source.tar.gz Dist/Grizzards.Atari
 		Dist/Grizzards.Demo.NTSC.pdf Dist/Grizzards.Demo.PAL.pdf Dist/Grizzards.Demo.SECAM.pdf \
 		Dist/Grizzards.NoSave.NTSC.a26 Dist/Grizzards.NoSave.PAL.a26 Dist/Grizzards.NoSave.SECAM.a26 \
 		Dist/Grizzards.NoSave.NTSC.pdf Dist/Grizzards.NoSave.PAL.pdf Dist/Grizzards.NoSave.SECAM.pdf \
+		Dist/Grizzards.Portable.NTSC.bin \
 		Dist/Grizzards.NTSC.a26 Dist/Grizzards.PAL.a26 Dist/Grizzards.SECAM.a26 \
 		Dist/Grizzards.NTSC.pdf Dist/Grizzards.PAL.pdf Dist/Grizzards.SECAM.pdf \
 		Dist/Grizzards.zip \
@@ -88,11 +89,13 @@ uno:	Dist/Grizzards.NTSC.a26 \
 	  echo "Patch Makefile for your $$(uname -s) OS" ; \
 	fi
 
-portable:	Dist/Grizzards.NoSave.NTSC.a26
+portbin:	Dist/Grizzards.Portable.NTSC.bin
+
+portable:	Dist/Grizzards.Portable.NTSC.bin
 	[ "$(USBMOUNT)" != "" ]
 	@if [ $$(uname -s) = 'Linux' ] ; then \
 	  mkdir -p $(USBMOUNT)/Game ;\
-	  cp -v Dist/Grizzards.NoSave.NTSC.a26 $(USBMOUNT)/Game/Grizzards.bin ;\
+	  cp -v Dist/Grizzards.Portable.NTSC.bin $(USBMOUNT)/Game/Grizzards.bin ;\
 	else \
 	  echo "Patch Makefile for your $$(uname -s) OS" ; \
 	fi
@@ -159,6 +162,9 @@ SOURCES=$(shell find Source -name \*.s -o -name \*.txt -o -name \*.png -o -name 
 
 Dist/Grizzards.Manual.txt:	Manual/Manual.txt
 	cp Manual/Manual.txt Dist/Grizzards.Manual.txt
+
+Dist/Grizzards.Portable.NTSC.bin:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
+	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.Portable.NTSC.bin
 
 Dist/Grizzards.Demo.NTSC.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
 	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.Demo.NTSC.a26

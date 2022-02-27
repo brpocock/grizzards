@@ -57,6 +57,13 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
     print "\\\n\tObject/Bank$bank.NoSave.$tv.o " if hex("0x$bank") < 8;
   }
 
+  if ('NTSC' eq $tv) {
+    print "\n\nDist/Grizzards.Portable.$tv.bin:\t";
+    for my $bank (@banks) {
+      print "\\\n\tObject/Bank$bank.Portable.$tv.o " if hex("0x$bank") < 8;
+    }
+  }
+
   print "
 \tmkdir -p Dist
 \tcat \$^ > \$\@\n\n";
@@ -208,6 +215,17 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
 \t\${AS2600} -DTV=$tv -DDEMO=true -DNOSAVE=true -I Source/Generated/Bank$bank -l \$\@.labels.txt -L \$\@.list.txt \$< -o \$\@\n
 \tbin/label2sym \$\@.labels.txt
 \tbin/listing2lst \$\@.list.txt\n";
+
+          if ('NTSC' eq $tv) {
+            print "\n\nObject/Bank$bank.Portable.$tv.o:\t";
+            for my $file (@files) {
+              print "\\\n\t$file";
+            }
+            print "
+\tmkdir -p Object
+\t\${AS2600} -DTV=$tv -DDEMO=true -DNOSAVE=true -DPORTABLE=true -I Source/Generated/Bank$bank -L \$\@.list.txt \$< -o \$\@\n
+\n";
+          }
         }
       }                         # end of bank
   }                             # end of AA

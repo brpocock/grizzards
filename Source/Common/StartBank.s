@@ -4,11 +4,12 @@
 
           ;; These can be overridden by the build command-line.
           .weak
-          DEMO := false
-          PUBLISHER := false
-          TV := NTSC
-          NOSAVE := false
-          ATARIAGESAVE := false
+            DEMO := false
+            PUBLISHER := false
+            TV := NTSC
+            NOSAVE := false
+            ATARIAGESAVE := false
+            PORTABLE := false
           .endweak
 
           .enc "Unicode"
