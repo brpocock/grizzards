@@ -96,7 +96,7 @@ portable:	Dist/Grizzards.Portable.NTSC.bin
 	[ "$(USBMOUNT)" != "" ]
 	@if [ $$(uname -s) = 'Linux' ] ; then \
 	  mkdir -p $(USBMOUNT)/Game ;\
-	  cp -v Dist/Grizzards.Portable.NTSC.bin $(USBMOUNT)/Game/Grizzards.bin ;\
+	  cp -v Dist/Grizzards.Portable.NTSC.bin $(USBMOUNT)/Game/'Grizzards demo     '.bin ;\
 	else \
 	  echo "Patch Makefile for your $$(uname -s) OS" ; \
 	fi

@@ -41,7 +41,11 @@ DrawLine: .macro
           stx WSYNC
 	ldy # 4
 	sty LineCounter
-	.SleepX 56
+          .if PORTABLE
+            .SleepX 58
+          .else
+            .SleepX 56
+          .fi
 Loop:
           .DrawLine
 	.Sleep 8
