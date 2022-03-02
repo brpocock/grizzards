@@ -14,7 +14,7 @@ DoLocal:
 
           .include "VSync.s"
           .include "VBlank.s"
-          
+
           .include "Random.s"
 
           .include "PlayMusic.s"
@@ -26,5 +26,4 @@ DoLocal:
 SongProvince:
           .include "Province0.s"
 
-          
           .include "EndBank.s"
