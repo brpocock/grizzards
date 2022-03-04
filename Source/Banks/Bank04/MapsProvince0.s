@@ -993,7 +993,7 @@ SpriteList:
           .byte SpriteDoor, 43
 
           .byte $ff, SpriteWander
-          .byte $40, $40
+          .byte 0, 0
           .byte SpritePerson, 16 ; broken radio
 
           .byte 0
