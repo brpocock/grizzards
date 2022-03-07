@@ -22,7 +22,11 @@ ShowPicture:  .block
           .page
 
           stx WSYNC
-          .SleepX 61
+          .if PORTABLE
+            .SleepX 59
+          .else
+            .SleepX 61
+          .fi
 Loop:
           ldy LineCounter
           lda (PixelPointers + 0), y

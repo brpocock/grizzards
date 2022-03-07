@@ -249,6 +249,10 @@ FinishUp:
 
           rts
 ;;; 
+          .if PORTABLE
+            .align $10
+          .fi
+
           .page
 PositionMonsters:
           stx WSYNC

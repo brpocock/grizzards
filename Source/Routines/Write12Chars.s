@@ -98,7 +98,11 @@ AlignedLeft:
           stx WSYNC
           ldy # 4
           sty SignpostScanline
-          .SleepX 49
+          .if PORTABLE
+            .SleepX 47
+          .else
+            .SleepX 49
+          .fi
 LeftLoop:
           .DrawLeftLine
           .Sleep 8
