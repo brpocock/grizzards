@@ -326,7 +326,7 @@
           Monster_Cyclops = 24
 ;;; 
 ;;; Game tunable
-          GrizzardMetamorphosisXP = 35
+          GrizzardMetamorphosisXP = 27
 
 
 ;;; Audited 2022-02-16 BRPocock
