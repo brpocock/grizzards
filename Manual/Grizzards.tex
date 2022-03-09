@@ -20,15 +20,15 @@
 
 \ifdefined\TVNTSC
 \newcommand\TV{NTSC}
-\newcommand\REGION{US, Canada, Mexico, the Carribbean, Brazil, and Japan}
+\newcommand\REGION{The Americas, Japan, and Korea}
 \else
 \ifdefined\TVPAL
 \newcommand\TV{PAL}
-\newcommand\REGION{UK and Europe (except France)}
+\newcommand\REGION{UK and Western Europe (except France)}
 \else
 \ifdefined\TVSECAM
 \newcommand\TV{SECAM}
-\newcommand\REGION{France, Russia, and Africa}
+\newcommand\REGION{France, Eastern Europe, and Africa}
 \else
 \error{Must define a TV standard}
 \fi
