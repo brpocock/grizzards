@@ -12,15 +12,15 @@ Music + Additional Art:
 Zephyr Salz
 Controller:
 
-Joystick or Genesis gamepad in
-left port. Genesis B button is
-FIRE, C button is SELECT.
+Joystick  or Genesis  gamepad in
+left port.  Genesis B  button is
+FIRE,   C   button  is   SELECT.
+RetroGameBoyz Joy2b+ also should
+work, use buttons I & II.
 
 SaveKey or AtariVox in right
 port. (NoSave demo works without
 SaveKey/AtariVox.)
-
-
 
 Press FIRE to leave title screen
 and start.
@@ -57,6 +57,7 @@ Black signpost: Signpost.
 Gold person: Person.
 Purple building: Grizzard Depot.
 Green "lizard": wild Grizzard
+
 Combat: Select move with
 up/down. Black moves have not
 been learnt yet. Select target
@@ -67,8 +68,8 @@ turns next.
 
 Sign/Person: FIRE to exit after
 you read sign or listen to
-person speak.
-
+person speak. Up/Down  & FIRE to
+reply if options appear.
 Grizzard Depot: FIRE to exit.
 SELECT for stats of current
 Grizzard. Up/down to change
