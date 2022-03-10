@@ -76,7 +76,6 @@ Grizzard. Up/down to change
 Grizzard companion.
 
 --------------------------------
-
 Hint: When you first begin, head
 left until the docks.
 
