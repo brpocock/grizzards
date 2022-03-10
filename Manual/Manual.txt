@@ -80,3 +80,6 @@ Grizzard companion.
 Hint: When you first begin, head
 left until the docks.
 
+* Full game uses assigned memory
+  slot  on  SaveKey.  Demo  uses
+  scratch space.
