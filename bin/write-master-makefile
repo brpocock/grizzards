@@ -51,17 +51,17 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
 \tmkdir -p Dist
 \tcat \$^ > \$\@\n\n";
 
-  print "\n\nDist/Grizzards.NoSave.$tv.a26:\t";
-
-  for my $bank (@banks) {
-    print "\\\n\tObject/Bank$bank.NoSave.$tv.o " if hex("0x$bank") < 8;
-  }
-
   if ('NTSC' eq $tv) {
     print "\n\nDist/Grizzards.Portable.$tv.bin:\t";
     for my $bank (@banks) {
       print "\\\n\tObject/Bank$bank.Portable.$tv.o " if hex("0x$bank") < 8;
     }
+  }
+
+  print "\n\nDist/Grizzards.NoSave.$tv.a26:\t";
+
+  for my $bank (@banks) {
+    print "\\\n\tObject/Bank$bank.NoSave.$tv.o " if hex("0x$bank") < 8;
   }
 
   print "
