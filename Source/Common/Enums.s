@@ -200,7 +200,7 @@
           ServiceLoadGrizzard = $22
           ServiceLoadProvinceData = $21
           ServicePeekGrizzard = $12
-          ServicePeekGrizzardXP = $12
+          ServicePeekGrizzardXP = $1f
           ServiceSaveGrizzard = $11
           ServiceSaveProvinceData = $20
           ServiceSaveToSlot = $10
