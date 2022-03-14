@@ -49,6 +49,7 @@ cart:	Dist/Grizzards.AA.NTSC.a26
 USBMOUNT=$(shell echo \"$$(mount | grep /run/media/$$USER | grep vfat | head -n 1 | \
 		perl -pne 's#^/dev/.+ on (.+) type vfat (.*)#$$1#g')\")
 
+USBDEV=$(shell grep "$(USBMOUNT)" /etc/mtab | cut -d ' ' -f 1)
 
 # Basic Harmony cart only can handle 32k images
 harmony:	Dist/Grizzards.Demo.NTSC.a26 \
@@ -94,9 +95,13 @@ portbin:	Dist/Grizzards.Portable.NTSC.bin
 
 portable:	Dist/Grizzards.Portable.NTSC.bin
 	[ "$(USBMOUNT)" != "" ]
-	@if [ $$(uname -s) = 'Linux' ] ; then \
+	if [ $$(uname -s) = 'Linux' ] ; then \
 	  mkdir -p $(USBMOUNT)/Game ;\
 	  cp -v Dist/Grizzards.Portable.NTSC.bin $(USBMOUNT)/Game/'Grizzards demo     '.bin ;\
+            sync $(USBMOUNT) ;\
+            umount $(USBMOUNT) ;\
+            sudo fatsort -o d -n $(USBDEV) ;\
+            sync ;\
 	else \
 	  echo "Patch Makefile for your $$(uname -s) OS" ; \
 	fi
