@@ -8,6 +8,12 @@
           .include "PlayerSprites.s"
           .include "MapSprites.s"
 DoLocal:
+          .if NOSAVE
+            lda GameMode
+            cmp #ModeResumePassword
+            beq NoSavePassword
+          .fi
+
           .include "MapSetup.s"
           ;; falls through to
           .include "Map.s"
@@ -26,4 +32,10 @@ DoLocal:
 SongProvince:
           .include "Province0.s"
 
+          .if NOSAVE
+            .include "48Pixels.s"
+            .include "CopyPointerText.s"
+            .include "ShowPointerText.s"
+            .include "NoSavePassword.s"
+          .fi
           .include "EndBank.s"

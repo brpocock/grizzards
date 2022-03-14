@@ -29,6 +29,7 @@
           ModeEnterName = $27
           ModeConfirmEraseSlot = $28
           ModeUnerase = $29
+          ModeResumePassword = $2a
 
           ModeMap = $30
           ModeMapNewRoom = $31
