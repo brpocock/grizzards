@@ -337,10 +337,11 @@ MoveTarget:
 MoveAnnouncement:
           .byte ?
 
-;;; Overlain: when drawing vs. executing a move
+UnusedCombatByte1:
+          .byte ?
 
-MonsterColorPointer:
-          .word ?
+LastPlayerCombatMove:
+          .byte ?
 
 CurrentMonsterNumber:
           .byte ?

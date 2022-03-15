@@ -4,7 +4,7 @@
 CombatMainScreen:   .block
 
 BackToPlayer:
-          .mva MoveSelection, # 1
+          .mva MoveSelection, LastPlayerCombatMove
           .mva GameMode, #ModeCombat
           .mva AlarmCountdown, # 4
 
@@ -380,6 +380,7 @@ DoUseMove:
           beq MoveNotOK
 
 MoveOK:
+          .mva LastPlayerCombatMove, MoveSelection
           .mva GameMode, #ModeCombat
           .mva NextSound, #SoundBlip
           gne CombatAnnouncementScreen
