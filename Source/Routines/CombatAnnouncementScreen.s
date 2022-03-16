@@ -79,7 +79,7 @@ Loop:
 FirstTime:
           jsr Prepare48pxMobBlob
 
-          ;; stx WSYNC ; XXX commented out for space
+          stx WSYNC
           .ldacolu COLINDIGO, 0
           sta COLUBK
 
