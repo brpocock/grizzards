@@ -33,34 +33,44 @@ VBlank: .block
           ;; beq NotGenesis
 
           InvertButtons = $e0   ; $e0 for all three
-          
-          lda INPT0             ; Button III
-          and #PRESSED
-          lsr a
-          lsr a
-          sta Temp
+
+          lda DebounceButtons
+          sta Score + 2
+
+          .if BANK != 11
+            lda INPT0             ; Button III
+            and #PRESSED
+            lsr a
+            lsr a
+            sta Temp
+          .fi
           lda INPT1             ; Button II / C
           and #PRESSED
           lsr a
-          ora Temp
+          .if BANK != 11
+            ora Temp
+          .fi
           sta Temp
-;;           jmp FireButton
+          jmp FireButton
 
-;; NotGenesis:
-;;           .mva Temp, #InvertButtons - $80
+NotGenesis:
+          .mva Temp, #InvertButtons - $80
 
 FireButton:
           lda INPT4             ; FIRE / I / B
+          sta Score
           and #PRESSED          ; $80
           ora Temp
           eor #InvertButtons    ; button down bits are ones now
           sta Temp
 
+          sta Score + 1
+
           cmp DebounceButtons   ; buttons down bits are ones here too
           bne ButtonsChanged
 
 ButtonsSame:
-          sty NewButtons        ; Y = 0
+          sty NewButtons        ; Y = 0 XXX redundant
           geq DoneButtons
 
 ButtonsChanged:
@@ -91,7 +101,6 @@ DoneButtons:
 
           .WaitForTimer
 
-          ;; Y = 0 from up top
-          sty VBLANK
+          sty VBLANK            ; Y = 0
           rts
           .bend
