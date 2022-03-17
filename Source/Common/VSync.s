@@ -8,7 +8,7 @@
 ;;; (The cost in wired memory is a factor.)
           
 VSync: .block
-          lda #ENABLED
+          lda #ENABLED | VBlankLatchINPT45
           sta VBLANK
 
           sta VSYNC

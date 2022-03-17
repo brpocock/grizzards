@@ -78,12 +78,12 @@ ButtonsChanged:
           eor #InvertButtons | 1
           sta NewButtons        ; buttons down are 0 bits, $01 to flag change
           and #$40              ; C / II button pressed?
-          bne DoneButtonII
+          ;; bne DoneButtonII
 
-          lda NewSWCHB
-          ora #~SWCHBSelect     ; zero = Select button pressed
-          sta NewSWCHB
-          sta DebounceSWCHB
+          ;; lda NewSWCHB
+          ;; ora #~SWCHBSelect     ; zero = Select button pressed
+          ;; sta NewSWCHB
+          ;; sta DebounceSWCHB
 DoneButtonII:
           lda NewButtons
           and #$20
