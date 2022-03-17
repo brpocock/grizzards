@@ -28,39 +28,60 @@ VBlank: .block
           ora #$40              ; guarantee at least one "1" bit
           sta NewSWCHB
 +
-          lda SWCHB
-          .BitBit SWCHBP0Genesis
-          beq NotGenesis
-          lda INPT1
+          ;; lda SWCHB
+          ;; .BitBit SWCHBP0Genesis
+          ;; beq NotGenesis
+
+          InvertButtons = $e0   ; $e0 for all three
+          
+          lda INPT0             ; Button III
           and #PRESSED
           lsr a
-          sta NewButtons
-          jmp FireButton
-NotGenesis:
-          lda #$40
-          sta NewButtons
-FireButton:
-          lda INPT4
+          lsr a
+          sta Temp
+          lda INPT1             ; Button II / C
           and #PRESSED
-          ora NewButtons
+          lsr a
+          ora Temp
+          sta Temp
+;;           jmp FireButton
 
-          cmp DebounceButtons
+;; NotGenesis:
+;;           .mva Temp, #InvertButtons - $80
+
+FireButton:
+          lda INPT4             ; FIRE / I / B
+          and #PRESSED          ; $80
+          ora Temp
+          eor #InvertButtons    ; button down bits are ones now
+          sta Temp
+
+          cmp DebounceButtons   ; buttons down bits are ones here too
           bne ButtonsChanged
-          lda # 0
-          sta NewButtons
+
+ButtonsSame:
+          sty NewButtons        ; Y = 0
           geq DoneButtons
 
 ButtonsChanged:
           sta DebounceButtons
-          ora #$01              ; guarantee non-zero if it changed
-          sta NewButtons
+          eor #InvertButtons | 1
+          sta NewButtons        ; buttons down are 0 bits, $01 to flag change
+          and #$40              ; C / II button pressed?
+          bne DoneButtonII
 
-          and #$40              ; C button pressed?
-          bne DoneButtons
           lda NewSWCHB
           ora #~SWCHBSelect     ; zero = Select button pressed
           sta NewSWCHB
           sta DebounceSWCHB
+DoneButtonII:
+          lda NewButtons
+          and #$20
+          bne DoneButtons
+
+          lda Pause
+          eor #$80
+          sta Pause
 DoneButtons:
 
           .if DoVBlankWork != 0
