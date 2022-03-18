@@ -42,11 +42,13 @@ DoneButtonIII:
           .fi
           bit INPT1
           bmi DoneButtonII
+
           ora #ButtonII
 DoneButtonII:
 NotGenesis:
           bit INPT4
           bmi DoneButtonI
+
           ora #ButtonI
 DoneButtonI:
           sta NewButtons
