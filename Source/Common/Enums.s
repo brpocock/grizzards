@@ -327,6 +327,13 @@
 ;;; 
 ;;; Game tunable
           GrizzardMetamorphosisXP = 27
+;;; 
+;;; Gamepad buttons
+          ButtonI = $80
+          ButtonB = ButtonI
+          ButtonFire = ButtonI
 
+          ButtonII = $40
+          ButtonC = ButtonII
 
-;;; Audited 2022-02-16 BRPocock
+          ButtonIII = $20

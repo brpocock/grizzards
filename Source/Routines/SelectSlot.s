@@ -207,9 +207,8 @@ StickDone:
 ;;; 
 EliminationMode:
           ;; Release button to exit Elimination Mode
-          lda INPT4
-          and #ButtonI
-          bne ThisIsNotAStickUp
+          bit INPT4
+          bmi ThisIsNotAStickUp
 
           ;; Push stick Up to erase the selected slot
           lda SWCHA
