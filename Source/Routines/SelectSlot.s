@@ -198,7 +198,7 @@ StickDone:
 
           ;; — hold Fire button
           bit INPT4
-          bpl ThisIsNotAStickUp
+          bmi ThisIsNotAStickUp
 
           .SetUtterance Phrase_EraseSlot
 
