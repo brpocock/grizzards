@@ -107,7 +107,7 @@ DoneStick:
           lda NewButtons
           beq DoneButtons
 
-          and #PRESSED
+          and #ButtonI
           bne DoneButtons
 
           .mva NextSound, #SoundBlip

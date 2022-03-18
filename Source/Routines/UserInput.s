@@ -7,7 +7,7 @@ CheckButton:
           lda NewButtons
           beq CheckSwitches
 
-          and #PRESSED
+          and #ButtonI
           bne CheckSwitches
 
           .if !DEMO
