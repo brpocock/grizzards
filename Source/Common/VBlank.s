@@ -29,22 +29,20 @@ VBlank: .block
           sta NewSWCHB
 +
 
-          .if 11 == BANK        ; ran out of space in Bank 11 ($b)
-            tya                 ; Y = 0
-          .else
-            lda SWCHB
-            and #SWCHBP0Genesis
-            beq NotGenesis
+          lda SWCHB
+          and #SWCHBP0Genesis
+          beq NotGenesis
 
-            tya                 ; Y = 0
+          tya                 ; Y = 0
+          .if 11 != BANK        ; ran out of space in Bank 11 ($b)
             bit INPT0
             bmi DoneButtonIII
             lda #ButtonIII
 DoneButtonIII:
-            bit INPT1
-            bmi DoneButtonII
-            ora #ButtonII
           .fi
+          bit INPT1
+          bmi DoneButtonII
+          ora #ButtonII
 DoneButtonII:
 NotGenesis:
           bit INPT4
@@ -70,7 +68,7 @@ ButtonsChanged:
           eor #$e0 | 1
           sta NewButtons        ; buttons down are 0 bits, $01 to flag change
           sta Score
-          and #$40              ; C / II button pressed?
+          and #ButtonII         ; C / II button pressed?
           ;; bne DoneButtonIISelect
 
           ;; lda NewSWCHB
@@ -78,18 +76,20 @@ ButtonsChanged:
           ;; sta NewSWCHB
           ;; sta DebounceSWCHB
 DoneButtonIISelect:
-          lda NewButtons
-          and #$20
-          bne DoneButtons
+          .if 11 != BANK
+            lda NewButtons
+            and #ButtonIII
+            bne DoneButtons
 
-          lda Pause
-          eor #$80
-          sta Pause
+            lda Pause
+            eor #$80
+            sta Pause
+          .fi
 DoneButtons:
 
           .if DoVBlankWork != 0
-          jsr DoVBlankWork
-          ldy # 0
+            jsr DoVBlankWork
+            ldy # 0
           .fi
 
           .WaitForTimer
