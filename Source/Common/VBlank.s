@@ -65,7 +65,7 @@ ButtonsSame:
 
 ButtonsChanged:
           sta DebounceButtons
-          eor #$e0 | 1
+          eor #ButtonI | ButtonII | ButtonIII | 1
           sta NewButtons        ; buttons down are 0 bits, $01 to flag change
           sta Score
           and #ButtonII         ; C / II button pressed?
