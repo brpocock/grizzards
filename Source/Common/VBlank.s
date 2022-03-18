@@ -28,63 +28,56 @@ VBlank: .block
           ora #$40              ; guarantee at least one "1" bit
           sta NewSWCHB
 +
-          ;; lda SWCHB
-          ;; .BitBit SWCHBP0Genesis
-          ;; beq NotGenesis
 
-          InvertButtons = $e0   ; $e0 for all three
+          .if 11 == BANK        ; ran out of space in Bank 11 ($b)
+            tya                 ; Y = 0
+          .else
+            lda SWCHB
+            and #SWCHBP0Genesis
+            beq NotGenesis
 
-          lda DebounceButtons
-          sta Score + 2
-
-          .if BANK != 11
-            lda INPT0             ; Button III
-            and #PRESSED
-            lsr a
-            lsr a
-            sta Temp
+            tya                 ; Y = 0
+            bit INPT0
+            bmi DoneButtonIII
+            lda #ButtonIII
+DoneButtonIII:
+            bit INPT1
+            bmi DoneButtonII
+            ora #ButtonII
           .fi
-          lda INPT1             ; Button II / C
-          and #PRESSED
-          lsr a
-          .if BANK != 11
-            ora Temp
-          .fi
-          sta Temp
-          jmp FireButton
-
+DoneButtonII:
 NotGenesis:
-          .mva Temp, #InvertButtons - $80
-
-FireButton:
-          lda INPT4             ; FIRE / I / B
-          sta Score
-          and #PRESSED          ; $80
-          ora Temp
-          eor #InvertButtons    ; button down bits are ones now
-          sta Temp
-
+          bit INPT4
+          bmi DoneButtonI
+          ora #ButtonI
+DoneButtonI:
+          sta NewButtons
           sta Score + 1
+
+          ldx DebounceButtons
+          stx Score + 2
 
           cmp DebounceButtons   ; buttons down bits are ones here too
           bne ButtonsChanged
 
 ButtonsSame:
-          sty NewButtons        ; Y = 0 XXX redundant
-          geq DoneButtons
+          sty NewButtons        ; Y = 0
+          sty Score
+          jmp DoneButtons
 
 ButtonsChanged:
           sta DebounceButtons
-          eor #InvertButtons | 1
+          eor #$e0 | 1
           sta NewButtons        ; buttons down are 0 bits, $01 to flag change
+          sta Score
           and #$40              ; C / II button pressed?
-          ;; bne DoneButtonII
+          ;; bne DoneButtonIISelect
 
           ;; lda NewSWCHB
           ;; ora #~SWCHBSelect     ; zero = Select button pressed
           ;; sta NewSWCHB
           ;; sta DebounceSWCHB
-DoneButtonII:
+DoneButtonIISelect:
           lda NewButtons
           and #$20
           bne DoneButtons
