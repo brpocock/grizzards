@@ -266,7 +266,7 @@ SwitchesDone:
           lda NewButtons
           beq TriggerDone
 
-          .BitBit ButtonI
+          and #ButtonI
           bne TriggerDone
 
           .mva GameMode, #ModeMap
