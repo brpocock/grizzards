@@ -37,6 +37,7 @@ VBlank: .block
           .if 11 != BANK        ; ran out of space in Bank 11 ($b)
             bit INPT0
             bmi DoneButtonIII
+
             lda #ButtonIII
 DoneButtonIII:
           .fi
