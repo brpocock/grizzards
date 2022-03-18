@@ -50,25 +50,25 @@ NotGenesis:
           ora #ButtonI
 DoneButtonI:
           sta NewButtons
-          sta Score + 1
+          sta Score + 1         ; XXX
 
-          ldx DebounceButtons
-          stx Score + 2
+          ldx DebounceButtons   ; XXX
+          stx Score + 2         ; XXX
 
           cmp DebounceButtons   ; buttons down bits are ones here too
           bne ButtonsChanged
 
 ButtonsSame:
           sty NewButtons        ; Y = 0
-          sty Score
+          sty Score             ; XXX
           jmp DoneButtons
 
 ButtonsChanged:
           sta DebounceButtons
           eor #ButtonI | ButtonII | ButtonIII | 1
-          sta NewButtons        ; buttons down are 0 bits, $01 to flag change
-          sta Score
-          and #ButtonII         ; C / II button pressed?
+          sta NewButtons      ; buttons down are 0 bits, $01 to flag change
+          sta Score             ; XXX
+          and #ButtonII       ; C / II button pressed?
           ;; bne DoneButtonIISelect
 
           ;; lda NewSWCHB
