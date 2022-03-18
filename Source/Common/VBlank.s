@@ -28,70 +28,66 @@ VBlank: .block
           ora #$40              ; guarantee at least one "1" bit
           sta NewSWCHB
 +
-          ;; lda SWCHB
-          ;; .BitBit SWCHBP0Genesis
-          ;; beq NotGenesis
 
-          InvertButtons = $e0   ; $e0 for all three
-          
-          lda INPT0             ; Button III
-          and #PRESSED
-          lsr a
-          lsr a
-          sta Temp
-          lda INPT1             ; Button II / C
-          and #PRESSED
-          lsr a
-          ora Temp
-          sta Temp
-;;           jmp FireButton
+          lda SWCHB
+          and #SWCHBP0Genesis
+          beq NotGenesis
 
-;; NotGenesis:
-;;           .mva Temp, #InvertButtons - $80
-
-FireButton:
-          lda INPT4             ; FIRE / I / B
-          and #PRESSED          ; $80
-          ora Temp
-          eor #InvertButtons    ; button down bits are ones now
-          sta Temp
+          tya                 ; Y = 0
+          .if 11 != BANK        ; ran out of space in Bank 11 ($b)
+            bit INPT0
+            bmi DoneButtonIII
+            lda #ButtonIII
+DoneButtonIII:
+          .fi
+          bit INPT1
+          bmi DoneButtonII
+          ora #ButtonII
+DoneButtonII:
+NotGenesis:
+          bit INPT4
+          bmi DoneButtonI
+          ora #ButtonI
+DoneButtonI:
+          sta NewButtons
 
           cmp DebounceButtons   ; buttons down bits are ones here too
           bne ButtonsChanged
 
 ButtonsSame:
           sty NewButtons        ; Y = 0
-          geq DoneButtons
+          jmp DoneButtons
 
 ButtonsChanged:
           sta DebounceButtons
-          eor #InvertButtons | 1
+          eor #ButtonI | ButtonII | ButtonIII | 1
           sta NewButtons        ; buttons down are 0 bits, $01 to flag change
-          and #$40              ; C / II button pressed?
-          bne DoneButtonII
+          and #ButtonII           ; C / II button pressed?
+          bne DoneButtonIISelect
 
           lda NewSWCHB
           ora #~SWCHBSelect     ; zero = Select button pressed
           sta NewSWCHB
           sta DebounceSWCHB
-DoneButtonII:
-          lda NewButtons
-          and #$20
-          bne DoneButtons
+DoneButtonIISelect:
+          .if 11 != BANK
+            lda NewButtons
+            and #ButtonIII
+            bne DoneButtons
 
-          lda Pause
-          eor #$80
-          sta Pause
+            lda Pause
+            eor #$80
+            sta Pause
+          .fi
 DoneButtons:
 
           .if DoVBlankWork != 0
-          jsr DoVBlankWork
-          ldy # 0
+            jsr DoVBlankWork
+            ldy # 0
           .fi
 
           .WaitForTimer
 
-          ;; Y = 0 from up top
-          sty VBLANK
+          sty VBLANK            ; Y = 0
           rts
           .bend
