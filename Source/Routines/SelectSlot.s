@@ -197,9 +197,8 @@ StickDone:
           bne ThisIsNotAStickUp
 
           ;; — hold Fire button
-          lda INPT4
-          and #ButtonI
-          bne ThisIsNotAStickUp
+          bit INPT4
+          bmi ThisIsNotAStickUp
 
           .SetUtterance Phrase_EraseSlot
 
@@ -261,7 +260,7 @@ StillGotTime:
           lda NewButtons
           beq DoneButtons
 
-          .BitBit ButtonI
+          and #ButtonI
           beq SlotOK
 
 DoneButtons:

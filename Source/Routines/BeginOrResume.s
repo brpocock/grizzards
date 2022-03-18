@@ -57,7 +57,7 @@ SkipStick:
           lda NewButtons
           beq SkipButton
 
-          .BitBit ButtonI
+          and #ButtonI
           beq SlotOK
 
 SkipButton:
