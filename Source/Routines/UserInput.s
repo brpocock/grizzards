@@ -8,7 +8,7 @@ CheckButton:
           jmp CheckSwitches
           ;; beq CheckSwitches
 
-          and #PRESSED
+          and #ButtonI
           bne CheckSwitches
 
           .if !DEMO

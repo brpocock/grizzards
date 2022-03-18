@@ -90,7 +90,7 @@ DoneStick:
           lda NewButtons
           beq DoneButton
 
-          and #PRESSED
+          and #ButtonI
           bne DoneButton
 
           ldx DeltaX

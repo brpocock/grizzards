@@ -129,7 +129,7 @@ DoneSelect:
           lda NewButtons
           beq DoneButtons
 
-          and #PRESSED
+          and #ButtonI
           beq Leave
 
 DoneButtons:

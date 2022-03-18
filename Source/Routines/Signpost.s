@@ -199,7 +199,7 @@ DoneDrawing:
           bne NoButton
           lda NewButtons
           beq NoButton
-          .BitBit PRESSED
+          .BitBit ButtonI
           bne NoButton
 
 GetNextMode:

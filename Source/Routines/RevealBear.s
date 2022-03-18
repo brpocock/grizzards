@@ -80,7 +80,7 @@ BearDelay2:
           lda NewButtons
           beq BearLoop
 
-          .BitBit PRESSED
+          .BitBit ButtonI
           bne BearLoop
 
           .mva NextSound, # SoundDrone

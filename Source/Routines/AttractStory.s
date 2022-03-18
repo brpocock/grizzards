@@ -271,7 +271,7 @@ CheckFire:
           lda NewButtons
           beq LoopMe
 
-          and #PRESSED
+          and #ButtonI
           bne LoopMe
 
 SelectSlot:

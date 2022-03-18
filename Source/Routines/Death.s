@@ -42,7 +42,7 @@ LoopFirst:
 +
 	lda NewButtons
           beq +
-          and #PRESSED
+          and #ButtonI
           beq Leave
 +
           lda AlarmCountdown

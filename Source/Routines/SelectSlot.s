@@ -198,7 +198,7 @@ StickDone:
 
           ;; — hold Fire button
           lda INPT4
-          and #PRESSED
+          and #ButtonI
           bne ThisIsNotAStickUp
 
           .SetUtterance Phrase_EraseSlot
@@ -209,7 +209,7 @@ StickDone:
 EliminationMode:
           ;; Release button to exit Elimination Mode
           lda INPT4
-          and #PRESSED
+          and #ButtonI
           bne ThisIsNotAStickUp
 
           ;; Push stick Up to erase the selected slot
@@ -261,7 +261,7 @@ StillGotTime:
           lda NewButtons
           beq DoneButtons
 
-          .BitBit PRESSED
+          .BitBit ButtonI
           beq SlotOK
 
 DoneButtons:

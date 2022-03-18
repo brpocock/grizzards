@@ -356,7 +356,7 @@ UserControls:
           lda NewButtons
           beq ScreenDone
 
-          and #PRESSED
+          and #ButtonI
           bne ScreenDone
 
 GoDoMove:
