@@ -5,9 +5,9 @@
 EndBank:
 
           .if DEMO
-            BankEndAddress = $ff78      ; keep this as high as possible
+            BankEndAddress = $ff76      ; keep this as high as possible
           .else
-            BankEndAddress = $ff50      ; keep this as high as possible
+            BankEndAddress = $ff4e      ; keep this as high as possible
           .fi
           .if (* > BankEndAddress) || (* < $f000)
             .error "Bank ", BANK, " overran ROM space (ending at ", *, "; must end by ", BankEndAddress, ")"
