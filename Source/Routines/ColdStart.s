@@ -5,8 +5,7 @@
 ;;;
 ;;; This routine is called once at startup, and must be in Bank 0.
 ;;;
-;;; After a Game Over, this may be called again to return to the title
-;;; screen with a full reset.
+;;; It must never be called again, or you'll lose '7800 detection.
 
 ColdStart:         .block
           sei
@@ -34,6 +33,8 @@ ZeroTIALoop:
 
           sty SWACNT            ; Y = 0
           sty SWBCNT
+
+          sty SystemFlags
 	
 ResetStack:
           .mvx s, #$ff

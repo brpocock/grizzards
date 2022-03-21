@@ -41,8 +41,9 @@ NoReset:
 NoSelect:
           .if TV == SECAM
 
-          ;;  XXX make this toggle?
-            lda DebounceSWCHB
+            lda NewSWCHB
+            bne DonePause
+
             and #SWCHBP1Advanced        ; SECAM pause
             beq +
             lda SystemFlags
@@ -53,6 +54,7 @@ NoSelect:
             and #~SystemFlagPaused
 SetPause:
             sta SystemFlags
+DonePause:
 
           .else
 

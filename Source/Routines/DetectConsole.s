@@ -59,7 +59,7 @@ is2600:
           lda SystemFlags
           and #~SystemFlag7800
 End:
-          sta SWCHB
+          sta SystemFlags
           ;; fall through to DetectGenesis
           .bend
 

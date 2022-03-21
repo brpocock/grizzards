@@ -194,7 +194,7 @@
 
           ServiceAttract = $1e
           ServiceChooseGrizzard = $31
-          ServiceColdStart = $00
+          ServiceWarmStart = $00
           ServiceConfirmNewGame = $32
           ServiceLoadGrizzard = $22
           ServiceLoadProvinceData = $21

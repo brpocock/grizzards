@@ -40,8 +40,8 @@
           .include "ShowPicture.s"
 
 DoLocal:
-          cpy #ServiceColdStart
-          beq ColdStart
+          cpy #ServiceWarmStart
+          beq Attract
 
           cpy #ServiceSaveToSlot
           beq SaveToSlot

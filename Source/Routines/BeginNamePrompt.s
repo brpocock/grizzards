@@ -131,7 +131,7 @@ CursorPosGross:
           bne DoneSwitches
 
           .WaitScreenBottom
-          jmp GoColdStart
+          jmp GoWarmStart
 
 DoneSwitches:
           lda NewSWCHA

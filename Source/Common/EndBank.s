@@ -48,8 +48,7 @@ Wired:
 
 ;;; Cold-start the system.
 GoColdStart:
-          ldy # ServiceColdStart
-          BankJump ColdStart, ColdStartBank
+          .BankJump ColdStart, ColdStartBank
 
 ;;; Go to the current map memory bank, and jump to DoMap.
 GoMap:
@@ -83,6 +82,10 @@ GoCombat:
           sta BankSwitch0 + CombatBank0To127
           jmp DoLocal
 
+GoWarmStart:
+          ldy # ServiceWarmStart
+          ldx # ColdStartBank
+          ;; fall through
 ;;; Perform a far call to a memory bank with a specific local
 ;;; service routine to perform; eg, this is how we handle sounds,
 ;;; text displays, and the common map header and footer code;
