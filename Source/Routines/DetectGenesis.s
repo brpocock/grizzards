@@ -25,7 +25,7 @@ NotGenesis:
           lda SystemFlags
           and #~SystemFlagP0Gamepad
 DoneGenesis:
-          sta SWCHB
+          sta SystemFlags
 
           .WaitScreenBottom
 

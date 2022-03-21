@@ -69,8 +69,7 @@ ButtonsChanged:
           bne DoneButtonIISelect
 
           lda NewSWCHB
-          and #~SWCHBSelect     ; zero = Select button pressed
-          ora #$40              ; ensure a 1 bit
+          lda #~SWCHBSelect | $40     ; zero = Select button pressed, $40 = changed
           sta NewSWCHB
 DoneButtonIISelect:
           .if 11 != BANK
