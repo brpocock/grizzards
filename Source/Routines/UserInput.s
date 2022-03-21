@@ -42,37 +42,43 @@ NoReset:
 NoSelect:
           .if TV == SECAM
 
+          ;;  XXX make this toggle?
             lda DebounceSWCHB
             and #SWCHBP1Advanced        ; SECAM pause
-            sta Pause
+            beq +
+            lda SystemFlags
+            ora #SystemFlagPaused
+            gne SetPause
++
+            lda SystemFlags
+            and #~SystemFlagPaused
+SetPause:
+            sta SystemFlags
 
           .else
 
-            lda DebounceSWCHB
-            .BitBit SWCHB7800   ; '2600 or '7800?
+            lda SystemFlags
+            and #SystemFlag7800
             bne Pause7800
 
+            lda NewSWCHB
+            eor DebounceSWCHB
             and #SWCHBColor
-            bne NoPause
-            lda #$80
-            gne DonePause
+            beq DonePause
+TogglePause:
+            lda SystemFlags
+            eor #SystemFlagPaused
+            sta SystemFlags
+            jmp DonePause
 
             ;; On '7800, we have to debounce the pause button
 Pause7800:
             lda NewSWCHB
             beq DoneSwitches
             and #SWCHBColor
-            bne DoneSwitches
+            beq TogglePause
 
-            lda Pause           ; OK, toggle pause mode
-            eor #$80
 DonePause:
-            sta Pause
-            jmp DoneSwitches
-
-NoPause:
-            ldy # 0             ; XXX necessary?
-            sty Pause
 
           .fi
 DoneSwitches:
@@ -83,8 +89,8 @@ HandleStick:
           sty DeltaX
           sty DeltaY
 
-          lda Pause
-          beq +
+          lda SystemFlags
+          bpl +
           rts
 +
           lda DebounceSWCHA

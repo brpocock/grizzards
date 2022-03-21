@@ -31,7 +31,7 @@ Pointer:
 GameMode:
           .byte ?
 
-Pause:
+SystemFlags:
           .byte ?
 ;;; 
 ;;; Game play/progress indicators -- global

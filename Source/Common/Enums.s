@@ -337,3 +337,8 @@
           ButtonC = ButtonII
 
           ButtonIII = $20
+;;; 
+          SystemFlag7800 = $10
+          SystemFlagP1Gamepad = $20
+          SystemFlagP0Gamepad = $40
+          SystemFlagPaused = $80

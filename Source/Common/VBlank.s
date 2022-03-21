@@ -29,9 +29,8 @@ VBlank: .block
           sta NewSWCHB
 +
 
-          lda SWCHB
-          and #SWCHBP0Genesis
-          beq NotGenesis
+          bit SystemFlags
+          bvc NotGenesis
 
           tya                 ; Y = 0
           .if 11 != BANK        ; ran out of space in Bank 11 ($b)
@@ -53,40 +52,34 @@ NotGenesis:
           ora #ButtonI
 DoneButtonI:
           sta NewButtons
-          sta Score + 1         ; XXX
-
-          ldx DebounceButtons   ; XXX
-          stx Score + 2         ; XXX
 
           cmp DebounceButtons   ; buttons down bits are ones here too
           bne ButtonsChanged
 
 ButtonsSame:
           sty NewButtons        ; Y = 0
-          sty Score             ; XXX
           jmp DoneButtons
 
 ButtonsChanged:
           sta DebounceButtons
           eor #ButtonI | ButtonII | ButtonIII | 1
           sta NewButtons      ; buttons down are 0 bits, $01 to flag change
-          sta Score             ; XXX
           and #ButtonII       ; C / II button pressed?
-          ;; bne DoneButtonIISelect
+          bne DoneButtonIISelect
 
-          ;; lda NewSWCHB
-          ;; ora #~SWCHBSelect     ; zero = Select button pressed
-          ;; sta NewSWCHB
-          ;; sta DebounceSWCHB
+          lda NewSWCHB
+          ora #~SWCHBSelect     ; zero = Select button pressed
+          sta NewSWCHB
+          sta DebounceSWCHB
 DoneButtonIISelect:
           .if 11 != BANK
             lda NewButtons
             and #ButtonIII
             bne DoneButtons
 
-            lda Pause
-            eor #$80
-            sta Pause
+            lda SystemFlags
+            eor #SystemFlagPaused
+            sta SystemFlags
           .fi
 DoneButtons:
 

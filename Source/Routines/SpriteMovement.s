@@ -2,8 +2,8 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 SpriteMovement:     .block
-          lda Pause
-          beq +
+          lda SystemFlags
+          bpl +
           rts
 +
           ldx SpriteCount
