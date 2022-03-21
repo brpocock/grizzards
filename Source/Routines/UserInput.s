@@ -63,13 +63,23 @@ SetPause:
             lda NewSWCHB
             beq DonePause
 
-            eor DebounceSWCHB
             and #SWCHBColor
-            beq DonePause
+            bne UnPause
+
+            lda SystemFlags
+            ora #SystemFlagPaused
+            gne SaveFlags
+
+UnPause:
+            lda SystemFlags
+            and #~SystemFlagPaused
+            sta SystemFlags
+            jmp DonePause
 
 TogglePause:
             lda SystemFlags
             eor #SystemFlagPaused
+SaveFlags:
             sta SystemFlags
             jmp DonePause
 
