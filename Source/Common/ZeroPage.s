@@ -13,6 +13,9 @@
 
           * = $80
 ZeroPage:
+;;; This must be the first address.
+SystemFlags:
+          .byte ?
 ;;; 
 ;;; General-purpose short-term variable
 ;;;
@@ -31,8 +34,6 @@ Pointer:
 GameMode:
           .byte ?
 
-Pause:
-          .byte ?
 ;;; 
 ;;; Game play/progress indicators -- global
 

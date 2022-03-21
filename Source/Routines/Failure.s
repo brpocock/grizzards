@@ -107,7 +107,7 @@ DoneSwitches:
           jmp Loop
 
 Reset:
-          jmp GoColdStart
+          jmp GoWarmStart
 
 ;;; 
 MemoryText:

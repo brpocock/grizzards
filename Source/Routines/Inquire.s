@@ -91,7 +91,7 @@ StickDone:
           lda NewButtons
           beq NoButton
 
-          .BitBit PRESSED
+          and #ButtonI
           bne NoButton
 
           lda #SoundHappy

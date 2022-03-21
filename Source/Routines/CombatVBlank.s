@@ -242,34 +242,6 @@ NoReset:
 
 NoSelect:
 
-;;; XXX the pause code should be in some other place rather than being duplicated here
-;;; Moreover, Pause does not even affect combat mode, so this is maybe wasted code?
-          .if TV == SECAM
-
-            lda DebounceSWCHB
-            and #SWCHBP1Advanced ; SECAM pause
-            sta Pause
-
-          .else
-
-            lda DebounceSWCHB
-            .BitBit SWCHBColor
-            bne NoPause
-
-            and #SWCHB7800
-            beq +
-            lda Pause
-            eor #$ff
-+
-            sta Pause
-            rts
-
-NoPause:
-            ldy # 0             ; XXX necessary?
-            sty Pause
-
-          .fi
-
 DoneSwitches:
           rts
 

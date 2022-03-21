@@ -46,21 +46,20 @@ confirmFlashed:
           bne is2600         ; if not $00 then loaded via Harmony Menu on 2600
 
           ldy $80             ; else get the value saved by the CDFJ driver
-          bne is7800
+          beq is2600
 
 ;;; end of console detection routine, y contains results
 
-is2600:
-          lda SWCHB
-          and #~SWCHB7800
-          jmp End
-
 is7800:
-          lda SWCHB
-          ora #SWCHB7800
+          lda SystemFlags
+          ora #SystemFlag7800
+          gne End
+
+is2600:
+          lda SystemFlags
+          and #~SystemFlag7800
 End:
-          sta SWCHB
+          sta SystemFlags
           ;; fall through to DetectGenesis
           .bend
 
-;;; Audited 2022-02-15 BRPocock

@@ -8,10 +8,12 @@ Attract:  .block
 
           .WaitScreenTop
 
-          ldx #$80
+          ;; DO NOT clear location $80 itself
+          ;; It is SystemFlags.
+          ldx #$7f
           lda #0
 ZeroRAM:
-          sta $80 - 1, x
+          sta $80, x
           dex
           bne ZeroRAM
 
@@ -129,7 +131,7 @@ DoneSelect:
           lda NewButtons
           beq DoneButtons
 
-          and #PRESSED
+          and #ButtonI
           beq Leave
 
 DoneButtons:

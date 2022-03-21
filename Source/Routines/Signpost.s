@@ -197,9 +197,11 @@ DoneDrawing:
 
           lda AlarmCountdown      ; require 1-2s to tick before accepting button press; see #140
           bne NoButton
+
           lda NewButtons
           beq NoButton
-          .BitBit PRESSED
+
+          and #ButtonI
           bne NoButton
 
 GetNextMode:

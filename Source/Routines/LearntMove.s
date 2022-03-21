@@ -78,7 +78,7 @@ SwitchesDone:
 
 Leave:
           cmp #ModeColdStart
-          beq GoColdStart
+          beq GoWarmStart
 
           rts
 
