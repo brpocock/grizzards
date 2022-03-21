@@ -259,7 +259,7 @@ StillGotTime:
           lda NewButtons
           beq DoneButtons
 
-          and #ButtonI
+          .BitBit PRESSED
           beq SlotOK
 
 DoneButtons:

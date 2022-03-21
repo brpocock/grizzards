@@ -5,7 +5,8 @@ UserInput:          .block
 
 CheckButton:
           lda NewButtons
-          beq CheckSwitches
+          jmp CheckSwitches
+          ;; beq CheckSwitches
 
           and #ButtonI
           bne CheckSwitches
