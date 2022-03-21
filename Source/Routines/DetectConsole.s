@@ -58,10 +58,8 @@ is7800:
 is2600:
           lda SystemFlags
           and #~SystemFlag7800
-
 End:
           sta SWCHB
           ;; fall through to DetectGenesis
           .bend
 
-;;; Audited 2022-02-15 BRPocock

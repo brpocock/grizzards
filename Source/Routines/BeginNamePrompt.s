@@ -153,7 +153,7 @@ NoStick:
           lda NewButtons
           beq Done
 
-          and # ButtonI
+          and #ButtonI
           bne Done
 
 ButtonPressed:

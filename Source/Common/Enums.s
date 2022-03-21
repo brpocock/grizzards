@@ -339,6 +339,6 @@
           ButtonIII = $20
 ;;; 
           SystemFlag7800 = $10
-          SystemFlagP1Gamepad = $20
+          SystemFlagP1Gamepad = $20   ; not actually used in Grizzards
           SystemFlagP0Gamepad = $40
-          SystemFlagPaused = $80
+          SystemFlagPaused = $80      ; must be the high bit

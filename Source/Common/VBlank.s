@@ -29,8 +29,9 @@ VBlank: .block
           sta NewSWCHB
 +
 
-          bit SystemFlags
-          bvc NotGenesis
+          lda SystemFlags
+          and #SystemFlagP0Gamepad
+          beq NotGenesis
 
           tya                 ; Y = 0
           .if 11 != BANK        ; ran out of space in Bank 11 ($b)
@@ -68,9 +69,9 @@ ButtonsChanged:
           bne DoneButtonIISelect
 
           lda NewSWCHB
-          ora #~SWCHBSelect     ; zero = Select button pressed
+          and #~SWCHBSelect     ; zero = Select button pressed
+          ora #$40              ; ensure a 1 bit
           sta NewSWCHB
-          sta DebounceSWCHB
 DoneButtonIISelect:
           .if 11 != BANK
             lda NewButtons

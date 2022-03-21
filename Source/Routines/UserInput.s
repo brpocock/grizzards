@@ -5,8 +5,7 @@ UserInput:          .block
 
 CheckButton:
           lda NewButtons
-          jmp CheckSwitches
-          ;; beq CheckSwitches
+          beq CheckSwitches
 
           and #ButtonI
           bne CheckSwitches
@@ -62,9 +61,12 @@ SetPause:
             bne Pause7800
 
             lda NewSWCHB
+            beq DonePause
+
             eor DebounceSWCHB
             and #SWCHBColor
             beq DonePause
+
 TogglePause:
             lda SystemFlags
             eor #SystemFlagPaused
