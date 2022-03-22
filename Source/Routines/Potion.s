@@ -118,6 +118,33 @@ NotCrowned:
           dec Potions
 +
           .mva NextSound, #SoundHappy
+
+          .mva AlarmCountdown, # 5
+
+UsedLoop:
+          .WaitScreenBottom
+          .WaitScreenTop
+
+          jsr Prepare48pxMobBlob
+
+          .ldacolu COLBLUE, $8
+          stx WSYNC
+          sta COLUBK
+          .ldacolu COLYELLOW, $e
+          sta COLUP0
+          sta COLUP1
+
+          .SkipLines KernelLines / 3
+
+          .SetPointer UsedText
+          jsr ShowPointerText
+
+          .SetPointer PotionText
+          jsr ShowPointerText
+
+          lda AlarmCountdown
+          bne UsedLoop
+
 Leave:
           .WaitScreenBottom
           jmp GoMap
@@ -132,6 +159,8 @@ UseText:
           .MiniText " USE  "
 DontText:
           .MiniText "DO NOT"
+UsedText:
+          .MiniText " USED "
 
           .bend
 
