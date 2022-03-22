@@ -3,15 +3,22 @@
 
 SpriteMovement:     .block
           lda SystemFlags
-          bpl +
+          bpl NotPaused
+
           rts
-+
+
+NotPaused:
           ldx SpriteCount
           beq MovementLogicDone
+
+          ;; XXX this check should never have been needed
+          ;; XXX it might be removed in the final roundup
           cpx # 5
-          blt +
+          blt ValidSpriteCount
+
           brk
-+
+
+ValidSpriteCount:
           dex
 
 MoveSprites:
