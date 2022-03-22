@@ -27,6 +27,10 @@ EndRandomSpawn:
           lda AlarmCountdown
           bne Return
 
+          ;; Don't exit spawn mode if paused
+          bit SystemFlags
+          bmi Return
+
           ;; Every sprite has been checked at least once,
           ;; and has not had to be repositioned, so we must
           ;; be OK to exit "poof" mode.
@@ -100,5 +104,3 @@ Done:
 Bye:
           rts
           .bend
-
-;;; Audited 2022-02-16 BRPocock
