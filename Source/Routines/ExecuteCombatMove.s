@@ -294,13 +294,15 @@ PlayerHeals:
 
 PlayerHealsPlusHP:
           and Temp              ; attack mask
+          ;; A = HP to gain
           clc
           adc MoveHP            ; base HP to gain
           gne PlayerHealsCommon
 
 PlayerHealsMinusHP:
           and Temp              ; attack mask
-          sta Temp              ; masked HP to negate
+          sta Temp              ; masked HP to subtract
+          ;; Temp = HP to lose
           lda MoveHP            ; base HP to gain
           sec
           sbc Temp              ; masked HP to negate
@@ -314,16 +316,18 @@ PlayerHealsCommon:
           clc
           adc CurrentHP
           cmp MaxHP
-          blt +
+          blt HealedHPReady
+
           lda MaxHP
-+
+HealedHPReady:
+          ;; A has the new effective HP
           sta CurrentHP
-          lda #$ff              ; negate the value to mean "gained"
+          lda #$ff              ; invert the value to mean "gained"
           eor MoveHP
           sta MoveHP
 PlayerBuff:
-          ldx CombatMoveSelected
           .mva MoveHitMiss, # 1
+          ldx CombatMoveSelected
 
           lda MoveEffects, x
           sta Temp
@@ -340,10 +344,11 @@ WaitOutScreen:
           beq SoundForMiss
 
           lda #SoundHit
-          gne +
+          gne SoundReady
+
 SoundForMiss:
           lda #SoundMiss
-+
+SoundReady:
           sta NextSound
 
           .WaitScreenBottom
