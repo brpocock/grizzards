@@ -39,7 +39,7 @@ MonsterAttacks:
 
           ;; Bosses get double attack ratings
           lda CombatMajorP
-          beq +
+          bpl +
           asl AttackerAttack
 +
 
@@ -175,7 +175,7 @@ PlayerAttacks:
 
           ;; Bosses get double defend ratings
           lda CombatMajorP
-          beq +
+          bpl +
           asl DefenderDefend
 +
 
@@ -209,7 +209,7 @@ PlayerKilledMonster:
 
           ldx # 1               ; 1× scoring…
           lda CombatMajorP
-          beq +
+          bpl +
           inx                   ; 2 × scoring
 +
 

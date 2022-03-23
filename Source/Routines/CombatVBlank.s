@@ -116,7 +116,7 @@ CheckStick:
 
           .mva NextSound, #SoundChirp
           lda CombatMajorP
-          beq CanSelectMoveUp
+          bpl CanSelectMoveUp
 
           dex
           beq WrapMoveForUp
@@ -142,7 +142,7 @@ DoneStickUp:
           blt DoneStickDown
 
           ldy CombatMajorP
-          beq CanRunAwayDown
+          bpl CanRunAwayDown
 
           ldx # 1
           gne DoneStickDown
@@ -158,7 +158,7 @@ StickLeftRight:
 
 ChooseTarget:
           lda CombatMajorP
-          beq ChooseMinorTarget
+          bpl ChooseMinorTarget
 
           ldx # 1
           gne ForcedTarget

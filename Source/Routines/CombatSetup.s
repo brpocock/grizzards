@@ -18,12 +18,12 @@ SetUpMonsterPointer:
           sty CurrentMonsterPointer + 1
 
           ldx # 4
--
+MonsterMul16:
           clc
           asl CurrentMonsterPointer
           rol CurrentMonsterPointer + 1
           dex
-          bne -
+          bne MonsterMul16
 
           clc
           lda CurrentMonsterPointer
@@ -41,7 +41,7 @@ AnnounceMonsterSpeech:
           .mva CurrentUtterance + 1, #>MonsterPhrase
           lda #<MonsterPhrase
           ldx CurrentCombatEncounter
-          ;; clc ; unneeded, the adc #>MonsterPhrase won't have overflowed
+          clc
           adc EncounterMonster, x
           sta CurrentUtterance
 
@@ -56,31 +56,29 @@ SetUpEnemyHP:
           asl Temp              ; enemy HP
 NotCrowned:
           ldy CombatMajorP
-          beq NoHPBoost
+          bpl DoneHPBoost
 
           asl Temp              ; enemy HP
-          bcc NoHPBoost
+          bcc DoneHPBoost
 
           .mva Temp, #$ff       ; enemy HP max
-NoHPBoost:
-
-          lda EncounterQuantity, x
-          tay
+DoneHPBoost:
 
           ;; Zero HP for 5 monsters (we have at least 1), then …
           lda # 0
           ldx # 5
--
+ZeroEnemyHP:
           sta EnemyHP, x
           dex
-          bne -
+          bne ZeroEnemyHP
 
           ;; … actually set the HP for monsters present (per Y = quantity)
+          ldy EncounterQuantity, x
           lda Temp              ; enemy HP
--
+FillEnemyHP:
           sta EnemyHP - 1, y
           dey
-          bne -
+          bne FillEnemyHP
 
 SetUpMonsterArt:
           ldy # MonsterArtIndex
@@ -93,10 +91,10 @@ SetUpOtherCombatVars:
           sty MoveAnnouncement
           sty StatusFX
           ldx #6
--
+ZeroEnemyStatusFX:
           sty EnemyStatusFX - 1, x
           dex
-          bne -
+          bne ZeroEnemyStatusFX
 
           ;; fall through to CombatIntroScreen, which does WaitScreenBottom
           .bend

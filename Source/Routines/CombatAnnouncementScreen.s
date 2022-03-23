@@ -189,7 +189,7 @@ Speech1:
           beq SpeechQueued
 
           lda CombatMajorP
-          bne SpeechQueued
+          bmi SpeechQueued
 
           lda #>(Phrase_One - 1)
           sta CurrentUtterance + 1
@@ -256,7 +256,7 @@ Speech6:
           bge SpeechDone
 
           lda CombatMajorP
-          bne SpeechQueued
+          bmi SpeechQueued
 
           ldx CombatMoveSelected
           lda WhoseTurn
@@ -274,7 +274,7 @@ SayObjectNumberOnPlayersTurn:
 
 SayThatObjectNumber:
           lda CombatMajorP
-          bne SpeechQueued
+          bpl SpeechQueued
 
           lda #>(Phrase_One - 1)
           sta CurrentUtterance + 1
@@ -309,7 +309,7 @@ ShowMonsterNameAndNumber:
           jsr ShowMonsterName
 
           lda CombatMajorP
-          beq +
+          bpl +
           ;; major combat, no number
           rts
 +
