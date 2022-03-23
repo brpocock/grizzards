@@ -71,8 +71,7 @@ CheckLeft:
 
           inc SpriteX, x
           inc SpriteX, x
-          eor # SpriteMoveLeft | SpriteMoveRight
-          gne CheckUp
+          gne InvertHorizontal
 
 CheckRight:
           .BitBit SpriteMoveRight
@@ -80,6 +79,7 @@ CheckRight:
 
           dec SpriteX, x
           dec SpriteX, x
+InvertHorizontal:
           eor # SpriteMoveLeft | SpriteMoveRight
 
 CheckUp:
@@ -88,8 +88,7 @@ CheckUp:
 
           inc SpriteY, x
           inc SpriteY, x
-          eor # SpriteMoveUp | SpriteMoveDown
-          gne Done
+          gne InvertVertical
 
 CheckDown:
           and #SpriteMoveDown
@@ -97,6 +96,7 @@ CheckDown:
 
           dec SpriteY, x
           dec SpriteY, x
+InvertVertical:
           eor # SpriteMoveUp | SpriteMoveDown
 
 Done:
