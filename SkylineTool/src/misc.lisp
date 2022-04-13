@@ -796,6 +796,7 @@ inventory_end = *
           (sort (remove-duplicates (append *all-items* (cons "AI" nil)) :test 'equal) #'string<)
           (group-flags (sort *all-flags* #'string<))))
 
+#+ (or)
 (defun compile-map (index-out &rest map-files)
   (let (*all-areas* *all-items* *all-flags* *all-critters*)
     (unless (plusp (length map-files))
@@ -833,10 +834,10 @@ inventory_end = *
 "
                           (world-from-filename map-file))
                   (loop for (area array dict) in queue
-                     do (write-map+index map-file area array dict asm))
+                        do (write-map+index map-file area array dict asm))
                   (format asm "~5%	;;; ************************************ ~2%")
                   (loop for (area array dict) in queue
-                     do (write-scripts map-file area dict asm))
+                        do (write-scripts map-file area dict asm))
                   (format asm "~3%
 	;;; Trailer record
 	;;; ~R area~:P, then scripts start
