@@ -467,9 +467,9 @@ GoScreen:
 
           lda CurrentMap
           asl a
-          asl Temp
+          rol Temp
           asl a
-          asl Temp
+          rol Temp
           clc                   ; XXX necessary?
           adc #<MapLinks
           bcc +
