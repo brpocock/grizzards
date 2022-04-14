@@ -39,6 +39,7 @@ DoLocal:
           .include "FindHighBit.s"
           .include "CopyPointerText.s"
           .include "ShowMonsterName.s"
+          .include "FindMonsterMove.s"
 
           .include "VSync.s"
           .include "VBlank.s"

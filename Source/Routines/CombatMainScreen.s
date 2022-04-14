@@ -436,7 +436,7 @@ NotGoingToMap:
 
 NotGoingToStats:
           cmp #ModeCombatAnnouncement
-          beq CombatAnnouncementScreen
+          beq MaybeReadyToAnnounce
 
           cmp #ModeCombatNextTurn
           beq ExecuteCombatMove.NextTurn
@@ -468,6 +468,25 @@ SleepsText:
 MuddleText:
           .MiniText "MUDDLE"
 
-          .bend
+MaybeReadyToAnnounce:
+          lda WhoseTurn
+          beq Announce
 
-;;; Audited 2022-02-16 BRPocock
+          jsr FindMonsterMove
+          lda MoveDeltaHP, x
+          bpl Announce
+
+          ;; It's a healing move, are we sure?
+          ldy #EnemyHPIndex
+          lda (CurrentMonsterPointer), y
+          cmp MoveDeltaHP, x
+          bge Announce
+
+          lda #ModeCombat
+          sta GameMode
+          jmp Loop
+
+Announce:
+          jmp CombatAnnouncementScreen
+          
+          .bend

@@ -40,31 +40,16 @@ CombatAnnouncementScreen:     .block
           ldy MoveSelection
 
           lda WhoseTurn
-          bne FindMonsterMove
+          beq FindPlayerMove
+
+          ;; Y = MoveSelection
+          jsr FindMonsterMove
+          jmp MoveFound
 
 FindPlayerMove:
           .FarJSR TextBank, ServiceFetchGrizzardMove
 
           .mvx CombatMoveSelected, Temp
-          gne MoveFound
-
-FindMonsterMove:
-          .mva Pointer + 1, #>MonsterMoves
-
-          clc
-          ldx CurrentCombatEncounter
-          lda EncounterMonster, x
-          asl a
-          asl a
-          adc #<MonsterMoves
-          bcc +
-          inc Pointer + 1
-+
-          sta Pointer
-
-          lax (Pointer), y      ; Y = MoveSelection
-          stx CombatMoveSelected
-          ;; fall through:
 MoveFound:
           lda MoveDeltaHP, x
           sta CombatMoveDeltaHP
