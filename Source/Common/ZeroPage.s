@@ -342,7 +342,7 @@ MoveTarget:
 MoveAnnouncement:
           .byte ?
 
-UnusedCombatByte1:
+MonsterMaxHP:
           .byte ?
 
 LastPlayerCombatMove:
