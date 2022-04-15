@@ -5,7 +5,7 @@
 ;;; TODO There is room left for precisely 8 more sprites in this memory bank and I intend to use every one.
 
           ;; How many maps are in these tables?
-MapCount = 62
+MapCount = 65
 ;;; 
 ;;; Foreground and background colors
 
@@ -79,7 +79,9 @@ MapColors:
           ;; 60
           .colors COLGREEN, COLGREEN
           .colors COLGREEN, COLGREEN
-
+          .colors COLGREEN, COLGREEN
+          .colors COLYELLOW, COLYELLOW
+          .colors COLBLUE, COLBLUE
 ;;; 
 ;;; Links up, down, left, right are map indices in this bank
 MapLinks:
@@ -157,6 +159,9 @@ MapLinks:
           ;; 60
           .byte $ff, $ff, 59, 61
           .byte $ff, $ff, 60, $ff
+          .byte $ff, $ff, $ff, $ff
+          .byte $ff, $ff, $ff, $ff
+          .byte $ff, $ff, $ff, $ff
 ;;; 
 ;;; RLE Map data for each screen.
 
@@ -172,7 +177,7 @@ MapLinks:
           .fi
 
           ;; 0
-          _ := (Map_Closed, Map_Arc, Map_EWPassage, Map_EWFat, Map_Wiggle)
+          _ := (Map_Indoors, Map_Arc, Map_EWPassage, Map_EWFat, Map_Wiggle)
           ;; 5
           _ ..= (Map_Arc, Map_EWPassage, Map_Narrow, ROOM8MAP, Map_Bulge)
           ;; 10
@@ -196,11 +201,8 @@ MapLinks:
           ;; 55
           _ ..= (Map_Pinch, Map_Pinch, Map_Bow, Map_Arc, Map_Pinch)
           ;; 60
-          _ ..= (Map_EWPassage, Map_EWFat, Map_Pinch, Map_Pinch, Map_EWFat)
+          _ ..= (Map_EWPassage, Map_EWFat, Map_Indoors, Map_Indoors, Map_Indoors)
           ;; 65
-          _ ..= (Map_Pinch, Map_Pinch, Map_EWFat, Map_FourWay, Map_FourWay)
-          ;; 70
-          _ ..= (Map_FourWay, Map_FourWay, Map_FourWay, Map_FourWay)
 
           MapRLE = _
 
@@ -248,7 +250,7 @@ SpriteList:
           .byte SpriteDoor, 3   ; action
 
           .byte $ff, SpriteFixed
-          .byte $7d, $10         ; x, y
+          .byte $7d, $12         ; x, y
           .byte SpriteGrizzardDepot, 0
 
           .byte 0               ; end of list
@@ -759,10 +761,10 @@ SpriteList:
 
           .byte 0
 
-          ;; Room 35, Tier 0
-          .byte $ff, SpriteWander
-          .byte 0, 0
-          .byte SpritePerson, 106 ; mine hint
+          ;; Room 35, Tier 0 — Green house
+          .byte $ff, SpriteFixed
+          .byte $7c, $2f
+          .byte SpriteDoor, 62
 
           .byte 0
 
@@ -815,10 +817,10 @@ SpriteList:
 
           .byte 0
 
-          ;; Room 43, Tier 0
-          .byte $ff, SpriteWander
-          .byte $40, $40
-          .byte SpritePerson, 16 ; broken radio
+          ;; Room 43, Tier 0 — yellow house
+          .byte $ff, SpriteFixed
+          .byte $7c, $2f
+          .byte SpriteDoor, 63
 
           .byte $ff, SpriteWander
           .byte 0, 0
@@ -826,10 +828,10 @@ SpriteList:
 
           .byte 0
 
-          ;; Room 44, Tier 0
-          .byte $ff, SpriteWander
-          .byte 128, 32
-          .byte SpritePerson, 21 ; lost pendant
+          ;; Room 44, Tier 0 — blue house
+          .byte $ff, SpriteFixed
+          .byte $7c, $2f
+          .byte SpriteDoor, 64
 
           .byte 0
 
@@ -971,6 +973,39 @@ SpriteList:
           .byte $ff, SpriteWander
           .byte $40, $26
           .byte SpriteGrizzard, 6 ; Windoo
+
+          .byte 0
+
+          ;; Room 62, int Green house
+          .byte $ff, SpriteFixed
+          .byte $7c, $2f
+          .byte SpriteDoor, 35
+
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpritePerson, 106 ; mine hint
+
+          .byte 0
+
+          ;; Room 63, int Yellow house
+          .byte $ff, SpriteFixed
+          .byte $7c, $2f
+          .byte SpriteDoor, 43
+
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpritePerson, 16 ; broken radio
+
+          .byte 0
+
+          ;; Room 64, int Blue house
+          .byte $ff, SpriteFixed
+          .byte $7c, $2f
+          .byte SpriteDoor, 44
+
+          .byte $ff, SpriteWander
+          .byte 128, 32
+          .byte SpritePerson, 21 ; lost pendant
 
           .byte 0
 

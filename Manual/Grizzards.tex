@@ -20,15 +20,15 @@
 
 \ifdefined\TVNTSC
 \newcommand\TV{NTSC}
-\newcommand\REGION{US, Canada, Mexico, the Carribbean, Brazil, and Japan}
+\newcommand\REGION{The Americas, Japan, and Korea}
 \else
 \ifdefined\TVPAL
 \newcommand\TV{PAL}
-\newcommand\REGION{UK and Europe (except France)}
+\newcommand\REGION{UK and Western Europe (except France)}
 \else
 \ifdefined\TVSECAM
 \newcommand\TV{SECAM}
-\newcommand\REGION{France, Russia, and Africa}
+\newcommand\REGION{France, Eastern Europe, and Africa}
 \else
 \error{Must define a TV standard}
 \fi
@@ -142,7 +142,7 @@ Published by AtariAge.
 
 \ifdefined\ATARIAGESAVE\else  If you  enjoy playing  \textif{Grizzards},
 you  may  be  interested  in  purchasing a  retail  copy  with  built-in
-save-game          memory           from          AtariAge.          \fi
+save-game    memory    from    AtariAge.    Coming    in    2022.    \fi
 \href{https://atariage.com/}{https://atariage.com/}
 
 \bigskip
@@ -179,7 +179,7 @@ To play \textit{Grizzards}, you will need:
   headphones, or a MemCard or SaveKey device.
   \fi\fi
 \item The \textit{Grizzards} game cartridge \ifdefined\ATARIAGESAVE\else
-  or a multi-cart with the \textit{Grizzards} data on it \fi
+  or a multi-cart with the \textit{Grizzards} data on it. \fi
 \end{itemize}
 
 \ifdefined\NOSAVE\else
@@ -201,12 +201,13 @@ your   AtariVox   device   to    the   \emph{right}   controller   port.
 \else\ifdefined\NOSAVE.\else{},   and   the   memory   device   to   the
 \emph{right} controller port.
 
-Note that the  retail cartridge available from  AtariAge does \emph{not}
-require a memory device because  the special AtariAge cartridge contains
-its own save-game memory within it.
+The  retail  cartridge (available  later  in  2022 from  AtariAge)  will
+\emph{not}  require  a  memory   device  because  the  special  AtariAge
+cartridge contains its own save-game memory within it.
 
-To  purchase  \textit{Grizzards}  or   many  other  Atari  games,  visit
-\href{https://atariage.com/}{https://atariage.com/}
+To purchase \textit{Grizzards}, SaveKey,  AtariVox+, or many other Atari
+games,                                                             visit
+\href{https://atariage.com/store/}{https://AtariAge.com/store/}
 
 \fi\fi
 
@@ -222,16 +223,29 @@ facing  up)  into  the  cartridge  slot,  and  turn  the  \textbf{Power}
 \end{figure}
 \fi
 
-\section{Using a Gamepad}
+\section{Using a Gamepad}\label{sec:Gamepad}
 
 A  SEGA  \ifdefined\TVNTSC{Genesis/}\fi{}MegaDrive   gamepad  (or  other
-compatible controller)  may also be  used. Use the \encircle{B}  button as
-the \textbf{Fire}  button. Use the  \encircle{C} button as  an alternative
+compatible controller) may also be  used. Use the \encircle{B} button as
+the \textbf{Fire} button. Use the  \encircle{C} button as an alternative
 way  to   press  the   \textbf{Game  Select}   switch  to   access  your
 Grizzard's statistics.
 
+A      ``Joy2b+''     game      pad     such      as     those      from
+\href{https://retrogameboyz.com/products/atari-8-bit-2-button-action-joystick-control-pad-gamepad-xegs-theme?variant=39665422565431}{RetroGameBoyz.com}
+can also  be used.  Button \encircle{I} will  work as  the \textbf{Fire}
+button.  Button  \encircle{II} will  work  as  the \textbf{Game  Select}
+switch. Button \encircle{III} will toggle pausing the game.
+
+An    Atari     7800    controller     will    \emph{not}     work    as
+a two-button controller, even on an Atari 7800 console.
+
 Your gamepad  \emph{must} be  plugged in \emph{before}  you turn  on the
-power, or the \encircle{C} button will not work.
+power,   or    the   extra    button   function(s)   will    not   work.
+\ifdefined\ATARIAGESAVE\else If  using a \ifdefined\DEMO Harmony  or \fi
+Harmony  Encore cartridge,  hold down  the \encircle{B}  or \encircle{I}
+button when you power  on your console, or the gamepad  will not work on
+the Harmony menu. \fi
 
 \vfill
 
@@ -259,8 +273,8 @@ On an Atari 2600  (or similar console) you can pause  the game using the
 the game.
 
 On the  Atari 7800, press  the \textbf{Pause}  button once to  pause the
-game, and  again to  resume playing.  \ifdefined\ATARIAGESAVE\else Note:
-this may not work with certain multi-carts. \fi
+game, and again to resume playing. \ifdefined\ATARIAGESAVE\else This may
+not work with certain multi-carts, e.g. the UnoCart. \fi
 
 \fi
 
@@ -296,6 +310,9 @@ You  cannot erase  a  game  in progress  (or  un-erase  it) unless  both
 Difficulty  Switches are  in the  ``A'' (Advanced  or Expert)  position.
 To protect your game from being erased, set either one of the Difficulty
 Switches to the ``B'' (Beginner or Novice) position.
+
+On the Atari 7800, the  Difficulty Switches (located near the controller
+ports) are in the ``A'' position when they are moved to the right.
 
 \fi
 
@@ -345,16 +362,15 @@ Select Slot screen.
 \end{center}
 
 Press  the \textbf{Game  Select} switch  or move  the joystick  left and
-right             to             choose             a             memory
-slot\ifdefined\ATARIAGESAVE\else\footnote{Technical   Note:   The   Slot
-  number chosen  here is relative to  the three save game  slots used by
-  the  \textit{Grizzards} game  program.  Each save  game slot  actually
+right to  choose a  memory slot\ifdefined\ATARIAGESAVE\else\footnote{The
+  Slot number chosen here is relative  to the three save game slots used
+  by the \textit{Grizzards}  game program. Each save  game slot actually
   occupies 4 blocks on your memory  device.}\fi for your game. There are
-\ifdefined\ATARIAGESAVE  eight \else  three  \fi  memory slots  possible.
-Press \textbf{Game Select} or the joystick again to rotate through them.
-If someone  has already  begun to play  \textit{Grizzards} in  a certain
-slot, your  screen will  show ``\texttt{RESUME},''  and their  name will
-appear    as    well.    If    a   slot    is    empty,    you'll    see
+\ifdefined\ATARIAGESAVE  eight \else  three \fi  memory slots  possible.
+Press  \textbf{Game Select}  or the  joystick left  and right  to rotate
+through them. If someone has already begun to play \textit{Grizzards} in
+a certain  slot, your  screen will  show ``\texttt{RESUME},''  and their
+name  will   appear  as   well.  If   a  slot   is  empty,   you'll  see
 ``\texttt{BEGIN}'' instead.
 
 If someone has already \emph{won} the  game once, their name will appear
@@ -649,9 +665,9 @@ can continue from  the last Grizzard Depot you visited  by selecting the
 same game slot on the Select Slot screen. \fi
 
 If you  defeat all of  the monsters, victory  is yours! Your  score will
-increase, and you'll return to the  World Map screen victorious. You may
-also find a potion was left behind by the monsters. \ifdefined\DEMO\else
-There are no potions in the demo. \fi
+increase, and you'll  return to the World Map screen.  You may also find
+a potion was  left behind by the monsters. \ifdefined\DEMO  There are no
+potions in the demo. \fi
 
 You  may choose  to run  away from  a fight,  but the  monsters will  be
 immediately healed and may still come after you.
@@ -661,10 +677,10 @@ immediately healed and may still come after you.
 Your  Grizzard companion  may  learn from  opposing  Monsters. This  can
 result in your Grizzard increasing  its Attack or Defend rating, maximum
 hit points, or learning a new Move. Your Grizzard can only learn certain
-moves. Moves that  your Grizzard might be able to  perform, but does not
+Moves. Moves that  your Grizzard might be able to  perform, but does not
 yet  know, will  appear in  black. Sometimes,  seeing a  monster perform
-a Move will teach it to your Grizzard. Other times, they may work it out
-on their own.
+a Move  will teach it to  your Grizzard. Other times,  your Grizzard may
+work it out on their own.
 
 \section{Statistics}
 
@@ -672,8 +688,10 @@ on their own.
   \includegraphics[width=\columnwidth]{../Manual/StatsScreenshot\TV.png}
 \end{center}
 
-You can  press the  \textbf{Game Select} switch  while viewing  the Map,
-Combat  screen,  or  at  a   Grizzard  Depot  to  view  your  Grizzard's
+You can press the \textbf{Game  Select} switch\footnote{You can also use
+  the  \encircle{C}  or  \encircle{II}  button on  a  gamepad.  See  the
+  Gamepads  section on  page~\pageref{sec:Gamepad}.}  while viewing  the
+Map,  Combat screen,  or at  a Grizzard  Depot to  view your  Grizzard's
 statistics.   Press  the   \textbf{Fire}   button  to   return  to   the
 previous screen.
 
@@ -699,10 +717,9 @@ Grizzards to catch. Can you catch them all?
   
 \end{description}
 
-Each of  these statistics can  be raised up to  a maximum of  99 points.
-The Attack  rating, Defend  rating, or  Maximum Hit  Points may  go up
-a bit after each monster that you defeat. The more skilled your Grizzard
-becomes, the less often its levels will go up.
+The Attack rating, Defend rating, or Maximum  Hit Points may go up a bit
+after each  party of  monsters that  you defeat.  The more  skilled your
+Grizzard becomes, the less often its levels will go up.
 
 If you are currently in a  combat encounter, there may be Status Effects
 that could change the effectiveness  of your Moves. These are \emph{not}
@@ -731,9 +748,9 @@ attack has been raised, it cannot be raised further.
 
 \section{Scoring}
 
-When you  defeat a monster, you'll  earn points. The number  of points
-you earn  will increase as you  defeat more difficult monsters.  You can
-also earn points for other some other actions you take in the game.
+When you defeat a monster, you'll  earn points. The number of points you
+earn will increase  as you defeat more difficult monsters.  You can also
+earn points for other some other actions you take in the game.
 
 The score earned can be increased by:
 
@@ -745,9 +762,9 @@ The score earned can be increased by:
   defeated the final boss.
 \end{itemize}
 
-The score for  defeating a monster will be increased  to 2\times for any
-one of these  factors, to 3\times for  any two of these  factors, and to
-4\times if all three are true.
+The score for  defeating a monster will be increased  to $2\times$ for any
+one of these  factors, to $3\times$ for  any two of these  factors, and to
+$4\times$ if all three are true.
 
 \section{Winning the Game}
 
@@ -860,10 +877,10 @@ If your  game's progress can be  recovered, you'll see that  the slot is
 game's progress, press forward on the joystick. The game will immediately
 become available to resume.
 
-Note that it  is \emph{not possible} to recover a  saved game's progress
-once  a new  game has  been  started in  the  same memory  slot. If  you
-accidentally start  a new game,  but have  not confirmed your  name yet,
-\emph{turn off the power briefly}, then try the recovery steps above.
+It is \emph{not possible} to recover  a saved game's progress once a new
+game has been started in the same memory slot. If you accidentally start
+a new  game, but have  not confirmed your  name yet, \emph{turn  off the
+  power briefly}, then try the recovery steps above.
 
 \fi
 
@@ -1111,7 +1128,7 @@ can be found in more powerful giant forms as well.
 
 \ifdefined\DEMO
 
-\section{Screen ``Jitters,'' freezes,  \ifdefined\TVPAL appears in black
+\section*{Screen ``Jitters,'' freezes,  \ifdefined\TVPAL appears in black
   \& white,\fi or flashes blue}
 
 These may  be signs that  a screen  (or the transition  between screens)
@@ -1127,7 +1144,7 @@ can be corrected before the game is finished.
 
 \fi
 
-\section{Sad Face Screen}
+\section*{Sad Face Screen}
 
 If you  see the Sad  Face screen,  the game is  trying to tell  you that
 there is a problem.
@@ -1158,17 +1175,17 @@ with your email.
 
 \ifdefined\ATARIAGESAVE\else
 
-\section{Pause button must be held down (7800)}
+\section*{Pause button must be held down (7800)}
 
 This  is believed  to  be  a side  effect  of  certain multi-carts,  eg.
-PlusCart.  Note that  you can  press \textbf{Game  Select} to  view your
-Grizzard's statistics and effectively pause the game as well.
+PlusCart.  You  can press  \textbf{Game  Select}  instead to  view  your
+Grizzard's statistics and effectively pause the game.
 
 \fi
 
 \ifdefined\NOSAVE\else\ifdefined\ATARIAGESAVE\else
 
-\section{TV goes blank when entering Grizzard Depot}
+\section*{TV goes blank when entering Grizzard Depot}
 
 Make  sure your  memory device  is  securely connected.  If your  memory
 device is not connected when the game  tries to save, you may see the TV
@@ -1176,7 +1193,7 @@ picture remain blank while the game tries to record your progress.
 
 \fi
 
-\section{No voices}
+\section*{No voices}
 
 On the title  screen, you'll hear the AtariVox announce  the name of the
 game. If  you don't, make  sure that the  AtariVox is connected  and the
@@ -1232,10 +1249,12 @@ Some  math functions  taken  from December  1984 \textit{Apple  Assembly
 transcribed by AtariAge Forum user \texttt{tigger\-the\-hun}. Atari 7800
 console detection  logic by Fred  Quimby courtesy of Darrell  Spice, Jr.
 AtariVox and SaveKey illustrations in  this manual are from the AtariAge
-store.  \ifdefined\DEMO\else  The AtariAge  logo  and  logotype are  the
+store.  \ifdefined\ATARIAGESAVE  The AtariAge  logo  and  logotype are  the
 property of AtariAge. \fi
 
 Special ``save to cartridge'' circuitry designed by Fred Quimby.
+
+Thanks to SmittyB for helping get the gamepad support working on Atari 7800.
 
 Thanks to Albert Yarusso for publication support.
 

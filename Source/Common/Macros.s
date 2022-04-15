@@ -354,6 +354,28 @@ mva:      .macro dest, src
           sta \dest
           .endm
 
+mvay:     .macro dest, src
+          lda \src
+          sta \dest, y
+          .endm
+
+mvayi:     .macro dest, src
+          lda \src
+          sta \dest, y
+          iny
+          .endm
+
+mvax:     .macro dest, src
+          lda \src
+          sta \dest, x
+          .endm
+
+mvaxd:     .macro dest, src
+          lda \src
+          sta \dest, x
+          dex
+          .endm
+
 mvx:      .macro dest, src
           ldx \src
           stx \dest
@@ -362,4 +384,27 @@ mvx:      .macro dest, src
 mvy:      .macro dest, src
           ldy \src
           sty \dest
+          .endm
+
+mvaw:     .macro dest, word
+          lda #<\word
+          sta \dest
+          lda #>\word
+          sta \dest + 1
+          .endm
+
+mvap:     .macro dest, source
+          lda \source
+          sta \dest
+          lda \source + 1
+          sta \dest + 1
+          .endm
+;;; 
+;;; From Lee Davison
+
+between:  .macro low, high
+          clc
+          adc #$ff - \high
+          adc #\high - \low + 1
+          ;; C is set iff (low < A < high)
           .endm

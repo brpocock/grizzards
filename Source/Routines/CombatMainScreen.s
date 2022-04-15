@@ -4,7 +4,7 @@
 CombatMainScreen:   .block
 
 BackToPlayer:
-          .mva MoveSelection, # 1
+          .mva MoveSelection, LastPlayerCombatMove
           .mva GameMode, #ModeCombat
           .mva AlarmCountdown, # 4
 
@@ -60,7 +60,7 @@ Loop:
             .SkipLines 1
 NWait0:
             lda CombatMajorP
-            beq +
+            bpl +
             stx WSYNC
 +
 
@@ -84,7 +84,7 @@ NWait0:
             stx WSYNC
 +
             lda CombatMajorP
-            beq +
+            bpl +
             .SkipLines 4
 +
 
@@ -160,7 +160,10 @@ MonsterWithName:
 +
 
           lda CombatMajorP
-          beq MinorCombatArt
+          bpl MinorCombatArt
+
+          ;; XXX this check should not be necessary but is here for bug #409
+          ;; it prevents an unwinnable boss fight where monsters 2+ exist.
           lda EnemyHP + 1
           ora EnemyHP + 2
           ora EnemyHP + 3
@@ -174,8 +177,9 @@ MajorCombatArt:
           jmp DelayAfterMonsters
 
 MinorCombatArt:
-          ldy # 0               ; necessary here
-          sty CombatMajorP
+          .mvy CombatMajorP, # 0      ; should have already been the case, but bugs are buggy.
+          ;; I don't know why this is sometimes set.
+          ;; XXX once #409 is closed maybe the prior 2 lines can go
           .FarJSR MonsterBank, ServiceDrawMonsterGroup
 
 DelayAfterMonsters:
@@ -356,7 +360,7 @@ UserControls:
           lda NewButtons
           beq ScreenDone
 
-          and #PRESSED
+          and #ButtonI
           bne ScreenDone
 
 GoDoMove:
@@ -380,6 +384,7 @@ DoUseMove:
           beq MoveNotOK
 
 MoveOK:
+          .mva LastPlayerCombatMove, MoveSelection
           .mva GameMode, #ModeCombat
           .mva NextSound, #SoundBlip
           gne CombatAnnouncementScreen

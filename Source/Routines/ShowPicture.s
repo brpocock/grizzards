@@ -22,37 +22,37 @@ ShowPicture:  .block
           .page
 
           stx WSYNC
-	.SleepX 61
+          .SleepX 61
 Loop:
-	ldy LineCounter
-	lda (PixelPointers + 0), y
-	sta GRP0
+          ldy LineCounter
+          lda (PixelPointers + 0), y
+          sta GRP0
           .Sleep 5
-	lda (PixelPointers + 2), y
-	sta GRP1
-	lda (PixelPointers + 4), y
-	sta GRP0
-	lda (PixelPointers + 6), y
-	sta Temp
-	lax (PixelPointers + 8), y
-	lda (PixelPointers + 10), y
-	tay
-	lda Temp
-	sta GRP1
-	stx GRP0
-	sty GRP1
-	sty GRP0
-	dec LineCounter
-	bne Loop
+          lda (PixelPointers + 2), y
+          sta GRP1
+          lda (PixelPointers + 4), y
+          sta GRP0
+          lda (PixelPointers + 6), y
+          sta Temp
+          lax (PixelPointers + 8), y
+          lda (PixelPointers + 10), y
+          tay
+          lda Temp
+          sta GRP1
+          stx GRP0
+          sty GRP1
+          sty GRP0
+          dec LineCounter
+          bne Loop
 
           .endp
 
-	ldy #0
-	sty GRP0
-	sty GRP1
-	sty GRP0
-	sty GRP1
-	rts
+          ldy #0
+          sty GRP0
+          sty GRP1
+          sty GRP0
+          sty GRP1
+          rts
 
           .bend
 

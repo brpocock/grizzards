@@ -24,7 +24,11 @@ BumpSprite:
           ldy BumpCooldown
           bne DonePlayerMove
 
+          ;; This is also the entry point for random encounters
+          ;; They call with X and A already set.
 ActionWithSpriteX:
+          ;; X = sprite index
+          ;; A = SpriteAction, x
           cmp #SpriteCombat
           beq FightWithSpriteMinor
 
@@ -54,9 +58,9 @@ ReadSign:
           sta SignpostIndex
           .mva GameMode, #ModeSignpost
           rts
-
+;;; 
 FightWithSpriteMinor:
-          ldy # 0               ; XXX necessary?
+          ldy # 0
           sty CombatMajorP
           geq FightWithSprite
 
@@ -72,21 +76,21 @@ FightWithSpriteX:
           sta CurrentCombatIndex
           .mva GameMode, #ModeCombat
           rts
-
+;;; 
 DoorWithSprite:
           lda SpriteParam, x
           sta NextMap
           ldy #ModeMapNewRoomDoor ; XXX why Y?
           sty GameMode
           rts
-
+;;; 
 GetNewGrizzard:
           .mva GameMode, #ModeNewGrizzard
           ldx SpriteFlicker
           lda SpriteParam, x
           sta NextMap
           rts
-
+;;; 
 PlayerMoveOK:
           lda BumpCooldown
           beq Cool
@@ -101,12 +105,12 @@ Cool:
           .mva BlessedY, PlayerY
 DonePlayerMove:
           rts
-
+;;; 
 EnterDepot:
           lda #ModeGrizzardDepot
           sta GameMode
           rts
-
+;;; 
 ProvinceChange:
 ;;; Duplicated in Signpost.s and CheckPlayerCollision.s nearly exactly
           stx P0LineCounter
@@ -200,4 +204,4 @@ DoneBump:
           rts
           .bend
 
-;;; Audited 2022-02-16 BRPocock
+;;; Audited 2022-03-22 BRPocock

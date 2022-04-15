@@ -4,13 +4,15 @@ all:	game demo no-save doc atariage
 
 atariage:	Dist/Grizzards.AtariAge.zip
 
-publish:	demo game no-save doc Dist/Grizzards.Source.tar.gz Dist/Grizzards.AtariAge.zip
+publish:	demo game no-save doc Dist/Grizzards.Source.tar.gz Dist/Grizzards.AtariAge.zip \
+		Dist/Grizzards.Portable.NTSC.bin
 	@until rsync -essh --progress \
 		Dist/Grizzards.Demo.NTSC.a26 Dist/Grizzards.Demo.PAL.a26 Dist/Grizzards.Demo.SECAM.a26 \
 		Dist/Grizzards.Demo.zip Dist/Grizzards.Source.tar.gz \
 		Dist/Grizzards.Demo.NTSC.pdf Dist/Grizzards.Demo.PAL.pdf Dist/Grizzards.Demo.SECAM.pdf \
 		Dist/Grizzards.NoSave.NTSC.a26 Dist/Grizzards.NoSave.PAL.a26 Dist/Grizzards.NoSave.SECAM.a26 \
 		Dist/Grizzards.NoSave.NTSC.pdf Dist/Grizzards.NoSave.PAL.pdf Dist/Grizzards.NoSave.SECAM.pdf \
+		Dist/Grizzards.Portable.NTSC.bin \
 		Dist/Grizzards.NTSC.a26 Dist/Grizzards.PAL.a26 Dist/Grizzards.SECAM.a26 \
 		Dist/Grizzards.NTSC.pdf Dist/Grizzards.PAL.pdf Dist/Grizzards.SECAM.pdf \
 		Dist/Grizzards.zip \
@@ -47,13 +49,14 @@ cart:	Dist/Grizzards.AA.NTSC.a26
 USBMOUNT=$(shell echo \"$$(mount | grep /run/media/$$USER | grep vfat | head -n 1 | \
 		perl -pne 's#^/dev/.+ on (.+) type vfat (.*)#$$1#g')\")
 
+USBDEV=$(shell grep "$(USBMOUNT)" /etc/mtab | cut -d ' ' -f 1)
 
 # Basic Harmony cart only can handle 32k images
 harmony:	Dist/Grizzards.Demo.NTSC.a26 \
 		Dist/Grizzards.NoSave.NTSC.a26
 	[ "$(USBMOUNT)" != "" ]
 	@if [ $$(uname -s) = 'Linux' ] ; then \
-	  mkdir $(USBMOUNT)/Grizzards ;\
+	  mkdir -p $(USBMOUNT)/Grizzards ;\
 	  cp -v Dist/Grizzards.Demo.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.Demo.F4 ;\
 	  cp -v Dist/Grizzards.NoSave.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.NoSave.F4 ;\
 	else \
@@ -65,7 +68,7 @@ encore:	Dist/Grizzards.Demo.NTSC.a26 \
 	Dist/Grizzards.NTSC.a26
 	[ "$(USBMOUNT)" != "" ]
 	@if [ $$(uname -s) = 'Linux' ] ; then \
-	  mkdir $(USBMOUNT)/Grizzards ;\
+	  mkdir -p $(USBMOUNT)/Grizzards ;\
 	  cp -v Dist/Grizzards.Demo.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.Demo.F4 ;\
 	  cp -v Dist/Grizzards.NoSave.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.NoSave.F4 ;\
 	  cp -v Dist/Grizzards.NTSC.a26 $(USBMOUNT)/Grizzards/Grizzards.F9 ;\
@@ -84,6 +87,21 @@ uno:	Dist/Grizzards.NTSC.a26 \
 	  cp -v Dist/Grizzards.NTSC.a26 $(USBMOUNT)/GRIZZARDS/GRIZZARDS.NTSC.F9 ;\
 	  cp -v Dist/Grizzards.Demo.NTSC.a26 $(USBMOUNT)/GRIZZARDS/DEMO.NTSC.F4 ;\
 	  cp -v Dist/Grizzards.NoSave.NTSC.a26 $(USBMOUNT)/GRIZZARDS/NOSAVE.NTSC.F4 ;\
+	else \
+	  echo "Patch Makefile for your $$(uname -s) OS" ; \
+	fi
+
+portbin:	Dist/Grizzards.Portable.NTSC.bin
+
+portable:	Dist/Grizzards.Portable.NTSC.bin
+	[ "$(USBMOUNT)" != "" ]
+	if [ $$(uname -s) = 'Linux' ] ; then \
+	  mkdir -p $(USBMOUNT)/Game ;\
+	  cp -v Dist/Grizzards.Portable.NTSC.bin $(USBMOUNT)/Game/'Grizzards demo     '.bin ;\
+            sync $(USBMOUNT) ;\
+            umount $(USBMOUNT) ;\
+            sudo fatsort -o d -n $(USBDEV) ;\
+            sync ;\
 	else \
 	  echo "Patch Makefile for your $$(uname -s) OS" ; \
 	fi
@@ -150,6 +168,9 @@ SOURCES=$(shell find Source -name \*.s -o -name \*.txt -o -name \*.png -o -name 
 
 Dist/Grizzards.Manual.txt:	Manual/Manual.txt
 	cp Manual/Manual.txt Dist/Grizzards.Manual.txt
+
+Dist/Grizzards.Portable.NTSC.bin:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
+	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.Portable.NTSC.bin
 
 Dist/Grizzards.Demo.NTSC.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
 	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.Demo.NTSC.a26

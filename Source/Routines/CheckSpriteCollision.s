@@ -27,6 +27,10 @@ EndRandomSpawn:
           lda AlarmCountdown
           bne Return
 
+          ;; Don't exit spawn mode if paused
+          bit SystemFlags
+          bmi Return
+
           ;; Every sprite has been checked at least once,
           ;; and has not had to be repositioned, so we must
           ;; be OK to exit "poof" mode.
@@ -67,8 +71,7 @@ CheckLeft:
 
           inc SpriteX, x
           inc SpriteX, x
-          eor # SpriteMoveLeft | SpriteMoveRight
-          gne CheckUp
+          gne InvertHorizontal
 
 CheckRight:
           .BitBit SpriteMoveRight
@@ -76,6 +79,7 @@ CheckRight:
 
           dec SpriteX, x
           dec SpriteX, x
+InvertHorizontal:
           eor # SpriteMoveLeft | SpriteMoveRight
 
 CheckUp:
@@ -84,8 +88,7 @@ CheckUp:
 
           inc SpriteY, x
           inc SpriteY, x
-          eor # SpriteMoveUp | SpriteMoveDown
-          gne Done
+          gne InvertVertical
 
 CheckDown:
           and #SpriteMoveDown
@@ -93,6 +96,7 @@ CheckDown:
 
           dec SpriteY, x
           dec SpriteY, x
+InvertVertical:
           eor # SpriteMoveUp | SpriteMoveDown
 
 Done:
@@ -101,4 +105,4 @@ Bye:
           rts
           .bend
 
-;;; Audited 2022-02-16 BRPocock
+;;; audited 2022-03-22 BRPocock

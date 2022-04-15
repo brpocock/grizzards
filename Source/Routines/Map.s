@@ -405,6 +405,21 @@ ScreenJumpLogic:
           gne ShouldIStayOrShouldIGo
 
 GoScreenUp:
+          .if BANK == Province2MapBank
+
+            ;; It was possible to get stuck, #413
+            lda CurrentMap
+            cmp # 1
+            bne DoneCoastBump
+            lda PlayerX
+            cmp #$c0
+            blt DoneCoastBump
+
+            .mva BlessedX, #$c0
+
+DoneCoastBump:
+
+          .fi
           .mva BlessedY, #ScreenBottomEdge - 1
           sta PlayerY
           ldy # 0
@@ -423,6 +438,21 @@ GoScreenLeft:
           gne GoScreen
 
 GoScreenRight:
+          .if BANK == Province2MapBank
+
+            ;; It was possible to get stuck, #413
+            lda CurrentMap
+            cmp # 1
+            bne DoneDockBump
+            lda PlayerY
+            cmp #$10
+            bge DoneDockBump
+
+            .mva BlessedY, #$10
+
+DoneDockBump:
+
+          .fi
           .mva BlessedX, #ScreenLeftEdge + 1
           sta PlayerX
           ldy # 3
@@ -437,9 +467,9 @@ GoScreen:
 
           lda CurrentMap
           asl a
-          asl Temp
+          rol Temp
           asl a
-          asl Temp
+          rol Temp
           clc                   ; XXX necessary?
           adc #<MapLinks
           bcc +
@@ -532,5 +562,3 @@ ShowStats:
           jmp MapSetup
 
           .bend
-
-;;; Audited 2022-02-16 BRPocock

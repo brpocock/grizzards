@@ -84,14 +84,7 @@ PrintKilled:
           .SetPointer KilledText
           jsr ShowPointerText
 
-          lda CriticalHitP
-          beq +
-
-          .SetPointer CritText
-          jsr ShowPointerText
-
-+
-          jmp AfterStatusFX
+          jmp DoneStatusFX
 
 CheckMonsterPulse2:
           ldx MoveTarget
@@ -108,7 +101,7 @@ DrawMissed:
 
           jsr DecodeAndShowText
 
-          jmp AfterHitPoints
+          jmp DoneHitPoints
 
 DrawHealPoints:
           eor #$ff
@@ -119,17 +112,12 @@ DrawHealPoints:
 DrawHitPoints:
           jsr AppendDecimalAndPrint.FromTemp
 
-          lda CriticalHitP
-          beq +
-          .SetPointer CritText
-          jsr ShowPointerText
-+
-          jmp AfterHitPoints
+          jmp DoneHitPoints
 
 SkipHitPoints:
           .SkipLines 34
 ;;; 
-AfterHitPoints:
+DoneHitPoints:
           lda MoveAnnouncement
           cmp # 5
           bmi SkipStatusFX
@@ -155,7 +143,7 @@ DrawStatusFX:
           .BitBit StatusMuddle
           bne FXMuddle
 
-          jmp AfterStatusFX
+          jmp DoneStatusFX
 
 FXSleep:
           .SetPointer SleepText
@@ -184,7 +172,12 @@ EchoStatus:
           jsr ShowPointerText
 
 SkipStatusFX:
-AfterStatusFX:
+DoneStatusFX:
+          lda CriticalHitP
+          beq DoneCritNotice
+          .SetPointer CritText
+          jsr ShowPointerText
+DoneCritNotice:
 ;;; 
           lda AlarmCountdown
           bne AlarmDone

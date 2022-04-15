@@ -16,49 +16,53 @@ ShowText:  .block
 
 DrawLine: .macro
           ldy LineCounter
-	lda (PixelPointers + 0), y
-	sta GRP0
-	.Sleep 6
-	lda (PixelPointers + 2), y
-	sta GRP1
-	lda (PixelPointers + 4), y
-	sta GRP0
-	lda (PixelPointers + 6), y
-	sta Temp
-	lax (PixelPointers + 8), y
-	lda (PixelPointers + 10), y
-	tay
-	lda Temp
-	sta GRP1
-	stx GRP0
-	sty GRP1
-	sty GRP0
+          lda (PixelPointers + 0), y
+          sta GRP0
+          .Sleep 6
+          lda (PixelPointers + 2), y
+          sta GRP1
+          lda (PixelPointers + 4), y
+          sta GRP0
+          lda (PixelPointers + 6), y
+          sta Temp
+          lax (PixelPointers + 8), y
+          lda (PixelPointers + 10), y
+          tay
+          lda Temp
+          sta GRP1
+          stx GRP0
+          sty GRP1
+          sty GRP0
 
           .endm
 ;;; 
-	.page
+          .page
 
           stx WSYNC
-	ldy # 4
-	sty LineCounter
-	.SleepX 56
+          ldy # 4
+          sty LineCounter
+          .if PORTABLE
+            .SleepX 58
+          .else
+            .SleepX 56
+          .fi
 Loop:
           .DrawLine
-	.Sleep 8
-	.DrawLine
-	.Sleep 8
+          .Sleep 8
           .DrawLine
-	dec LineCounter
-	bpl Loop
+          .Sleep 8
+          .DrawLine
+          dec LineCounter
+          bpl Loop
 
-	.endp
+          .endp
 
-	ldy # 0
-	sty GRP0
-	sty GRP1
-	sty GRP0
-	sty GRP1
-	rts
+          ldy # 0
+          sty GRP0
+          sty GRP1
+          sty GRP0
+          sty GRP1
+          rts
           
           .bend
 

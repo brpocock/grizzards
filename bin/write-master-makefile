@@ -51,6 +51,17 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
 \tmkdir -p Dist
 \tcat \$^ > \$\@\n\n";
 
+  if ('NTSC' eq $tv) {
+    print "\n\nDist/Grizzards.Portable.$tv.bin:\t";
+    for my $bank (@banks) {
+      print "\\\n\tObject/Bank$bank.Portable.$tv.o " if hex("0x$bank") < 8;
+    }
+  print "
+\tmkdir -p Dist
+\tcat \$^ > \$\@\n\n";
+
+  }
+
   print "\n\nDist/Grizzards.NoSave.$tv.a26:\t";
 
   for my $bank (@banks) {
@@ -61,154 +72,165 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
 \tmkdir -p Dist
 \tcat \$^ > \$\@\n\n";
 
-    for my $atariagesave ('', '.AA') {
+  for my $atariagesave ('', '.AA') {
 
-      print "Dist/Grizzards$atariagesave.$tv.a26:\t";
-      for my $bank (@banks) {
-        print "\\\n\tObject/Bank$bank$atariagesave.$tv.o ";
-      }
-      print "
+    print "Dist/Grizzards$atariagesave.$tv.a26:\t";
+    for my $bank (@banks) {
+      print "\\\n\tObject/Bank$bank$atariagesave.$tv.o ";
+    }
+    print "
 \tmkdir -p Dist
 \tcat \$^ > \$\@\n\n";
 
-      my @places = @banks;
-      unshift @places => 'Common';
-      for my $bank (@places) {
-        my $bankdir = "Source/Banks/Bank$bank";
-        my $genrdir = "Source/Generated/Bank$bank";
-        my $bankfile = "Bank$bank.s";
+    my @places = @banks;
+    unshift @places => 'Common';
+    for my $bank (@places) {
+      my $bankdir = "Source/Banks/Bank$bank";
+      my $genrdir = "Source/Generated/Bank$bank";
+      my $bankfile = "Bank$bank.s";
 
-        if ($bank eq 'Common') {
-          $bankdir = 'Source/Common';
-          $genrdir = 'Source/Generated/Common';
-          $bankfile = undef;
+      if ($bank eq 'Common') {
+        $bankdir = 'Source/Common';
+        $genrdir = 'Source/Generated/Common';
+        $bankfile = undef;
+      }
+
+      my %seen = ();
+
+      my @files = ();
+      {
+        my @todo = ();
+        if ($bankfile) {
+          push @todo => "$bankdir/$bankfile";
         }
 
-        my %seen = ();
-
-        my @files = ();
         {
-          my @todo = ();
-          if ($bankfile) {
-            push @todo => "$bankdir/$bankfile";
+          opendir my $src, "$bankdir/";
+          while (my $file = readdir $src) {
+            next unless $file =~ /\.(s|txt|png|midi)$/;
+            push @todo => "$bankdir/$file";
           }
+          closedir $src;
+        }
 
-          {
-            opendir my $src, "$bankdir/";
-            while (my $file = readdir $src) {
-              next unless $file =~ /\.(s|txt|png|midi)$/;
-              push @todo => "$bankdir/$file";
-            }
-            closedir $src;
-          }
-
-          while (@todo) {
-            my $path = shift @todo;
-            if ($path =~ m(^Source/Generated)) {
-              my $orig_path = $path;
-              $orig_path =~ s(Generated/Common) (Common);
-              $orig_path =~ s(Generated/Bank) (Banks/Bank);
-              $orig_path =~ s(\.s$) ();
-              if (-f "$orig_path.png" or -f "$orig_path.midi" or -f "$orig_path.txt") {
-                unless ($seen{ $path }) {
-                  ++$seen{ $path };
-                  push @files => $path;
-                }
+        while (@todo) {
+          my $path = shift @todo;
+          if ($path =~ m(^Source/Generated)) {
+            my $orig_path = $path;
+            $orig_path =~ s(Generated/Common) (Common);
+            $orig_path =~ s(Generated/Bank) (Banks/Bank);
+            $orig_path =~ s(\.s$) ();
+            if (-f "$orig_path.png" or -f "$orig_path.midi" or -f "$orig_path.txt") {
+              unless ($seen{ $path }) {
+                ++$seen{ $path };
+                push @files => $path;
               }
             }
-            next unless -f $path;
-            next if $seen{ $path };
-            ++$seen{ $path };
+          }
+          next unless -f $path;
+          next if $seen{ $path };
+          ++$seen{ $path };
 
-            my $file = ( split '\\/' => $path )[ -1 ];
-            my ($base, $ext) = split '\\.' => $file;
-            if ('txt' eq $ext) {
-              next if $rules{ $path };
-              ++ $rules{ $path };
-              print "$genrdir/$base.s:\t$bankdir/$base.txt \\
+          my $file = ( split '\\/' => $path )[ -1 ];
+          my ($base, $ext) = split '\\.' => $file;
+          if ('txt' eq $ext) {
+            next if $rules{ $path };
+            ++ $rules{ $path };
+            print "$genrdir/$base.s:\t$bankdir/$base.txt \\
 \t\tSource/Common/SpeakJet.dic bin/convert-to-speakjet
 \tmkdir -p $genrdir
 \tbin/convert-to-speakjet \$< Source/Common/SpeakJet.dic \$\@\n\n";
-              push @files => "$genrdir/$base.s";
-            } elsif ('midi' eq $ext) {
-              next if $rules{ $path };
-              ++ $rules{ $path };
-              print "$genrdir/$base.s:\t$bankdir/$base.midi\\
+            push @files => "$genrdir/$base.s";
+          } elsif ('midi' eq $ext) {
+            next if $rules{ $path };
+            ++ $rules{ $path };
+            print "$genrdir/$base.s:\t$bankdir/$base.midi\\
 \t\tbin/skyline-tool
 \tmkdir -p $genrdir
 \tbin/skyline-tool compile-music \$\@ \$<\n\n";
-              push @files => "$genrdir/$base.s";
-            } elsif ('png' eq $ext) {
-              next if $rules{ $path };
-              ++ $rules{ $path };
-              print "$genrdir/$base.s:\t$bankdir/$base.png \\
+            push @files => "$genrdir/$base.s";
+          } elsif ('png' eq $ext) {
+            next if $rules{ $path };
+            ++ $rules{ $path };
+            print "$genrdir/$base.s:\t$bankdir/$base.png \\
 \t\tbin/skyline-tool
 \tmkdir -p $genrdir
 \tbin/skyline-tool compile-art \$\@ \$<\n\n";
-              push @files => "$genrdir/$base.s";
-            } elsif ('s' eq $ext) {
-              push @files => $path;
-              open my $text, '<', $path;
-              while (my $line = <$text>) {
-                if ($line =~ /\.include "(.+).s"/) {
-                  my $dep = $1;
-                  if ($bank ne 'Common') {
-                    push @todo => "$bankdir/$dep.s";
-                    push @todo => "$genrdir/$dep.s";
-                  }
-                  push @todo => "Source/Common/$dep.s";
-                  push @todo => "Source/Routines/$dep.s";
-                  push @todo => "Source/Generated/Common/$dep.s";
+            push @files => "$genrdir/$base.s";
+          } elsif ('s' eq $ext) {
+            push @files => $path;
+            open my $text, '<', $path;
+            while (my $line = <$text>) {
+              if ($line =~ /\.include "(.+).s"/) {
+                my $dep = $1;
+                if ($bank ne 'Common') {
+                  push @todo => "$bankdir/$dep.s";
+                  push @todo => "$genrdir/$dep.s";
                 }
+                push @todo => "Source/Common/$dep.s";
+                push @todo => "Source/Routines/$dep.s";
+                push @todo => "Source/Generated/Common/$dep.s";
               }
-              close $text;
-            } else {
-              die "Unhandled extension $ext";
             }
+            close $text;
+          } else {
+            die "Unhandled extension $ext";
           }
         }
+      }
 
-        if ($bank eq 'Common') {
-          next;
-        }
+      if ($bank eq 'Common') {
+        next;
+      }
 
-        print "Object/Bank$bank$atariagesave.$tv.o:\t";
-        for my $file (@files) {
-          print "\\\n\t$file";
-        }
-        if ($atariagesave) {
-          $publisher = 'true';
-        } else {
-          $publisher = 'false'
-        }
-        print "
+      print "Object/Bank$bank$atariagesave.$tv.o:\t";
+      for my $file (@files) {
+        print "\\\n\t$file";
+      }
+      if ($atariagesave) {
+        $publisher = 'true';
+      } else {
+        $publisher = 'false'
+      }
+      print "
 \tmkdir -p Object
 \t\${AS2600} -DATARIAGESAVE=$publisher -DPUBLISHER=$publisher -DTV=$tv \\
 \t   -I Source/Generated/Bank$bank -l \$\@.labels.txt -L \$\@.list.txt \$< -o \$\@
 \tbin/label2sym \$\@.labels.txt
 \tbin/listing2lst \$\@.list.txt\n";
 
-        if ('' eq $atariagesave and hex("0x$bank") < 8) {
-          print "\n\nObject/Bank$bank.Demo.$tv.o:\t";
-          for my $file (@files) {
-            print "\\\n\t$file";
-          }
-          print "
+      if ('' eq $atariagesave and hex("0x$bank") < 8) {
+        print "\n\nObject/Bank$bank.Demo.$tv.o:\t";
+        for my $file (@files) {
+          print "\\\n\t$file";
+        }
+        print "
 \tmkdir -p Object
 \t\${AS2600} -DTV=$tv -DDEMO=true -I Source/Generated/Bank$bank -l \$\@.labels.txt -L \$\@.list.txt \$< -o \$\@\n
 \tbin/label2sym \$\@.labels.txt
 \tbin/listing2lst \$\@.list.txt\n";
 
-          print "\n\nObject/Bank$bank.NoSave.$tv.o:\t";
+        print "\n\nObject/Bank$bank.NoSave.$tv.o:\t";
+        for my $file (@files) {
+          print "\\\n\t$file";
+        }
+        print "
+\tmkdir -p Object
+\t\${AS2600} -DTV=$tv -DDEMO=true -DNOSAVE=true -I Source/Generated/Bank$bank -l \$\@.labels.txt -L \$\@.list.txt \$< -o \$\@\n
+\tbin/label2sym \$\@.labels.txt
+\tbin/listing2lst \$\@.list.txt\n";
+
+        if ('NTSC' eq $tv) {
+          print "\n\nObject/Bank$bank.Portable.$tv.o:\t";
           for my $file (@files) {
             print "\\\n\t$file";
           }
           print "
 \tmkdir -p Object
-\t\${AS2600} -DTV=$tv -DDEMO=true -DNOSAVE=true -I Source/Generated/Bank$bank -l \$\@.labels.txt -L \$\@.list.txt \$< -o \$\@\n
-\tbin/label2sym \$\@.labels.txt
-\tbin/listing2lst \$\@.list.txt\n";
+\t\${AS2600} -DTV=$tv -DDEMO=true -DNOSAVE=true -DPORTABLE=true -I Source/Generated/Bank$bank -L \$\@.list.txt \$< -o \$\@\n
+\n";
         }
-      }                         # end of bank
+      }
+    }                           # end of bank
   }                             # end of AA
 }                               # end of TV standard

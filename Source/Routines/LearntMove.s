@@ -21,8 +21,8 @@ LearntMove:        .block
 
           ldy # 0
           sty DeltaY            ; ??
-Loop:
           .WaitScreenBottom
+Loop:
           .WaitScreenTop
 
           .ldacolu COLGRAY, 0
@@ -73,13 +73,13 @@ SwitchesDone:
           cmp #ModeLearntMove
           bne Leave
 
+          .WaitScreenBottom
           jmp Loop
 
 Leave:
           cmp #ModeColdStart
-          bne +
-          .WaitScreenBottom
-+
+          beq GoWarmStart
+
           rts
 
 LearntText:
