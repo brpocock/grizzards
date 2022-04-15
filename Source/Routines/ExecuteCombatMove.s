@@ -281,7 +281,7 @@ HealsMinusHP:
           sbc Temp
           bpl HealsCommon
 
-          lda # 0
+          lda # 1               ; never completely fail to heal
 HealsCommon:
           sta MoveHP
           ldx WhoseTurn
