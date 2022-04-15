@@ -342,7 +342,7 @@ MoveTarget:
 MoveAnnouncement:
           .byte ?
 
-UnusedCombatByte1:
+MonsterMaxHP:
           .byte ?
 
 LastPlayerCombatMove:
@@ -371,6 +371,7 @@ AttackerAttack:
           .byte ?
 
 DefenderDefend:
+DefenderMaxHP:
           .byte ?
 
 DefenderHP:

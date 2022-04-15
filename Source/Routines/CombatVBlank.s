@@ -88,8 +88,7 @@ GotMonster:
 
 DoMonsterMove:
           ldx WhoseTurn
-          dex
-          lda EnemyStatusFX, x
+          lda EnemyStatusFX - 1, x
           and #StatusSleep
           beq MonsterMoves
 

@@ -48,20 +48,20 @@ AnnounceMonsterSpeech:
 SetUpEnemyHP:
           ldy #EnemyHPIndex
           lda (CurrentMonsterPointer), y
-          sta Temp              ; enemy HP
+          sta MonsterMaxHP
 
           lda Potions
           bpl NotCrowned
 
-          asl Temp              ; enemy HP
+          asl MonsterMaxHP
 NotCrowned:
           ldy CombatMajorP
           bpl DoneHPBoost
 
-          asl Temp              ; enemy HP
+          asl MonsterMaxHP
           bcc DoneHPBoost
 
-          .mva Temp, #$ff       ; enemy HP max
+          .mva MonsterMaxHP, #$ff       ; enemy HP max
 DoneHPBoost:
 
           ;; Zero HP for 5 monsters (we have at least 1), then …
@@ -74,7 +74,7 @@ ZeroEnemyHP:
 
           ;; … actually set the HP for monsters present (per Y = quantity)
           ldy EncounterQuantity, x
-          lda Temp              ; enemy HP
+          lda MonsterMaxHP
 FillEnemyHP:
           sta EnemyHP - 1, y
           dey
