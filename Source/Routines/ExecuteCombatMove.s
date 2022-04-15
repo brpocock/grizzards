@@ -78,7 +78,7 @@ MonsterHeals:
           sta DefenderHP
           lda EnemyStatusFX - 1, x
           sta DefenderStatusFX
-          lda #199
+          lda # 199
           sta DefenderMaxHP
 
           jsr GeneralHealing
