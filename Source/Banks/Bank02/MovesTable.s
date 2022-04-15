@@ -210,44 +210,52 @@ HardJab:
 ClawBadly:
           .MiniText " CLAW "
           .MiniText " BADLY"
-
           ;; 52
+BackKick:
           .MiniText " BACK "
           .MiniText " KICK "
-
+          ;; 53
+HeadButt:
           .MiniText " HEAD "
           .MiniText " BUTT "
-
+          ;; 54
+PirateCurse:
           .MiniText "PIRATE"
           .MiniText " CURSE"
-
+          ;; 55
+SharpFangs:
           .MiniText "SHARP "
           .MiniText " FANGS"
-
           ;; 56
+NastyGoop:
           .MiniText "NASTY "
           .MiniText "  GOOP"
-
+          ;; 57
+TalonVise:
           .MiniText "TALON "
           .MiniText "  VISE"
-
+          ;; 58
+DeathGlare:
           .MiniText "DEATH "
           .MiniText " GLARE"
           ;; 59
 PoundSand:
           .MiniText "POUND "
           .MiniText " SAND "
-
           ;; 60
+WingsFlap:
           .MiniText "WINGS "
           .MiniText " FLAP "
-
+          ;; 61
+CursedGlance:
           .MiniText "CURSED"
           .MiniText "GLANCE"
-
+          ;; 62
+SlimeImpact:
           .MiniText "SLIME "
           .MiniText "IMPACT"
-
+          ;; 63
+MegaKill:
           .MiniText "MEGA  "
           .MiniText "  KILL"
           ;; ↑ 63

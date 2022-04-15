@@ -194,12 +194,12 @@
 
           ServiceAttract = $1e
           ServiceChooseGrizzard = $31
-          ServiceColdStart = $00
+          ServiceWarmStart = $00
           ServiceConfirmNewGame = $32
           ServiceLoadGrizzard = $22
           ServiceLoadProvinceData = $21
           ServicePeekGrizzard = $12
-          ServicePeekGrizzardXP = $12
+          ServicePeekGrizzardXP = $1f
           ServiceSaveGrizzard = $11
           ServiceSaveProvinceData = $20
           ServiceSaveToSlot = $10
@@ -326,7 +326,19 @@
           Monster_Cyclops = 24
 ;;; 
 ;;; Game tunable
-          GrizzardMetamorphosisXP = 35
+          GrizzardMetamorphosisXP = 27
+;;; 
+;;; Gamepad buttons
+          ButtonI = $80
+          ButtonB = ButtonI
+          ButtonFire = ButtonI
 
+          ButtonII = $40
+          ButtonC = ButtonII
 
-;;; Audited 2022-02-16 BRPocock
+          ButtonIII = $20
+;;; 
+          SystemFlag7800 = $10
+          SystemFlagP1Gamepad = $20   ; not actually used in Grizzards
+          SystemFlagP0Gamepad = $40
+          SystemFlagPaused = $80      ; must be the high bit

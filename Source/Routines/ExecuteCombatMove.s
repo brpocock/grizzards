@@ -39,7 +39,7 @@ MonsterAttacks:
 
           ;; Bosses get double attack ratings
           lda CombatMajorP
-          beq +
+          bpl +
           asl AttackerAttack
 +
 
@@ -72,69 +72,21 @@ MonsterAttacks:
           jmp WaitOutScreen
 ;;; 
 MonsterHeals:
-          ;; .A has the inverted HP to be gained
-          ;; (alter by random factor)
-          eor #$ff
           sta MoveHP
-          jsr CalculateAttackMask
 
-          sta Temp
-          jsr Random
+          lda EnemyHP - 1, x
+          sta DefenderHP
+          lda EnemyStatusFX - 1, x
+          sta DefenderStatusFX
+          .mva DefenderMaxHP, MonsterMaxHP
 
-          bmi MonsterHealsMinusHP
+          jsr GeneralHealing
 
-MonsterHealsPlusHP:
-          and Temp
-          clc
-          adc MoveHP
-          sta MoveHP
-          gne MonsterHealsCommon
-
-MonsterHealsZero:
-          ldy # 0
-          sty MoveHP
-          geq MonsterHealsCommon
-
-MonsterHealsMinusHP:
-          and Temp
-          sta Temp
-          cmp MoveHP
-          bge MonsterHealsZero
-
-          lda MoveHP
-          sec
-          sbc Temp
-          bpl MonsterHealsCommon
-
-          lda # 0
-
-MonsterHealsCommon:
           ldx WhoseTurn
-          clc
-          adc EnemyHP - 1, x
-          cmp # 199
-          blt +
-          lda # 199
-+
+          lda DefenderHP
           sta EnemyHP - 1, x
-          lda MoveHP
-          eor #$ff              ; negate the value to mean "gained"
-          sta MoveHP
-
-MonsterBuff:
-          ldx CombatMoveSelected
-          lda MoveEffects, x
-          sta Temp
-          jsr Random
-
-          and Temp
-          sta MoveStatusFX
-
-          ldx WhoseTurn
-          ora EnemyStatusFX - 1, x
+          lda DefenderStatusFX
           sta EnemyStatusFX - 1, x
-
-          .mva MoveHitMiss, # 1
 
           jmp WaitOutScreen
 ;;; 
@@ -175,7 +127,7 @@ PlayerAttacks:
 
           ;; Bosses get double defend ratings
           lda CombatMajorP
-          beq +
+          bpl +
           asl DefenderDefend
 +
 
@@ -209,7 +161,7 @@ PlayerKilledMonster:
 
           ldx # 1               ; 1× scoring…
           lda CombatMajorP
-          beq +
+          bpl +
           inx                   ; 2 × scoring
 +
 
@@ -283,67 +235,100 @@ DoneRandomLearn:
 PlayerHeals:
           ;; .A has the inverted HP to be gained
           ;; (alter by random factor)
-          eor #$ff
           sta MoveHP            ; base HP to gain
+
+          lda CurrentHP
+          sta DefenderHP
+          lda StatusFX
+          sta DefenderStatusFX
+          lda MaxHP
+          sta DefenderMaxHP
+
+          jsr GeneralHealing
+
+          lda DefenderHP
+          sta CurrentHP
+          lda DefenderStatusFX
+          sta StatusFX
+
+          jmp WaitOutScreen
+
+;;; 
+GeneralHealing:
+          lda MoveHP
+          eor #$ff
+          sta MoveHP
           jsr CalculateAttackMask
 
-          sta Temp              ; attack mask
+          sta Temp
           jsr Random
 
-          bmi PlayerHealsMinusHP
+          bmi HealsMinusHP
 
-PlayerHealsPlusHP:
-          and Temp              ; attack mask
+HealsPlusHP:
+          and Temp
           clc
-          adc MoveHP            ; base HP to gain
-          gne PlayerHealsCommon
+          adc MoveHP
+          gne HealsCommon
 
-PlayerHealsMinusHP:
-          and Temp              ; attack mask
-          sta Temp              ; masked HP to negate
-          lda MoveHP            ; base HP to gain
+HealsMinusHP:
+          and Temp
+          sta Temp
+
+          lda MoveHP
           sec
-          sbc Temp              ; masked HP to negate
-          bpl PlayerHealsCommon
+          sbc Temp
+          bpl HealsCommon
 
-          ;; You'll never actually LOSE HP this way
-          lda # 0
-PlayerHealsCommon:
-          ;; A has the HP to be gained
+          lda # 1               ; never completely fail to heal
+HealsCommon:
           sta MoveHP
+          ldx WhoseTurn
           clc
-          adc CurrentHP
-          cmp MaxHP
+          adc DefenderHP
+          cmp DefenderMaxHP
           blt +
-          lda MaxHP
+          lda DefenderMaxHP
 +
-          sta CurrentHP
-          lda #$ff              ; negate the value to mean "gained"
-          eor MoveHP
+          sta DefenderHP
+          lda MoveHP
+          eor #$ff              ; invert the value to mean "gained"
           sta MoveHP
-PlayerBuff:
-          ldx CombatMoveSelected
-          .mva MoveHitMiss, # 1
 
+Buff:
+          ldx CombatMoveSelected
           lda MoveEffects, x
           sta Temp
           jsr Random
 
           and Temp
           sta MoveStatusFX
-          ora StatusFX
-          sta StatusFX
-          ;;  fall through
+          bit DefenderStatusFX
+          beq NoBuff
+
+          ora DefenderStatusFX
+          sta DefenderStatusFX
+          gne DoneHealing
+
+NoBuff:
+          ldy # 0
+          sty MoveStatusFX
+
+DoneHealing:
+          .mva MoveHitMiss, # 1
+
+          rts
 ;;; 
 WaitOutScreen:
           lda MoveHitMiss
           beq SoundForMiss
 
           lda #SoundHit
-          gne +
+          gne SoundReady
+
 SoundForMiss:
           lda #SoundMiss
-+
+SoundReady:
           sta NextSound
 
           .WaitScreenBottom

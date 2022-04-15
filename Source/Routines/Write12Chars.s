@@ -159,7 +159,7 @@ AlignedRight:
           stx WSYNC
           ldy # 4
           sty SignpostScanline
-          .SleepX 65
+          .SleepX 66
 RightLoop:
           .DrawRightLine
           .Sleep 8

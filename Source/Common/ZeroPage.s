@@ -13,6 +13,9 @@
 
           * = $80
 ZeroPage:
+;;; This must be the first address.
+SystemFlags:
+          .byte ?
 ;;; 
 ;;; General-purpose short-term variable
 ;;;
@@ -31,8 +34,6 @@ Pointer:
 GameMode:
           .byte ?
 
-Pause:
-          .byte ?
 ;;; 
 ;;; Game play/progress indicators -- global
 
@@ -86,10 +87,10 @@ Potions:
 
 EndGlobalGameData:
 
-          GlobalGameDataLength = EndGlobalGameData - GlobalGameData + 1
+          GlobalGameDataLength = EndGlobalGameData - GlobalGameData
 
-          .if GlobalGameDataLength > 27
-          .error "Global data exceeds 27 bytes (length is ", GlobalGameDataLength, " bytes)"
+          .if GlobalGameDataLength != 14
+          .error "Global data ≠ 14 bytes (length is ", GlobalGameDataLength, " bytes)"
           .fi
 ;;; 
 ;;; Game play/progress indicators -- local to one province
@@ -110,6 +111,10 @@ GrizzardXP:
 ;;; Moves known (8 bits = 8 possible moves)
 MovesKnown:
           .byte ?
+
+          .if (* - GlobalGameData) != 27
+          .error "Save game info for NoSave expects 27 bytes from GlobalGameData to MovesKnown, but got ", (* - GlobalGameData)
+          .fi
 
 ;;; Temporarily used when switching rooms
 NextMap:
@@ -337,10 +342,11 @@ MoveTarget:
 MoveAnnouncement:
           .byte ?
 
-;;; Overlain: when drawing vs. executing a move
+MonsterMaxHP:
+          .byte ?
 
-MonsterColorPointer:
-          .word ?
+LastPlayerCombatMove:
+          .byte ?
 
 CurrentMonsterNumber:
           .byte ?
@@ -365,6 +371,7 @@ AttackerAttack:
           .byte ?
 
 DefenderDefend:
+DefenderMaxHP:
           .byte ?
 
 DefenderHP:

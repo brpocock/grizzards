@@ -17,7 +17,7 @@ FirstLoop:
           lda NewButtons
           beq NoButton
 
-          and #PRESSED
+          and #ButtonI
           beq Select
 
 NoButton:

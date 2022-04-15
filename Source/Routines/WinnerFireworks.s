@@ -122,7 +122,7 @@ WipeProvinceFlags:
 
           .FarJSR SaveKeyBank, ServiceSaveToSlot
 
-          jmp GoColdStart
+          jmp GoWarmStart
 ;;; 
 AgainText:
           .MiniText "AGAIN!"

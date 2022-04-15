@@ -5,6 +5,7 @@ CombatIntroScreen:  .block
 
           .mva NextSound, #SoundSweepUp
           .mva AlarmCountdown, # 4
+          .mva LastPlayerCombatMove, # 1
 
 Loop:
           .WaitScreenBottom
