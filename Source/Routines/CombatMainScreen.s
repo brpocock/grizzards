@@ -469,7 +469,6 @@ MuddleText:
           .MiniText "MUDDLE"
 
 MaybeReadyToAnnounce:
-          lda WhoseTurn
           beq Announce
 
           jsr FindMonsterMove
@@ -477,16 +476,16 @@ MaybeReadyToAnnounce:
           bpl Announce
 
           ;; It's a healing move, are we sure?
-          ldy #EnemyHPIndex
-          lda (CurrentMonsterPointer), y
-          cmp MoveDeltaHP, x
-          bge Announce
+          ldx WhoseTurn
+          lda EnemyHP - 1, x
+          cmp MonsterMaxHP
+          blt Announce
 
           lda #ModeCombat
           sta GameMode
           jmp Loop
 
 Announce:
-          jmp CombatAnnouncementScreen
+          ;; falls through to CombatAnnouncementScreen
           
           .bend
