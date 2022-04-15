@@ -79,7 +79,7 @@ MonsterHeals:
           lda EnemyStatusFX - 1, x
           sta DefenderStatusFX
           lda #199
-          sta DefenderDefend
+          sta DefenderMaxHP
 
           jsr GeneralHealing
 
@@ -243,7 +243,7 @@ PlayerHeals:
           lda StatusFX
           sta DefenderStatusFX
           lda MaxHP
-          sta DefenderDefend
+          sta DefenderMaxHP
 
           jsr GeneralHealing
 
@@ -287,13 +287,13 @@ HealsCommon:
           ldx WhoseTurn
           clc
           adc DefenderHP
-          cmp DefenderDefend
+          cmp DefenderMaxHP
           blt +
-          lda DefenderDefend
+          lda DefenderMaxHP
 +
           sta DefenderHP
           lda MoveHP
-          eor #$ff              ; negate the value to mean "gained"
+          eor #$ff              ; invert the value to mean "gained"
           sta MoveHP
 
 Buff:

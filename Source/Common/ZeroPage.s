@@ -371,6 +371,7 @@ AttackerAttack:
           .byte ?
 
 DefenderDefend:
+DefenderMaxHP:
           .byte ?
 
 DefenderHP:
