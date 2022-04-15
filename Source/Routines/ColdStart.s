@@ -1,13 +1,13 @@
 ;;; Grizzards Source/Routines/ColdStart.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
+
 ;;; Cold start routines
 ;;;
 ;;; This routine is called once at startup, and must be in Bank 0.
 ;;;
-;;; After a Game Over, this may be called again to return to the title
-;;; screen with a full reset.
-ColdStart:
-	.block
+;;; It must never be called again, or you'll lose '7800 detection.
+
+ColdStart:         .block
           sei
           cld
           ;; On cold start, on a real 6507, .S = $fd, but 
@@ -18,36 +18,31 @@ ColdStart:
           ;; Note:  we're not  actually  using that  now, the  zero-page
 	;; console detection routine should be more reliable according to
 	;; common wisdom around the AtariAge boards.
-          tsx
+          ;;;; tsx
 
           lda # 0
           ldy #$2c              ; reset TIA
--
-          sta 0,y
+ZeroTIALoop:
+          sta 0, y
           dey
-          bne -
+          bne ZeroTIALoop
 
-          lda #ENABLED          ; turn off display, and
+          lda #ENABLED          ; turn off display
           sta VSYNC
           sta VBLANK
 
-          sty SWACNT
-          
-          ;; only set inputs on the bits that we can actually read
-          ;; AKA the “Combat flags trick”
-          .if TV == SECAM
-          lda # $ff - (SWCHBReset | SWCHBSelect | SWCHBP0Advanced | SWCHBP1Advanced)
-          .else
-          lda # $ff - (SWCHBReset | SWCHBSelect | SWCHBColor | SWCHBP0Advanced | SWCHBP1Advanced)
-          .fi
-          sta SWBCNT
+          sty SWACNT            ; Y = 0
+          sty SWBCNT
+
+          sty SystemFlags
 	
 ResetStack:
-          ldx #$ff
-          txs
+          .mvx s, #$ff
 
-          ldx #0
+          inx                   ; X = 0
           stx GameMode
           
           ;; Fall through to DetectConsole
 	.bend
+
+;;; Audited 2022-02-16 BRPocock

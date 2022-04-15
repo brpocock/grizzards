@@ -2,32 +2,53 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 ;;; Macros for setting up 48px graphics and text
 
-
 SetUpFortyEight:	.macro Graphics
-	lda #<(\Graphics + \Graphics.Height * 0 - 1)
-	sta pp0l
+
+          .if (< \Graphics) == 0
+
+          lda #>\Graphics
+	sta pp0h
+          sta pp1h
+          sta pp2h
+          sta pp3h
+          sta pp4h
+          sta pp5h
+          dec pp0h
+
+          .else
+
+          .warn "Graphics not page-aligned: ", \Graphics
+
 	lda #>(\Graphics + \Graphics.Height * 0 - 1)
 	sta pp0h
-	lda #<(\Graphics + \Graphics.Height * 1 - 1)
-	sta pp1l
 	lda #>(\Graphics + \Graphics.Height * 1 - 1)
 	sta pp1h
-	lda #<(\Graphics + \Graphics.Height * 2 - 1)
-	sta pp2l
 	lda #>(\Graphics + \Graphics.Height * 2 - 1)
 	sta pp2h
-	lda #<(\Graphics + \Graphics.Height * 3 - 1)
-	sta pp3l
 	lda #>(\Graphics + \Graphics.Height * 3 - 1)
 	sta pp3h
-	lda #<(\Graphics + \Graphics.Height * 4 - 1)
-	sta pp4l
 	lda #>(\Graphics + \Graphics.Height * 4 - 1)
 	sta pp4h
-	lda #<(\Graphics + \Graphics.Height * 5 - 1)
-	sta pp5l
 	lda #>(\Graphics + \Graphics.Height * 5 - 1)
 	sta pp5h
+
+          .fi
+
+	lda #<(\Graphics + \Graphics.Height * 0 - 1)
+	sta pp0l
+	lda #<(\Graphics + \Graphics.Height * 1 - 1)
+	sta pp1l
+	lda #<(\Graphics + \Graphics.Height * 2 - 1)
+	sta pp2l
+	lda #<(\Graphics + \Graphics.Height * 3 - 1)
+	sta pp3l
+	lda #<(\Graphics + \Graphics.Height * 4 - 1)
+	sta pp4l
+	lda #<(\Graphics + \Graphics.Height * 5 - 1)
+	sta pp5l
+
+          ldy #\Graphics.Height
+          sty LineCounter
 
 	.endm
 
@@ -88,25 +109,6 @@ SignText: .macro string
 	.enc "none"
 	.endm
 
-LoadString:	.macro String
-	.enc "minifont"
-          .if len(\String) != 6
-          .error "String length for .LoadString must be 6 ", \String, " is ", len(\String)
-          .fi
-	lda #\String[0]
-	sta StringBuffer + 0
-	lda #\String[1]
-          sta StringBuffer + 1
-	lda #\String[2]
-	sta StringBuffer + 2
-	lda #\String[3]
-          sta StringBuffer + 3
-	lda #\String[4]
-	sta StringBuffer + 4
-	lda #\String[5]
-          sta StringBuffer + 5
 	.enc "none"
 
-	.endm
-
-	.enc "none"
+;;; Audited 2022-02-16 BRPocock

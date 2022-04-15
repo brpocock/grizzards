@@ -9,10 +9,10 @@ VBlank: .block
           stx WSYNC
           .TimeLines VBlankLines
 
-          lda # 0
-          sta NewSWCHA
-          sta NewSWCHB
-          sta NewButtons
+          ldy # 0
+          sty NewSWCHA
+          sty NewSWCHB
+          sty NewButtons
 
           lda SWCHA
           and #$f0
@@ -29,48 +29,67 @@ VBlank: .block
           sta NewSWCHB
 +
 
-          lda SWCHB
-          .BitBit SWCHBP0Genesis
+          lda SystemFlags
+          and #SystemFlagP0Gamepad
           beq NotGenesis
-          lda INPT1
-          and #PRESSED
-          lsr a
-          sta NewButtons
-          jmp FireButton
-NotGenesis:
-          lda #$40
-          sta NewButtons
-FireButton:
-          lda INPT4
-          and #PRESSED
-          ora NewButtons
 
-          cmp DebounceButtons
-          bne ButtonsChanged
-          lda # 0
+          tya                 ; Y = 0
+          .if 11 != BANK        ; ran out of space in Bank 11 ($b)
+            bit INPT0
+            bmi DoneButtonIII
+
+            lda #ButtonIII
+DoneButtonIII:
+          .fi
+          bit INPT1
+          bmi DoneButtonII
+
+          ora #ButtonII
+DoneButtonII:
+NotGenesis:
+          bit INPT4
+          bmi DoneButtonI
+
+          ora #ButtonI
+DoneButtonI:
           sta NewButtons
-          geq DoneButtons
+
+          cmp DebounceButtons   ; buttons down bits are ones here too
+          bne ButtonsChanged
+
+ButtonsSame:
+          sty NewButtons        ; Y = 0
+          jmp DoneButtons
 
 ButtonsChanged:
           sta DebounceButtons
-          ora #$01              ; guarantee non-zero if it changed
-          sta NewButtons
+          eor #ButtonI | ButtonII | ButtonIII | 1
+          sta NewButtons      ; buttons down are 0 bits, $01 to flag change
+          and #ButtonII       ; C / II button pressed?
+          bne DoneButtonIISelect
 
-          and #$40              ; C button pressed?
-          bne DoneButtons
           lda NewSWCHB
-          ora #~SWCHBSelect     ; zero = Select button pressed
+          lda #~SWCHBSelect | $40     ; zero = Select button pressed, $40 = changed
           sta NewSWCHB
-          sta DebounceSWCHB
+DoneButtonIISelect:
+          .if 11 != BANK
+            lda NewButtons
+            and #ButtonIII
+            bne DoneButtons
+
+            lda SystemFlags
+            eor #SystemFlagPaused
+            sta SystemFlags
+          .fi
 DoneButtons:
 
           .if DoVBlankWork != 0
-          jsr DoVBlankWork
+            jsr DoVBlankWork
+            ldy # 0
           .fi
 
           .WaitForTimer
 
-          ldx # 0
-          stx VBLANK
+          sty VBLANK            ; Y = 0
           rts
           .bend

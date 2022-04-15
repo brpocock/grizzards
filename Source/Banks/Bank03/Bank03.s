@@ -5,9 +5,9 @@
           .include "StartBank.s"
 
           .if DEMO
-          .include "Bank03Demo.s"
+            .include "Bank03Demo.s"
           .else
-          .include "Bank03Game.s"
+            .include "Bank03Game.s"
           .fi
 
           .include "EndBank.s"

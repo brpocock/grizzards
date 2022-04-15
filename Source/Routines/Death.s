@@ -2,54 +2,47 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 Death:    .block
-          .WaitScreenTop
 
           ;; Blow away the stack, we're starting over
           ldx #$ff
           txs
 
-          lda #>Phrase_GameOver
-          sta CurrentUtterance + 1
-          lda #<Phrase_GameOver
-          sta CurrentUtterance
+          .SetUtterance Phrase_GameOver
 
-          ldx #ModeDeath
-          stx GameMode
-
-          ldx #SoundGameOver
-          stx NextSound
-
-          lda # 120
-          sta AlarmCountdown
+          .mva GameMode, #ModeDeath
+          .mva NextSound, #SoundGameOver
+          .mva AlarmCountdown, # 120
 
           jmp LoopFirst
-
 ;;; 
 Loop:
-          .WaitScreenTop
+          .WaitScreenBottom
 LoopFirst:
+          .WaitScreenTop
+
           .ldacolu COLGRAY, 0
           sta COLUBK
           .ldacolu COLGRAY, 9
           sta COLUP0
           sta COLUP1
 
+          .SkipLines KernelLines / 3
           jsr Prepare48pxMobBlob
-          .LoadString " GAME "
-          .FarJSR TextBank, ServiceDecodeAndShowText
-          .LoadString " OVER "
-          .FarJSR TextBank, ServiceDecodeAndShowText
 
-          .WaitScreenBottom
+          .SetPointer GameOverText
+          jsr ShowPointerText
+
+          .SetPointer GameOverText + 6
+          jsr ShowPointerText
 ;;; 
           lda NewSWCHB
           beq +
-          .BitBit SWCHBReset
+          and #SWCHBReset
           beq Leave
 +
 	lda NewButtons
           beq +
-          .BitBit PRESSED
+          and #ButtonI
           beq Leave
 +
           lda AlarmCountdown
@@ -57,7 +50,12 @@ LoopFirst:
           jmp Loop
 
 Leave:
-          .WaitScreenTop
           .FarJMP SaveKeyBank, ServiceAttract
+;;; 
+GameOverText:
+          .MiniText " GAME "
+          .MiniText " OVER "
 
           .bend
+
+;;; Audited 2022-02-16 BRPocock

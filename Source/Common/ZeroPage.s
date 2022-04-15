@@ -13,6 +13,9 @@
 
           * = $80
 ZeroPage:
+;;; This must be the first address.
+SystemFlags:
+          .byte ?
 ;;; 
 ;;; General-purpose short-term variable
 ;;;
@@ -31,8 +34,6 @@ Pointer:
 GameMode:
           .byte ?
 
-Pause:
-          .byte ?
 ;;; 
 ;;; Game play/progress indicators -- global
 
@@ -81,16 +82,15 @@ CurrentGrizzard:
 CurrentProvince:
           .byte ?
 
-          ;; Reserve one byte in the save file in case I forgot something
-GlobalZeroPad:
+Potions:
           .byte ?
 
 EndGlobalGameData:
 
-          GlobalGameDataLength = EndGlobalGameData - GlobalGameData + 1
-          
-          .if GlobalGameDataLength > 27
-          .error "Global data exceeds 27 bytes (length is ", GlobalGameDataLength, " bytes)"
+          GlobalGameDataLength = EndGlobalGameData - GlobalGameData
+
+          .if GlobalGameDataLength != 14
+          .error "Global data ≠ 14 bytes (length is ", GlobalGameDataLength, " bytes)"
           .fi
 ;;; 
 ;;; Game play/progress indicators -- local to one province
@@ -105,13 +105,16 @@ GrizzardAttack:
           .byte ?
 GrizzardDefense:
           .byte ?
-;;; Filler byte, previously used for Grizzard Acuity
-GrizzardZeroPad:
+GrizzardXP:
           .byte ?
-          
+
 ;;; Moves known (8 bits = 8 possible moves)
 MovesKnown:
           .byte ?
+
+          .if (* - GlobalGameData) != 27
+          .error "Save game info for NoSave expects 27 bytes from GlobalGameData to MovesKnown, but got ", (* - GlobalGameData)
+          .fi
 
 ;;; Temporarily used when switching rooms
 NextMap:
@@ -125,7 +128,7 @@ AlarmCountdown:
 ;;; e.g.  monster names.
 StringBuffer:
           .byte ?, ?, ?, ?, ?, ?
-          
+
 DebounceSWCHA:
           .byte ?
 DebounceSWCHB:
@@ -251,19 +254,6 @@ AttractStoryPanel:
 AttractStoryProgress:
           .byte ?
 
-;;; Jatibu Code progress
-
-SelectJatibuProgress:
-          .byte ?
-;;; 
-;;; Start Game phase
-
-          * = Scratchpad
-
-;;; Which memory block is being wiped right now?
-;;; We need to blank global + all provincial data
-StartGameWipeBlock:
-          .word ?
 ;;; 
 ;;; SIgnpost mode scratchpad
 
@@ -293,11 +283,13 @@ SignpostScanline:
 SignpostTextLine:
           .byte ?
 
+SignpostInquiry:
+          .byte ?
+
+          * = $f0 - 9
 SignpostLineCompressed:
           .byte ?, ?, ?, ?,  ?, ?, ?, ?,  ?
 
-SignpostInquiry:
-          .byte ?
 ;;; 
 ;;; Combat mode scratchpad
 
@@ -318,17 +310,13 @@ CurrentMonsterPointer:
 ;;; Index of monster's art, used to communicate between ROM banks
 CurrentMonsterArt:
           .byte ?
-          
-;;; Pointer to the enemy's sprite graphics
-CombatSpritePointer:
-          .word ?
 
 ;;; Is the Grizzard affected by a Status Effect from combat?
 StatusFX:
           .byte ?
 
 ;;; HP for each enemy (up to six)
-MonsterHP:
+EnemyHP:
           .byte ?, ?, ?, ?, ?, ?
 
 ;;; Status effects for each enemy
@@ -354,6 +342,15 @@ MoveTarget:
 MoveAnnouncement:
           .byte ?
 
+MonsterMaxHP:
+          .byte ?
+
+LastPlayerCombatMove:
+          .byte ?
+
+CurrentMonsterNumber:
+          .byte ?
+
 ;;; The move's outcome
 MoveHitMiss:
           .byte ?
@@ -361,12 +358,27 @@ MoveHitMiss:
 ;;; The move's change in hit points
 MoveHP:
           .byte ?
-          
+
 ;;; The move's new status effects
 MoveStatusFX:
           .byte ?
 
-* = $ec
+;;; Was this a critical hit?
+CriticalHitP:
+          .byte ?
+
+AttackerAttack:
+          .byte ?
+
+DefenderDefend:
+DefenderMaxHP:
+          .byte ?
+
+DefenderHP:
+          .byte ?
+
+DefenderStatusFX:
+          .byte ?
 
 ;;; Non-zero if this is a Major Combat in stead of a regular one
 ;;; (only differences are how the enemy is drawn and numbers are omitted)
@@ -375,6 +387,37 @@ CombatMajorP:
           .byte ?
 
           CombatEnd = * - 1
+;;; 
+;;; Scratchpad for Name Entry
+          * = Scratchpad
+;;; Which memory block is being wiped right now?
+;;; We need to blank global + all provincial data
+StartGameWipeBlock:
+          .word ?
+
+;;; Which save slot did we last test?
+SaveSlotChecked:
+          .byte ?
+
+;;; Is the current slot in use?
+SaveSlotBusy:
+          .byte ?
+
+;;; Is the current slot recently erased?
+SaveSlotErased:
+          .byte ?
+
+;;; Jatibu Code progress
+SelectJatibuProgress:
+          .byte ?
+
+;;; Cursor position on name entry screeen
+NameEntryPosition:
+          .byte ?
+
+;;; Buffer for name entry
+NameEntryBuffer:
+          .byte ?, ?, ?, ?, ?, ?
 ;;; 
 ;;; Scratchpad for Map mode
             * = Scratchpad
@@ -414,7 +457,7 @@ SpriteY:
 
 SpriteMotion:
           .byte ?, ?, ?, ?
-          
+
 SpriteAction:
           .byte ?, ?, ?, ?
 
@@ -437,7 +480,7 @@ PlayerYFraction:
 ;;; Verify that we don't run over
 
           LastRAM = CombatEnd > MapEnd ? CombatEnd : MapEnd
-          
+
           ;; There must be at least $10 stack space (to be fairly safe)
           .if LastRAM >= $f0
           .error "Zero page ran right into stack space at ", LastRAM

@@ -1,14 +1,41 @@
-GetArtifacts:
-♀There are two artifacts that were in Treble.Find them both
+HungryCookie:
+♂It's hard to get luxuries these days.May I have a¿cookie
 
-NoArtifacts:
-♀The people in Anchor need your help against the monsters
+NoCookieForYou:
+♂When you do defeat all the monsters there will be cookies
 
-DoTrain:
-♂Now your Grizzard can use their last move for sure
+CookieGiven:
+♂You are the best.I'll tell all my friends about you
 
-DoNotTrain:
-♂Bring me any Grizzard you want me to train and I will do it
+HadCookie:
+♂That was the best cookie.I'll name my kid after you for sure
 
-Grue:
-Caves beyond can be dark.You may be eaten by a Grue
+Win1:
+You have hit the final blow of the battle.The boss bear
+
+Potions:
+♀You seem to be low on potions.I will give you ten
+
+GotPotions:
+♀If you run low on potions,I will give you some
+
+MineHint:
+♀Down,up,down,right in the mine is the secret
+
+FishMonsters:
+♂I just came here to fish,but these monsters are attacking me
+
+Credits1:
+You have won Grizzards..Syrex has been saved
+
+Credits2:
+Designed and programmed by Bruce-Robert Pocock
+
+Credits3:
+Music and additional art by Zephyr Salz
+
+Credits4:
+Hardware by Fred Quimby..Published by Albert Yarusso
+
+Credits5:
+Thanks to our testers and everyone in the Atari Age forums

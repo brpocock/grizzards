@@ -1,6 +1,7 @@
 ;;; Grizzards Source/Routines/ShowGrizzardName.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
-ShowGrizzardName:
+
+ShowGrizzardName:   .block
           jsr Prepare48pxMobBlob
 
           lda # >GrizzardNames
@@ -18,4 +19,9 @@ ShowGrizzardName:
           sta Pointer
 
           jsr CopyPointerText
+
           jmp DecodeAndShowText
+
+          .bend
+
+;;; Audited 2022-02-16 BRPocock

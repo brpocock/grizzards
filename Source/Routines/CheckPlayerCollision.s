@@ -5,13 +5,12 @@ CheckPlayerCollision:         .block
           lda CXP0FB
           and #$c0              ; hit playfield or ball
           beq NoBumpWall
-          jsr BumpWall
-          rts
 
+          jmp BumpWall          ; tail call
+;;; 
 NoBumpWall:
-          lda CXPPMM
-          .BitBit $80              ; hit other sprite
-          beq PlayerMoveOK         ; did not hit
+          bit CXPPMM
+          bpl PlayerMoveOK         ; did not hit
 
 BumpSprite:
           jsr BumpWall
@@ -25,87 +24,93 @@ BumpSprite:
           ldy BumpCooldown
           bne DonePlayerMove
 
+          ;; This is also the entry point for random encounters
+          ;; They call with X and A already set.
 ActionWithSpriteX:
+          ;; X = sprite index
+          ;; A = SpriteAction, x
           cmp #SpriteCombat
           beq FightWithSpriteMinor
+
           cmp #SpriteMajorCombat
           beq FightWithSpriteMajor
+
           cmp #SpriteGrizzardDepot
           beq EnterDepot
+
           cmp #SpriteGrizzard
           beq GetNewGrizzard
+
           cmp #SpriteSign
           beq ReadSign
+
           cmp #SpritePerson
           beq ReadSign
+
           and #SpriteProvinceDoor
           cmp #SpriteProvinceDoor
           bne PlayerMoveOK      ; No action
-          geq ProvinceChange    
 
+          geq ProvinceChange
+;;; 
 ReadSign:
           lda SpriteParam, x
           sta SignpostIndex
-          lda #ModeSignpost
-          sta GameMode
+          .mva GameMode, #ModeSignpost
           rts
-
+;;; 
 FightWithSpriteMinor:
-          lda # 0
-          sta CombatMajorP
+          ldy # 0
+          sty CombatMajorP
           geq FightWithSprite
 
 FightWithSpriteMajor:
           lda #$80
           sta CombatMajorP
           ;; fall through
-          
 FightWithSprite:
 FightWithSpriteX:
           lda SpriteParam, x
           sta CurrentCombatEncounter
           lda SpriteIndex, x
           sta CurrentCombatIndex
-          lda #ModeCombat
-          sta GameMode
+          .mva GameMode, #ModeCombat
           rts
-
+;;; 
 DoorWithSprite:
           lda SpriteParam, x
           sta NextMap
-          ldy #ModeMapNewRoomDoor
+          ldy #ModeMapNewRoomDoor ; XXX why Y?
           sty GameMode
           rts
-
+;;; 
 GetNewGrizzard:
-          lda #ModeNewGrizzard
-          sta GameMode
+          .mva GameMode, #ModeNewGrizzard
           ldx SpriteFlicker
           lda SpriteParam, x
           sta NextMap
           rts
-
+;;; 
 PlayerMoveOK:
           lda BumpCooldown
-          beq +
+          beq Cool
+
           dec BumpCooldown
-          rts
-+
+Cool:
           lda ClockFrame
           and #$03
           bne DonePlayerMove
-          lda PlayerX
-          sta BlessedX
-          lda PlayerY
-          sta BlessedY
+
+          .mva BlessedX, PlayerX
+          .mva BlessedY, PlayerY
 DonePlayerMove:
           rts
-
+;;; 
 EnterDepot:
           lda #ModeGrizzardDepot
           sta GameMode
           rts
-
+;;; 
 ProvinceChange:
 ;;; Duplicated in Signpost.s and CheckPlayerCollision.s nearly exactly
           stx P0LineCounter
@@ -116,18 +121,18 @@ ProvinceChange:
           stx VBLANK
           ;; WaitScreenTop without VSync/VBlank
           .if TV == NTSC
-          .TimeLines KernelLines - 2
+            .TimeLines KernelLines - 2
           .else
-          lda #$fe
-          sta TIM64T
+            lda #$fe
+            sta TIM64T
           .fi
           .WaitScreenBottom
           .FarJSR SaveKeyBank, ServiceSaveProvinceData
+
           .WaitScreenTop
           ldx P0LineCounter
           lda SpriteAction, x
           and #$f0
-          clc
           lsr a
           lsr a
           lsr a
@@ -135,46 +140,54 @@ ProvinceChange:
           sta CurrentProvince
           lda SpriteParam, x
           sta NextMap
-          ldy #ModeMapNewRoomDoor
-          sty GameMode
+          .mvy GameMode, #ModeMapNewRoomDoor ; XXX why Y?
           .FarJSR SaveKeyBank, ServiceLoadProvinceData
+
           .WaitScreenBottom
           jmp GoMap
-
 ;;; 
 BumpWall:
           sta CXCLR
 
           lda BlessedX
           cmp PlayerX
-          beq +
+          beq NeedsXShove
+
           sta PlayerX
-          jmp BumpY
-+
+          gne BumpY
+
+NeedsXShove:
           lda DeltaX
           bne ShoveX
+
           jsr Random
+
           and # 1
-          bne ShoveX
+          beq ShoveX
+
           lda #-1
 ShoveX:
           sta DeltaX
           clc
           adc PlayerX
           sta PlayerX
-
 BumpY:
           lda BlessedY
           cmp PlayerY
-          beq +
+          beq NeedsYShove
+
           sta PlayerY
           jmp DoneBump
-+
+
+NeedsYShove:
           lda DeltaY
           bne ShoveY
+
           jsr Random
+
           and # 1
-          bne ShoveY
+          beq ShoveY
+
           lda #-1
 ShoveY:
           sta DeltaY
@@ -182,12 +195,13 @@ ShoveY:
           adc PlayerY
           sta PlayerY
 
-          lda # 0
-          sta PlayerXFraction
-          sta PlayerYFraction
+          ldy # 0               ; XXX necessary?
+          sty PlayerXFraction
+          sty PlayerYFraction
 DoneBump:
-          lda #SoundBump
-          sta NextSound
+          .mva NextSound, #SoundBump
 
           rts
           .bend
+
+;;; Audited 2022-03-22 BRPocock

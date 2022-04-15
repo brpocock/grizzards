@@ -11,7 +11,7 @@ Grizzard3:
 Flame-X
 
 Grizzard4:
-Soil-E
+Petty
 
 Grizzard5:
 Wet-Nass
@@ -35,7 +35,7 @@ Grizzard11:
 Burner
 
 Grizzard12:
-Iguana
+Splodo
 
 Grizzard13:
 Tyrant

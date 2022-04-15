@@ -1,28 +1,15 @@
-;;; -*- asm -*-
-;;;
-;;; Grizzards
-;;;
+;;; Grizzards Source/Common/StartBank.s
 ;;; Copyright © 2021-2022, Bruce-Robert Pocock <brpocock@star-hope.org>
-;;;
-;;; Most rights reserved. (See COPYING for details.)
-;;;
-
 ;;; Start of each ROM bank
 
+          ;; These can be overridden by the build command-line.
           .weak
-          DEMO := false
-          PUBLISHER := false
-          TV := NTSC
-          NOSAVE := false
-          ARIA := false
-          .endweak
-
-          .weak
-          .if DEMO
-          STARTER := 1          ; Start with Aquax in the demo
-          .else
-          STARTER := 0          ; Should come from build command-line
-          .fi
+            DEMO := false
+            PUBLISHER := false
+            TV := NTSC
+            NOSAVE := false
+            ATARIAGESAVE := false
+            PORTABLE := false
           .endweak
 
           .enc "Unicode"

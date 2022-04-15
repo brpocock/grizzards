@@ -1,6 +1,7 @@
+;;; Grizzards Source/Routines/ShowText.s
 ;;; -*- asm -*-
 ;;;
-;;; Copyright © 2016,2017,2020 Bruce-Robert Pocock (brpocock@star-hope.org)
+;;; Copyright © 2016,2017,2020-2022 Bruce-Robert Pocock (brpocock@star-hope.org)
 ;;;
 ;;; Most rights reserved. (See COPYING for details.)
 ;;;
@@ -12,88 +13,57 @@
 ;;;      https://www.biglist.com/lists/stella/archives/199804/msg00198.html
 
 ShowText:  .block
-        ;; This  version  is  for  straight-up  displaying  some  bitmap  data.
-        ;; It needs a table  of pointers to the bitmap data,  and it pushes one
-        ;; byte into Temp
-        ;; 
-        ;; You'll need to set up everything else beforehand.
 
-	.option allow_branch_across_page = false
-	
+DrawLine: .macro
+          ldy LineCounter
+          lda (PixelPointers + 0), y
+          sta GRP0
+          .Sleep 6
+          lda (PixelPointers + 2), y
+          sta GRP1
+          lda (PixelPointers + 4), y
+          sta GRP0
+          lda (PixelPointers + 6), y
+          sta Temp
+          lax (PixelPointers + 8), y
+          lda (PixelPointers + 10), y
+          tay
+          lda Temp
+          sta GRP1
+          stx GRP0
+          sty GRP1
+          sty GRP0
+
+          .endm
+;;; 
+          .page
+
           stx WSYNC
-	ldy # 4
-	sty LineCounter
-	.SleepX 56
+          ldy # 4
+          sty LineCounter
+          .if PORTABLE
+            .SleepX 58
+          .else
+            .SleepX 56
+          .fi
 Loop:
-	ldy LineCounter
-	lda (PixelPointers + 0), y
-	sta GRP0
-	.Sleep 6
-	lda (PixelPointers + 2), y
-	sta GRP1
-	lda (PixelPointers + 4), y
-	sta GRP0
-	lda (PixelPointers + 6), y
-	sta Temp
-	lax (PixelPointers + 8), y
-	lda (PixelPointers + 10), y
-	tay
-	lda Temp
-	sta GRP1
-	stx GRP0
-	sty GRP1
-	sty GRP0
+          .DrawLine
+          .Sleep 8
+          .DrawLine
+          .Sleep 8
+          .DrawLine
+          dec LineCounter
+          bpl Loop
 
-	.Sleep 8
-	
-	ldy LineCounter
-	lda (PixelPointers + 0), y
-	sta GRP0
-	.Sleep 6
-	lda (PixelPointers + 2), y
-	sta GRP1
-	lda (PixelPointers + 4), y
-	sta GRP0
-	lda (PixelPointers + 6), y
-	sta Temp
-	lax (PixelPointers + 8), y
-	lda (PixelPointers + 10), y
-	tay
-	lda Temp
-	sta GRP1
-	stx GRP0
-	sty GRP1
-	sty GRP0
-	
-	.Sleep 8
-	
-	ldy LineCounter
-	lda (PixelPointers + 0), y
-	sta GRP0
-	.Sleep 6
-	lda (PixelPointers + 2), y
-	sta GRP1
-	lda (PixelPointers + 4), y
-	sta GRP0
-	lda (PixelPointers + 6), y
-	sta Temp
-	lax (PixelPointers + 8), y
-	lda (PixelPointers + 10), y
-	tay
-	lda Temp
-	sta GRP1
-	stx GRP0
-	sty GRP1
-	sty GRP0
-	dec LineCounter
-	bpl Loop
+          .endp
 
-	.option allow_branch_across_page = true
+          ldy # 0
+          sty GRP0
+          sty GRP1
+          sty GRP0
+          sty GRP1
+          rts
+          
+          .bend
 
-	ldy #0
-	sty GRP0
-	sty GRP1
-	sty GRP0
-	sty GRP1
-	rts
-        .bend
+;;; Audited 2022-02-16 BRPocock

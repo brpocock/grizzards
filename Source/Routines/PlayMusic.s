@@ -1,9 +1,16 @@
 ;;; Grizzards Source/Routines/PlayMusic.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
+
 DoMusic:
           lda CurrentMusic + 1
           bne PlayMusic
 
+          ;; a phantom read of $ffe1 was happening on branch
+          .if $fee1 == *
+            nop
+            nop
+            nop
+          .fi
 LoopMusic:
           ;; Don't loop if there's currently a sound effect playing
           ;; e.g. Atari Today jingle, victory music from combat, &c.
@@ -15,96 +22,48 @@ LoopMusic:
           .switch BANK
           .case 7
 
-          lda GameMode
-          .if PUBLISHER
-          cmp #ModePublisherPresents
-          .else
-          cmp #ModeBRPPreamble
-          .fi
-          beq TheEnd
-          and #$f0
-          cmp #ModeAttract
-          bne TheEnd
+            lda GameMode
+            .if PUBLISHER
+              cmp #ModePublisherPresents
+            .else
+              cmp #ModeBRPPreamble
+            .fi
+            beq TheEnd
 
-          lda #>SongTheme
-          sta CurrentMusic + 1
-          lda #<SongTheme
-          sta CurrentMusic
+            and #$f0
+            cmp #ModeAttract
+            bne TheEnd
 
-          .case $1e
+            .mva CurrentMusic + 1, #>SongTheme
+            .mva CurrentMusic, #<SongTheme
 
-          lda GameMode
-          .if PUBLISHER
-          cmp #ModePublisherPresents
-          .else
-          cmp #ModeBRPPreamble
-          .fi
-          beq TheEnd
-          and #$f0
-          cmp #ModeAttract
-          bne TheEnd
+          .case 3,4,5
 
-          lda #>SongTheme
-          sta CurrentMusic + 1
-          lda #<SongTheme
-          sta CurrentMusic
-
-          .case 3
-
-          lda #>SongProvince1
-          sta CurrentMusic + 1
-          lda #<SongProvince1
-          sta CurrentMusic
-
-          .case 4
-
-          lda #>SongProvince0
-          sta CurrentMusic + 1
-          lda #<SongProvince0
-          sta CurrentMusic
-
-          .case 5
-
-          lda #>SongProvince2
-          sta CurrentMusic + 1
-          lda #<SongProvince2
-          sta CurrentMusic
-
-          .case 6
-
-          .if DEMO
-          .error "Not expecting to be in bank ", BANK
-          .else
-
-          lda #>SongProvince3
-          sta CurrentMusic + 1
-          lda #<SongProvince3
-          sta CurrentMusic
-
-          .fi
+            .mva CurrentMusic + 1, #>SongProvince
+            .mva CurrentMusic, #<SongProvince
 
           .default
-          .error "Not expecting to be in bank ", BANK
+            .error "Not expecting to be in bank ", BANK
           .endswitch
 
           jmp ReallyPlayMusic
 
 PlayMusic:
           .if BANK == 7
-          lda GameMode
-          and #$f0
-          cmp #ModeAttract
-          bne TheEnd
+            lda GameMode
+            and #$f0
+            cmp #ModeAttract
+            bne TheEnd
           .fi
 
           dec NoteTimer
           bne TheEnd
 
           ;; make the notes slightly more staccatto
-          lda # 0
-          sta AUDF1
-          sta AUDC1
-          sta AUDV1
+          ldy # 0
+          sty AUDF1
+          sty AUDC1
+          sty AUDV1
 
 ReallyPlayMusic:
           ldy #0
@@ -141,6 +100,8 @@ ReallyPlayMusic:
 +
           sta CurrentMusic
 
-          jmp TheEnd
+          ;; jmp TheEnd
 
 TheEnd:
+
+;;; Audited 2022-02-16 BRPocock

@@ -1,9 +1,9 @@
-;;; Grizzards Source/Common/GrizzardStatsScreen.s
+;;; Grizzards Source/Routines/GrizzardStatsScreen.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
+
 GrizzardStatsScreen: .block
           .WaitScreenTop
-          lda #ModeGrizzardStats
-          sta GameMode
+          .mva GameMode, #ModeGrizzardStats
 
           .KillMusic
           sta NewSWCHB
@@ -13,30 +13,30 @@ Loop:
           .WaitScreenTop
 FirstLoop:
           .FarJSR TextBank, ServiceShowGrizzardStats
-
 ;;; 
-
           lda NewButtons
           beq NoButton
-          and #PRESSED
+
+          and #ButtonI
           beq Select
+
 NoButton:
           lda NewSWCHB
-          beq Bouncey1
+          beq DoneSwitches
+
           .BitBit SWCHBReset
           bne +
-          jmp GoQuit
+          .FarJMP SaveKeyBank, ServiceAttract
 +
-          .BitBit SWCHBSelect
-          bne Bouncey1
+          and #SWCHBSelect
+          bne DoneSwitches
 
 Select:
-          lda DeltaY
-          sta GameMode
+          .mva GameMode, DeltaY ; previous game mode stashed here
           ldy # 0
           sty DeltaY
 
-Bouncey1:
+DoneSwitches:
           lda GameMode
           cmp #ModeGrizzardStats
           bne +
@@ -48,25 +48,25 @@ Bouncey1:
 
           .if ((BANK == CombatBank0To63) || (BANK == CombatBank64To127))
 
-          cmp #ModeCombat
-          bne +
-          lda # 2
-          sta AlarmCountdown
-
-          jmp CombatMainScreen
+            cmp #ModeCombat
+            bne +
+            .mva AlarmCountdown, # 2
+            jmp CombatMainScreen
 +
 
           .else
 
-          cmp #ModeGrizzardDepot
-          bne +
-          .WaitScreenBottom
-          jmp GrizzardDepot.Loop
+            cmp #ModeGrizzardDepot
+            bne +
+            .WaitScreenBottom
+            jmp GrizzardDepot.Loop
 +
-          .WaitScreenBottom
-          rts
+            .WaitScreenBottom
 
           .fi
 
-          brk
+          rts
+
           .bend
+
+;;; Audited 2022-02-16 BRPocock

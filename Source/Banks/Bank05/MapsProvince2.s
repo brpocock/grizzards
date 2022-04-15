@@ -11,14 +11,14 @@ MapColors:
           ;; 0
           .colors COLBLUE, COLBROWN
           .colors COLBLUE, COLBROWN
-          .colors COLBROWN, COLBLUE
-          .colors COLBROWN, COLBLUE
-          .colors COLBROWN, COLBLUE
-          .colors COLGREEN, COLYELLOW
-          .colors COLGREEN, COLYELLOW
-          .colors COLGREEN, COLYELLOW
-          .colors COLGREEN, COLYELLOW
-          .colors COLGREEN, COLYELLOW
+          .colors COLBLUE, COLTURQUOISE
+          .colors COLBLUE, COLTURQUOISE
+          .colors COLBLUE, COLTURQUOISE
+          .colors COLGREEN, COLSPRINGGREEN
+          .colors COLGREEN, COLSPRINGGREEN
+          .colors COLGREEN, COLSPRINGGREEN
+          .colors COLGREEN, COLSPRINGGREEN
+          .colors COLGREEN, COLSPRINGGREEN
           ;; 10
           .colors COLCYAN, COLCYAN
           .colors COLCYAN, COLCYAN
@@ -42,41 +42,41 @@ MapColors:
           .colors COLRED, COLBROWN
           .colors COLRED, COLBROWN
           ;; 30
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
+          .colors COLSEAFOAM, COLGREY
+          .colors COLINDIGO, COLGREY
+          .colors COLMAGENTA, COLGREY
+          .colors COLORANGE, COLGREY
+          .colors COLBLUE, COLBROWN
+          .colors COLGOLD, COLGREY
+          .colors COLSPRINGGREEN, COLGREY
+          .colors COLTEAL, COLGREY
+          .colors COLBROWN, COLGREY
+          .colors COLBLUE, COLBROWN
           ;; 40
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
+          .colors COLGREEN, COLGREEN
+          .colors COLGREEN, COLGREEN
+          .colors COLGREEN, COLGREEN
+          .colors COLGREEN, COLGREEN
+          .colors COLGREEN, COLGREEN
+          .colors COLGREEN, COLGREEN
+          .colors COLGREEN, COLGREEN
+          .colors COLGREEN, COLGREEN
+          .colors COLGREEN, COLBROWN
+          .colors COLGREEN, COLBROWN
           ;; 50
-          .colors COLRED, COLBROWN
+          .colors COLGREEN, COLBROWN
           .colors COLBLUE, COLBROWN
           .colors COLBLUE, COLBROWN
           .colors COLBLUE, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
+          .colors COLSEAFOAM, COLSEAFOAM
+          .colors COLINDIGO, COLINDIGO
+          .colors COLMAGENTA, COLMAGENTA
+          .colors COLORANGE, COLORANGE
+          .colors COLGOLD, COLGOLD
+          .colors COLSPRINGGREEN, COLSPRINGGREEN
           ;; 60
-          .colors COLRED, COLBROWN
-          .colors COLRED, COLBROWN
+          .colors COLTEAL, COLTEAL
+          .colors COLBROWN, COLBROWN
           .colors COLCYAN, COLCYAN
           .colors COLCYAN, COLCYAN
           .colors COLCYAN, COLCYAN
@@ -134,7 +134,7 @@ MapLinks:
           .byte 43, 33, 39, 37
           .byte $ff, 34, $ff, 38
           ;; 40
-          .byte 44, 30, 36, $ff
+          .byte 44, 35, 41, $ff
           .byte 45, 36, 42, 40
           .byte 46, 37, 43, 41
           .byte 47, 38, $ff, 42
@@ -165,40 +165,41 @@ MapLinks:
           .byte 13, 66, 63, $ff
           ;; 65
           .byte $ff, $ff, $ff, 66
-          .byte 54, $ff, 65, $ff
+          .byte 64, $ff, 65, $ff
 
 ;;; RLE Map data for each screen.
 
 ;;; Note that it can be reused, so the same basic layout, potentially
 ;;; in different colors, can appear in several places.
           ;; 0
-          _ := ( Map_SouthDock, Map_SouthShoreCorner, Map_DoorBottom, Map_DoorTopBottom, Map_DoorTop )
+          _ := ( Map_SouthDock, Map_SouthShore, Map_DoorBottom, Map_DoorTopBottom, Map_DoorTop )
           ;; 5
           _ ..= ( Map_DoorBottom, Map_OpenBottomDoorTop, Map_ClosedSides, Map_OpenTopDoorSides, Map_EWOval )
           ;; 10
           _ ..= ( Map_DoorBottom, Map_DoorBottomSplit, Map_DoorTopSplit, Map_OpenSidesSplit, Map_SouthShore )
           ;; 15
-          _ ..= ( Map_SouthShore, Map_SouthShore, Map_SouthShore, Map_NorthGate, Map_NorthWall )
+          _ ..= ( Map_SouthShore, Map_SouthShore, Map_SouthShore, Map_NorthGate, Map_NorthCliff )
           ;; 20
-          _ ..= ( Map_NorthWall, Map_NorthGate, Map_NorthWall, Map_NorthSouthWall, Map_FourWay )
+          _ ..= ( Map_NorthCliff, Map_NorthGate, Map_NorthCliff, Map_NorthCliffSouthWall, Map_FourWay )
           ;; 25
           _ ..= ( Map_EWPassage, Map_EWPassage, Map_FourWay, Map_EWLarge, Map_EWLarge )
           ;; 30
-          _ ..= ( Map_HouseSouthWall, Map_HouseSouthWall, Map_HouseSouthWall, Map_HouseSouthGate, Map_SouthWallCorners )
+          _ ..= ( Map_House, Map_HouseSouthWall, Map_HouseSouthWall, Map_House, Map_SouthWallCorners )
           ;; 35
           _ ..= ( Map_House, Map_House, Map_House, Map_House, Map_NorthWallCorners )
           ;; 40
-          _ ..= ( Map_NorthWallCorners, Map_NorthWallCorners, Map_NorthGateCorners, Map_NorthWallCorners, Map_EWLarge )
+          _ ..= ( Map_NorthCliffTown, Map_NorthCliffTown, Map_NorthGateCorners, Map_NorthCliffTown, Map_EWLarge )
           ;; 45
-          _ ..= ( Map_EWPassage, Map_FourWay, Map_EWLarge, Map_SouthWall, Map_SouthGate )
+          _ ..= ( Map_EWPassage, Map_FatFourWay, Map_EWLarge, Map_SouthWall, Map_SouthGate )
           ;; 50
           _ ..= ( Map_SouthWall, Map_NorthShore, Map_NorthShore, Map_NorthShore, Map_InHouse )
           ;; 55
           _ ..= ( Map_InHouse, Map_InHouse, Map_InHouse, Map_InHouse, Map_InHouse )
           ;; 60
-          _ ..= ( Map_InHouse, Map_InHouse, Map_DoorTop, Map_OpenSides, Map_ClosedTop )
+          _ ..= ( Map_InHouse, Map_InHouse, Map_OpenSidesDoorTop, Map_OpenSides, Map_ClosedTop )
           ;; 65
-          _ ..= ( Map_EWOval, Map_OpenTopDoorSides )
+          ;; special non-existing rooms 67 & 68 define alternate RLE backgrounds for “wave motions”
+          _ ..= ( Map_EWOval, Map_OpenTopDoorSides, Map_SouthShore2, Map_NorthShore2 )
 
           MapRLE = _
 
@@ -214,10 +215,10 @@ MapSides:
           .byte $40, 0, 0, 0, 0
           .byte 0, 0, 0, $80, $40
           ;; 10
-          .byte 0, 0, 0, 0, 0
-          .byte 0, 0, 0, 0, 0
+          .byte 0, $80, 0, $40, 0
+          .byte 0, 0, $80, $40, 0
           ;; 20
-          .byte 0, 0, $80, 0, $40
+          .byte 0, 0, 0, $80, $40
           .byte 0, 0, 0, 0, $80
           ;; 30
           .byte $40, 0, 0, 0, $80
@@ -243,7 +244,7 @@ MapSides:
 ;;; Random encounters occupy a sprite data slot but are not actually
 ;;; visible on the screen.
 SpriteList:
-          ;; Room 0
+          ;; Room 0, Tier 0
           .byte $ff, SpriteWander
           .byte $4d, $1a
           .byte SpritePerson, 45 ; Fat Tony is best at geography
@@ -254,17 +255,21 @@ SpriteList:
           
           .byte 0
 
-          ;; Room 1
+          ;; Room 1, Tier 9
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 60 ; Grabby Crabby
+
           .byte 0
 
-          ;; Room 2
+          ;; Room 2, Dragon
           .byte 50, SpriteWander
           .byte 0, 0
-          .byte SpriteMajorCombat, 91 ; Fred
+          .byte SpriteMajorCombat, 93 ; Fred
 
           .byte 0
 
-          ;; Room 3
+          ;; Room 3, Dragon's Lair Entrance
           .byte $ff, SpriteFixed
           .byte $b3, $35
           .byte SpriteGrizzardDepot, 0
@@ -273,228 +278,406 @@ SpriteList:
           .byte $52, $34
           .byte SpritePerson, 26 ; Peter (found now)
 
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 49
+
           .byte 0
 
-          ;; Room 4
+          ;; Room 4, Dragon's Lair Entrance / Tier 15
           .byte $ff, SpriteFixed
           .byte $7a, $36
           .byte SpriteProvinceDoor | $10, 57
 
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 48
           .byte 0
 
-          ;; Room 5
+          ;; Room 5, Dragon
           .byte 51, SpriteWander
           .byte 0, 0
-          .byte SpriteMajorCombat, 92 ; Andrew
+          .byte SpriteMajorCombat, 93 ; Andrew
 
           .byte 0
 
-          ;; Room 6
+          ;; Room 6, Tier 15
           .byte $ff, SpriteFixed
           .byte $3e, $1d
           .byte SpriteGrizzardDepot, 0
 
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 79
+
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 78
+
           .byte 0
 
-          ;; Room 7
+          ;; Room 7, Tier 15
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 73
+
           .byte 0
 
-          ;; Room 8
+          ;; Room 8, Tier 15
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 72
+
           .byte 0
 
-          ;; Room 9
+          ;; Room 9, Tier 15
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 53 ; Crazy Skull
+
           .byte $ff, SpriteFixed
           .byte $80, $10
           .byte SpriteProvinceDoor | $10, 37
 
           .byte 0
 
-          ;; Room 10
+          ;; Room 10, Dragon
           .byte 52, SpriteWander
           .byte 0, 0
-          .byte SpriteMajorCombat, 93 ; Timmy
+          .byte SpriteMajorCombat, 95 ; Timmy
 
           .byte 0
 
-          ;; Room 11
+          ;; Room 11, Tier 15
           .byte $ff, SpriteFixed
-          .byte $20, $10
+          .byte $60, $10
           .byte SpriteGrizzardDepot, 0
 
           .byte 0
 
-          ;; Room 12
+          ;; Room 12, Tier 15
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 49
+
           .byte 0
 
-          ;; Room 13
+          ;; Room 13, Tier 15
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 48
+
           .byte 0
 
-	;;Room 14
-	.byte 0
+          ;;Room 14, Tier 9
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 61
 
-	;;Room 15
-	.byte 0
+          .byte 0
 
-	;;Room 16
-	.byte 0
+          ;;Room 15, Tier 9
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 62
 
-	;;Room 17
-	.byte 0
+          .byte 0
 
-	;;Room 18
-	.byte 0
+          ;;Room 16, Tier 9
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 63
 
-	;;Room 19
-	.byte 0
+          .byte 0
 
-	;;Room 20
-	.byte 0
+          ;;Room 17, Tier 9
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 39
 
-	;;Room 21
-	.byte 0
+          .byte 0
 
-	;;Room 22
-	.byte 0
+          ;;Room 18, Tier 10
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 22
 
-	;;Room 23
+          .byte 0
+
+          ;;Room 19, Tier 10
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 30
+
+          .byte 0
+
+          ;;Room 20, Tier 10
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 31
+
+          .byte 0
+
+          ;;Room 21, Tier 10
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 32
+
+          .byte 0
+
+          ;;Room 22, Tier 10
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 22
+
+          .byte 0
+
+          ;;Room 23, Tier 0
           .byte $ff, SpriteFixed
           .byte $70, $10
           .byte SpritePerson, 46 ; Fat Tony look up @ cliffs
 
-	.byte 0
+          .byte $ff, SpriteFixed
+          .byte 0, 0
+          .byte SpriteGrizzard, 4 ; Petty
 
-	;;Room 24
-	.byte 0
+          .byte 0
 
-	;;Room 25
-	.byte 0
+          ;;Room 24, Tier 10
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 30
 
-	;;Room 26
-	.byte 0
+          .byte 0
 
-	;;Room 27
-	.byte 0
+          ;;Room 25, Tier 10
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 31
 
-	;;Room 28
-	.byte 0
+          .byte 0
 
-	;;Room 29
+          ;;Room 26, Tier 10
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 32
+
+          .byte 0
+
+          ;;Room 27, Tier 10
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 22
+
+          .byte 0
+
+          ;;Room 28, Tier 10
           .byte 56, SpriteFixed
           .byte $6f, $12
-          .byte SpriteProvinceDoor | $10, 36
+          .byte SpriteProvinceDoor | $10, 36 ; Labyrinth Entrance
 
-          .byte $ff, SpriteWander
+          .byte $ff, SpriteFixed
           .byte $6f, $3c
           .byte SpritePerson, 47 ; road to Hades
 
-	.byte 0
+          .byte 0
 
-	;;Room 30
+          ;;Room 29, Tier 10
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 32
+
+          .byte 0
+
+          ;;Room 30
           .byte $ff, SpriteFixed
           .byte $7c, $2f
           .byte SpriteDoor, 54
 
-	.byte 0
+          .byte 0
 
-	;;Room 31
+          ;;Room 31
           .byte $ff, SpriteFixed
           .byte $7c, $2f
           .byte SpriteDoor, 55
 
-	.byte 0
+          .byte 0
 
-	;;Room 32
+          ;;Room 32
           .byte $ff, SpriteFixed
           .byte $7c, $2f
           .byte SpriteDoor, 56
 
-	.byte 0
+          .byte 0
 
-	;;Room 33
+          ;;Room 33
           .byte $ff, SpriteFixed
           .byte $7c, $2f
           .byte SpriteDoor, 57
 
-	.byte 0
+          .byte 0
 
-	;;Room 34
-	.byte 0
+          ;;Room 34
+          .byte 0
 
-	;;Room 35
+          ;;Room 35
           .byte $ff, SpriteFixed
           .byte $7c, $2f
           .byte SpriteDoor, 58
 
-	.byte 0
+          .byte 0
 
-	;;Room 36
+          ;;Room 36
           .byte $ff, SpriteFixed
           .byte $7c, $2f
           .byte SpriteDoor, 59
 
-	.byte 0
+          .byte 0
 
-	;;Room 37
+          ;;Room 37
           .byte $ff, SpriteFixed
           .byte $7c, $2f
           .byte SpriteDoor, 60
 
-	.byte 0
+          .byte 0
 
-	;;Room 38
+          ;;Room 38
           .byte $ff, SpriteFixed
           .byte $7c, $2f
           .byte SpriteDoor, 61
 
-	.byte 0
-
-	;;Room 39
-	.byte 0
-
-	;;Room 40
-	.byte 0
-
-	;;Room 41
-	.byte 0
-
-	;;Room 42
-	.byte 0
-
-	;;Room 43
-	.byte 0
-
-	;;Room 44
-	.byte 0
-
-	;;Room 45
-	.byte 0
-
-	;;Room 46
-	.byte 0
-
-          ;; Room 47
           .byte 0
 
-          ;; Room 48
+          ;;Room 39
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpritePerson, 98 ; hungry
           .byte 0
 
-          ;; Room 49
+          ;;Room 40, Tier 11
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 14
+
           .byte 0
 
-          ;; Room 50
+          ;;Room 41, Tier 11
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 20
+
           .byte 0
 
-          ;; Room 51
+          ;;Room 42, Tier 11
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 80
+
+          .byte 0
+
+          ;;Room 43, Tier 11
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 81
+
+          .byte 0
+
+          ;;Room 44, Tier 11
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 20
+
+          .byte 0
+
+          ;;Room 45, Tier 11
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 14
+
+          .byte 0
+
+          ;;Room 46, Tier 11
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 80
+
+          .byte 0
+
+          ;; Room 47, Tier 11
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 81
+
+          .byte 0
+
+          ;; Room 48, Tier 11
+          .byte 16, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 14
+
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 20
+
+          .byte 0
+
+          ;; Room 49, Tier 11
+          .byte 17, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 80
+
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 81
+
+          .byte 0
+
+          ;; Room 50, Tier 11
+          .byte 18, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 14
+
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 20
+
           .byte $ff, SpriteFixed
-          .byte $b0, $27
-          .byte SpritePerson, 40 ; fishing
+          .byte 0, 0
+          .byte SpriteGrizzard, 7 ; Firend
 
           .byte 0
 
-          ;; Room 52
+          ;; Room 51, Tier 9
+          .byte $ff, SpriteFixed
+          .byte $b0, $2a
+          .byte SpritePerson, 107 ; fishing fisherman
+
+          .byte 19, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 61 ; grabby crabby × 2
+
           .byte 0
 
-          ;; Room 53
+          ;; Room 52, Tier 9
+          .byte 20, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 62
+
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 38
+
+          .byte 0
+
+          ;; Room 53, Tier 9
+          .byte 11, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 61
+
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 39
+
           .byte 0
 
           ;; Room 54
@@ -561,10 +744,6 @@ SpriteList:
           .byte $7c, $18
           .byte SpritePerson, 52 ; Sue
 
-          .byte $ff, SpriteRandomEncounter
-          .byte 0, 0
-          .byte SpritePerson, 51 ; Sue (Mirror)
-
           .byte 0
 
           ;; Room 60
@@ -593,21 +772,37 @@ SpriteList:
 
           .byte 0
 
-          ;; Room 62
+          ;; Room 62, Tier 15
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 72
+
           .byte 0
 
-          ;; Room 63
+          ;; Room 63, Tier 15
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 53
+
           .byte 0
 
-          ;; Room 64
+          ;; Room 64, Tier 15
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 49
+
           .byte 0
 
-          ;; Room 65
+          ;; Room 65, Tier 15
           .byte $ff, SpriteFixed
-          .byte $30, $10
+          .byte $47, $20
           .byte SpriteProvinceDoor | $10, 46
 
           .byte 0
 
-          ;; Room 66
+          ;; Room 66, Tier 15
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteCombat, 79
+
           .byte 0

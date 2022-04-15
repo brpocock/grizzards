@@ -1,10 +1,8 @@
 ;;; Grizzards Source/Routines/SaveToSlot.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
+
 SaveToSlot:	.block
           .WaitScreenBottom
-          .if TV != NTSC
-          stx WSYNC
-          .fi
           .WaitScreenTop
 
 WriteMasterBlock:
@@ -23,9 +21,9 @@ WriteMasterBlock:
 	jsr i2cTxByte
 
           .if (SaveGameSlotPrefix & $ff) != 0
-          .error "Save routines assume that SaveGameSlotPrefix is aligned to $100"
+            .error "Save routines assume that SaveGameSlotPrefix is aligned to $100"
           .fi
-          
+
 	lda # 0
 	jsr i2cTxByte
 
@@ -37,6 +35,7 @@ WriteMasterBlock:
 WriteSignatureLoop:
 	lda SaveGameSignatureString, x
 	jsr i2cTxByte
+
 	inx
 	cpx # 5
 	bne WriteSignatureLoop
@@ -50,12 +49,12 @@ WriteGlobalLoop:
 	inx
 	cpx # GlobalGameDataLength
 	bne WriteGlobalLoop
-          
+
           .WaitScreenBottom
           .WaitScreenTop
 
           ;; Pad out to $20
-          ldx # $20 - 5 - GlobalGameDataLength
+          ldx # $20 - 5 - GlobalGameDataLength - 6
 WritePadAfterGlobal:
           lda # $fe             ; totally arbitrary pad value
           jsr i2cTxByte
@@ -64,21 +63,14 @@ WritePadAfterGlobal:
 
           jsr i2cStopWrite
 
-          ;; Wait for acknowledge bit
--
-          jsr i2cStartWrite
-          bcs -
-          jsr i2cStopWrite
+          jsr i2cWaitForAck
+
           .WaitScreenBottom
 WriteCurrentProvince:
           jsr SaveProvinceData
           .WaitScreenTop
 
-          ;; Wait for acknowledge bit
--
-          jsr i2cStartWrite
-          bcs -
-          jsr i2cStopWrite
+          jsr i2cWaitForAck
 
 WriteCurrentGrizzard:
           jmp SaveGrizzard      ; tail call
@@ -86,4 +78,7 @@ WriteCurrentGrizzard:
 SaveRetry:
           .WaitScreenBottom
           jmp SaveToSlot
+
 	.bend
+
+;;; Audited 2022-02-16 BRPocock

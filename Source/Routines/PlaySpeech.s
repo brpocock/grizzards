@@ -1,12 +1,11 @@
 ;;; Grizzards Source/Routines/PlaySpeech.s
-;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 ;;; The following  subroutine based upon  AtariVox Speech Synth  Driver, by
-;;; Alex Herbert, 2004; altered by Bruce-Robert Pocock, 2017, 2020
+;;; Alex Herbert, 2004; altered by Bruce-Robert Pocock, 2017, 2020-2022
 
 PlaySpeech: .block
 
-          .if !(NOSAVE)
+          .if !NOSAVE           ; pretty much the whole file
 
           SerialOutput = $01
           SerialReady = $02
@@ -15,51 +14,17 @@ PlaySpeech: .block
           and #$f0
           bne ContinueSpeaking
 
-          lda CurrentUtterance
+          ldy CurrentUtterance
           beq TheEnd
 
           ;; New utterance ID is in the "mailbox"
           ;; Find it in the index.
 
-          ldy # 0
-
-          lda CurrentUtterance + 1
-          clc
-          adc #>SpeechIndexH
-          sta Pointer + 1
-
-          lda CurrentUtterance
-          clc
-          adc #<SpeechIndexH
-          bcc +
-          inc Pointer + 1
-+
-          sta Pointer
-
-          lda (Pointer), y
-          sta Temp              ; high byte of speech address
-
-          lda CurrentUtterance + 1
-          clc
-          adc #>SpeechIndexL
-          sta Pointer + 1
-
-          lda CurrentUtterance
-          clc
-          adc #<SpeechIndexL
-          bcc +
-          inc Pointer + 1
-+
-          sta Pointer
-
-          lda (Pointer), y
-          sta CurrentUtterance
-
-          lda Temp
+          lda SpeechIndexH, y
           sta CurrentUtterance + 1
 
-          ;; New utterance will start on the next frame
-          jmp TheEnd
+          lda SpeechIndexL, y
+          sta CurrentUtterance
 
 ContinueSpeaking:
 
@@ -67,13 +32,14 @@ ContinueSpeaking:
           inc SpeakJetCooldown
           inc SpeakJetCooldown
           lda SpeakJetCooldown
-          cmp #$20              ; seems to hang after 36 bytes or so
-          bmi NotOverheated
+          cmp #$20              ; SpeakJet buffer is 32 bytes
+          blt NotOverheated
+
           cmp #$20              ; cooldown value derived experimentally
-          bmi TheEnd
+          blt TheEnd
+
           lda #0
           sta SpeakJetCooldown
-
 NotOverheated:
           ;; check buffer-full status
           lda SWCHA
@@ -87,16 +53,17 @@ NotOverheated:
           ;; invert data and check for end of string
           eor #$ff
           beq DoneSpeaking
+
           sta Temp                    ; byte being transmitted
 
           ;; increment speech pointer
           inc CurrentUtterance
           bne UtteranceNoPageCrossed
+
           inc CurrentUtterance + 1
 UtteranceNoPageCrossed:
 
           ;; output byte as serial data
-
           sec            ; start bit
 SerialSendBit:
           ;; put carry flag into bit 0 of SWACNT, perserving other bits
@@ -120,12 +87,12 @@ SerialDelayLoop:
           lsr Temp             ; 5 59
 
           ;; and loop (branch always taken)
-         gpl SerialSendBit    ; 3 62 cycles for loop
+          gpl SerialSendBit    ; 3 62 cycles for loop
 
 DoneSpeaking:
-          lda #0
-          sta CurrentUtterance
-          sta CurrentUtterance + 1
+          ldy # 0
+          sty CurrentUtterance
+          sty CurrentUtterance + 1
 
 TheEnd:
           lda SpeakJetCooldown
@@ -137,3 +104,5 @@ TheEnd:
 
           rts
           .bend
+
+;;; Audited 2022-02-16 BRPocock

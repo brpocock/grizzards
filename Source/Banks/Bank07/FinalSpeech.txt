@@ -1,0 +1,15 @@
+OhNo:
+♂O no..what is?this.\Reset\;After your defeat of the dragons,you have awakened
+the evil¿\Volume\112\;Boss Bear
+
+BossBearApproaching:
+\Volume\112\;Boss Bear is coming for you.Get ready to fight
+
+Became:
+became
+
+ConfirmErase:
+Make sure you want to erase this game's progress.
+
+Potion:
+Use potions to heal Grizzards

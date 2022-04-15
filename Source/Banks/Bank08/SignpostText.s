@@ -62,6 +62,7 @@ NPC_TunnelBlocked:
 NPC_TunnelOpen:
           .colu COLINDIGO, 0
           .colu COLBLUE, $9
+          .byte $ff, 1, 95
           .SignText "NOW THAT YOU"
           .SignText "BROUGHT THEM"
           .SignText "I CAN OPEN  "
@@ -86,11 +87,13 @@ NPC_Artifact:
 NPC_TakeArtifact1:
           .colu COLINDIGO, 0
           .colu COLTURQUOISE, $9
-          .SignText "I HAVE ONE  "
-          .SignText "OF THE TWO  "
-          .SignText "ARTIFACTS.  "
-          .SignText "TAKE THIS TO"
+          .SignText "THANKS FOR  "
+          .SignText "SAVING ME.  "
+          .SignText "TAKE THIS   "
+          .SignText "ARTIFACT TO "
           .SignText "THE TUNNELS."
+          .byte ModeSignpostPoints
+          .word $0020
           .byte ModeSignpostSetFlag, 18
 
 ;;; 7
@@ -102,6 +105,8 @@ NPC_TakeArtifact2:
           .SignText "ARTIFACTS.  "
           .SignText "TAKE THIS TO"
           .SignText "THE TUNNELS."
+          .byte ModeSignpostPoints
+          .word $0025
           .byte ModeSignpostSetFlag, 17
 
 ;;; 8
@@ -155,6 +160,8 @@ NPC_TrebleVillage:
           .SignText "THE MONSTERS"
           .SignText "KEEP GETTING"
           .SignText "CLOSER TO US"
+          .byte ModeSignpostPoints
+          .word $0003
           .byte ModeSignpostSetFlag, 19
 
 ;;; 13
@@ -230,9 +237,9 @@ Sign_PortLionShip:
           .colu COLBLUE, $e
           .colu COLCYAN, $2
           .SignText "TREBLE DOCKS"
-          .SignText "NEXT SHIP TO"
-          .SignText "PORT LION   "
-          .SignText "DEPARTING.  "
+          .SignText "A SHIP IS   "
+          .SignText "HERE, GOING "
+          .SignText "TO PORT LION"
           .SignText "WANT TO GO? "
           .byte ModeSignpostInquire
           .byte 84, 85
@@ -271,3 +278,5 @@ Random_FoundPendant:
           .SignText "A LEAF ON   "
           .SignText "THE GROUND. "
           .byte ModeSignpostSetFlag, 28
+
+          

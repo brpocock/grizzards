@@ -1,3 +1,4 @@
+# Temp files and backups
 *~
 *#
 .#*
@@ -7,20 +8,18 @@ DEADJOE
 *.tmp
 tmp*.pdf
 
-Dist/
-Dist/Grizzards.zip
-Dist/Grizzards.NTSC.a26
-Dist/Grizzards.NTSC.pdf
-Dist/Grizzards.PAL.a26
-Dist/Grizzards.PAL.pdf
-Dist/Grizzards.SECAM.a26
-Dist/Grizzards.SECAM.pdf
-
+# Generated files
+Dist/*
 Object/*
-
 Source/Generated/*
-
 *.fasl
 
+# Binaries
 bin/skyline-tool
 bin/buildapp
+
+# Not mine to share
+bin/SaveKey Editor.a26
+
+# Junk symlink that should not exist
+Manual/Manual

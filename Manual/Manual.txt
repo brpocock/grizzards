@@ -8,19 +8,19 @@ games/Grizzards/
 Program:
 Bruce-Robert Pocock
 
-Music + Add'l Art:
+Music + Additional Art:
 Zephyr Salz
 Controller:
 
-Joystick or Genesis gamepad in
-left port. Genesis B button is
-FIRE, C button is SELECT.
+Joystick  or Genesis  gamepad in
+left port.  Genesis B  button is
+FIRE,   C   button  is   SELECT.
+RetroGameBoyz Joy2b+ also should
+work, use buttons I & II.
 
 SaveKey or AtariVox in right
 port. (NoSave demo works without
 SaveKey/AtariVox.)
-
-
 
 Press FIRE to leave title screen
 and start.
@@ -34,13 +34,25 @@ left/right to BEGIN or RESUME.
 RESUME is only available
 immediately after GAME OVER.
 FIRE to select.
+New game (SaveKey/AtariVox):
+Enter your name. Use left/right
+to position cursor, up/down to
+select letter/character.
+Cursor right to last position
+and press Fire to start game.
+
+* Old save files without names
+  will show garbage chars on the
+  RESUME screen, unfortunately.
+
+No file name in NoSave version.
 Map: Walk (8 ways) with
 joystick. Stats with SELECT.
 Run into objects to interact.
 
 Green slime: Monster or group
-of monsters.
-
+             of monsters.
+Green figure: Boss monster.
 Black signpost: Signpost.
 Gold person: Person.
 Purple building: Grizzard Depot.
@@ -56,15 +68,17 @@ turns next.
 
 Sign/Person: FIRE to exit after
 you read sign or listen to
-person speak.
-
+person speak. Up/Down  & FIRE to
+reply if options appear.
 Grizzard Depot: FIRE to exit.
 SELECT for stats of current
 Grizzard. Up/down to change
 Grizzard companion.
 
 --------------------------------
-
 Hint: When you first begin, head
 left until the docks.
 
+* Full game uses assigned memory
+  slot  on  SaveKey.  Demo  uses
+  scratch space.

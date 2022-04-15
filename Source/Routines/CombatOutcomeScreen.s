@@ -4,16 +4,28 @@
 CombatOutcomeScreen:          .block
           .WaitScreenTopMinus 1, -2
 
-          lda # 0
-          sta SpeechSegment
+          ldy # 0
+          sty SpeechSegment
 
           lda MoveHitMiss
           beq SoundForMiss
+
+          lda MoveHP
+          bmi SoundForHeal
+
           lda #SoundHit
-          bne +                 ; alway taken
+          gne SoundReady
+
+SoundForHeal:
+          cmp #$ff
+          beq SoundForMiss
+
+          lda #SoundHappy
+          gne SoundReady
+
 SoundForMiss:
           lda #SoundMiss
-+
+SoundReady:
           sta NextSound
 
           gne LoopFirst
@@ -21,11 +33,32 @@ SoundForMiss:
 Loop:
           .WaitScreenTop
 LoopFirst:
-          .ldacolu COLBLUE, 0
-          sta COLUBK
-          .ldacolu COLGRAY, $f
-          sta COLUP0
-          sta COLUP1
+          stx WSYNC
+          .if SECAM == TV
+
+            .mva COLUBK, #COLBLACK
+
+            lda #COLWHITE
+            ldx CriticalHitP
+            beq +
+            lda #COLRED
++
+            sta COLUP0
+            sta COLUP1
+
+          .else
+          
+            .ldacolu COLBLUE, 0
+            ldx CriticalHitP
+            beq +
+            .ldacolu COLRED, 0
++
+            sta COLUBK
+            .ldacolu COLGRAY, $f
+            sta COLUP0
+            sta COLUP1
+
+          .fi
 ;;; 
           lda MoveAnnouncement
           cmp # 5
@@ -36,24 +69,28 @@ LoopFirst:
 
           lda MoveHP
           bmi DrawHealPoints
-          beq SkipHitPoints
-          sta Temp              ; for later decoding
 
+          beq SkipHitPoints
+
+          sta Temp              ; for later decoding
 CheckForPulse:
           ldx WhoseTurn
           beq CheckMonsterPulse2
+
           lda CurrentHP
           bne PrintInjured
+
 PrintKilled:
           .SetPointer KilledText
-          jsr CopyPointerText
-          jsr DecodeAndShowText
-          jmp AfterStatusFX
+          jsr ShowPointerText
+
+          jmp DoneStatusFX
 
 CheckMonsterPulse2:
           ldx MoveTarget
-          lda MonsterHP - 1, x
+          lda EnemyHP - 1, x
           beq PrintKilled
+
 PrintInjured:
           .SetPointer HPLostText
           jmp DrawHitPoints
@@ -61,23 +98,26 @@ PrintInjured:
 DrawMissed:
           .SetPointer MissedText
           jsr CopyPointerText
+
           jsr DecodeAndShowText
-          jmp AfterHitPoints
+
+          jmp DoneHitPoints
 
 DrawHealPoints:
           eor #$ff
           beq SkipHitPoints
+
           sta Temp
           .SetPointer HealedText
-
 DrawHitPoints:
           jsr AppendDecimalAndPrint.FromTemp
-          jmp AfterHitPoints
+
+          jmp DoneHitPoints
 
 SkipHitPoints:
           .SkipLines 34
 ;;; 
-AfterHitPoints:
+DoneHitPoints:
           lda MoveAnnouncement
           cmp # 5
           bmi SkipStatusFX
@@ -103,7 +143,7 @@ DrawStatusFX:
           .BitBit StatusMuddle
           bne FXMuddle
 
-          jmp AfterStatusFX
+          jmp DoneStatusFX
 
 FXSleep:
           .SetPointer SleepText
@@ -129,27 +169,31 @@ FXMuddle:
           .SetPointer MuddleText
           ;; fall through
 EchoStatus:
-          jsr CopyPointerText
-          jsr DecodeAndShowText
+          jsr ShowPointerText
 
 SkipStatusFX:
-AfterStatusFX:
+DoneStatusFX:
+          lda CriticalHitP
+          beq DoneCritNotice
+          .SetPointer CritText
+          jsr ShowPointerText
+DoneCritNotice:
 ;;; 
           lda AlarmCountdown
           bne AlarmDone
 
+          .mva AlarmCountdown, # 4
           inc MoveAnnouncement
-          lda # 4
-          sta AlarmCountdown
-
           lda MoveAnnouncement
           cmp # 6
           beq CombatOutcomeDone
+
 AlarmDone:
 ;;; 
 ScheduleSpeech:
           lda CurrentUtterance
           bne SpeechDone
+
           lda CurrentUtterance + 1
           bne SpeechDone
 
@@ -158,34 +202,36 @@ ScheduleSpeech:
 
           lda MoveStatusFX
           bne SomethingHappened
+
           lda MoveHP
           beq NothingHappened
+
           cmp #$ff
           bne SomethingHappened
 
 NothingHappened:
           .SetUtterance Phrase_NoEffect
-          lda # $ff
-          sta SpeechSegment
+          .mva SpeechSegment, # $ff
           gne SpeechDone
 
 SomethingHappened:
           lda WhoseTurn
           beq SaySubjectPlayerTurn
+
 SaySubjectMonsterTurn:
           lda MoveHP
           bmi SayMonster
+
 SayPlayer:
           .SetUtterance Phrase_Grizzard
-
           gne SpeechQueued
 
 SaySubjectPlayerTurn:
           lda MoveHP
           bmi SayPlayer
+
 SayMonster:
           .SetUtterance Phrase_Monster
-
           gne SpeechQueued
 
 Speech1:
@@ -197,33 +243,38 @@ Speech1:
 
           lda MoveHP
           beq SpeechQueued
+
           bmi SayHealed
+
 SayInjuredOrKilled:
           ldx WhoseTurn
           beq CheckMonsterPulse
+
           lda CurrentHP
           bne SayInjured
+
 SayKilled:
           .SetUtterance Phrase_IsKilled
+          .mva SpeechSegment, # 5
           gne SpeechQueued
 
 CheckMonsterPulse:
           ldx MoveTarget
-          lda MonsterHP - 1, x
+          lda EnemyHP - 1, x
           beq SayKilled
+
 SayInjured:
           .SetUtterance Phrase_IsInjured
           gne SpeechQueued
 
 SayMissed:
           .SetUtterance Phrase_Missed
-
-          inc SpeechSegment
-          gne SpeechDone
+          gne SpeechQueued
 
 SayHealed:
           eor #$ff
           beq SpeechQueued
+
           .SetUtterance Phrase_IsHealed
           gne SpeechQueued
 
@@ -233,14 +284,15 @@ Speech2:
 
           lda MoveHP
           beq SpeechQueued
+
           eor #$ff
           beq SpeechQueued
+
           lda MoveStatusFX
           geq SpeechQueued
 
 SayAnd:
           .SetUtterance Phrase_And
-
           gne SpeechQueued
 
 Speech3:
@@ -249,20 +301,24 @@ Speech3:
 
           lda MoveStatusFX
           beq SpeechQueued
+
           .BitBit StatusSleep
           bne SaySleep
+
           .BitBit StatusMuddle
           bne SayMuddle
+
           and # StatusAttackUp | StatusAttackDown
           bne SayAttack
+
           lda MoveStatusFX
           and # StatusDefendUp | StatusDefendDown
           bne SayDefend
+
           geq SpeechQueued
 
 SaySleep:
           .SetUtterance Phrase_StatusFXSleep
-
           gne SpeechQueued
 
 SayMuddle:
@@ -280,11 +336,12 @@ SayDefend:
 Speech4:
           lda SpeechSegment
           cmp # 5
-          bge SpeechDone
+          bge Speech5
 
           lda MoveStatusFX
           and #StatusAttackDown | StatusDefendDown
           beq Speech4NotDown
+
 Speech4Down:
           .SetUtterance Phrase_StatusFXLower
           gne SpeechQueued
@@ -295,12 +352,21 @@ Speech4NotDown:
           beq SpeechQueued
 
           .SetUtterance Phrase_StatusFXRaise
-          ;; fall through to common
+          gne SpeechQueued
+
+Speech5:
+          lda SpeechSegment
+          cmp # 6
+          bge SpeechDone
+
+          lda CriticalHitP
+          beq SpeechQueued
+
+          .SetUtterance Phrase_CriticalHit
 SpeechQueued:
           inc SpeechSegment
           ;; fall through
 SpeechDone:
-;;;  
           .WaitScreenBottom
           jmp Loop
 ;;; 
@@ -309,62 +375,79 @@ CombatOutcomeDone:
           bne CheckForLoss
 
 CheckForWin:
-          ldx #6
+          ldx # 6
 -
-          lda MonsterHP - 1, x
+          lda EnemyHP - 1, x
           bne Bye
+
           dex
           bne -
 
 WonBattle:
+          lda CurrentCombatIndex
+          cmp #$ff
+          beq +
           .SetBitFlag CurrentCombatIndex
           ;; Did the player level up their stats by this victory?
           ;; The likelihood decreases the higher that stat is.
           ;; Use DeltaX to store which level(s) was (were) raised
-          lda # 0
-          sta DeltaX
++
+          .mva DeltaX, # 0      ; Y ≠ 0 after SetBitFlag
 
           jsr Random
           sta Temp
           lda GrizzardAttack
-          cmp # 99
+          cmp #$ff
           bge AttackLevelUpDone
+
           jsr CalculateAttackMask
+
           and Temp
           bne AttackLevelUpDone
+
           inc GrizzardAttack
-          lda # LevelUpAttack
-          sta DeltaX
+          .mva DeltaX, # LevelUpAttack
 AttackLevelUpDone:
           jsr Random
+
           sta Temp
           lda GrizzardDefense
-          cmp # 99
+          cmp #$ff
           bge DefendLevelUpDone
+
           jsr CalculateAttackMask
+
           and Temp
           bne DefendLevelUpDone
+
           inc GrizzardDefense
           lda # LevelUpDefend
           ora DeltaX
           sta DeltaX
 DefendLevelUpDone:
           jsr Random
+
           sta Temp
           lda MaxHP
-          cmp # 99
+          cmp #$ff
           bge HPLevelUpDone
+
+          ;; HP needs to level up faster than other stats
+          lsr a
+          lsr a
+          lsr a
           jsr CalculateAttackMask
+
           and Temp
           bne HPLevelUpDone
+
           inc MaxHP
+          inc CurrentHP
           lda # LevelUpMaxHP
           ora DeltaX
           sta DeltaX
 HPLevelUpDone:
-
           lda DeltaX
-
           beq NoLevelUp
 
           sta Temp
@@ -372,10 +455,6 @@ HPLevelUpDone:
 
 NoLevelUp:
 WonReturnToMap:
-          lda #SoundVictory
-          sta NextSound
-
-          .WaitScreenBottom
           jmp CombatVictoryScreen
 
 CheckForLoss:
@@ -383,13 +462,16 @@ CheckForLoss:
           bne Bye
 
           .if TV == NTSC
-          ldx INTIM
-          dex
-          stx TIM64T
+            ldx INTIM
+            dex
+            stx TIM64T
           .fi
           .WaitScreenBottom
           .FarJMP AnimationsBank, ServiceDeath
+
 Bye:
           .WaitScreenBottomTail
 
           .bend
+
+;;; Audited 2022-02-16 BRPocock

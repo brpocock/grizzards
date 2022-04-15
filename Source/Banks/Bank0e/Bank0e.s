@@ -4,20 +4,46 @@
 
           .include "StartBank.s"
 
-          .include "SpeakJetIDs.s" ; from this bank, not bank 7
+          .include "Source/Generated/Bank07/SpeakJetIDs.s"
+          .include "48Pixels.s"
+
+          .include "DrawBoss.s"
+          .include "DrawMonsterGroup.s"
 
 DoLocal:
-          .include "Signpost.s"
+          cpy #ServiceDrawBoss
+          beq DrawBoss
+
+          cpy #ServiceGetMonsterColors
+          beq GetMonsterColors
+
+          cpy #ServiceDrawMonsterGroup
+          beq DrawMonsterGroup
+
+          cpy #ServicePotion
+          beq Potion
+
+          brk
 
           .include "VSync.s"
           .include "VBlank.s"
-          .include "Random.s"
-          .include "48Pixels.s"
+          .include "Prepare48pxMobBlob.s"
+          .include "AppendDecimalAndPrint.s"
 
-          .include "SignpostText.s"
-          .include "SignpostSpeech.s"
-          .include "SpeakJetIndex.s"
+          .include "Potion.s"
 
-          .include "PlaySpeech.s"
+          .include "CopyPointerText.s"
+          .include "ShowPointerText.s"
+
+          .include "GetMonsterColors.s"
+
+          .align $20           ; XXX alignment
+          .include "CombatSpriteTables.s"
+          .include "MonsterColors.s"
+          .include "BossArt.s"
+          .include "BossArt2.s"
+          .include "MonsterArt.s"
+          .include "MonsterArt2.s"
 
           .include "EndBank.s"
+

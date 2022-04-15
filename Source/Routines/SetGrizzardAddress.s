@@ -4,7 +4,7 @@ SetGrizzardAddress: .block
           ;; Call with Grizzard ID in .A
 
           tax    ; stash it for a second
-          
+
           ;; Grizzard data is weirder storage layout.
           ;; We save 12 grizzards at 5 bytes each in each of
           ;; the 3 blocks following the master block. That
@@ -31,12 +31,12 @@ SetGrizzardAddress: .block
           sbc # 24
           tax
           lda # 3
-          jmp ReadyToSendAddress
+          gne ReadyToSendAddress
 
 InBlock1:
           tax
           lda # 1
-          jmp ReadyToSendAddress
+          gne ReadyToSendAddress
 
 InBlock2:
           sec
@@ -49,7 +49,7 @@ ReadyToSendAddress:
           ;; .A = block (1, 2, 3)
           ;; .X = index (to be × 5) within that block
           .rept 6
-          asl a                 ; × $40 (64)
+            asl a               ; × $40 (64)
           .next
           sta Pointer           ; start of the block we want
           txa                   ; index within the block
@@ -63,9 +63,13 @@ ReadyToSendAddress:
 
           ;; Finally we know our offset, let's send  it.
           jsr i2cStartWrite
+
           lda Pointer + 1
           jsr i2cTxByte
+
           lda Pointer
           jmp i2cTxByte         ; tail call
 
           .bend
+
+;;; Audited 2022-02-16 BRPocock

@@ -1,7 +1,7 @@
 ;;; Grizzards Source/Routines/FindNthZeroTerminated.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
-FindNthZeroTerminated:        .block
 
+FindNthZeroTerminated:        .block
           ;; Finds the nth (xth) zero-terminated string starting after Pointer.
           ;; Updates Pointer to point to the head of that string.
           ;; Each string must be ≤ 255 bytes in length,
@@ -9,10 +9,12 @@ FindNthZeroTerminated:        .block
 
           cpx # 0
           beq Done
+
           ldy # 0
 SearchMore:         
           lda (Pointer),y
           beq StringEnd
+
           iny
           bne SearchMore
 

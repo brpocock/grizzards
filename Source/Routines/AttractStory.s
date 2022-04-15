@@ -6,42 +6,42 @@ AttractStory:       .block
           cmp #<Phrase_Story
           beq Loop
 
-          lda # STARTER
-          sta CurrentGrizzard
-
-          lda # 0
-          sta AttractStoryPanel
-          sta AttractStoryProgress
+          ldy # 0
+          sty AttractStoryPanel
+          sty AttractStoryProgress
 
           jsr Random
+
           and #$07
-          adc # 2
+          tax
+          lda MonsterShapes, x
           sta CurrentMonsterArt
-RandomColor:
-          jsr Random
-          .if TV == SECAM
-          beq RandomColor
-          .else
-          ora #$03
-          .fi
-          sta DeltaX
-
+          lda Monsters, x
+          sta CurrentMonsterNumber
           lda # 0
-          sta DeltaY
+          sta CombatMajorP
+RandomColor:
+          ;; ldy # 0 ; already zero from above
+          sty DeltaY            ; XXX used for a timer
 
           ldx # 6
--
+RandomHP:
           jsr Random
+
           and #$03
-          sta MonsterHP - 1, x
+          sta EnemyHP - 1, x
           dex
-          bne -
+          bne RandomHP
 
           beq LoopFirst
 ;;; 
 Loop:
           .WaitScreenTop
 LoopFirst:
+          .SetSkyColor
+          stx WSYNC
+          sta COLUBK
+
           lda AttractStoryPanel
           cmp # 1
           bge StoryPhase0
@@ -49,52 +49,78 @@ LoopFirst:
           lda AttractStoryProgress
           adc # 1
           cmp # FramesPerSecond * 2
-          beq +
+          beq ProgressedToPhase0
+
           sta AttractStoryProgress
--
+GoToStoryDone:
           jmp StoryDone
-+
-          lda # 0
-          sta AttractStoryProgress
-          lda # 1
-          sta AttractStoryPanel
-          gne -
+
+ProgressedToPhase0:
+          ldy # 0               ; necessary? XXX
+          sty AttractStoryProgress
+          .mva AttractStoryPanel, # 1
+          gne GoToStoryDone
 
 StoryPhase0:
+          ;; Introducing the monsters
           cmp # 2
           bge StoryPhase1
 
           ldx AttractStoryProgress
-          beq +
--
+          beq DoneSkipping
+
+SkipLinesForPhase0:
           stx WSYNC
           dex
-          bne -
-+
+          bne SkipLinesForPhase0
+DoneSkipping:
+          stx MoveTarget        ; X = 0
 
-          stx MoveTarget        ; always zero
+          .if DEMO
+            jsr DrawMonsterGroup
+          .else
+            .FarJSR MonsterBank, ServiceDrawMonsterGroup
+          .fi
 
-          lda DeltaX
-          sta COLUP0
+          lda # KernelLines / 4
+          sec
+          sbc AttractStoryProgress
+          tax
+          beq DoneSkippingLower
 
-          jsr DrawMonsterGroup
+SkipLower:
+          stx WSYNC
+          dex
+          bne SkipLower
 
-          lda DeltaY
+DoneSkippingLower:
+          .if SECAM == TV
+            lda #COLBLACK
+          .else
+            .ldacolu COLGREEN, $4
+          .fi
+          stx WSYNC
+          sta COLUBK
+
+          lda DeltaY            ; XXX using this for a timer
           clc
           adc # ceil( $40 * ( FramesPerSecond / 24.0 ) )
-          sta DeltaY
+          sta DeltaY            ; timer
           cmp #$40
           blt StoryDone
+
           sec
           sbc #$40
-          sta DeltaY
+          sta DeltaY            ; timer
           inc AttractStoryProgress
           lda AttractStoryProgress
           cmp # KernelLines / 4
           blt StoryDone
+
           inc AttractStoryPanel
-;;; 
+;;;
 StoryPhase1:
+          ;; Grizzard attacking the monsters
           cmp # 8
           bge StoryDone
 
@@ -102,34 +128,35 @@ Six:
           cmp # 6
           bne NotSix
 
-          lda DeltaY
+          lda DeltaY            ; timer
           cmp # ceil(FramesPerSecond / 3.0)
           bne NotSix
 
           lda # 0
-          sta DeltaY
+          sta DeltaY            ; timer
           lda AttractStoryPanel
 
           jsr Random
           and #$07
           tax
-          lda MonsterHP, x
-          beq +
+          lda EnemyHP, x
+          beq DoneHitSound
+
           lda # SoundHit
           sta NextSound
           stx WSYNC
           stx WSYNC
-+
-          lda MonsterHP, x
+DoneHitSound:
+          lda EnemyHP, x
           beq NotSix
           lda # 0
-          dec MonsterHP, x
-          lda MonsterHP
-          ora MonsterHP + 1
-          ora MonsterHP + 2
-          ora MonsterHP + 3
-          ora MonsterHP + 4
-          ora MonsterHP + 5
+          dec EnemyHP, x
+          lda EnemyHP
+          ora EnemyHP + 1
+          ora EnemyHP + 2
+          ora EnemyHP + 3
+          ora EnemyHP + 4
+          ora EnemyHP + 5
           bne NotSix
 
           lda # SoundVictory
@@ -143,76 +170,96 @@ Six:
 NotSix:
           .SkipLines KernelLines / 4
 
-          lda DeltaX
-          sta COLUP0
+          .if DEMO
+            jsr DrawMonsterGroup
+          .else
+            .FarJSR MonsterBank, ServiceDrawMonsterGroup
+          .fi
 
-          jsr DrawMonsterGroup
+          ldy # 0               ; XXX should not need this but … do.
+          sty GRP0
+          sty GRP1
 
+          .if SECAM == TV
+            lda #COLBLACK
+          .else
+            .ldacolu COLGREEN, $4
+          .fi
+          stx WSYNC
+          sta COLUBK
+          
           ldx AttractStoryProgress
-          beq +
--
+          beq DoneSkipPhase1
+SkipPhase1:
           stx WSYNC
           dex
-          bne -
-+
+          bne SkipPhase1
 
+DoneSkipPhase1:
           jsr DrawGrizzard
 
           lda AttractStoryPanel
           cmp # 3
           bge StoryPhase1b
+
 StoryPhase1a:
-          lda DeltaY
+          lda DeltaY            ; timer
           clc
           adc # ceil( $40 * ( FramesPerSecond / 30.0 ) )
-          sta DeltaY
+          sta DeltaY            ; timer
           cmp #$40
           blt StoryDone
+
           sec
           sbc #$40
-          sta DeltaY
+          sta DeltaY            ; timer
           dec AttractStoryProgress
           lda AttractStoryProgress
           bne StoryDone
 
           inc AttractStoryPanel
           lda # 0
-          sta DeltaY
-          lda #>Phrase_Story
-          sta CurrentUtterance + 1
-          lda #<Phrase_Story
-          sta CurrentUtterance
+          sta DeltaY            ; timer
+          .SetUtterance Phrase_Story
           sta AttractHasSpoken
           gne StoryDone
 
 StoryPhase1b:
-          inc DeltaY
-          lda DeltaY
+          inc DeltaY            ; timer
+          lda DeltaY            ; timer
           cmp # 2 * FramesPerSecond
           blt StoryDone
+
           inc AttractStoryPanel
-          lda # 0
-          sta DeltaY
-          gne StoryDone
-
-StoryDone:
-          ;; fall through
+          ldy # 0               ; XXX necessary?
+          sty DeltaY
+          ;; gne StoryDone ; fall through
 ;;; 
-
+StoryDone:
           jsr Prepare48pxMobBlob
 
           lda AttractStoryPanel
           cmp # 8
           blt StillStory
 
-          lda # 30
-          sta AlarmCountdown
-          lda # 0
-          sta DeltaY
-          lda #ModeAttractTitle
-          sta GameMode
-          rts
+          ;; Return to title screen, with a new Grizzard
+          .mva AlarmCountdown, # 30
+          ldy # 0               ; necessary? XXX
+          sty DeltaY
 
+NextGrizzard:
+          inc CurrentGrizzard
+          lda CurrentGrizzard
+          cmp # 3
+          blt DoneNextGrizzard
+
+          ldy # 0               ; XXX necessary?
+          sty CurrentGrizzard
+DoneNextGrizzard:
+
+          .mva GameMode, #ModeAttractTitle
+          rts
+;;; 
 StillStory:
           lda NewSWCHB
           beq CheckFire
@@ -223,16 +270,28 @@ StillStory:
 CheckFire:
           lda NewButtons
           beq LoopMe
-          and #PRESSED
+
+          and #ButtonI
           bne LoopMe
 
 SelectSlot:
-          lda #ModeSelectSlot
-          sta GameMode
+          .mva GameMode, #ModeSelectSlot
           rts
-
+;;; 
 LoopMe:
           .WaitScreenBottom
           jmp Loop
+;;; 
+Monsters:
+          .byte 0, 1, 2, 8, 11, 13, 18, 23
+MonsterShapes:
+          .byte Monster_SlimeSmall
+          .byte Monster_SlimeSmall
+          .byte Monster_Bunny
+          .byte Monster_Dog
+          .byte Monster_Firefox
+          .byte Monster_Mutant
+          .byte Monster_Bat
+          .byte Monster_Bird
 
           .bend

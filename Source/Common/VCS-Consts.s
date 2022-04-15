@@ -1,5 +1,6 @@
+;;; Grizzards Source/Common/VCS-Consts.s
 ;;; Atari VCS constants
-;;; Copyright © 2006,2007,2017,2020 Bruce-Robert Pocock (brpocock@star-hope.org)
+;;; Copyright © 2006,2007,2017,2020-2022 Bruce-Robert Pocock (brpocock@star-hope.org)
 ;;;
 
           BuildPlatform = 2600
@@ -53,12 +54,9 @@
           ;; Console
           SWCHBReset = $01
           SWCHBSelect = $02
-          SWCHB7800 = $04 ; this is something we set ourselves
           .if TV != SECAM
             SWCHBColor = $08
           .fi
-          SWCHBP0Genesis = $10
-          SWCHBP1Genesis = $20
           SWCHBP0Advanced = $40
           SWCHBP1Advanced = $80
 
@@ -158,7 +156,37 @@ colu:     .macro co, lu=$7
           .endswitch            ; TV
           
           .endm
+
+          ;; Special version that never returns black or white on SECAM,
+          ;; but  blue or  yellow instead,  to guarantee  a good  enough
+	;; display on a black or white background.
+mcolu:     .macro co, lu=$7
+          .switch TV
+
+;;; SECAM
+          .case SECAM
+          .if \co == COLGRAY
+	    .if \lu > 7
+	      .byte COLYELLOW
+	    .else
+	      .byte COLBLUE
+	    .fi
+          .else
+            .if \lu == 0
+              .byte COLBLUE
+            .else
+              .byte \co
+            .fi
+          .fi
+
+;;; NTSC, PAL
+          .default
+          .byte (\co | \lu)
           
+          .endswitch            ; TV
+          
+          .endm
+
 ldacolu .macro co, lu=$7
           .switch TV
 

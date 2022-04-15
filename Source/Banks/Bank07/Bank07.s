@@ -10,37 +10,30 @@
 
 DoLocal:
           .include "PlaySFX.s"
-          .if DEMO
+          ;; falls through to
           .include "PlayMusic.s"
-          .else
-DoMusic:  
-          ldx # MusicBank
-          jsr FarCall
-          .fi
+          ;; falls through to
           .include "PlaySpeech.s"
-          rts
+          ;; ↑ returns
 
           .include "SoundEffects.s"
 
           .include "SpeakJetIndex.s"
+
           ;; Speech index uses a wildcard on this directory
           ;; All files must be included or the index will break
+          .include "Monsters6Speech.s"
           .include "MovesSpeech.s"
           .include "GrizzardsSpeech.s"
           .include "CombatSpeech.s"
           .include "TitleSpeech.s"
-          .include "Monsters6Speech.s"
-          .if !DEMO
-          .include "Monsters7Speech.s"
-          .fi
+          .include "FinalSpeech.s"
 
+          ;; Sounds & music converted from MIDI files:
           .include "AtariToday.s"
-
+          .include "Theme.s"
           .include "Victory.s"
           .include "GameOver.s"
-
-          .if DEMO
-          .include "Theme.s"
-          .fi
+          .include "DepotJingle.s"
 
           .include "EndBank.s"

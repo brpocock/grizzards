@@ -24,10 +24,16 @@
           ModeErasing = $22
           ModeNoAtariVox = $23
           ModeStartGame = $24
+          ModeGrizzardChooser = $25
+          ModeConfirmNewGame = $26
+          ModeEnterName = $27
+          ModeConfirmEraseSlot = $28
+          ModeUnerase = $29
 
           ModeMap = $30
           ModeMapNewRoom = $31
           ModeMapNewRoomDoor = $32
+          ModePotion = $33
 
           ModeCombat = $40
           ModeCombatAnnouncement = $41
@@ -36,10 +42,12 @@
           ModeCombatNextTurn = $45
           ModeLearntMove = $46
           ModeLevelUp = $47
+          ModeCombatDoMove = $48
 
           ModeGrizzardDepot = $50
 
           ModeNewGrizzard = $60
+          ModeGrizzardMetamorphosis = $61
 
           ModeGrizzardStats = $70
 
@@ -52,6 +60,11 @@
           ModeTrainLastMove = $86
           ModeSignpostPoints = $87
           ModeSignpostInquire = $88
+          ModeSignpostPotions = $89
+          ModeSignpostSetTimer = $8a
+          ModeSignpostNext = $8b
+
+          ModeWinnerFireworks = $90
 ;;; 
 ;;; Sounds in the library (index values)
           SoundDrone = 1
@@ -67,6 +80,10 @@
           SoundVictory = 9
           SoundGameOver = 10
           SoundFootstep = 11
+          SoundRoar = 12
+          SoundDepot = 13
+          SoundBlip = 14
+          SoundShipSailing = 15
 ;;; 
 ;;; Status Effects for player or enemies 
           StatusSleep = $01
@@ -76,9 +93,11 @@
           StatusAttackUp = $40
           StatusDefendUp = $80
 ;;; 
+;;; Masks for status effects bits
           MoveEffectsToEnemy = $1f
           MoveEffectsToSelf = $e0
 ;;; 
+;;; Level Up indicators for after a combat
           LevelUpAttack = $01
           LevelUpDefend = $02
           LevelUpMaxHP = $04
@@ -111,18 +130,22 @@
           ;; Must be page-aligned
           ;; Uses the subsequent 12 64-byte blocks
           .if DEMO
-          SaveGameSlotPrefix = $3000
+            SaveGameSlotPrefix = $3000
           .else
-          ;; https://atariage.com/atarivox/atarivox_mem_list.html
-          SaveGameSlotPrefix = $1100
+            .if ATARIAGESAVE
+              SaveGameSlotPrefix = $0000
+            .else
+              ;; https://atariage.com/atarivox/atarivox_mem_list.html
+              SaveGameSlotPrefix = $1100
+            .fi
           .fi
           
           ;; Must be exactly 5 bytes for the driver routines to work
           .enc "ascii"
-          .if ARIA
-          SaveGameSignature = "griz1"
+          .if ATARIAGESAVE
+            SaveGameSignature = "griz1"
           .else
-          SaveGameSignature = "griz0"
+            SaveGameSignature = "griz0"
           .fi
           .enc "none"
 ;;; 
@@ -132,48 +155,73 @@
           SaveKeyBank = $00
           MapServicesBank = $01
           .if DEMO
-          AnimationsBank = $03
+            AnimationsBank = $03
+            CombatServicesBank = $03
+            MonsterBank = $03
+            StretchBank = $03
           .else
-          AnimationsBank = $1f
+            AnimationsBank = $0f
+            CombatServicesBank = $0f
+            MonsterBank = $0e
+            StretchBank = $0d
           .fi
           TextBank = $02
           FailureBank = $01
           Province0MapBank = $04
           .if DEMO
-          FirstProvinceBank = $04
+            Province1MapBank = $ff
+            Province2MapBank = $ff
           .else
-          FirstProvinceBank = $03
-          Province1MapBank = $03
-          Province2MapBank = $05
-          Province3MapBank = $06
+            Province1MapBank = $03
+            Province2MapBank = $05
           .fi
-          .if DEMO
-          CombatBank0To63 = $06
-          CombatBank64To127 = $06 ; not really
-          .else
-          CombatBank0To63 = $16
-          CombatBank64To127 = $17
-          .fi
+          CombatBank0To127 = $06
+          CombatBank128To255 = $06
           SFXBank = $07
-          .if !DEMO
-          MusicBank = $1e
-          .fi
           .if DEMO
-          SignpostBank = $05
-          SignpostBankCount = 1
+            SignpostBank = $05
+            SignpostBankCount = 1
           .else
-          SignpostBank = $08
-          SignpostBankCount = 7
+            SignpostBank = $08
+            SignpostBankCount = 7
           .fi
 
           .if !DEMO
-          FinaleBank = $0f
+            FinaleBank = $0f
           .fi
 ;;; 
-;;; Text bank provides multiple services, selected with .y
+;;; The cold start / save game bank
+
+          ServiceAttract = $1e
+          ServiceChooseGrizzard = $31
+          ServiceWarmStart = $00
+          ServiceConfirmNewGame = $32
+          ServiceLoadGrizzard = $22
+          ServiceLoadProvinceData = $21
+          ServicePeekGrizzard = $12
+          ServicePeekGrizzardXP = $1f
+          ServiceSaveGrizzard = $11
+          ServiceSaveProvinceData = $20
+          ServiceSaveToSlot = $10
+          ServiceSetCurrentGrizzard = $2f
+
+;;; Map services bank
+
+          ServiceBottomOfScreen = $09
+          ServiceGrizzardDefaults = $2e
+          ServiceGrizzardDepot = $07
+          ServiceGrizzardMetamorphoseP = $2c
+          ServiceGrizzardStatsScreen = $19
+          ServiceNewGrizzard = $0c
+          ServiceTopOfScreen = $08
+          ServiceValidateMap = $1d
+
+;;; Text bank
 
           ServiceAppendDecimalAndPrint = $0e
+          ServiceCombatIntro = $1b
           ServiceCombatOutcome = $14
+          ServiceCombatVictory = $1c
           ServiceDecodeAndShowText = $01
           ServiceFetchGrizzardMove = $13
           ServiceLearntMove = $18
@@ -184,53 +232,50 @@
           ServiceShowMove = $06
           ServiceShowMoveDecoded = $17
           ServiceShowText = $02
-          ServiceCombatIntro = $1b
-          ServiceCombatVictory = $1c
 
-;;; Map services bank, same
+;;; Stretch goals bank
 
-          ServiceBottomOfScreen = $09
-          ServiceGrizzardDepot = $07
-          ServiceGrizzardStatsScreen = $19
-          ServiceNewGrizzard = $0c
-          ServiceTopOfScreen = $08
-          ServiceValidateMap = $1d
+          ServiceBeginName = $2a
+          ServiceDrawStarter = $30
+          ServiceRevealBear = $27
+          ServiceShowBossBear = $29
+          ServiceUnerase = $33
+
+;;; Monster art
+
+          ServiceDrawBoss = $35
+          ServiceDrawMonsterGroup = $0b
+          ServiceGetMonsterColors = $38
+          ServicePotion = $37
 
 ;;; Animations services
 
-          ServiceDrawGrizzard = $05
           ServiceAttractStory = $15
+          ServiceConfirmErase = $34
           ServiceDeath = $0d
-          ServiceDrawMonsterGroup = $0b
+          ServiceDrawGrizzard = $05
+          ServiceFinalScore = $36
           ServiceFireworks = $0a
-          ServiceWrite12Chars = $23
           ServiceInquire = $24
+          ServiceWrite12Chars = $23
+          ServiceGrizzardMetamorphosis = $2d
 
-;;; Also the cold start / save game bank
+;;; Combat services (stuffed into same bank as animation)
 
-          ServiceColdStart = $00
-          ServicePeekGrizzard = $12
-          ServiceSaveGrizzard = $11
-          ServiceSaveToSlot = $10
-          ServiceAttract = $1e
-          ServiceSaveProvinceData = $20
-          ServiceLoadProvinceData = $21
-          ServiceLoadGrizzard = $22
+          ServiceCombatVBlank = $2b
+
 ;;; 
 ;;; Maximum number of Grizzards allowed
 ;;; The save/load routines should handle up to 36
-
           NumGrizzards = 30
 ;;; 
 ;;; Screen boundaries for popping to the next screen
-
           ScreenLeftEdge = $30
-          ScreenRightEdge = $c8
+          ScreenRightEdge = $c9
           ScreenTopEdge = 8
           ScreenBottomEdge = 75
 ;;; 
 ;;; Localization
-
           LangEng = $0e
           LangSpa = $05
           LangFra = $0f
@@ -241,9 +286,8 @@
           MonsterColorIndex = 10
           MonsterAttackIndex = 11
           MonsterDefendIndex = 12
-          MonsterHPIndex = 13
+          EnemyHPIndex = 13
           MonsterPointsIndex = 14 ; two bytes, low byte, high byte order
-
 ;;; 
 ;;; MapFlags values
           MapFlagRandomSpawn = $04
@@ -252,6 +296,7 @@
           MapFlagSprite1Moved = $20
           MapFlagSprite2Moved = $40
           MapFlagSprite3Moved = $80
+          MapFlagAnySpriteMoved = $f0
 ;;; 
 ;;; Monster art types
           Monster_Bunny = 0
@@ -261,8 +306,8 @@
           Monster_Fox = 4
           Monster_Cat = 5
           Monster_Dog = 6
-          Monster_Bear = 7
-          Monster_Mouse = 8
+          Monster_Spider = 7
+          Monster_Radish = 8
           Monster_Firefox = 9
           Monster_TwoLegs = 10
           Monster_Mutant = 11
@@ -270,12 +315,30 @@
           Monster_Butterfly = 13
           Monster_SlimeSmall = 14
           Monster_Serpent = 15
-          Monster_Bird = 16
+          Monster_Minotaur = 16
           Monster_Crab = 17
-          Monster_Raptor = 18
+          Monster_Bird = 18
           Monster_Human = 19
           Monster_Bat = 20
-          Monster_Eagle = 21
+          Monster_Skull = 21
           Monster_Dragon = 22
           Monster_SlimeBig = 23
           Monster_Cyclops = 24
+;;; 
+;;; Game tunable
+          GrizzardMetamorphosisXP = 27
+;;; 
+;;; Gamepad buttons
+          ButtonI = $80
+          ButtonB = ButtonI
+          ButtonFire = ButtonI
+
+          ButtonII = $40
+          ButtonC = ButtonII
+
+          ButtonIII = $20
+;;; 
+          SystemFlag7800 = $10
+          SystemFlagP1Gamepad = $20   ; not actually used in Grizzards
+          SystemFlagP0Gamepad = $40
+          SystemFlagPaused = $80      ; must be the high bit

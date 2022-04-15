@@ -8,20 +8,23 @@ Attract:  .block
 
           .WaitScreenTop
 
-          ldx #$80
+          ;; DO NOT clear location $80 itself
+          ;; It is SystemFlags.
+          ldx #$7f
           lda #0
 ZeroRAM:
           sta $80, x
           dex
           bne ZeroRAM
 
+          .SetUtterance Phrase_Reset
+
 WarmStart:
           ldx #$ff
           txs
           jsr SeedRandom
 
-          lda # SoundAtariToday
-          sta NextSound
+          .mva NextSound, #SoundAtariToday
 
           .if PUBLISHER
             lda #ModePublisherPresents
@@ -30,39 +33,37 @@ WarmStart:
           .fi
           sta GameMode
 
-          .if STARTER == 1
-          lda #$80
-          sta PlayerYFraction
-          .fi
+          .mva PlayerYFraction, #$80   ; what is this being used for??
 
-          lda # CTRLPFREF
-          sta CTRLPF
+          .mva CTRLPF, #CTRLPFREF
 
-          lda # 4
-          sta DeltaY
-          lda # 8
-          sta AlarmCountdown
+          .mva DeltaY, # 4            ; what is this being used for??
+          .mva AlarmCountdown, # 8
 ;;; 
 Loop:
           .WaitScreenBottom
           .WaitScreenTop
 
+          ldy # 0
+          sty GRP0
+          sty GRP1
+
           lda GameMode
           cmp #ModeAttractStory
           beq StoryMode
 
-          .if TV == NTSC
-          .SkipLines 4
-          .fi
           jsr Prepare48pxMobBlob
 
           lda GameMode
           cmp #ModeAttractTitle
           beq TitleMode
+
           cmp #ModeAttractCopyright
           beq CopyrightMode
+  
           cmp #ModeCreditSecret
           beq Credits
+
           .if PUBLISHER
             cmp #ModePublisherPresents
             beq Preamble.PublisherPresentsMode
@@ -77,8 +78,10 @@ StoryMode:
           lda GameMode
           cmp #ModeAttractStory
           beq Loop
+
           cmp #ModeAttractTitle
           beq Loop
+
           jmp Leave
 ;;; 
 TitleMode:
@@ -86,230 +89,60 @@ TitleMode:
           cmp #<Phrase_TitleIntro
           beq DoneTitleSpeech
 
-          lda #>Phrase_TitleIntro
-          sta CurrentUtterance + 1
-          lda #<Phrase_TitleIntro
-          sta CurrentUtterance
+          .SetUtterance Phrase_TitleIntro
           sta AttractHasSpoken
 DoneTitleSpeech:
-          .ldacolu COLINDIGO, $a
+          .if TV == SECAM
+            lda #COLWHITE
+          .else
+            .ldacolu COLINDIGO, $a
+          .fi
           sta COLUP0
           sta COLUP1
 
-          .ldacolu COLTURQUOISE, $e
+          .SetSkyColor
           stx WSYNC
           sta COLUBK
 
           .SetUpFortyEight Title1
-          ldy #Title1.Height
-          sty LineCounter
           jsr ShowPicture
 
-          .switch STARTER
-
-          .case 0               ; Dirtex
-
-          .SkipLines 20
-          .ldacolu COLORANGE, $a
-          sta COLUBK
-          .SkipLines 10
-
-          .case 1               ; Aquax
-
-          .SkipLines 30
-          .ldacolu COLSPRINGGREEN, $4
-          sta COLUBK
-
-          .case 2               ; Airex
-
-          .SkipLines 20
-          .ldacolu COLGREEN, $4
-          sta COLUBK
-          .ldacolu COLTURQUOISE, $e
-          sta COLUPF
-
-          lda #$ff
-          sta PF0
-          lda #$f0
-          sta PF1
-          .SkipLines 6
-
-          ;; lda #$d5
-          ;; sta PF1
-          ;; .SkipLines 4
-
-          lda #$aa
-          sta PF0
-          lda #$88
-          sta PF1
-          .SkipLines 6
-
-          lda # 0
-          sta PF0
-          sta PF1
-          sta PF2
-
-          .endswitch
-
-          .SkipLines 12
-
-          .switch STARTER
-          .case 0
-          .ldacolu COLGREEN, $e
-          .case 1
-          .ldacolu COLBROWN, $6
-          .case 2
-          .if TV == SECAM
-          lda #COLBLUE
+          .if DEMO
+            .mva CurrentGrizzard, # 1 ; Aquax
+            jsr DrawStarter
           .else
-          .ldacolu COLTEAL, $e
+            .FarJSR StretchBank, ServiceDrawStarter
           .fi
-          .default
-          .error "STARTER ∈ (0 1 2), ¬ ", STARTER
-          .endswitch
-
-          sta COLUP0
-          sta COLUP1
-
-          stx WSYNC             ; just for line count
-
-          lda ClockFrame
-          .BitBit $20
-          beq DrawTitle3
-
-          .SetUpFortyEight Title2
-          ldy #Title2.Height
-          sty LineCounter
-          jsr ShowPicture
-
-          jmp PrepareFillAttractBottom
-
-DrawTitle3:
-          .SetUpFortyEight Title3
-          ldy #Title3.Height
-          sty LineCounter
-          jsr ShowPicture
-
-          ldy # 0
-          sty PF2
-
-PrepareFillAttractBottom:
-
-          .switch STARTER
-
-          .case 1               ; Aquax
-
-          jsr Random
-          and # 7
-          bne +
-
-          jsr Random
-          and # 1
-          sta PlayerXFraction
-+
-          lda PlayerXFraction
-          beq +
-          inc PlayerYFraction
-          jmp SetWaveLevel
-+
-          dec PlayerYFraction
-SetWaveLevel:
-          lda PlayerYFraction
-          lsr a
-          clc
-          lsr a
-          clc
-          lsr a
-          lsr a
-          tax
-          and #$1f
-          inx
--
-          stx WSYNC
-          dex
-          bne -
-
-          .ldacolu COLBLUE, $e
-          sta COLUBK
-          stx WSYNC
-          .ldacolu COLGRAY, $e
-          sta COLUBK
-          stx WSYNC
-          .ldacolu COLBLUE, $e
-          sta COLUBK
-          stx WSYNC
-          .ldacolu COLBLUE, $8
-          sta COLUBK
-
-          .case 2               ; Airex
-
-          .ldacolu COLBROWN, $4
-          sta COLUBK
-          .SkipLines 10
-
-          lda # NUSIZQuad
-          sta NUSIZ0
-          sta NUSIZ1
-          .ldacolu COLBROWN, $4
-          sta COLUP0
-          sta COLUP1
-
-          stx WSYNC
-          .SleepX $18
-          sta RESP0
-          nop
-          nop
-          nop
-          nop
-          sta RESP1
-
-          stx WSYNC
-          .ldacolu COLTURQUOISE, $e
-          sta COLUBK
-
-          lda #$ff
-          sta GRP0
-          sta GRP1
-
-          .endswitch
 
           lda AlarmCountdown
           bne DoneKernel
 
-          lda # 16
-          sta AlarmCountdown
-          lda #ModeAttractCopyright
-          sta GameMode
-          ;; fall through
+          .mva AlarmCountdown, # 16
+          .mva GameMode, #ModeAttractCopyright
 ;;; 
 DoneKernel:
           lda NewSWCHB
-          beq +
+          beq DoneSelect
+
           and #SWCHBSelect
           beq Leave
-+
+
+DoneSelect:
           lda NewButtons
-          beq +
-          and #PRESSED
+          beq DoneButtons
+
+          and #ButtonI
           beq Leave
-+
 
-          .if STARTER == 2
-          lda # 0
-          sta GRP0
-          sta GRP1
-          .fi
-
+DoneButtons:
           jmp Loop
 
 Leave:
-          lda #ModeSelectSlot
-          sta GameMode
-          .WaitScreenBottom
+          .mva GameMode, #ModeSelectSlot
           .if NOSAVE
-          jmp BeginOrResume
+            jmp BeginOrResume
           .else
-          jmp SelectSlot
+            jmp SelectSlot
           .fi
 ;;; 
           .bend

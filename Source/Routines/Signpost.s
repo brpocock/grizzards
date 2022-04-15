@@ -197,9 +197,11 @@ DoneDrawing:
 
           lda AlarmCountdown      ; require 1-2s to tick before accepting button press; see #140
           bne NoButton
+
           lda NewButtons
           beq NoButton
-          .BitBit PRESSED
+
+          and #ButtonI
           bne NoButton
 
 GetNextMode:
@@ -208,6 +210,14 @@ GetNextMode:
           sta GameMode
 
 NoButton:
+          lda NewSWCHB
+          beq NoSwitches
+          and #SWCHBReset
+          bne NoSwitches
+
+          ;; TODO reset the game
+
+NoSwitches:
           lda GameMode
           cmp #ModeSignpost
           bne Leave
@@ -251,18 +261,6 @@ NotSet0And63:
           bne NotClearFlag
 
 ClearFlag:
-          sed
-          lda Score
-          clc
-          adc #$04
-          sta Score
-          lda Score + 1
-          adc # 0
-          sta Score + 1
-          bcc +
-          inc Score + 2
-+
-          cld
           ldy # (9 * 5) + 1
           lda (SignpostText), y
           sta Temp
@@ -280,10 +278,15 @@ ProvinceChange:
           txs
           .if NTSC == TV
             .SkipLines KernelLines - 179
+            jsr Overscan
           .else
-            .SkipLines KernelLines - 177
+            ldx INTIM
+            dex
+            stx TIM64T
+            .WaitScreenBottom
           .fi
-          jsr Overscan
+          lda #SoundShipSailing
+          sta NextSound
           .FarJSR SaveKeyBank, ServiceSaveProvinceData
           .WaitScreenTopMinus 1, 0
 
@@ -298,24 +301,15 @@ ProvinceChange:
           
           .FarJSR SaveKeyBank, ServiceLoadProvinceData
           .WaitScreenBottom
+          .if TV != NTSC
+          .SkipLines 2
+          .fi
           jmp GoMap
 
 NotWarp:
           cmp #ModeSignpostSetFlag
           bne NotSetFlag
 SetFlag:
-          sed
-          lda Score
-          clc
-          adc #$03
-          sta Score
-          lda Score + 1
-          adc # 0
-          sta Score + 1
-          bcc +
-          inc Score + 2
-+
-          cld
           ldy # (9 * 5) + 1
           lda (SignpostText), y
           sta Temp
@@ -323,6 +317,21 @@ SetFlag:
           jmp ByeBye
 
 NotSetFlag:
+          cmp #ModeSignpostPotions
+          bne NotPotions
+GetPotions:
+          ldy # (9 * 5) + 1
+          lda (SignpostText), y
+          adc Potions
+          sta Potions
+
+          lda #SoundVictory
+          sta NextSound
+
+          .Add16 SignpostText, # 2
+          jmp GetNextMode
+
+NotPotions:
           cmp #ModeSignpostPoints
           bne NotPoints
 GetPoints:
@@ -340,8 +349,6 @@ GetPoints:
           inc Score + 2
 +
           cld
-          lda # SoundVictory
-          sta NextSound
           lda SignpostText
           clc
           .Add16 SignpostText, # 3
@@ -373,6 +380,28 @@ Inquire:
           .FarJMP AnimationsBank, ServiceInquire
 
 NotInquire:
+          cmp #ModeWinnerFireworks
+          bne NotFireworks
+
+          sta GameMode
+          .if BANK == $0c
+          jmp WinnerFireworks
+          .else
+          brk
+          .fi
+
+NotFireworks:
+          cmp #ModeSignpostNext
+          bne NotNext
+
+          ldy # (9 * 5) + 1
+          lda (SignpostText), y
+          sta SignpostIndex
+
+          lda #ModeSignpost
+          sta GameMode
+
+NotNext:
           cmp #ModeSignpostDone
           beq ByeBye
 

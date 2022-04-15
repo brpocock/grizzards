@@ -1,6 +1,7 @@
 ;;; Grizzards Source/Routines/ShowMonsterName.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
-ShowMonsterName:    
+
+ShowMonsterName:    .block
           lda CurrentMonsterPointer
           sta Pointer
           lda CurrentMonsterPointer + 1
@@ -13,3 +14,7 @@ ShowMonsterName:
           ldy # 4
           .UnpackRight (CurrentMonsterPointer)
           .FarJMP TextBank, ServiceDecodeAndShowText ; tail call
+
+          .bend
+
+;;; Audited 2022-02-16 BRPocock

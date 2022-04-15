@@ -97,11 +97,15 @@ EvilEye:
           .byte StatusMuddle
 ClawsOut:
           .byte StatusDefendDown
+DeadlySwoop:
           .byte 0
+Shove:
           .byte 0
+Slash:
           .byte 0
           ;; 48
-          .byte 0
+VampyBite:
+          .byte StatusSleep
           .byte 0
           .byte 0
           .byte 0
@@ -128,17 +132,17 @@ MoveDeltaHP:        .block
 RunAway:
           .byte $ff             ; RUN AWAY has fake value to indicate there's no target
 KickDirt:
-          .byte 1
-SplishSplash:
-          .byte 1
-MildShock:
-          .byte 1
-HotSpark:
           .byte 2
+SplishSplash:
+          .byte 2
+MildShock:
+          .byte 2
+HotSpark:
+          .byte 4
 BuryDeep:
           .byte 0
 DirtyFoot:
-          .byte 5
+          .byte 6
 LoamyFear:
           .byte 0
           ;; 8
@@ -149,11 +153,11 @@ RaiseHope:
 SureSplash:
           .byte $ff
 QuickFoot:
-          .byte 5
+          .byte 6
 GreatMojo:
-          .byte 5
+          .byte 8
 WindFight:
-          .byte 0
+          .byte 6
 StealAttack:
           .byte 0
 StealDefend:
@@ -164,24 +168,28 @@ StealTurn:
 FireStart:
           .byte $ff
 BurntEdges:
-          .byte 5
+          .byte 8
 RogueFlare:
-          .byte 10
+          .byte 12
+          ;; 20
 DoubleFlares:
-          .byte 15
+          .byte 18
 TailWhip:
-          .byte 5
-TailLash:
           .byte 10
+TailLash:
+          .byte 14
 Bite:
-          .byte 15
+          .byte 16
           ;; 24
 PoisonBite:
-          .byte 25
+          .byte 24
+          ;; 25
 CruelStab:
-          .byte 25
+          .byte 22
+          ;; 26
 BlindBlob:
           .byte 0
+          ;; 27
 SlimyTrick:
           .byte 0
 GuardDown:
@@ -204,42 +212,63 @@ Nibble:
 MuddleMind:
           .byte 0
 GreatMuddle:
-          .byte 0
+          .byte 8
 ScareAway:
           .byte 0
 WetNoodle:
-          .byte 0
+          .byte 12
           ;; 40
 StompDown:
-          .byte 19
+          .byte 20
 Crush:
-          .byte 27
+          .byte 26
 FireyBreath:
-          .byte 39
+          .byte 30
 EvilEye:
-          .byte 33
+          .byte 28
 ClawsOut:
-          .byte 12
-          .byte 0
-          .byte 0
-          .byte 0
+          .byte 14
+DeadlySwoop:
+          .byte 10
+Shove:
+          .byte 8
+Slash:
+          .byte 18
           ;; 48
-          .byte 0
-          .byte 0
-          .byte 0
-          .byte 0
-          .byte 0
-          .byte 0
-          .byte 0
-          .byte 0
+VampyBite:
+          .byte 14
+          ;; 49
+HeartyThump:
+          .byte 16
+          ;; 50
+HardJab:
+          .byte 16
+          ;; 51
+ClawBadly:
+          .byte 20
+          ;; 52
+          .byte 22
+          ;; 53
+          .byte 24
+          ;; 54
+          .byte 26
+          ;; 55
+          .byte 28
           ;; 56
-          .byte 0
-          .byte 0
-          .byte 0
-          .byte 0
-          .byte 0
-          .byte 0
-          .byte 0
+          .byte 30
+          ;; 57
+          .byte 28
+          ;; 58
+          .byte 30
+          ;; 59
+          .byte 12
+          ;; 60
+          .byte 16
+          ;; 61
+          .byte 22
+          ;; 62
+          .byte 26
+          ;; 63
 MegaKill:
           .byte 50
           ;; ↑ 63

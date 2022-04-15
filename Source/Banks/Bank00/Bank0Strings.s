@@ -8,6 +8,8 @@ BeginText:
           .MiniText "BEGIN "
 VacantText:
           .MiniText "VACANT"
+ErasedText:
+          .MiniText "ERASED"
 ResumeText:
           .MiniText "RESUME"
 InUseText:
@@ -32,3 +34,12 @@ ZephyrText:
 
 DatestampText:
           .SignText format(" %04d-%02d-%02d ", YEARNOW, MONTHNOW, DATENOW)
+
+AquaxText:
+          .MiniText "AQUAX "
+AirexText:
+          .MiniText "AIREX "
+DirtexText:
+          .MiniText "DIRTEX"
+ChangeText:
+          .MiniText "CHANGE"

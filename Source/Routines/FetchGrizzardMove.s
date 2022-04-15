@@ -2,21 +2,24 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
           ;; Call with MoveSelection set to the move index within the set of moves for this Grizzard
+          ;; Returns the move's ID amongst all possible moves in Temp
 FetchGrizzardMove:
           ldx MoveSelection
           beq FetchedRunAway
+
           dex
           stx Temp
           lda CurrentGrizzard
           asl a
           asl a
           asl a
-          clc
+          ;; clc                   ; already clear per asl a, CurrentGrizzard < 30
           adc Temp
           tax
           lda GrizzardMoves, x
-          sta Temp
-          rts
+          tax
 FetchedRunAway:
           stx Temp
           rts
+
+;;; Audited 2022-02-16 BRPocock

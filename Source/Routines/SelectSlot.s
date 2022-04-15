@@ -1,58 +1,49 @@
 ;;; Grizzards Source/Routines/SelectSlot.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
-SelectSlot:        .block
-          ;;
           ;; Select a save game slot
-          ;;
-
-          jsr VSync
+SelectSlot:        .block
+          .mva AlarmCountdown, # 120
 
           .KillMusic
           jsr Prepare48pxMobBlob
 
-          lda #SoundChirp
-          sta NextSound
+          .mva NextSound, #SoundChirp
+          .SetUtterance Phrase_SelectSlot
 
-          lda #>Phrase_SelectSlot
-          sta CurrentUtterance + 1
-          lda #<Phrase_SelectSlot
-          sta CurrentUtterance
-
-          lda # 0
-          sta SelectJatibuProgress
-
-          .if TV == NTSC
-          .TimeLines KernelLines * 2/3 - 2
-          .else
-          .SkipLines 1
-          .TimeLines KernelLines / 2 - 3
-          .fi
-
-          jmp LoopFirst
+          .mvy SaveSlotChecked, #$ff
+          iny                   ; Y = 0
+          sty SelectJatibuProgress
 ;;; 
 Loop:
-          .WaitForTimer
-          jsr Overscan
-          jsr VSync
-          .if TV == NTSC
-          .SkipLines 2
-          .TimeLines KernelLines * 2/3 - 1
-          .else
-          .SkipLines 1
-          .TimeLines KernelLines / 2 - 1
-          .fi
-LoopFirst:
+          .WaitScreenBottom
+          .WaitScreenTop
 
           lda GameMode
           cmp #ModeSelectSlot
           beq NoErase
 
+Erase:
+          .ldacolu COLGOLD, $0
+          sta COLUBK
           .ldacolu COLRED, $8
           sta COLUP0
           sta COLUP1
-          .ldacolu COLGOLD, $0
-          sta COLUBK
+
+          .if !DEMO
+          
+            lda SaveSlotBusy
+            bne ReallyErase
+
+            lda SaveSlotErased
+            beq ReallyErase
+
+            .SetPointer ResumeText
+            gne StartPicture
+
+          .fi
+
+ReallyErase:
           .SetPointer EraseText
           gne StartPicture
 
@@ -63,11 +54,8 @@ NoErase:
           sta COLUP0
           sta COLUP1
           .SetPointer SelectText
-
 StartPicture:
-
           .SkipLines 16
-
 Slot:
           jsr ShowPointerText
 
@@ -77,33 +65,31 @@ Slot:
           lda #ModeErasing
           cmp GameMode
           bne DoNotDestroy
+
+DestroyNow:
           jsr EraseSlotSignature
-          lda #ModeSelectSlot
-          sta GameMode
-          gne MidScreen
+
+          .mva GameMode, #ModeSelectSlot
+          .mva SaveSlotChecked, #$ff
+          gne Loop
 
 DoNotDestroy:
           ;; See if the slot is in use
           ;; by checking for the signature bytes
+          lda SaveSlotChecked
+          cmp SaveGameSlot
+          beq MidScreen
 
+NeedToCheck:
           jsr CheckSaveSlot
-          ;; carry is SET if the slot is EMPTY
-          bcc +
-          ldy # 0               ; slot empty
-          geq MidScreen
-+
-          ldy # 1               ; slot busy
+
+Checked:
+          .mva SaveSlotChecked, SaveGameSlot
+          jmp Loop
 
 MidScreen:
-          .WaitForTimer
-          .if TV == NTSC
-          .SkipLines 2
-          .TimeLines KernelLines / 3 - 2
-          .else
-          .TimeLines KernelLines / 2 - 1
-          .fi
-
-          cpy # 0
+          .SkipLines KernelLines / 4
+          ldy SaveSlotBusy
           bne ShowResume
 
           lda GameMode
@@ -114,6 +100,13 @@ MidScreen:
           gne ShowSaveSlot
 
 ShowVacant:
+          lda SaveSlotErased
+          beq ReallyVacant
+
+          .SetPointer ErasedText
+          jmp ShowSlotName
+
+ReallyVacant:
           .SetPointer VacantText
           gne ShowSaveSlot
 
@@ -121,46 +114,71 @@ ShowResume:
           lda GameMode
           cmp #ModeSelectSlot
           bne ShowActive
+
+          bit Potions
+          bpl +
+          .ldacolu COLYELLOW, $e
+          sta COLUP0
+          sta COLUP1
++
           .SetPointer ResumeText
-          bne ShowSaveSlot
+          jmp ShowSlotName
 
 ShowActive:
           .SetPointer InUseText
 
+ShowSlotName:
+          jsr ShowPointerText
+
+          ldx # 6
+-
+          lda NameEntryBuffer - 1, x
+          sta StringBuffer - 1, x
+          dex
+          bne -
+
+          .FarJSR TextBank, ServiceDecodeAndShowText
+
+          jmp ShowSlotNumbered
+
 ShowSaveSlot:
           jsr ShowPointerText
 
+ShowSlotNumbered:
           .SetPointer SlotOneText
           jsr CopyPointerText
 
           ldx SaveGameSlot
           inx
           stx StringBuffer + 5
-
 ShowSlot:
           .FarJSR TextBank, ServiceDecodeAndShowText
-
 ;;; 
           lda NewSWCHB
-          beq SkipSwitches
+          beq DoneSwitches
+
           .BitBit SWCHBReset
           beq SlotOK
 
-          .BitBit SWCHBSelect
+          and #SWCHBSelect
           beq SwitchSelectSlot
-SkipSwitches:
+DoneSwitches:
 
           .FarJSR 1, $fe
+
           cpy # 0
-          beq SkipStick
+          beq StickDone
+
           lda NewSWCHA
-          beq SkipStick
+          beq StickDone
+
           .BitBit P0StickLeft
           beq SwitchMinusSlot
-          .BitBit P0StickRight
+
+          and #P0StickRight
           beq SwitchSelectSlot
 
-SkipStick:
+StickDone:
 
           lda GameMode
           cmp #ModeEraseSlot
@@ -172,107 +190,127 @@ SkipStick:
           and # SWCHBP0Advanced | SWCHBP1Advanced
           cmp # SWCHBP0Advanced | SWCHBP1Advanced
           bne ThisIsNotAStickUp
+
           ;; — pull Down on joystick
           lda SWCHA
-          .BitBit P0StickDown
+          and #P0StickDown
           bne ThisIsNotAStickUp
+
           ;; — hold Fire button
-          lda INPT4
-          .BitBit PRESSED
-          bne ThisIsNotAStickUp
+          bit INPT4
+          bmi ThisIsNotAStickUp
 
-          lda #>Phrase_EraseSlot
-          sta CurrentUtterance + 1
-          lda #<Phrase_EraseSlot
-          sta CurrentUtterance
+          .SetUtterance Phrase_EraseSlot
 
-          lda #ModeEraseSlot
-          sta GameMode
+          .mva GameMode, #ModeEraseSlot
           jmp Loop
 ;;; 
 EliminationMode:
           ;; Release button to exit Elimination Mode
-          lda INPT4
-          .BitBit PRESSED
-          bne ThisIsNotAStickUp
+          bit INPT4
+          bmi ThisIsNotAStickUp
 
           ;; Push stick Up to erase the selected slot
           lda SWCHA
-          .BitBit P0StickUp
+          and #P0StickUp
           beq EraseSlotNow
-          jmp Loop
+
+          gne Loop
 
 EraseSlotNow:
-          lda #SoundDeleted
-          sta NextSound
+          .if DEMO
 
-          lda #ModeErasing
-          sta GameMode
-          jmp Loop
+            .mva NextSound, #SoundDeleted
+            .mva GameMode, #ModeErasing
+            jmp Loop
+          
+          .else
+
+            lda SaveSlotBusy
+            bne DoEraseSlot
+
+            lda SaveSlotErased
+            bne DoResumeSlot
+
+            .mva NextSound, #SoundBump
+            jmp Loop
+
+DoEraseSlot:
+            .FarJSR AnimationsBank, ServiceConfirmErase
+
+            jmp Loop
+
+DoResumeSlot:
+            jsr Unerase
+            jmp Loop
+          
+          .fi
 
 ThisIsNotAStickUp:
-          lda #ModeSelectSlot
-          sta GameMode
+          .mva GameMode, #ModeSelectSlot
 
+          lda AlarmCountdown
+          bne StillGotTime
+
+          .WaitScreenBottom
+          jmp Attract
+
+StillGotTime:
           lda NewButtons
-          beq SkipButton
+          beq DoneButtons
+
           .BitBit PRESSED
           beq SlotOK
-SkipButton:
 
+DoneButtons:
           jmp Loop
 ;;; 
 SwitchMinusSlot:
           dec SaveGameSlot
           bpl GoBack
-          lda # 2
-          sta SaveGameSlot
+
+          .if ATARIAGESAVE
+            .mva SaveGameSlot, # 7
+          .else
+            .mva SaveGameSlot, # 2
+          .fi
           gne GoBack
 
 SwitchSelectSlot:
           inc SaveGameSlot
           lda SaveGameSlot
-          .if ARIA
-          cmp # 4
+          .if ATARIAGESAVE
+            cmp # 8
           .else
-          cmp # 3
+            cmp # 3
           .fi
           blt GoBack
-          lda #0
-          sta SaveGameSlot
+
+          .mva SaveGameSlot, #0
 GoBack:
-          lda #SoundChirp
-          sta NextSound
+          .mva NextSound, #SoundChirp
 
           jmp Loop
 ;;; 
 SlotOK:
-          .WaitForTimer
-          jsr Overscan
+          .WaitScreenBottom
           .WaitScreenTopMinus 2, 0
-          lda #SoundHappy
-          sta NextSound
 
-          jsr CheckSaveSlot
-          ;; carry is SET if the slot is EMPTY
-          bcc +
-          ldy # 0               ; slot empty
-          geq FinishScreenAndProceed
-+
-          ldy # 1               ; slot busy
+          lda SaveSlotBusy
+          beq GoNewGame
 
 FinishScreenAndProceed:
-          sty Temp
-          ldy Temp
-          bne LoadSaveSlot      ; located immediately after this in memory
+          ldy # 1
+          gne LoadSaveSlot      ; located immediately after this in memory
                                 ; (so, reachable by branch)
 
+GoNewGame:
           .WaitScreenBottom
           .if TV != NTSC
-          stx WSYNC
+            stx WSYNC
           .fi
           .FarJMP MapServicesBank, ServiceNewGame
-
 ;;;
-
           .bend
+
+;;; audited 2022-02-16 BRPocock

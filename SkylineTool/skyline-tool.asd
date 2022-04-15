@@ -13,6 +13,8 @@
                :alexandria
                :bordeaux-threads
                :cl-6502
+               :cl-base64
+               :cl-change-case
                :cl-ppcre 
                ;; :clim-listener
                ;; :clim-debugger
@@ -20,6 +22,7 @@
                ;; :clouseau
                :cserial-port
                ;; :mcclim
+               :lparallel
                :midi
                :parse-number
                :png-read

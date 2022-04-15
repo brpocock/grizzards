@@ -5,11 +5,11 @@
 
           FirstSignpost = 23
 
-          Signs = ( NPC_ReturnPendant, NPC_HaveKey, NPC_LostChild, NPC_IAmLost, NPC_ReturnChild, NPC_ChildReward, Sign_Labyrinth, Sign_KeyFred, Sign_KeyAndrew, Sign_KeyTimmy, NPC_TrainEm, NPC_Gary1, NPC_GaryBad, NPC_Slacker, NPC_LastMove, NPC_GaryMirror, NPC_GaryVindicated, NPC_Fishing, NPC_FoundRing, NPC_TrebleRefugee, NPC_HowLong, NPC_FatTony, NPC_WelcomePortLion, NPC_LookUpCliff )
+          Signs = ( NPC_ReturnPendant, NPC_HaveKey, NPC_LostChild, NPC_IAmLost, NPC_ReturnChild, NPC_ChildReward, Sign_Labyrinth, Sign_KeyFred, Sign_KeyAndrew, Sign_KeyTimmy, NPC_TrainEm, NPC_Gary1, NPC_GaryBad, NPC_Slacker, NPC_LastMove, NPC_GaryMirror, NPC_GaryVindicated, NPC_Fishing, NPC_FoundRing, NPC_TrebleRefugee, NPC_HowLong, NPC_FatTony, NPC_WelcomePortLion, NPC_LookUpCliff, NPC_Hellmouth )
 
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
-
+          
 ;;; 23
 NPC_ReturnPendant:
           .colu COLINDIGO, 0
@@ -20,7 +20,7 @@ NPC_ReturnPendant:
           .SignText "CAN HAVE    "
           .SignText "THIS KEY.   "
           .byte ModeSignpostClearFlag, 63
-          
+
 ;;; 24
 NPC_HaveKey:
           .colu COLINDIGO, 0
@@ -75,7 +75,7 @@ NPC_ChildReward:
           .SignText "THANK YOU   "
           .SignText "FOR SAVING  "
           .SignText "PETER. HAVE "
-          .SignText "THIS -FIXME-"
+          .SignText "THIS COOKIE "
           .SignText "AS A REWARD."
           .byte ModeSignpostSetFlag, 2
 
@@ -283,3 +283,16 @@ NPC_LookUpCliff:
           .SignText "TALL THE    "
           .SignText "CLIFFS ARE! "
           .byte ModeSignpostDone
+
+;;; 47
+NPC_Hellmouth:
+          .colu COLINDIGO, $f
+          .colu COLTURQUOISE, 2
+          .byte $ff, 12, 57     ; need ring
+          .SignText "IT'S ME, FAT"
+          .SignText "TONY. IN AN "
+          .SignText "OLD STORY,  "
+          .SignText "THIS WAS THE"
+          .SignText "ROAD TO HELL"
+          .byte ModeSignpostDone
+

@@ -1,0 +1,18 @@
+#!/usr/bin/bash
+
+srcpath="Source/Banks Source/Routines"
+withtext="-o -name \*.txt"
+while getopts "a" opt; do
+    case $opt in
+        a)
+            srcpath="$srcpath Source/Generated"
+            withtext=""
+            make -j all > /dev/null 2>&1
+            ;;
+    esac
+done
+
+    wc -l Makefile $(echo bin/* | grep -v ~ | grep -v skyline-tool | grep -v buildapp) \
+       $(find $srcpath -type f -a -not -name \*~ \
+              -a -name \*.s -o -name \*.tex -o -name \*.lisp $withtext -o -name Makefile | \
+             sort)

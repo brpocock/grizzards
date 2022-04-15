@@ -7,28 +7,29 @@ DetectGenesis:      .block
           ;; their levels after a frame
 
           .WaitScreenTop
-          lda # VBlankGroundINPT0123
-          sta VBLANK
+          .mva VBLANK, # VBlankGroundINPT0123
           .WaitScreenBottom
           .WaitScreenTop
 
-          ldy #0
           lda INPT0
-          bpl +
-          lda INPT1
-          bpl +
+          bpl NotGenesis
 
-          lda SWCHB
-          ora #SWCHBP0Genesis
-          sta SWCHB
-          jmp GotGenesis
-+
-          lda SWCHB
-          and #~SWCHBP0Genesis
-          sta SWCHB
-GotGenesis:
+          lda INPT1
+          bpl NotGenesis
+
+          lda SystemFlags
+          ora #SystemFlagP0Gamepad
+          gne DoneGenesis
+
+NotGenesis:
+          lda SystemFlags
+          and #~SystemFlagP0Gamepad
+DoneGenesis:
+          sta SystemFlags
 
           .WaitScreenBottom
 
           ;; falls through to Attract.s
           .bend
+
+;;; Audited 2022-02-16 BRPocock

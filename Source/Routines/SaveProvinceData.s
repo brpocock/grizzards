@@ -23,12 +23,15 @@ WriteProvinceData:
 -
           lda ProvinceFlags, x
           jsr i2cTxByte
+
           inx
           cpx # 8             ; 4 provinces × 8 bytes of flags each
           bne -
 
           jsr i2cStopWrite
-          .WaitScreenBottom
-          rts
+
+          .WaitScreenBottomTail
 
           .bend
+
+;;; Audited 2022-02-16 BRPocock

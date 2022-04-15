@@ -1,16 +1,17 @@
-;;; Macros.s
-;;;
-;;; Copyright © 2016,2017,2020,2021,2022 Bruce-Robert Pocock (brpocock@star-hope.org)
+;;; Grizzards Source/Common/Macros.s
+;;; Copyright © 2016,2017,2020-2022 Bruce-Robert Pocock (brpocock@star-hope.org)
 ;;;
 ;;;
 Sleep:    .macro Cycles
+
           .if \Cycles < 0
           .error "Can't sleep back-in-time for ", \Cycles, " cycles"
           .else
           .switch \Cycles
-        
+
           .case 0
-        
+          ;; sleep 0 = nothing
+
           .case 1
           .error "Cannot sleep 1 cycle (must be 2+)"
 
@@ -38,6 +39,7 @@ Sleep:    .macro Cycles
           .case 8
           dec $2d
           nop $ea
+
           .case 9
           dec $2d
           nop
@@ -56,17 +58,17 @@ Sleep:    .macro Cycles
           .fi
           .endm
 
-        ;; Alternate sleep macro, which will use .x as a
-        ;; countdown register. Exits with .x = 0
+          ;; Alternate sleep macro, which will use .x as a
+          ;; countdown register. Exits with .x = 0
 SleepX: .macro Cycles
           .block
-        
+
           .if \Cycles < 10
           .Sleep \Cycles
           .else
-          
+
           Loopable = \Cycles - 1
-          .if ((* % $100) > $fe)
+          .if (((* % $100) >= $fc) && ((* % $100) <= $fe))
           ;; going to cross page boundary on branch
           ;; so each loop takes 6 cycles instead of 5
           LoopCycles = Loopable / 6
@@ -80,8 +82,8 @@ SleepX: .macro Cycles
           .SleepX \Cycles - 2
           nop
 
-        .else
-          
+          .else
+
           ldx #LoopCycles       ; 2
 SleepLoop:
           dex                   ; 2
@@ -92,22 +94,12 @@ SleepLoop:
           ;; then each loop is 6 cycles.
           .Sleep ModuloCycles
 
-        .fi
-        .fi
-
-        .bend
-          .endm
-
-;;; 
-          
-NoPageCrossSince:          .macro start
-          .if (>(* - 1)) > (>\start)
-          .error "Page crossing where not allowed, between ", \start, " and ", * - 1
           .fi
+          .fi
+
+          .bend
           .endm
-
 ;;; 
-
 Push16 .macro address
           lda \address +1
           pha
@@ -135,17 +127,13 @@ Set16 .macro target, value
           lda #>(\value)
           sta \target + 1
           .endm         
-          
 ;;; 
-
 Locale .macro ThisLang, string
           .if \ThisLang == LANG
           .MiniText \string
           .fi
           .endm
-          
 ;;; 
-
 StyAllGraphics:   .macro
           sty PF0
           sty PF1
@@ -160,8 +148,8 @@ StyAllGraphics:   .macro
           sty VDELP0
           sty VDELP1
           .endm
-          
-ClearAllGraphics: .macro          
+
+ClearAllGraphics: .macro
           ldy #0
           .StyAllGraphics
           .endm
@@ -186,7 +174,7 @@ TimeLines:          .macro lines
           .error "Cannot skip ", \lines, " lines with TIM64T"
           .fi
           .endm
-          
+
 WaitScreenTop:      .macro
           jsr VSync
           .if TV == NTSC
@@ -229,23 +217,34 @@ KillMusic:          .macro
           .endm
 ;;; 
 FarJSR:   .macro bank, service
+          .proff
           .if \bank == BANK
           .error "Don't do FarJSR for the local bank for ", \service
           .fi
+          .pron
           ldy #\service
           ldx #\bank
           jsr FarCall
           .endm
 
 FarJMP:   .macro bank, service
+          .proff
           .if \bank == BANK
           .error "Don't do FarJMP for the local bank for ", \service
           .fi
+          .pron
           ldy #\service
           ldx #\bank
           jmp FarCall
           .endm
 ;;; 
+Move16: .macro dest, src
+          lda dest
+          sta src
+          lda dest + 1
+          sta src + 1
+          .endm
+
 SetPointer:         .macro value
           lda #>\value
           sta Pointer + 1
@@ -255,7 +254,7 @@ SetPointer:         .macro value
 ;;; 
 SkipLines:          .macro length
 
-          .if \length < 5
+          .if \length < 4
 
           .rept \length
           stx WSYNC
@@ -338,4 +337,74 @@ SetUtterance:       .macro constant
           sta CurrentUtterance + 1
           lda #<\constant
           sta CurrentUtterance
+          .endm
+
+SetSkyColor:        .macro
+          .if TV == SECAM
+            lda #COLBLUE
+          .else
+            .ldacolu COLTURQUOISE, $e
+          .fi
+          .endm
+;;; 
+;;; From Ryan Witmer / PhaserCat
+
+mva:      .macro dest, src
+          lda \src
+          sta \dest
+          .endm
+
+mvay:     .macro dest, src
+          lda \src
+          sta \dest, y
+          .endm
+
+mvayi:     .macro dest, src
+          lda \src
+          sta \dest, y
+          iny
+          .endm
+
+mvax:     .macro dest, src
+          lda \src
+          sta \dest, x
+          .endm
+
+mvaxd:     .macro dest, src
+          lda \src
+          sta \dest, x
+          dex
+          .endm
+
+mvx:      .macro dest, src
+          ldx \src
+          stx \dest
+          .endm
+
+mvy:      .macro dest, src
+          ldy \src
+          sty \dest
+          .endm
+
+mvaw:     .macro dest, word
+          lda #<\word
+          sta \dest
+          lda #>\word
+          sta \dest + 1
+          .endm
+
+mvap:     .macro dest, source
+          lda \source
+          sta \dest
+          lda \source + 1
+          sta \dest + 1
+          .endm
+;;; 
+;;; From Lee Davison
+
+between:  .macro low, high
+          clc
+          adc #$ff - \high
+          adc #\high - \low + 1
+          ;; C is set iff (low < A < high)
           .endm

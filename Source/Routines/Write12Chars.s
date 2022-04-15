@@ -1,16 +1,44 @@
 ;;; Grizzards Source/Routines/Write12Chars.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
+          .align $20            ; XXX alignment
 Write12Chars:       .block
 
 TextLineLoop:
           stx WSYNC
           lda ClockFrame
           and #$01
-          beq DrawRightField
+          bne DrawLeftField
+          ;; fall through
+;;; 
+DrawRightField:
 
+          .page
+
+          stx WSYNC
+          sta HMCLR
+          ldy # 0
+          sty HMP0
+          sty HMP1
+          .SleepX 36
+          stx RESP0
+          stx RESP1
+          .SleepX 13
+          stx HMOVE             ; Cycle 74 HMOVE
+
+          .endp
+
+          ldy # 4
+          .UnpackRight SignpostLineCompressed
+
+          jsr DecodeText
+
+          .Add16 SignpostWork, # 9
+
+          jmp AlignedRight
+;;; 
 DrawLeftField:
-          .option allow_branch_across_page = false
+          .page
 
           stx WSYNC
           sta HMCLR
@@ -18,13 +46,13 @@ DrawLeftField:
           ldy #$b0
           stx HMP0
           sty HMP1
-          .Sleep 17
-          sta RESP0
-          sta RESP1
-          .Sleep 35
-          sta HMOVE             ; Cycle 74 HMOVE
+          .SleepX 17
+          stx RESP0
+          stx RESP1
+          .SleepX 35
+          stx HMOVE             ; Cycle 74 HMOVE
 
-          .option allow_branch_across_page = true
+          .endp
 
           ;; Unpack 6-bits-per-character packed text
           ;; This saves 25% of string storage space at the cost of
@@ -37,195 +65,110 @@ DrawLeftField:
           .Add16 SignpostWork, # 9
 
           jmp AlignedLeft
-          .align $b0, $ea
+;;; 
+DrawLeftLine:       .macro
 
+	ldy SignpostScanline
+	lda (PixelPointers + 0), y
+	sta GRP0
+          .Sleep 6
+          lda (PixelPointers + 2), y
+          sta GRP1
+          lda (PixelPointers + 4), y
+          sta GRP0
+          lda (PixelPointers + 6), y
+          sta Temp
+          lax (PixelPointers + 8), y
+          lda (PixelPointers + 10), y
+          tay
+          lda Temp
+          sta GRP1
+          stx GRP0
+          sty GRP1
+          sty GRP0
+
+          .endm
+;;; 
+          .if BANK > 3
+            .align $100             ; alignment XXX
+          .fi
 AlignedLeft:
-          .option allow_branch_across_page = false
+          .page
 
           stx WSYNC
           ldy # 4
           sty SignpostScanline
           .SleepX 49
 LeftLoop:
-	ldy SignpostScanline
-	lda (PixelPointers + 0), y
-	sta GRP0
-	.Sleep 6
-	lda (PixelPointers + 2), y
-	sta GRP1
-	lda (PixelPointers + 4), y
-	sta GRP0
-	lda (PixelPointers + 6), y
-	sta Temp
-	lax (PixelPointers + 8), y
-	lda (PixelPointers + 10), y
-	tay
-	lda Temp
-	sta GRP1
-	stx GRP0
-	sty GRP1
-	sty GRP0
-
-	.Sleep 8
-
-	ldy SignpostScanline
-	lda (PixelPointers + 0), y
-	sta GRP0
-	.Sleep 6
-	lda (PixelPointers + 2), y
-	sta GRP1
-	lda (PixelPointers + 4), y
-	sta GRP0
-	lda (PixelPointers + 6), y
-	sta Temp
-	lax (PixelPointers + 8), y
-	lda (PixelPointers + 10), y
-	tay
-	lda Temp
-	sta GRP1
-	stx GRP0
-	sty GRP1
-	sty GRP0
-
-	.Sleep 8
-
-	ldy SignpostScanline
-	lda (PixelPointers + 0), y
-	sta GRP0
-	.Sleep 6
-	lda (PixelPointers + 2), y
-	sta GRP1
-	lda (PixelPointers + 4), y
-	sta GRP0
-	lda (PixelPointers + 6), y
-	sta Temp
-	lax (PixelPointers + 8), y
-	lda (PixelPointers + 10), y
-	tay
-	lda Temp
-	sta GRP1
-	stx GRP0
-	sty GRP1
-	sty GRP0
-	dec SignpostScanline
+          .DrawLeftLine
+          .Sleep 8
+          .DrawLeftLine
+          .Sleep 8
+          .DrawLeftLine
+          dec SignpostScanline
           bpl LeftLoop
 
-          stx WSYNC
-
-          jmp DrawCommon
-
-DrawRightField:
-
-          .option allow_branch_across_page = false
+          .endp
 
           stx WSYNC
-          sta HMCLR
-          ldx #$00
-          ldy #$00
-          stx HMP0
-          sty HMP1
-          .Sleep 34
-          sta RESP0
-          sta RESP1
-          .Sleep 13
-          sta HMOVE             ; Cycle 74 HMOVE
-
-          .option allow_branch_across_page = true
-
-          ldy # 4
-          .UnpackRight SignpostLineCompressed
-
-          jsr DecodeText
-
-          .Add16 SignpostWork, # 9
-
-          jmp AlignedRight
-          .align $40, $ea
-
-AlignedRight:
-          .option allow_branch_across_page = false
-
-          stx WSYNC
-          ldy # 4
-          sty SignpostScanline
-          .SleepX 65
-RightLoop:
-	ldy SignpostScanline
-	lda (PixelPointers + 0), y
-	sta GRP0
-	.Sleep 6
-	lda (PixelPointers + 2), y
-	sta GRP1
-	lda (PixelPointers + 4), y
-	sta GRP0
-	lda (PixelPointers + 6), y
-	sta Temp
-	lax (PixelPointers + 8), y
-	lda (PixelPointers + 10), y
-	tay
-	lda Temp
-	sta GRP1
-	stx GRP0
-	sty GRP1
-	sty GRP0
-
-	.Sleep 8
-
-	ldy SignpostScanline
-	lda (PixelPointers + 0), y
-	sta GRP0
-	.Sleep 6
-	lda (PixelPointers + 2), y
-	sta GRP1
-	lda (PixelPointers + 4), y
-	sta GRP0
-	lda (PixelPointers + 6), y
-	sta Temp
-	lax (PixelPointers + 8), y
-	lda (PixelPointers + 10), y
-	tay
-	lda Temp
-	sta GRP1
-	stx GRP0
-	sty GRP1
-	sty GRP0
-
-	.Sleep 8
-
-	ldy SignpostScanline
-	lda (PixelPointers + 0), y
-	sta GRP0
-	.Sleep 6
-	lda (PixelPointers + 2), y
-	sta GRP1
-	lda (PixelPointers + 4), y
-	sta GRP0
-	lda (PixelPointers + 6), y
-	sta Temp
-	lax (PixelPointers + 8), y
-	lda (PixelPointers + 10), y
-	tay
-	lda Temp
-	sta GRP1
-	stx GRP0
-	sty GRP1
-	sty GRP0
-	dec SignpostScanline
-          bpl RightLoop
-
-          .option allow_branch_across_page = true
-
+          ;; fall through
+;;; 
 DrawCommon:
-          lda # 0
-          sta GRP0
-          sta GRP1
-          sta GRP0
-          sta GRP1
+          ldy # 0
+          sty GRP0
+          sty GRP1
+          sty GRP0
+          sty GRP1
 
           stx WSYNC
           stx WSYNC
 
 DoneDrawing:
           rts
+;;; 
+DrawRightLine:      .macro
+          ldy SignpostScanline
+          lda (PixelPointers + 0), y
+          sta GRP0
+          .Sleep 6
+          lda (PixelPointers + 2), y
+          sta GRP1
+          lda (PixelPointers + 4), y
+          sta GRP0
+          lda (PixelPointers + 6), y
+          sta Temp
+          lax (PixelPointers + 8), y
+          lda (PixelPointers + 10), y
+          tay
+          lda Temp
+          sta GRP1
+          stx GRP0
+          sty GRP1
+          sty GRP0
+          .endm
+;;; 
+          .align $100             ; alignment XXX
+
+AlignedRight:
+          .page
+
+          stx WSYNC
+          ldy # 4
+          sty SignpostScanline
+          .SleepX 66
+RightLoop:
+          .DrawRightLine
+          .Sleep 8
+          .DrawRightLine
+          .Sleep 8
+          .DrawRightLine
+          dec SignpostScanline
+          bpl RightLoop
+
+          .endp
+
+          jmp DrawCommon
 
           .bend
+
+;;; Audited 2022-02-16 BRPocock

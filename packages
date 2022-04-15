@@ -1,0 +1,17 @@
+64tass
+gcc
+glibc-headers
+m4
+make
+sbcl
+texlive-babel
+texlive-caption
+texlive-hyperref
+texlive-lettrine
+texlive-lettrine texlive-minifp
+texlive-microtype
+texlive-microtype
+texlive-pdfpages
+texlive-pgf
+texlive-xcolor
+texlive-xetex

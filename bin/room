@@ -1,0 +1,146 @@
+#!/usr/bin/bash
+
+bankmode=
+minmode=
+
+while getopts "v:t:ahb:m" opt; do
+    case $opt in
+        h)
+            cat <<EOF >&2
+Usage: $0 [ -v variant ] [ -t tv-type ]
+
+-t TV type: NTSC, PAL, SECAM
+-v Variant: AA, Demo, NoSave, Public
+
+or
+
+-b specific bank across all builds (-b 0 through -b 15)
+-m minimum across all builds
+EOF
+            exit 2;
+            ;;
+        b)
+            bankmode=$OPTARG
+            ;;
+        m)
+            minmode=1
+            ;;
+        v)
+            case $OPTARG in
+                Public)
+                    variant='';
+                    ;;
+                Demo)
+                    variant=.Demo;
+                    ;;
+                AA)
+                    variant=.AA;
+                    ;;
+                NoSave)
+                    variant=.NoSave;
+                    ;;
+            esac
+            ;;
+        t)
+            case $OPTARG in
+                PAL)
+                    tv=PAL;
+                    ;;
+                NTSC)
+                    tv=NTSC;
+                    ;;
+                SECAM)
+                    tv=SECAM;
+                    ;;
+            esac
+            ;;
+    esac
+done
+
+if [ "$minmode" = "1" ]; then
+    if [ "x$bankmode" = 'x' ]; then
+        banklist="00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f"
+    else
+        banklist=$(printf %02x $bankmode)
+    fi
+    for bank in $banklist ; do
+        min=4096
+        mincfg='???'
+        for variant in .AA '' ; do
+            for tv in NTSC PAL SECAM; do
+                rm -f Object/Bank$bank$variant.$tv.o
+                size=$(make Object/Bank$bank$variant.$tv.o -f Source/Generated/Makefile 2>&1 \
+                           | grep 'bytes left' | grep -v %d | cut -d: -f5 | cut -d ' ' -f 8)
+                if [ "x$size" = "x" ]; then
+                    min='-1'
+                    mincfg="$variant for $tv"
+                elif [ $size -lt $min ]; then
+                    min=$size
+                    mincfg="$variant for $tv"
+                fi
+            done
+        done
+        if [ $min -eq -1 ]; then
+            echo "bank $bank overflows in $mincfg (at least)" >&2
+            banknum=$(perl -e "printf '%d' => 0x$bank")
+            echo "hint: $0 -b $banknum to compare all configurations" >&2
+        else
+            echo "bank $bank min is $min bytes free in $mincfg"
+        fi
+    done
+    echo ''
+    if [ "x$bankmode" = 'x' ]; then
+        banklist="00 01 02 03 04 05 06 07"
+    else
+        banklist=$(printf %02x $bankmode)
+        if [ $bankmode -gt 7 ]; then
+            exit 0;
+        fi
+    fi
+    for bank in $banklist ; do
+        min=4096
+        mincfg='???'
+        for variant in .Demo .NoSave ; do
+            for tv in NTSC PAL SECAM; do
+                rm -f Object/Bank$bank$variant.$tv.o
+                size=$(make Object/Bank$bank$variant.$tv.o -f Source/Generated/Makefile 2>&1 \
+                           | grep 'bytes left' | grep -v -E %d  | \
+                           cut -d: -f5 | cut -d ' ' -f 8)
+                if [ "x$size" = "x" ]; then
+                    # no op
+                    echo -n ;
+                elif [ $size -lt $min ]; then
+                    min=$size
+                    mincfg="$variant for $tv"
+                fi
+            done
+        done
+        echo "bank $bank min is $min bytes free in $mincfg"
+    done
+    exit 0
+fi
+
+if [ "x$bankmode" != "x" ]; then
+    bank=$(printf %02x $bankmode)
+    for variant in .AA '' .Demo .NoSave ; do
+        for tv in NTSC PAL SECAM; do
+            rm -f Object/Bank$bank$variant.$tv.o
+            echo "$variant.$tv:"
+            make Object/Bank$bank$variant.$tv.o -f Source/Generated/Makefile 2>&1 \
+                | grep -E '(bytes left|overran)' | grep -v -E '(%d|*,)' | cut -d: -f5
+        done
+    done
+    exit 0
+fi
+
+if [ "x$tv" = "x" ]; then
+    tv=PAL
+fi
+
+echo "Space remanining in $variant build for $tv:"
+
+for bank in 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f; do
+    rm -f Object/Bank$bank$variant.$tv.o
+    make Object/Bank$bank$variant.$tv.o -f Source/Generated/Makefile 2>&1 \
+        | grep -E '(bytes left|overran)' | grep -v  -E '(%d|*,)' | cut -d: -f5
+done

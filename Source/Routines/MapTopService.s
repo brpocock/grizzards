@@ -10,6 +10,9 @@ TopOfScreenService: .block
 
           jsr VSync
           .TimeLines 32
+          .if NTSC != TV
+            stx WSYNC
+          .fi
           jsr Prepare48pxMobBlob
 
           .ldacolu COLGRAY, $f
@@ -18,10 +21,16 @@ TopOfScreenService: .block
           .ldacolu COLGRAY, 0
           sta COLUBK
 ;;; 
-          lda Pause
-          beq DrawScore
-          .LoadString "PAUSED"
-          jmp ScoreDone
+          bit SystemFlags
+          bpl DrawScore
+          .enc "minifont"
+          .mva StringBuffer + 0, #"P"
+          .mva StringBuffer + 1, #"A"
+          .mva StringBuffer + 2, #"U"
+          .mva StringBuffer + 3, #"S"
+          .mva StringBuffer + 4, #"E"
+          .mva StringBuffer + 5, #"D"
+          gne ScoreDone
 
 DrawScore:
           jsr DecodeScore
@@ -30,14 +39,13 @@ ScoreDone:
           .FarJSR TextBank, ServiceDecodeAndShowText
 ;;; 
 AfterScore:
-          lda #CTRLPFREF | CTRLPFBALLSZ8 | CTRLPFPFP
-          sta CTRLPF
+          .mva CTRLPF, #CTRLPFREF | CTRLPFBALLSZ8 | CTRLPFPFP
 
-          lda #0
-          sta VDELP0
-          sta VDELP1
-          sta NUSIZ0
-          sta NUSIZ1
+          ldy #0
+          sty VDELP0
+          sty VDELP1
+          sty NUSIZ0
+          sty NUSIZ1
 
           ldx CurrentMap
 
@@ -46,7 +54,7 @@ AfterScore:
 
           sta COLUP0
 
-          sta HMCLR
+          stx HMCLR
 
           lda PlayerX
           sec
@@ -84,6 +92,7 @@ FlickerOK:
           lda SpriteMotion, x
           cmp # SpriteRandomEncounter
           beq NextFlickerCandidate
+
           stx SpriteFlicker
 
           lda SpriteX, x
@@ -117,11 +126,10 @@ SetUpSprites:
           sta COLUP1
 
           ldx SpriteFlicker
-          lda #>MapSprites
-          sta pp1h
+          .mva pp1h, #>MapSprites
           clc
           lda MapFlags
-          .BitBit MapFlagRandomSpawn
+          and #MapFlagRandomSpawn
           tay
           lda SpriteAction, x
           and #$07
@@ -130,33 +138,38 @@ SetUpSprites:
           lda # SpriteDoor
 +
           cpy #MapFlagRandomSpawn
-          beq +                 ; keep puffs until stabilized
+          beq +                 ; keep poofs until stabilized
           ldy AlarmCountdown
           beq NoPuff            ; otherwise just for countdown time
 +
           cmp #SpriteMajorCombat
           beq Puff
+
           cmp #SpriteCombat
           bne NoPuff
+
 Puff:
-          lda SpriteColor + SpriteCombatPuff ; get color for puffs
-          sta COLUP1
+          .mva COLUP1, SpriteColor + SpriteCombatPuff ; get color for poofs
           lda #SpriteCombatPuff
 NoPuff:
           .rept 4
-          asl a
+            asl a
           .next
           adc #<MapSprites
           bcc +
           inc pp1h
 +
           sta pp1l
-
+MaybeAnimate:
+          bit SystemFlags
+          bmi AnimationFrameReady
           lda SpriteAction, x
           cmp #SpriteCombat
           beq Flippy
+
           cmp #SpritePerson
           beq Flippy
+
           cmp #SpriteMajorCombat
           bne FindAnimationFrame
 
@@ -164,13 +177,12 @@ Flippy:
           lda ClockFrame
           .BitBit $20
           bne NoFlip
-          lda # 0
-          sta REFP1
+
+          .mva REFP1, # 0
           geq FindAnimationFrame
 
 NoFlip:
-          lda # REFLECTED
-          sta REFP1
+          .mva REFP1, # REFLECTED
 
 FindAnimationFrame:
           lda ClockFrame
@@ -189,12 +201,10 @@ AnimationFrameReady:
           ldx SpriteFlicker
           lda SpriteY, x
           sta P1LineCounter
-
           jmp P1Ready
 
 NoSprites:
-          lda #$ff
-          sta P1LineCounter
+          .mva P1LineCounter, #$ff
 
 P1Ready:
           lda PlayerY
@@ -205,12 +215,11 @@ P1Ready:
           lda #$ff
 +
           sta P0LineCounter
-          lda #0
+          lda # 0
           sta PF1
           sta PF2
 
-          lda #>PlayerSprites
-          sta pp0h
+          .mva pp0h, #>PlayerSprites
 
           lda DeltaX
           ora DeltaY
@@ -233,3 +242,5 @@ TheEnd:
           rts
 
           .bend
+
+;;; Audited 2022-02-16 BRPocock

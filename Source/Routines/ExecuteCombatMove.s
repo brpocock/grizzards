@@ -1,4 +1,4 @@
-;;; Grizzards Source/Common/ExecuteCombatMove.s
+;;; Grizzards Source/Routines/ExecuteCombatMove.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 ExecuteCombatMove:  .block
@@ -7,10 +7,11 @@ ExecuteCombatMove:  .block
 
           .WaitScreenTopMinus 2, 0
 
-          lda # 0
-          sta MoveHP
-          sta MoveHitMiss
-          sta MoveStatusFX
+          ldy # 0
+          sty MoveHP
+          sty MoveHitMiss
+          sty MoveStatusFX
+          sty CriticalHitP
 
 DetermineOutcome:
           lda WhoseTurn
@@ -23,169 +24,69 @@ MonsterMove:
 MonsterAttacks:
           ldy #MonsterAttackIndex
           lda (CurrentMonsterPointer), y
-          tay                   ; Attack score
+          sta AttackerAttack
           ldx WhoseTurn
           lda EnemyStatusFX - 1, x
-          .BitBit StatusAttackDown
+          and #StatusAttackDown
           beq +
-          tya
-          ror a
-          tay
+          lsr AttackerAttack
 +
           lda EnemyStatusFX - 1, x
-          .BitBit StatusAttackUp
+          and #StatusAttackUp
           beq +
-          tya
-          asl a
-          tay
+          asl AttackerAttack
 +
-          tya
-          sta MoveHP            ; temporarily effective Attack score
-          jsr CalculateAttackMask
-          sta Temp
-          jsr Random
-          bmi MonsterAttackNegativeRandom
-MonsterAttackPositiveRandom:
-          and Temp
-          clc
-          adc MoveHP            ; temporarily effective Attack score
-          jmp MonsterAttackHitMissP
 
-MonsterAttackNegativeRandom:
-          and Temp
-          sta Temp
-          ldy # MonsterAttackIndex
-          lda (CurrentMonsterPointer), y
-          sec
-          sbc Temp
-          ;; fall through
-MonsterAttackHitMissP:
-          tax                   ; stash effective attack strength
-          cmp GrizzardDefense
-          blt MonsterAttackMiss
-          ;; fall through
-;;; 
-MonsterAttackHit:
-          ;; The attack was a success
-          ;; What's the effect on the Grizzard's HP?
-          lda CombatMoveDeltaHP
-          jsr CalculateAttackMask
-          sta Temp
-          jsr Random
-          bmi MonsterAttackHitMinus
-MonsterAttackHitPlus:
-          and Temp
-          clc
-          adc CombatMoveDeltaHP
-          gne MonsterAttackHitCommon
+          ;; Bosses get double attack ratings
+          lda CombatMajorP
+          bpl +
+          asl AttackerAttack
++
 
-MonsterAttackHitMinus:
-          and Temp
-          sta Temp
-          lda CombatMoveDeltaHP
-          sec
-          sbc Temp
-          ;; fall through
-MonsterAttackHitCommon:
-          sta MoveHP
-          lda CurrentHP
-          cmp MoveHP
-          beq MonsterKilledGrizzard
-          blt MonsterKilledGrizzard
-          sec
-          sbc MoveHP
-          sta CurrentHP
-          gne MonsterDidNotKillGrizzard
+          ;; Crowned players, double attack as well
+          bit Potions
+          bpl +
+          asl AttackerAttack
++
 
-MonsterKilledGrizzard:
-          lda # 0
-          sta CurrentHP
-          geq MonsterAttackNoStatusFX
+          .mva DefenderDefend, GrizzardDefense
+          lda StatusFX
+          and #StatusDefendUp
+          beq +
+          asl DefenderDefend
++
+          lda StatusFX
+          and #StatusDefendDown
+          beq +
+          lsr DefenderDefend
++
 
-MonsterDidNotKillGrizzard:
-          ;; OK, also, what is the effect on the player's status?
-          jsr Random
-          ldx CombatMoveSelected
-          and MoveEffects, x
-          jsr FindHighBit
-          beq MonsterAttackNoStatusFX
-MonsterAttackSetsStatusFX:
-          tay
-          and StatusFX
-          bne MonsterAttackNoStatusFX
-          tya
-          sta MoveStatusFX
-          ora StatusFX
-          sta StatusFX
-          ;;  fall through to common code
-MonsterAttackNoStatusFX:
-          lda # 1
-          sta MoveHitMiss
+          .mva DefenderHP, CurrentHP
+          .mva DefenderStatusFX, StatusFX
 
-          .if TV != NTSC
-          stx WSYNC
-          .fi
-          jmp WaitOutScreen
-;;; 
-MonsterAttackMiss:
-          lda # 0
-          sta MoveHP
-          sta MoveHitMiss
-          sta MoveStatusFX
+          jsr CoreAttack
+
+          .mva CurrentHP, DefenderHP
+          .mva StatusFX, DefenderStatusFX
 
           jmp WaitOutScreen
 ;;; 
 MonsterHeals:
-          ;; .A has the negative HP to be gained
-          ;; (alter by random factor)
-          eor #$ff
-          sta MoveHP
-          jsr CalculateAttackMask
-          sta Temp
-          jsr Random
-          bmi MonsterHealsMinusHP
-          ;; fall through
-MonsterHealsPlusHP:
-          and Temp
-          clc
-          adc MoveHP
-          sta MoveHP
-          gne MonsterHealsCommon
-
-MonsterHealsMinusHP:
-          and Temp
-          sta Temp
-          lda MoveHP
-          sec
-          sbc Temp
-          ;; fall through
-MonsterHealsCommon:
-          ldx WhoseTurn
-          clc
-          adc MonsterHP - 1, x
-          cmp # 99
-          blt +
-          lda # 99
-+
-          sta MonsterHP - 1, x
-          lda MoveHP
-          eor #$ff              ; negate the value to mean "gained"
           sta MoveHP
 
-MonsterBuff:
-          ldx CombatMoveSelected
-          lda MoveEffects, x
-          sta Temp
-          jsr Random
-          and Temp
-          sta MoveStatusFX
+          lda EnemyHP - 1, x
+          sta DefenderHP
+          lda EnemyStatusFX - 1, x
+          sta DefenderStatusFX
+          .mva DefenderMaxHP, MonsterMaxHP
+
+          jsr GeneralHealing
 
           ldx WhoseTurn
-          ora EnemyStatusFX - 1, x
+          lda DefenderHP
+          sta EnemyHP - 1, x
+          lda DefenderStatusFX
           sta EnemyStatusFX - 1, x
-
-          lda # 1
-          sta MoveHitMiss
 
           jmp WaitOutScreen
 ;;; 
@@ -195,215 +96,244 @@ PlayerMove:
 
 PlayerAttacks:
           ldx GrizzardAttack
+          stx AttackerAttack
           lda StatusFX
           .BitBit StatusAttackDown
           beq +
-          txa
-          ror a
-          tax
+          lsr AttackerAttack
 +
           lda StatusFX
           .BitBit StatusAttackUp
           beq +
-          txa
-          asl a
-          tax
+          asl AttackerAttack
 +
-          txa
-          sta MoveHP            ; temporarily effective Attack score
-          jsr CalculateAttackMask
-          sta Temp
-          jsr Random
-          bmi PlayerAttackNegativeRandom
-PlayerAttackPositiveRandom:
-          and Temp
-          clc
-          adc MoveHP               ; temporarily effective Attack score
-          gne PlayerAttackHitMissP
 
-PlayerAttackNegativeRandom:
-          and Temp
-          sta Temp
-          lda GrizzardAttack
-          sec
-          sbc Temp
-          ;; fall through
-PlayerAttackHitMissP:
-          tax                   ; stash effective attack strength
-          ldy # MonsterDefendIndex
-          cmp (CurrentMonsterPointer), y
-          blt PlayerAttackMiss
-          ;; fall through
-;;; 
-PlayerAttackHit:
-          ;; The attack was a success!
-          ;; What is the effect on the enemy's HP?
-          lda CombatMoveDeltaHP
-          jsr CalculateAttackMask
-          sta Temp
-          jsr Random
-          bmi PlayerAttackHitMinus
-PlayerAttackHitPlus:
-          and Temp
-          clc
-          adc CombatMoveDeltaHP
-          gne PlayerAttackHitCommon
-
-PlayerAttackHitMinus:
-          and Temp
-          sta Temp
-          lda CombatMoveDeltaHP
-          sec
-          sbc Temp
-          ;; fall through
-PlayerAttackHitCommon:
-          sta MoveHP
-PlayerReduceMonsterHP:
           ldx MoveTarget
-          ; lda MoveHP ; already set
-          cmp MonsterHP - 1, x
-          blt PlayerDidNotKillMonster
+          lda EnemyHP - 1, x
+          sta DefenderDefend
+
+          lda EnemyStatusFX - 1, x
+          sta DefenderStatusFX
+
+          .BitBit StatusDefendDown
+          beq +
+          lsr DefenderDefend
++
+          lda DefenderStatusFX
+          and #StatusDefendUp
+          beq +
+          asl DefenderDefend
++
+
+          ;; Bosses get double defend ratings
+          lda CombatMajorP
+          bpl +
+          asl DefenderDefend
++
+
+          ;; Crown mode double defend ratings
+          bit Potions
+          bpl +
+          asl DefenderDefend
++
+
+          lda EnemyHP - 1, x
+          sta DefenderHP
+
+          jsr CoreAttack
+
+          ldx MoveTarget
+          lda DefenderStatusFX
+          sta EnemyStatusFX - 1, x
+
+          lda DefenderHP
+          sta EnemyHP - 1, x
+
+          bne WaitOutScreen
 
 PlayerKilledMonster:
           ;; add to score the amount for that monster
+          lda GrizzardXP
+          cmp # 199
+          bge +
+          inc GrizzardXP
++
+
+          ldx # 1               ; 1× scoring…
+          lda CombatMajorP
+          bpl +
+          inx                   ; 2 × scoring
++
+
+          lda Potions
+          bpl +
+          inx                   ; 2-3× scoring
++
+
+          lda DebounceSWCHB
+          and #SWCHBP0Advanced
+          bne DoneScoreDifficulty
+          inx
+DoneScoreDifficulty:
+          sed
+
+IncrementScore:
           ldy # MonsterPointsIndex
           lda (CurrentMonsterPointer), y
-          sed
           clc
           adc Score
-          bcc ScoreNoCarry
-          clc
-          inc Score + 1
-          bcc ScoreNoCarry
-          clc
-          inc Score + 2
-          bcc ScoreNoCarry
-          lda #$99
-          sta Score + 1
-          sta Score + 2
-ScoreNoCarry:
           sta Score
-
-          iny
+          iny                   ; MonsterPointsIndex + 1
           lda (CurrentMonsterPointer), y
-          clc
           adc Score + 1
-          bcc ScoreNoCarry2
-          clc
+          sta Score +1
+          bcc ScoreNoCarry
+
           inc Score + 2
-          bcc ScoreNoCarry2
+          bne ScoreNoCarry
+
           lda #$99
-          sta Score
-          sta Score + 2
-ScoreNoCarry2:
           sta Score + 1
+          sta Score + 2
+          sta Score
+ScoreNoCarry:
+
+          dex
+          bne IncrementScore
 
           cld
 
-          lda # 0               ; zero on negative
-          geq +
-
-PlayerDidNotKillMonster:
-          lda MonsterHP - 1, x
-          sec
-          sbc MoveHP
-+
-          sta MonsterHP - 1, x
-
-          ;; OK, also, what is the effect on the enemy's status?
+RandomLearn:
+          ;; Player has a small chance of learning a random move here
           jsr Random
-          ldx CombatMoveSelected
-          and MoveEffects, x
-          jsr FindHighBit
-          beq PlayerAttackNoStatusFX
+          sta Temp
+          and #$30              ; 1:4 odds
+          bne DoneRandomLearn
 
-PlayerAttackSetsStatusFX:
-          ldx MoveTarget
-          tay
-          and EnemyStatusFX - 1, x
-          bne PlayerAttackNoStatusFX ; they already have that status
-          tya
-          sta MoveStatusFX
-          ora EnemyStatusFX - 1, x
-          sta EnemyStatusFX - 1, x
-          ;; fall through to common code
-PlayerAttackNoStatusFX:
-          lda # 1
-          sta MoveHitMiss
+          lda #$07
+          and Temp
+          tax
+          lda BitMask, x
+          ora MovesKnown
+          cmp MovesKnown
+          beq DoneRandomLearn   ; already knew that move
 
-          jmp WaitOutScreen
-;;; 
-PlayerAttackMiss:
-          lda # 0
-          sta MoveHP
-          sta MoveHitMiss
-          sta MoveStatusFX
+DidRandomLearn:
+          sta MovesKnown
+
+          inx
+          stx MoveSelection
+          .FarJSR TextBank, ServiceFetchGrizzardMove
+          ;; Return value is in Temp, which is input for LearntMove
+          .FarJSR MapServicesBank, ServiceLearntMove
+
+DoneRandomLearn:
+          lda # 0               ; zero on negative
 
           jmp WaitOutScreen
 ;;; 
 PlayerHeals:
           ;; .A has the inverted HP to be gained
           ;; (alter by random factor)
+          sta MoveHP            ; base HP to gain
+
+          lda CurrentHP
+          sta DefenderHP
+          lda StatusFX
+          sta DefenderStatusFX
+          lda MaxHP
+          sta DefenderMaxHP
+
+          jsr GeneralHealing
+
+          lda DefenderHP
+          sta CurrentHP
+          lda DefenderStatusFX
+          sta StatusFX
+
+          jmp WaitOutScreen
+
+;;; 
+GeneralHealing:
+          lda MoveHP
           eor #$ff
           sta MoveHP
           jsr CalculateAttackMask
+
           sta Temp
           jsr Random
-          bmi PlayerHealsMinusHP
-PlayerHealsPlusHP:
+
+          bmi HealsMinusHP
+
+HealsPlusHP:
           and Temp
           clc
           adc MoveHP
-          sta MoveHP
-          gne PlayerHealsCommon
+          gne HealsCommon
 
-PlayerHealsMinusHP:
+HealsMinusHP:
           and Temp
           sta Temp
+
           lda MoveHP
           sec
           sbc Temp
-          ;; fall through
-PlayerHealsCommon:
+          bpl HealsCommon
+
+          lda # 1               ; never completely fail to heal
+HealsCommon:
+          sta MoveHP
+          ldx WhoseTurn
           clc
-          adc CurrentHP
-          cmp MaxHP
+          adc DefenderHP
+          cmp DefenderMaxHP
           blt +
-          lda MaxHP
+          lda DefenderMaxHP
 +
-          sta CurrentHP
+          sta DefenderHP
           lda MoveHP
-          eor #$ff              ; negate the value to mean "gained"
+          eor #$ff              ; invert the value to mean "gained"
           sta MoveHP
 
-PlayerBuff:
+Buff:
           ldx CombatMoveSelected
           lda MoveEffects, x
           sta Temp
           jsr Random
+
           and Temp
           sta MoveStatusFX
+          bit DefenderStatusFX
+          beq NoBuff
 
-          lda # 1
-          sta MoveHitMiss
+          ora DefenderStatusFX
+          sta DefenderStatusFX
+          gne DoneHealing
 
-          ora StatusFX
-          sta StatusFX
-          ;;  fall through
+NoBuff:
+          ldy # 0
+          sty MoveStatusFX
+
+DoneHealing:
+          .mva MoveHitMiss, # 1
+
+          rts
 ;;; 
 WaitOutScreen:
           lda MoveHitMiss
           beq SoundForMiss
+
           lda #SoundHit
-          gne +
+          gne SoundReady
+
 SoundForMiss:
           lda #SoundMiss
-+
+SoundReady:
           sta NextSound
 
           .WaitScreenBottom
           .if TV != NTSC
-          stx WSYNC
+            stx WSYNC
           .fi
 ;;; 
           .FarJSR TextBank, ServiceCombatOutcome
@@ -414,47 +344,45 @@ SoundForMiss:
           lda WhoseTurn
           beq NextTurn
 
-          lda #1
-          sta pp1h        ; using this as our loop counter
+          .mva pp1h, # 1        ; using this as our loop counter
 
 CheckMove:
           sta MoveSelection
           .FarJSR TextBank, ServiceFetchGrizzardMove
+
           lda Temp
           cmp CombatMoveSelected
           bne CheckNextMove
 
-          sta pp1l
-          jsr Random
-          and #$01
-          bne DidNotLearn
+          sta pp1l              ; Move number
 
-          ldx pp1h
+          jsr Random            ; 50/50 chance of learning
+
+          bpl NextTurn
+
+          ldx pp1h              ; Loop index
           dex                   ; bit index of move to learn
           lda BitMask, x
-          bit MovesKnown
-          bne DidNotLearn       ; already know this move
-LearntMove:
           ora MovesKnown
+          cmp MovesKnown
+          beq DidNotLearn       ; already know this move
+
+LearntMove:
           sta MovesKnown
-          ldy # 1
           gne AfterTryingToLearn
 
 CheckNextMove:
-          inc pp1h
+          inc pp1h              ; loop counter
           lda pp1h
           cmp #8
           blt CheckMove
-          ;; fall through
+
 DidNotLearn:
-          ldy # 0
+          jmp NextTurn
 
 AfterTryingToLearn:
-          cpy # 0
-          beq NextTurn
-
-          lda pp1l
-          sta Temp
+          ;; Move number is still in Temp from above
+          ;; … which is the input for ServiceLearntMove
           .FarJSR MapServicesBank, ServiceLearntMove
 ;;; 
 NextTurn:
@@ -463,15 +391,16 @@ NextTurn:
           dex
           cpx # 6
           bne NotLastMonster
-          ldx #0
+
+          ldx # 0
           stx WhoseTurn
           jmp CombatMainScreen.BackToPlayer
+
 NotLastMonster:
-          lda MonsterHP, x
+          lda EnemyHP, x
           beq NextTurn
 
-          lda # 6
-          sta AlarmCountdown
+          .mva AlarmCountdown, # 6
 BackToMain:
           jmp CombatMainScreen
 ;;; 

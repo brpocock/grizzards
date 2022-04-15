@@ -4,17 +4,18 @@
 ;;;
 ;;; By Alex Herbert, 2004
 ;;;
-;;; Converted for 64tass by Bruce-Robert Pocock, 2017, 2020
+;;; Converted for 64tass by Bruce-Robert Pocock, 2017, 2020-2022
 
 SaveGameSignatureString:
           .text SaveGameSignature
 
-
           i2cSDAMask = $04
           i2cSCLMask = $08
 
+          SaveWritesPerScreen = $20
+;;; 
 i2cSCL0:  .macro
-          lda #0
+          lda # 0
           sta SWCHA
           .endm
 
@@ -88,9 +89,7 @@ i2cRxACK: .macro
 
           EEPROMRead = %10100001
           EEPROMWrite = %10100000
-
 ;;; 
-
 i2cStartRead:
           clv               ; Use V to flag if previous byte needs ACK
           .i2cStart
@@ -118,6 +117,7 @@ i2cTxByteLoop:
 i2cRxByte:
           ldy # 8           ; loop (bit) counter
           bvc i2cRxSkipACK
+
           .i2cTxACK
 
 i2cRxByteLoop:
@@ -136,10 +136,28 @@ VBit:
 
 i2cStopRead:
           bvc i2cStopWrite
+
           .i2cTxNAK
 
 i2cStopWrite:
           .i2cStop
           rts
 
-          SaveWritesPerScreen = $20
+          ;; The following functions added by BRPocock, not found in the
+          ;; standard library code
+i2cK:                           ; K is "switch over to (you) sending" in Morse code
+          jsr i2cTxByte
+i2cK2:                          ; switch without a final byte to send
+          jsr i2cStopWrite
+
+          jmp i2cStartRead      ; tail call
+
+i2cWaitForAck:
+          ;; Wait for acknowledge bit
+-
+          jsr i2cStartWrite
+
+          bcs -
+          jmp i2cStopWrite      ; tail call
+
+;;; Audited 2022-02-15 BRP

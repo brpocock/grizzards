@@ -4,6 +4,7 @@
 "Cart.Name" "Grizzards No-Save Demo"
 "Cart.Rarity" "Homebrew"
 "Cart.Type" "F4"
+"Cart.Url" "https://star-hope.org/games/Grizzards"
 "Controller.Left" "GENESIS"
 "Controller.Right" "JOYSTICK"
 "Display.Format" "@@TV@@"

@@ -1,4 +1,4 @@
-;;; Grizzards Source/Routines/ReadProvinceData.s
+;;; Grizzards Source/Routines/LoadProvinceData.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 LoadProvinceData:   .block
@@ -16,14 +16,12 @@ LoadProvinceData:   .block
           asl a
           asl a                 ; × 8
           ora # $20
-          jsr i2cTxByte
-
-          jsr i2cStopWrite
-          jsr i2cStartRead
+          jsr i2cK
 
           ldx # 0
 -
           jsr i2cRxByte
+
           sta ProvinceFlags, x
           inx
           cpx # 8
@@ -37,10 +35,11 @@ LoadProvinceData:   .block
 
           ora #$80
           sta ProvinceFlags + 6
-          lda #$ff
-          sta ProvinceFlags + 7
+          .mva ProvinceFlags + 7, #$ff
 
 +
           rts
 
           .bend
+
+;;; Audited 2022-02-16 BRPocock

@@ -5,12 +5,18 @@ MapVBlank:        .block
           lda GameMode
           cmp #ModeMap
           beq MovementLogic
+
           rts
 
 MovementLogic:
           jsr CheckSpriteCollision
+
           jsr SpriteMovement
-          jsr CheckPlayerCollision
-          jmp UserInput         ; tail call
+
+          jsr UserInput
+
+          jmp CheckPlayerCollision ; tail call
 
           .bend
+
+;;; Audited 2022-02-16 BRPocock

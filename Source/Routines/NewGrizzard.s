@@ -4,9 +4,6 @@
 NewGrizzard:        .block
           .WaitScreenTop
 
-          ldx #$ff
-          stx s
-
           ;; Call with new Grizzard in Temp
           lda Temp
           pha
@@ -16,64 +13,42 @@ NewGrizzard:        .block
           .FarJSR SaveKeyBank, ServicePeekGrizzard
           ;; carry is set if the Grizzard is found
           bcc CatchEm
+
           ;; If so, nothin!g doing, return
           pla        ; discard stashed ID
           lda CurrentMap
           sta NextMap
           jsr WaitScreenBottomSub
-          jmp GoMap
+
+          rts
 
 CatchEm:
           ;; New Grizzard found, save current Grizzard …
           .FarJSR SaveKeyBank, ServiceSaveGrizzard
           stx WSYNC
-          .WaitScreenTop
+          .if NTSC == TV
+            stx WSYNC
+          .fi
           ;; … and set up this one with default levels
           pla
-
-          sta CurrentGrizzard
-
           sta Temp
-          asl a
-          asl a
-          clc
-          adc Temp              ; × 5
-          tay
-          ;; max 150, .y can hold it OK
-
-          lda GrizzardStartingStats, y
-          sta MaxHP
-          sta CurrentHP
-          iny
-          lda GrizzardStartingStats, y
-          sta GrizzardAttack
-          iny
-          lda GrizzardStartingStats, y
-          sta GrizzardDefense
-          iny
-          lda GrizzardStartingStats, y
-          sta GrizzardDefense + 1
-          iny
-          lda GrizzardStartingStats, y
-          sta MovesKnown
-
-          ;; Now, save this guy for good measure
-          .FarJSR SaveKeyBank, ServiceSaveGrizzard
+          jsr Defaults
 
           stx WSYNC
+          .if NTSC == TV
+            stx WSYNC
+          .fi
           .WaitScreenTop
-          lda #SoundHappy
-          sta NextSound
+          .mva NextSound, #SoundHappy
 
-          lda #>Phrase_Grizzard0
-          sta CurrentUtterance + 1
+          .mva CurrentUtterance + 1, #>Phrase_Grizzard0
           lda #<Phrase_Grizzard0
           clc
           adc CurrentGrizzard
           sta CurrentUtterance
 
-          lda # 7
-          sta AlarmCountdown
+          .mva AlarmCountdown, # 7
+;;;
 Loop:
           .WaitScreenBottom
           .WaitScreenTop
@@ -98,11 +73,61 @@ Loop:
           jmp Loop
 +
           .WaitScreenBottom
-          lda CurrentMap
-          sta NextMap
+          .mva NextMap, CurrentMap
           jmp GoMap
-
+;;; 
 CaughtText:
           .MiniText "CAUGHT"
+;;; 
+Defaults:
+          .WaitScreenTop
+          .mva CurrentGrizzard, Temp
 
+          asl a
+          asl a
+          clc
+          adc CurrentGrizzard  ; × 5
+          tay
+          ;; max 150, .y can hold it OK
+
+          lda GrizzardStartingStats, y
+          .if NOSAVE
+            cmp MaxHP
+            blt +
+          .fi
+          sta MaxHP
++
+          .if NOSAVE
+            lda MaxHP
+          .fi
+          sta CurrentHP
+          iny
+          lda GrizzardStartingStats, y
+          .if NOSAVE
+            cmp GrizzardAttack
+            blt +
+          .fi
+          sta GrizzardAttack
++
+          iny
+          lda GrizzardStartingStats, y
+          .if NOSAVE
+            cmp GrizzardDefense
+            blt +
+          .fi
+          sta GrizzardDefense
++
+          iny
+          .mva GrizzardXP, # 0               ; XP always starts at zero
+          iny
+          lda GrizzardStartingStats, y
+          sta MovesKnown
+
+          ;; Now, save this guy for good measure
+          .FarJSR SaveKeyBank, ServiceSaveGrizzard
+
+          rts
+          
           .bend
+
+;;; Audited 2022-02-16 BRPocock

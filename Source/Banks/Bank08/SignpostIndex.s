@@ -14,7 +14,17 @@ GetSignpostIndex:      .block
           beq CheckShipInPort
           cpx # 21
           beq CheckFoundPendant
+          cpx # 104
+          beq CheckPotions
 Return:
+          rts
+
+CheckPotions:
+          lda Potions
+          and #$7f
+          cmp # 5
+          blt Return
+          ldx # 105
           rts
 
 CheckFoundPendant:
