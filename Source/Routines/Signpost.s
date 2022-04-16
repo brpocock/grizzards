@@ -377,6 +377,10 @@ Inquire:
           dey
           bpl -
 
+          lda SignpostIndex
+          clc
+          adc #FirstSignpost
+          sta SignpostIndex
           .FarJMP AnimationsBank, ServiceInquire
 
 NotInquire:
