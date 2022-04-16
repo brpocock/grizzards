@@ -251,7 +251,7 @@ DrawHealthPF:
 
           lda HealthyPF2, x
           sta pp2l
-          gne DoneHealth
+          gne ReadyHealth
 
 FullPF2:
           .mva pp2l, #$ff
@@ -266,7 +266,7 @@ FullPF2:
 
           lda HealthyPF1, x
           sta pp1l
-          gne DoneHealth
+          gne ReadyHealth
 
 FullPF1:                        ; ∈ 8…12
           sec
@@ -277,12 +277,12 @@ FullPF1:                        ; ∈ 8…12
           sta pp0l
           ;; fall through
 
-DoneHealth:
+ReadyHealth:
           stx WSYNC
           .mva PF0, pp0l
           .mva PF1, pp1l
           .mva PF2, pp2l
-          .SkipLines 4
+          .SkipLines 3
           ldy # 0
           sty PF0
           sty PF1
