@@ -148,7 +148,9 @@ SetUpCursor:
           dex
           jmp PositionCursor
 ;;;
-          .align $10       ; XXX alignment
+          .if TV != PAL
+            .align $10       ; XXX alignment
+          .fi
 PositionCursor:
           stx HMCLR
 
@@ -259,10 +261,6 @@ FinishUp:
 
           rts
 ;;; 
-          .if TV == PAL
-            .fill 13            ; XXX alignment
-          .fi
-
           .page
 PositionMonsters:
           stx WSYNC
