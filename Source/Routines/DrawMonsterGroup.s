@@ -53,8 +53,18 @@ GotFrame:
           ldy # 0
           lda # 1
           bit ClockSeconds
-          beq GotFlip
+          beq GotFlipMaybe
+
           ldy #REFLECTED
+          gne GotFlip
+
+GotFlipMaybe:
+          lda #$20              ; if reflected & frame 0 we need one more scan line
+          bit ClockFrame
+          beq GotFlip
+
+          .Sleep 5              ; just enough to break even somehow
+          
 GotFlip:
           sty REFP0
           txa
