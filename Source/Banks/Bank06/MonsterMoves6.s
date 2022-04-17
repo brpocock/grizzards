@@ -53,7 +53,7 @@ MonsterMoves:       .block
           .byte 53, 25, 40, 53  ; Man Bull (12)
           .byte 22, 59, 35, 30  ; Radish Goblin (7)
           .byte 24, 61, 40, 32  ; Turnip Goblin (12)
-          .byte 42, 56, 58, 32  ; ? Monster 44 (15)
+          .byte 42, 56, 58, 32  ; Anubis Jackal (15)
           .byte 42, 43, 55, 58  ; Boss Bear (16)
           ;; ↑ 45
 
