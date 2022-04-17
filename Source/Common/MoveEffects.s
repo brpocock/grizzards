@@ -140,7 +140,7 @@ MildShock:
 HotSpark:
           .byte 4
 BuryDeep:
-          .byte 0
+          .byte 1
 DirtyFoot:
           .byte 6
 LoamyFear:
