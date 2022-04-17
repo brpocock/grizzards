@@ -38,10 +38,10 @@ MapColors:
           .colors COLINDIGO, COLBLUE
           .colors COLBLUE, COLBLUE
           .colors COLPURPLE, COLGRAY
-          .colors COLPURPLE, COLGRAY
-          .colors COLPURPLE, COLGRAY
-          .colors COLPURPLE, COLGRAY
-          .colors COLPURPLE, COLGRAY
+          .colors COLPURPLE, COLPURPLE
+          .colors COLPURPLE, COLPURPLE
+          .colors COLPURPLE, COLPURPLE
+          .colors COLPURPLE, COLPURPLE
           .colors COLMAGENTA, COLBROWN
           ;; 30
           .colors COLMAGENTA, COLBROWN
