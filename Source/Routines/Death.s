@@ -34,6 +34,10 @@ LoopFirst:
 
           .SetPointer GameOverText + 6
           jsr ShowPointerText
+
+          jsr DecodeScore
+          .FarJSR TextBank, ServiceDecodeAndShowText
+
 ;;; 
           lda NewSWCHB
           beq +
