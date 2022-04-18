@@ -98,6 +98,7 @@ SeenGrizzardBefore:
 
           ldy # 0               ; XXX necessary?
           sty CurrentGrizzard
+          iny                   ; Y = 1
           sty CurrentProvince
 
 WipeProvinceFlags:
@@ -107,11 +108,10 @@ WipeProvinceFlags:
           dex
           bne -
 
+          ;; Save Province 1 as zeroes
           .FarJSR SaveKeyBank, ServiceSaveProvinceData
 
-          inc CurrentProvince
-          .FarJSR SaveKeyBank, ServiceSaveProvinceData
-
+          ;; Save Province 2 as zeroes
           inc CurrentProvince
           .FarJSR SaveKeyBank, ServiceSaveProvinceData
 
@@ -120,6 +120,7 @@ WipeProvinceFlags:
           sty CurrentProvince
           sty NextMap
 
+          ;; Save global data, also save province 0 as zeroes
           .FarJSR SaveKeyBank, ServiceSaveToSlot
 
           jmp GoWarmStart
