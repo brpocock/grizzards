@@ -175,8 +175,7 @@
             Province1MapBank = $03
             Province2MapBank = $05
           .fi
-          CombatBank0To127 = $06
-          CombatBank128To255 = $06
+          CombatBank0To63 = $06
           SFXBank = $07
           .if DEMO
             SignpostBank = $05
