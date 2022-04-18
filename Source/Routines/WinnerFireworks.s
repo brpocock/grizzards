@@ -54,7 +54,7 @@ NotAgain:
           .enc "minifont"
           sta Temp
           lda #" "
-          ldx # 6
+          ldx # 5               ; at least one digit will be appended
 -
           sta StringBuffer - 1, x
           dex
