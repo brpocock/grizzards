@@ -121,7 +121,10 @@ SetStatusFX:
           ora DefenderStatusFX
           sta DefenderStatusFX
 
-          .if TV != SECAM       ; No room for this nicety in SECAM — XXX
+          .if TV == SECAM       ; No room for this nicety in SECAM — XXX
+NoStatusFX:
+          .else
+          
           bne Done
 
 NoStatusFX:
