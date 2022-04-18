@@ -4,14 +4,18 @@
 FindMonsterMove:    .block
           ;; Y = move selection
 
-          .mvaw Pointer, MonsterMoves
           .mva Pointer + 1, #>MonsterMoves
 
           ldx CurrentCombatEncounter
           lda EncounterMonster, x
           asl a
           asl a
-          .Add16a Pointer
+          clc
+          adc #<MonsterMoves
+          bcc +
+          inc Pointer + 1
++
+          sta Pointer
 
           lda (Pointer), y
           sta CombatMoveSelected
