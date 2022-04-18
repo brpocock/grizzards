@@ -36,6 +36,7 @@ DoLocal:
           .include "GrizzardStatsScreen.s"
           .include "ExecuteCombatMove.s"
           .include "CoreAttack.s"
+          .include "CoreHealing.s"
 
           .include "FindHighBit.s"
           .include "CopyPointerText.s"
