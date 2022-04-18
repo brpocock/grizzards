@@ -120,11 +120,15 @@ SetStatusFX:
           sta MoveStatusFX
           ora DefenderStatusFX
           sta DefenderStatusFX
+          bne Done
 
 NoStatusFX:
+          lda MoveHP
+          bne Done
+          .mvy CriticalHitP, # 0
+
+Done:
           .mva MoveHitMiss, # 1
           rts
 
           .bend
-
-;;; Audited 2022-02-16 BRPocock
