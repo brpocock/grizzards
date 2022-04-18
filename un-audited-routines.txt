@@ -1,4 +1,3 @@
-Source/Routines/Signpost.s: no audit
 Source/Routines/ExecuteCombatMove.s: no audit
 Source/Routines/CheckSpriteCollision.s: no audit
 Source/Routines/SpriteMovement.s: no audit
@@ -27,4 +26,3 @@ Source/Common/VSync.s: no audit
 Source/Common/VBlank.s: no audit
 Source/Common/SpriteColor.s: no audit
 Source/Common/VCS-Consts.s: no audit
-Source/Common/StartBank.s: no audit
