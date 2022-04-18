@@ -497,7 +497,7 @@ SpriteList:
           .byte SpriteCombat, 15 ; Will O' Wisp
 
           .byte $ff, SpriteFixed
-          .byte $c0, $2b
+          .byte $a0, $2b
           .if DEMO
           .byte SpriteSign, 10  ; Spiral Woods closed
           .else
