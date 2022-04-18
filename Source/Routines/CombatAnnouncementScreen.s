@@ -259,7 +259,7 @@ SayObjectNumberOnPlayersTurn:
 
 SayThatObjectNumber:
           lda CombatMajorP
-          bpl SpeechQueued
+          bne SpeechQueued
 
           lda #>(Phrase_One - 1)
           sta CurrentUtterance + 1
