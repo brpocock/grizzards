@@ -101,7 +101,7 @@ SaveGrizzard:                   ; NOSAVE
             rts
 PeekGrizzard:                   ; NOSAVE
             lda Temp
-            cmp # 1
+            cmp CurrentGrizzard
             beq +
             clc
             rts
