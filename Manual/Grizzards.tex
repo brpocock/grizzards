@@ -13,8 +13,6 @@
 \setlrmarginsandblock{.5in}{1in}{*}
 \setulmarginsandblock{.75in}{1in}{*}
 \setheadfoot{.5in}{.5in}
-\checkandfixthelayout
-
 
 %% TV Standard
 
@@ -35,6 +33,11 @@
 \fi
 \fi
 
+\makeevenhead{plain}{Grizzards}{}{}
+\makeoddhead{plain}{}{}{Grizzards}
+
+\makeevenfoot{plain}{\thepage}{}{}
+\makeoddfoot{plain}{}{}{\thepage}
 
 \usepackage[utf8]{inputenc}
 \usepackage{babel}
@@ -317,10 +320,8 @@ ports) are in the ``A'' position when they are moved to the right.
 
 The Left Difficulty Switch adjusts the  difficulty of the game. When the
 Left Difficulty  Switch is in  the ``A'' (Advanced or  Expert) position,
-monsters will do more damage in  their attacks. When the Left Difficulty
-Switch is in  the ``B'' (Beginner or Novice) position,  monsters will do
-their normal  amount of  damage. You  will also  earn double  points for
-defeating monsters while in the ``A'' position.
+monsters will do more damage in their attacks. You will also earn double
+points for defeating monsters while in the ``A'' position.
 
 \ifdefined\TVSECAM
 
@@ -972,13 +973,12 @@ a duel to the death. Watch out for their unique shape on the map.
 \section{Metamorphosis}
 
 Many Grizzards  can metamorphose into a  new form when they  have gained
-a certain amount  of experience by battling monsters.
+a certain amount of experience.
 
 \columnbreak
 \chapter{Monsters}
 
-A slew of monsters are arriving in Syrex, terrorizing the land. A few of
-them are described here.
+A slew of monsters are arriving in Syrex, terrorizing the land.
 
 \vspace{14pt}
 
@@ -1005,7 +1005,7 @@ of Mount Peshon  looking for civilians to abduct.
 \lettrine[image=true,                lines=5,               findent=3pt,
 nindent=3pt]{../Manual/Round-Robin.png}{Round Robins} are colorful giant
 birds who live  in the area of  Mount Peshon. Their beaks  and claws are
-dangerous weapons.
+dangerous.
 
 \vspace{14pt}
 
