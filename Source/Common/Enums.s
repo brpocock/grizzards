@@ -129,23 +129,23 @@
           ;; Save game slot address.
           ;; Must be page-aligned
           ;; Uses the subsequent 12 64-byte blocks
-          .if DEMO
-            SaveGameSlotPrefix = $3000
+          .if ATARIAGESAVE
+            SaveGameSlotPrefix = $0000
           .else
-            .if ATARIAGESAVE
-              SaveGameSlotPrefix = $0000
-            .else
-              ;; https://atariage.com/atarivox/atarivox_mem_list.html
-              SaveGameSlotPrefix = $1100
-            .fi
+            ;; https://atariage.com/atarivox/atarivox_mem_list.html
+            SaveGameSlotPrefix = $1100
           .fi
           
           ;; Must be exactly 5 bytes for the driver routines to work
           .enc "ascii"
           .if ATARIAGESAVE
-            SaveGameSignature = "griz1"
+            SaveGameSignature = "griz2"
           .else
-            SaveGameSignature = "griz0"
+            .if DEMO
+              SaveGameSignature = "griz1"
+            .else
+              SaveGameSignature = "griz0"
+            .fi
           .fi
           .enc "none"
 ;;; 
