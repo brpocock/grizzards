@@ -95,7 +95,7 @@ Monster6_31:
 Uber Slime
 
 Monster6_32:
-Desert Eagle
+Flying Skull
 
 Monster6_33:
 Crazed robber
