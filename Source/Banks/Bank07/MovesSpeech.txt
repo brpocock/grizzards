@@ -98,7 +98,7 @@ Move32:
 Great Cure
 
 Move33:
-Heal Wound
+Heal Woond
 
 Move34:
 Life Return
