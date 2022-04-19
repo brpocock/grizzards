@@ -98,7 +98,7 @@ Monster6_32:
 Flying Skull
 
 Monster6_33:
-Crazed robber
+Crazy Skull
 
 Monster6_34:
 Great Worm
