@@ -131,6 +131,7 @@
           ;; Uses the subsequent 12 64-byte blocks
           .if ATARIAGESAVE
             SaveGameSlotPrefix = $0000
+            SKSaveGameSlotPrefix = $1100
           .else
             ;; https://atariage.com/atarivox/atarivox_mem_list.html
             SaveGameSlotPrefix = $1100
@@ -138,14 +139,10 @@
           
           ;; Must be exactly 5 bytes for the driver routines to work
           .enc "ascii"
-          .if ATARIAGESAVE
-            SaveGameSignature = "griz2"
+          .if DEMO
+            SaveGameSignature = "griz1"
           .else
-            .if DEMO
-              SaveGameSignature = "griz1"
-            .else
-              SaveGameSignature = "griz0"
-            .fi
+            SaveGameSignature = "griz0"
           .fi
           .enc "none"
 ;;; 
