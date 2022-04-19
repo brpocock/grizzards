@@ -54,7 +54,7 @@ Bite:
           .byte 0
           ;; 24
 PoisonBite:
-          .byte 0
+          .byte StatusSleep
 CruelStab:
           .byte 0
 BlindBlob:
@@ -106,12 +106,19 @@ Slash:
           ;; 48
 VampyBite:
           .byte StatusSleep
+HeartyThump:
           .byte 0
+HardJab:
           .byte 0
+ClawBadly:
           .byte 0
+BackKick:
           .byte 0
+HeadButt:
           .byte 0
-          .byte 0
+PirateCurse:
+          .byte StatusMuddle | StatusSleep
+SharpFangs:
           .byte 0
           ;; 56
           .byte 0
