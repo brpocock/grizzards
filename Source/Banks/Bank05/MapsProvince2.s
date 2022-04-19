@@ -297,7 +297,7 @@ SpriteList:
           ;; Room 5, Dragon
           .byte 51, SpriteWander
           .byte 0, 0
-          .byte SpriteMajorCombat, 93 ; Andrew
+          .byte SpriteMajorCombat, 94 ; Andrew
 
           .byte 0
 
