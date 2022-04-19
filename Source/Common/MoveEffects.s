@@ -121,13 +121,20 @@ PirateCurse:
 SharpFangs:
           .byte 0
           ;; 56
+NastyGoop:
           .byte 0
+TalonVise:
           .byte 0
+DeathGlare:
           .byte 0
+PoundSand:
           .byte 0
+WingsFlap:
           .byte 0
-          .byte 0
-          .byte 0
+CursedGlance:
+          .byte StatusSleep
+SlimeImpact:
+          .byte StatusMuddle
 MegaKill:
           .byte StatusDefendDown | StatusAttackDown | StatusMuddle | StatusSleep
           ;; ↑ 63
