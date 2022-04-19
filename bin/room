@@ -63,6 +63,7 @@ if [ "$minmode" = "1" ]; then
     else
         banklist=$(printf %02x $bankmode)
     fi
+    totalfree=0
     for bank in $banklist ; do
         min=4096
         mincfg='???'
@@ -84,11 +85,16 @@ if [ "$minmode" = "1" ]; then
             echo "bank $bank overflows in $mincfg (at least)" >&2
             banknum=$(perl -e "printf '%d' => 0x$bank")
             echo "hint: $0 -b $banknum to compare all configurations" >&2
+            totalfree=X
         else
             echo "bank $bank min is $min bytes free in $mincfg"
+            if ! [ "$totalfree" = "X" ]; then
+                totalfree=$(( $totalfree + $min ))
+            fi
         fi
     done
     echo ''
+    totaldemo=0
     if [ "x$bankmode" = 'x' ]; then
         banklist="00 01 02 03 04 05 06 07"
     else
@@ -116,7 +122,11 @@ if [ "$minmode" = "1" ]; then
             done
         done
         echo "bank $bank min is $min bytes free in $mincfg"
+        totaldemo=$(( $totaldemo + $min ))
     done
+    echo ''
+    echo "Total free ROM space = $totalfree"
+    echo "Total free ROM space in demo = $totaldemo"
     exit 0
 fi
 
