@@ -31,4 +31,11 @@ DoLocal:
 
           .include "PlaySpeech.s"
 
+          .if ATARIAGESAVE
+            .include "AtariAgeSave-EEPROM-Driver.s"
+            .include "AtariVox-EEPROM-Driver-Alt.s"
+            ;; must be the last thing in the bank
+            .include "AtariAgeBackup.s"
+          .fi
+
           .include "EndBank.s"
