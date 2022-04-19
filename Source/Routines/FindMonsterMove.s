@@ -17,7 +17,7 @@ FindMonsterMove:    .block
 +
           sta Pointer
 
-          lda (Pointer), y
+          lax (Pointer), y
           sta CombatMoveSelected
 
           rts
