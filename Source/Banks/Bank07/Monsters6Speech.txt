@@ -65,7 +65,7 @@ Monster6_21:
 Fierce raptor
 
 Monster6_22:
-Devil Eagle
+Devil Skull
 
 Monster6_23:
 Round Robin
