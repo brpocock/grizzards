@@ -125,8 +125,8 @@ if [ "$minmode" = "1" ]; then
         totaldemo=$(( $totaldemo + $min ))
     done
     echo ''
-    echo "Total free ROM space = $totalfree"
-    echo "Total free ROM space in demo = $totaldemo"
+    echo "Total free ROM space = $totalfree bytes"
+    echo "Total free ROM space in demo = $totaldemo bytes"
     exit 0
 fi
 
