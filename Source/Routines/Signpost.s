@@ -365,6 +365,7 @@ ProvinceChange:
           .FarJSR SaveKeyBank, ServiceSaveProvinceData
           .WaitScreenTopMinus 1, 0
 
+          ldy #(9 * 5) + 1
           lda (SignpostText), y
           sta CurrentProvince
           iny
