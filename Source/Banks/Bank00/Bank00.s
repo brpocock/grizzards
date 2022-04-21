@@ -128,35 +128,36 @@ PeekGrizzard:                   ; NOSAVE
             .fi
 
             .include "CheckSaveSlot.s"
-            .include "EraseSlotSignature.s"
             .include "LoadGrizzardData.s"
             .include "LoadProvinceData.s"
-            .include "SaveGrizzard.s"
             .include "SaveProvinceData.s"
-            .include "SetCurrentGrizzard.s"
+            .include "EraseSlotSignature.s"
             .include "SetGrizzardAddress.s"
+            .include "SaveGrizzard.s"
+            .include "SetCurrentGrizzard.s"
 
           .fi
 
           .if DEMO
             .include "DrawStarter.s"
           .else
-            .include "ConfirmNewGame.s"
             .include "GrizzardChooser.s"
+            .include "ConfirmNewGame.s"
             .include "Unerase.s"
           .fi
 
+          .include "Random.s"
           .include "48Pixels.s"
+          .include "VSync.s"
+          .include "VBlank.s"
+
+          .include "PreambleAttracts.s"
           .include "AttractCopyright.s"
+          .include "Credits.s"
           .include "CopyPointerText.s"
           .include "CopyPointerText12.s"
-          .include "Credits.s"
-          .include "PreambleAttracts.s"
-          .include "Random.s"
           .include "ShowPointerText.s"
           .include "ShowPointerText12.s"
-          .include "VBlank.s"
-          .include "VSync.s"
 
           .include "Bank0Strings.s"
 
