@@ -22,10 +22,10 @@ PositiveRandom:
           gne HitMissP
 
 CriticalHit:
+          asl CombatMoveDeltaHP
           lda CombatMoveDeltaHP
-          asl a
           sta CriticalHitP
-          gne AttackHit1
+          gne HitCommon
 
 NegativeRandom:
           and Temp              ; attacker attack mask
