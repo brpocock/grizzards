@@ -30,8 +30,7 @@ Silence:
             jsr GetSignpostIndex
           .else
             nop                 ; Cross-bank alignment!
-            nop
-            nop
+            ldx SignpostIndex
           .fi
 
 IndexReady:

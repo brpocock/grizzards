@@ -76,43 +76,40 @@ NPC_MirandaMirror:
           .SignText "LET'S TALK  "
           .SignText "ABOUT THOSE "
           .SignText "OLD LEGENDS."
-          .byte ModeSignpostSetFlag, 9
+          .byte ModeSignpostNext, 54
 
 ;;; 54
 NPC_MirandaTip1:
           .colu COLPURPLE, 0
           .colu COLTURQUOISE, $c
-          .byte $ff, 10, 55     ; heard legend 1
           .SignText "THEY SAY YOU"
           .SignText "CAN FIND THE"
           .SignText "BOSSES OF   "
           .SignText "MONSTERS IN "
           .SignText "HELL.       "
-          .byte ModeSignpostSetFlag, 10
+          .byte ModeSignpostNext, 55
 
 ;;; 55
 NPC_MirandaTip2:
           .colu COLPURPLE, 0
           .colu COLTURQUOISE, $c
-          .byte $ff, 11, 56     ; heard legend 2
           .SignText "THEY SAY IF "
           .SignText "YOU WANT TO "
           .SignText "GO INTO HELL"
           .SignText "IT'S THROUGH"
           .SignText "A LABYRINTH."
-          .byte ModeSignpostSetFlag, 11
+          .byte ModeSignpostNext, 56
 
 ;;; 56
 NPC_MirandaTip3:
           .colu COLPURPLE, 0
           .colu COLTURQUOISE, $c
-          .byte $ff, 12, 64     ; heard legend 3
           .SignText "MAYBE FAT   "
           .SignText "TONY CAN    "
           .SignText "SHOW YOU THE"
           .SignText "LABYRINTH'S "
           .SignText "ENTRANCE.   "
-          .byte ModeSignpostSetFlag, 12
+          .byte ModeSignpostNext, 64
 
 ;;; 57
 NPC_NeedRing:
