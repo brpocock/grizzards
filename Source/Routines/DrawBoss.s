@@ -82,12 +82,12 @@ PrepareToDrawMonster:
 
 SetUpLeftHanded:
           .page
-          stx WSYNC
-          sta HMCLR
-          .SleepX 36
-          sta RESP0
-          nop
-          sta RESP1
+            stx WSYNC
+            sta HMCLR
+            .SleepX 36
+            sta RESP0
+            nop
+            sta RESP1
           .endp
 
           jmp DrawMonster
@@ -98,12 +98,12 @@ PrepareToDrawMonsterFlipped:
 
 SetUpRightHanded:
           .page
-          stx WSYNC
-          sta HMCLR
-          .SleepX 36
-          sta RESP1
-          nop
-          sta RESP0
+            stx WSYNC
+            sta HMCLR
+            .SleepX 36
+            sta RESP1
+            nop
+            sta RESP0
           .endp
 
 DrawMonster:
