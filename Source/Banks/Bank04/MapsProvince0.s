@@ -782,7 +782,7 @@ SpriteList:
           ;; Room 38, Tier 0
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpritePerson, 77 ; random villager
+          .byte SpritePerson, 113 ; random villager
 
           .byte 0
 
