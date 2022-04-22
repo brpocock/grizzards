@@ -50,19 +50,32 @@ Mult16:
           geq CommonFrame
 
 AlternateFrame:
-          .Add16 pp4l, #<BossArt.Height * 2
-          lda pp4h
           clc
-          adc #>BossArt.Height * 2
+          lda #<BossArt.Height * 2
+          adc pp4l
+          sta pp4l
+          lda #>BossArt.Height * 2
+          adc pp4h
           sta pp4h
+
+          clc
+          lda #<BossArt.Height * 2
+          adc pp5l
+          sta pp5l
+          lda #>BossArt.Height * 2
+          adc pp5h
+          sta pp5h
 
           stx WSYNC
 
-          .Add16 pp5l, #<BossArt.Height * 2
-          lda pp5h
-          clc
-          adc #>BossArt.Height * 2
-          sta pp5h
+          lda WhoseTurn
+          beq CommonFrame
+
+          lda CurrentMonsterArt
+          cmp #$0a
+          blt CommonFrame
+
+          stx WSYNC
 
 CommonFrame:
           ldy #0
