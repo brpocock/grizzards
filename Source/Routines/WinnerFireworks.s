@@ -22,6 +22,12 @@ CheckCaughtLoop:
 NotCaught:
           inc CurrentGrizzard
           lda CurrentGrizzard
+          ;; Stop periodically to keep the frame count OK
+          and #$04
+          beq +
+          .WaitScreenBottom
+          .WaitScreenTop
++
           cmp # 30
           blt CheckCaughtLoop
 
