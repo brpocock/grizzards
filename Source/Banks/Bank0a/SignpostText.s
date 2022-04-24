@@ -76,7 +76,7 @@ NPC_MirandaMirror:
           .SignText "LET'S TALK  "
           .SignText "ABOUT THOSE "
           .SignText "OLD LEGENDS."
-          .byte ModeSignpostNext, 54
+          .byte ModeSignpostSetFlag, 9
 
 ;;; 54
 NPC_MirandaTip1:
@@ -104,12 +104,13 @@ NPC_MirandaTip2:
 NPC_MirandaTip3:
           .colu COLPURPLE, 0
           .colu COLTURQUOISE, $c
-          .SignText "MAYBE FAT   "
-          .SignText "TONY CAN    "
-          .SignText "SHOW YOU THE"
-          .SignText "LABYRINTH'S "
-          .SignText "ENTRANCE.   "
-          .byte ModeSignpostNext, 64
+          .byte $ff, 56, 65     ; labyrinth closed still
+          .SignText "THERE ARE 3 "
+          .SignText "DRAGONS WHO "
+          .SignText "ANSWER TO A "
+          .SignText "BOSS BEAR.  "
+          .SignText "DEFEAT THEM."
+          .byte ModeSignpostDone
 
 ;;; 57
 NPC_NeedRing:
@@ -195,7 +196,6 @@ NPC_Fishing2:
 NPC_MirandaLabyrinth:
           .colu COLPURPLE, 0
           .colu COLTURQUOISE, $c
-          .byte $ff, 56, 65     ; labyrinth closed still
           .SignText "A LABYRINTH "
           .SignText "MUST HIDE   "
           .SignText "THE BOSSES  "
@@ -207,12 +207,12 @@ NPC_MirandaLabyrinth:
 NPC_MirandaDone:
           .colu COLPURPLE, 0
           .colu COLTURQUOISE, $c
-          .SignText "THERE ARE 3 "
-          .SignText "DRAGONS WHO "
-          .SignText "ANSWER TO A "
-          .SignText "BOSS BEAR.  "
-          .SignText "DEFEAT THEM."
-          .byte ModeSignpostDone
+          .SignText "MAYBE FAT   "
+          .SignText "TONY CAN    "
+          .SignText "SHOW YOU THE"
+          .SignText "LABYRINTH'S "
+          .SignText "ENTRANCE.   "
+          .byte ModeSignpostNext, 64
 
 ;;; 66
 Sign_DocksToTreble:
