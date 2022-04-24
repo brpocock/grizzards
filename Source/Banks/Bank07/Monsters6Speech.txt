@@ -65,7 +65,7 @@ Monster6_21:
 Fierce raptor
 
 Monster6_22:
-Devil Eagle
+Devil Skull
 
 Monster6_23:
 Round Robin
@@ -95,10 +95,10 @@ Monster6_31:
 Uber Slime
 
 Monster6_32:
-Desert Eagle
+Flying Skull
 
 Monster6_33:
-Crazed robber
+Crazy Skull
 
 Monster6_34:
 Great Worm

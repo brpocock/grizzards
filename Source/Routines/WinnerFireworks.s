@@ -6,21 +6,35 @@ WinnerFireworks:    .block
           .mva NextSound, #SoundRoar
 
           .WaitScreenBottom
+          .WaitScreenTop
 
           ldy # 0
           sty CurrentHP         ; now = Grizzards Count
           sty CurrentGrizzard   ; search each Grizzard, 0 - 29
 CheckCaughtLoop:
+          .mva Temp, CurrentGrizzard
           .FarJSR SaveKeyBank, ServicePeekGrizzardXP
-          bcc +
+
+          bit Temp
+          bpl NotCaught
+
           inc CurrentHP         ; Grizzards Count
-+
+NotCaught:
           inc CurrentGrizzard
           lda CurrentGrizzard
+          ;; Stop periodically to keep the frame count OK
+          and #$04
+          beq +
+          .WaitScreenBottom
+          .WaitScreenTop
++
           cmp # 30
           blt CheckCaughtLoop
 
-          .WaitScreenTop
+          ;; First, save everything, then pull the user's name for the message text
+          .FarJSR SaveKeyBank, ServiceSaveToSlot
+          .FarJSR SaveKeyBank, ServiceCheckSaveSlot
+;;; 
 Loop:
           .WaitScreenBottom
           .WaitScreenTop
@@ -39,10 +53,15 @@ Loop:
 
           .SetPointer AgainText
           jsr ShowPointerText
-          jmp +
+
+          jmp DoneAgain
+
 NotAgain:
           .SkipLines 16
-+
+DoneAgain:
+
+          .SetUpFortyEight BossBearDies
+          jsr ShowPicture
 
           .SetPointer CaughtText
           jsr ShowPointerText
@@ -53,27 +72,32 @@ NotAgain:
 
           .enc "minifont"
           sta Temp
-          lda #" "
-          ldx # 6
--
-          sta StringBuffer - 1, x
-          dex
-          bne -
+
+          ldx # 0
+BlankFillLoop:
+          lda ZeroText, x
+          sta StringBuffer, x
+          inx
+          cpx # 6
+          blt BlankFillLoop
+
           .FarJSR TextBank, ServiceAppendDecimalAndPrint
 
-          jmp +
+          jmp CaughtDone
+
 CaughtEmAll:
           .SetPointer EmAllText
           jsr ShowPointerText
 
-          .SetUpFortyEight BossBearDies
-          jsr ShowPicture
+CaughtDone:
 ;;; 
           lda NewSWCHB
-          beq +
+          beq DoneSwitches
+
           and #SWCHBReset
           beq Leave
-+
+
+DoneSwitches:
           jmp Loop
 ;;; 
 Leave:
@@ -86,11 +110,10 @@ NewGamePlus:
 ConsiderGrizzard:
           .FarJSR SaveKeyBank, ServicePeekGrizzardXP
 
-          bcs SeenGrizzardBefore
+          bit Temp
+          bmi SeenGrizzardBefore
 
           .FarJSR MapServicesBank, ServiceNewGrizzard
-
-          .FarJSR SaveKeyBank, ServiceSaveGrizzard
 
 SeenGrizzardBefore:
           dec CurrentGrizzard
@@ -98,20 +121,20 @@ SeenGrizzardBefore:
 
           ldy # 0               ; XXX necessary?
           sty CurrentGrizzard
+          iny                   ; Y = 1
           sty CurrentProvince
 
 WipeProvinceFlags:
           ldx # 8
--
+Wipe8Bytes:
           sta ProvinceFlags - 1, x
           dex
-          bne -
+          bne Wipe8Bytes
 
+          ;; Save Province 1 as zeroes
           .FarJSR SaveKeyBank, ServiceSaveProvinceData
 
-          inc CurrentProvince
-          .FarJSR SaveKeyBank, ServiceSaveProvinceData
-
+          ;; Save Province 2 as zeroes
           inc CurrentProvince
           .FarJSR SaveKeyBank, ServiceSaveProvinceData
 
@@ -120,6 +143,7 @@ WipeProvinceFlags:
           sty CurrentProvince
           sty NextMap
 
+          ;; Save global data, also save province 0 as zeroes
           .FarJSR SaveKeyBank, ServiceSaveToSlot
 
           jmp GoWarmStart
@@ -128,9 +152,11 @@ AgainText:
           .MiniText "AGAIN!"
 CaughtText:
           .MiniText "CAUGHT"
+ZeroText:
+          .MiniText "    00"
 EmAllText:
           .MiniText "EM ALL"
 
           .bend
 
-;;; Audited 2022-02-16 BRPocock
+;;; Audited 2022-04-23 BRPocock

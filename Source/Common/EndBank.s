@@ -79,7 +79,7 @@ GoMap:
 ;;; Go to the current combat memory bank, and jump to DoCombat.
 GoCombat:
           .mvx s, #$ff              ; smash the stack
-          sta BankSwitch0 + CombatBank0To127
+          sta BankSwitch0 + CombatBank0To63
           jmp DoLocal
 
 GoWarmStart:

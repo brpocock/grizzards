@@ -6,6 +6,7 @@ ConfirmErase:       .block
           ldx # 1
           stx DeltaX            ; current selection = not to erase
 
+          .mva NewSWCHA, # 0
           .mva GameMode, #ModeConfirmEraseSlot
 Loop:
           .WaitScreenBottom

@@ -2,11 +2,11 @@
 ;;; Copyright © 2022 Bruce-Robert Pocock
 
 FinalScore:         .block
-          
-          .SetPointer WinnerText
+
+          .SetPointer NameEntryBuffer
           jsr ShowPointerText
 
-          .SetPointer WinnerText + 6
+          .SetPointer WinnerText
           jsr ShowPointerText
 
           jsr DecodeScore
@@ -16,7 +16,6 @@ FinalScore:         .block
           rts
 
 WinnerText:
-          .MiniText "YOU   "
           .MiniText "  WON!"
 
           .bend
