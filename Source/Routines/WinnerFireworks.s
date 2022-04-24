@@ -6,6 +6,7 @@ WinnerFireworks:    .block
           .mva NextSound, #SoundRoar
 
           .WaitScreenBottom
+          .WaitScreenTop
 
           ldy # 0
           sty CurrentHP         ; now = Grizzards Count
@@ -24,7 +25,6 @@ NotCaught:
           cmp # 30
           blt CheckCaughtLoop
 
-          .WaitScreenTop
           ;; First, save everything, then pull the user's name for the message text
           .FarJSR SaveKeyBank, ServiceSaveToSlot
           .FarJSR SaveKeyBank, ServiceCheckSaveSlot
