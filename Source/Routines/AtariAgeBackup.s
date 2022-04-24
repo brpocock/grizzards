@@ -1,6 +1,18 @@
 ;;; Grizzards Source/Routines/AtariAgeBackup.s
 ;;; Copyright © 2022 Bruce-Robert Pocock
 
+AtariAgeCopyMenu:   .block
+
+Loop:
+          .WaitScreenBottom
+          .WaitScreenTop
+
+          jmp Loop
+
+          jmp GoWarmStart
+
+          .bend
+;;; 
 AtariAgeBackup:     .block
 
           .WaitScreenBottom
@@ -20,7 +32,7 @@ AtariAgeBackup:     .block
 
           lda #>SaveGameSlotPrefix
           clc
-          adc SaveGameSlot 
+          adc BackupGameSlot 
           jsr i2cTxByte
 
           lda #<SaveGameSlotPrefix
@@ -41,7 +53,7 @@ CopyPages:
           rts
 
           .bend
-
+;;; 
 AtariAgeRestore:    .block
 
           .WaitScreenBottom
@@ -51,7 +63,7 @@ AtariAgeRestore:    .block
 
           lda #>SKSaveGameSlotPrefix
           clc
-          adc SaveGameSlot 
+          adc BackupGameSlot 
           jsr SKi2cTxByte
 
           lda #<SKSaveGameSlotPrefix
@@ -82,8 +94,9 @@ CopyPages:
           rts
 
           .bend
+;;; 
+          .warn format("bank %d ends at %x* with %d bytes left (%.1f%%)", BANK, *, BankEndAddress - 3 - *, ( (Wired - *) * 100.0 / (* - $f000) ) )
 
-          .fill BankEndAddress - 6 - *, "AtariAge.com "
+          .fill BankEndAddress - 3 - *, "AtariAge.com "
 
-          jmp AtariAgeBackup
-          jmp AtariAgeRestore
+          jmp AtariAgeCopyMenu

@@ -418,6 +418,10 @@ NameEntryPosition:
 ;;; Buffer for name entry
 NameEntryBuffer:
           .byte ?, ?, ?, ?, ?, ?
+
+;;; AtariAge version backup slot
+BackupGameSlot:
+          .byte ?
 ;;; 
 ;;; Scratchpad for Map mode
             * = Scratchpad

@@ -184,14 +184,22 @@ StickDone:
           cmp #ModeEraseSlot
           beq EliminationMode
 
-          ;; To enter Elimination Mode (ERASE SLOT):
+          ;; To enter Elimination Mode (ERASE SLOT)
+          ;; [or AtariAge Backup mode]
           ;; — both Difficulty Switches to A/Advanced
           lda SWCHB
           and # SWCHBP0Advanced | SWCHBP1Advanced
           cmp # SWCHBP0Advanced | SWCHBP1Advanced
           bne ThisIsNotAStickUp
 
-          ;; — pull Down on joystick
+          ;; — push Up on joystick for Backup mode
+          .if ATARIAGESAVE
+            lda SWCHA
+            and #P0StickUp
+            beq ThisIsAStickUp
+          .fi
+
+          ;; — pull Down on joystick for Elimination Mode
           lda SWCHA
           and #P0StickDown
           bne ThisIsNotAStickUp
@@ -246,6 +254,18 @@ DoResumeSlot:
           
           .fi
 
+          .if ATARIAGESAVE
+ThisIsAStickUp:
+            ;; This is a wedge vector for AtariAgeCopyMenu
+            lda #>BankEndAddress - 3
+            pha
+            lda #<BankEndAddress - 3
+            pha
+            lda #$0c
+            pha
+            jmp FarReturn
+          .fi
+          
 ThisIsNotAStickUp:
           .mva GameMode, #ModeSelectSlot
 
