@@ -8,6 +8,11 @@ EEPROMFail:
           brk
 
 CheckSaveSlot: .block
+          ;; Check SaveGameSlot for a save game
+          ;; Returns values of Potions (crown bit $80),
+          ;; player name in NameEntryBuffer,
+          ;; and sets SaveSlotBusy and SaveSlotErased to
+          ;; either $00 for false or non-zero for true
           jsr SeedRandom
 
 	jsr i2cStartWrite
