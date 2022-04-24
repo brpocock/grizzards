@@ -82,7 +82,7 @@ GoGoMap:
 ;;; Go to the current combat memory bank, and jump to DoCombat.
 GoCombat:
           .mvx s, #$ff              ; smash the stack
-          lda #CombatBank0To127
+          lda #CombatBank0To63
           sta BankControl
           jmp DoLocal
 
@@ -118,23 +118,7 @@ Break:
           lda # BANK
           pha
           BankJump Failure, FailureBank
-
-;;; End of wired memory
-WiredEnd:
-          .if $ff80 < WiredEnd
-          .error "Wired ROM ends at ", *, " ; must end before $ff80. Adjust start of wired ROM at top of EndBank.s to ", format("$%x", (Wired + ($ff80 - WiredEnd)))
-          .fi
-
-          .if $ff70 > WiredEnd
-          .warn "Wired memory could be moved up, ended at ", format("%x", WiredEnd), " but can end as late as $ff7f"
-          .fi
-
 ;;; 
-;;; This stuff is just set to make sure the ProSystem will drop to VCS
-;;; compatibility mode for sure.
-          * = $ff80
-          .offs -$f000
-
           ;; Useful constants to save time bit-shifting. Used all over.
 BitMask:
           .byte $01, $02, $04, $08, $10, $20, $40, $80
@@ -155,43 +139,24 @@ InvertedBitMask:
               .fi
             .fi
           .fi
-          .fi
-          .fi
-          
-          .fill ($fff7 - * + 1), 0        ; 7800 crypto key (designed to fail)
-
-          .if DEMO
-          
-          * = $fff4
-          .offs -$f000
-
-          .text "grizbrp", 0
-
-          .else
-
-          * = $ffe0
-          .offs -$f000
-
-          .text "grizbrp", 0
-
-          ;; magic cookie for Stella
-          nop $1fe0
-
-          .fi
 
 ;;; The KnownZeroInEveryBank allows pointer to point to a fixed zero,
 ;;; which has proven to be useful on occassion.
 
-KnownZeroInEveryBank:
-          .byte 0                                ; 7800 region code: no regions enabled
-          .byte $f0                              ; 7800 recognition
-          ;; on the 7800 this says ROM begins at $f000 (true) and
-          ;; since 0 ≠ 7 we are not a 7800 tape (also true)
+Zero:
+          .byte 0
 
-;;; Bank switch control port for F9 style bank switching
-          BankControl = $fff9
+;;; End of wired memory
+WiredEnd:
+          .if BankSwitch0 < WiredEnd || WiredEnd < $f000
+            .error "Wired ROM ends at ", WiredEnd, " ; must end before ", BankSwitch0, ". Adjust start of wired ROM at top of EndBank.s to ", format("$%x", (BankEndAddress + (BankSwitch0 - WiredEnd)))
+          .fi
 
-;;; 6502 special vectors
+          .if BankSwitch0 > WiredEnd
+            .warn "Wired memory could be moved up, ended at ", *, " but can end as late as ", BankSwitch0, " wasting ", (BankSwitch0 - WiredEnd), ", move BankEndAddress up to ", format("$%x", (BankEndAddress + (BankSwitch0 - WiredEnd)))
+          .fi
+
+;;; 6507 special vectors
 ;;;
           * = NMIVEC
           .offs -$f000
@@ -206,7 +171,7 @@ KnownZeroInEveryBank:
           .word Break
 
           .if * != $0000
-          .error "Bank ", BANK, " does not end at $ffff, but ", * - 1
+            .error "Bank ", BANK, " does not end at $ffff, but ", * - 1
           .fi
 
 

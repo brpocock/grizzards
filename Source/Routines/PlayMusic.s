@@ -65,6 +65,11 @@ PlayMusic:
           sty AUDC1
           sty AUDV1
 
+          .if BANK != 7
+            bit SystemFlags
+            bmi TheEnd
+          .fi
+
 ReallyPlayMusic:
           ldy #0
           lax (CurrentMusic), y

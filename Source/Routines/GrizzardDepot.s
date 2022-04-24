@@ -239,6 +239,7 @@ SeekOK:
           .fi
           sta COLUBK
           .FarJSR SaveKeyBank, ServiceLoadGrizzard
+          .FarJSR SaveKeyBank, ServiceSetCurrentGrizzard
 
           .fi                   ; end of block disabled for NoSave
 ;;; 

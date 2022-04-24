@@ -107,8 +107,23 @@ DrawHealPoints:
           eor #$ff
           beq SkipHitPoints
 
-          sta Temp
+          ldx WhoseTurn
+          bne DrawHealXX
+
+          ldx MaxHP
+          cpx CurrentHP
+          bne DrawHealXX
+
           .SetPointer HealedText
+          jsr CopyPointerText
+
+          jsr DecodeAndShowText
+
+          jmp DoneHitPoints
+
+DrawHealXX:
+          sta Temp
+          .SetPointer Heal00Text
 DrawHitPoints:
           jsr AppendDecimalAndPrint.FromTemp
 
