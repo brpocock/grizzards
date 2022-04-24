@@ -86,6 +86,7 @@ BearDelay2:
           .mva NextSound, # SoundDrone
           .mva CurrentCombatEncounter, # 92 ; Boss Bear combat scenario
           .mva CombatMajorP, #$80
+          .mva CurrentHP, MaxHP
           .WaitScreenBottom
           jmp GoCombat
 

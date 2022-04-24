@@ -1,9 +1,6 @@
 ;;; Grizzards Source/Banks/Bank04/MapsProvince0.so
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
-
-;;; TODO There is room left for precisely 8 more sprites in this memory bank and I intend to use every one.
-
           ;; How many maps are in these tables?
 MapCount = 65
 ;;; 
@@ -785,7 +782,7 @@ SpriteList:
           ;; Room 38, Tier 0
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpritePerson, 77 ; random villager
+          .byte SpritePerson, 113 ; random villager
 
           .byte 0
 

@@ -171,3 +171,13 @@ Credits_5:
           .SignText "FORUMS.     "
           .byte ModeSignpostNext, 108
 
+;;; 113
+NPC_Villager4:
+          .colu COLINDIGO, 0
+          .colu COLTURQUOISE, $9
+          .SignText "THE MONSTERS"
+          .SignText "ATTACKED    "
+          .SignText "TREBLE FIRST"
+          .SignText "BUT THEY'RE "
+          .SignText "COMING HERE."
+          .byte ModeSignpostDone

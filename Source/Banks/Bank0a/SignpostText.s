@@ -82,37 +82,35 @@ NPC_MirandaMirror:
 NPC_MirandaTip1:
           .colu COLPURPLE, 0
           .colu COLTURQUOISE, $c
-          .byte $ff, 10, 55     ; heard legend 1
           .SignText "THEY SAY YOU"
           .SignText "CAN FIND THE"
           .SignText "BOSSES OF   "
           .SignText "MONSTERS IN "
           .SignText "HELL.       "
-          .byte ModeSignpostSetFlag, 10
+          .byte ModeSignpostNext, 55
 
 ;;; 55
 NPC_MirandaTip2:
           .colu COLPURPLE, 0
           .colu COLTURQUOISE, $c
-          .byte $ff, 11, 56     ; heard legend 2
           .SignText "THEY SAY IF "
           .SignText "YOU WANT TO "
           .SignText "GO INTO HELL"
           .SignText "IT'S THROUGH"
           .SignText "A LABYRINTH."
-          .byte ModeSignpostSetFlag, 11
+          .byte ModeSignpostNext, 56
 
 ;;; 56
 NPC_MirandaTip3:
           .colu COLPURPLE, 0
           .colu COLTURQUOISE, $c
-          .byte $ff, 12, 64     ; heard legend 3
-          .SignText "MAYBE FAT   "
-          .SignText "TONY CAN    "
-          .SignText "SHOW YOU THE"
-          .SignText "LABYRINTH'S "
-          .SignText "ENTRANCE.   "
-          .byte ModeSignpostSetFlag, 12
+          .byte $ff, 56, 65     ; labyrinth closed still
+          .SignText "THERE ARE 3 "
+          .SignText "DRAGONS WHO "
+          .SignText "ANSWER TO A "
+          .SignText "BOSS BEAR.  "
+          .SignText "DEFEAT THEM."
+          .byte ModeSignpostDone
 
 ;;; 57
 NPC_NeedRing:
@@ -198,7 +196,6 @@ NPC_Fishing2:
 NPC_MirandaLabyrinth:
           .colu COLPURPLE, 0
           .colu COLTURQUOISE, $c
-          .byte $ff, 56, 65     ; labyrinth closed still
           .SignText "A LABYRINTH "
           .SignText "MUST HIDE   "
           .SignText "THE BOSSES  "
@@ -210,12 +207,12 @@ NPC_MirandaLabyrinth:
 NPC_MirandaDone:
           .colu COLPURPLE, 0
           .colu COLTURQUOISE, $c
-          .SignText "THERE ARE 3 "
-          .SignText "DRAGONS WHO "
-          .SignText "ANSWER TO A "
-          .SignText "BOSS BEAR.  "
-          .SignText "DEFEAT THEM."
-          .byte ModeSignpostDone
+          .SignText "MAYBE FAT   "
+          .SignText "TONY CAN    "
+          .SignText "SHOW YOU THE"
+          .SignText "LABYRINTH'S "
+          .SignText "ENTRANCE.   "
+          .byte ModeSignpostNext, 64
 
 ;;; 66
 Sign_DocksToTreble:

@@ -30,8 +30,7 @@ Silence:
             jsr GetSignpostIndex
           .else
             nop                 ; Cross-bank alignment!
-            nop
-            nop
+            ldx SignpostIndex
           .fi
 
 IndexReady:
@@ -365,6 +364,7 @@ ProvinceChange:
           .FarJSR SaveKeyBank, ServiceSaveProvinceData
           .WaitScreenTopMinus 1, 0
 
+          ldy #(9 * 5) + 1
           lda (SignpostText), y
           sta CurrentProvince
           iny

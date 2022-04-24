@@ -22,8 +22,8 @@ PositiveRandom:
           gne HitMissP
 
 CriticalHit:
+          asl CombatMoveDeltaHP
           lda CombatMoveDeltaHP
-          asl a
           sta CriticalHitP
           gne AttackHit1
 
