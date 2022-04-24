@@ -80,6 +80,9 @@ DoLocal:
 
             cpy #ServiceConfirmNewGame
             beq ConfirmNewGame
+
+            cpy #ServiceCheckSaveSlot
+            beq CheckSaveSlot
           .fi
 
           brk

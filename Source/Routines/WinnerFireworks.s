@@ -23,8 +23,12 @@ NotCaught:
           lda CurrentGrizzard
           cmp # 30
           blt CheckCaughtLoop
-;;; 
+
           .WaitScreenTop
+          ;; First, save everything, then pull the user's name for the message text
+          .FarJSR SaveKeyBank, ServiceSaveToSlot
+          .FarJSR SaveKeyBank, ServiceCheckSaveSlot
+;;; 
 Loop:
           .WaitScreenBottom
           .WaitScreenTop

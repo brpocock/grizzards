@@ -200,6 +200,7 @@
           ServiceSaveProvinceData = $20
           ServiceSaveToSlot = $10
           ServiceSetCurrentGrizzard = $2f
+          ServiceCheckSaveSlot = $39
 
 ;;; Map services bank
 
