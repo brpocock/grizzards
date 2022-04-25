@@ -604,6 +604,10 @@ SpriteList:
           .byte 0, 0
           .byte SpriteCombat, 20
 
+          .byte $ff, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteGrizzard, 19 ; Corlyn
+
           .byte 0
 
           ;;Room 45, Tier 11
