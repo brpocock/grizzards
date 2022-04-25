@@ -32,14 +32,18 @@ NotCaught:
           blt CheckCaughtLoop
 
           ;; First, save everything, then pull the user's name for the message text
+          ;; SaveToSlot starts _and ends_ with WaitScreenBottom calls.
           .FarJSR SaveKeyBank, ServiceSaveToSlot
+          .WaitScreenTopMinus 1, 1
           .FarJSR SaveKeyBank, ServiceCheckSaveSlot
+          .WaitScreenBottom
+          .WaitScreenTopMinus 1, 1
 ;;; 
 Loop:
-          .WaitScreenBottom
           ldx #SFXBank
           jsr FarCall
-          .WaitScreenTopMinus 3, 3
+          .WaitScreenBottom
+          .WaitScreenTopMinus 1, 1
           .ldacolu COLRED, $8
           sta COLUBK
           .ldacolu COLGOLD, $0
@@ -106,6 +110,7 @@ DoneSwitches:
           and #ButtonI
           bne DoneButtons
 
+          .WaitScreenBottom
           .mvx SignpostIndex, # 108    ; Credits1
           jmp Signpost
 

@@ -295,10 +295,8 @@ ClearFlag:
 GoNext:
           lda (SignpostText), y
           sta SignpostIndex
-
-          lda #ModeSignpost
-          sta GameMode
-
+          .mva GameMode, #ModeSignpost
+          .WaitScreenBottom
           jmp Setup
 
 GetPotions:
