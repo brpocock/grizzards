@@ -37,6 +37,8 @@ NotCaught:
 ;;; 
 Loop:
           .WaitScreenBottom
+          ldx #SFXBank
+          jsr FarCall
           .WaitScreenTop
           .ldacolu COLRED, $8
           sta COLUBK
