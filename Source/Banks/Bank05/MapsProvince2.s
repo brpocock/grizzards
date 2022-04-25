@@ -260,6 +260,10 @@ SpriteList:
           .byte 0, 0
           .byte SpriteCombat, 60 ; Grabby Crabby
 
+          .byte $ff, SpriteFixed
+          .byte $82, $16
+          .byte SpriteSign, 49  ; Port Lion village
+
           .byte 0
 
           ;; Room 2, Dragon
