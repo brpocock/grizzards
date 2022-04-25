@@ -47,7 +47,7 @@ Ambren:                         ; near Anchor
           .byte 40, 20, 20, 26, $0f
 Noctis:                         ; near Anchor
           .byte 40, 20, 20, 27, $0f
-Corlyn:                         ; Lost Mine
+Corlyn:                         ; TBD!!
           .byte 40, 20, 20, 28, $0f
           ;; 20
 Wapow:                       ; from Dufont
