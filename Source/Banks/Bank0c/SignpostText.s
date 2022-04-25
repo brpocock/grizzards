@@ -169,7 +169,7 @@ Credits_5:
           .SignText "AND EVERYONE"
           .SignText "IN ATARIAGE "
           .SignText "FORUMS.     "
-          .byte ModeSignpostNext, 108
+          .byte ModeWinnerFireworks
 
 ;;; 113
 NPC_Villager4:

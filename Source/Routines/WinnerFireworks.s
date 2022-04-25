@@ -8,7 +8,7 @@ WinnerFireworks:    .block
           .WaitScreenBottom
           .WaitScreenTop
 
-          ldy # 0
+          .mvy NewButtons, # 0
           sty CurrentHP         ; now = Grizzards Count
           sty CurrentGrizzard   ; search each Grizzard, 0 - 29
 CheckCaughtLoop:
@@ -39,7 +39,7 @@ Loop:
           .WaitScreenBottom
           ldx #SFXBank
           jsr FarCall
-          .WaitScreenTop
+          .WaitScreenTopMinus 3, 3
           .ldacolu COLRED, $8
           sta COLUBK
           .ldacolu COLGOLD, $0
@@ -100,6 +100,16 @@ CaughtDone:
           beq Leave
 
 DoneSwitches:
+          lda NewButtons
+          beq DoneButtons
+
+          and #ButtonI
+          bne DoneButtons
+
+          .mvx SignpostIndex, # 108    ; Credits1
+          jmp Signpost
+
+DoneButtons:
           jmp Loop
 ;;; 
 Leave:
