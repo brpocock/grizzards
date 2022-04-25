@@ -638,14 +638,10 @@ SpriteList:
 
           .byte 0
 
-          ;; Room 49, Tier 11
-          .byte 17, SpriteWander
-          .byte 0, 0
-          .byte SpriteCombat, 80
-
+          ;; Room 49, Tier 0
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 81
+          .byte SpritePerson, 49 ; Fat Tony — sea is dangerous
 
           .byte 0
 
