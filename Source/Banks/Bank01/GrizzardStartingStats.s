@@ -60,7 +60,7 @@ Flitex:                         ; from Flyer
           .byte 45, 25, 25, 0, $0f
           ;; 24
 Flarex:                          ; from Burner
-          .byte 50, 25, 25, 0, $0f
+          .byte 50, 25, 25, 0, $81
 Uptrix:                         ; from Cornet
           .byte 75, 37, 37, 0, $0f
 Altrix:                         ; from Ambren
