@@ -321,9 +321,8 @@ AfterTryingToLearn:
           .FarJSR MapServicesBank, ServiceLearntMove
 ;;; 
 NextTurn:
-          inc WhoseTurn
           ldx WhoseTurn
-          dex
+          inc WhoseTurn
           cpx # 6
           bne NotLastMonster
 
