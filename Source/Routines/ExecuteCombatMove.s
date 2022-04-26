@@ -309,7 +309,7 @@ LearntMove:
 CheckNextMove:
           inc pp1h              ; loop counter
           lda pp1h
-          cmp #8
+          cmp # 8
           blt CheckMove
 
 DidNotLearn:
