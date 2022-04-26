@@ -24,15 +24,17 @@ PeekGrizzard:       .block
           jsr i2cStopRead
 
           ;; Grizzard found!
+          .mva Temp, #$80
           sec
           rts
 
 NoGrizzard:
           jsr i2cStopRead
 
+          .mvy Temp, # 0
           clc
           rts
 
           .bend
 
-;;; Audited 2022-02-16 BRPocock
+;;; Audited 2022-04-25 BRPocock

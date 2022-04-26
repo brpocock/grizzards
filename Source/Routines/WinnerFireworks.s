@@ -120,27 +120,37 @@ DoneButtons:
 Leave:
           .WaitScreenBottom
           .WaitScreenTop
+;;; 
 NewGamePlus:
           .mva Potions, #$80 | 25
+;;; 
+AddAllStarters:
           .mva CurrentGrizzard, # 2
 
 ConsiderGrizzard:
+          .mva Temp, CurrentGrizzard
           .FarJSR SaveKeyBank, ServicePeekGrizzardXP
 
           bit Temp
           bmi SeenGrizzardBefore
 
-          .FarJSR MapServicesBank, ServiceNewGrizzard
+          .mva Temp, CurrentGrizzard
+          .FarJSR MapServicesBank, ServiceGrizzardDefaults
+          .FarJSR SaveKeyBank, ServiceSaveGrizzard
 
 SeenGrizzardBefore:
           dec CurrentGrizzard
           bpl ConsiderGrizzard
-
+;;; 
+ResetProvinceFlags:
           ldy # 0               ; XXX necessary?
+          sty CurrentMap
+          sty NextMap
           sty CurrentGrizzard
           iny                   ; Y = 1
           sty CurrentProvince
 
+          tya
 WipeProvinceFlags:
           ldx # 8
 Wipe8Bytes:
@@ -155,11 +165,7 @@ Wipe8Bytes:
           inc CurrentProvince
           .FarJSR SaveKeyBank, ServiceSaveProvinceData
 
-          ldy # 0               ; XXX necessary?
-          sty CurrentMap
-          sty CurrentProvince
-          sty NextMap
-
+          .mvy CurrentProvince, # 0
           ;; Save global data, also save province 0 as zeroes
           .FarJSR SaveKeyBank, ServiceSaveToSlot
 
