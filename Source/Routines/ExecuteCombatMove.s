@@ -186,7 +186,7 @@ IncrementScore:
           iny                   ; MonsterPointsIndex + 1
           lda (CurrentMonsterPointer), y
           adc Score + 1
-          sta Score +1
+          sta Score + 1
           bcc ScoreNoCarry
 
           inc Score + 2
