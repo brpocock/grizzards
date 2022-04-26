@@ -5,6 +5,7 @@ CombatMainScreen:   .block
 
 BackToPlayer:
           .mva MoveSelection, LastPlayerCombatMove
+MonsterThwarted:
           .mva GameMode, #ModeCombat
           .mva AlarmCountdown, # 4
 
@@ -53,11 +54,12 @@ Loop:
             lda WhoseTurn
             bne NWait0
 
-            .SkipLines 2
+            stx WSYNC
+            stx WSYNC
             lda MoveSelection
             bne NWait0
 
-            .SkipLines 1
+            stx WSYNC
 NWait0:
             lda CombatMajorP
             bpl +
@@ -471,6 +473,7 @@ MuddleText:
           .MiniText "MUDDLE"
 
 MaybeReadyToAnnounce:
+          ldx WhoseTurn
           beq Announce
 
           jsr FindMonsterMove
@@ -481,13 +484,12 @@ MaybeReadyToAnnounce:
           ldx WhoseTurn
           lda EnemyHP - 1, x
           cmp MonsterMaxHP
-          blt Announce
+          blt CombatAnnouncementScreen
 
-          lda #ModeCombat
-          sta GameMode
-          jmp Loop
+          jmp MonsterThwarted
 
 Announce:
           ;; falls through to CombatAnnouncementScreen
+          stx WSYNC
           
           .bend
