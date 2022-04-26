@@ -274,7 +274,7 @@ SoundReady:
           .FarJSR TextBank, ServiceCombatOutcome
 ;;; 
           .WaitScreenTop
-
+TryToLearnMove:
           ;; If this was a monster's move, could the player learn that move?
           lda WhoseTurn
           beq NextTurn
