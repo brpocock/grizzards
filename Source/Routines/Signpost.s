@@ -15,6 +15,7 @@ Setup:
           gne Silence
 
 +
+          stx WSYNC
           .WaitScreenTopMinus 1, 0
 
 Silence:
@@ -350,7 +351,7 @@ ProvinceChange:
 ;;; Duplicated in Signpost.s and CheckPlayerCollision.s nearly exactly
           .mvx s, #$ff
           .if NTSC == TV
-            .SkipLines KernelLines - 179
+            .SkipLines KernelLines - 180
             jsr Overscan
           .else
             ldx INTIM
