@@ -394,6 +394,8 @@ RunAway:
           .mva GameMode, #ModeMap
 
           .switch TV
+          .case NTSC
+            stx WSYNC
           .case PAL
             .SkipLines 17
           .case SECAM
