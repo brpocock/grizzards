@@ -147,10 +147,11 @@ ResetProvinceFlags:
           sty CurrentMap
           sty NextMap
           sty CurrentGrizzard
+          tya
+
           iny                   ; Y = 1
           sty CurrentProvince
 
-          tya
 WipeProvinceFlags:
           ldx # 8
 Wipe8Bytes:
