@@ -55,12 +55,14 @@ Loop:
             bne NWait0
 
             stx WSYNC
-            stx WSYNC
             lda MoveSelection
-            bne NWait0
-
+            beq NWait0
             stx WSYNC
 NWait0:
+            lda AlarmCountdown
+            bne +
+            stx WSYNC
++
             lda CombatMajorP
             bpl +
             stx WSYNC
