@@ -344,10 +344,10 @@ NoP1:
 P1Done:
           .if TV != NTSC
           ;; extend every even line on PAL/SECAM
-          lda #$01
-          bit LineCounter
-          beq +
-          stx WSYNC
+            lda #$01
+            bit LineCounter
+            beq +
+            stx WSYNC
 +
           .fi
 
