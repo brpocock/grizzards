@@ -472,13 +472,9 @@ GoScreen:
           rol Temp
           clc                   ; XXX necessary?
           adc #<MapLinks
-          bcc +
-          inc Pointer + 1
-+
           sta Pointer
 
           lda Pointer + 1
-          clc
           adc Temp
           sta Pointer + 1
 
