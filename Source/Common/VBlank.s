@@ -72,7 +72,7 @@ ButtonsChanged:
           lda #~SWCHBSelect | $40     ; zero = Select button pressed, $40 = changed
           sta NewSWCHB
 DoneButtonIISelect:
-          .if 11 != BANK
+          .if 11 != BANK && 6 != BANK
             lda NewButtons
             and #ButtonIII
             bne DoneButtons
