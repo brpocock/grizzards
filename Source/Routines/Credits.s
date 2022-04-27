@@ -26,7 +26,7 @@ Loop:
 
           lda NewButtons
           beq StayCredits
-          bmi StayCredits       ; XXX is this right?
+          bpl StayCredits
 
 Bye:
           .mva GameMode, #ModeAttractCopyright
