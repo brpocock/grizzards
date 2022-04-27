@@ -51,22 +51,7 @@ Loop:
           .case PAL
 
             .WaitScreenBottom
-            lda WhoseTurn
-            bne NWait0
-
             stx WSYNC
-            lda MoveSelection
-            beq NWait0
-            stx WSYNC
-NWait0:
-            lda AlarmCountdown
-            bne +
-            stx WSYNC
-+
-            lda CombatMajorP
-            bpl +
-            stx WSYNC
-+
 
           .case SECAM
 
