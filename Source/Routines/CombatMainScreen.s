@@ -333,7 +333,12 @@ NotRunAway:
           bit MovesKnown
           beq NotMoveKnown
 
-          .ldacolu COLTURQUOISE, $e
+          .switch TV
+          .case NTSC, SECAM
+            .ldacolu COLTURQUOISE, $e
+          .case PAL
+            .ldacolu COLTURQUOISE, $8
+          .endswitch
           gne ShowSelectedMove
 
 NotMoveKnown:
