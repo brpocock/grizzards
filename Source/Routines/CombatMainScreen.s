@@ -51,7 +51,6 @@ Loop:
           .case PAL
 
             .WaitScreenBottom
-            stx WSYNC
 
           .case SECAM
 
@@ -391,7 +390,7 @@ RunAway:
           .case NTSC
             stx WSYNC
           .case PAL
-            .SkipLines 17
+            .SkipLines 18
           .case SECAM
             .SkipLines 19
           .endswitch
@@ -413,7 +412,7 @@ Leave:
 
           .switch TV
           .case PAL,SECAM
-            .SkipLines 32
+            .SkipLines 34
           .case NTSC
             .SkipLines 31
           .endswitch

@@ -98,5 +98,3 @@ ZeroEnemyStatusFX:
 
           ;; fall through to CombatIntroScreen, which does WaitScreenBottom
           .bend
-
-;;; Audited 2022-02-16 BRPocock

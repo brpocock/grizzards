@@ -16,7 +16,7 @@ Setup:
 
 +
           stx WSYNC
-          .WaitScreenTopMinus 1, 0
+          .WaitScreenTopMinus 1, 10
 
 Silence:
           .KillMusic
@@ -415,7 +415,12 @@ Inquire:
 ;;; Overscan is different, we don't have  sound effects nor music and we
 ;;; don't want Bank 7 to get confused by our speech.
 Overscan: .block
-          .TimeLines OverscanLines
+          .switch TV
+          .case NTSC
+            .TimeLines OverscanLines
+          .case PAL, SECAM
+            .TimeLines OverscanLines + 10
+          .endswitch
 
           jsr PlaySpeech
 
