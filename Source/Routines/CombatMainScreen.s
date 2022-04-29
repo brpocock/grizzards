@@ -50,7 +50,19 @@ Loop:
 
           .case PAL
 
+            ldx WhoseTurn
+            beq +
+
+            ;; skip a few lines because it's the monsters' turn
+            ;; (no, this doesn't make any sense)
+            lda INTIM
+            sec
+            sbc # 6
+            sta TIM64T
++
             .WaitScreenBottom
+            stx WSYNC
+            stx WSYNC
 
           .case SECAM
 
@@ -83,7 +95,7 @@ Loop:
           .endswitch
 
 LoopFirst:
-          .WaitScreenTopMinus 1, 3
+          .WaitScreenTopMinus 1, 0
           jsr Prepare48pxMobBlob
 
           .switch TV
@@ -102,7 +114,7 @@ LoopFirst:
             bne +
             .ldacolu COLGRAY, $8
 +
-          
+
           .case SECAM
 
             lda #COLWHITE
@@ -117,7 +129,6 @@ BGTop:
           .ldacolu COLYELLOW, $f
           sta COLUP0
           sta COLUP1
-
 ;;; 
 MonstersDisplay:
           lda CurrentCombatEncounter
@@ -179,11 +190,9 @@ BeginPlayerSection:
           .ldacolu COLBLUE, $f
           sta COLUP0
           sta COLUP1
-          lda WhoseTurn
-          beq PlayerBGBottom
-
           .ldacolu COLGRAY, $2
-          jmp BGBottom
+          ldx WhoseTurn
+          bne BGBottom
 
 PlayerBGBottom:
           .if TV == SECAM
@@ -388,11 +397,17 @@ RunAway:
 
           .switch TV
           .case NTSC
+
             stx WSYNC
+
           .case PAL
+
             .SkipLines 18
+
           .case SECAM
+
             .SkipLines 19
+
           .endswitch
 ;;; 
 ScreenDone:
@@ -412,9 +427,13 @@ Leave:
 
           .switch TV
           .case PAL,SECAM
+	
             .SkipLines 34
+
           .case NTSC
+
             .SkipLines 31
+	
           .endswitch
           jmp GoMap
 
@@ -462,7 +481,7 @@ SleepsText:
           .MiniText "SLEEPS"
 MuddleText:
           .MiniText "MUDDLE"
-
+;;; 
 MaybeReadyToAnnounce:
           ldx WhoseTurn
           beq Announce

@@ -7,6 +7,7 @@
 
 VBlank: .block
           stx WSYNC
+          ;; Should have been VBlankWorkLines but too late to fix now:
           .TimeLines VBlankLines
 
           ldy # 0
