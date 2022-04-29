@@ -495,28 +495,39 @@ ShouldIStayOrShouldIGo:
           cmp #ModeMap
           bne Leave
 
-          .WaitForTimer
-          jsr Overscan
+          jsr LeaveTiming
 
           jmp Loop
+
+LeaveTiming:
+          .WaitForTimer
+          .if TV == NTSC
+            jmp Overscan        ; tail call
+          .else
+            .TimeLines OverscanLines
+            jmp Overscan.Short  ; tail call
+          .fi
 ;;; 
 Leave:
+          jsr LeaveTiming
+
+          lda GameMode
+
           cmp #ModeMapNewRoom
-          beq MapSetup.NewRoom
+          bne +
+          stx WSYNC
+          jmp MapSetup.NewRoom
++
 
           cmp #ModeMapNewRoomDoor
-          beq MapSetup.NewRoom
-
-          ldx # 0
-          stx CurrentMusic + 1
+          bne +
+          stx WSYNC
+          jmp MapSetup.NewRoom
++
 
           cmp #ModeGrizzardDepot
           beq EnterGrizzardDepot
 
-          .WaitForTimer
-          jsr Overscan
-
-          lda GameMode
           cmp #ModePotion
           beq DoPotions
 

@@ -2,8 +2,12 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 Overscan: .block
-          .TimeLines OverscanLines
-
+          .if NTSC == TV
+            .TimeLines OverscanLines
+          .else
+            .TimeLines OverscanLines + 10
+          .fi
+Short:
           ldy # 0
           stx WSYNC
           sty COLUPF

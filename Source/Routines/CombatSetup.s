@@ -2,7 +2,9 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 ;;; Common combat routines called from multiple banks
 DoCombat:          .block
-          stx WSYNC
+          .if NTSC == TV
+            stx WSYNC
+          .fi
           .WaitScreenTop
           .KillMusic
 
@@ -98,5 +100,3 @@ ZeroEnemyStatusFX:
 
           ;; fall through to CombatIntroScreen, which does WaitScreenBottom
           .bend
-
-;;; Audited 2022-02-16 BRPocock
