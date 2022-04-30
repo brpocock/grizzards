@@ -24,15 +24,15 @@ Short:
           ldx #SFXBank
           jsr FarCall
 
-          .if DEMO && BANK == 4
-            jsr DoMusic
-          .fi
-
-          .if !DEMO
-          .switch BANK
-          .case 3, 4, 5
-            jsr DoMusic
-          .endswitch
+          .if DEMO
+            .if BANK == 4
+              jsr DoMusic
+            .fi
+          .else
+            .switch BANK
+            .case 3, 4, 5
+              jsr DoMusic
+            .endswitch
           .fi
 
           .WaitForTimer
