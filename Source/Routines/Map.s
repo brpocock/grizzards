@@ -509,6 +509,9 @@ LeaveTiming:
           .fi
 ;;; 
 Leave:
+          cmp #ModeGrizzardDepot
+          beq EnterGrizzardDepot
+
           jsr LeaveTiming
 
           lda GameMode
@@ -524,9 +527,6 @@ Leave:
           stx WSYNC
           jmp MapSetup.NewRoom
 +
-
-          cmp #ModeGrizzardDepot
-          beq EnterGrizzardDepot
 
           cmp #ModePotion
           beq DoPotions
