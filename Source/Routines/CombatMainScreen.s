@@ -68,28 +68,11 @@ Loop:
 
             ;; Modified WaitScreenBottom
             .WaitForTimer
-            .SkipLines 8
-            lda WhoseTurn
+            lda AlarmCountdown
             bne +
             stx WSYNC
 +
             stx WSYNC
-            ;; if not RUN AWAY 
-            lda MoveSelection
-            bne +
-            stx WSYNC
-+
-            lda MoveTarget
-            bne +
-            stx WSYNC
-+
-            lda CombatMajorP
-            bpl +
-            .SkipLines 4
-+
-
-            stx WSYNC
-
             jsr Overscan
 
           .endswitch
