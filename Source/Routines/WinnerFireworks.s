@@ -34,6 +34,11 @@ NotCaught:
           ;; First, save everything, then pull the user's name for the message text
           ;; SaveToSlot starts _and ends_ with WaitScreenBottom calls.
           .FarJSR SaveKeyBank, ServiceSaveToSlot
+          .switch TV
+          .case NTSC
+            stx WSYNC
+            stx WSYNC
+          .endswitch
           .WaitScreenTopMinus 1, 1
           .FarJSR SaveKeyBank, ServiceCheckSaveSlot
           .WaitScreenBottom
