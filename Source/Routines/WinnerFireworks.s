@@ -164,6 +164,8 @@ Wipe8Bytes:
           dex
           bne Wipe8Bytes
 
+          .WaitScreenBottom
+
           ;; Save Province 1 as zeroes
           .FarJSR SaveKeyBank, ServiceSaveProvinceData
 
@@ -174,6 +176,9 @@ Wipe8Bytes:
           .mvy CurrentProvince, # 0
           ;; Save global data, also save province 0 as zeroes
           .FarJSR SaveKeyBank, ServiceSaveToSlot
+
+          stx WSYNC
+          stx WSYNC
 
           jmp GoWarmStart
 ;;; 
