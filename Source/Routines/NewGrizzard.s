@@ -130,9 +130,7 @@ Defaults:
           sta MovesKnown
 
           ;; Now, save this guy for good measure
-          .FarJSR SaveKeyBank, ServiceSaveGrizzard
-
-          rts
+          .FarJMP SaveKeyBank, ServiceSaveGrizzard ; tail call
           
           .bend
 
