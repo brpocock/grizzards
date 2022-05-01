@@ -266,17 +266,6 @@ WaitOutScreen:
           .fi
 ;;; 
 GoToOutcome:
-          lda MoveHitMiss
-          beq SoundForMiss
-
-          lda #SoundHit
-          gne SoundReady
-
-SoundForMiss:
-          lda #SoundMiss
-SoundReady:
-          sta NextSound
-
           .FarJSR TextBank, ServiceCombatOutcome
 ;;; 
           .WaitScreenTop
