@@ -228,9 +228,15 @@ DidRandomLearn:
           .FarJSR MapServicesBank, ServiceLearntMove
 
 DoneRandomLearn:
+          .switch TV
+          .case NTSC,SECAM
+            ldx INTIM
+            dex
+            stx TIM64T
+          .endswitch
+          .WaitScreenBottom
           lda # 0               ; zero on negative
-
-          jmp WaitOutScreen
+          jmp GoToOutcome
 ;;; 
 PlayerHeals:
           ;; .A has the inverted HP to be gained
@@ -251,10 +257,15 @@ PlayerHeals:
           lda DefenderStatusFX
           sta StatusFX
 
-          jmp WaitOutScreen
-
+          ;; jmp WaitOutScreen ; fall through
 ;;; 
 WaitOutScreen:
+          .WaitScreenBottom
+          .if TV != NTSC
+            stx WSYNC
+          .fi
+;;; 
+GoToOutcome:
           lda MoveHitMiss
           beq SoundForMiss
 
@@ -266,11 +277,6 @@ SoundForMiss:
 SoundReady:
           sta NextSound
 
-          .WaitScreenBottom
-          .if TV != NTSC
-            stx WSYNC
-          .fi
-;;; 
           .FarJSR TextBank, ServiceCombatOutcome
 ;;; 
           .WaitScreenTop
