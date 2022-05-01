@@ -92,7 +92,7 @@ SetUpOtherCombatVars:
           sty WhoseTurn         ; Player's turn
           sty MoveAnnouncement
           sty StatusFX
-          ldx #6
+          ldx # 6
 ZeroEnemyStatusFX:
           sty EnemyStatusFX - 1, x
           dex
