@@ -264,6 +264,11 @@ WaitOutScreen:
           .switch TV
           .case PAL,SECAM
             stx WSYNC
+            lda WhoseTurn
+            beq +
+            ;; XXX I don't know why, but this magic number seems to do it:
+            .SleepX 35
++
           .endswitch
 ;;; 
 GoToOutcome:

@@ -48,7 +48,11 @@ Loop:
           ldx #SFXBank
           jsr FarCall
           .WaitScreenBottom
-          .WaitScreenTopMinus 1, 1
+          .switch TV
+          .case PAL
+            .SkipLines 2
+          .endswitch
+          .WaitScreenTopMinus 1, 0
           .ldacolu COLRED, $8
           sta COLUBK
           .ldacolu COLGOLD, $0
