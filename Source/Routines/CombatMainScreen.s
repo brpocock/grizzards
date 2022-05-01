@@ -57,7 +57,7 @@ Loop:
             ;; (no, this doesn't make any sense)
             lda INTIM
             sec
-            sbc # 6
+            sbc # 5
             sta TIM64T
 +
             .WaitScreenBottom
@@ -411,7 +411,7 @@ Leave:
           .switch TV
           .case PAL,SECAM
 	
-            .SkipLines 34
+            .SkipLines 30
 
           .case NTSC
 
@@ -426,9 +426,14 @@ NotGoingToMap:
 
           .mva DeltaY, #ModeCombat
           .WaitScreenBottom
-          .if NTSC != TV
+          .switch TV
+          .case NTSC
+            ;; no op
+          .case SECAM
             .SkipLines 5
-          .fi
+          .case PAL
+            .SkipLines 2
+          .endswitch
 	jmp GrizzardStatsScreen
 
 NotGoingToStats:

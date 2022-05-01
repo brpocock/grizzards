@@ -105,7 +105,9 @@ MonsterMoves:
 
 CheckStick:
           ldx MoveSelection
-          stx WSYNC
+          .if NTSC == TV
+            stx WSYNC
+          .fi
 
           lda NewSWCHA
           beq StickDone
@@ -214,7 +216,9 @@ DoneStickRight:
 
 StickDone:
 CheckSwitches:
-          stx WSYNC
+          .if NTSC == TV
+            stx WSYNC
+          .fi
 
           lda NewSWCHB
           beq DoneSwitches
