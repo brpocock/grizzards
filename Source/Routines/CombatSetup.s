@@ -98,5 +98,5 @@ ZeroEnemyStatusFX:
           dex
           bne ZeroEnemyStatusFX
 
-          ;; fall through to CombatIntroScreen, which does WaitScreenBottom
+          ;; fall through to (far call to) CombatIntroScreen, which does WaitScreenBottom
           .bend
