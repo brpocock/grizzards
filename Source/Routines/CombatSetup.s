@@ -1,6 +1,6 @@
 ;;; Grizzards Source/Routines/CombatSetup.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
-;;; Common combat routines called from multiple banks
+;;; Common combat routines called from bank 6 only now
 DoCombat:          .block
           .if NTSC == TV
             stx WSYNC
