@@ -261,9 +261,10 @@ PlayerHeals:
 ;;; 
 WaitOutScreen:
           .WaitScreenBottom
-          .if TV != NTSC
+          .switch TV
+          .case PAL,SECAM
             stx WSYNC
-          .fi
+          .endswitch
 ;;; 
 GoToOutcome:
           .FarJSR TextBank, ServiceCombatOutcome

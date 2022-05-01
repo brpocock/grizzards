@@ -13,10 +13,7 @@ CombatAnnouncementScreen:     .block
           .case PAL
             .WaitScreenBottom
             stx WSYNC
-            lda WhoseTurn
-            bne +
             stx WSYNC
-+
 
           .case SECAM
             ;; This is all crazy shit discovered by experiment
