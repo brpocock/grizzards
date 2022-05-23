@@ -142,15 +142,14 @@ DoneStickUp:
           cpx # 9             ; max moves = 8
           blt DoneStickDown
 
+          ldx # 0
+
           ldy CombatMajorP
           bpl CanRunAwayDown
 
-          ldx # 1
-          gne DoneStickDown
+          inx                   ; skip RUN AWAY move
 
 CanRunAwayDown:
-          ldx # 0
-
 DoneStickDown:
           stx MoveSelection
 StickLeftRight:
