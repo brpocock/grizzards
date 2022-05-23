@@ -175,7 +175,7 @@ ChooseMinorTarget:
 
           ;; copied from CombatMainScreen
 TargetFirstMonster:
-          ldx #0
+          ldx # 0
 TargetNextMonster:
           lda EnemyHP, x
           bne TargetFirst
