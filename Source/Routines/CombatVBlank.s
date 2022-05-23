@@ -139,7 +139,7 @@ DoneStickUp:
 
           inx 
           .mva NextSound, #SoundChirp
-          cpx #9              ; max moves = 8
+          cpx # 9             ; max moves = 8
           blt DoneStickDown
 
           ldy CombatMajorP
