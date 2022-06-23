@@ -9,12 +9,12 @@ publish:	demo game no-save doc Dist/Grizzards.Source.tar.gz Dist/Grizzards.Atari
 	@until rsync -essh --progress \
 		Dist/Grizzards.Demo.NTSC.a26 Dist/Grizzards.Demo.PAL.a26 Dist/Grizzards.Demo.SECAM.a26 \
 		Dist/Grizzards.Demo.zip Dist/Grizzards.Source.tar.gz \
-		Dist/Grizzards.Demo.NTSC.pdf Dist/Grizzards.Demo.PAL.pdf Dist/Grizzards.Demo.SECAM.pdf \
+		Dist/Grizzards.Demo.pdf \
 		Dist/Grizzards.NoSave.NTSC.a26 Dist/Grizzards.NoSave.PAL.a26 Dist/Grizzards.NoSave.SECAM.a26 \
-		Dist/Grizzards.NoSave.NTSC.pdf Dist/Grizzards.NoSave.PAL.pdf Dist/Grizzards.NoSave.SECAM.pdf \
+		Dist/Grizzards.NoSave.pdf \
 		Dist/Grizzards.Portable.NTSC.bin \
 		Dist/Grizzards.NTSC.a26 Dist/Grizzards.PAL.a26 Dist/Grizzards.SECAM.a26 \
-		Dist/Grizzards.NTSC.pdf Dist/Grizzards.PAL.pdf Dist/Grizzards.SECAM.pdf \
+		Dist/Grizzards.pdf \
 		Dist/Grizzards.zip \
 		Dist/Grizzards.AtariAge.zip \
 		star-hope.org:star-hope.org/games/Grizzards/ ; \
@@ -116,7 +116,7 @@ Dist/Grizzards.AtariAge.zip:	\
 
 Dist/Grizzards.zip:	\
 	Dist/Grizzards.NTSC.a26 Dist/Grizzards.PAL.a26 Dist/Grizzards.SECAM.a26 \
-	Dist/Grizzards.NTSC.pdf Dist/Grizzards.PAL.pdf Dist/Grizzards.SECAM.pdf \
+	Dist/Grizzards.pdf \
 	Dist/Grizzards.NTSC.pro Dist/Grizzards.PAL.pro Dist/Grizzards.SECAM.pro
 	@echo "Daily build of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
 		zip  --archive-comment -9 "$@" $^
@@ -128,38 +128,28 @@ Dist/Grizzards.Demo.zip: \
 	Dist/Grizzards.Demo.NTSC.pro \
 	Dist/Grizzards.Demo.PAL.pro \
 	Dist/Grizzards.Demo.SECAM.pro \
-	Dist/Grizzards.Demo.NTSC.pdf \
-	Dist/Grizzards.Demo.PAL.pdf \
-	Dist/Grizzards.Demo.SECAM.pdf
+	Dist/Grizzards.Demo.pdf
 	@echo "Daily build of Grizzards demo for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
 		zip  --archive-comment -9 "$@" $^
 
 Dist/Grizzards.NoSave.zip: \
 	Dist/Grizzards.NoSave.NTSC.a26 \
-	Dist/Grizzards.NoSave.NTSC.pdf \
+	Dist/Grizzards.NoSave.pdf \
 	Dist/Grizzards.NoSave.NTSC.pro \
 	Dist/Grizzards.NoSave.PAL.a26 \
-	Dist/Grizzards.NoSave.PAL.pdf \
 	Dist/Grizzards.NoSave.PAL.pro \
 	Dist/Grizzards.NoSave.SECAM.a26 \
-	Dist/Grizzards.NoSave.SECAM.pdf \
 	Dist/Grizzards.NoSave.SECAM.pro
 	@echo "Daily build of Grizzards no-save demo for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
 		zip  --archive-comment -9 "$@" $^
 
 game:	Dist/Grizzards.zip
 
-doc:	Dist/Grizzards.NTSC.pdf Dist/Grizzards.PAL.pdf Dist/Grizzards.SECAM.pdf \
-	Dist/Grizzards.AA.NTSC-book.pdf \
-	Dist/Grizzards.AA.PAL-book.pdf \
-	Dist/Grizzards.AA.SECAM-book.pdf \
-	Dist/Grizzards.Demo.NTSC.pdf \
-	Dist/Grizzards.Demo.PAL.pdf \
-	Dist/Grizzards.Demo.SECAM.pdf \
+doc:	Dist/Grizzards.pdf \
+	Dist/Grizzards.AA.book.pdf \
+	Dist/Grizzards.Demo.pdf \
 	Dist/Grizzards.Manual.txt \
-	Dist/Grizzards.NoSave.NTSC.pdf \
-	Dist/Grizzards.NoSave.PAL.pdf \
-	Dist/Grizzards.NoSave.SECAM.pdf
+	Dist/Grizzards.NoSave.pdf
 
 .PRECIOUS: %.s %.png %.a26 %.txt %.zip %.tar.gz
 
@@ -214,134 +204,48 @@ Source/Generated/Makefile:	bin/write-master-makefile ${SOURCES}
 	for bank in 5 7 8 9 a b c d e; do bin/make-speakjet-enums $$bank; done
 	$< > Source/Generated/Makefile
 
-Dist/Grizzards.AA.NTSC-book.pdf:	Dist/Grizzards.AA.NTSC.pdf
+Dist/Grizzards.AA.book.pdf:	Dist/Grizzards.AA.pdf
 	pdfbook2 --paper=letterpaper -o 0 -i 0 -t 0 -b 0 $<
 
-Dist/Grizzards.AA.PAL-book.pdf:	Dist/Grizzards.AA.PAL.pdf
-	pdfbook2 --paper=letterpaper -o 0 -i 0 -t 0 -b 0 $<
-
-Dist/Grizzards.AA.SECAM-book.pdf:	Dist/Grizzards.AA.SECAM.pdf
-	pdfbook2 --paper=letterpaper -o 0 -i 0 -t 0 -b 0 $<
-
-Dist/Grizzards.NTSC.pdf: Manual/Grizzards.tex
-	mkdir -p Object/NTSC.pdf
-	cp $< Object/NTSC.pdf/
+Dist/Grizzards.pdf: Manual/Grizzards.tex
+	mkdir -p Object/Grizzards.pdf
+	cp $< Object/Grizzards.pdf/
 	ln -sf ../Manual Object/
-	-cd Object/NTSC.pdf ; xelatex -interaction=batchmode "\def\TVNTSC{}\input{Grizzards}"
-	-cd Object/NTSC.pdf ; xelatex -interaction=batchmode "\def\TVNTSC{}\input{Grizzards}"
-	-cd Object/NTSC.pdf ; xelatex -interaction=batchmode "\def\TVNTSC{}\input{Grizzards}"
+	-cd Object/Grizzards.pdf ; xelatex -interaction=batchmode "\input{Grizzards}"
+	-cd Object/Grizzards.pdf ; xelatex -interaction=batchmode "\input{Grizzards}"
+	-cd Object/Grizzards.pdf ; xelatex -interaction=batchmode "\input{Grizzards}"
 	mkdir -p Dist
-	mv Object/NTSC.pdf/Grizzards.pdf Dist/Grizzards.NTSC.pdf
+	mv Object/Grizzards.pdf/Grizzards.pdf Dist/Grizzards.pdf
 
-Dist/Grizzards.PAL.pdf: Manual/Grizzards.tex
-	mkdir -p Object/PAL.pdf
-	cp $< Object/PAL.pdf/
+Dist/Grizzards.AA.pdf: Manual/Grizzards.tex
+	mkdir -p Object/AA.pdf
+	cp $< Object/AA.pdf/
 	ln -sf ../Manual Object/
-	-cd Object/PAL.pdf ; xelatex -interaction=batchmode "\def\TVPAL{}\input{Grizzards}"
-	-cd Object/PAL.pdf ; xelatex -interaction=batchmode "\def\TVPAL{}\input{Grizzards}"
-	-cd Object/PAL.pdf ; xelatex -interaction=batchmode "\def\TVPAL{}\input{Grizzards}"
+	-cd Object/AA.pdf ; xelatex -interaction=batchmode "\def\ATARIAGESAVE{}\input{Grizzards}"
+	-cd Object/AA.pdf ; xelatex -interaction=batchmode "\def\ATARIAGESAVE{}\input{Grizzards}"
+	-cd Object/AA.pdf ; xelatex -interaction=batchmode "\def\ATARIAGESAVE{}\input{Grizzards}"
 	mkdir -p Dist
-	mv Object/PAL.pdf/Grizzards.pdf Dist/Grizzards.PAL.pdf
+	mv Object/AA.pdf/Grizzards.pdf Dist/Grizzards.AA.pdf
 
-Dist/Grizzards.SECAM.pdf: Manual/Grizzards.tex
-	mkdir -p Object/SECAM.pdf
-	cp $< Object/SECAM.pdf/
+Dist/Grizzards.Demo.pdf: Manual/Grizzards.tex
+	mkdir -p Object/Demo.pdf
+	cp $< Object/Demo.pdf/
 	ln -sf ../Manual Object/
-	-cd Object/SECAM.pdf ; xelatex -interaction=batchmode "\def\TVSECAM{}\input{Grizzards}"
-	-cd Object/SECAM.pdf ; xelatex -interaction=batchmode "\def\TVSECAM{}\input{Grizzards}"
-	-cd Object/SECAM.pdf ; xelatex -interaction=batchmode "\def\TVSECAM{}\input{Grizzards}"
+	-cd Object/Demo.pdf ; xelatex -interaction=batchmode "\def\DEMO{}\input{Grizzards}"
+	-cd Object/Demo.pdf ; xelatex -interaction=batchmode "\def\DEMO{}\input{Grizzards}"
+	-cd Object/Demo.pdf ; xelatex -interaction=batchmode "\def\DEMO{}\input{Grizzards}"
 	mkdir -p Dist
-	mv Object/SECAM.pdf/Grizzards.pdf Dist/Grizzards.SECAM.pdf
+	mv Object/Demo.pdf/Grizzards.pdf Dist/Grizzards.Demo.pdf
 
-Dist/Grizzards.AA.NTSC.pdf: Manual/Grizzards.tex
-	mkdir -p Object/AA.NTSC.pdf
-	cp $< Object/AA.NTSC.pdf/
-	ln -sf ../Manual Object/AA.
-	-cd Object/AA.NTSC.pdf ; xelatex -interaction=batchmode "\def\TVNTSC{}\def\ATARIAGESAVE{}\input{Grizzards}"
-	-cd Object/AA.NTSC.pdf ; xelatex -interaction=batchmode "\def\TVNTSC{}\def\ATARIAGESAVE{}\input{Grizzards}"
-	-cd Object/AA.NTSC.pdf ; xelatex -interaction=batchmode "\def\TVNTSC{}\def\ATARIAGESAVE{}\input{Grizzards}"
-	mkdir -p Dist
-	mv Object/AA.NTSC.pdf/Grizzards.pdf Dist/Grizzards.AA.NTSC.pdf
-
-Dist/Grizzards.AA.PAL.pdf: Manual/Grizzards.tex
-	mkdir -p Object/AA.PAL.pdf
-	cp $< Object/AA.PAL.pdf/
-	ln -sf ../Manual Object/AA.
-	-cd Object/AA.PAL.pdf ; xelatex -interaction=batchmode "\def\TVPAL{}\def\ATARIAGESAVE{}\input{Grizzards}"
-	-cd Object/AA.PAL.pdf ; xelatex -interaction=batchmode "\def\TVPAL{}\def\ATARIAGESAVE{}\input{Grizzards}"
-	-cd Object/AA.PAL.pdf ; xelatex -interaction=batchmode "\def\TVPAL{}\def\ATARIAGESAVE{}\input{Grizzards}"
-	mkdir -p Dist
-	mv Object/AA.PAL.pdf/Grizzards.pdf Dist/Grizzards.AA.PAL.pdf
-
-Dist/Grizzards.AA.SECAM.pdf: Manual/Grizzards.tex
-	mkdir -p Object/AA.SECAM.pdf
-	cp $< Object/AA.SECAM.pdf/
-	ln -sf ../Manual Object/AA.
-	-cd Object/AA.SECAM.pdf ; xelatex -interaction=batchmode "\def\TVSECAM{}\def\ATARIAGESAVE{}\input{Grizzards}"
-	-cd Object/AA.SECAM.pdf ; xelatex -interaction=batchmode "\def\TVSECAM{}\def\ATARIAGESAVE{}\input{Grizzards}"
-	-cd Object/AA.SECAM.pdf ; xelatex -interaction=batchmode "\def\TVSECAM{}\def\ATARIAGESAVE{}\input{Grizzards}"
-	mkdir -p Dist
-	mv Object/AA.SECAM.pdf/Grizzards.pdf Dist/Grizzards.AA.SECAM.pdf
-
-Dist/Grizzards.Demo.NTSC.pdf: Manual/Grizzards.tex
-	mkdir -p Object/Demo.NTSC.pdf
-	cp $< Object/Demo.NTSC.pdf/
+Dist/Grizzards.NoSave.pdf: Manual/Grizzards.tex
+	mkdir -p Object/NoSave.pdf
+	cp $< Object/NoSave.pdf/
 	ln -sf ../Manual Object/
-	-cd Object/Demo.NTSC.pdf ; xelatex -interaction=batchmode "\def\TVNTSC{}\def\DEMO{}\input{Grizzards}"
-	-cd Object/Demo.NTSC.pdf ; xelatex -interaction=batchmode "\def\TVNTSC{}\def\DEMO{}\input{Grizzards}"
-	-cd Object/Demo.NTSC.pdf ; xelatex -interaction=batchmode "\def\TVNTSC{}\def\DEMO{}\input{Grizzards}"
+	-cd Object/NoSave.pdf ; xelatex -interaction=batchmode "\def\DEMO{}\def\NOSAVE{}\input{Grizzards}"
+	-cd Object/NoSave.pdf ; xelatex -interaction=batchmode "\def\DEMO{}\def\NOSAVE{}\input{Grizzards}"
+	-cd Object/NoSave.pdf ; xelatex -interaction=batchmode "\def\DEMO{}\def\NOSAVE{}\input{Grizzards}"
 	mkdir -p Dist
-	mv Object/Demo.NTSC.pdf/Grizzards.pdf Dist/Grizzards.Demo.NTSC.pdf
-
-Dist/Grizzards.Demo.PAL.pdf: Manual/Grizzards.tex
-	mkdir -p Object/Demo.PAL.pdf
-	cp $< Object/Demo.PAL.pdf/
-	ln -sf ../Manual Object/
-	-cd Object/Demo.PAL.pdf ; xelatex -interaction=batchmode "\def\TVPAL{}\def\DEMO{}\input{Grizzards}"
-	-cd Object/Demo.PAL.pdf ; xelatex -interaction=batchmode "\def\TVPAL{}\def\DEMO{}\input{Grizzards}"
-	-cd Object/Demo.PAL.pdf ; xelatex -interaction=batchmode "\def\TVPAL{}\def\DEMO{}\input{Grizzards}"
-	mkdir -p Dist
-	mv Object/Demo.PAL.pdf/Grizzards.pdf Dist/Grizzards.Demo.PAL.pdf
-
-Dist/Grizzards.Demo.SECAM.pdf: Manual/Grizzards.tex
-	mkdir -p Object/Demo.SECAM.pdf
-	cp $< Object/Demo.SECAM.pdf/
-	ln -sf ../Manual Object/
-	-cd Object/Demo.SECAM.pdf ; xelatex -interaction=batchmode "\def\TVSECAM{}\def\DEMO{}\input{Grizzards}"
-	-cd Object/Demo.SECAM.pdf ; xelatex -interaction=batchmode "\def\TVSECAM{}\def\DEMO{}\input{Grizzards}"
-	-cd Object/Demo.SECAM.pdf ; xelatex -interaction=batchmode "\def\TVSECAM{}\def\DEMO{}\input{Grizzards}"
-	mkdir -p Dist
-	mv Object/Demo.SECAM.pdf/Grizzards.pdf Dist/Grizzards.Demo.SECAM.pdf
-
-Dist/Grizzards.NoSave.NTSC.pdf: Manual/Grizzards.tex
-	mkdir -p Object/NoSave.NTSC.pdf
-	cp $< Object/NoSave.NTSC.pdf/
-	ln -sf ../Manual Object/
-	-cd Object/NoSave.NTSC.pdf ; xelatex -interaction=batchmode "\def\TVNTSC{}\def\DEMO{}\def\NOSAVE{}\input{Grizzards}"
-	-cd Object/NoSave.NTSC.pdf ; xelatex -interaction=batchmode "\def\TVNTSC{}\def\DEMO{}\def\NOSAVE{}\input{Grizzards}"
-	-cd Object/NoSave.NTSC.pdf ; xelatex -interaction=batchmode "\def\TVNTSC{}\def\DEMO{}\def\NOSAVE{}\input{Grizzards}"
-	mkdir -p Dist
-	mv Object/NoSave.NTSC.pdf/Grizzards.pdf Dist/Grizzards.NoSave.NTSC.pdf
-
-Dist/Grizzards.NoSave.PAL.pdf: Manual/Grizzards.tex
-	mkdir -p Object/NoSave.PAL.pdf
-	cp $< Object/NoSave.PAL.pdf/
-	ln -sf ../Manual Object/
-	-cd Object/NoSave.PAL.pdf ; xelatex -interaction=batchmode "\def\TVPAL{}\def\DEMO{}\def\NOSAVE{}\input{Grizzards}"
-	-cd Object/NoSave.PAL.pdf ; xelatex -interaction=batchmode "\def\TVPAL{}\def\DEMO{}\def\NOSAVE{}\input{Grizzards}"
-	-cd Object/NoSave.PAL.pdf ; xelatex -interaction=batchmode "\def\TVPAL{}\def\DEMO{}\def\NOSAVE{}\input{Grizzards}"
-	mkdir -p Dist
-	mv Object/NoSave.PAL.pdf/Grizzards.pdf Dist/Grizzards.NoSave.PAL.pdf
-
-Dist/Grizzards.NoSave.SECAM.pdf: Manual/Grizzards.tex
-	mkdir -p Object/NoSave.SECAM.pdf
-	cp $< Object/NoSave.SECAM.pdf/
-	ln -sf ../Manual Object/
-	-cd Object/NoSave.SECAM.pdf ; xelatex -interaction=batchmode "\def\TVSECAM{}\def\DEMO{}\def\NOSAVE{}\input{Grizzards}"
-	-cd Object/NoSave.SECAM.pdf ; xelatex -interaction=batchmode "\def\TVSECAM{}\def\DEMO{}\def\NOSAVE{}\input{Grizzards}"
-	-cd Object/NoSave.SECAM.pdf ; xelatex -interaction=batchmode "\def\TVSECAM{}\def\DEMO{}\def\NOSAVE{}\input{Grizzards}"
-	mkdir -p Dist
-	mv Object/NoSave.SECAM.pdf/Grizzards.pdf Dist/Grizzards.NoSave.SECAM.pdf
+	mv Object/NoSave.pdf/Grizzards.pdf Dist/Grizzards.NoSave.pdf
 
 # If Make tries to second-guess us, let the default assembler be “error,”
 # because the default assembler (probably GNU gas) almost certainly
@@ -563,9 +467,9 @@ release:	all
 	@if [ $(RELEASE) = noreleasenamegiven ]; then echo "Usage: make RELEASE=ident release" >&2; exit 1; fi
 	mkdir -p Dist/$(RELEASE)
 	-rm Dist/$(RELEASE)/*
-	-cp -v Dist/Grizzards.{AA.,Demo.,NoSave.,}{NTSC,PAL,SECAM}.{a26,pro,pdf} \
+	-cp -v Dist/Grizzards.{AA.,Demo.,NoSave.,}{NTSC,PAL,SECAM}.{a26,pro} \
 		Dist/$(RELEASE) 2>/dev/null
-	cp -v Dist/Grizzards.AA.{NTSC,PAL,SECAM}-book.pdf Dist/$(RELEASE)
+	cp -v Dist/Grizzards.{AA.book.,AA.,Demo.,NoSave.}pdf Dist/$(RELEASE)
 	cp -v Dist/Grizzards.Manual.txt Dist/$(RELEASE)
 	@cd Dist/$(RELEASE) ; \
 	for file in Grizzards.*.{pro,a26,pdf}; do \
@@ -574,20 +478,23 @@ release:	all
 	@echo "AtariAge Release $(RELEASE) of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
 		(cd Dist; zip --archive-comment -9 \
 		$(RELEASE)/Grizzards.AtariAge.$(RELEASE).zip \
-		$(RELEASE)/Grizzards.AA.{NTSC,PAL,SECAM}.$(RELEASE).{a26,pdf,pro} \
-		$(RELEASE)/Grizzards.AA.{NTSC,PAL,SECAM}-book.$(RELEASE).pdf )
+		$(RELEASE)/Grizzards.AA.$(RELEASE).{a26,pdf,pro} \
+		$(RELEASE)/Grizzards.AA.book.$(RELEASE).pdf )
 	@echo "Public Release $(RELEASE) of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
 		(cd Dist; zip --archive-comment -9 \
 		$(RELEASE)/Grizzards.$(RELEASE).zip \
-		$(RELEASE)/Grizzards.{NTSC,PAL,SECAM}.$(RELEASE).{a26,pdf,pro} )
+		$(RELEASE)/Grizzards.{NTSC,PAL,SECAM}.$(RELEASE).{a26,pro} ) \
+		$(RELEASE)/Grizzards.$(RELEASE).pdf )
 	@echo "Demo Release $(RELEASE) of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
 		(cd Dist; zip --archive-comment -9 \
 		$(RELEASE)/Grizzards.Demo.$(RELEASE).zip \
-		$(RELEASE)/Grizzards.Demo.{NTSC,PAL,SECAM}.$(RELEASE).{a26,pdf,pro} )
+		$(RELEASE)/Grizzards.Demo.{NTSC,PAL,SECAM}.$(RELEASE).{a26,pro} ) \
+		$(RELEASE)/Grizzards.Demo.$(RELEASE).pdf )
 	@echo "No-Save Demo Release $(RELEASE) of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
 		(cd Dist; zip --archive-comment -9 \
 		$(RELEASE)/Grizzards.NoSave.$(RELEASE).zip \
-		$(RELEASE)/Grizzards.NoSave.{NTSC,PAL,SECAM}.$(RELEASE).{a26,pdf,pro} )
+		$(RELEASE)/Grizzards.NoSave.{NTSC,PAL,SECAM}.$(RELEASE).{a26,pro} ) \
+		$(RELEASE)/Grizzards.NoSave.$(RELEASE).pdf )
 
 publish-release:	release
 	until rsync -essh -v Dist/$(RELEASE)/*$(RELEASE)* \

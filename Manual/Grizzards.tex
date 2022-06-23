@@ -15,23 +15,7 @@
 \setheadfoot{.5in}{.5in}
 
 %% TV Standard
-
-\ifdefined\TVNTSC
-\newcommand\TV{NTSC}
-\newcommand\REGION{The Americas, Japan, and Korea}
-\else
-\ifdefined\TVPAL
-\newcommand\TV{PAL}
-\newcommand\REGION{UK and Western Europe (except France)}
-\else
-\ifdefined\TVSECAM
-\newcommand\TV{SECAM}
-\newcommand\REGION{France, Eastern Europe, and Africa}
-\else
-\error{Must define a TV standard}
-\fi
-\fi
-\fi
+\newcommand\TV{NTSC} % use NTSC artwork for screenshots
 
 \makeevenhead{plain}{Grizzards}{}{}
 \makeoddhead{plain}{}{}{Grizzards}
@@ -55,7 +39,7 @@
     linkcolor={red!50!black},
     citecolor={blue!50!black},
     urlcolor={blue!80!black},
-    pdftitle={Grizzards \ifdefined\DEMO{ Demo }\fi Manual for \TV},
+    pdftitle={Grizzards \ifdefined\DEMO{ Demo }\fi Manual},
     pdfsubject={Grizzards videogame for the Atari 2600},
     pdfauthor={Bruce-Robert Pocock}%,
 %    pdfkeywords={Your PDF keywords}
@@ -131,11 +115,10 @@ under license.
 
 \bigskip
 
-This  version is  for systems  in \REGION{}  using the  \TV{} television
-standard. For Atari  Video Computer System CX-2600  (or Sears Tele-Games
-Video  Arcade  or  Atari 7800  ProSystem)  \ifdefined\ATARIAGESAVE  with
-optional AtariVox device. \else \ifdefined\NOSAVE without \else with \fi
-AtariVox (or MemCard, or SaveKey) device. \fi
+For   Atari    Video   Computer    System   CX-2600    (or   compatible)
+\ifdefined\ATARIAGESAVE   with    optional   AtariVox    device.   \else
+\ifdefined\NOSAVE  without  \else  with  \fi AtariVox  (or  MemCard,  or
+SaveKey) device. \fi
 
 \bigskip
 
@@ -239,7 +222,7 @@ facing  up)  into  the  cartridge  slot,  and  turn  the  \textbf{Power}
 
 \section{Using a Gamepad}\label{sec:Gamepad}
 
-A  SEGA  \ifdefined\TVNTSC{Genesis/}\fi{}MegaDrive   gamepad  (or  other
+A  SEGA  Genesis/MegaDrive   gamepad  (or  other
 compatible controller) may also be  used. Use the \encircle{B} button as
 the \textbf{Fire} button. Use the  \encircle{C} button as an alternative
 way  to   press  the   \textbf{Game  Select}   switch  to   access  your
@@ -268,14 +251,14 @@ the Harmony menu. \fi
 
 \section{Console Controls}
 
-\ifdefined\TVSECAM
-\else
+\subsection{Pausing the Game}
 
-\subsection{Color/B\&W Switch (Pause)}
-
-On  an Atari  2600 (or  similar console),  push the  \textbf{Color/B\&W}
-switch  into  the \textbf{Color}  position  to  play  the game,  or  the
-\textbf{B\&W} position to pause.
+On an Atari 2600  (or similar console), with the NTSC  or PAL version of
+the game,  push the  \textbf{Color/B\&W} switch into  the \textbf{Color}
+position  to play  the game,  or  the \textbf{B\&W}  position to  pause.
+With the SECAM  version of the game, the Right  Difficulty Switch can be
+used  to  pause game  play.  When  in  the  ``A'' (Advanced  or  Expert)
+position, your  game will be paused.
 
 On the  Atari 7800, press  the \textbf{Pause}  button once to  pause the
 game, and again to resume playing. \ifdefined\ATARIAGESAVE\else This may
@@ -323,15 +306,6 @@ Left Difficulty  Switch is in  the ``A'' (Advanced or  Expert) position,
 monsters will do more damage in their attacks. You will also earn double
 points for defeating monsters while in the ``A'' position.
 
-\ifdefined\TVSECAM
-
-\subsubsection*{Game Pause}
-
-The Right Difficulty Switch  can be used to pause game  play. When in the
-``A'' (Advanced or Expert) position, your  game will be paused until you
-toggle the switch to the ``B'' (Beginner or Novice) position.
-
-\fi
 
 \section{Start a Game}
 
@@ -1119,8 +1093,8 @@ by the game's  developer (that's me!) and must be  corrected in the next
 build of the game.
 
 If you see these  effects (or if you are running in  an emulator, if you
-notice that the  scan line count is not \ifdefined\TVNTSC  262 \else 312
-\fi      at     all      times)      please      report     them      to
+notice that the scan line count is  not 262 (NTSC) or 312 (PAL or SECAM)
+at       all       times)        please       report       them       to
 \hred{mailto:support@star-hope.org}{support@star-hope.org} so  that they
 can be corrected before the game is finished.
 
