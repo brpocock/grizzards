@@ -30,7 +30,6 @@ HealsMinusHP:
           lda # 1               ; never completely fail to heal
 HealsCommon:
           sta MoveHP
-          ldx WhoseTurn
           clc
           adc DefenderHP
           cmp DefenderMaxHP
