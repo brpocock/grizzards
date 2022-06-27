@@ -109,7 +109,7 @@ portable:	Dist/Grizzards.Portable.NTSC.bin
 Dist/Grizzards.AtariAge.zip:	\
 	Dist/Grizzards.AA.NTSC.a26 Dist/Grizzards.AA.PAL.a26 Dist/Grizzards.AA.SECAM.a26 \
 	Dist/Grizzards.AA.NTSC.pro Dist/Grizzards.AA.PAL.pro Dist/Grizzards.AA.SECAM.pro \
-	Dist/Grizzards.AA.NTSC-book.pdf Dist/Grizzards.AA.PAL-book.pdf Dist/Grizzards.AA.SECAM-book.pdf \
+	Dist/Grizzards.AA-book.pdf \
 	Package/Box.svg Package/EndLabel.png Package/FrontLabel.png
 	@echo "AtariAge daily build of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
 		zip  --archive-comment -9 "$@" $^
@@ -146,7 +146,7 @@ Dist/Grizzards.NoSave.zip: \
 game:	Dist/Grizzards.zip
 
 doc:	Dist/Grizzards.pdf \
-	Dist/Grizzards.AA.book.pdf \
+	Dist/Grizzards.AA-book.pdf \
 	Dist/Grizzards.Demo.pdf \
 	Dist/Grizzards.Manual.txt \
 	Dist/Grizzards.NoSave.pdf
@@ -204,8 +204,8 @@ Source/Generated/Makefile:	bin/write-master-makefile ${SOURCES}
 	for bank in 5 7 8 9 a b c d e; do bin/make-speakjet-enums $$bank; done
 	$< > Source/Generated/Makefile
 
-Dist/Grizzards.AA.book.pdf:	Dist/Grizzards.AA.pdf
-	pdfbook2 --paper=letterpaper -o 0 -i 0 -t 0 -b 0 $<
+Dist/Grizzards.AA-book.pdf:	Dist/Grizzards.AA.pdf
+	pdfbook2 --paper=legalpaper -o 0 -i 0 -t 0 -b 0 $<
 
 Dist/Grizzards.pdf: Manual/Grizzards.tex
 	mkdir -p Object/Grizzards.pdf
@@ -469,7 +469,7 @@ release:	all
 	-rm Dist/$(RELEASE)/*
 	-cp -v Dist/Grizzards.{AA.,Demo.,NoSave.,}{NTSC,PAL,SECAM}.{a26,pro} \
 		Dist/$(RELEASE) 2>/dev/null
-	cp -v Dist/Grizzards.{AA.book.,AA.,Demo.,NoSave.}pdf Dist/$(RELEASE)
+	cp -v Dist/Grizzards.{AA-book.,AA.,Demo.,NoSave.}pdf Dist/$(RELEASE)
 	cp -v Dist/Grizzards.Manual.txt Dist/$(RELEASE)
 	@cd Dist/$(RELEASE) ; \
 	for file in Grizzards.*.{pro,a26,pdf}; do \
@@ -479,7 +479,7 @@ release:	all
 		(cd Dist; zip --archive-comment -9 \
 		$(RELEASE)/Grizzards.AtariAge.$(RELEASE).zip \
 		$(RELEASE)/Grizzards.AA.$(RELEASE).{a26,pdf,pro} \
-		$(RELEASE)/Grizzards.AA.book.$(RELEASE).pdf )
+		$(RELEASE)/Grizzards.AA-book.$(RELEASE).pdf )
 	@echo "Public Release $(RELEASE) of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
 		(cd Dist; zip --archive-comment -9 \
 		$(RELEASE)/Grizzards.$(RELEASE).zip \

@@ -30,7 +30,7 @@
 \usepackage{stfloats}
 \usepackage{microtype}
 \usepackage{graphicx}
-% \usepackage{pdfpages}
+\usepackage{pdfpages}
 \tolerance=1
 \emergencystretch=\maxdimen
 %\usepackage{tgtermes}
@@ -81,7 +81,12 @@
 \frontmatter
 \thispagestyle{empty}
 
-\includegraphics[height=9in,width=6in,interpolate,bb=-6in 0 9in 6in]{../Manual/Cover.png}
+\begin{tikzpicture}[overlay, remember picture]
+  \node[anchor=north west, xshift=-4pt, yshift=4pt] 
+  at (current page.north west)
+  {\includegraphics[interpolate,width=6in,height=9in]{../Manual/Cover.png}}; 
+\end{tikzpicture}
+
 
 \thispagestyle{empty}
 
@@ -1282,6 +1287,10 @@ TODO: probably put an AtariAge badge here and on the cover?
 \clearpage
 \addcontentsline{toc}{chapter}{Map of Syrex}
 \thispagestyle{empty}
-\includegraphics*{../Manual/SyrexMap.png}
+\begin{tikzpicture}[overlay, remember picture]
+  \node[anchor=north west, xshift=-4pt, yshift=4pt] 
+  at (current page.north west)
+  {\includegraphics[interpolate,width=6in,height=9in]{../Manual/SyrexMap.png}};
+\end{tikzpicture}
 
 \end{document}
