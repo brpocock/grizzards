@@ -238,7 +238,7 @@ facing  up)  into  the  cartridge  slot,  and  turn  the  \textbf{Power}
 \end{figure}
 \fi
 
-\ifdefined\ATARIAGESAVE\pagebreak\fi
+\pagebreak
 
 \section{Using a Gamepad}\label{sec:Gamepad}
 
@@ -454,8 +454,9 @@ You know that to  the east is the extremely dangerous  Fire Bog, so your
 best  bet   is  to  head   west  (left)  and   see  if  there   are  any
 other survivors.
 
-Refer to  the map on the  back cover of  this manual to learn  about the
-geography of Syrex. Characters in the game will also give you advice.
+Refer to  the map on  the \ifdefined\ATARIAGESAVE back cover  \else last
+page  \fi{} of  this  manual  to learn  about  the  geography of  Syrex.
+Characters in the game will also give you advice.
 
 The Map screen shows your current score  at the top. In the map display,
 you'll see the  current area in which you are  traveling. Guide yourself
@@ -506,6 +507,8 @@ and experience.
 
 \fi
 
+\ifdefined\ATARIAGESAVE\else\pagebreak\fi
+
 \lettrine[image=true,                lines=5,               findent=3pt,
 nindent=3pt]{../Manual/Door\TV.png}{Doors} lead  you to other  places in
 the world.
@@ -513,15 +516,14 @@ the world.
 \vspace{30pt}
 
 \lettrine[image=true,                lines=5,               findent=3pt,
-nindent=3pt]{../Manual/Signpost\TV.png}{Signposts}      can      provide
-information to  help you progress. You  should also refer to  the map on
-the back cover of this manual.
+nindent=3pt]{../Manual/Signpost\TV.png}{Signposts}  provide  information
+to  help  you  progress.  You  should  also refer  to  the  map  on  the
+\ifdefined\ATARIAGESAVE back cover \else last page \fi{} of this manual.
 
 \lettrine[image=true,                lines=5,               findent=3pt,
-nindent=3pt]{../Manual/Person\TV.png}{Other  people} will  converse with
-you and  can help you out.  Some people will respond  to you differently
-based  on what  has come  before, so  you may  want to  visit them  more
-than once.
+nindent=3pt]{../Manual/Person\TV.png}{People} will converse with you and
+can help you  out. Some people will respond to  you differently based on
+what has come before, so you may want to visit them more than once.
 
 
 \ifdefined\NOSAVE\else
@@ -529,12 +531,12 @@ than once.
 \section{Saving Your Progress}
 
 Your progress  is saved whenever  you visit  a Grizzard Depot.  Once you
-hear the short musical tune play, it is safe to power off your console.
+hear the short musical tune, it is safe to power off your console.
 
 \ifdefined\ATARIAGESAVE\else
 
 You must leave  your memory device connected at all  times while playing
-the game.
+the game. Sometimes, the game may auto-save some of your progress.
 
 \fi \fi
 
@@ -681,7 +683,7 @@ appear in black.
 \end{center}
 
 Press  the \textbf{Game  Select}  switch\footnote{You can  also use  the
-  \encircle{C} or  \encircle{I} button on  a gamepad. See  the Gamepads
+  \encircle{C} or  \encircle{II} button on  a gamepad. See  the Gamepads
   section on page~\pageref{sec:Gamepad}.} while  viewing the Map, Combat
 screen,  or at  a Grizzard  Depot  to view  your Grizzard's  statistics.
 Press the \textbf{Fire} button to dismiss the Statistics screen.
@@ -709,7 +711,8 @@ to catch. Can you catch them all?
 \end{description}
 
 The Attack rating, Defend rating, or Maximum  Hit Points may go up a bit
-after you defeat a party of monsters.
+after  you defeat  a party  of  monsters. Grizzards  will advance  their
+statistics faster at first, then more slowly as they increase their ratings.
 
 If you are currently in a  combat encounter, there may be Status Effects
 that could change the effectiveness  of your Moves. These are \emph{not}
@@ -957,9 +960,7 @@ When Airex gains enough experience, it will metamorphose into Flyer.
 
 \fi
 
-\ifdefined\ATARIAGESAVE
 \pagebreak
-\fi
 
 \section{Healing}
 
