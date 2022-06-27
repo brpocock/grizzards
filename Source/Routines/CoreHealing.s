@@ -27,15 +27,22 @@ HealsMinusHP:
           sbc Temp
           bpl HealsCommon
 
+MinHealing:
           lda # 1               ; never completely fail to heal
 HealsCommon:
           sta MoveHP
           clc
           adc DefenderHP
           cmp DefenderMaxHP
-          blt +
+          blt HealingBelowMax
+
           lda DefenderMaxHP
-+
+          sec
+          sbc DefenderHP
+          sta MoveHP
+          lda DefenderMaxHP
+
+HealingBelowMax:
           sta DefenderHP
           lda MoveHP
           eor #$ff              ; invert the value to mean "gained"
