@@ -288,7 +288,10 @@ SpriteList:
 
           .byte $ff, SpriteFixed
           .byte 100, 32
-          .byte SpriteSign, 11  ; Treble Village
+          ;; DO NOT COMMIT!
+          .byte SpriteSign, 103 ; You Win
+          ;; DO NOT COMMIT!
+          ;; ;; .byte SpriteSign, 11  ; Treble Village
 
           .byte 19, SpriteWander
           .byte 100, $28
