@@ -105,7 +105,9 @@ MonsterMoves:
 
 CheckStick:
           ldx MoveSelection
-          stx WSYNC
+          .if NTSC == TV
+            stx WSYNC
+          .fi
 
           lda NewSWCHA
           beq StickDone
@@ -137,18 +139,17 @@ DoneStickUp:
 
           inx 
           .mva NextSound, #SoundChirp
-          cpx #9              ; max moves = 8
+          cpx # 9             ; max moves = 8
           blt DoneStickDown
+
+          ldx # 0
 
           ldy CombatMajorP
           bpl CanRunAwayDown
 
-          ldx # 1
-          gne DoneStickDown
+          inx                   ; skip RUN AWAY move
 
 CanRunAwayDown:
-          ldx # 0
-
 DoneStickDown:
           stx MoveSelection
 StickLeftRight:
@@ -174,7 +175,7 @@ ChooseMinorTarget:
 
           ;; copied from CombatMainScreen
 TargetFirstMonster:
-          ldx #0
+          ldx # 0
 TargetNextMonster:
           lda EnemyHP, x
           bne TargetFirst
@@ -214,7 +215,9 @@ DoneStickRight:
 
 StickDone:
 CheckSwitches:
-          stx WSYNC
+          .if NTSC == TV
+            stx WSYNC
+          .fi
 
           lda NewSWCHB
           beq DoneSwitches

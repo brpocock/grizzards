@@ -1,8 +1,10 @@
 ;;; Grizzards Source/Routines/CombatSetup.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
-;;; Common combat routines called from multiple banks
+;;; Common combat routines called from bank 6 only now
 DoCombat:          .block
-          stx WSYNC
+          .if NTSC == TV
+            stx WSYNC
+          .fi
           .WaitScreenTop
           .KillMusic
 
@@ -90,13 +92,11 @@ SetUpOtherCombatVars:
           sty WhoseTurn         ; Player's turn
           sty MoveAnnouncement
           sty StatusFX
-          ldx #6
+          ldx # 6
 ZeroEnemyStatusFX:
           sty EnemyStatusFX - 1, x
           dex
           bne ZeroEnemyStatusFX
 
-          ;; fall through to CombatIntroScreen, which does WaitScreenBottom
+          ;; fall through to (far call to) CombatIntroScreen, which does WaitScreenBottom
           .bend
-
-;;; Audited 2022-02-16 BRPocock

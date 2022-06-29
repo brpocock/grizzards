@@ -111,7 +111,7 @@ JatibuDone:
           beq SkipStick
 
           ;; Either  they've failed  to enter  the Jatibu  Code or  they
-	;; haven't tried
+          ;; haven't tried
 NoJatibu:
           ldx # 0
           stx SelectJatibuProgress

@@ -155,9 +155,9 @@ GreatMuddle:
           .MiniText "GREAT "
           .MiniText "MUDDLE"
           ;; 38
-ScareAway:
-          .MiniText "SCARE "
-          .MiniText "  AWAY"
+HardTackle:
+          .MiniText " HARD "
+          .MiniText "TACKLE"
           ;; 39
 WetNoodle:
           .MiniText "WET   "

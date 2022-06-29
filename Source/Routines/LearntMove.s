@@ -9,6 +9,9 @@ LearntMove:        .block
           cmp #ModeCombat
           bne +
           stx WSYNC
+          .if TV != NTSC
+            stx WSYNC
+          .fi
 +
 
           .WaitScreenTop

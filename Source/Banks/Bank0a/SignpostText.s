@@ -5,7 +5,7 @@
 
           FirstSignpost = 48
 
-          Signs = ( NPC_CanYouSwim, NPC_Allen, NPC_Miranda1, NPC_SueMirror, NPC_Sue, NPC_MirandaMirror, NPC_MirandaTip1, NPC_MirandaTip2, NPC_MirandaTip3, NPC_NeedRing, NPC_GotRing, NPC_FixedRadio, NPC_PeterThanksAgain, NPC_GaryPlayerMirror, NPC_LabyrinthOpen, NPC_Fishing2, NPC_MirandaLabyrinth, NPC_MirandaDone, Sign_DocksToTreble, Sign_FindAndrew, Sign_FindFred, Sign_FindTimmy, Sign_DragonHints, Sign_GetDragonHints, Sign_Ancient )
+          Signs = ( NPC_CanYouSwim, Sign_SouthPortLion, NPC_Miranda1, NPC_SueMirror, NPC_Sue, NPC_MirandaMirror, NPC_MirandaTip1, NPC_MirandaTip2, NPC_MirandaTip3, NPC_NeedRing, NPC_GotRing, NPC_FixedRadio, NPC_PeterThanksAgain, NPC_GaryPlayerMirror, NPC_LabyrinthOpen, NPC_Fishing2, NPC_MirandaLabyrinth, NPC_MirandaDone, Sign_DocksToTreble, Sign_FindAndrew, Sign_FindFred, Sign_FindTimmy, Sign_DragonHints, Sign_GetDragonHints, Sign_Ancient )
 
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
@@ -22,15 +22,15 @@ NPC_CanYouSwim:
           .byte ModeSignpostDone
 
 ;;; 49
-NPC_Allen:
-          .colu COLBLUE, $9
-          .colu COLCYAN, 0
-          .SignText "I'M ALLEN.  "
-          .SignText "THEY SAY IN "
-          .SignText "LEGENDS THE "
-          .SignText "MONSTERS ARE"
-          .SignText "FROM HELL.  "
-          .byte ModeSignpostSetFlag, 6
+Sign_SouthPortLion:
+          .colu COLGRAY, $0
+          .colu COLBROWN, $8
+          .SignText "NORTH TO RED"
+          .SignText "CLIFFS, PORT"
+          .SignText "LION VILLAGE"
+          .SignText "AND LION    "
+          .SignText "WOODS.      "
+          .byte ModeSignpostDone
 
 ;;; 50
 NPC_Miranda1:

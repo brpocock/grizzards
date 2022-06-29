@@ -2,28 +2,27 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 NewGrizzard:        .block
-          .WaitScreenTop
-
           ;; Call with new Grizzard in Temp
           lda Temp
           pha
 
+          .WaitScreenTop
+
           .KillMusic
 
+          pla
+          pha
           .FarJSR SaveKeyBank, ServicePeekGrizzard
-          ;; carry is set if the Grizzard is found
-          bcc CatchEm
+          bit Temp
+          bpl CatchEm
 
-          ;; If so, nothin!g doing, return
+          ;; Already caught, nothing doing, return
           pla        ; discard stashed ID
-          lda CurrentMap
-          sta NextMap
-          jsr WaitScreenBottomSub
-
-          rts
+          .mva NextMap, CurrentMap
+          jmp WaitScreenBottomSub ; tail call
 
 CatchEm:
-          ;; New Grizzard found, save current Grizzard …
+          ;; New Grizzard wasn't already found, save current Grizzard …
           .FarJSR SaveKeyBank, ServiceSaveGrizzard
           stx WSYNC
           .if NTSC == TV
@@ -73,6 +72,13 @@ Loop:
           jmp Loop
 +
           .WaitScreenBottom
+          lda GameMode
+          cmp #ModeWinnerFireworks
+          bne BackToMap
+
+          rts
+
+BackToMap:
           .mva NextMap, CurrentMap
           jmp GoMap
 ;;; 
@@ -124,9 +130,7 @@ Defaults:
           sta MovesKnown
 
           ;; Now, save this guy for good measure
-          .FarJSR SaveKeyBank, ServiceSaveGrizzard
-
-          rts
+          .FarJMP SaveKeyBank, ServiceSaveGrizzard ; tail call
           
           .bend
 

@@ -12,11 +12,8 @@ CombatAnnouncementScreen:     .block
 
           .case PAL
             .WaitScreenBottom
-            .SkipLines 1
-            lda WhoseTurn
-            beq +
-            .SkipLines 4
-+
+            stx WSYNC
+            stx WSYNC
 
           .case SECAM
             ;; This is all crazy shit discovered by experiment

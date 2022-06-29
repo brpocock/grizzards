@@ -381,7 +381,7 @@ SpriteList:
           .byte 0
 
           ;; Room 18, Tier 12
-          .byte $ff, SpriteWander
+          .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 58
 
@@ -407,7 +407,7 @@ SpriteList:
           .byte 0
 
           ;; Room 20, Tier 13
-          .byte $ff, SpriteWander
+          .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 42
 
@@ -429,7 +429,7 @@ SpriteList:
           .byte 0
 
           ;; Room 22, Tier 12
-          .byte $ff, SpriteWander
+          .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 83
 
@@ -451,7 +451,7 @@ SpriteList:
           .byte 0
 
           ;; Room 24, Tier 13
-          .byte $ff, SpriteWander
+          .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 43
 
@@ -488,7 +488,7 @@ SpriteList:
           .byte 0
 
           ;; Room 27, Tier 12
-          .byte $ff, SpriteWander
+          .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 78
 
@@ -518,7 +518,7 @@ SpriteList:
           .byte 0
 
           ;; Room 29, Tier 12
-          .byte $ff, SpriteWander
+          .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 33
 
@@ -555,7 +555,7 @@ SpriteList:
           .byte 0
 
           ;; Room 32, Tier 12
-          .byte $ff, SpriteWander
+          .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 56
 
@@ -577,7 +577,7 @@ SpriteList:
           .byte 0
 
           ;; Room 34, Tier 12
-          .byte $ff, SpriteWander
+          .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 58
 
@@ -614,7 +614,7 @@ SpriteList:
           .byte 0
 
           ;; Room 37, Tier 14
-          .byte $ff, SpriteWander
+          .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 54
 
@@ -636,7 +636,7 @@ SpriteList:
           .byte 0
 
           ;; Room 39, Tier 14
-          .byte $ff, SpriteWander
+          .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 64
 
@@ -666,7 +666,7 @@ SpriteList:
           .byte 0
 
           ;; Room 41, Tier 14
-          .byte $ff, SpriteWander
+          .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 66
 
@@ -684,7 +684,7 @@ SpriteList:
           .byte 0
 
           ;; Room 43, Tier 14
-          .byte $ff, SpriteWander
+          .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 68
 
@@ -706,7 +706,7 @@ SpriteList:
           .byte 0
 
           ;; Room 45, Tier 14
-          .byte $ff, SpriteWander
+          .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 54
 
@@ -739,7 +739,7 @@ SpriteList:
           .byte 0
 
           ;; Room 48, Tier 13
-          .byte $ff, SpriteWander
+          .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 52
 
@@ -769,7 +769,7 @@ SpriteList:
           .byte 0
 
           ;; Room 50, Tier 14
-          .byte $ff, SpriteWander
+          .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 68
 
@@ -799,7 +799,7 @@ SpriteList:
           .byte 0
 
           ;; Room 52, Tier 13
-          .byte $ff, SpriteWander
+          .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 50
 
@@ -828,7 +828,7 @@ SpriteList:
           .byte 0
 
           ;; Room 55, Tier 13
-          .byte $ff, SpriteWander
+          .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 46
 
@@ -861,7 +861,7 @@ SpriteList:
           .byte 0
 
           ;; Room 58, Tier 13
-          .byte $ff, SpriteWander
+          .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 44
 
@@ -890,7 +890,7 @@ SpriteList:
           .byte 0
 
           ;; Room 61, Tier 13
-          .byte $ff, SpriteWander
+          .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 40
 
@@ -920,7 +920,7 @@ SpriteList:
           .byte 0
 
           ;; Room 63, Tier 13
-          .byte $ff, SpriteWander
+          .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 52
 
@@ -946,7 +946,7 @@ SpriteList:
           .byte 0
 
           ;; Room 65, Tier 13
-          .byte $ff, SpriteWander
+          .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 50
 
@@ -972,7 +972,7 @@ SpriteList:
           .byte 0
 
           ;; Room 67, Tier 13
-          .byte $ff, SpriteWander
+          .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 46
 
@@ -987,7 +987,7 @@ SpriteList:
           .byte 0
 
           ;; Room 68, Tier 12
-          .byte $ff, SpriteWander
+          .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 34
 
