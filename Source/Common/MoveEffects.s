@@ -82,7 +82,7 @@ MuddleMind:
           .byte StatusMuddle
 GreatMuddle:
           .byte 0
-ScareAway:
+HardTackle:
           .byte 0
 WetNoodle:
           .byte 0
@@ -227,8 +227,8 @@ MuddleMind:
           .byte 0
 GreatMuddle:
           .byte 8
-ScareAway:
-          .byte 0
+HardTackle:
+          .byte 29
 WetNoodle:
           .byte 12
           ;; 40

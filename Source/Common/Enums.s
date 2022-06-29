@@ -18,6 +18,7 @@
           ModeCreditSecret = $14
           ModeBRPPreamble = $1e
           ModePublisherPresents = $1f
+          ModeWinnerFireworks = $15
 
           ModeSelectSlot = $20
           ModeEraseSlot = $21
@@ -63,8 +64,6 @@
           ModeSignpostPotions = $89
           ModeSignpostSetTimer = $8a
           ModeSignpostNext = $8b
-
-          ModeWinnerFireworks = $90
 ;;; 
 ;;; Sounds in the library (index values)
           SoundDrone = 1

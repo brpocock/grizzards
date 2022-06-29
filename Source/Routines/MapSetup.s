@@ -31,14 +31,6 @@ MapSetup: .block
           jmp NewRoomTimerRunning
 ;;; 
 NewRoom:
-          .WaitForTimer
-          stx WSYNC
-          .if TV == NTSC
-            stx WSYNC
-          .fi
-
-          jsr Overscan
-
           .WaitScreenTopMinus 2, -1
 
 NewRoomTimerRunning:

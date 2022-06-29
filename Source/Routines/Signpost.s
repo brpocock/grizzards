@@ -15,7 +15,8 @@ Setup:
           gne Silence
 
 +
-          .WaitScreenTopMinus 1, 0
+          stx WSYNC
+          .WaitScreenTopMinus 1, 10
 
 Silence:
           .KillMusic
@@ -297,10 +298,8 @@ ClearFlag:
 GoNext:
           lda (SignpostText), y
           sta SignpostIndex
-
-          lda #ModeSignpost
-          sta GameMode
-
+          .mva GameMode, #ModeSignpost
+          .WaitScreenBottom
           jmp Setup
 
 GetPotions:
@@ -354,7 +353,7 @@ ProvinceChange:
 ;;; Duplicated in Signpost.s and CheckPlayerCollision.s nearly exactly
           .mvx s, #$ff
           .if NTSC == TV
-            .SkipLines KernelLines - 179
+            .SkipLines KernelLines - 180
             jsr Overscan
           .else
             ldx INTIM
@@ -418,7 +417,12 @@ Inquire:
 ;;; Overscan is different, we don't have  sound effects nor music and we
 ;;; don't want Bank 7 to get confused by our speech.
 Overscan: .block
-          .TimeLines OverscanLines
+          .switch TV
+          .case NTSC
+            .TimeLines OverscanLines
+          .case PAL, SECAM
+            .TimeLines OverscanLines + 10
+          .endswitch
 
           jsr PlaySpeech
 

@@ -8,7 +8,7 @@ WinnerFireworks:    .block
           .WaitScreenBottom
           .WaitScreenTop
 
-          ldy # 0
+          .mvy NewButtons, # 0
           sty CurrentHP         ; now = Grizzards Count
           sty CurrentGrizzard   ; search each Grizzard, 0 - 29
 CheckCaughtLoop:
@@ -32,12 +32,27 @@ NotCaught:
           blt CheckCaughtLoop
 
           ;; First, save everything, then pull the user's name for the message text
+          ;; SaveToSlot starts _and ends_ with WaitScreenBottom calls.
           .FarJSR SaveKeyBank, ServiceSaveToSlot
+          .switch TV
+          .case NTSC
+            stx WSYNC
+            stx WSYNC
+          .endswitch
+          .WaitScreenTopMinus 1, 1
           .FarJSR SaveKeyBank, ServiceCheckSaveSlot
+          .WaitScreenBottom
+          .WaitScreenTopMinus 1, 1
 ;;; 
 Loop:
+          ldx #SFXBank
+          jsr FarCall
           .WaitScreenBottom
-          .WaitScreenTop
+          .switch TV
+          .case PAL
+            .SkipLines 2
+          .endswitch
+          .WaitScreenTopMinus 1, 0
           .ldacolu COLRED, $8
           sta COLUBK
           .ldacolu COLGOLD, $0
@@ -98,29 +113,51 @@ CaughtDone:
           beq Leave
 
 DoneSwitches:
+          lda NewButtons
+          beq DoneButtons
+
+          and #ButtonI
+          bne DoneButtons
+
+          .WaitScreenBottom
+          .mvx SignpostIndex, # 108    ; Credits1
+          jmp Signpost
+
+DoneButtons:
           jmp Loop
 ;;; 
 Leave:
           .WaitScreenBottom
           .WaitScreenTop
+;;; 
 NewGamePlus:
           .mva Potions, #$80 | 25
+;;; 
+AddAllStarters:
           .mva CurrentGrizzard, # 2
 
 ConsiderGrizzard:
+          .mva Temp, CurrentGrizzard
           .FarJSR SaveKeyBank, ServicePeekGrizzardXP
 
           bit Temp
           bmi SeenGrizzardBefore
 
-          .FarJSR MapServicesBank, ServiceNewGrizzard
+          .mva Temp, CurrentGrizzard
+          .FarJSR MapServicesBank, ServiceGrizzardDefaults
+          .FarJSR SaveKeyBank, ServiceSaveGrizzard
 
 SeenGrizzardBefore:
           dec CurrentGrizzard
           bpl ConsiderGrizzard
-
+;;; 
+ResetProvinceFlags:
           ldy # 0               ; XXX necessary?
+          sty CurrentMap
+          sty NextMap
           sty CurrentGrizzard
+          tya
+
           iny                   ; Y = 1
           sty CurrentProvince
 
@@ -131,6 +168,8 @@ Wipe8Bytes:
           dex
           bne Wipe8Bytes
 
+          .WaitScreenBottom
+
           ;; Save Province 1 as zeroes
           .FarJSR SaveKeyBank, ServiceSaveProvinceData
 
@@ -138,13 +177,12 @@ Wipe8Bytes:
           inc CurrentProvince
           .FarJSR SaveKeyBank, ServiceSaveProvinceData
 
-          ldy # 0               ; XXX necessary?
-          sty CurrentMap
-          sty CurrentProvince
-          sty NextMap
-
+          .mvy CurrentProvince, # 0
           ;; Save global data, also save province 0 as zeroes
           .FarJSR SaveKeyBank, ServiceSaveToSlot
+
+          stx WSYNC
+          stx WSYNC
 
           jmp GoWarmStart
 ;;; 
