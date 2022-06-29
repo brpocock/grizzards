@@ -89,7 +89,7 @@
 \begin{tikzpicture}[overlay, remember picture]
   \node[anchor=north west, xshift=-4pt, yshift=4pt] 
   at (current page.north west)
-  {\includegraphics[interpolate,width=6in,height=9in]{../Manual/Cover.png}}; 
+  {\includegraphics[interpolate,width=\paperwidth,height=\paperheight]{../Manual/Cover.png}}; 
 \end{tikzpicture}
 
 
@@ -236,11 +236,7 @@ facing  up)  into  the  cartridge  slot,  and  turn  the  \textbf{Power}
 \textbf{on}.
 
 \ifdefined\ATARIAGESAVE\else
-\begin{figure}[h]
-  \begin{center}
-    \includegraphics[width=\columnwidth]{../Manual/Atari-2600-Wood-4Sw-Set.png}
-  \end{center}
-\end{figure}
+\includegraphics[width=\columnwidth]{../Manual/Atari-2600-Wood-4Sw-Set.png}
 \fi
 
 \pagebreak
@@ -512,8 +508,6 @@ and experience.
 
 \fi
 
-\ifdefined\ATARIAGESAVE\else\pagebreak\fi
-
 \lettrine[image=true,                lines=5,               findent=3pt,
 nindent=3pt]{../Manual/Door\TV.png}{Doors} lead  you to other  places in
 the world.
@@ -524,6 +518,8 @@ the world.
 nindent=3pt]{../Manual/Signpost\TV.png}{Signposts}  provide  information
 to  help  you  progress.  You  should  also refer  to  the  map  on  the
 \ifdefined\ATARIAGESAVE back cover \else last page \fi{} of this manual.
+
+\ifdefined\ATARIAGESAVE\else\vspace{30pt}\fi
 
 \lettrine[image=true,                lines=5,               findent=3pt,
 nindent=3pt]{../Manual/Person\TV.png}{People} will converse with you and
@@ -1059,7 +1055,7 @@ nindent=3pt]{../Manual/Vorpal-Bunny.png}{Vorpal Bunnies}  are a powerful
 monster that  will take a few  hits to kill. Beware  their attack Moves,
 though! You may find Vorpal Bunnies near the Spiral Woods.
 
-\ifdefined\ATARIAGESAVE\pagebreak\else\vspace{14pt}\fi
+\pagebreak
 
 \lettrine[image=true,                lines=5,               findent=3pt,
 nindent=3pt]{../Manual/Will-O-Wisp.png}{Will-O-Wisps}     are    bright,
@@ -1309,7 +1305,7 @@ TODO: probably put an AtariAge badge here and on the cover?
 \begin{tikzpicture}[overlay, remember picture]
   \node[anchor=north west, xshift=-4pt, yshift=4pt] 
   at (current page.north west)
-  {\includegraphics[interpolate,width=6in,height=9in]{../Manual/SyrexMap.png}};
+  {\includegraphics[interpolate,width=\paperwidth,height=\paperheight]{../Manual/SyrexMap.png}};
 \end{tikzpicture}
 
 \end{document}
