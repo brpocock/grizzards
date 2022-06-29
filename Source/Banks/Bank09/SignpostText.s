@@ -94,6 +94,7 @@ Sign_Labyrinth:
 Sign_KeyFred:
           .colu COLBROWN, 0          
           .colu COLBLUE, $f
+          .byte $ff, 57, 72     ; runes
           .SignText "THIS LEVER  "
           .SignText "UNLOCKS THE "
           .SignText "DOOR TO THE "
@@ -105,6 +106,7 @@ Sign_KeyFred:
 Sign_KeyAndrew:
           .colu COLGREEN, 0
           .colu COLYELLOW, $f
+          .byte $ff, 57, 72     ; runes
           .SignText "THIS LEVER  "
           .SignText "UNLOCKS THE "
           .SignText "DOOR TO THE "
@@ -116,6 +118,7 @@ Sign_KeyAndrew:
 Sign_KeyTimmy:
           .colu COLCYAN, 0
           .colu COLCYAN, $f
+          .byte $ff, 57, 72     ; runes
           .SignText "THIS LEVER  "
           .SignText "UNLOCKS THE "
           .SignText "DOOR TO THE "

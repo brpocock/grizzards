@@ -1,9 +1,6 @@
 ;;; Grizzards Source/Banks/Bank04/MapsProvince0.so
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
-
-;;; TODO There is room left for precisely 8 more sprites in this memory bank and I intend to use every one.
-
           ;; How many maps are in these tables?
 MapCount = 65
 ;;; 
@@ -38,10 +35,10 @@ MapColors:
           .colors COLINDIGO, COLBLUE
           .colors COLBLUE, COLBLUE
           .colors COLPURPLE, COLGRAY
-          .colors COLPURPLE, COLGRAY
-          .colors COLPURPLE, COLGRAY
-          .colors COLPURPLE, COLGRAY
-          .colors COLPURPLE, COLGRAY
+          .colors COLPURPLE, COLPURPLE
+          .colors COLPURPLE, COLPURPLE
+          .colors COLPURPLE, COLPURPLE
+          .colors COLPURPLE, COLPURPLE
           .colors COLMAGENTA, COLBROWN
           ;; 30
           .colors COLMAGENTA, COLBROWN
@@ -264,7 +261,7 @@ SpriteList:
           .byte $7b, $2c
           .byte SpriteCombat, 3 ; Horrid Slime
 
-          .byte $ff, SpriteRandomEncounter
+          .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 1 ; 2 Wicked Slimes
 
@@ -313,11 +310,11 @@ SpriteList:
           .byte $72, $13
           .byte SpriteMajorCombat, 6 ; boss ROUS
 
-          .byte $ff, SpriteRandomEncounter
+          .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 7 ; 3×ROUS
 
-          .byte $ff, SpriteRandomEncounter
+          .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 8 ; Flame Doggos
 
@@ -332,22 +329,22 @@ SpriteList:
           .byte $34, $2c
           .byte SpriteCombat, 8 ; Flame Doggo
 
-          .byte $ff, SpriteRandomEncounter
+          .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 8 ; Flame Doggo
 
-          .byte $ff, SpriteRandomEncounter
+          .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 10 ; Fire Panda
 
           .byte 0
 
           ;; Room 6, Tier 3
-          .byte $ff, SpriteRandomEncounter
+          .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 8 ; Flame Doggos
 
-          .byte $ff, SpriteRandomEncounter
+          .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 10 ; Fire Panda
 
@@ -383,7 +380,7 @@ SpriteList:
           .byte $38, $20
           .byte SpriteSign, 9   ; lost mine
 
-          .byte $ff, SpriteRandomEncounter
+          .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 21 ; Sky mutants
 
@@ -451,11 +448,11 @@ SpriteList:
           .byte $7e, $27
           .byte SpriteCombat, 21 ; Sky mutants
 
-          .byte $ff, SpriteRandomEncounter
+          .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 35 ; Robins
 
-          .byte $ff, SpriteRandomEncounter
+          .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 36 ; 5 Robins
 
@@ -466,7 +463,7 @@ SpriteList:
           .byte $7e, $27
           .byte SpriteCombat, 21 ; Sky Mutants
 
-          .byte $ff, SpriteRandomEncounter
+          .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 36 ; Robins
 
@@ -497,7 +494,7 @@ SpriteList:
           .byte SpriteCombat, 15 ; Will O' Wisp
 
           .byte $ff, SpriteFixed
-          .byte $c0, $2b
+          .byte $a0, $2b
           .if DEMO
           .byte SpriteSign, 10  ; Spiral Woods closed
           .else
@@ -573,7 +570,7 @@ SpriteList:
           .byte 0, 0
           .byte SpriteCombat, 29 ; bats
 
-          .byte $ff, SpriteWander
+          .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 28 ; bats
 
@@ -588,11 +585,11 @@ SpriteList:
           .byte 0, 0
           .byte SpriteCombat, 28 ; Bats
 
-          .byte $ff, SpriteWander
+          .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 28 ; Bats
 
-          .byte $ff, SpriteWander
+          .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 29 ; Bats
 
@@ -611,7 +608,7 @@ SpriteList:
           .byte 0, 0
           .byte SpriteCombat, 28 ; Bats
 
-          .byte $ff, SpriteWander
+          .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 29 ; Bats
 
@@ -713,11 +710,11 @@ SpriteList:
           .byte 0, 0
           .byte SpriteCombat, 16 ; one fox
 
-          .byte $ff, SpriteRandomEncounter
+          .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 13 ; turtle
 
-          .byte $ff, SpriteRandomEncounter
+          .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 70 ; 2 foxes
 
@@ -785,7 +782,7 @@ SpriteList:
           ;; Room 38, Tier 0
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpritePerson, 77 ; random villager
+          .byte SpritePerson, 113 ; random villager
 
           .byte 0
 

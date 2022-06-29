@@ -12,11 +12,8 @@ CombatAnnouncementScreen:     .block
 
           .case PAL
             .WaitScreenBottom
-            .SkipLines 1
-            lda WhoseTurn
-            beq +
-            .SkipLines 4
-+
+            stx WSYNC
+            stx WSYNC
 
           .case SECAM
             ;; This is all crazy shit discovered by experiment
@@ -259,7 +256,7 @@ SayObjectNumberOnPlayersTurn:
 
 SayThatObjectNumber:
           lda CombatMajorP
-          bpl SpeechQueued
+          bne SpeechQueued
 
           lda #>(Phrase_One - 1)
           sta CurrentUtterance + 1

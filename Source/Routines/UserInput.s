@@ -42,7 +42,7 @@ NoSelect:
           .if TV == SECAM
 
             lda NewSWCHB
-            bne DonePause
+            beq DonePause
 
             and #SWCHBP1Advanced        ; SECAM pause
             beq +

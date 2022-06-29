@@ -5,7 +5,7 @@ SaveProvinceData:   .block
           .WaitScreenTop
 PositionProvinceData:
           jsr i2cStartWrite
-          
+
 	lda #>SaveGameSlotPrefix
 	clc
 	adc SaveGameSlot

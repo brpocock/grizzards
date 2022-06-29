@@ -15,8 +15,10 @@ DefendUpText:
           .MiniText "DEF.UP"    ; defend up
 HPLostText:
           .MiniText "HP -00"
-HealedText:
+Heal00Text:
           .MiniText "HEAL00"
+HealedText:
+          .MiniText "HEALED"
 MissedText:
           .MiniText "MISSED"
 KilledText:

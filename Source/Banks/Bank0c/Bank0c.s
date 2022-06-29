@@ -10,10 +10,9 @@ DoLocal:
           .include "Signpost.s"
 
           .include "WinnerFireworks.s"
-          ;; .include "Fireworks.s"
-          .align $100
+          .align $100           ; XXX alignment
           .include "BossBearDies.s"
-          .align $20
+          .align $20            ; XXX alignment
           .include "ShowPicture.s"
 
           .include "CopyPointerText.s"

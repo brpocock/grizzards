@@ -169,5 +169,15 @@ Credits_5:
           .SignText "AND EVERYONE"
           .SignText "IN ATARIAGE "
           .SignText "FORUMS.     "
-          .byte ModeSignpostNext, 108
+          .byte ModeWinnerFireworks
 
+;;; 113
+NPC_Villager4:
+          .colu COLINDIGO, 0
+          .colu COLTURQUOISE, $9
+          .SignText "THE MONSTERS"
+          .SignText "ATTACKED    "
+          .SignText "TREBLE FIRST"
+          .SignText "BUT THEY'RE "
+          .SignText "COMING HERE."
+          .byte ModeSignpostDone

@@ -5,6 +5,7 @@ CombatMainScreen:   .block
 
 BackToPlayer:
           .mva MoveSelection, LastPlayerCombatMove
+MonsterThwarted:
           .mva GameMode, #ModeCombat
           .mva AlarmCountdown, # 4
 
@@ -49,53 +50,35 @@ Loop:
 
           .case PAL
 
-            .WaitScreenBottom
-            lda WhoseTurn
-            bne NWait0
+            ldx WhoseTurn
+            beq +
 
-            .SkipLines 2
-            lda MoveSelection
-            bne NWait0
-
-            .SkipLines 1
-NWait0:
-            lda CombatMajorP
-            bpl +
-            stx WSYNC
+            ;; skip a few lines because it's the monsters' turn
+            ;; (no, this doesn't make any sense)
+            lda INTIM
+            sec
+            sbc # 5
+            sta TIM64T
 +
+            .WaitScreenBottom
+            stx WSYNC
+            stx WSYNC
 
           .case SECAM
 
             ;; Modified WaitScreenBottom
             .WaitForTimer
-            .SkipLines 8
-            lda WhoseTurn
+            lda AlarmCountdown
             bne +
             stx WSYNC
 +
             stx WSYNC
-            ;; if not RUN AWAY 
-            lda MoveSelection
-            bne +
-            stx WSYNC
-+
-            lda MoveTarget
-            bne +
-            stx WSYNC
-+
-            lda CombatMajorP
-            bpl +
-            .SkipLines 4
-+
-
-            stx WSYNC
-
             jsr Overscan
 
           .endswitch
 
 LoopFirst:
-          .WaitScreenTopMinus 1, 3
+          .WaitScreenTopMinus 1, 0
           jsr Prepare48pxMobBlob
 
           .switch TV
@@ -114,7 +97,7 @@ LoopFirst:
             bne +
             .ldacolu COLGRAY, $8
 +
-          
+
           .case SECAM
 
             lda #COLWHITE
@@ -129,7 +112,6 @@ BGTop:
           .ldacolu COLYELLOW, $f
           sta COLUP0
           sta COLUP1
-
 ;;; 
 MonstersDisplay:
           lda CurrentCombatEncounter
@@ -191,11 +173,9 @@ BeginPlayerSection:
           .ldacolu COLBLUE, $f
           sta COLUP0
           sta COLUP1
-          lda WhoseTurn
-          beq PlayerBGBottom
-
           .ldacolu COLGRAY, $2
-          jmp BGBottom
+          ldx WhoseTurn
+          bne BGBottom
 
 PlayerBGBottom:
           .if TV == SECAM
@@ -251,7 +231,7 @@ DrawHealthPF:
 
           lda HealthyPF2, x
           sta pp2l
-          gne DoneHealth
+          gne ReadyHealth
 
 FullPF2:
           .mva pp2l, #$ff
@@ -266,7 +246,7 @@ FullPF2:
 
           lda HealthyPF1, x
           sta pp1l
-          gne DoneHealth
+          gne ReadyHealth
 
 FullPF1:                        ; ∈ 8…12
           sec
@@ -277,12 +257,12 @@ FullPF1:                        ; ∈ 8…12
           sta pp0l
           ;; fall through
 
-DoneHealth:
+ReadyHealth:
           stx WSYNC
           .mva PF0, pp0l
           .mva PF1, pp1l
           .mva PF2, pp2l
-          .SkipLines 4
+          .SkipLines 3
           ldy # 0
           sty PF0
           sty PF1
@@ -344,7 +324,12 @@ NotRunAway:
           bit MovesKnown
           beq NotMoveKnown
 
-          .ldacolu COLTURQUOISE, $e
+          .switch TV
+          .case NTSC, SECAM
+            .ldacolu COLTURQUOISE, $e
+          .case PAL
+            .ldacolu COLTURQUOISE, $8
+          .endswitch
           gne ShowSelectedMove
 
 NotMoveKnown:
@@ -394,10 +379,18 @@ RunAway:
           .mva GameMode, #ModeMap
 
           .switch TV
+          .case NTSC
+
+            stx WSYNC
+
           .case PAL
-            .SkipLines 17
+
+            .SkipLines 18
+
           .case SECAM
+
             .SkipLines 19
+
           .endswitch
 ;;; 
 ScreenDone:
@@ -417,9 +410,13 @@ Leave:
 
           .switch TV
           .case PAL,SECAM
-            .SkipLines 32
+	
+            .SkipLines 30
+
           .case NTSC
+
             .SkipLines 31
+	
           .endswitch
           jmp GoMap
 
@@ -429,9 +426,14 @@ NotGoingToMap:
 
           .mva DeltaY, #ModeCombat
           .WaitScreenBottom
-          .if NTSC != TV
+          .switch TV
+          .case NTSC
+            ;; no op
+          .case SECAM
             .SkipLines 5
-          .fi
+          .case PAL
+            .SkipLines 2
+          .endswitch
 	jmp GrizzardStatsScreen
 
 NotGoingToStats:
@@ -467,8 +469,9 @@ SleepsText:
           .MiniText "SLEEPS"
 MuddleText:
           .MiniText "MUDDLE"
-
+;;; 
 MaybeReadyToAnnounce:
+          ldx WhoseTurn
           beq Announce
 
           jsr FindMonsterMove
@@ -479,13 +482,12 @@ MaybeReadyToAnnounce:
           ldx WhoseTurn
           lda EnemyHP - 1, x
           cmp MonsterMaxHP
-          blt Announce
+          blt CombatAnnouncementScreen
 
-          lda #ModeCombat
-          sta GameMode
-          jmp Loop
+          jmp MonsterThwarted
 
 Announce:
           ;; falls through to CombatAnnouncementScreen
+          stx WSYNC
           
           .bend

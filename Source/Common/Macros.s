@@ -157,40 +157,40 @@ ClearAllGraphics: .macro
 sound:    .macro volume, control, frequency, duration, end
           .switch FramesPerSecond
           .case 60
-          .byte (\volume << 4) | \control, \frequency | ( \end << 7 ), \duration
+            .byte (\volume << 4) | \control, \frequency | ( \end << 7 ), \duration
           .case 50
-          .byte (\volume << 4) | \control, \frequency | ( \end << 7 ), ceil( (\duration / 60.0) * 50)
+            .byte (\volume << 4) | \control, \frequency | ( \end << 7 ), ceil( (\duration / 60.0) * 50)
           .default
-          .error "Unsupported frame rate: ", FramesPerSecond
+            .error "Unsupported frame rate: ", FramesPerSecond
           .endswitch
           .endm
 
 TimeLines:          .macro lines
           SkipCycles = 76 * (\lines)
           .if ( (SkipCycles/64) <= $100 )
-          lda # (SkipCycles/64) - 1
-          sta TIM64T
+            lda # (SkipCycles/64) - 1
+            sta TIM64T
           .else
-          .error "Cannot skip ", \lines, " lines with TIM64T"
+            .error "Cannot skip ", \lines, " lines with TIM64T"
           .fi
           .endm
 
 WaitScreenTop:      .macro
           jsr VSync
           .if TV == NTSC
-          .TimeLines KernelLines - 1
+            .TimeLines KernelLines - 1
           .else
-          lda #$ff              ; 214.74 lines
-          sta TIM64T
+            lda #$ff              ; 214.74 lines
+            sta TIM64T
           .fi
           .endm
 
 WaitScreenTopMinus: .macro NTSCMinus, PALMinus
           jsr VSync
           .if TV == NTSC
-          .TimeLines KernelLines - \NTSCMinus
+            .TimeLines KernelLines - \NTSCMinus
           .else
-          .TimeLines 214 - \PALMinus
+            .TimeLines 214 - \PALMinus
           .fi
           .endm
 

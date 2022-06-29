@@ -54,7 +54,7 @@ Bite:
           .byte 0
           ;; 24
 PoisonBite:
-          .byte 0
+          .byte StatusSleep
 CruelStab:
           .byte 0
 BlindBlob:
@@ -82,7 +82,7 @@ MuddleMind:
           .byte StatusMuddle
 GreatMuddle:
           .byte 0
-ScareAway:
+HardTackle:
           .byte 0
 WetNoodle:
           .byte 0
@@ -106,21 +106,35 @@ Slash:
           ;; 48
 VampyBite:
           .byte StatusSleep
+HeartyThump:
           .byte 0
+HardJab:
           .byte 0
+ClawBadly:
           .byte 0
+BackKick:
           .byte 0
+HeadButt:
           .byte 0
-          .byte 0
+PirateCurse:
+          .byte StatusMuddle | StatusSleep
+SharpFangs:
           .byte 0
           ;; 56
+NastyGoop:
           .byte 0
+TalonVise:
           .byte 0
+DeathGlare:
           .byte 0
+PoundSand:
           .byte 0
+WingsFlap:
           .byte 0
-          .byte 0
-          .byte 0
+CursedGlance:
+          .byte StatusSleep
+SlimeImpact:
+          .byte StatusMuddle
 MegaKill:
           .byte StatusDefendDown | StatusAttackDown | StatusMuddle | StatusSleep
           ;; ↑ 63
@@ -140,7 +154,7 @@ MildShock:
 HotSpark:
           .byte 4
 BuryDeep:
-          .byte 0
+          .byte 1
 DirtyFoot:
           .byte 6
 LoamyFear:
@@ -213,8 +227,8 @@ MuddleMind:
           .byte 0
 GreatMuddle:
           .byte 8
-ScareAway:
-          .byte 0
+HardTackle:
+          .byte 29
 WetNoodle:
           .byte 12
           ;; 40

@@ -46,7 +46,7 @@ DoneSwitches:
           ldy # 0
           sty NewSWCHB
 
-          .if ((BANK == CombatBank0To127) || (BANK == CombatBank128To255))
+          .if BANK == CombatBank0To63
 
             cmp #ModeCombat
             bne +

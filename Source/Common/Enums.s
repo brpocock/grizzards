@@ -18,6 +18,7 @@
           ModeCreditSecret = $14
           ModeBRPPreamble = $1e
           ModePublisherPresents = $1f
+          ModeWinnerFireworks = $15
 
           ModeSelectSlot = $20
           ModeEraseSlot = $21
@@ -63,8 +64,6 @@
           ModeSignpostPotions = $89
           ModeSignpostSetTimer = $8a
           ModeSignpostNext = $8b
-
-          ModeWinnerFireworks = $90
 ;;; 
 ;;; Sounds in the library (index values)
           SoundDrone = 1
@@ -129,20 +128,17 @@
           ;; Save game slot address.
           ;; Must be page-aligned
           ;; Uses the subsequent 12 64-byte blocks
-          .if DEMO
-            SaveGameSlotPrefix = $3000
+          .if ATARIAGESAVE
+            SaveGameSlotPrefix = $0000
+            SKSaveGameSlotPrefix = $1100
           .else
-            .if ATARIAGESAVE
-              SaveGameSlotPrefix = $0000
-            .else
-              ;; https://atariage.com/atarivox/atarivox_mem_list.html
-              SaveGameSlotPrefix = $1100
-            .fi
+            ;; https://atariage.com/atarivox/atarivox_mem_list.html
+            SaveGameSlotPrefix = $1100
           .fi
           
           ;; Must be exactly 5 bytes for the driver routines to work
           .enc "ascii"
-          .if ATARIAGESAVE
+          .if DEMO
             SaveGameSignature = "griz1"
           .else
             SaveGameSignature = "griz0"
@@ -175,8 +171,7 @@
             Province1MapBank = $03
             Province2MapBank = $05
           .fi
-          CombatBank0To127 = $06
-          CombatBank128To255 = $06
+          CombatBank0To63 = $06
           SFXBank = $07
           .if DEMO
             SignpostBank = $05
@@ -204,6 +199,7 @@
           ServiceSaveProvinceData = $20
           ServiceSaveToSlot = $10
           ServiceSetCurrentGrizzard = $2f
+          ServiceCheckSaveSlot = $39
 
 ;;; Map services bank
 

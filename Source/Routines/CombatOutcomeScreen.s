@@ -107,8 +107,23 @@ DrawHealPoints:
           eor #$ff
           beq SkipHitPoints
 
-          sta Temp
+          ldx WhoseTurn
+          bne DrawHealXX
+
+          ldx MaxHP
+          cpx CurrentHP
+          bne DrawHealXX
+
           .SetPointer HealedText
+          jsr CopyPointerText
+
+          jsr DecodeAndShowText
+
+          jmp DoneHitPoints
+
+DrawHealXX:
+          sta Temp
+          .SetPointer Heal00Text
 DrawHitPoints:
           jsr AppendDecimalAndPrint.FromTemp
 
@@ -461,11 +476,12 @@ CheckForLoss:
           lda CurrentHP
           bne Bye
 
-          .if TV == NTSC
+          .switch TV
+          .case NTSC,PAL
             ldx INTIM
             dex
             stx TIM64T
-          .fi
+          .endswitch
           .WaitScreenBottom
           .FarJMP AnimationsBank, ServiceDeath
 

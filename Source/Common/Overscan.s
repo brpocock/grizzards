@@ -2,8 +2,12 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 Overscan: .block
-          .TimeLines OverscanLines
-
+          .if NTSC == TV
+            .TimeLines OverscanLines
+          .else
+            .TimeLines OverscanLines + 10
+          .fi
+Short:
           ldy # 0
           stx WSYNC
           sty COLUPF
@@ -20,15 +24,15 @@ Overscan: .block
           ldx #SFXBank
           jsr FarCall
 
-          .if DEMO && BANK == 4
-            jsr DoMusic
-          .fi
-
-          .if !DEMO
-          .switch BANK
-          .case 3, 4, 5
-            jsr DoMusic
-          .endswitch
+          .if DEMO
+            .if BANK == 4
+              jsr DoMusic
+            .fi
+          .else
+            .switch BANK
+            .case 3, 4, 5
+              jsr DoMusic
+            .endswitch
           .fi
 
           .WaitForTimer

@@ -8,17 +8,15 @@
 Signpost: .block
 
 Setup:
-          ldx #$ff
-          txs
-
           lda GameMode
           cmp #ModeSignpostInquire
           beq +
           .WaitScreenTop
-          jmp Silence
+          gne Silence
 
 +
-          .WaitScreenTopMinus 1, 0
+          stx WSYNC
+          .WaitScreenTopMinus 1, 10
 
 Silence:
           .KillMusic
@@ -27,29 +25,27 @@ Silence:
           sta AUDV0
           sta CurrentUtterance + 1  ; zero from KillMusic
 
-          ldx #$ff
-          txs
+          .mvx s, #$ff
 
           .if BANK == SignpostBank
-          jsr GetSignpostIndex
+            jsr GetSignpostIndex
           .else
-          nop
-          nop
-          nop
+            nop                 ; Cross-bank alignment!
+            ldx SignpostIndex
           .fi
 
 IndexReady:
-          .if !DEMO
+          .if !DEMO             ; Demo has only the one bank of text
           ;; is this index in this memory bank?
           cpx #FirstSignpost
           bge NoBankDown
 BankDown:
           .if BANK > SignpostBank
-          stx BankSwitch0 + BANK - 1
+            stx BankSwitch0 + BANK - 1
           .else
-          nop
-          nop
-          brk
+            brk                 ; cross-bank alignment!
+            brk
+            brk
           .fi
           jmp IndexReady
 
@@ -58,11 +54,11 @@ NoBankDown:
           blt NoBankUp
 BankUp:
           .if BANK < SignpostBank + SignpostBankCount - 1
-          stx BankSwitch0 + BANK + 1
+            stx BankSwitch0 + BANK + 1
           .else
-          nop
-          nop
-          brk
+            brk                 ; cross-bank alignment!
+            brk
+            brk
           .fi
           jmp IndexReady
 
@@ -98,47 +94,48 @@ NoBankUp:
           iny
           lda (SignpostWork), y ; conditional?
           cmp #$ff
-          bne Unconditional
+          bne DoneConditional
+
 Conditional:
           iny
           lda (SignpostWork), y ; bit flag upon which it's conditional
-          tay
-          and #$38
+          tay                   ; save bit flag index
+          and #%00111000
           lsr a
           lsr a
           lsr a
           tax
           lda ProvinceFlags, x
-          sta Temp
-          tya
-          and #$07
+          sta Temp              ; byte of bit flags
+          tya                   ; recover original bit flag index
+          and #%00000111
           tax
           lda BitMask, x
-          and Temp
+          and Temp              ; byte of bit flags
           beq ConditionFailed
 
           ldy # 4               ; jump to which alternative
           lda (SignpostWork), y
           tax
-          jmp IndexReady
+          jmp IndexReady        ; fetch new alternative
 
 ConditionFailed:
-          .Add16 SignpostText, #5
+          .Add16 SignpostText, # 5
           jmp ReadyToDraw
 
-Unconditional:
-          .Add16 SignpostText, #2
+DoneConditional:
+          .Add16 SignpostText, # 2
 ReadyToDraw:
           lda # 2
           sta AlarmCountdown
 
           .WaitScreenBottom
           .if NTSC != TV
-          lda GameMode
-          cmp #ModeSignpostInquire
-          bne +
-          stx WSYNC
-          stx WSYNC
+            lda GameMode
+            cmp #ModeSignpostInquire
+            bne +
+            stx WSYNC
+            stx WSYNC
 +
           .fi
 
@@ -155,17 +152,17 @@ Loop:
 
           .SkipLines KernelLines / 6
 
-          lda # 0
-          sta REFP0
-          sta REFP1
-          sta GRP0
-          sta GRP1
+          ldy # 0
+          sty REFP0
+          sty REFP1
+          sty GRP0
+          sty GRP1
+          iny                   ; Y = 1
+          sty VDELP0
+          sty VDELP1
           lda #NUSIZ3CopiesClose
           sta NUSIZ0
           sta NUSIZ1
-          lda # 1
-          sta VDELP0
-          sta VDELP1
 
           stx WSYNC
           lda SignpostBG
@@ -175,11 +172,11 @@ Loop:
           sta COLUP1
 
           lda # 5
-          sta SignpostTextLine
+          sta SignpostTextLine  ; each screen is 5 lines
 
 NextTextLine:
 
-          ldy # 8
+          ldy # 8               ; each line is 9 bytes
 -
           lda (SignpostWork), y
           sta SignpostLineCompressed, y
@@ -191,42 +188,92 @@ NextTextLine:
           bne NextTextLine
 ;;; 
 DoneDrawing:
-          lda # 0
+          ;; ldy # 0   ; Y already = 0 here
           .SkipLines 3
-          sta COLUBK
+          sty COLUBK
 
           lda AlarmCountdown      ; require 1-2s to tick before accepting button press; see #140
-          bne NoButton
+          bne DoneButtons
 
           lda NewButtons
-          beq NoButton
+          beq DoneButtons
 
           and #ButtonI
-          bne NoButton
+          bne DoneButtons
 
 GetNextMode:
-          ldy # (9 * 5)
+          ldy # (9 * 5)         ; length of text, skip over to command/mode byte
           lda (SignpostText), y
           sta GameMode
 
-NoButton:
+DoneButtons:
           lda NewSWCHB
-          beq NoSwitches
+          beq DoneSwitches
+
           and #SWCHBReset
-          bne NoSwitches
+          bne DoneSwitches
 
-          ;; TODO reset the game
+          .FarJMP SaveKeyBank, ServiceAttract
 
-NoSwitches:
+DoneSwitches:
           lda GameMode
           cmp #ModeSignpost
           bne Leave
+
           .WaitScreenBottom
           jmp Loop
 ;;; 
 Leave:
+          ldy # (9 * 5) + 1     ; length of text + command byte
+
+          cmp #ModeSignpostDone
+          beq ByeBye
+
+          cmp #ModeSignpostSetFlag
+          beq SetFlag
+
+          cmp #ModeSignpostClearFlag
+          beq ClearFlag
+
           cmp #ModeTrainLastMove
-          bne NotTrainLastMove
+          beq TrainLastMove
+
+          cmp #ModeSignpostSet0And63
+          beq SetFlags0And63
+
+          cmp #ModeSignpostWarp
+          beq Warp
+
+          cmp #ModeSignpostPotions
+          beq GetPotions
+
+          cmp #ModeSignpostPoints
+          beq GetPoints
+
+          cmp #ModeSignpostInquire
+          beq Inquire
+
+          cmp #ModeWinnerFireworks
+          .if BANK == $0c
+            beq WinnerFireworks
+          .else
+            beq Break
+          .fi
+
+          cmp #ModeSignpostNext
+          beq GoNext
+
+Break:
+          brk
+
+;;; 
+ByeBye:
+          .mvy CurrentUtterance, # 0
+          sty CurrentUtterance + 1
+
+          .WaitScreenBottom
+
+          jmp GoMap
 
 TrainLastMove:
           lda MovesKnown
@@ -234,15 +281,58 @@ TrainLastMove:
           sta MovesKnown
           gne ByeBye
 
-NotTrainLastMove:
-          cmp #ModeSignpostSet0And63
-          bne NotSet0And63
+SetFlag:
+          lda (SignpostText), y
+          sta Temp
+          .SetBitFlag Temp
+          jmp ByeBye
+
+ClearFlag:
+          lda (SignpostText), y
+          sta Temp
+          .ClearBitFlag Temp
+          jmp ByeBye
+
+GoNext:
+          lda (SignpostText), y
+          sta SignpostIndex
+          .mva GameMode, #ModeSignpost
+          .WaitScreenBottom
+          jmp Setup
+
+GetPotions:
+          lda (SignpostText), y
+          adc Potions
+          sta Potions
+
+          lda #SoundVictory
+          sta NextSound
+
+          .Add16 SignpostText, # 2
+          jmp GetNextMode
+
+GetPoints:
+          sed
+          lda Score
+          clc
+          adc (SignpostText), y
+          sta Score
+          lda Score + 1
+          iny
+          adc (SignpostText), y
+          sta Score + 1
+          bcc +
+          inc Score + 2
++
+          cld
+          .Add16 SignpostText, # 3
+          jmp GetNextMode
 
 SetFlags0And63:
           sed
           lda Score + 1
           clc
-          adc # 1
+          adc # 4               ; 400 points earned
           sta Score + 1
           bcc +
           inc Score + 2
@@ -256,28 +346,12 @@ SetFlags0And63:
           sta ProvinceFlags + 7
           gne ByeBye
 
-NotSet0And63:
-          cmp #ModeSignpostClearFlag
-          bne NotClearFlag
-
-ClearFlag:
-          ldy # (9 * 5) + 1
-          lda (SignpostText), y
-          sta Temp
-          .ClearBitFlag Temp
-          jmp ByeBye
-
-NotClearFlag:
-          cmp #ModeSignpostWarp
-          bne NotWarp
-
 Warp:
 ProvinceChange:
 ;;; Duplicated in Signpost.s and CheckPlayerCollision.s nearly exactly
-          ldx #$ff              ; smash the stack
-          txs
+          .mvx s, #$ff
           .if NTSC == TV
-            .SkipLines KernelLines - 179
+            .SkipLines KernelLines - 180
             jsr Overscan
           .else
             ldx INTIM
@@ -285,12 +359,11 @@ ProvinceChange:
             stx TIM64T
             .WaitScreenBottom
           .fi
-          lda #SoundShipSailing
-          sta NextSound
+          .mva NextSound, #SoundShipSailing
           .FarJSR SaveKeyBank, ServiceSaveProvinceData
           .WaitScreenTopMinus 1, 0
 
-          ldy # (9 * 5) + 1
+          ldy #(9 * 5) + 1
           lda (SignpostText), y
           sta CurrentProvince
           iny
@@ -302,61 +375,10 @@ ProvinceChange:
           .FarJSR SaveKeyBank, ServiceLoadProvinceData
           .WaitScreenBottom
           .if TV != NTSC
-          .SkipLines 2
+            .SkipLines 2
           .fi
           jmp GoMap
 
-NotWarp:
-          cmp #ModeSignpostSetFlag
-          bne NotSetFlag
-SetFlag:
-          ldy # (9 * 5) + 1
-          lda (SignpostText), y
-          sta Temp
-          .SetBitFlag Temp
-          jmp ByeBye
-
-NotSetFlag:
-          cmp #ModeSignpostPotions
-          bne NotPotions
-GetPotions:
-          ldy # (9 * 5) + 1
-          lda (SignpostText), y
-          adc Potions
-          sta Potions
-
-          lda #SoundVictory
-          sta NextSound
-
-          .Add16 SignpostText, # 2
-          jmp GetNextMode
-
-NotPotions:
-          cmp #ModeSignpostPoints
-          bne NotPoints
-GetPoints:
-          sed
-          lda Score
-          clc
-          ldy # (9 * 5) + 1
-          adc (SignpostText), y
-          sta Score
-          lda Score + 1
-          iny
-          adc (SignpostText), y
-          sta Score + 1
-          bcc +
-          inc Score + 2
-+
-          cld
-          lda SignpostText
-          clc
-          .Add16 SignpostText, # 3
-          jmp GetNextMode
-
-NotPoints:
-          cmp #ModeSignpostInquire
-          bne NotInquire
 Inquire:
           .Add16 SignpostText, # (9 * 5) + 1
 
@@ -370,58 +392,35 @@ Inquire:
 
           .Add16 SignpostText, # 2
 
-          ldy # 8
+          ldy # 8               ; 9 bytes gets both alternatives
 -
           lda (SignpostText), y
           sta SignpostLineCompressed, y
           dey
           bpl -
 
+          ;; Add back to get original signpost index
+          ;; for banks above SignpostBank
+          ;; see #441
+          .if 0 < FirstSignpost
+            lda SignpostIndex
+            clc
+            adc #FirstSignpost
+            sta SignpostIndex
+          .fi
           .FarJMP AnimationsBank, ServiceInquire
 
-NotInquire:
-          cmp #ModeWinnerFireworks
-          bne NotFireworks
-
-          sta GameMode
-          .if BANK == $0c
-          jmp WinnerFireworks
-          .else
-          brk
-          .fi
-
-NotFireworks:
-          cmp #ModeSignpostNext
-          bne NotNext
-
-          ldy # (9 * 5) + 1
-          lda (SignpostText), y
-          sta SignpostIndex
-
-          lda #ModeSignpost
-          sta GameMode
-
-NotNext:
-          cmp #ModeSignpostDone
-          beq ByeBye
-
-          brk
-;;; 
-ByeBye:
-          lda # 0
-          sta CurrentUtterance
-          sta CurrentUtterance + 1
-
-          .WaitScreenBottom
-
-          jmp GoMap
           .bend
-
 ;;; 
 ;;; Overscan is different, we don't have  sound effects nor music and we
 ;;; don't want Bank 7 to get confused by our speech.
 Overscan: .block
-          .TimeLines OverscanLines
+          .switch TV
+          .case NTSC
+            .TimeLines OverscanLines
+          .case PAL, SECAM
+            .TimeLines OverscanLines + 10
+          .endswitch
 
           jsr PlaySpeech
 
@@ -430,3 +429,5 @@ Overscan: .block
           stx WSYNC
           rts
           .bend
+
+;;; Audited 2022-04-18 BRPocock

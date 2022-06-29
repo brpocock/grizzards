@@ -22,10 +22,10 @@ PositiveRandom:
           gne HitMissP
 
 CriticalHit:
+          asl CombatMoveDeltaHP
           lda CombatMoveDeltaHP
-          asl a
           sta CriticalHitP
-          gne AttackHit1
+          gne HitCommon
 
 NegativeRandom:
           and Temp              ; attacker attack mask
@@ -121,10 +121,22 @@ SetStatusFX:
           ora DefenderStatusFX
           sta DefenderStatusFX
 
+          .if TV == SECAM       ; No room for this nicety in SECAM — XXX
 NoStatusFX:
+          .else
+          
+          bne Done
+
+NoStatusFX:
+          lda MoveHP
+          bne Done
+
+          .mvy CriticalHitP, # 0
+
+Done:
+          .fi
+
           .mva MoveHitMiss, # 1
           rts
 
           .bend
-
-;;; Audited 2022-02-16 BRPocock
