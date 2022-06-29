@@ -1184,6 +1184,18 @@ This  is believed  to  be  a side  effect  of  certain multi-carts,  eg.
 PlusCart.  You  can press  \textbf{Game  Select}  instead to  view  your
 Grizzard's statistics and effectively pause the game.
 
+\section*{Joystick does not work in Stella}
+
+Because  of  the support  for  Joy2b+  gamepads, Stella  may  (generally
+wisely, but in  our case incorrectly) detect that you  would want to use
+a  Keyboard  controller  rather  than   a  joystick.  In  Stella,  press
+\textbf{Tab}  to access  the  settings window,  then click  \textbf{Game
+  Properties}. Go  to the \textbf{Controllers}  tab in that  window, and
+make sure that \textbf{Left Port} is  set to Sega Genesis (or Joystick),
+and \textbf{Right  Port} is  set to  AtariVox (or  SaveKey). If  it says
+Auto-Detect and  the fine  print below says  \textbf{Keyboard detected},
+you will not be able to control the game.
+
 \fi
 
 \ifdefined\NOSAVE\else\ifdefined\ATARIAGESAVE\else
