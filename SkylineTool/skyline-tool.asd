@@ -26,7 +26,6 @@
                :midi
                :parse-number
                :png-read
-               :prepl
                :quicklisp-slime-helper
                :split-sequence
                :swank
