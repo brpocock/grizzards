@@ -7,8 +7,13 @@
 %
 \documentclass[10pt,twocolumn,openany,article]{memoir}
 
+\ifdefined\ATARIAGESAVE
 \setstocksize{9in}{6in}
 \settrimmedsize{\stockheight}{\dimexpr 6in-15mm}{*}
+\else
+\setstocksize{11in}{8.5in}
+\settrimmedsize{\stockheight}{\dimexpr 8.5in-15mm}{*}
+\fi
 
 \setlrmarginsandblock{.333333in}{.5in}{*}
 \setulmarginsandblock{.75in}{.75in}{*}
