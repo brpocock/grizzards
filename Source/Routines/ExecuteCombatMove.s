@@ -186,7 +186,7 @@ IncrementScore:
           iny                   ; MonsterPointsIndex + 1
           lda (CurrentMonsterPointer), y
           adc Score + 1
-          sta Score +1
+          sta Score + 1
           bcc ScoreNoCarry
 
           inc Score + 2
@@ -228,9 +228,15 @@ DidRandomLearn:
           .FarJSR MapServicesBank, ServiceLearntMove
 
 DoneRandomLearn:
+          .switch TV
+          .case NTSC,SECAM
+            ldx INTIM
+            dex
+            stx TIM64T
+          .endswitch
+          .WaitScreenBottom
           lda # 0               ; zero on negative
-
-          jmp WaitOutScreen
+          jmp GoToOutcome
 ;;; 
 PlayerHeals:
           ;; .A has the inverted HP to be gained
@@ -251,30 +257,25 @@ PlayerHeals:
           lda DefenderStatusFX
           sta StatusFX
 
-          jmp WaitOutScreen
-
+          ;; jmp WaitOutScreen ; fall through
 ;;; 
 WaitOutScreen:
-          lda MoveHitMiss
-          beq SoundForMiss
-
-          lda #SoundHit
-          gne SoundReady
-
-SoundForMiss:
-          lda #SoundMiss
-SoundReady:
-          sta NextSound
-
           .WaitScreenBottom
-          .if TV != NTSC
+          .switch TV
+          .case PAL,SECAM
             stx WSYNC
-          .fi
+            lda WhoseTurn
+            beq +
+            ;; XXX I don't know why, but this magic number seems to do it:
+            .SleepX 35
++
+          .endswitch
 ;;; 
+GoToOutcome:
           .FarJSR TextBank, ServiceCombatOutcome
 ;;; 
           .WaitScreenTop
-
+TryToLearnMove:
           ;; If this was a monster's move, could the player learn that move?
           lda WhoseTurn
           beq NextTurn
@@ -309,7 +310,7 @@ LearntMove:
 CheckNextMove:
           inc pp1h              ; loop counter
           lda pp1h
-          cmp #8
+          cmp # 8
           blt CheckMove
 
 DidNotLearn:
@@ -321,9 +322,8 @@ AfterTryingToLearn:
           .FarJSR MapServicesBank, ServiceLearntMove
 ;;; 
 NextTurn:
-          inc WhoseTurn
           ldx WhoseTurn
-          dex
+          inc WhoseTurn
           cpx # 6
           bne NotLastMonster
 

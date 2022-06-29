@@ -6,14 +6,15 @@ GrizzardDepot:    .block
           .mvx s, #$ff              ; blow away the stack
           .mva NextSound, #SoundDepot
 
-          .if TV == NTSC
+          .switch TV
+          .case NTSC
             .WaitScreenBottom
-          .else
+            stx WSYNC
+          .case PAL,SECAM
             .WaitForTimer
-            jsr Overscan
-          .fi
+            .SkipLines 36
+          .endswitch
 
-          stx WSYNC
           .WaitScreenTop
           .FarJSR SaveKeyBank, ServiceSaveToSlot
 

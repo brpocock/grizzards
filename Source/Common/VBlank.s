@@ -7,6 +7,7 @@
 
 VBlank: .block
           stx WSYNC
+          ;; Should have been VBlankWorkLines but too late to fix now:
           .TimeLines VBlankLines
 
           ldy # 0
@@ -72,7 +73,7 @@ ButtonsChanged:
           lda #~SWCHBSelect | $40     ; zero = Select button pressed, $40 = changed
           sta NewSWCHB
 DoneButtonIISelect:
-          .if 11 != BANK
+          .if 11 != BANK && 6 != BANK
             lda NewButtons
             and #ButtonIII
             bne DoneButtons

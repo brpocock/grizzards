@@ -831,7 +831,7 @@ Music:~:*
                         (start-note/rest (list :note :time time :key key))
                         (start-note/rest (list :rest :time time)))))
                  (midi:key-signature-message nil)
-                 (midi:reset-all-controllers-message nil)
+                 (midi::reset-all-controllers-message nil)
                  (midi:program-change-message nil)
                  (midi::midi-port-message nil)
                  (t (format t "~&Ignored (unsupported) chunk ~s" chunk)))

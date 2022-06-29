@@ -3,9 +3,6 @@
 
 WaitScreenBottomSub:          .block
           .WaitForTimer
-          .if TV != NTSC
-            .SkipLines 11
-          .fi
           ;; fall through to Overscan
           .if Overscan < EndBank
             jmp Overscan

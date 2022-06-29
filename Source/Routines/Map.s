@@ -344,10 +344,10 @@ NoP1:
 P1Done:
           .if TV != NTSC
           ;; extend every even line on PAL/SECAM
-          lda #$01
-          bit LineCounter
-          beq +
-          stx WSYNC
+            lda #$01
+            bit LineCounter
+            beq +
+            stx WSYNC
 +
           .fi
 
@@ -472,13 +472,9 @@ GoScreen:
           rol Temp
           clc                   ; XXX necessary?
           adc #<MapLinks
-          bcc +
-          inc Pointer + 1
-+
           sta Pointer
 
           lda Pointer + 1
-          clc
           adc Temp
           sta Pointer + 1
 
@@ -499,28 +495,39 @@ ShouldIStayOrShouldIGo:
           cmp #ModeMap
           bne Leave
 
-          .WaitForTimer
-          jsr Overscan
+          jsr LeaveTiming
 
           jmp Loop
+
+LeaveTiming:
+          .WaitForTimer
+          .if TV == NTSC
+            jmp Overscan        ; tail call
+          .else
+            .TimeLines OverscanLines
+            jmp Overscan.Short  ; tail call
+          .fi
 ;;; 
 Leave:
-          cmp #ModeMapNewRoom
-          beq MapSetup.NewRoom
-
-          cmp #ModeMapNewRoomDoor
-          beq MapSetup.NewRoom
-
-          ldx # 0
-          stx CurrentMusic + 1
-
           cmp #ModeGrizzardDepot
           beq EnterGrizzardDepot
 
-          .WaitForTimer
-          jsr Overscan
+          jsr LeaveTiming
 
           lda GameMode
+
+          cmp #ModeMapNewRoom
+          bne +
+          stx WSYNC
+          jmp MapSetup.NewRoom
++
+
+          cmp #ModeMapNewRoomDoor
+          bne +
+          stx WSYNC
+          jmp MapSetup.NewRoom
++
+
           cmp #ModePotion
           beq DoPotions
 

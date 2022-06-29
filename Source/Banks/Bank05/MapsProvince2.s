@@ -108,7 +108,7 @@ MapLinks:
           .byte 21, $ff, 17, 15
           .byte 22, $ff, $ff, 16
           .byte 24, 1, 19, $ff
-          .byte 25, 17, 20, 18
+          .byte 25, 14, 20, 18
           ;; 20
           .byte 26, 15, 21, 19
           .byte 27, 16, 22, 20
@@ -259,6 +259,10 @@ SpriteList:
           .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 60 ; Grabby Crabby
+
+          .byte $ff, SpriteFixed
+          .byte $82, $16
+          .byte SpriteSign, 49  ; Port Lion village
 
           .byte 0
 
@@ -518,6 +522,14 @@ SpriteList:
           .byte 0
 
           ;;Room 34
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpritePerson, 43 ; how long is it safe?
+
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpritePerson, 44 ; Fat Tony is smart
+
           .byte 0
 
           ;;Room 35
@@ -552,6 +564,11 @@ SpriteList:
           .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpritePerson, 98 ; hungry
+
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpritePerson, 42 ; Treble refugee
+          
           .byte 0
 
           ;;Room 40, Tier 11
@@ -587,6 +604,10 @@ SpriteList:
           .byte 0, 0
           .byte SpriteCombat, 20
 
+          .byte $ff, SpriteRandomEncounter
+          .byte 0, 0
+          .byte SpriteGrizzard, 19 ; Corlyn
+
           .byte 0
 
           ;;Room 45, Tier 11
@@ -621,14 +642,10 @@ SpriteList:
 
           .byte 0
 
-          ;; Room 49, Tier 11
-          .byte 17, SpriteWander
-          .byte 0, 0
-          .byte SpriteCombat, 80
-
+          ;; Room 49, Tier 0
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpriteCombat, 81
+          .byte SpritePerson, 49 ; Fat Tony — sea is dangerous
 
           .byte 0
 
