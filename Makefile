@@ -472,8 +472,8 @@ release:	all
 	cp -v Dist/Grizzards.{AA-book.,AA.,Demo.,NoSave.}pdf Dist/$(RELEASE)
 	cp -v Dist/Grizzards.Manual.txt Dist/$(RELEASE)
 	@cd Dist/$(RELEASE) ; \
-	for file in Grizzards.*.{pro,a26,pdf}; do \
-		mv -v $$file $$(echo $$file | perl -pne 's(Grizzards\.(.+)\.(pdf|a26|pro)) (Grizzards.\1.$(RELEASE).\2)'); \
+	for file in Grizzards.*.{pro,a26,pdf} Grizzards.pdf; do \
+		mv -v $$file $$(echo $$file | perl -pne 's(Grizzards(\..+)\.(pdf|a26|pro)) (Grizzards\1.$(RELEASE).\2)'); \
 	done
 	@echo "AtariAge Release $(RELEASE) of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
 		(cd Dist; zip --archive-comment -9 \
@@ -483,17 +483,17 @@ release:	all
 	@echo "Public Release $(RELEASE) of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
 		(cd Dist; zip --archive-comment -9 \
 		$(RELEASE)/Grizzards.$(RELEASE).zip \
-		$(RELEASE)/Grizzards.{NTSC,PAL,SECAM}.$(RELEASE).{a26,pro} ) \
+		$(RELEASE)/Grizzards.{NTSC,PAL,SECAM}.$(RELEASE).{a26,pro} \
 		$(RELEASE)/Grizzards.$(RELEASE).pdf )
 	@echo "Demo Release $(RELEASE) of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
 		(cd Dist; zip --archive-comment -9 \
 		$(RELEASE)/Grizzards.Demo.$(RELEASE).zip \
-		$(RELEASE)/Grizzards.Demo.{NTSC,PAL,SECAM}.$(RELEASE).{a26,pro} ) \
+		$(RELEASE)/Grizzards.Demo.{NTSC,PAL,SECAM}.$(RELEASE).{a26,pro} \
 		$(RELEASE)/Grizzards.Demo.$(RELEASE).pdf )
 	@echo "No-Save Demo Release $(RELEASE) of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
 		(cd Dist; zip --archive-comment -9 \
 		$(RELEASE)/Grizzards.NoSave.$(RELEASE).zip \
-		$(RELEASE)/Grizzards.NoSave.{NTSC,PAL,SECAM}.$(RELEASE).{a26,pro} ) \
+		$(RELEASE)/Grizzards.NoSave.{NTSC,PAL,SECAM}.$(RELEASE).{a26,pro} \
 		$(RELEASE)/Grizzards.NoSave.$(RELEASE).pdf )
 
 publish-release:	release
