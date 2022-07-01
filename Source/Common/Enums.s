@@ -178,7 +178,7 @@
             SignpostBankCount = 1
           .else
             SignpostBank = $08
-            SignpostBankCount = 7
+            SignpostBankCount = 5
           .fi
 
           .if !DEMO
