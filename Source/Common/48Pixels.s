@@ -109,4 +109,18 @@ SignText: .macro string
 	.enc "none"
 	.endm
 
+Responses: .macro a1, a2
+          .enc "minifont-extended"
+          .if len(\a1) != 12
+            .error "String length for .Responses must be 6 ", \a1, " is ", len(\a1)
+          .fi
+          .if len(\a2) != 12
+            .error "String length for .Responses must be 6 ", \a2, " is ", len(\a2)
+          .fi
+          .Pack6 \a1[0], \a1[1], \a1[2], \a1[3]
+          .Pack6 \a1[4], \a1[5], \a2[0], \a2[1]
+          .Pack6 \a2[2], \a2[3], \a2[4], \a2[5]
+	.enc "none"
+	.endm
+
 	.enc "none"
