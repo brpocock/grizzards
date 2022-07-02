@@ -149,7 +149,8 @@ doc:	Dist/Grizzards.pdf \
 	Dist/Grizzards.AA-book.pdf \
 	Dist/Grizzards.Demo.pdf \
 	Dist/Grizzards.Manual.txt \
-	Dist/Grizzards.NoSave.pdf
+	Dist/Grizzards.NoSave.pdf \
+	Dist/GrizzardsCompleteGuide.pdf
 
 .PRECIOUS: %.s %.png %.a26 %.txt %.zip %.tar.gz
 
@@ -206,6 +207,16 @@ Source/Generated/Makefile:	bin/write-master-makefile ${SOURCES}
 
 Dist/Grizzards.AA-book.pdf:	Dist/Grizzards.AA.pdf
 	pdfbook2 --paper=legalpaper -o 0 -i 0 -t 0 -b 0 $<
+
+Dist/GrizzardsCompleteGuide.pdf: Manual/GrizzardsCompleteGuide.tex
+	mkdir -p Object/Complete.pdf
+	cp $< Object/Complete.pdf/
+	ln -sf ../Manual Object/
+	-cd Object/Complete.pdf ; xelatex -interaction=batchmode "\input{GrizzardsCompleteGuide}"
+	-cd Object/Complete.pdf ; xelatex -interaction=batchmode "\input{GrizzardsCompleteGuide}"
+	-cd Object/Complete.pdf ; xelatex -interaction=batchmode "\input{GrizzardsCompleteGuide}"
+	mkdir -p Dist
+	mv Object/Complete.pdf/GrizzardsCompleteGuide.pdf Dist/GrizzardsCompleteGuide.pdf
 
 Dist/Grizzards.pdf: Manual/Grizzards.tex
 	mkdir -p Object/Grizzards.pdf
