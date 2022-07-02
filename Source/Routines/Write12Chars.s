@@ -5,15 +5,7 @@
 Write12Chars:       .block
 
 TextLineLoop:
-          stx WSYNC
-          lda ClockFrame
-          clc
-          adc SignpostTextLine
-          ror a
-          bcc DrawLeftField
-          ;; fall through
 ;;; 
-DrawRightField:
           .page
 
           stx WSYNC
@@ -21,7 +13,16 @@ DrawRightField:
           ldy # 0
           sty HMP0
           sty HMP1
-          .SleepX 23
+
+          lda ClockFrame
+          clc
+          adc SignpostTextLine
+          ror a
+          bcc +
+
+          .Sleep 5
++
+          .Sleep 6
           stx RESP0
           .SleepX 13
           stx RESP1
@@ -30,6 +31,12 @@ DrawRightField:
 
           .endp
 
+          lda ClockFrame
+          clc
+          adc SignpostTextLine
+          ror a
+          bcc DrawLeftField
+          
           ldy # 4
           .UnpackRight SignpostLineCompressed
 
@@ -37,7 +44,6 @@ DrawRightField:
 
           .Add16 SignpostWork, # 9
 
-AlignedRight:
           .page
 
           stx WSYNC
@@ -49,23 +55,6 @@ AlignedRight:
 
 ;;; 
 DrawLeftField:
-          .page
-
-          stx WSYNC
-          sta HMCLR
-          ldx #$10
-          ldy #$10
-          stx HMP0
-          sty HMP1
-          .SleepX 19
-          stx RESP0
-          .SleepX 13
-          stx RESP1
-          .SleepX 18
-          stx HMOVE             ; Cycle 74 HMOVE
-
-          .endp
-
           ;; Unpack 6-bits-per-character packed text
           ;; This saves 25% of string storage space at the cost of
           ;; this increased complexity here.
