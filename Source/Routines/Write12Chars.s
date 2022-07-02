@@ -14,7 +14,6 @@ TextLineLoop:
           ;; fall through
 ;;; 
 DrawRightField:
-
           .page
 
           stx WSYNC
@@ -38,7 +37,16 @@ DrawRightField:
 
           .Add16 SignpostWork, # 9
 
-          jmp AlignedRight
+AlignedRight:
+          .page
+
+          stx WSYNC
+          ldy # 4
+          sty SignpostScanline
+          jmp InterleavedLoop
+
+          .endp
+
 ;;; 
 DrawLeftField:
           .page
@@ -116,17 +124,6 @@ InterleavedLoop:
 
 DoneDrawing:
           rts
-;;; 
-
-AlignedRight:
-          .page
-
-          stx WSYNC
-          ldy # 4
-          sty SignpostScanline
-          jmp InterleavedLoop
-
-          .endp
 
           .bend
 
