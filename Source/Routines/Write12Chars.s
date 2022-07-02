@@ -97,8 +97,8 @@ AlignedLeft:
           .page
 
           stx WSYNC
-          ldy # 4               ; 2 [ 6 ] 6
-          sty SignpostScanline  ; 3 [ 9 ] 15
+          ldy # 4
+          sty SignpostScanline
 InterleavedLoop:
           .DrawInterleavedLine
           .Sleep 8
