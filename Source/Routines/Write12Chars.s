@@ -86,7 +86,6 @@ DrawInterleavedLine:       .macro
           lda (PixelPointers + 10), y
           stx GRP1
           sta GRP1
-          .Sleep 15
  
           .endm
 ;;; 
@@ -98,23 +97,20 @@ AlignedLeft:
           sty SignpostScanline
 InterleavedLoop:
           .DrawInterleavedLine
-          .Sleep 8
+          .SleepX 23
           .DrawInterleavedLine
-          .Sleep 8
+          .SleepX 23
           .DrawInterleavedLine
+          ldy # 0
+          sty GRP0
+          sty GRP1
+          .SleepX 7
           dec SignpostScanline
           bpl InterleavedLoop
 
           .endp
 
           stx WSYNC
-          ;; fall through
-;;; 
-DrawCommon:
-          ldy # 0
-          sty GRP0
-          sty GRP1
-
           stx WSYNC
           stx WSYNC
 
