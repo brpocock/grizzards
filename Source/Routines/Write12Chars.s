@@ -7,6 +7,8 @@ Write12Chars:       .block
 TextLineLoop:
           stx WSYNC
           lda ClockFrame
+          clc
+          adc SignpostTextLine
           and #$01
           bne DrawLeftField
           ;; fall through
