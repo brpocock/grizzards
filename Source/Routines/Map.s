@@ -3,7 +3,11 @@
 Map:    .block
 
 Loop:
-          .FarJSR MapServicesBank, ServiceTopOfScreen
+          .if DEMO
+            .FarJSR MapServicesBank, ServiceTopOfScreen
+          .else
+            .FarJSR FinaleBank, ServiceTopOfScreen
+          .fi
 
           .TimeLines KernelLines - 34
 

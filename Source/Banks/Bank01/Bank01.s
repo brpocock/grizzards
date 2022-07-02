@@ -18,8 +18,10 @@ DoVBlankWork:
           .include "Prepare48pxMobBlob.s"
 
 DoLocal:
-          cpy #ServiceTopOfScreen
-          beq TopOfScreenService
+          .if DEMO
+            cpy #ServiceTopOfScreen
+            beq TopOfScreenService
+          .fi
 
           cpy #ServiceNewGrizzard
           beq NewGrizzard
@@ -150,7 +152,10 @@ NotCompleted:
 
           .include "CopyPointerText.s"
           .include "ShowPointerText.s"
-          .include "MapTopService.s"
+          .if DEMO
+            .include "MapTopService.s"
+            .include "SpriteColor.s"
+          .fi
           .include "NewGrizzard.s"
           .include "Random.s"
 
@@ -176,6 +181,5 @@ NotCompleted:
 
 
           .include "GrizzardStartingStats.s"
-          .include "SpriteColor.s"
 
 	.include "EndBank.s"

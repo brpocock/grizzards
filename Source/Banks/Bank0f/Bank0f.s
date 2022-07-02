@@ -41,6 +41,9 @@ DoLocal:
           cpy #ServiceCombatVBlank
           beq CombatVBlank
 
+          cpy #ServiceTopOfScreen
+          beq TopOfScreenService
+
           cpy #ServiceAttractStory
           beq AttractStory
 
@@ -61,6 +64,7 @@ DoLocal:
 
           brk
 
+          .include "MapTopService.s"
           .include "GrizzardMetamorphosis.s"
           .include "ConfirmErase.s"
           .include "Death.s"
@@ -70,5 +74,6 @@ DoLocal:
 
           .include "GrizzardImages.s"
           .include "GrizzardArt.s"
+          .include "SpriteColor.s"
 
           .include "EndBank.s"
