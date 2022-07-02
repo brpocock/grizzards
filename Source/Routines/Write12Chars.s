@@ -124,7 +124,6 @@ DrawCommon:
 DoneDrawing:
           rts
 ;;; 
-          .align $10             ; alignment XXX
 
 AlignedRight:
           .page
