@@ -157,7 +157,6 @@ Loop:
           sty REFP1
           sty GRP0
           sty GRP1
-          iny                   ; Y = 1
           sty VDELP0
           sty VDELP1
           lda #NUSIZ3CopiesClose

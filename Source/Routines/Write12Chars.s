@@ -17,10 +17,6 @@ DrawRightField:
 
           .page
 
-          .ldacolu COLRED, $f
-          sta COLUP0
-          sta COLUP1
-
           stx WSYNC
           sta HMCLR
           ldy # 0
@@ -46,10 +42,6 @@ DrawRightField:
 ;;; 
 DrawLeftField:
           .page
-
-          .ldacolu COLBLUE, $f
-          sta COLUP0
-          sta COLUP1
 
           stx WSYNC
           sta HMCLR
@@ -78,27 +70,24 @@ DrawLeftField:
 
           jmp AlignedLeft
 ;;; 
-DrawLeftLine:       .macro
+DrawInterleavedLine:       .macro
 
-	ldy SignpostScanline
+          ldy SignpostScanline
 	lda (PixelPointers + 0), y
-	sta GRP0
-          .Sleep 6
-          lda (PixelPointers + 2), y
           sta GRP0
+	lda (PixelPointers + 6), y
+          sta GRP1
+          .Sleep 2
+          lax (PixelPointers + 2), y
           lda (PixelPointers + 4), y
+          stx GRP0
           sta GRP0
-          lda (PixelPointers + 6), y
-          sta Temp
           lax (PixelPointers + 8), y
           lda (PixelPointers + 10), y
-          tay
-          lda Temp
-          sta GRP1
           stx GRP1
-          sty GRP1
-          sty GRP0
-
+          sta GRP1
+          .Sleep 15
+ 
           .endm
 ;;; 
           .if BANK > 3
@@ -108,15 +97,14 @@ AlignedLeft:
           .page
 
           stx WSYNC
-          ldy # 4
-          sty SignpostScanline
-          .SleepX 49
+          ldy # 4               ; 2 [ 6 ] 6
+          sty SignpostScanline  ; 3 [ 9 ] 15
 LeftLoop:
-          .DrawLeftLine
+          .DrawInterleavedLine
           .Sleep 8
-          .DrawLeftLine
+          .DrawInterleavedLine
           .Sleep 8
-          .DrawLeftLine
+          .DrawInterleavedLine
           dec SignpostScanline
           bpl LeftLoop
 
@@ -129,35 +117,12 @@ DrawCommon:
           ldy # 0
           sty GRP0
           sty GRP1
-          sty GRP0
-          sty GRP1
 
           stx WSYNC
           stx WSYNC
 
 DoneDrawing:
           rts
-;;; 
-DrawRightLine:      .macro
-          ldy SignpostScanline
-          lda (PixelPointers + 0), y
-          sta GRP0
-          .Sleep 6
-          lda (PixelPointers + 2), y
-          sta GRP1
-          lda (PixelPointers + 4), y
-          sta GRP0
-          lda (PixelPointers + 6), y
-          sta Temp
-          lax (PixelPointers + 8), y
-          lda (PixelPointers + 10), y
-          tay
-          lda Temp
-          sta GRP1
-          stx GRP0
-          sty GRP1
-          sty GRP0
-          .endm
 ;;; 
           .align $100             ; alignment XXX
 
@@ -167,13 +132,13 @@ AlignedRight:
           stx WSYNC
           ldy # 4
           sty SignpostScanline
-          .SleepX 66
+          .Sleep 3
 RightLoop:
-          .DrawRightLine
+          .DrawInterleavedLine
           .Sleep 8
-          .DrawRightLine
+          .DrawInterleavedLine
           .Sleep 8
-          .DrawRightLine
+          .DrawInterleavedLine
           dec SignpostScanline
           bpl RightLoop
 
