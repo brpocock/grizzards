@@ -68,7 +68,7 @@ DrawLeftField:
 
           .Add16 SignpostWork, # 9
 
-          jmp AlignedLeft
+          ;; falls through (disregard the macro definition here)
 ;;; 
 DrawInterleavedLine:       .macro
 

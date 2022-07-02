@@ -129,7 +129,7 @@ Sign_SpiralWoods:
           .SignText "            "
           .byte ModeSignpostInquire
           .byte 16, 17
-          .Reponse "LEAVE ", "ENTER "
+          .Response "LEAVE ", "ENTER "
 
 ;;; 11
 Sign_TrebleVillage:

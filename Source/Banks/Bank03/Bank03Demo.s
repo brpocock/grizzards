@@ -9,6 +9,7 @@
           .include "6BitCompression.s"
           .include "DecodeText.s"
           .include "Write12Chars.s"
+          .align $40            ; XXX alignment
           .include "Prepare48pxMobBlob.s"
           .align $20            ; XXX alignment
           .include "DrawMonsterGroup.s"
