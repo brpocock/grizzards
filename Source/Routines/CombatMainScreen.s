@@ -5,9 +5,12 @@ CombatMainScreen:   .block
 
 BackToPlayer:
           .mva MoveSelection, LastPlayerCombatMove
-MonsterThwarted:
-          .mva GameMode, #ModeCombat
           .mva AlarmCountdown, # 4
+MonsterThwarted:
+          ;; The  MonsterThwarted entry  point  is used  when a  monster
+	;; thinks  it wants  to choose  a healing  move, but  it has  not
+	;; actually been injured yet.
+          .mva GameMode, #ModeCombat
 
           lda StatusFX
           .BitBit StatusSleep
@@ -474,6 +477,7 @@ MaybeReadyToAnnounce:
           ldx WhoseTurn
           beq Announce
 
+          ldy MoveSelection
           jsr FindMonsterMove
           lda MoveDeltaHP, x
           bpl Announce
