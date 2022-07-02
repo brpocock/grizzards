@@ -17,15 +17,20 @@ DrawRightField:
 
           .page
 
+          .ldacolu COLRED, $f
+          sta COLUP0
+          sta COLUP1
+
           stx WSYNC
           sta HMCLR
           ldy # 0
           sty HMP0
           sty HMP1
-          .SleepX 36
+          .SleepX 23
           stx RESP0
-          stx RESP1
           .SleepX 13
+          stx RESP1
+          .SleepX 15
           stx HMOVE             ; Cycle 74 HMOVE
 
           .endp
@@ -42,16 +47,21 @@ DrawRightField:
 DrawLeftField:
           .page
 
+          .ldacolu COLBLUE, $f
+          sta COLUP0
+          sta COLUP1
+
           stx WSYNC
           sta HMCLR
-          ldx #$a0
-          ldy #$b0
+          ldx #$10
+          ldy #$10
           stx HMP0
           sty HMP1
-          .SleepX 17
+          .SleepX 19
           stx RESP0
+          .SleepX 13
           stx RESP1
-          .SleepX 35
+          .SleepX 18
           stx HMOVE             ; Cycle 74 HMOVE
 
           .endp
@@ -75,7 +85,7 @@ DrawLeftLine:       .macro
 	sta GRP0
           .Sleep 6
           lda (PixelPointers + 2), y
-          sta GRP1
+          sta GRP0
           lda (PixelPointers + 4), y
           sta GRP0
           lda (PixelPointers + 6), y
@@ -85,7 +95,7 @@ DrawLeftLine:       .macro
           tay
           lda Temp
           sta GRP1
-          stx GRP0
+          stx GRP1
           sty GRP1
           sty GRP0
 
