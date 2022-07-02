@@ -9,8 +9,8 @@ TextLineLoop:
           lda ClockFrame
           clc
           adc SignpostTextLine
-          and #$01
-          bne DrawLeftField
+          ror a
+          bcc DrawLeftField
           ;; fall through
 ;;; 
 DrawRightField:
