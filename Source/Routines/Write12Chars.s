@@ -91,7 +91,7 @@ DrawInterleavedLine:       .macro
           .endm
 ;;; 
           .if BANK > 3
-            .align $100             ; alignment XXX
+            .align $10             ; alignment XXX
           .fi
 AlignedLeft:
           .page
