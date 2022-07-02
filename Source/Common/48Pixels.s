@@ -110,5 +110,3 @@ SignText: .macro string
 	.endm
 
 	.enc "none"
-
-;;; Audited 2022-02-16 BRPocock
