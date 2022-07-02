@@ -99,14 +99,14 @@ AlignedLeft:
           stx WSYNC
           ldy # 4               ; 2 [ 6 ] 6
           sty SignpostScanline  ; 3 [ 9 ] 15
-LeftLoop:
+InterleavedLoop:
           .DrawInterleavedLine
           .Sleep 8
           .DrawInterleavedLine
           .Sleep 8
           .DrawInterleavedLine
           dec SignpostScanline
-          bpl LeftLoop
+          bpl InterleavedLoop
 
           .endp
 
@@ -124,7 +124,7 @@ DrawCommon:
 DoneDrawing:
           rts
 ;;; 
-          .align $100             ; alignment XXX
+          .align $10             ; alignment XXX
 
 AlignedRight:
           .page
@@ -132,19 +132,9 @@ AlignedRight:
           stx WSYNC
           ldy # 4
           sty SignpostScanline
-          .Sleep 3
-RightLoop:
-          .DrawInterleavedLine
-          .Sleep 8
-          .DrawInterleavedLine
-          .Sleep 8
-          .DrawInterleavedLine
-          dec SignpostScanline
-          bpl RightLoop
+          jmp InterleavedLoop
 
           .endp
-
-          jmp DrawCommon
 
           .bend
 
