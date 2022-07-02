@@ -103,9 +103,9 @@ SignText: .macro string
           .if len(\string) != 12
           .error "String length for .SignText must be 12 ", \string, " is ", len(\string)
           .fi
-          .Pack6 \string[0], \string[1], \string[2], \string[3]
-          .Pack6 \string[4], \string[5], \string[6], \string[7]
-          .Pack6 \string[8], \string[9], \string[10], \string[11]
+          .Pack6 \string[0], \string[2], \string[4], \string[6]
+          .Pack6 \string[8], \string[10], \string[1], \string[3]
+          .Pack6 \string[5], \string[7], \string[9], \string[11]
 	.enc "none"
 	.endm
 
