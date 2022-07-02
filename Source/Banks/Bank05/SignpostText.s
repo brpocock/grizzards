@@ -61,7 +61,7 @@ NPC_TunnelOpen:
           .SignText "END OF DEMO."
           .byte ModeSignpostInquire
           .byte 18, 19
-          .SignText "INFO  DONE  "
+          .Response "INFO  ", "DONE  "
 ;;; 5
 NPC_Artifact:
           .colu COLINDIGO, 0
@@ -117,7 +117,7 @@ Sign_LostMines:
           .SignText "            "
           .byte ModeSignpostInquire
           .byte 16, 17
-          .SignText "LEAVE ENTER "
+          .Response "LEAVE ", "ENTER "
 ;;; 10
 Sign_SpiralWoods:
           .colu COLGRAY, 0
@@ -129,7 +129,7 @@ Sign_SpiralWoods:
           .SignText "            "
           .byte ModeSignpostInquire
           .byte 16, 17
-          .SignText "LEAVE ENTER "
+          .Reponse "LEAVE ", "ENTER "
 
 ;;; 11
 Sign_TrebleVillage:

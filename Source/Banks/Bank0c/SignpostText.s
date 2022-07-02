@@ -22,7 +22,7 @@ NPC_HungryCookie:
           .SignText "COOKIE?     "
           .byte ModeSignpostInquire
           .byte 101, 100
-          .SignText " GIVE  KEEP "
+          .Response "GIVE  ", "KEEP  "
 
 ;;; 100
 NPC_NoCookieForYou:

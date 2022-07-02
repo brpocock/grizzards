@@ -225,7 +225,7 @@ Sign_DocksToTreble:
           .SignText "TREBLE NOW. "
           .byte ModeSignpostInquire
           .byte 96, 97
-          .SignText " SAIL  STAY "
+          .Response "SAIL  ", "STAY  "
 
 ;;; 67
 Sign_FindAndrew:

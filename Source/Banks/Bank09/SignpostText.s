@@ -182,7 +182,7 @@ NPC_LastMove:
           .SignText "MOVE.       "
           .byte ModeSignpostInquire
           .byte 92, 93
-          .SignText "TRAIN LATER "
+          .Response "TRAIN ", "LATER "
 
 ;;; 38
 NPC_GaryMirror:
@@ -230,7 +230,7 @@ NPC_FoundRing:
           .SignText "SOMETHING?  "
           .byte ModeSignpostInquire
           .byte 86, 87
-          .SignText "RING  MIRROR"
+          .Response "RING  ", "MIRROR"
 
 ;;; 42
 NPC_TrebleRefugee:
