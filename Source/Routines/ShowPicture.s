@@ -23,7 +23,7 @@ ShowPicture:  .block
 
           stx WSYNC
           .if PORTABLE
-            .SleepX 59
+            .SleepX 63
           .else
             .SleepX 61
           .fi
