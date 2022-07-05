@@ -5,9 +5,12 @@ CombatMainScreen:   .block
 
 BackToPlayer:
           .mva MoveSelection, LastPlayerCombatMove
-MonsterThwarted:
-          .mva GameMode, #ModeCombat
           .mva AlarmCountdown, # 4
+MonsterThwarted:
+          ;; The  MonsterThwarted entry  point  is used  when a  monster
+	;; thinks  it wants  to choose  a healing  move, but  it has  not
+	;; actually been injured yet.
+          .mva GameMode, #ModeCombat
 
           lda StatusFX
           .BitBit StatusSleep
@@ -22,9 +25,22 @@ NotAsleep1:
           .SetUtterance Phrase_Muddled
 
 NotMuddled1:
+
+FindPlayerMove:
+          .FarJSR TextBank, ServiceFetchGrizzardMove
+
+          .mvx CombatMoveSelected, Temp
+MoveFound:
+          lda MoveDeltaHP, x
+          sta CombatMoveDeltaHP
+
+          ldx # 0
+
+          lda CombatMoveDeltaHP
+          bmi GotTarget
+
           ;; copied into CombatVBlank also
 TargetFirstMonster:
-          ldx #0
 -
           lda EnemyHP, x
           bne TargetFirst
@@ -35,6 +51,7 @@ TargetFirstMonster:
 
 TargetFirst:
           inx
+GotTarget:
           stx MoveTarget
 
           .WaitScreenBottom
@@ -425,6 +442,7 @@ NotGoingToMap:
           bne NotGoingToStats
 
           .mva DeltaY, #ModeCombat
+          .mva LastPlayerCombatMove, MoveSelection
           .WaitScreenBottom
           .switch TV
           .case NTSC
@@ -474,6 +492,7 @@ MaybeReadyToAnnounce:
           ldx WhoseTurn
           beq Announce
 
+          ldy MoveSelection
           jsr FindMonsterMove
           lda MoveDeltaHP, x
           bpl Announce

@@ -86,7 +86,7 @@ Sign_Labyrinth:
           .SignText "LABYRINTH   "
           .SignText "SIGNPOST    "
           .SignText "            "
-          .SignText "TODO        "
+          .SignText "UNUSED      "
           .SignText "            "
           .byte ModeSignpostDone
 
