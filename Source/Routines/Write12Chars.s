@@ -8,25 +8,39 @@ TextLineLoop:
 ;;; 
           .page
 
-          stx WSYNC
           sta HMCLR
-          ldy # 0
-          sty HMP0
-          sty HMP1
+          stx WSYNC
 
           lda ClockFrame
           clc
           adc SignpostTextLine
           ror a
-          bcc +
+          bcc LeftLine
 
-          .Sleep 4
-+
+RightLine:
+          ldy #$80
+          sty HMP0
+          ldy #$a0
+          sty HMP1
+          .Sleep 10
+          stx RESP0
+          .Sleep 3
+          stx RESP1
+          jmp CommonLine
+
+LeftLine:
+          ldy #$a0
+          sty HMP0
+          ldy #$c0
+          sty HMP1
           .Sleep 7
           stx RESP0
-          .SleepX 13
+          .Sleep 3
           stx RESP1
-          .SleepX 15
+
+CommonLine:
+          stx WSYNC
+          .SleepX 71
           stx HMOVE             ; Cycle 74 HMOVE
 
           .endp
@@ -72,16 +86,16 @@ DrawInterleavedLine:       .macro
           ldy SignpostScanline
 	lda (PixelPointers + 0), y
           sta GRP0
-	lda (PixelPointers + 6), y
+	lda (PixelPointers + 2), y
           sta GRP1
           .Sleep 2
-          lax (PixelPointers + 2), y
-          lda (PixelPointers + 4), y
+          lax (PixelPointers + 4), y
+          lda (PixelPointers + 6), y
           stx GRP0
-          sta GRP0
+          sta GRP1
           lax (PixelPointers + 8), y
           lda (PixelPointers + 10), y
-          stx GRP1
+          stx GRP0
           sta GRP1
  
           .endm
@@ -92,6 +106,9 @@ AlignedLeft:
           stx WSYNC
           ldy # 4
           sty SignpostScanline
+          .if PORTABLE
+            .Sleep 3
+           .fi
 InterleavedLoop:
           .DrawInterleavedLine
           .SleepX 23

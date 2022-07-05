@@ -159,7 +159,7 @@ Loop:
           sty GRP1
           sty VDELP0
           sty VDELP1
-          lda #NUSIZ3CopiesClose
+          lda #NUSIZ3CopiesMed
           sta NUSIZ0
           sta NUSIZ1
 
