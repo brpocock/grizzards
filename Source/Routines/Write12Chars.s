@@ -20,9 +20,9 @@ TextLineLoop:
           ror a
           bcc +
 
-          .Sleep 5
+          .Sleep 4
 +
-          .Sleep 6
+          .Sleep 7
           stx RESP0
           .SleepX 13
           stx RESP1
