@@ -7,6 +7,7 @@ atariage:	Dist/Grizzards.AtariAge.zip
 publish:	demo game no-save doc Dist/Grizzards.Source.tar.gz Dist/Grizzards.AtariAge.zip \
 		Dist/Grizzards.Portable.NTSC.bin
 	@until rsync -essh --progress \
+		Server/PlusROM \
 		Dist/Grizzards.Demo.NTSC.a26 Dist/Grizzards.Demo.PAL.a26 Dist/Grizzards.Demo.SECAM.a26 \
 		Dist/Grizzards.Demo.zip Dist/Grizzards.Source.tar.gz \
 		Dist/Grizzards.Demo.pdf \
@@ -19,6 +20,7 @@ publish:	demo game no-save doc Dist/Grizzards.Source.tar.gz Dist/Grizzards.Atari
 		Dist/Grizzards.AtariAge.zip \
 		star-hope.org:star-hope.org/games/Grizzards/ ; \
 	do sleep 1; done
+	@ssh star-hope.org chmod +x star-hope.org/games/Grizzards/PlusROM
 
 plus:	Dist/Grizzards.NTSC.a26 \
 	Dist/Grizzards.PAL.a26 \

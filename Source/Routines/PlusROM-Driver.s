@@ -14,7 +14,14 @@ SaveGameSignatureString:
 
           .enc "Unicode"
           PlusCommandCheckSlot = "C"
+          PlusCommandLoadGrizzardData = "l"
           PlusCommandOK = "O"
+          PlusCommandPeekGrizzard = "P"
+          PlusCommandPeekGrizzardXP = "X"
+          PlusCommandSaveGrizzard = "s"
+          PlusCommandSaveProvinceData = "P"
+          PlusCommandSaveToSlot = "S"
+          PlusCommandSetCurrentGrizzard = "G"
           .enc "none"
 
           SaveWritesPerScreen = $20
@@ -38,15 +45,15 @@ NoPlusROM:
 WaitForPlus:
           ;; Wait for a reply from PlusROM with a blank screen.
           ;; Let's be orange, nobody else is using orange.
-          .ldacolu COLORANGE, $f
-          sta COLUBK
-
           ldy # 0
           .StyAllGraphics
 
 WaitForPlusLoop:
           .WaitScreenBottom
           .WaitScreenTop
+
+          .ldacolu COLORANGE, $f
+          sta COLUBK
 
           lda PlusReadLength
           beq WaitForPlusLoop
@@ -77,6 +84,7 @@ CheckSaveSlot:
 
           lda #PlusCommandCheckSlot
           sta PlusSendBuffer
+
           lda SaveGameSlot
           sta PlusSendReady
 
@@ -106,32 +114,141 @@ CheckSaveSlot:
           jmp PlusDone
 
 SaveToSlot:
-          ;; TODO
-          brk
+          .WaitScreenBottom
+          .WaitScreenTop
 
-PeekGrizzard:
-          ;; TODO
-          brk
+          lda #PlusCommandSaveToSlot
+          sta PlusSendBuffer
 
-PeekGrizzardXP:
-          ;; TODO
-          brk
+          lda SaveGameSlot
+          sta PlusSendBuffer
+
+          ldx # 0
+WriteSignatureLoop:
+          lda SaveGameSignatureString, x
+          sta PlusSendBuffer
+          inx
+          cpx # 5
+          bne WriteSignatureLoop
+
+          ldx # 0
+WriteGlobalLoop:
+          lda GlobalGameData, x
+          sta PlusSendBuffer
+          inx
+          cpx # GlobalGameDataLength
+          bne WriteGlobalLoop
+
+          lda #$fe
+          sta PlusSendReady
+
+          jsr SaveProvinceData
+
+          ;; Fall through to SaveGrizzard
 
 SaveGrizzard:
-          ;; TODO
-          brk
+          lda #PlusCommandSaveGrizzard
+          sta PlusSendBuffer
+          
+          lda SaveGameSlot
+          sta PlusSendBuffer
+
+          lda CurrentGrizzard
+          sta PlusSendBuffer
+
+          ldx # 0
+-
+          lda MaxHP, x
+          sta PlusSendBuffer
+          inx
+          cpx # 5
+          bne -
+
+          lda # 0
+          sta PlusSendReady
+
+          .WaitScreenBottomTail
+
+PeekGrizzard:
+          lda #PlusCommandPeekGrizzard
+PeekGrizzardCommon:
+          sta PlusSendBuffer
+
+          lda SaveGameSlot
+          sta PlusSendBuffer
+
+          lda Temp
+          sta PlusSendReady
+
+          jsr WaitForPlus
+
+          lda PlusRead
+          cmp # PlusCommandOK
+          bne PlusCommandError
+
+          lda PlusRead
+          beq NoGrizzard
+
+GotGrizzard:
+          .mva Temp, #$80
+          sec
+          rts
+
+NoGrizzard:
+          .mva Temp, # 0
+          clc
+          rts
+
+PeekGrizzardXP:
+          lda #PlusCommandPeekGrizzardXP
+          jmp PeekGrizzardCommon
 
 LoadGrizzardData:
-          ;; TODO
-          brk
+          lda #PlusCommandLoadGrizzardData
+          sta PlusSendBuffer
+
+          lda SaveGameSlot
+          sta PlusSendBuffer
+
+          lda CurrentGrizzard
+          sta PlusSendReady
+
+          jsr WaitForPlus
+
+          ldx # 0
+-
+          lda PlusRead
+
+          sta MaxHP, x
+          inx
+          cpx # 5
+          blt -
+          
+          .mva CurrentHP, MaxHP
+          .mva DebounceSWCHB, SWCHB
+
+          .mva PlayerX, BlessedX
+          .mva PlayerY, BlessedY
+
+          rts
 
 SetCurrentGrizzard:
-          ;; TODO
-          brk
+          lda #PlusCommandSetCurrentGrizzard
+          sta PlusSendBuffer
+
+          lda SaveGameSlot
+          sta PlusSendBuffer
+
+          lda CurrentGrizzard
+          sta PlusSendReady
+
+          jmp WaitForPlus
 
 SaveProvinceData:
-          ;; TODO
-          brk
+          lda #PlusCommandSaveProvinceData
+          sta PlusSendBuffer
+
+          lda SaveGameSlotPrefix
 
 LoadProvinceData:
           ;; TODO

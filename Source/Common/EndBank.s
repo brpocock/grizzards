@@ -202,11 +202,21 @@ WiredEnd:
 
           .fi
 
+          .if PLUSROM
+            * = $fff0
+            .offs -$f000
+            .byte $ff, $ff, $ff, $ff
+          .fi
+
 ;;; 6507 special vectors
 ;;;
           * = NMIVEC
           .offs -$f000
-          .word GoColdStart
+          .if PLUSROM
+            .word $0000         ; address of PlusROM URL
+          .else
+            .word GoColdStart
+          .fi
 
           * = RESVEC             ; CPU reset and BRK (IRQ) vectors (no NMI)
           .offs -$f000

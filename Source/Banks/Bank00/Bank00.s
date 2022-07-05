@@ -14,6 +14,14 @@
           .include "Source/Generated/Bank07/SpeakJetIDs.s"
 
 ;;; Start with page-aligned bitmaps
+          .if PLUSROM
+            .enc "Unicode"
+            .text "/games/Grizzards/PlusROM/", 0
+            .text "www.star-hope.org", 0
+            .enc "none"
+          .fi
+
+          .align $100
           .include "Title1.s"
 
           .if DEMO

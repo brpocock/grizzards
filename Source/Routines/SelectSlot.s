@@ -3,6 +3,9 @@
 
           ;; Select a save game slot
 SelectSlot:        .block
+          .if PLUSROM
+            jsr CheckForPlus
+          .fi
           .mva AlarmCountdown, # 120
 
           .KillMusic

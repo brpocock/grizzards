@@ -110,12 +110,26 @@ Reset:
           jmp GoWarmStart
 
 ;;; 
+          .if PLUSROM
+
+MemoryText:
+          .MiniText " PLUS "
+DeviceText:
+          .MiniText " ROM  "
+NeededText:
+          .MiniText "NEEDED"
+          
+          .else
+          
 MemoryText:
           .MiniText "MEMORY"
 DeviceText:
           .MiniText "DEVICE"
 NeededText:
           .MiniText "NEEDED"
+
+          .fi
+
 ErrorText:
           .MiniText "ERROR "
 
