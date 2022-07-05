@@ -99,7 +99,7 @@ AlignedLeft:
           ldy # 4
           sty SignpostScanline
           .if PORTABLE
-            .SleepX 47
+            .SleepX 53
           .else
             .SleepX 49
           .fi
