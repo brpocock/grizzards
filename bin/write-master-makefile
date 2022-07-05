@@ -72,7 +72,7 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
 \tmkdir -p Dist
 \tcat \$^ > \$\@\n\n";
 
-  for my $atariagesave ('', '.AA') {
+  for my $atariagesave ('', '.AA', '.PlusROM') {
 
     print "Dist/Grizzards$atariagesave.$tv.a26:\t";
     for my $bank (@banks) {
@@ -192,9 +192,17 @@ for my $tv ('NTSC', 'PAL', 'SECAM') {
       } else {
         $publisher = 'false'
       }
+      if ($atariagesave =~ /AA/) {
+        $save = 'ATARIAGESAVE';
+      } elsif ($atariagesave =~ /Plus/) {
+        $save = 'PLUSROM';
+      } else {
+        $save = 'SAVEKEY';
+      }
+
       print "
 \tmkdir -p Object
-\t\${AS2600} -DATARIAGESAVE=$publisher -DPUBLISHER=$publisher -DTV=$tv \\
+\t\${AS2600} -D $save=true -D PUBLISHER=$publisher -D TV=$tv \\
 \t   -I Source/Generated/Bank$bank -l \$\@.labels.txt -L \$\@.list.txt \$< -o \$\@
 \tbin/label2sym \$\@.labels.txt
 \tbin/listing2lst \$\@.list.txt\n";

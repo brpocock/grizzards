@@ -115,30 +115,39 @@ PeekGrizzard:                   ; NOSAVE
             .include "BeginOrResume.s"
 
           .else                 ; Not the NOSAVE build
+            .if PLUSROM
 
-            .include "SaveToSlot.s"
-            .include "PeekGrizzard.s"
-            .if !DEMO
-              .include "PeekGrizzardXP.s"
+              .include "PlusROM-Driver.s"
+              .include "Failure.s" ; duplicated
+              .include "DecodeScore.s" ; for Failure
+              .include "SelectSlot.s"
+ 
+            .else                 ; Not NOSAVE nor PlusROM
+  
+              .include "SaveToSlot.s"
+              .include "PeekGrizzard.s"
+              .if !DEMO
+                .include "PeekGrizzardXP.s"
+              .fi
+              .include "SelectSlot.s"
+              .include "LoadSaveSlot.s"
+
+              .if ATARIAGESAVE
+                .include "AtariAgeSave-EEPROM-Driver.s"
+              .else
+                .include "AtariVox-EEPROM-Driver.s"
+              .fi
+
+              .include "CheckSaveSlot.s"
+              .include "LoadGrizzardData.s"
+              .include "LoadProvinceData.s"
+              .include "SaveProvinceData.s"
+              .include "EraseSlotSignature.s"
+              .include "SetGrizzardAddress.s"
+              .include "SaveGrizzard.s"
+              .include "SetCurrentGrizzard.s"
+
             .fi
-            .include "SelectSlot.s"
-            .include "LoadSaveSlot.s"
-
-            .if ATARIAGESAVE
-              .include "AtariAgeSave-EEPROM-Driver.s"
-            .else
-              .include "AtariVox-EEPROM-Driver.s"
-            .fi
-
-            .include "CheckSaveSlot.s"
-            .include "LoadGrizzardData.s"
-            .include "LoadProvinceData.s"
-            .include "SaveProvinceData.s"
-            .include "EraseSlotSignature.s"
-            .include "SetGrizzardAddress.s"
-            .include "SaveGrizzard.s"
-            .include "SetCurrentGrizzard.s"
-
           .fi
 
           .if DEMO
@@ -146,7 +155,9 @@ PeekGrizzard:                   ; NOSAVE
           .else
             .include "GrizzardChooser.s"
             .include "ConfirmNewGame.s"
-            .include "Unerase.s"
+            .if !PLUSROM
+              .include "Unerase.s"
+            .fi
           .fi
 
           .include "Random.s"

@@ -271,6 +271,7 @@ SpriteList:
           .byte 5, SpriteWander
           .byte 125, 32         ; x, y position
           .byte SpriteCombat, 1 ; Wicked Slime
+          ;; .byte SpriteCombat, 48 ; Uber Slime — DO NOT COMMIT
 
           .byte $ff, SpriteFixed
           .byte 100, 32
@@ -292,6 +293,7 @@ SpriteList:
           .byte $ff, SpriteFixed
           .byte 100, 32
           .byte SpriteSign, 11  ; Treble Village
+          ;; .byte SpriteSign, 103 ; you win — DO NOT COMMIT
 
           .byte 19, SpriteWander
           .byte 100, 32

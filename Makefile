@@ -26,12 +26,15 @@ plus:	Dist/Grizzards.NTSC.a26 \
 	Dist/Grizzards.Demo.NTSC.a26 \
 	Dist/Grizzards.Demo.PAL.a26 \
 	Dist/Grizzards.Demo.SECAM.a26 \
+	Dist/Grizzards.PlusROM.NTSC.a26 \
+	Dist/Grizzards.PlusROM.PAL.a26 \
+	Dist/Grizzards.PlusROM.SECAM.a26 \
 	Dist/Grizzards.NoSave.NTSC.a26 \
 	Dist/Grizzards.NoSave.PAL.a26 \
 	Dist/Grizzards.NoSave.SECAM.a26 \
 	Dist/Grizzards.Manual.txt
 
-	@echo -e 'put Dist/Grizzards.NTSC.a26 Grizzards.NTSC.EF\nput Dist/Grizzards.PAL.a26 Grizzards.PAL.EF\nput Dist/Grizzards.SECAM.a26 Grizzards.SECAM.EF\nput Dist/Grizzards.Demo.NTSC.a26 Grizzards.Demo.NTSC.F4\nput Dist/Grizzards.Demo.PAL.a26 Grizzards.Demo.PAL.F4\nput Dist/Grizzards.Demo.SECAM.a26 Grizzards.Demo.SECAM.F4\nput Dist/Grizzards.NoSave.NTSC.a26 Grizzards.NoSave.NTSC.F4\nput Dist/Grizzards.NoSave.PAL.a26 Grizzards.NoSave.PAL.F4\nput Dist/Grizzards.NoSave.SECAM.a26 Grizzards.NoSave.SECAM.F4\nput Dist/Grizzards.Manual.txt Grizzards.Manual.txt' | \
+	@echo -e 'put Dist/Grizzards.NTSC.a26 Grizzards.NTSC.EF\nput Dist/Grizzards.PAL.a26 Grizzards.PAL.EF\nput Dist/Grizzards.SECAM.a26 Grizzards.SECAM.EF\nput Dist/Grizzards.Demo.NTSC.a26 Grizzards.Demo.NTSC.F4\nput Dist/Grizzards.Demo.PAL.a26 Grizzards.Demo.PAL.F4\nput Dist/Grizzards.PlusROM.NTSC.a26 Grizzards.PlusROM.NTSC.EF\nput Dist/Grizzards.PlusROM.PAL.a26 Grizzards.PlusROM.PAL.EF\nput Dist/Grizzards.Demo.SECAM.a26 Grizzards.Demo.SECAM.F4\nput Dist/Grizzards.PlusROM.SECAM.a26 Grizzards.PlusROM.SECAM.EF\nput Dist/Grizzards.NoSave.NTSC.a26 Grizzards.NoSave.NTSC.F4\nput Dist/Grizzards.NoSave.PAL.a26 Grizzards.NoSave.PAL.F4\nput Dist/Grizzards.NoSave.SECAM.a26 Grizzards.NoSave.SECAM.F4\nput Dist/Grizzards.Manual.txt Grizzards.Manual.txt' | \
 	cadaver https://plusstore.firmaplus.de/remote.php/dav/files/$(USER)/Grizzards
 
 demo:	Dist/Grizzards.Demo.zip
@@ -190,6 +193,15 @@ Dist/Grizzards.PAL.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
 Dist/Grizzards.SECAM.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
 	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.SECAM.a26
 
+Dist/Grizzards.PlusROM.NTSC.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
+	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.PlusROM.NTSC.a26
+
+Dist/Grizzards.PlusROM.PAL.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
+	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.PlusROM.PAL.a26
+
+Dist/Grizzards.PlusROM.SECAM.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
+	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.PlusROM.SECAM.a26
+
 Dist/Grizzards.AA.NTSC.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-tool
 	$(MAKE) -f Source/Generated/Makefile Dist/Grizzards.AA.NTSC.a26
 
@@ -274,6 +286,17 @@ Dist/Grizzards.Demo.PAL.sym:	\
 Dist/Grizzards.Demo.SECAM.sym:	\
 	$(shell bin/banks Object Demo.SECAM.sym)
 	cat $^ > $@
+Dist/Grizzards.PlusROM.NTSC.sym:	\
+	$(shell bin/banks Object PlusROM.NTSC.sym)
+	cat $^ > $@
+
+Dist/Grizzards.PlusROM.PAL.sym:	\
+	$(shell bin/banks Object PlusROM.PAL.sym)
+	cat $^ > $@
+
+Dist/Grizzards.PlusROM.SECAM.sym:	\
+	$(shell bin/banks Object PlusROM.SECAM.sym)
+	cat $^ > $@
 
 Dist/Grizzards.NoSave.NTSC.sym:	\
 	$(shell bin/banks Object NoSave.NTSC.sym)
@@ -313,6 +336,18 @@ Dist/Grizzards.Demo.SECAM.lst:	\
 	$(shell bin/banks Object Demo.SECAM.lst)
 	cat $^ > $@
 
+Dist/Grizzards.PlusROM.NTSC.lst:	\
+	$(shell bin/banks Object PlusROM.NTSC.lst)
+	cat $^ > $@
+
+Dist/Grizzards.PlusROM.PAL.lst:	\
+	$(shell bin/banks Object PlusROM.PAL.lst)
+	cat $^ > $@
+
+Dist/Grizzards.PlusROM.SECAM.lst:	\
+	$(shell bin/banks Object PlusROM.SECAM.lst)
+	cat $^ > $@
+
 Dist/Grizzards.NoSave.NTSC.lst:	\
 	$(shell bin/banks Object NoSave.NTSC.lst)
 	cat $^ > $@
@@ -350,6 +385,18 @@ Dist/Grizzards.Demo.PAL.pro:	Source/Grizzards.Demo.pro Dist/Grizzards.Demo.PAL.a
 Dist/Grizzards.Demo.SECAM.pro:	Source/Grizzards.Demo.pro Dist/Grizzards.Demo.SECAM.a26
 	sed $< -e s/@@ATARIAGESAVE@@/0/ -e s/@@TV@@/SECAM/g \
 		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.Demo.SECAM.a26 | cut -d\  -f1)/g > $@
+
+Dist/Grizzards.PlusROM.NTSC.pro:	Source/Grizzards.PlusROM.pro Dist/Grizzards.PlusROM.NTSC.a26
+	sed $< -e s/@@ATARIAGESAVE@@/0/ -e s/@@TV@@/NTSC/g \
+		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.PlusROM.NTSC.a26 | cut -d\  -f1)/g > $@
+
+Dist/Grizzards.PlusROM.PAL.pro:	Source/Grizzards.PlusROM.pro Dist/Grizzards.PlusROM.PAL.a26
+	sed $< -e s/@@ATARIAGESAVE@@/0/ -e s/@@TV@@/PAL/g \
+		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.PlusROM.PAL.a26 | cut -d\  -f1)/g > $@
+
+Dist/Grizzards.PlusROM.SECAM.pro:	Source/Grizzards.PlusROM.pro Dist/Grizzards.PlusROM.SECAM.a26
+	sed $< -e s/@@ATARIAGESAVE@@/0/ -e s/@@TV@@/SECAM/g \
+		-e s/@@MD5@@/$$(md5sum Dist/Grizzards.PlusROM.SECAM.a26 | cut -d\  -f1)/g > $@
 
 Dist/Grizzards.NoSave.NTSC.pro:	Source/Grizzards.NoSave.pro Dist/Grizzards.NoSave.NTSC.a26
 	sed $< -e s/@@ATARIAGESAVE@@/0/ -e s/@@TV@@/NTSC/g \
@@ -448,6 +495,27 @@ stella-pal:	Dist/Grizzards.PAL.a26 Dist/Grizzards.PAL.lst \
 
 stella-secam:	Dist/Grizzards.SECAM.a26 Dist/Grizzards.SECAM.lst \
 	Dist/Grizzards.SECAM.sym Dist/Grizzards.SECAM.pro
+	stella -tv.filter 3 -grabmouse 0 -bs EF \
+		-lc Genesis -rc AtariVox \
+		-format SECAM -pp Yes \
+		-debug $<
+
+pstella:	Dist/Grizzards.PlusROM.NTSC.a26 Dist/Grizzards.PlusROM.NTSC.lst \
+	Dist/Grizzards.PlusROM.NTSC.sym Dist/Grizzards.PlusROM.NTSC.pro
+	stella -tv.filter 3 -grabmouse 0 -bs EF \
+		-lc Genesis -rc AtariVox \
+		-format NTSC -pp Yes \
+		-debug $<
+
+pstella-pal:	Dist/Grizzards.PlusROM.PAL.a26 Dist/Grizzards.PlusROM.PAL.lst \
+	Dist/Grizzards.PlusROM.PAL.sym Dist/Grizzards.PlusROM.PAL.pro
+	stella -tv.filter 3 -grabmouse 0 -bs EF \
+		-lc Genesis -rc AtariVox \
+		-format PAL -pp Yes \
+		-debug $<
+
+pstella-secam:	Dist/Grizzards.PlusROM.SECAM.a26 Dist/Grizzards.PlusROM.SECAM.lst \
+	Dist/Grizzards.PlusROM.SECAM.sym Dist/Grizzards.PlusROM.SECAM.pro
 	stella -tv.filter 3 -grabmouse 0 -bs EF \
 		-lc Genesis -rc AtariVox \
 		-format SECAM -pp Yes \

@@ -10,6 +10,7 @@
             NOSAVE := false
             ATARIAGESAVE := false
             PORTABLE := false
+            PLUSROM := false
           .endweak
 
           .enc "Unicode"

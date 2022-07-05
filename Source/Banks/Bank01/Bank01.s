@@ -153,7 +153,9 @@ NotCompleted:
           .include "NewGrizzard.s"
           .include "Random.s"
 
-          .include "StartNewGame.s"
+          .if !PLUSROM
+            .include "StartNewGame.s"
+          .fi
           .include "DecodeScore.s"
 
           .include "GrizzardStatsScreen.s"
@@ -166,10 +168,14 @@ NotCompleted:
           .include "UserInput.s"
 
           .if !NOSAVE
-            .if ATARIAGESAVE
-              .include "AtariAgeSave-EEPROM-Driver.s"
+            .if PLUSROM
+              .include "PlusROM-Driver.s"
             .else
-              .include "AtariVox-EEPROM-Driver.s"
+              .if ATARIAGESAVE
+                .include "AtariAgeSave-EEPROM-Driver.s"
+              .else
+                .include "AtariVox-EEPROM-Driver.s"
+              .fi
             .fi
           .fi
 
