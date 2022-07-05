@@ -442,6 +442,7 @@ NotGoingToMap:
           bne NotGoingToStats
 
           .mva DeltaY, #ModeCombat
+          .mva LastPlayerCombatMove, MoveSelection
           .WaitScreenBottom
           .switch TV
           .case NTSC
