@@ -481,6 +481,7 @@ release:	all
 	-cp -v Dist/GrizzardsCompleteGuide.pdf Dist/$(RELEASE)
 	-cp -v Dist/Grizzards.{AA.,Demo.,NoSave.,}{NTSC,PAL,SECAM}.{a26,pro} \
 		Dist/$(RELEASE)
+	cp -v Dist/Grizzards.Portable.NTSC.bin Dist/$(RELEASE)/Grizzards.Portable.$(RELEASE).bin
 	cp -v Dist/Grizzards.{AA-book.,AA.,Demo.,NoSave.}pdf Dist/$(RELEASE)
 	cp -v Dist/Grizzards.Manual.txt Dist/$(RELEASE)
 	@cd Dist/$(RELEASE) ; \
