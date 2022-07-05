@@ -4,6 +4,18 @@
           .align $20            ; XXX alignment
 Write12Chars:       .block
 
+          ldy # 0
+          sty REFP0
+          sty REFP1
+          sty GRP0
+          sty GRP1
+          sty VDELP0
+          sty VDELP1
+          lda #NUSIZ3CopiesMed
+          sta NUSIZ0
+          sta NUSIZ1
+
+
 TextLineLoop:
 ;;; 
           .page

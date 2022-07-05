@@ -152,17 +152,6 @@ Loop:
 
           .SkipLines KernelLines / 6
 
-          ldy # 0
-          sty REFP0
-          sty REFP1
-          sty GRP0
-          sty GRP1
-          sty VDELP0
-          sty VDELP1
-          lda #NUSIZ3CopiesMed
-          sta NUSIZ0
-          sta NUSIZ1
-
           stx WSYNC
           lda SignpostBG
           sta COLUBK
