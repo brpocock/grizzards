@@ -25,9 +25,22 @@ NotAsleep1:
           .SetUtterance Phrase_Muddled
 
 NotMuddled1:
+
+FindPlayerMove:
+          .FarJSR TextBank, ServiceFetchGrizzardMove
+
+          .mvx CombatMoveSelected, Temp
+MoveFound:
+          lda MoveDeltaHP, x
+          sta CombatMoveDeltaHP
+
+          ldx #0
+
+          lda CombatMoveDeltaHP
+          bmi GotTarget
+
           ;; copied into CombatVBlank also
 TargetFirstMonster:
-          ldx #0
 -
           lda EnemyHP, x
           bne TargetFirst
@@ -38,6 +51,7 @@ TargetFirstMonster:
 
 TargetFirst:
           inx
+GotTarget:
           stx MoveTarget
 
           .WaitScreenBottom
