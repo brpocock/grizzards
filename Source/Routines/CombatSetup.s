@@ -75,6 +75,7 @@ ZeroEnemyHP:
           bne ZeroEnemyHP
 
           ;; … actually set the HP for monsters present (per Y = quantity)
+          ldx CurrentCombatEncounter
           ldy EncounterQuantity, x
           lda MonsterMaxHP
 FillEnemyHP:

@@ -5,7 +5,7 @@
 
           FirstSignpost = 99
 
-          Signs = ( NPC_HungryCookie, NPC_NoCookieForYou, NPC_CookieGiven, NPC_HadCookie, Game_Win1, NPC_Potions, NPC_GotPotions, NPC_MineHint, NPC_FishMonsters, Credits_1, Credits_2, Credits_3, Credits_4, Credits_5 )
+          Signs = ( NPC_HungryCookie, NPC_NoCookieForYou, NPC_CookieGiven, NPC_HadCookie, Game_Win1, NPC_Potions, NPC_GotPotions, NPC_MineHint, NPC_FishMonsters, Credits_1, Credits_2, Credits_3, Credits_4, Credits_5, NPC_Villager4 )
 
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
