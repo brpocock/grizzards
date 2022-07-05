@@ -34,7 +34,7 @@ MoveFound:
           lda MoveDeltaHP, x
           sta CombatMoveDeltaHP
 
-          ldx #0
+          ldx # 0
 
           lda CombatMoveDeltaHP
           bmi GotTarget
