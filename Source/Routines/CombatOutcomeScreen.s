@@ -4,7 +4,10 @@
 CombatOutcomeScreen:          .block
           stx WSYNC
           .switch TV
-          .case PAL,SECAM
+          .case SECAM
+            stx WSYNC
+            stx WSYNC
+          .case PAL
             stx WSYNC
           .endswitch
           .WaitScreenTopMinus 1, -2
