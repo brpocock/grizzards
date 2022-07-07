@@ -260,7 +260,6 @@ PlayerHeals:
           ;; jmp WaitOutScreen ; fall through
 ;;; 
 WaitOutScreen:
-          .WaitScreenBottom
           .switch TV
           .case PAL,SECAM
             stx WSYNC
@@ -270,6 +269,7 @@ WaitOutScreen:
             .SleepX 35
 +
           .endswitch
+          .WaitScreenBottom
 ;;; 
 GoToOutcome:
           .FarJSR TextBank, ServiceCombatOutcome

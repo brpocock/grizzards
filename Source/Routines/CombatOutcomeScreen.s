@@ -2,9 +2,11 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 CombatOutcomeScreen:          .block
-          .if TV == NTSC
+          stx WSYNC
+          .switch TV
+          .case PAL,SECAM
             stx WSYNC
-          .fi
+          .endswitch
           .WaitScreenTopMinus 1, -2
 
           ldy # 0
