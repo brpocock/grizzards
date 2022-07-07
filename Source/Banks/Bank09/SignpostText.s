@@ -5,7 +5,7 @@
 
           FirstSignpost = 23
 
-          Signs = ( NPC_ReturnPendant, NPC_HaveKey, NPC_LostChild, NPC_IAmLost, NPC_ReturnChild, NPC_ChildReward, Sign_Labyrinth, Sign_KeyFred, Sign_KeyAndrew, Sign_KeyTimmy, NPC_TrainEm, NPC_Gary1, NPC_GaryBad, NPC_Slacker, NPC_LastMove, NPC_GaryMirror, NPC_GaryVindicated, NPC_Fishing, NPC_FoundRing, NPC_TrebleRefugee, NPC_HowLong, NPC_FatTony, NPC_WelcomePortLion, NPC_LookUpCliff, NPC_Hellmouth )
+          Signs = ( NPC_ReturnPendant, NPC_HaveKey, NPC_LostChild, NPC_IAmLost, NPC_ReturnChild, NPC_ChildReward, Sign_NewGamePlusGo, Sign_KeyFred, Sign_KeyAndrew, Sign_KeyTimmy, NPC_TrainEm, NPC_Gary1, NPC_GaryBad, NPC_Slacker, NPC_LastMove, NPC_GaryMirror, NPC_GaryVindicated, NPC_Fishing, NPC_FoundRing, NPC_TrebleRefugee, NPC_HowLong, NPC_FatTony, NPC_WelcomePortLion, NPC_LookUpCliff, NPC_Hellmouth )
 
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
@@ -80,14 +80,14 @@ NPC_ChildReward:
           .byte ModeSignpostSetFlag, 2
 
 ;;; 29
-Sign_Labyrinth:
-          .colu COLRED, $f
-          .colu COLGRAY, 0
-          .SignText "LABYRINTH   "
-          .SignText "SIGNPOST    "
+Sign_NewGamePlusGo:
+          .colu COLGRAY, $f
+          .colu COLGREEN, $8
+          .SignText "    NEW     "
+          .SignText "    GAME    "
+          .SignText "    PLUS    "
           .SignText "            "
-          .SignText "UNUSED      "
-          .SignText "            "
+          .SignText " BEGINS NOW "
           .byte ModeSignpostDone
 
 ;;; 30

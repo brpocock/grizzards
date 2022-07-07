@@ -184,7 +184,8 @@ Wipe8Bytes:
           stx WSYNC
           stx WSYNC
 
-          jmp GoWarmStart
+          .mvx SignpostIndex, # 29 ; NewGamePlusGo
+          jmp Signpost
 ;;; 
 AgainText:
           .MiniText "AGAIN!"
@@ -196,5 +197,3 @@ EmAllText:
           .MiniText "EM ALL"
 
           .bend
-
-;;; Audited 2022-04-23 BRPocock
