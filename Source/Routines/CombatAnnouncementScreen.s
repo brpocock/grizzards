@@ -21,9 +21,9 @@ CombatAnnouncementScreen:     .block
             .WaitForTimer
             lda WhoseTurn
             beq +
-            .SkipLines 5
+            .SkipLines 4
 +
-            .SkipLines 11
+            .SkipLines 3
             jsr Overscan
 
           .endswitch

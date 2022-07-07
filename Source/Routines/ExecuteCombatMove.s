@@ -210,8 +210,8 @@ RandomLearn:
           and #$30              ; 1:4 odds
           bne DoneRandomLearn
 
-          lda #$07
-          and Temp
+          lda Temp
+          and #$07
           tax
           lda BitMask, x
           ora MovesKnown
@@ -228,14 +228,17 @@ DidRandomLearn:
           .FarJSR MapServicesBank, ServiceLearntMove
 
 DoneRandomLearn:
-          .switch TV
-          .case NTSC,SECAM
-            ldx INTIM
+          ldx INTIM
+          dex
+          .if SECAM == TV
             dex
-            stx TIM64T
-          .endswitch
+          .fi
+          stx TIM64T
           .WaitScreenBottom
-          lda # 0               ; zero on negative
+          .if PAL == TV
+            stx WSYNC
+          .fi
+          lda # 0               ; zero on negative — XXX unused?
           jmp GoToOutcome
 ;;; 
 PlayerHeals:
@@ -265,8 +268,7 @@ WaitOutScreen:
             stx WSYNC
             lda WhoseTurn
             beq +
-            ;; XXX I don't know why, but this magic number seems to do it:
-            .SleepX 35
+            stx WSYNC
 +
           .endswitch
           .WaitScreenBottom
@@ -294,7 +296,7 @@ CheckMove:
 
           jsr Random            ; 50/50 chance of learning
 
-          bpl NextTurn
+          bpl DidNotLearn
 
           ldx pp1h              ; Loop index
           dex                   ; bit index of move to learn
@@ -314,6 +316,9 @@ CheckNextMove:
           blt CheckMove
 
 DidNotLearn:
+          .if SECAM == TV
+            .SkipLines 2
+          .fi
           jmp NextTurn
 
 AfterTryingToLearn:
