@@ -16,8 +16,6 @@ CombatAnnouncementScreen:     .block
             stx WSYNC
 
           .case SECAM
-            ;; This is all crazy shit discovered by experiment
-            ;; There is no rational explanation
             .WaitForTimer
             lda WhoseTurn
             beq +
