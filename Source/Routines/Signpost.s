@@ -150,9 +150,13 @@ Loop:
           lda SignpostText + 1
           sta SignpostWork + 1
 
-          .SkipLines KernelLines / 6
+          .SkipLines 0
 
           stx WSYNC
+          ldy # 0
+          sty COLUPF
+          dey                   ; Y = $ff
+          sty PF0
           lda SignpostBG
           sta COLUBK
           lda SignpostFG
@@ -177,7 +181,7 @@ NextTextLine:
 ;;; 
 DoneDrawing:
           ;; ldy # 0   ; Y already = 0 here
-          .SkipLines 3
+          .SkipLines 8
           sty COLUBK
 
           lda AlarmCountdown      ; require 1-2s to tick before accepting button press; see #140

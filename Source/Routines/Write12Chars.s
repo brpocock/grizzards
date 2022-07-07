@@ -14,22 +14,44 @@ Write12Chars:       .block
           lda #NUSIZ3CopiesMed
           sta NUSIZ0
           sta NUSIZ1
-
-
 TextLineLoop:
 ;;; 
+          ;; Unpack 6-bits-per-character packed text
+          ;; This saves 25% of string storage space at the cost of
+          ;; this increased complexity here.
+          ldy # 4
+          .UnpackRight SignpostLineCompressed
+
+          jsr DecodeText
+
+          ;; Move to the alternate pointers
+          ldx # 12
+-
+          lda PixelPointers, x
+          sta SignpostAltPixelPointers, x
+          dex
+          bpl -
+
+          ;; Unpack left now and decode
+          ldy # 0
+          .UnpackLeft SignpostLineCompressed
+
+          jsr DecodeText
+
+          .Add16 SignpostWork, # 9
+
+          jmp AlignedCode
+
+          .align $20            ; XXX
+
+AlignedCode:
           .page
 
           sta HMCLR
           stx WSYNC
 
-          lda ClockFrame
-          clc
-          adc SignpostTextLine
-          ror a
-          bcc LeftLine
-
-RightLine:
+PositionPlayers:
+          .SleepX 12
           ldy #$80
           sty HMP0
           ldy #$a0
@@ -38,109 +60,98 @@ RightLine:
           stx RESP0
           .Sleep 3
           stx RESP1
-          jmp CommonLine
 
-LeftLine:
-          ldy #$a0
-          sty HMP0
-          ldy #$c0
-          sty HMP1
-          .Sleep 7
-          stx RESP0
-          .Sleep 3
-          stx RESP1
-
-CommonLine:
           stx WSYNC
           .SleepX 71
           stx HMOVE             ; Cycle 74 HMOVE
 
-          .endp
-
-          lda ClockFrame
-          clc
-          adc SignpostTextLine
-          ror a
-          bcc DrawLeftField
-          
-          ldy # 4
-          .UnpackRight SignpostLineCompressed
-
-          jsr DecodeText
-
-          .Add16 SignpostWork, # 9
-
-          .page
-
-          stx WSYNC
-          ldy # 4
-          sty SignpostScanline
-          jmp InterleavedLoop
+          ;; TODO alternate?
+          jmp AlignedRight
 
           .endp
 
 ;;; 
-DrawLeftField:
-          ;; Unpack 6-bits-per-character packed text
-          ;; This saves 25% of string storage space at the cost of
-          ;; this increased complexity here.
-          ldy # 0
-          .UnpackLeft SignpostLineCompressed
-
-          jsr DecodeText
-
-          .Add16 SignpostWork, # 9
-
-          ;; falls through (disregard the macro definition here)
-;;; 
-DrawInterleavedLine:       .macro
+DrawInterleavedLine:       .macro Origin
 
           ldy SignpostScanline
-	lda (PixelPointers + 0), y
+	lda (\Origin + 0), y
           sta GRP0
-	lda (PixelPointers + 2), y
+	lda (\Origin + 2), y
           sta GRP1
-          .Sleep 2
-          lax (PixelPointers + 4), y
-          lda (PixelPointers + 6), y
+          nop
+          lax (\Origin + 4), y
+          lda (\Origin + 6), y
           stx GRP0
           sta GRP1
-          lax (PixelPointers + 8), y
-          lda (PixelPointers + 10), y
+          lax (\Origin + 8), y
+          lda (\Origin + 10), y
           stx GRP0
           sta GRP1
  
           .endm
 ;;; 
+          .align $100           ; TODO
 AlignedLeft:
           .page
 
           stx WSYNC
           ldy # 4
           sty SignpostScanline
-          .if PORTABLE
-            .Sleep 3
-           .fi
-InterleavedLoop:
-          .DrawInterleavedLine
-          .SleepX 23
-          .DrawInterleavedLine
-          .SleepX 23
-          .DrawInterleavedLine
+          .Sleep 3
+InterleavedLoopLeft:
+          .DrawInterleavedLine SignpostAltPixelPointers
+          .SleepX 4            ; align cycle 71(74) HMOVE
+          ldx # 0               ; -8px
+          stx HMP0
+          stx HMP1
+          stx HMOVE
+          .SleepX 9
+          .DrawInterleavedLine PixelPointers
+          .SleepX 7            ; align cycle 73(76) HMOVE
+          ldx #$80              ; +8px
+          stx HMP0
+          stx HMP1
+          stx HMOVE
           ldy # 0
           sty GRP0
           sty GRP1
-          .SleepX 7
           dec SignpostScanline
-          bpl InterleavedLoop
+          stx WSYNC
+          nop
+          bpl InterleavedLoopRight
+
+          rts
+
+AlignedRight:
+          
+          stx WSYNC
+          ldy # 4
+          sty SignpostScanline
+          .Sleep 3
+InterleavedLoopRight:
+          .DrawInterleavedLine SignpostAltPixelPointers
+          .SleepX 4            ; align cycle 71(74) HMOVE
+          ldx # 0               ; -8px
+          stx HMP0
+          stx HMP1
+          stx HMOVE
+          .SleepX 9
+          .DrawInterleavedLine PixelPointers
+          .SleepX 7            ; align cycle 73(76) HMOVE
+          ldx #$80              ; +8px
+          stx HMP0
+          stx HMP1
+          stx HMOVE
+          ldy # 0
+          sty GRP0
+          sty GRP1
+          dec SignpostScanline
+          stx WSYNC
+          nop
+          bpl InterleavedLoopRight ; TODO Left
 
           .endp
 
-          stx WSYNC
-          stx WSYNC
-          stx WSYNC
-
-DoneDrawing:
           rts
 
           .bend
