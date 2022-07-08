@@ -43,7 +43,7 @@ NPC_SouthGate:
           .SignText "YOU GO NOW? "
           .byte ModeSignpostInquire
           .byte 88, 89
-          .SignText "SOUTH WEST  "
+          .Response "SOUTH ", "WEST  "
 
 ;;; 3
 NPC_TunnelBlocked:
@@ -56,7 +56,7 @@ NPC_TunnelBlocked:
           .SignText "YOU'LL HELP?"
           .byte ModeSignpostInquire
           .byte 90, 91
-          .SignText "HELP  NO    "
+          .Response "HELP  ", "NO    "
 
 ;;; 4
 NPC_TunnelOpen:
@@ -243,7 +243,7 @@ Sign_PortLionShip:
           .SignText "WANT TO GO? "
           .byte ModeSignpostInquire
           .byte 84, 85
-          .SignText "BOARD STAY  "
+          .Response "BOARD ", "STAY  "
 
 ;;; 20
 Sign_TunnelMazeBlocked:

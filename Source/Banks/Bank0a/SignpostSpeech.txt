@@ -23,7 +23,7 @@ MirandaTip2:
 ♀They say if you want to go into Hell it's through a labyrinth
 
 MirandaTip3:
-♀Maybe Fat Tony can show you the labyrinth's entrance
+♀There are three dragons who answer to a boss bear.Defeat them
 
 NeedRing:
 ♂In the old stories a magic ring opens the labyrinth
@@ -50,7 +50,7 @@ MirandaLabyrinth:
 ♀A labyrinth must hide the bosses of monsters.Uncover it
 
 MirandaDone:
-♀There are three dragons who answer to a boss bear.Defeat them
+♀Maybe Fat Tony can show you the labyrinth's entrance
 
 DocksToTreble:
 Port Lion Docks.You can sail back to Treble now

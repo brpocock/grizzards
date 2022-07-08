@@ -149,7 +149,8 @@ doc:	Dist/Grizzards.pdf \
 	Dist/Grizzards.AA-book.pdf \
 	Dist/Grizzards.Demo.pdf \
 	Dist/Grizzards.Manual.txt \
-	Dist/Grizzards.NoSave.pdf
+	Dist/Grizzards.NoSave.pdf \
+	Dist/GrizzardsCompleteGuide.pdf
 
 .PRECIOUS: %.s %.png %.a26 %.txt %.zip %.tar.gz
 
@@ -206,6 +207,16 @@ Source/Generated/Makefile:	bin/write-master-makefile ${SOURCES}
 
 Dist/Grizzards.AA-book.pdf:	Dist/Grizzards.AA.pdf
 	pdfbook2 --paper=legalpaper -o 0 -i 0 -t 0 -b 0 $<
+
+Dist/GrizzardsCompleteGuide.pdf: Manual/GrizzardsCompleteGuide.tex
+	mkdir -p Object/Complete.pdf
+	cp $< Object/Complete.pdf/
+	ln -sf ../Manual Object/
+	-cd Object/Complete.pdf ; xelatex -interaction=batchmode "\input{GrizzardsCompleteGuide}"
+	-cd Object/Complete.pdf ; xelatex -interaction=batchmode "\input{GrizzardsCompleteGuide}"
+	-cd Object/Complete.pdf ; xelatex -interaction=batchmode "\input{GrizzardsCompleteGuide}"
+	mkdir -p Dist
+	mv Object/Complete.pdf/GrizzardsCompleteGuide.pdf Dist/GrizzardsCompleteGuide.pdf
 
 Dist/Grizzards.pdf: Manual/Grizzards.tex
 	mkdir -p Object/Grizzards.pdf
@@ -467,13 +478,15 @@ release:	all
 	@if [ $(RELEASE) = noreleasenamegiven ]; then echo "Usage: make RELEASE=ident release" >&2; exit 1; fi
 	mkdir -p Dist/$(RELEASE)
 	-rm Dist/$(RELEASE)/*
+	-cp -v Dist/GrizzardsCompleteGuide.pdf Dist/$(RELEASE)
 	-cp -v Dist/Grizzards.{AA.,Demo.,NoSave.,}{NTSC,PAL,SECAM}.{a26,pro} \
-		Dist/$(RELEASE) 2>/dev/null
+		Dist/$(RELEASE)
+	cp -v Dist/Grizzards.Portable.NTSC.bin Dist/$(RELEASE)/Grizzards.Portable.$(RELEASE).bin
 	cp -v Dist/Grizzards.{AA-book.,AA.,Demo.,NoSave.}pdf Dist/$(RELEASE)
 	cp -v Dist/Grizzards.Manual.txt Dist/$(RELEASE)
 	@cd Dist/$(RELEASE) ; \
-	for file in Grizzards.*.{pro,a26,pdf}; do \
-		mv -v $$file $$(echo $$file | perl -pne 's(Grizzards\.(.+)\.(pdf|a26|pro)) (Grizzards.\1.$(RELEASE).\2)'); \
+	for file in Grizzards.*.{pro,a26,pdf} Grizzards.pdf; do \
+		mv -v $$file $$(echo $$file | perl -pne 's(Grizzards(\..+)\.(pdf|a26|pro)) (Grizzards\1.$(RELEASE).\2)'); \
 	done
 	@echo "AtariAge Release $(RELEASE) of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
 		(cd Dist; zip --archive-comment -9 \
@@ -483,17 +496,17 @@ release:	all
 	@echo "Public Release $(RELEASE) of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
 		(cd Dist; zip --archive-comment -9 \
 		$(RELEASE)/Grizzards.$(RELEASE).zip \
-		$(RELEASE)/Grizzards.{NTSC,PAL,SECAM}.$(RELEASE).{a26,pro} ) \
+		$(RELEASE)/Grizzards.{NTSC,PAL,SECAM}.$(RELEASE).{a26,pro} \
 		$(RELEASE)/Grizzards.$(RELEASE).pdf )
 	@echo "Demo Release $(RELEASE) of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
 		(cd Dist; zip --archive-comment -9 \
 		$(RELEASE)/Grizzards.Demo.$(RELEASE).zip \
-		$(RELEASE)/Grizzards.Demo.{NTSC,PAL,SECAM}.$(RELEASE).{a26,pro} ) \
+		$(RELEASE)/Grizzards.Demo.{NTSC,PAL,SECAM}.$(RELEASE).{a26,pro} \
 		$(RELEASE)/Grizzards.Demo.$(RELEASE).pdf )
 	@echo "No-Save Demo Release $(RELEASE) of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
 		(cd Dist; zip --archive-comment -9 \
 		$(RELEASE)/Grizzards.NoSave.$(RELEASE).zip \
-		$(RELEASE)/Grizzards.NoSave.{NTSC,PAL,SECAM}.$(RELEASE).{a26,pro} ) \
+		$(RELEASE)/Grizzards.NoSave.{NTSC,PAL,SECAM}.$(RELEASE).{a26,pro} \
 		$(RELEASE)/Grizzards.NoSave.$(RELEASE).pdf )
 
 publish-release:	release

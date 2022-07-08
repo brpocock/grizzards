@@ -184,12 +184,16 @@ NotLeftRight:
           lda NewSWCHA
           .BitBit P0StickUp
           bne NoStickUp
+
+          .mva NextSound, #SoundBlip
           lda #-1
           gne SeekGrizzard
 
 NoStickUp:
           .BitBit P0StickDown
           bne DoneStick
+
+          .mva NextSound, #SoundBlip
           lda # 1
 SeekGrizzard:
           sta NextMap
