@@ -65,6 +65,7 @@ PositionPlayers:
           stx HMOVE             ; Cycle 74 HMOVE
 
           lda ClockFrame
+          eor SignpostWork
           ror a
           bcc +
           jmp AlignedLeft
@@ -79,7 +80,7 @@ PositionPlayers:
           .fi
 AlignedLeft:
           ;; we enter on cycle 8 of the scan line
-          .SleepX 57
+          .SleepX 54
           .page
           ;; align for cycle 73(76) HMOVE
           lda #$80              ; +8px
