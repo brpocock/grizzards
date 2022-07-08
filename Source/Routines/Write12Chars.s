@@ -74,75 +74,6 @@ PositionPlayers:
           .endp
 
 ;;; 
-DrawLineLoop:       .macro first, second
-          .block
-InterleavedLoop:
-	lax (\first + 0), y
-          stx GRP0
-	lda (\first + 2), y
-          sta GRP1
-          .Sleep 2
-          lax (\first + 4), y
-          lda (\first + 6), y
-          stx GRP0
-          sta GRP1
-          lda (\first + 8), y
-          sta GRP0
-          lda (\first + 10), y
-          sta GRP1
-          .Sleep 4
-          .if \first == PixelPointers
-            ;; align for cycle 71(74) HMOVE
-            lda # 0              ; -8px
-            sta HMP0
-            sta HMP1
-            stx HMOVE
-            .Sleep 7
-          .else
-            .Sleep 2
-            ;; align for cycle 73(76) HMOVE
-            lda #$80              ; +8px
-            sta HMP0
-            sta HMP1
-            stx HMOVE
-            .Sleep 9
-          .fi
-	lax (\second + 0), y
-	lda (\second + 2), y
-          stx GRP0
-          sta GRP1
-          .Sleep 3
-          lax (\second + 4), y
-          lda (\second + 6), y
-          stx GRP0
-          sta GRP1
-          lda (\second + 8), y
-          sta GRP0
-          lda (\second + 10), y
-          sta GRP1
-          .Sleep 3
-          .if \first == PixelPointers
-            .Sleep 6
-            ;; align for cycle 73(76) HMOVE
-            lda #$80              ; +8px
-            sta HMP0
-            sta HMP1
-            stx HMOVE
-            .Sleep 4
-          .else
-            ;; align for cycle 71(74) HMOVE
-            lda # 0              ; -8px
-            sta HMP0
-            sta HMP1
-            stx HMOVE
-            .Sleep 6
-          .fi
-          dey
-          bpl InterleavedLoop
-          .bend
-          .endm
-
-;;; 
           .align $100           ; TODO
 AlignedLeft:
           .page
@@ -155,7 +86,50 @@ AlignedLeft:
           stx HMOVE
           ldy # 4
           .Sleep 7
-          .DrawLineLoop PixelPointers, SignpostAltPixelPointers
+LeftyLoopy:
+	lax (PixelPointers + 0), y
+          stx GRP0
+	lda (PixelPointers + 2), y
+          sta GRP1
+          .Sleep 4
+          lax (PixelPointers + 4), y
+          lda (PixelPointers + 6), y
+          stx GRP0
+          sta GRP1
+          lda (PixelPointers + 8), y
+          sta GRP0
+          lda (PixelPointers + 10), y
+          sta GRP1
+          .Sleep 2
+            ;; align for cycle 71(74) HMOVE
+            lda # 0              ; -8px
+            sta HMP0
+            sta HMP1
+            stx HMOVE
+            .Sleep 7
+	lda (SignpostAltPixelPointers + 0), y
+          sta GRP0
+	lda (SignpostAltPixelPointers + 2), y
+          .Sleep 4
+          sta GRP1
+          lax (SignpostAltPixelPointers + 4), y
+          lda (SignpostAltPixelPointers + 6), y
+          stx GRP0
+          sta GRP1
+          lda (SignpostAltPixelPointers + 8), y
+          sta GRP0
+          lda (SignpostAltPixelPointers + 10), y
+          sta GRP1
+          .Sleep 2
+            .Sleep 6
+            ;; align for cycle 73(76) HMOVE
+            lda #$80              ; +8px
+            sta HMP0
+            sta HMP1
+            stx HMOVE
+            .Sleep 4
+          dey
+          bpl LeftyLoopy
           .endp
           ldy # 0
           sty GRP0
@@ -168,7 +142,50 @@ AlignedRight:
           stx WSYNC
           ldy # 4
           .Sleep 7
-          .DrawLineLoop SignpostAltPixelPointers, PixelPointers
+RightyLoopy:
+	lax (SignpostAltPixelPointers + 0), y
+          stx GRP0
+	lda (SignpostAltPixelPointers + 2), y
+          sta GRP1
+          .Sleep 2
+          lax (SignpostAltPixelPointers + 4), y
+          lda (SignpostAltPixelPointers + 6), y
+          stx GRP0
+          sta GRP1
+          lda (SignpostAltPixelPointers + 8), y
+          sta GRP0
+          lda (SignpostAltPixelPointers + 10), y
+          sta GRP1
+          .Sleep 4
+            .Sleep 2
+            ;; align for cycle 73(76) HMOVE
+            lda #$80              ; +8px
+            sta HMP0
+            sta HMP1
+            stx HMOVE
+            .Sleep 9
+	lax (PixelPointers + 0), y
+	lda (PixelPointers + 2), y
+          stx GRP0
+          sta GRP1
+          .Sleep 3
+          lax (PixelPointers + 4), y
+          lda (PixelPointers + 6), y
+          stx GRP0
+          sta GRP1
+          lda (PixelPointers + 8), y
+          sta GRP0
+          lda (PixelPointers + 10), y
+          sta GRP1
+          .Sleep 3
+            ;; align for cycle 71(74) HMOVE
+            lda # 0              ; -8px
+            sta HMP0
+            sta HMP1
+            stx HMOVE
+            .Sleep 6
+          dey
+          bpl RightyLoopy
           .endp
           ldy # 0
           sty GRP0
