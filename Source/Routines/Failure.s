@@ -34,16 +34,14 @@ Loop:
           sty AUDV0
           sty AUDV1
 
-          lda GameMode
           .if !ATARIAGESAVE
-            cmp #ModeNoAtariVox
-            bne WhiteSadFace
+            .ldacolu COLGRAY, $e
+            ldx GameMode
+            cpx #ModeNoAtariVox
+            bne CommonSadness
 
             .ldacolu COLRED, $6
-            gne CommonSadness
           .fi
-WhiteSadFace:
-          .ldacolu COLGRAY, $e
 
 CommonSadness:      
           sta COLUPF
@@ -66,20 +64,23 @@ DrawSadFace:
 
           jsr Prepare48pxMobBlob
 
-          lda GameMode
-          cmp #ModeNoAtariVox
-          bne Crashed
+          .if !ATARIAGESAVE
+            lda GameMode
+            cmp #ModeNoAtariVox
+            bne Crashed
+
 NoVoxMessage:
-          .SetPointer MemoryText
-          jsr ShowPointerText
+            .SetPointer MemoryText
+            jsr ShowPointerText
 
-          .SetPointer DeviceText
-          jsr ShowPointerText
+            .SetPointer DeviceText
+            jsr ShowPointerText
 
-          .SetPointer NeededText
-          jsr ShowPointerText
+            .SetPointer NeededText
+            jsr ShowPointerText
 
-          jmp ShowReturnAddress
+            jmp ShowReturnAddress
+          .fi
 
 Crashed:
           .SetPointer ErrorText
@@ -122,11 +123,11 @@ Reset:
 ;;; 
           .if !ATARIAGESAVE
 MemoryText:
-          .MiniText "MEMORY"
+            .MiniText "MEMORY"
 DeviceText:
-          .MiniText "DEVICE"
+            .MiniText "DEVICE"
 NeededText:
-          .MiniText "NEEDED"
+            .MiniText "NEEDED"
           .fi
 ErrorText:
           .MiniText "ERROR "
