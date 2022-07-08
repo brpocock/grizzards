@@ -54,9 +54,6 @@ DrawLoop:
           sta GRP1
           stx WSYNC
           stx WSYNC
-          .if TV != NTSC
-            stx WSYNC
-          .fi
 
           .if SECAM != TV
             cpy # 8

@@ -35,7 +35,7 @@ Burner:                         ; from Flamex
 Splodo:                         ; Lost Mine
           .byte  5, 75, 15, 0, $ff
 Tyrant:                         ; from Petty
-          .byte 40, 30, 40, 29, $0f
+          .byte 60, 30, 40, 29, $0f
 Dufont:                         ; from Firend
           .byte 30, 15, 15, 20, $0f
 Theref:                         ; in Labyrinth level C

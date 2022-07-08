@@ -49,10 +49,11 @@ Loop:
           jsr FarCall
           .WaitScreenBottom
           .switch TV
-          .case PAL
+          .case PAL,SECAM
             .SkipLines 2
           .endswitch
           .WaitScreenTopMinus 1, 0
+          stx WSYNC
           .ldacolu COLRED, $8
           sta COLUBK
           .ldacolu COLGOLD, $0
@@ -137,7 +138,7 @@ AddAllStarters:
           .mva CurrentGrizzard, # 2
 
 ConsiderGrizzard:
-          .mva Temp, CurrentGrizzard
+          sta Temp
           .FarJSR SaveKeyBank, ServicePeekGrizzardXP
 
           bit Temp
@@ -184,7 +185,8 @@ Wipe8Bytes:
           stx WSYNC
           stx WSYNC
 
-          jmp GoWarmStart
+          .mvx SignpostIndex, # 29 ; NewGamePlusGo
+          jmp Signpost
 ;;; 
 AgainText:
           .MiniText "AGAIN!"
@@ -196,5 +198,3 @@ EmAllText:
           .MiniText "EM ALL"
 
           .bend
-
-;;; Audited 2022-04-23 BRPocock
