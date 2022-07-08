@@ -74,11 +74,13 @@ PositionPlayers:
           .endp
 
 ;;; 
-          .align $100           ; TODO
+          .if DEMO
+            .align $40          ; XXX
+          .fi
 AlignedLeft:
-          .page
           ;; we enter on cycle 8 of the scan line
           .SleepX 57
+          .page
           ;; align for cycle 73(76) HMOVE
           lda #$80              ; +8px
           sta HMP0
@@ -137,6 +139,9 @@ LeftyLoopy:
           stx WSYNC
           rts
 
+          .if DEMO
+            .align $40          ; XXX
+          .fi
 AlignedRight:
           .page
           stx WSYNC
