@@ -42,7 +42,7 @@ TextLineLoop:
 
           jmp AlignedCode
 
-          .align $20            ; XXX
+          .align $10            ; XXX
 
 AlignedCode:
           .page
@@ -75,7 +75,7 @@ PositionPlayers:
 
 ;;; 
           .if DEMO
-            .align $40          ; XXX
+            .align $20          ; XXX
           .fi
 AlignedLeft:
           ;; we enter on cycle 8 of the scan line
