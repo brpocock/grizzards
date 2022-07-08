@@ -86,16 +86,14 @@ DoneAgain:
           cmp # 30
           beq CaughtEmAll
 
-          .enc "minifont"
           sta Temp
 
-          ldx # 0
+          ldx # 5
 BlankFillLoop:
           lda ZeroText, x
           sta StringBuffer, x
-          inx
-          cpx # 6
-          blt BlankFillLoop
+          dex
+          bpl BlankFillLoop
 
           .FarJSR TextBank, ServiceAppendDecimalAndPrint
 
@@ -120,6 +118,7 @@ DoneSwitches:
           and #ButtonI
           bne DoneButtons
 
+GoShowCredits:
           .WaitScreenBottom
           .mvx SignpostIndex, # 108    ; Credits1
           jmp Signpost
