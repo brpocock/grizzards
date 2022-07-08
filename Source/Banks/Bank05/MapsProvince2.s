@@ -645,7 +645,7 @@ SpriteList:
           ;; Room 49, Tier 0
           .byte $ff, SpriteWander
           .byte 0, 0
-          .byte SpritePerson, 49 ; Fat Tony — sea is dangerous
+          .byte SpritePerson, 48 ; Fat Tony — sea is dangerous
 
           .byte 0
 

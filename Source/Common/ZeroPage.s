@@ -286,6 +286,9 @@ SignpostTextLine:
 SignpostInquiry:
           .byte ?
 
+SignpostAltPixelPointers:
+          .fill 12, ?
+
           * = $f0 - 9
 SignpostLineCompressed:
           .byte ?, ?, ?, ?,  ?, ?, ?, ?,  ?

@@ -5,7 +5,7 @@
 
           FirstSignpost = 99
 
-          Signs = ( NPC_HungryCookie, NPC_NoCookieForYou, NPC_CookieGiven, NPC_HadCookie, Game_Win1, NPC_Potions, NPC_GotPotions, NPC_MineHint, NPC_FishMonsters, Credits_1, Credits_2, Credits_3, Credits_4, Credits_5, NPC_Villager4 )
+          Signs = ( NPC_HungryCookie, NPC_NoCookieForYou, NPC_CookieGiven, NPC_HadCookie, Game_Win1, NPC_Potions, NPC_GotPotions, NPC_MineHint, NPC_FishMonsters, Credits_1, Credits_2, Credits_3, Credits_4, Credits_5, NPC_Villager4, Sign_NewGamePlus )
 
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
@@ -22,7 +22,7 @@ NPC_HungryCookie:
           .SignText "COOKIE?     "
           .byte ModeSignpostInquire
           .byte 101, 100
-          .SignText " GIVE  KEEP "
+          .Response "GIVE  ", "KEEP  "
 
 ;;; 100
 NPC_NoCookieForYou:
@@ -169,7 +169,7 @@ Credits_5:
           .SignText "AND EVERYONE"
           .SignText "IN ATARIAGE "
           .SignText "FORUMS.     "
-          .byte ModeWinnerFireworks
+          .byte ModeSignpostNext, 114
 
 ;;; 113
 NPC_Villager4:
@@ -181,3 +181,14 @@ NPC_Villager4:
           .SignText "BUT THEY'RE "
           .SignText "COMING HERE."
           .byte ModeSignpostDone
+
+;;; 114
+Sign_NewGamePlus:
+          .colu COLTURQUOISE, 0
+          .colu COLGRAY, $e
+          .SignText "PRESS GAME  "
+          .SignText "RESET SWITCH"
+          .SignText "TO RESTART  "
+          .SignText "WITH YOUR   "
+          .SignText "GRIZZARDS.  "
+          .byte ModeWinnerFireworks

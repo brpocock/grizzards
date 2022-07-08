@@ -78,24 +78,34 @@ Loop:
             sta TIM64T
 +
             .WaitScreenBottom
-            stx WSYNC
-            stx WSYNC
+            .SkipLines 2
 
           .case SECAM
 
-            ;; Modified WaitScreenBottom
-            .WaitForTimer
-            lda AlarmCountdown
-            bne +
-            stx WSYNC
-+
-            stx WSYNC
-            jsr Overscan
+            .WaitScreenBottom
+            .SkipLines 2
 
           .endswitch
 
 LoopFirst:
-          .WaitScreenTopMinus 1, 0
+          .switch TV
+          .case NTSC, PAL
+            .WaitScreenTopMinus 1, 0
+          .case SECAM
+            ;;  broken down WaitScreenTop
+            jsr VSync
+            ldx WhoseTurn
+            beq TopPlayerTurn
+
+            lda # ( ( (76 * 210) / 64 ) - 1)
+            gne CommonTop
+
+TopPlayerTurn:
+            lda # ( ( (76 * 214 ) / 64 ) - 1)
+CommonTop:
+            sta TIM64T
+
+          .endswitch
           jsr Prepare48pxMobBlob
 
           .switch TV
@@ -335,8 +345,6 @@ NotMuddled:
           gne ShowSelectedMove
 
 NotRunAway:
-          stx WSYNC
-
           lda BitMask - 1, x
           bit MovesKnown
           beq NotMoveKnown
@@ -355,7 +363,6 @@ NotMoveKnown:
 ShowSelectedMove:
           sta COLUP0
           sta COLUP1
-          stx WSYNC
           .FarJSR TextBank, ServiceShowMove
 
 UserControls:
