@@ -77,11 +77,10 @@ PositionPlayers:
 ;;; 
 DrawInterleavedLine:       .macro origin
 
-	lda (\origin + 0), y
-          sta GRP0
+	lax (\origin + 0), y
 	lda (\origin + 2), y
+          stx GRP0
           sta GRP1
-          nop
           lax (\origin + 4), y
           lda (\origin + 6), y
           stx GRP0
@@ -90,6 +89,7 @@ DrawInterleavedLine:       .macro origin
           lda (\origin + 10), y
           stx GRP0
           sta GRP1
+          nop
           nop
           nop
  
