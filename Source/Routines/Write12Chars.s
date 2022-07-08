@@ -56,7 +56,11 @@ PositionPlayers:
           sty HMP0
           ldy #$a0
           sty HMP1
-          .Sleep 10
+          .if PORTABLE
+            .Sleep 8
+          .else
+            .Sleep 10
+          .fi
           stx RESP0
           .Sleep 3
           stx RESP1             ; ends on cycle 38
@@ -67,7 +71,9 @@ PositionPlayers:
           lda ClockFrame
           eor SignpostWork
           ror a
-          bcc +
+          .if !PORTABLE
+            bcc +
+          .fi
           jmp AlignedLeft
 +
           jmp AlignedRight
@@ -103,12 +109,17 @@ LeftyLoopy:
           sta GRP0
           lda (PixelPointers + 10), y
           sta GRP1
-          .Sleep 2
+          .if !PORTABLE
+            .Sleep 2
+          .fi
           ;; align for cycle 71(74) HMOVE
           lda # 0              ; -8px
           sta HMP0
           sta HMP1
           stx HMOVE
+          .if PORTABLE
+            .Sleep 2
+          .fi
           lax (SignpostAltPixelPointers + 4), y
           .Sleep 2
 	lda (SignpostAltPixelPointers + 0), y
