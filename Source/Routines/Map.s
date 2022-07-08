@@ -445,10 +445,10 @@ GoScreenRight:
             cmp # 1
             bne DoneDockBump
             lda PlayerY
-            cmp #$10
+            cmp #$13
             bge DoneDockBump
 
-            .mva BlessedY, #$10
+            .mva BlessedY, #$13
 
 DoneDockBump:
 
