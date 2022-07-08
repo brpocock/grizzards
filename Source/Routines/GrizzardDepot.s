@@ -6,14 +6,15 @@ GrizzardDepot:    .block
           .mvx s, #$ff              ; blow away the stack
           .mva NextSound, #SoundDepot
 
-          .if TV == NTSC
+          .switch TV
+          .case NTSC
             .WaitScreenBottom
-          .else
+            stx WSYNC
+          .case PAL,SECAM
             .WaitForTimer
-            jsr Overscan
-          .fi
+            .SkipLines 36
+          .endswitch
 
-          stx WSYNC
           .WaitScreenTop
           .FarJSR SaveKeyBank, ServiceSaveToSlot
 
@@ -183,12 +184,16 @@ NotLeftRight:
           lda NewSWCHA
           .BitBit P0StickUp
           bne NoStickUp
+
+          .mva NextSound, #SoundBlip
           lda #-1
           gne SeekGrizzard
 
 NoStickUp:
           .BitBit P0StickDown
           bne DoneStick
+
+          .mva NextSound, #SoundBlip
           lda # 1
 SeekGrizzard:
           sta NextMap
@@ -239,6 +244,7 @@ SeekOK:
           .fi
           sta COLUBK
           .FarJSR SaveKeyBank, ServiceLoadGrizzard
+          .FarJSR SaveKeyBank, ServiceSetCurrentGrizzard
 
           .fi                   ; end of block disabled for NoSave
 ;;; 
@@ -266,7 +272,7 @@ SwitchesDone:
           lda NewButtons
           beq TriggerDone
 
-          .BitBit PRESSED
+          and #ButtonI
           bne TriggerDone
 
           .mva GameMode, #ModeMap

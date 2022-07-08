@@ -56,7 +56,7 @@ WriteGlobalLoop:
           ;; Pad out to $20
           ldx # $20 - 5 - GlobalGameDataLength - 6
 WritePadAfterGlobal:
-          lda # $fe             ; totally arbitrary pad value
+          lda #$fe             ; totally arbitrary pad value
           jsr i2cTxByte
           dex
           bne WritePadAfterGlobal

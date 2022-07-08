@@ -26,7 +26,7 @@ LoopFirst:
           sta COLUP0
           sta COLUP1
 
-          .SkipLines KernelLines / 3
+          .SkipLines KernelLines / 4
           jsr Prepare48pxMobBlob
 
           .SetPointer GameOverText
@@ -34,6 +34,13 @@ LoopFirst:
 
           .SetPointer GameOverText + 6
           jsr ShowPointerText
+
+          .if !DEMO
+            .SkipLines KernelLines / 6
+            jsr DecodeScore
+            .FarJSR TextBank, ServiceDecodeAndShowText
+          .fi
+
 ;;; 
           lda NewSWCHB
           beq +
@@ -42,7 +49,7 @@ LoopFirst:
 +
 	lda NewButtons
           beq +
-          and #PRESSED
+          and #ButtonI
           beq Leave
 +
           lda AlarmCountdown

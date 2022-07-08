@@ -151,7 +151,7 @@ WillOWisp:
 	.mcolu COLCYAN, $E
 	.mcolu COLCYAN, $A
 	.mcolu COLCYAN, $C
-	.mcolu COLGRAY, $0
+	.mcolu COLCYAN, $C
 
 ButterFly:
        	.mcolu COLGOLD, $A

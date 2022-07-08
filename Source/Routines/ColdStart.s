@@ -5,8 +5,7 @@
 ;;;
 ;;; This routine is called once at startup, and must be in Bank 0.
 ;;;
-;;; After a Game Over, this may be called again to return to the title
-;;; screen with a full reset.
+;;; It must never be called again, or you'll lose '7800 detection.
 
 ColdStart:         .block
           sei
@@ -33,14 +32,9 @@ ZeroTIALoop:
           sta VBLANK
 
           sty SWACNT            ; Y = 0
-          ;; only set inputs on the bits that we can actually read
-          ;; AKA the “Combat flags trick”
-          .if TV == SECAM
-            lda # $ff - (SWCHBReset | SWCHBSelect | SWCHBP0Advanced | SWCHBP1Advanced)
-          .else
-            lda # $ff - (SWCHBReset | SWCHBSelect | SWCHBColor | SWCHBP0Advanced | SWCHBP1Advanced)
-          .fi
-          sta SWBCNT
+          sty SWBCNT
+
+          sty SystemFlags
 	
 ResetStack:
           .mvx s, #$ff

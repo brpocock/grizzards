@@ -35,7 +35,7 @@ Burner:                         ; from Flamex
 Splodo:                         ; Lost Mine
           .byte  5, 75, 15, 0, $ff
 Tyrant:                         ; from Petty
-          .byte 40, 30, 40, 29, $0f
+          .byte 60, 30, 40, 29, $0f
 Dufont:                         ; from Firend
           .byte 30, 15, 15, 20, $0f
 Theref:                         ; in Labyrinth level C
@@ -47,7 +47,7 @@ Ambren:                         ; near Anchor
           .byte 40, 20, 20, 26, $0f
 Noctis:                         ; near Anchor
           .byte 40, 20, 20, 27, $0f
-Corlyn:                         ; Lost Mine
+Corlyn:                         ; Lion Woods (hidden)
           .byte 40, 20, 20, 28, $0f
           ;; 20
 Wapow:                       ; from Dufont
@@ -60,7 +60,7 @@ Flitex:                         ; from Flyer
           .byte 45, 25, 25, 0, $0f
           ;; 24
 Flarex:                          ; from Burner
-          .byte 50, 25, 25, 0, $0f
+          .byte 50, 25, 25, 0, $81
 Uptrix:                         ; from Cornet
           .byte 75, 37, 37, 0, $0f
 Altrix:                         ; from Ambren

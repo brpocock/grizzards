@@ -2,35 +2,48 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 SpriteMovement:     .block
-          lda Pause
-          beq +
+          lda SystemFlags
+          bpl NotPaused
+
           rts
-+
+
+NotPaused:
           ldx SpriteCount
           beq MovementLogicDone
+
+          ;; XXX this check should never have been needed
+          ;; XXX it might be removed in the final roundup
           cpx # 5
-          blt +
+          blt ValidSpriteCount
+
           brk
-+
+
+ValidSpriteCount:
           dex
 
 MoveSprites:
           lda ClockFrame
           ;; Allow moving approximately 10 Hz regardless of TV region
           sec
--
+DivByFPS:
           sbc # FramesPerSecond / 10
-          bcs -
+          bcs DivByFPS
+
           cmp #$ff
-          beq +
+          beq Do10Hz
+
           rts
-+
+
+Do10Hz:
           lda SpriteMotion, x
           beq NextSprite
+
           cmp #SpriteRandomEncounter
           bne SpriteXMove
+
           jsr Random            ; Is there a random encounter?
           bne NoRandom
+
           lda SpriteAction, x
           jmp CheckPlayerCollision.ActionWithSpriteX
 
@@ -42,29 +55,34 @@ NoRandom:
 SpriteXMove:
           cmp #SpriteMoveIdle
           beq SpriteMoveNext
-          .BitBit SpriteMoveLeft
-          beq +
-          dec SpriteX, x
-+
-          .BitBit SpriteMoveRight
-          beq +
-          inc SpriteX, x
-+
-          .BitBit SpriteMoveUp
-          beq +
-          dec SpriteY, x
-+
-          .BitBit SpriteMoveDown
-          beq +
-          inc SpriteY, x
-+
 
+          .BitBit SpriteMoveLeft
+          beq DoneLeftMove
+
+          dec SpriteX, x
+DoneLeftMove:
+          .BitBit SpriteMoveRight
+          beq DoneRightMove
+
+          inc SpriteX, x
+DoneRightMove:
+          .BitBit SpriteMoveUp
+          beq DoneUpMove
+
+          dec SpriteY, x
+DoneUpMove:
+          .BitBit SpriteMoveDown
+          beq DoneDownMove
+          
+          inc SpriteY, x
+DoneDownMove:
 SpriteMoveNext:
           ;; Possibly change movement randomly
           jsr Random
+
           tay
           and #$07
-          bne SpriteMoveDone
+          bne SpriteMoveReady
 
           tya
           .BitBit $10
@@ -75,96 +93,109 @@ SpriteMoveNext:
 
           lda #SpriteMoveIdle
           sta SpriteMotion, x
-          gne SpriteMoveDone
+          gne SpriteMoveReady
 
 ChasePlayer:
           lda SpriteX, x
           cmp PlayerX
           beq ChaseUpDown
+
           bge ChaseRight
+
           lda #SpriteMoveLeft
           sta SpriteMotion, x
-          gne SpriteMoveDone
+          gne SpriteMoveReady
 
 ChaseRight:
           lda #SpriteMoveRight
           sta SpriteMotion, x
-          gne SpriteMoveDone
+          gne SpriteMoveReady
 
 ChaseUpDown:
           lda SpriteY, x
           cmp PlayerY
           bge ChaseDown
+
           lda #SpriteMoveUp
           sta SpriteMotion, x
-          gne SpriteMoveDone
+          gne SpriteMoveReady
 
 ChaseDown:
           lda #SpriteMoveDown
           sta SpriteMotion, x
-          gne SpriteMoveDone
+          gne SpriteMoveReady
 
 RandomlyMove:
           jsr Random
           and # SpriteMoveUp | SpriteMoveDown | SpriteMoveLeft | SpriteMoveRight
-          bne +
+          bne RandomDoMove
+
           lda #SpriteMoveIdle
-+
+RandomDoMove:
           .BitBit SpriteMoveUp
-          beq +
+          beq NoRandUp
+
           and # ~SpriteMoveDown
-+
+NoRandUp:
           .BitBit SpriteMoveDown
-          beq +
+          beq NoRandDown
+
           and # ~SpriteMoveUp
-+
+NoRandDown:
           .BitBit SpriteMoveLeft
-          beq +
+          beq NoRandLeft
+
           and # ~SpriteMoveRight
-+
+NoRandLeft:
           .BitBit SpriteMoveRight
-          beq +
+          beq NoRandRight
+
           and # ~SpriteMoveLeft
-+
+NoRandRight:
           sta SpriteMotion, x
-          ;; fall through
-SpriteMoveDone:
+SpriteMoveReady:
           lda SpriteX, x
           cmp #ScreenLeftEdge
           bge LeftOK
-          lda SpriteMotion, x
-          eor # SpriteMoveLeft | SpriteMoveRight
-          sta SpriteMotion, x
+
           inc SpriteX, x
+          gne InvertHorizontal
+
 LeftOK:
           cmp #ScreenRightEdge
           blt RightOK
+
+          dec SpriteX, x
+InvertHorizontal:
           lda SpriteMotion, x
           eor # SpriteMoveLeft | SpriteMoveRight
           sta SpriteMotion, x
-          dec SpriteX, x
 RightOK:
           lda SpriteY, x
           cmp #ScreenTopEdge
           bge TopOK
-          lda SpriteMotion, x
-          eor # SpriteMoveUp | SpriteMoveDown
-          sta SpriteMotion, x
+
           inc SpriteY, x
+          gne InvertVertical
+
 TopOK:
           cmp #ScreenBottomEdge
           blt BottomOK
+
+          dec SpriteY, x
+InvertVertical:
           lda SpriteMotion, x
           eor # SpriteMoveUp | SpriteMoveDown
           sta SpriteMotion, x
-          dec SpriteY, x
 BottomOK:
 
 NextSprite:
           dex
           bpl MoveSprites
-          ;; fall through
+
 MovementLogicDone:
           rts
 
           .bend
+
+;;; audited 2022-03-22 BRPocock

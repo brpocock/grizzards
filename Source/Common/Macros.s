@@ -5,7 +5,7 @@
 Sleep:    .macro Cycles
 
           .if \Cycles < 0
-          .error "Can't sleep back-in-time for ", \Cycles, " cycles"
+            .error "Can't sleep back-in-time for ", \Cycles, " cycles"
           .else
           .switch \Cycles
 
@@ -48,11 +48,11 @@ Sleep:    .macro Cycles
           .default
           .if 1 == \Cycles & 1
           ;; make sure we can't end up trying to sleep 1
-          .Sleep 9
-          .Sleep \Cycles - 9
+            .Sleep 9
+            .Sleep \Cycles - 9
           .else
-          .Sleep 8
-          .Sleep \Cycles - 8
+            .Sleep 8
+            .Sleep \Cycles - 8
           .fi
           .endswitch
           .fi
@@ -64,35 +64,35 @@ SleepX: .macro Cycles
           .block
 
           .if \Cycles < 10
-          .Sleep \Cycles
+            .Sleep \Cycles
           .else
 
           Loopable = \Cycles - 1
           .if (((* % $100) >= $fc) && ((* % $100) <= $fe))
-          ;; going to cross page boundary on branch
-          ;; so each loop takes 6 cycles instead of 5
-          LoopCycles = Loopable / 6
-          ModuloCycles = Loopable % 6 + 1
+            ;; going to cross page boundary on branch
+            ;; so each loop takes 6 cycles instead of 5
+            LoopCycles = Loopable / 6
+            ModuloCycles = Loopable % 6 + 1
           .else                 ; no page cross
-          LoopCycles = Loopable / 5
-          ModuloCycles = Loopable % 5
+            LoopCycles = Loopable / 5
+            ModuloCycles = Loopable % 5
           .fi
 
           .if ModuloCycles < 2
-          .SleepX \Cycles - 2
-          nop
+            .SleepX \Cycles - 2
+            nop
 
           .else
 
-          ldx #LoopCycles       ; 2
+            ldx #LoopCycles       ; 2
 SleepLoop:
-          dex                   ; 2
-          bne SleepLoop         ; 2 (3+)
-          ;; so overhead of +2 for ldx, -1 for no final branch
-          ;; net overhead of +1, with 5 cycles per loop
-          ;; if page boundary (dex occurs on $Xfd, $Xfe, $Xff)
-          ;; then each loop is 6 cycles.
-          .Sleep ModuloCycles
+            dex                   ; 2
+            bne SleepLoop         ; 2 (3+)
+            ;; so overhead of +2 for ldx, -1 for no final branch
+            ;; net overhead of +1, with 5 cycles per loop
+            ;; if page boundary (dex occurs on $Xfd, $Xfe, $Xff)
+            ;; then each loop is 6 cycles.
+            .Sleep ModuloCycles
 
           .fi
           .fi
@@ -130,7 +130,7 @@ Set16 .macro target, value
 ;;; 
 Locale .macro ThisLang, string
           .if \ThisLang == LANG
-          .MiniText \string
+            .MiniText \string
           .fi
           .endm
 ;;; 
@@ -157,40 +157,40 @@ ClearAllGraphics: .macro
 sound:    .macro volume, control, frequency, duration, end
           .switch FramesPerSecond
           .case 60
-          .byte (\volume << 4) | \control, \frequency | ( \end << 7 ), \duration
+            .byte (\volume << 4) | \control, \frequency | ( \end << 7 ), \duration
           .case 50
-          .byte (\volume << 4) | \control, \frequency | ( \end << 7 ), ceil( (\duration / 60.0) * 50)
+            .byte (\volume << 4) | \control, \frequency | ( \end << 7 ), ceil( (\duration / 60.0) * 50)
           .default
-          .error "Unsupported frame rate: ", FramesPerSecond
+            .error "Unsupported frame rate: ", FramesPerSecond
           .endswitch
           .endm
 
 TimeLines:          .macro lines
           SkipCycles = 76 * (\lines)
           .if ( (SkipCycles/64) <= $100 )
-          lda # (SkipCycles/64) - 1
-          sta TIM64T
+            lda # (SkipCycles/64) - 1
+            sta TIM64T
           .else
-          .error "Cannot skip ", \lines, " lines with TIM64T"
+            .error "Cannot skip ", \lines, " lines with TIM64T"
           .fi
           .endm
 
 WaitScreenTop:      .macro
           jsr VSync
           .if TV == NTSC
-          .TimeLines KernelLines - 1
+            .TimeLines KernelLines - 1
           .else
-          lda #$ff              ; 214.74 lines
-          sta TIM64T
+            lda #$ff              ; 214.74 lines
+            sta TIM64T
           .fi
           .endm
 
 WaitScreenTopMinus: .macro NTSCMinus, PALMinus
           jsr VSync
           .if TV == NTSC
-          .TimeLines KernelLines - \NTSCMinus
+            .TimeLines KernelLines - \NTSCMinus
           .else
-          .TimeLines 214 - \PALMinus
+            .TimeLines 214 - \PALMinus
           .fi
           .endm
 
@@ -219,7 +219,7 @@ KillMusic:          .macro
 FarJSR:   .macro bank, service
           .proff
           .if \bank == BANK
-          .error "Don't do FarJSR for the local bank for ", \service
+            .error "Don't do FarJSR for the local bank for ", \service
           .fi
           .pron
           ldy #\service
@@ -230,7 +230,7 @@ FarJSR:   .macro bank, service
 FarJMP:   .macro bank, service
           .proff
           .if \bank == BANK
-          .error "Don't do FarJMP for the local bank for ", \service
+            .error "Don't do FarJMP for the local bank for ", \service
           .fi
           .pron
           ldy #\service
@@ -257,7 +257,7 @@ SkipLines:          .macro length
           .if \length < 4
 
           .rept \length
-          stx WSYNC
+            stx WSYNC
           .next
 
           .else
@@ -354,6 +354,28 @@ mva:      .macro dest, src
           sta \dest
           .endm
 
+mvay:     .macro dest, src
+          lda \src
+          sta \dest, y
+          .endm
+
+mvayi:     .macro dest, src
+          lda \src
+          sta \dest, y
+          iny
+          .endm
+
+mvax:     .macro dest, src
+          lda \src
+          sta \dest, x
+          .endm
+
+mvaxd:     .macro dest, src
+          lda \src
+          sta \dest, x
+          dex
+          .endm
+
 mvx:      .macro dest, src
           ldx \src
           stx \dest
@@ -364,6 +386,19 @@ mvy:      .macro dest, src
           sty \dest
           .endm
 
+mvaw:     .macro dest, word
+          lda #<\word
+          sta \dest
+          lda #>\word
+          sta \dest + 1
+          .endm
+
+mvap:     .macro dest, source
+          lda \source
+          sta \dest
+          lda \source + 1
+          sta \dest + 1
+          .endm
 ;;; 
 ;;; From Lee Davison
 

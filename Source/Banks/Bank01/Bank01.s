@@ -14,7 +14,6 @@ DoVBlankWork:
           .include "VBlank.s"
           
           .include "48Pixels.s"
-          .align $10            ; XXX alignment
           .include "Prepare48pxMobBlob.s"
 
 DoLocal:
@@ -111,7 +110,7 @@ JatibuDone:
           beq SkipStick
 
           ;; Either  they've failed  to enter  the Jatibu  Code or  they
-	;; haven't tried
+          ;; haven't tried
 NoJatibu:
           ldx # 0
           stx SelectJatibuProgress

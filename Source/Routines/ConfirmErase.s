@@ -6,6 +6,7 @@ ConfirmErase:       .block
           ldx # 1
           stx DeltaX            ; current selection = not to erase
 
+          .mva NewSWCHA, # 0
           .mva GameMode, #ModeConfirmEraseSlot
 Loop:
           .WaitScreenBottom
@@ -89,7 +90,7 @@ DoneSelect:
           bne DoneSwitches
 
           .WaitScreenBottom
-          jmp GoColdStart
+          jmp GoWarmStart
 
 DoneSwitches:
           lda NewSWCHA
@@ -112,7 +113,7 @@ DoneStick:
           lda NewButtons
           beq DoneButtons
 
-          and #PRESSED
+          and #ButtonI
           bne DoneButtons
 
           .mva NextSound, #SoundBlip

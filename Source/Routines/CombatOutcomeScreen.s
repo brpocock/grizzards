@@ -2,6 +2,21 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 CombatOutcomeScreen:          .block
+          .switch TV
+          .case SECAM
+            ldx WhoseTurn
+            bne +
+            .SkipLines 2
++
+            .SkipLines 2
+          .case PAL
+            .SkipLines 2
+          .case NTSC
+            ldx WhoseTurn
+            bne +
+            .SkipLines 2
++
+          .endswitch
           .WaitScreenTopMinus 1, -2
 
           ldy # 0
@@ -84,14 +99,7 @@ PrintKilled:
           .SetPointer KilledText
           jsr ShowPointerText
 
-          lda CriticalHitP
-          beq +
-
-          .SetPointer CritText
-          jsr ShowPointerText
-
-+
-          jmp AfterStatusFX
+          jmp DoneStatusFX
 
 CheckMonsterPulse2:
           ldx MoveTarget
@@ -108,28 +116,38 @@ DrawMissed:
 
           jsr DecodeAndShowText
 
-          jmp AfterHitPoints
+          jmp DoneHitPoints
 
 DrawHealPoints:
           eor #$ff
           beq SkipHitPoints
 
-          sta Temp
+          ldx WhoseTurn
+          bne DrawHealXX
+
+          ldx MaxHP
+          cpx CurrentHP
+          bne DrawHealXX
+
           .SetPointer HealedText
+          jsr CopyPointerText
+
+          jsr DecodeAndShowText
+
+          jmp DoneHitPoints
+
+DrawHealXX:
+          sta Temp
+          .SetPointer Heal00Text
 DrawHitPoints:
           jsr AppendDecimalAndPrint.FromTemp
 
-          lda CriticalHitP
-          beq +
-          .SetPointer CritText
-          jsr ShowPointerText
-+
-          jmp AfterHitPoints
+          jmp DoneHitPoints
 
 SkipHitPoints:
           .SkipLines 34
 ;;; 
-AfterHitPoints:
+DoneHitPoints:
           lda MoveAnnouncement
           cmp # 5
           bmi SkipStatusFX
@@ -155,7 +173,7 @@ DrawStatusFX:
           .BitBit StatusMuddle
           bne FXMuddle
 
-          jmp AfterStatusFX
+          jmp DoneStatusFX
 
 FXSleep:
           .SetPointer SleepText
@@ -184,7 +202,12 @@ EchoStatus:
           jsr ShowPointerText
 
 SkipStatusFX:
-AfterStatusFX:
+DoneStatusFX:
+          lda CriticalHitP
+          beq DoneCritNotice
+          .SetPointer CritText
+          jsr ShowPointerText
+DoneCritNotice:
 ;;; 
           lda AlarmCountdown
           bne AlarmDone
@@ -468,11 +491,12 @@ CheckForLoss:
           lda CurrentHP
           bne Bye
 
-          .if TV == NTSC
+          .switch TV
+          .case NTSC,PAL
             ldx INTIM
             dex
             stx TIM64T
-          .fi
+          .endswitch
           .WaitScreenBottom
           .FarJMP AnimationsBank, ServiceDeath
 

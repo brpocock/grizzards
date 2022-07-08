@@ -39,7 +39,7 @@ MonsterAttacks:
 
           ;; Bosses get double attack ratings
           lda CombatMajorP
-          beq +
+          bpl +
           asl AttackerAttack
 +
 
@@ -72,69 +72,21 @@ MonsterAttacks:
           jmp WaitOutScreen
 ;;; 
 MonsterHeals:
-          ;; .A has the inverted HP to be gained
-          ;; (alter by random factor)
-          eor #$ff
           sta MoveHP
-          jsr CalculateAttackMask
 
-          sta Temp
-          jsr Random
+          lda EnemyHP - 1, x
+          sta DefenderHP
+          lda EnemyStatusFX - 1, x
+          sta DefenderStatusFX
+          .mva DefenderMaxHP, MonsterMaxHP
 
-          bmi MonsterHealsMinusHP
+          jsr CoreHealing
 
-MonsterHealsPlusHP:
-          and Temp
-          clc
-          adc MoveHP
-          sta MoveHP
-          gne MonsterHealsCommon
-
-MonsterHealsZero:
-          ldy # 0
-          sty MoveHP
-          geq MonsterHealsCommon
-
-MonsterHealsMinusHP:
-          and Temp
-          sta Temp
-          cmp MoveHP
-          bge MonsterHealsZero
-
-          lda MoveHP
-          sec
-          sbc Temp
-          bpl MonsterHealsCommon
-
-          lda # 0
-
-MonsterHealsCommon:
           ldx WhoseTurn
-          clc
-          adc EnemyHP - 1, x
-          cmp # 199
-          blt +
-          lda # 199
-+
+          lda DefenderHP
           sta EnemyHP - 1, x
-          lda MoveHP
-          eor #$ff              ; negate the value to mean "gained"
-          sta MoveHP
-
-MonsterBuff:
-          ldx CombatMoveSelected
-          lda MoveEffects, x
-          sta Temp
-          jsr Random
-
-          and Temp
-          sta MoveStatusFX
-
-          ldx WhoseTurn
-          ora EnemyStatusFX - 1, x
+          lda DefenderStatusFX
           sta EnemyStatusFX - 1, x
-
-          .mva MoveHitMiss, # 1
 
           jmp WaitOutScreen
 ;;; 
@@ -175,7 +127,7 @@ PlayerAttacks:
 
           ;; Bosses get double defend ratings
           lda CombatMajorP
-          beq +
+          bpl +
           asl DefenderDefend
 +
 
@@ -209,7 +161,7 @@ PlayerKilledMonster:
 
           ldx # 1               ; 1× scoring…
           lda CombatMajorP
-          beq +
+          bpl +
           inx                   ; 2 × scoring
 +
 
@@ -234,7 +186,7 @@ IncrementScore:
           iny                   ; MonsterPointsIndex + 1
           lda (CurrentMonsterPointer), y
           adc Score + 1
-          sta Score +1
+          sta Score + 1
           bcc ScoreNoCarry
 
           inc Score + 2
@@ -258,8 +210,8 @@ RandomLearn:
           and #$30              ; 1:4 odds
           bne DoneRandomLearn
 
-          lda #$07
-          and Temp
+          lda Temp
+          and #$07
           tax
           lda BitMask, x
           ora MovesKnown
@@ -276,85 +228,56 @@ DidRandomLearn:
           .FarJSR MapServicesBank, ServiceLearntMove
 
 DoneRandomLearn:
-          lda # 0               ; zero on negative
-
-          jmp WaitOutScreen
+          ldx INTIM
+          dex
+          .if SECAM == TV
+            dex
+          .fi
+          stx TIM64T
+          .WaitScreenBottom
+          .if PAL == TV
+            stx WSYNC
+          .fi
+          lda # 0               ; zero on negative — XXX unused?
+          jmp GoToOutcome
 ;;; 
 PlayerHeals:
           ;; .A has the inverted HP to be gained
           ;; (alter by random factor)
-          eor #$ff
           sta MoveHP            ; base HP to gain
-          jsr CalculateAttackMask
 
-          sta Temp              ; attack mask
-          jsr Random
-
-          bmi PlayerHealsMinusHP
-
-PlayerHealsPlusHP:
-          and Temp              ; attack mask
-          clc
-          adc MoveHP            ; base HP to gain
-          gne PlayerHealsCommon
-
-PlayerHealsMinusHP:
-          and Temp              ; attack mask
-          sta Temp              ; masked HP to negate
-          lda MoveHP            ; base HP to gain
-          sec
-          sbc Temp              ; masked HP to negate
-          bpl PlayerHealsCommon
-
-          ;; You'll never actually LOSE HP this way
-          lda # 0
-PlayerHealsCommon:
-          ;; A has the HP to be gained
-          sta MoveHP
-          clc
-          adc CurrentHP
-          cmp MaxHP
-          blt +
+          lda CurrentHP
+          sta DefenderHP
+          lda StatusFX
+          sta DefenderStatusFX
           lda MaxHP
-+
+          sta DefenderMaxHP
+
+          jsr CoreHealing
+
+          lda DefenderHP
           sta CurrentHP
-          lda #$ff              ; negate the value to mean "gained"
-          eor MoveHP
-          sta MoveHP
-PlayerBuff:
-          ldx CombatMoveSelected
-          .mva MoveHitMiss, # 1
-
-          lda MoveEffects, x
-          sta Temp
-          jsr Random
-
-          and Temp
-          sta MoveStatusFX
-          ora StatusFX
+          lda DefenderStatusFX
           sta StatusFX
-          ;;  fall through
+
+          ;; jmp WaitOutScreen ; fall through
 ;;; 
 WaitOutScreen:
-          lda MoveHitMiss
-          beq SoundForMiss
-
-          lda #SoundHit
-          gne +
-SoundForMiss:
-          lda #SoundMiss
-+
-          sta NextSound
-
-          .WaitScreenBottom
-          .if TV != NTSC
+          .switch TV
+          .case PAL,SECAM
             stx WSYNC
-          .fi
+            lda WhoseTurn
+            beq +
+            stx WSYNC
++
+          .endswitch
+          .WaitScreenBottom
 ;;; 
+GoToOutcome:
           .FarJSR TextBank, ServiceCombatOutcome
 ;;; 
           .WaitScreenTop
-
+TryToLearnMove:
           ;; If this was a monster's move, could the player learn that move?
           lda WhoseTurn
           beq NextTurn
@@ -373,7 +296,7 @@ CheckMove:
 
           jsr Random            ; 50/50 chance of learning
 
-          bpl NextTurn
+          bpl DidNotLearn
 
           ldx pp1h              ; Loop index
           dex                   ; bit index of move to learn
@@ -389,10 +312,13 @@ LearntMove:
 CheckNextMove:
           inc pp1h              ; loop counter
           lda pp1h
-          cmp #8
+          cmp # 8
           blt CheckMove
 
 DidNotLearn:
+          .if SECAM == TV
+            .SkipLines 2
+          .fi
           jmp NextTurn
 
 AfterTryingToLearn:
@@ -401,9 +327,8 @@ AfterTryingToLearn:
           .FarJSR MapServicesBank, ServiceLearntMove
 ;;; 
 NextTurn:
-          inc WhoseTurn
           ldx WhoseTurn
-          dex
+          inc WhoseTurn
           cpx # 6
           bne NotLastMonster
 

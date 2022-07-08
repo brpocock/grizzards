@@ -1,8 +1,10 @@
 ;;; Grizzards Source/Routines/CombatSetup.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
-;;; Common combat routines called from multiple banks
+;;; Common combat routines called from bank 6 only now
 DoCombat:          .block
-          stx WSYNC
+          .if NTSC == TV
+            stx WSYNC
+          .fi
           .WaitScreenTop
           .KillMusic
 
@@ -18,12 +20,12 @@ SetUpMonsterPointer:
           sty CurrentMonsterPointer + 1
 
           ldx # 4
--
+MonsterMul16:
           clc
           asl CurrentMonsterPointer
           rol CurrentMonsterPointer + 1
           dex
-          bne -
+          bne MonsterMul16
 
           clc
           lda CurrentMonsterPointer
@@ -41,46 +43,45 @@ AnnounceMonsterSpeech:
           .mva CurrentUtterance + 1, #>MonsterPhrase
           lda #<MonsterPhrase
           ldx CurrentCombatEncounter
-          ;; clc ; unneeded, the adc #>MonsterPhrase won't have overflowed
+          clc
           adc EncounterMonster, x
           sta CurrentUtterance
 
 SetUpEnemyHP:
           ldy #EnemyHPIndex
           lda (CurrentMonsterPointer), y
-          sta Temp              ; enemy HP
+          sta MonsterMaxHP
 
           lda Potions
           bpl NotCrowned
 
-          asl Temp              ; enemy HP
+          asl MonsterMaxHP
 NotCrowned:
           ldy CombatMajorP
-          beq NoHPBoost
+          bpl DoneHPBoost
 
-          asl Temp              ; enemy HP
-          bcc NoHPBoost
+          asl MonsterMaxHP
+          bcc DoneHPBoost
 
-          .mva Temp, #$ff       ; enemy HP max
-NoHPBoost:
-
-          lda EncounterQuantity, x
-          tay
+          .mva MonsterMaxHP, #$ff       ; enemy HP max
+DoneHPBoost:
 
           ;; Zero HP for 5 monsters (we have at least 1), then …
           lda # 0
           ldx # 5
--
+ZeroEnemyHP:
           sta EnemyHP, x
           dex
-          bne -
+          bne ZeroEnemyHP
 
           ;; … actually set the HP for monsters present (per Y = quantity)
-          lda Temp              ; enemy HP
--
+          ldx CurrentCombatEncounter
+          ldy EncounterQuantity, x
+          lda MonsterMaxHP
+FillEnemyHP:
           sta EnemyHP - 1, y
           dey
-          bne -
+          bne FillEnemyHP
 
 SetUpMonsterArt:
           ldy # MonsterArtIndex
@@ -92,13 +93,11 @@ SetUpOtherCombatVars:
           sty WhoseTurn         ; Player's turn
           sty MoveAnnouncement
           sty StatusFX
-          ldx #6
--
+          ldx # 6
+ZeroEnemyStatusFX:
           sty EnemyStatusFX - 1, x
           dex
-          bne -
+          bne ZeroEnemyStatusFX
 
-          ;; fall through to CombatIntroScreen, which does WaitScreenBottom
+          ;; fall through to (far call to) CombatIntroScreen, which does WaitScreenBottom
           .bend
-
-;;; Audited 2022-02-16 BRPocock

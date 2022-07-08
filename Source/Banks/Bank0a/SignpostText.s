@@ -5,7 +5,7 @@
 
           FirstSignpost = 48
 
-          Signs = ( NPC_CanYouSwim, NPC_Allen, NPC_Miranda1, NPC_SueMirror, NPC_Sue, NPC_MirandaMirror, NPC_MirandaTip1, NPC_MirandaTip2, NPC_MirandaTip3, NPC_NeedRing, NPC_GotRing, NPC_FixedRadio, NPC_PeterThanksAgain, NPC_GaryPlayerMirror, NPC_LabyrinthOpen, NPC_Fishing2, NPC_MirandaLabyrinth, NPC_MirandaDone, Sign_DocksToTreble, Sign_FindAndrew, Sign_FindFred, Sign_FindTimmy, Sign_DragonHints, Sign_GetDragonHints, Sign_Ancient )
+          Signs = ( NPC_CanYouSwim, Sign_SouthPortLion, NPC_Miranda1, NPC_SueMirror, NPC_Sue, NPC_MirandaMirror, NPC_MirandaTip1, NPC_MirandaTip2, NPC_MirandaTip3, NPC_NeedRing, NPC_GotRing, NPC_FixedRadio, NPC_PeterThanksAgain, NPC_GaryPlayerMirror, NPC_LabyrinthOpen, NPC_Fishing2, NPC_MirandaLabyrinth, NPC_MirandaDone, Sign_DocksToTreble, Sign_FindAndrew, Sign_FindFred, Sign_FindTimmy, Sign_DragonHints, Sign_GetDragonHints, Sign_Ancient )
 
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
@@ -22,15 +22,15 @@ NPC_CanYouSwim:
           .byte ModeSignpostDone
 
 ;;; 49
-NPC_Allen:
-          .colu COLBLUE, $9
-          .colu COLCYAN, 0
-          .SignText "I'M ALLEN.  "
-          .SignText "THEY SAY IN "
-          .SignText "LEGENDS THE "
-          .SignText "MONSTERS ARE"
-          .SignText "FROM HELL.  "
-          .byte ModeSignpostSetFlag, 6
+Sign_SouthPortLion:
+          .colu COLGRAY, $0
+          .colu COLBROWN, $8
+          .SignText "NORTH TO RED"
+          .SignText "CLIFFS, PORT"
+          .SignText "LION VILLAGE"
+          .SignText "AND LION    "
+          .SignText "WOODS.      "
+          .byte ModeSignpostDone
 
 ;;; 50
 NPC_Miranda1:
@@ -76,43 +76,42 @@ NPC_MirandaMirror:
           .SignText "LET'S TALK  "
           .SignText "ABOUT THOSE "
           .SignText "OLD LEGENDS."
+          .byte ModeSignpostPoints
+          .word $0500
           .byte ModeSignpostSetFlag, 9
 
 ;;; 54
 NPC_MirandaTip1:
           .colu COLPURPLE, 0
           .colu COLTURQUOISE, $c
-          .byte $ff, 10, 55     ; heard legend 1
           .SignText "THEY SAY YOU"
           .SignText "CAN FIND THE"
           .SignText "BOSSES OF   "
           .SignText "MONSTERS IN "
           .SignText "HELL.       "
-          .byte ModeSignpostSetFlag, 10
+          .byte ModeSignpostNext, 55
 
 ;;; 55
 NPC_MirandaTip2:
           .colu COLPURPLE, 0
           .colu COLTURQUOISE, $c
-          .byte $ff, 11, 56     ; heard legend 2
           .SignText "THEY SAY IF "
           .SignText "YOU WANT TO "
           .SignText "GO INTO HELL"
           .SignText "IT'S THROUGH"
           .SignText "A LABYRINTH."
-          .byte ModeSignpostSetFlag, 11
+          .byte ModeSignpostNext, 65
 
 ;;; 56
 NPC_MirandaTip3:
           .colu COLPURPLE, 0
           .colu COLTURQUOISE, $c
-          .byte $ff, 12, 64     ; heard legend 3
-          .SignText "MAYBE FAT   "
-          .SignText "TONY CAN    "
-          .SignText "SHOW YOU THE"
-          .SignText "LABYRINTH'S "
-          .SignText "ENTRANCE.   "
-          .byte ModeSignpostSetFlag, 12
+          .SignText "THERE ARE 3 "
+          .SignText "DRAGONS WHO "
+          .SignText "ANSWER TO A "
+          .SignText "BOSS BEAR.  "
+          .SignText "DEFEAT THEM."
+          .byte ModeSignpostDone
 
 ;;; 57
 NPC_NeedRing:
@@ -124,6 +123,8 @@ NPC_NeedRing:
           .SignText "MAGIC RING  "
           .SignText "OPENS THE   "
           .SignText "LABYRINTH.  "
+          .byte ModeSignpostPoints
+          .word $0100
           .byte ModeSignpostSetFlag, 15
 
 ;;; 58
@@ -135,6 +136,8 @@ NPC_GotRing:
           .SignText "I WILL NOW  "
           .SignText "REVEAL THE  "
           .SignText "LABYRINTH.  "
+          .byte ModeSignpostPoints
+          .word $0500
           .byte ModeSignpostSetFlag, 54
 
 ;;; 59
@@ -198,24 +201,24 @@ NPC_Fishing2:
 NPC_MirandaLabyrinth:
           .colu COLPURPLE, 0
           .colu COLTURQUOISE, $c
-          .byte $ff, 56, 65     ; labyrinth closed still
           .SignText "A LABYRINTH "
           .SignText "MUST HIDE   "
           .SignText "THE BOSSES  "
           .SignText "OF MONSTERS."
           .SignText "UNCOVER IT. "
-          .byte ModeSignpostDone
+          .byte ModeSignpostSetFlag, 12
 
 ;;; 65
 NPC_MirandaDone:
           .colu COLPURPLE, 0
           .colu COLTURQUOISE, $c
-          .SignText "THERE ARE 3 "
-          .SignText "DRAGONS WHO "
-          .SignText "ANSWER TO A "
-          .SignText "BOSS BEAR.  "
-          .SignText "DEFEAT THEM."
-          .byte ModeSignpostDone
+          .byte $ff, 54, 56     ; labyrinth closed still
+          .SignText "MAYBE FAT   "
+          .SignText "TONY CAN    "
+          .SignText "SHOW YOU THE"
+          .SignText "LABYRINTH'S "
+          .SignText "ENTRANCE.   "
+          .byte ModeSignpostNext, 64
 
 ;;; 66
 Sign_DocksToTreble:
@@ -228,7 +231,7 @@ Sign_DocksToTreble:
           .SignText "TREBLE NOW. "
           .byte ModeSignpostInquire
           .byte 96, 97
-          .SignText " SAIL  STAY "
+          .Response "SAIL  ", "STAY  "
 
 ;;; 67
 Sign_FindAndrew:

@@ -3,7 +3,12 @@
 
 ShowGrizzardStats:  .block
           stx WSYNC
-          .ldacolu COLTURQUOISE, 8
+          .switch TV
+          .case NTSC,PAL
+            .ldacolu COLTURQUOISE, 8
+          .case SECAM
+            lda #COLWHITE
+          .endswitch
           sta COLUBK
 
           .FarJSR AnimationsBank, ServiceDrawGrizzard

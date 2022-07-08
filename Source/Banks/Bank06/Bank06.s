@@ -30,15 +30,18 @@ DoLocal:
           .FarJSR TextBank, ServiceCombatIntro
           ;; on return, falls through to:
           .include "CombatMainScreen.s"
+          ;; falls through to:
+          .include "CombatAnnouncementScreen.s"
 
           .include "GrizzardStatsScreen.s"
-          .include "CombatAnnouncementScreen.s"
           .include "ExecuteCombatMove.s"
           .include "CoreAttack.s"
+          .include "CoreHealing.s"
 
           .include "FindHighBit.s"
           .include "CopyPointerText.s"
           .include "ShowMonsterName.s"
+          .include "FindMonsterMove.s"
 
           .include "VSync.s"
           .include "VBlank.s"

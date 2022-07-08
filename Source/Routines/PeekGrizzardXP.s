@@ -2,39 +2,41 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 PeekGrizzardXP:       .block
-
           ;; Call with Grizzard index in Temp
-          ;; Return with Carry Set if found
-          ;; Return with Carry Clear it not
+          ;; Return with Temp = $80 if found
+          ;; Return with Temp = $00 it not
 
           lda Temp
-          jsr SetGrizzardAddress ; takes input in .A as well
+          jsr SetGrizzardAddress ; takes input in A as well
 
           jsr i2cK2
 
-          ;; Max HP, Attack, Defend, XP
-          ldx # 4
--
+          ;; Max HP, Attack, Defend, XP, Moves Known
+          ldx # 5
+Read5Bytes:
           jsr i2cRxByte
 
-          dex
-          bne -
-
-          beq NoGrizzard        ; XP = 0 = no Grizzard
+          beq NotYet
 
           cmp #$ff
-          beq NoGrizzard        ; Garbage read = no Grizzard
+          beq NotYet
 
-          jsr i2cStopRead
+          jmp FoundGrizzard
 
-          ;; Grizzard found!
-          sec
-          rts
+NotYet:
+          dex
+          bne Read5Bytes
 
 NoGrizzard:
           jsr i2cStopRead
 
-          clc
+          .mva Temp, # 0
+          rts
+
+FoundGrizzard:
+          jsr i2cStopRead
+
+          .mva Temp, #$80
           rts
 
           .bend

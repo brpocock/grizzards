@@ -12,21 +12,16 @@ CombatAnnouncementScreen:     .block
 
           .case PAL
             .WaitScreenBottom
-            .SkipLines 1
+            stx WSYNC
+            stx WSYNC
+
+          .case SECAM
+            .WaitForTimer
             lda WhoseTurn
             beq +
             .SkipLines 4
 +
-
-          .case SECAM
-            ;; This is all crazy shit discovered by experiment
-            ;; There is no rational explanation
-            .WaitForTimer
-            lda WhoseTurn
-            beq +
-            .SkipLines 5
-+
-            .SkipLines 11
+            .SkipLines 3
             jsr Overscan
 
           .endswitch
@@ -40,31 +35,16 @@ CombatAnnouncementScreen:     .block
           ldy MoveSelection
 
           lda WhoseTurn
-          bne FindMonsterMove
+          beq FindPlayerMove
+
+          ;; Y = MoveSelection
+          jsr FindMonsterMove
+          jmp MoveFound
 
 FindPlayerMove:
           .FarJSR TextBank, ServiceFetchGrizzardMove
 
           .mvx CombatMoveSelected, Temp
-          gne MoveFound
-
-FindMonsterMove:
-          .mva Pointer + 1, #>MonsterMoves
-
-          clc
-          ldx CurrentCombatEncounter
-          lda EncounterMonster, x
-          asl a
-          asl a
-          adc #<MonsterMoves
-          bcc +
-          inc Pointer + 1
-+
-          sta Pointer
-
-          lax (Pointer), y      ; Y = MoveSelection
-          stx CombatMoveSelected
-          ;; fall through:
 MoveFound:
           lda MoveDeltaHP, x
           sta CombatMoveDeltaHP
@@ -79,7 +59,7 @@ Loop:
 FirstTime:
           jsr Prepare48pxMobBlob
 
-          ;; stx WSYNC ; XXX commented out for space
+          stx WSYNC
           .ldacolu COLINDIGO, 0
           sta COLUBK
 
@@ -189,7 +169,7 @@ Speech1:
           beq SpeechQueued
 
           lda CombatMajorP
-          bne SpeechQueued
+          bmi SpeechQueued
 
           lda #>(Phrase_One - 1)
           sta CurrentUtterance + 1
@@ -256,7 +236,7 @@ Speech6:
           bge SpeechDone
 
           lda CombatMajorP
-          bne SpeechQueued
+          bmi SpeechQueued
 
           ldx CombatMoveSelected
           lda WhoseTurn
@@ -309,7 +289,7 @@ ShowMonsterNameAndNumber:
           jsr ShowMonsterName
 
           lda CombatMajorP
-          beq +
+          bpl +
           ;; major combat, no number
           rts
 +

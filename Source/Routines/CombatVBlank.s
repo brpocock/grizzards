@@ -88,8 +88,7 @@ GotMonster:
 
 DoMonsterMove:
           ldx WhoseTurn
-          dex
-          lda EnemyStatusFX, x
+          lda EnemyStatusFX - 1, x
           and #StatusSleep
           beq MonsterMoves
 
@@ -106,7 +105,9 @@ MonsterMoves:
 
 CheckStick:
           ldx MoveSelection
-          stx WSYNC
+          .if NTSC == TV
+            stx WSYNC
+          .fi
 
           lda NewSWCHA
           beq StickDone
@@ -116,7 +117,7 @@ CheckStick:
 
           .mva NextSound, #SoundChirp
           lda CombatMajorP
-          beq CanSelectMoveUp
+          bpl CanSelectMoveUp
 
           dex
           beq WrapMoveForUp
@@ -138,18 +139,17 @@ DoneStickUp:
 
           inx 
           .mva NextSound, #SoundChirp
-          cpx #9              ; max moves = 8
+          cpx # 9             ; max moves = 8
           blt DoneStickDown
 
-          ldy CombatMajorP
-          beq CanRunAwayDown
-
-          ldx # 1
-          gne DoneStickDown
-
-CanRunAwayDown:
           ldx # 0
 
+          ldy CombatMajorP
+          bpl CanRunAwayDown
+
+          inx                   ; skip RUN AWAY move
+
+CanRunAwayDown:
 DoneStickDown:
           stx MoveSelection
 StickLeftRight:
@@ -158,7 +158,7 @@ StickLeftRight:
 
 ChooseTarget:
           lda CombatMajorP
-          beq ChooseMinorTarget
+          bpl ChooseMinorTarget
 
           ldx # 1
           gne ForcedTarget
@@ -175,7 +175,7 @@ ChooseMinorTarget:
 
           ;; copied from CombatMainScreen
 TargetFirstMonster:
-          ldx #0
+          ldx # 0
 TargetNextMonster:
           lda EnemyHP, x
           bne TargetFirst
@@ -215,7 +215,9 @@ DoneStickRight:
 
 StickDone:
 CheckSwitches:
-          stx WSYNC
+          .if NTSC == TV
+            stx WSYNC
+          .fi
 
           lda NewSWCHB
           beq DoneSwitches
@@ -241,34 +243,6 @@ NoReset:
           .mva GameMode, #ModeGrizzardStats
 
 NoSelect:
-
-;;; XXX the pause code should be in some other place rather than being duplicated here
-;;; Moreover, Pause does not even affect combat mode, so this is maybe wasted code?
-          .if TV == SECAM
-
-            lda DebounceSWCHB
-            and #SWCHBP1Advanced ; SECAM pause
-            sta Pause
-
-          .else
-
-            lda DebounceSWCHB
-            .BitBit SWCHBColor
-            bne NoPause
-
-            and #SWCHB7800
-            beq +
-            lda Pause
-            eor #$ff
-+
-            sta Pause
-            rts
-
-NoPause:
-            ldy # 0             ; XXX necessary?
-            sty Pause
-
-          .fi
 
 DoneSwitches:
           rts

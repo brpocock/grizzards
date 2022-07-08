@@ -40,8 +40,8 @@
           .include "ShowPicture.s"
 
 DoLocal:
-          cpy #ServiceColdStart
-          beq ColdStart
+          cpy #ServiceWarmStart
+          beq Attract
 
           cpy #ServiceSaveToSlot
           beq SaveToSlot
@@ -80,6 +80,9 @@ DoLocal:
 
             cpy #ServiceConfirmNewGame
             beq ConfirmNewGame
+
+            cpy #ServiceCheckSaveSlot
+            beq CheckSaveSlot
           .fi
 
           brk
@@ -101,7 +104,7 @@ SaveGrizzard:                   ; NOSAVE
             rts
 PeekGrizzard:                   ; NOSAVE
             lda Temp
-            cmp # 1
+            cmp CurrentGrizzard
             beq +
             clc
             rts

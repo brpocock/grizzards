@@ -9,6 +9,9 @@ LearntMove:        .block
           cmp #ModeCombat
           bne +
           stx WSYNC
+          .if TV != NTSC
+            stx WSYNC
+          .fi
 +
 
           .WaitScreenTop
@@ -78,7 +81,7 @@ SwitchesDone:
 
 Leave:
           cmp #ModeColdStart
-          beq GoColdStart
+          beq GoWarmStart
 
           rts
 

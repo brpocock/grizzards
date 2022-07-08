@@ -320,7 +320,7 @@ DrawPlayers:
           stx WSYNC
           lda #7
           dcp P0LineCounter
-          bcc NoP0
+          blt NoP0
 
           ldy P0LineCounter
           lda (pp0l), y
@@ -332,7 +332,7 @@ NoP0:
 P0Done:
           lda #7
           dcp P1LineCounter
-          bcc NoP1
+          blt NoP1
 
           ldy P1LineCounter
           lda (pp1l), y
@@ -344,10 +344,10 @@ NoP1:
 P1Done:
           .if TV != NTSC
           ;; extend every even line on PAL/SECAM
-          lda #$01
-          bit LineCounter
-          beq +
-          stx WSYNC
+            lda #$01
+            bit LineCounter
+            beq +
+            stx WSYNC
 +
           .fi
 
@@ -405,6 +405,21 @@ ScreenJumpLogic:
           gne ShouldIStayOrShouldIGo
 
 GoScreenUp:
+          .if BANK == Province2MapBank
+
+            ;; It was possible to get stuck, #413
+            lda CurrentMap
+            cmp # 1
+            bne DoneCoastBump
+            lda PlayerX
+            cmp #$c0
+            blt DoneCoastBump
+
+            .mva BlessedX, #$c0
+
+DoneCoastBump:
+
+          .fi
           .mva BlessedY, #ScreenBottomEdge - 1
           sta PlayerY
           ldy # 0
@@ -423,6 +438,21 @@ GoScreenLeft:
           gne GoScreen
 
 GoScreenRight:
+          .if BANK == Province2MapBank
+
+            ;; It was possible to get stuck, #413
+            lda CurrentMap
+            cmp # 1
+            bne DoneDockBump
+            lda PlayerY
+            cmp #$10
+            bge DoneDockBump
+
+            .mva BlessedY, #$10
+
+DoneDockBump:
+
+          .fi
           .mva BlessedX, #ScreenLeftEdge + 1
           sta PlayerX
           ldy # 3
@@ -437,18 +467,14 @@ GoScreen:
 
           lda CurrentMap
           asl a
-          asl Temp
+          rol Temp
           asl a
-          asl Temp
+          rol Temp
           clc                   ; XXX necessary?
           adc #<MapLinks
-          bcc +
-          inc Pointer + 1
-+
           sta Pointer
 
           lda Pointer + 1
-          clc
           adc Temp
           sta Pointer + 1
 
@@ -469,28 +495,39 @@ ShouldIStayOrShouldIGo:
           cmp #ModeMap
           bne Leave
 
-          .WaitForTimer
-          jsr Overscan
+          jsr LeaveTiming
 
           jmp Loop
+
+LeaveTiming:
+          .WaitForTimer
+          .if TV == NTSC
+            jmp Overscan        ; tail call
+          .else
+            .TimeLines OverscanLines
+            jmp Overscan.Short  ; tail call
+          .fi
 ;;; 
 Leave:
-          cmp #ModeMapNewRoom
-          beq MapSetup.NewRoom
-
-          cmp #ModeMapNewRoomDoor
-          beq MapSetup.NewRoom
-
-          ldx # 0
-          stx CurrentMusic + 1
-
           cmp #ModeGrizzardDepot
           beq EnterGrizzardDepot
 
-          .WaitForTimer
-          jsr Overscan
+          jsr LeaveTiming
 
           lda GameMode
+
+          cmp #ModeMapNewRoom
+          bne +
+          stx WSYNC
+          jmp MapSetup.NewRoom
++
+
+          cmp #ModeMapNewRoomDoor
+          bne +
+          stx WSYNC
+          jmp MapSetup.NewRoom
++
+
           cmp #ModePotion
           beq DoPotions
 
@@ -532,5 +569,3 @@ ShowStats:
           jmp MapSetup
 
           .bend
-
-;;; Audited 2022-02-16 BRPocock

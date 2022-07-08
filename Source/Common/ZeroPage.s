@@ -13,6 +13,9 @@
 
           * = $80
 ZeroPage:
+;;; This must be the first address.
+SystemFlags:
+          .byte ?
 ;;; 
 ;;; General-purpose short-term variable
 ;;;
@@ -31,8 +34,6 @@ Pointer:
 GameMode:
           .byte ?
 
-Pause:
-          .byte ?
 ;;; 
 ;;; Game play/progress indicators -- global
 
@@ -285,6 +286,9 @@ SignpostTextLine:
 SignpostInquiry:
           .byte ?
 
+SignpostAltPixelPointers:
+          .fill 12, ?
+
           * = $f0 - 9
 SignpostLineCompressed:
           .byte ?, ?, ?, ?,  ?, ?, ?, ?,  ?
@@ -341,10 +345,11 @@ MoveTarget:
 MoveAnnouncement:
           .byte ?
 
-;;; Overlain: when drawing vs. executing a move
+MonsterMaxHP:
+          .byte ?
 
-MonsterColorPointer:
-          .word ?
+LastPlayerCombatMove:
+          .byte ?
 
 CurrentMonsterNumber:
           .byte ?
@@ -369,6 +374,7 @@ AttackerAttack:
           .byte ?
 
 DefenderDefend:
+DefenderMaxHP:
           .byte ?
 
 DefenderHP:

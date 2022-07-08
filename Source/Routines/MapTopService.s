@@ -21,8 +21,8 @@ TopOfScreenService: .block
           .ldacolu COLGRAY, 0
           sta COLUBK
 ;;; 
-          lda Pause
-          beq DrawScore
+          bit SystemFlags
+          bpl DrawScore
           .enc "minifont"
           .mva StringBuffer + 0, #"P"
           .mva StringBuffer + 1, #"A"
@@ -161,8 +161,8 @@ NoPuff:
 +
           sta pp1l
 MaybeAnimate:
-          lda Pause
-          bne AnimationFrameReady
+          bit SystemFlags
+          bmi AnimationFrameReady
           lda SpriteAction, x
           cmp #SpriteCombat
           beq Flippy

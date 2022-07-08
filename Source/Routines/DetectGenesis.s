@@ -17,15 +17,15 @@ DetectGenesis:      .block
           lda INPT1
           bpl NotGenesis
 
-          lda SWCHB
-          ora #SWCHBP0Genesis
+          lda SystemFlags
+          ora #SystemFlagP0Gamepad
           gne DoneGenesis
 
 NotGenesis:
-          lda SWCHB
-          and #~SWCHBP0Genesis
+          lda SystemFlags
+          and #~SystemFlagP0Gamepad
 DoneGenesis:
-          sta SWCHB
+          sta SystemFlags
 
           .WaitScreenBottom
 

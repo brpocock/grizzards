@@ -161,4 +161,4 @@ i2cWaitForAck:
           bcs -
           jmp i2cStopWrite      ; tail call
 
-          .fill 46              ; In case this has to grow
+          .fill 19              ; In case this has to grow

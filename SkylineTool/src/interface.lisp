@@ -17,8 +17,10 @@
         :compile-code 'compile-skylisp
         :collect-strings 'collect-strings
         :compile-music 'compile-music
+        :compile-tileset 'compile-tileset
         :collect-assets 'collect-assets
-        :compile-critters 'compile-critters))
+        :compile-critters 'compile-critters
+        :compile-art-7800 'compile-art-7800))
 
 (defun debug-myself-in-emacs ()
   (let ((swank (find-package :swank)))
@@ -36,12 +38,6 @@
   (climacs:edit-file file
                      :process-name "Editing Skyline-Tool"))
 
-(defun start-prepl ()
-  (about-skyline-tool)
-  (format t "~5% Skyline-Tool internal REPL starting…
-To invoke command-line entry points, use (c VERB PARAMS)")
-  (let ((*package* (find-package :skyline-tool)))
-    (prepl:repl)))
 
 #+mcclim
 (defun start-listener ()
@@ -124,12 +120,7 @@ To invoke command-line entry points, use (c VERB PARAMS)")
                      :report "Open a read-eval-print-loop listener"
                      (if (x11-p)
                          (clim-listener:run-listener :process-name "Skyline Tool REPL"
-                                                     :package :skyline-tool)
-                         (start-prepl))
-                     (go do-over))
-          #-mcclim (start-repl ()
-                     :report "Open a read-eval-print-loop listener"
-                     (start-prepl)
+                                                     :package :skyline-tool))
                      (go do-over))
           (debug-in-emacs ()
             :report "Debug this in a running GNU Emacs"
@@ -214,7 +205,7 @@ documentation also.
   (let ((sb-impl::*default-external-format* :utf-8))
     (with-happy-restarts
         (unless (< 1 (length argv))
-          (start-prepl))
+          (error "Ask for help if you need it, argument required"))
       (destructuring-bind (self verb &rest invocation) argv
         (if-let (fun (getf *invocation* (make-keyword (string-upcase verb))))
           (flet ((runner ()

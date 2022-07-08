@@ -16,8 +16,8 @@ ReturnChild:
 ChildReward:
 ♂Thank you for saving Peter.Have this as a reward.To do
 
-Labyrinth:
-To do.I need to write something here.
+NewGamePlusGo:
+\Volume\127\Speed\100☿New Game Plus Begins Now\CallPhrase\0
 
 KeyFred:
 This lever unlocks the door to the dreaded dragon Fred

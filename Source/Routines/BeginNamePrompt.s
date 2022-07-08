@@ -131,7 +131,7 @@ CursorPosGross:
           bne DoneSwitches
 
           .WaitScreenBottom
-          jmp GoColdStart
+          jmp GoWarmStart
 
 DoneSwitches:
           lda NewSWCHA
@@ -153,7 +153,7 @@ NoStick:
           lda NewButtons
           beq Done
 
-          and # PRESSED
+          and #ButtonI
           bne Done
 
 ButtonPressed:

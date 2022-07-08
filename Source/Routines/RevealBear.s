@@ -80,12 +80,13 @@ BearDelay2:
           lda NewButtons
           beq BearLoop
 
-          .BitBit PRESSED
+          and #ButtonI
           bne BearLoop
 
           .mva NextSound, # SoundDrone
           .mva CurrentCombatEncounter, # 92 ; Boss Bear combat scenario
-          .mva CombatMajorP, #$ff
+          .mva CombatMajorP, #$80
+          .mva CurrentHP, MaxHP
           .WaitScreenBottom
           jmp GoCombat
 

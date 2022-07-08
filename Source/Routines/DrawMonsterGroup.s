@@ -53,8 +53,18 @@ GotFrame:
           ldy # 0
           lda # 1
           bit ClockSeconds
-          beq GotFlip
+          beq GotFlipMaybe
+
           ldy #REFLECTED
+          gne GotFlip
+
+GotFlipMaybe:
+          lda #$20              ; if reflected & frame 0 we need one more scan line
+          bit ClockFrame
+          beq GotFlip
+
+          .Sleep 5              ; just enough to break even somehow
+          
 GotFlip:
           sty REFP0
           txa
@@ -138,7 +148,9 @@ SetUpCursor:
           dex
           jmp PositionCursor
 ;;;
-          .align $10       ; XXX alignment
+          .if TV != PAL
+            .align $10       ; XXX alignment
+          .fi
 PositionCursor:
           stx HMCLR
 
@@ -302,6 +314,9 @@ DrawMonsterLoop:
           ;; must return with Y=0 and Z flag set
           rts
 ;;; 
+          .if SECAM == TV
+            .text "BRP"         ; 3 bytes padding
+          .fi
 DrawNothing:
 
           ldy # 0

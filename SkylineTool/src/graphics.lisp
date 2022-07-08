@@ -133,10 +133,35 @@
       (68  40   0) (100  72  24) (132 104  48) (160 132  68) (184 156  88) (208 180 108) (232 204 124) (252 224 140))
   :test 'equalp)
 
+(define-constant +prosystem-ntsc-palette+
+    '((0 0 0) (18 18 18) (36 36 36) (54 54 54) (71 71 71) (89 89 89) (107 107 107) (125 125 125) (143 143 143) (161 161 161) (178 178 178) (196 196 196) (214 214 214) (232 232 232) (250 250 250) (255 255 255)
+      (10 22 0) (36 40 0) (62 58 0) (88 76 0) (113 94 0) (139 111 0) (165 129 0) (186 147 11) (204 165 29) (222 183 47) (239 201 65) (255 218 82) (255 236 100) (255 254 118) (255 255 136) (255 255 154)
+      (31 6 0) (57 24 0) (82 42 0) (108 59 0) (134 77 0) (160 95 0) (184 113 4) (202 131 22) (219 149 40) (237 166 58) (255 184 76) (255 202 94) (255 220 111) (255 238 129) (255 255 147) (255 255 165)
+      (50 0 0) (71 6 0) (97 24 0) (122 42 0) (148 60 0) (166 78 18) (184 95 36) (201 113 54) (220 131 72) (238 149 89) (255 167 107) (255 185 125) (255 203 143) (255 220 161) (255 238 179) (255 255 197)
+      (62 0 0) (80 0 0) (97 9 10) (116 27 28) (133 45 46) (151 62 64) (168 80 81) (187 98 99) (204 116 117) (223 134 135) (240 152 153) (255 170 171) (254 187 189) (255 205 206) (255 223 224) (255 241 242)
+      (51 0 25) (61 0 43) (71 0 61) (88 17 79) (107 35 96) (125 53 114) (141 70 132) (159 88 150) (177 106 168) (195 124 186) (214 142 203) (227 160 221) (227 178 239) (228 195 255) (236 213 255) (244 231 255)
+      (18 0 71) (28 0 89) (38 0 106) (54 14 124) (72 32 142) (89 50 160) (107 68 178) (125 86 196) (144 104 213) (161 121 231) (179 139 249) (203 157 255) (219 175 255) (227 193 255) (235 211 255) (243 228 255)
+      (0 0 102) (0 0 120) (3 2 138) (20 19 156) (37 37 174) (55 55 192) (73 73 210) (92 91 227) (110 109 245) (131 126 255) (157 144 255) (182 162 255) (208 180 255) (229 198 255) (237 216 255) (246 234 255)
+      (0 0 114) (0 0 132) (0 13 150) (0 31 168) (11 49 185) (29 67 203) (46 85 221) (64 103 239) (82 120 255) (108 138 255) (134 156 255) (160 174 255) (187 192 255) (212 210 255) (238 228 255) (250 245 255)
+      (0 0 103) (0 12 121) (0 30 139) (0 47 157) (0 65 174) (13 83 192) (31 101 210) (49 119 228) (66 137 246) (88 155 255) (114 172 255) (140 190 255) (166 208 255) (192 226 255) (218 244 255) (240 255 255)
+      (0 11 72) (0 29 90) (0 47 107) (0 65 125) (0 83 143) (13 101 161) (30 118 179) (48 136 197) (65 154 215) (84 172 232) (102 190 250) (126 208 255) (152 226 255) (177 243 255) (200 255 255) (218 255 255)
+      (0 27 26) (0 44 44) (0 62 62) (0 80 80) (9 98 98) (27 116 116) (45 134 133) (63 152 151) (81 169 169) (98 187 187) (116 205 205) (134 223 223) (152 241 241) (170 255 255) (188 255 255) (206 255 255) 
+      (17 37 0) (24 54 0) (27 72 11) (27 90 29) (36 108 47) (54 126 65) (72 144 83) (89 161 101) (107 179 118) (125 197 136) (143 215 154) (161 233 172) (179 251 190) (191 255 208) (200 255 226) (210 255 243) 
+      (18 39 0) (26 57 0) (34 75 0) (45 93 0) (70 111 1) (88 129 19) (106 146 37) (124 164 55) (141 182 73) (159 200 90) (177 218 108) (195 236 126) (213 253 144) (224 255 162) (233 255 180) (243 255 198) 
+      (15 34 0) (23 52 0) (38 70 0) (65 88 0) (91 106 0) (117 124 0) (140 141 5) (158 159 23) (175 177 41) (194 195 58) (212 213 76) (230 231 94) (247 248 112) (255 255 130) (255 255 148) (255 255 166) 
+      (10 23 0) (35 40 0) (61 58 0) (87 76 0) (113 94 0) (138 112 0) (164 130 0) (185 147 11) (203 165 29) (221 183 47) (239 201 65) (255 219 82) (255 237 100) (255 255 118) (255 255 136) (255 255 154)) 
+  :test 'equalp)
+
 (define-constant +vcs-pal-palette+ '()) ;; TODO
 (define-constant +vcs-secam-palette+ '()) ;; TODO
 
 (define-constant +unicode->ascii-ish+ nil)
+
+(defun double-up (list)
+  (loop for item in list
+        appending (list item item)))
+
+(assert (equalp '(a a b b c c) (double-up '(a b c))))
 
 (defun machine-palette ()
   (copy-list (ecase *machine*
@@ -148,6 +173,9 @@
                        (:ntsc +vcs-ntsc-palette+)
                        (:pal +vcs-pal-palette+)
                        (:secam +vcs-secam-palette+)))
+               (7800 (ecase *region* ;;; Not techically accurate, there are 256 colors XXX
+                       (:ntsc +prosystem-ntsc-palette+)
+                       (:pal (double-up +vcs-pal-palette+))))
                (264 +ted-palette+)
                (16 +tg16-palette+))))
 
@@ -177,7 +205,7 @@
                                    (machine-palette) red green blue)
         (let ((use (position (list r g b) (machine-palette) :test 'equalp)))
           (unless (position (list red green blue) *palette-warnings* :test 'equalp)
-            (warn-once "Colour not in ~a palette: #~2,'0X~2,'0X~2,'0X; used ~x (#~2,'0X~2,'0X~2,'0X)"
+            (warn-once "Colour not in ~a palette: #~2,'0X~2,'0X~2,'0X; used $~2,'0x (#~2,'0X~2,'0X~2,'0X)"
                        (machine-short-name) red green blue
                        use r g b)
             (push (list red green blue) *palette-warnings*))
@@ -348,20 +376,20 @@ PNG image in an unsuitable format:
   (let ((shape nil)
         (colors nil))
     (loop for row from 0 below (second (array-dimensions pixels))
-       do (push (reduce #'logior
-                        (loop for bit from 0 to 7
-                           collect (if (plusp (aref pixels bit row))
-                                       (expt 2 (- 7 bit))
-                                       0)))
-                shape)
-       do (push (or
-                 (first
-                  (remove-if #'null (loop for bit from 0 to 7
-                                       for color = (aref pixels bit row)
-                                       collect (when (plusp color)
-                                                 color))))
-                 0)
-                colors))
+          do (push (reduce #'logior
+                           (loop for bit from 0 to 7
+                                 collect (if (plusp (aref pixels bit row))
+                                             (expt 2 (- 7 bit))
+                                             0)))
+                   shape)
+          do (push (or
+                    (first
+                     (remove-if #'null (loop for bit from 0 to 7
+                                             for color = (aref pixels bit row)
+                                             collect (when (plusp color)
+                                                       color))))
+                    0)
+                   colors))
     (values (reverse shape) (reverse colors))))
 
 (defun tia-player-interpret (pixels)
@@ -568,6 +596,7 @@ Shape:~{~a~}
                    out-dir)))
     (format *trace-output* "~% Ripping MOBs from ~D×~D sprite" width height)
     (with-output-to-file (binary-file out-file
+                                      :element-type '(unsigned-byte 8)
                                       :if-exists :supersede)
       (multiple-value-bind (mobs index) (gather-mobs image-nybbles height width)
         (assert (>= 6 (length index)) nil
@@ -930,9 +959,317 @@ value ~D for tile-cell ~D is too far down for an image with width ~D" (tile-cell
       (dispatch-png% *machine* png-file target-dir
                      png height width α palette-pixels))))
 
+(defun write-7800-binary (index-out bytes-lists)
+  (with-output-to-file (binary index-out   
+                               :element-type '(unsigned-byte 8)
+                               :if-exists :supersede)
+    (let ((page-length (length (first bytes-lists))))
+      (format t "~&~A: Writing ~:D pages, each of which is ~:D bytes (out of 256 possible) …"
+              index-out (length bytes-lists) page-length)
+      (dolist (bytes-list bytes-lists)
+        (dolist (byte bytes-list)
+          (write-byte byte binary))
+        (when (< page-length #x100)
+          (dotimes (i (- #x100 page-length))
+            (write-byte 0 binary))))
+      (format t " … done.~%"))))
+
+(defun interleave-7800-bytes (bytes-lists)
+  ;; Interleave and reverse bytes
+  (loop for j below (apply #'max (mapcar #'length bytes-lists))
+        collect (loop for i from (1- (length bytes-lists)) downto 0
+                      collect (if (< j (length (elt bytes-lists i)))
+                                  (elt (elt bytes-lists i) j)
+                                  0))))
+
+(defgeneric parse-7800-object (mode png &key width height palette))
+
+(defun extract-regions (pixels width height)
+  (let ((images (list)))
+    (dotimes (y (floor (/ (array-dimension pixels 1) height)))
+      (dotimes (x (/ (array-dimension pixels 0) width))
+        (push (extract-region pixels
+                              (* x width) (* y height)
+                              (1- (* (1+ x) width))
+                              (1- (* (1+ y) height)))
+              images)))
+    (reverse images)))
+
+(defun pixels-into-palette (pixels palette &optional x0 y0 i)
+  ;; expects PIXELS to be a single row
+  (let* ((width (array-dimension pixels 0))
+         (output (make-array (list width) :element-type '(unsigned-byte 8))))
+    (dotimes (x width)
+      (let ((index (position (aref pixels x 0) palette)))
+        (assert index (index) "Color value ~x at ~d, ~d ~anot found in palette, error" (aref pixels x 0)
+                (if x0 (+ x0 x) x) (if y0 y0 "?") (if i (format nil "in image ~d " i) ""))
+        (setf (aref output x) index)))
+    output))
+
+(defmethod parse-7800-obect ((mode (eql :160a)) pixels &key width height palette)
+  (assert (>= 4 (length palette)))
+  (let ((total-width (array-dimension pixels 0))
+        (total-height (1- (array-dimension pixels 1))))
+    (assert (zerop (mod total-height height)) (total-height)
+            "Image height must be modulo ~:Dpx plus 1px for palette strip, but got ~:Dpx"
+            height (1+ total-height))
+    (assert (zerop (mod total-width width)) (total-width)
+            "Image width must be module ~:Dpx, but get ~:Dpx" width total-width)
+    (assert (zerop (mod width 4)) (width)
+            "Width for mode 160A must be modulo 4px, not ~:Dpx" width))
+  (let* ((byte-width (/ width 4))
+         (images (extract-regions pixels width height))
+         (bytes-lists (list)))
+    (dolist (image images)
+      (dotimes (b byte-width)
+        (let ((bytes (list)))
+          (dotimes (y height)
+            (let* ((byte-pixels (extract-region image
+                                                (* b 4) y
+                                                (1- (* (1+ b) 4)) y))
+                   (indices (pixels-into-palette byte-pixels palette (* b 4) y)))
+              (push (logior
+                     (ash (aref indices 0) 6)
+                     (ash (aref indices 1) 4)
+                     (ash (aref indices 2) 2)
+                     (aref indices 3))
+                    bytes)))
+          (push bytes bytes-lists))))
+    (reverse bytes-lists)))
+
+(defun 160b-palette-monkey (values)
+  (dotimes (i (length values))
+    (setf (elt values i) (position (elt values i) '(0 1 2 3 0 4 5 6 0 7 8 9 0 10 11 12))))
+  values)
+
+(defmethod parse-7800-object ((mode (eql :160b)) pixels &key width height palette)
+  (assert (= 13 (length palette)))
+  (let ((total-width (array-dimension pixels 0))
+        (total-height (1- (array-dimension pixels 1))))
+    (assert (zerop (mod total-height height)) (total-height)
+            "Image height must be modulo ~:Dpx plus 1px for palette strip, but got ~:Dpx"
+            height (1+ total-height))
+    (assert (zerop (mod total-width width)) (total-width)
+            "Image width must be module ~:Dpx, but get ~:Dpx" width total-width)
+    (assert (zerop (mod width 4)) (width)
+            "Width for mode 160B must be modulo 2px, not ~:Dpx" width))
+  (let* ((byte-width (/ width 2))
+         (images (extract-regions pixels width height))
+         (bytes-lists (list))
+         (i 0)) 
+    (dolist (image images)
+      (dotimes (b byte-width)
+        (let ((bytes (list)))
+          (dotimes (y height)
+            (let* ((byte-pixels (extract-region image
+                                                (* b 2) y
+                                                (1+ (* b 2)) y))
+                   (indices (160b-palette-monkey
+                             (pixels-into-palette byte-pixels palette (* b 2) y i))))
+              ;; pixel:bit order = A: 3276, B: 1054
+              ;;; which translates to bit:pixel order =
+              ;; A1 A0 B1 B0 A3 A2 B3 B2
+              (let ((a (aref indices 0))
+                    (b (aref indices 1)))
+                (flet ((truthy (n) (if (zerop n) 0 1)))
+                  (push (logior (ash (truthy (logand a #x2)) 7)
+                                (ash (truthy (logand a #x1)) 6)
+                                (ash (truthy (logand b #x2)) 5)
+                                (ash (truthy (logand b #x1)) 4)
+                                (ash (truthy (logand a #x8)) 3)
+                                (ash (truthy (logand a #x4)) 2)
+                                (ash (truthy (logand b #x8)) 1)
+                                (ash (truthy (logand b #x4)) 0))
+                        bytes)))))
+          (push bytes bytes-lists)))
+      (incf i))
+    (reverse bytes-lists)))
+
+(defmethod parse-7800-object ((mode (eql :320a)) pixels &key width height palette)
+  (declare (ignore palette))
+  (let ((total-width (array-dimension pixels 0))
+        (total-height (array-dimension pixels 1)))
+    (unless (zerop (mod total-height height)) 
+      (warn "Image height must be modulo ~:Dpx, but got ~:Dpx"
+            height (1+ total-height)))
+    (assert (zerop (mod total-width width)) (total-width)
+            "Image width must be module ~:Dpx, but get ~:Dpx" width total-width)
+    (assert (zerop (mod width 8)) (width)
+            "Width for mode 320A must be modulo 8px, not ~:Dpx" width))
+  (let* ((byte-width (/ width 8))
+         (images (extract-regions pixels width height))
+         (bytes-lists (list)))
+    (dolist (image images)
+      (dotimes (b byte-width)
+        (let ((bytes (list)))
+          (dotimes (y height)
+            (let ((byte-pixels (extract-region image
+                                               b y
+                                               (+ b 7) y)))
+              (push (reduce #'logior
+                            (mapcar (lambda (bit)
+                                      (ash (if (zerop (aref byte-pixels (- 7 bit) 0))
+                                               0 1) 
+                                           bit))
+                                    '(7 6 5 4 3 2 1 0)))
+                    bytes)))
+          (push bytes bytes-lists))))
+    (reverse bytes-lists)))
+
+(defmethod parse-7800-object ((mode (eql :320b)) pixels &key width height palette)
+  (assert (>= 4 (length palette)))
+  (let ((total-width (array-dimension pixels 0))
+        (total-height (1- (array-dimension pixels 1))))
+    (assert (zerop (mod total-height height)) (total-height)
+            "Image height must be modulo ~:Dpx plus 1px for palette strip, but got ~:Dpx"
+            height (1+ total-height))
+    (assert (zerop (mod total-width width)) (total-width)
+            "Image width must be module ~:Dpx, but get ~:Dpx" width total-width)
+    (assert (zerop (mod width 4)) (width)
+            "Width for mode 320B must be modulo 4px, not ~:Dpx" width))
+  (let* ((byte-width (/ width 4))
+         (images (extract-regions pixels width height))
+         (bytes-lists (list)))
+    (dolist (image images)
+      (dotimes (b byte-width)
+        (let ((bytes (list)))
+          (dotimes (y height)
+            (let* ((byte-pixels (extract-region image
+                                                (* b 4) y
+                                                (1- (* (1+ b) 4)) y))
+                   (indices (pixels-into-palette byte-pixels palette (* b 4) y)))
+              (push (logior
+                     (ash (aref indices 0) 6)
+                     (ash (aref indices 1) 4)
+                     (ash (aref indices 2) 2)
+                     (aref indices 3))
+                    bytes)))
+          (push bytes bytes-lists))))
+    (reverse bytes-lists)))
+
+(defmethod parse-7800-object ((mode (eql :320c)) pixels &key width height palette)
+  (assert (>= 8 (length palette)))
+  (let ((total-width (array-dimension pixels 0))
+        (total-height (1- (array-dimension pixels 1))))
+    (assert (zerop (mod total-height height)) (total-height)
+            "Image height must be modulo ~:Dpx plus 1px for palette strip, but got ~:Dpx"
+            height (1+ total-height))
+    (assert (zerop (mod total-width width)) (total-width)
+            "Image width must be module ~:Dpx, but get ~:Dpx" width total-width)
+    (assert (zerop (mod width 4)) (width)
+            "Width for mode 320C must be modulo 4px, not ~:Dpx" width))
+  (let* ((byte-width (/ width 4))
+         (images (extract-regions pixels width height))
+         (bytes-lists (list)))
+    (dolist (image images)
+      (dotimes (b byte-width)
+        (let ((bytes (list)))
+          (dotimes (y height)
+            (let* ((byte-pixels (extract-region image
+                                                (* b 4) y
+                                                (1- (* (1+ b) 4)) y))
+                   (indices (pixels-into-palette byte-pixels palette (* b 4) y))
+                   (px-pair-palette (mapcar (lambda (pair)
+                                              (cond
+                                                ((and (zerop (car pair))
+                                                      (zerop (cdr pair)))
+                                                 0)
+                                                ((zerop (car pair))
+                                                 (ash (logand (cdr pair) #x06) -1))
+                                                (t
+                                                 (ash (logand (car pair) #x06) -1))))
+                                            (list (cons (aref indices 0)
+                                                        (aref indices 1))
+                                                  (cons (aref indices 2)
+                                                        (aref indices 3))))))
+              (push (logior
+                     (ash (logand (aref indices 0) #x01) 7)
+                     (ash (logand (aref indices 1) #x01) 6)
+                     (ash (logand (aref indices 2) #x01) 5)
+                     (ash (logand (aref indices 3) #x01) 4)
+                     (ash (first px-pair-palette) 2)
+                     (second px-pair-palette))
+                    bytes)))
+          (push bytes bytes-lists))))
+    (reverse bytes-lists)))
+
+(defmethod parse-7800-object ((mode (eql :320d)) png &key width height palette)
+  (error "unimplemented mode ~A" mode))
+
+(defun grab-7800-palette (mode png)
+  (when (member mode '(:320a :320d))
+    (return-from grab-7800-palette nil))
+  (let* ((palette-size (ecase mode
+                         (:160a 4)
+                         (:160b 13)
+                         (:320b 4)
+                         (:320c 8)))
+         (last-row (1- (array-dimension png 1)))
+         (palette-strip (extract-region png
+                                        0 last-row
+                                        palette-size last-row)))
+    (let ((palette (loop for i below palette-size
+                         collect (aref palette-strip i 0))))
+      (if (eql mode :160b)
+          (format t "~&Palette detected: $~2,'0x; ~{$~2,'0x $~2,'0x $~2,'0x~^, ~}" (first palette) (rest palette))
+          (format t "~&Palette detected: ~{$~2,'0x $~2,'0x $~2,'0x $~2,'0x~^, ~}" palette))
+      palette)))
+
+(defun parse-into-7800-bytes (art-index)
+  (let ((bytes (list)))
+    (dolist (art-item art-index)
+      (destructuring-bind (mode png-name width-px height-px) art-item
+        (format t "~&~A: parsing in mode ~A …" png-name mode)
+        (let* ((png (png-read:read-png-file png-name))
+               (height (png-read:height png))
+               (width (png-read:width png))
+               (α (png-read:transparency png))
+               (palette-pixels (png->palette height width
+                                             (png-read:image-data png)
+                                             α))
+               (palette (grab-7800-palette mode palette-pixels)))
+          (appendf bytes
+                   (parse-7800-object mode palette-pixels :width width-px :height height-px
+                                                          :palette palette)))
+        (format t " … Done.")))
+    (reverse bytes)))
+
+(defun read-7800-art-index (index-in)
+  (let ((png-list (list)))
+    (format t "~&~A: reading art index …" index-in)
+    (with-input-from-file (index index-in)
+      (loop for line = (read-line index nil)
+            while line
+            do (let ((line (string-trim #(#\Space #\Tab #\Newline #\Return #\Page)
+                                        line))) 
+                 (cond
+                   ((emptyp line) nil)
+                   ((char= #\# (char line 0)) nil)
+                   (t (destructuring-bind (png-name mode cell-size)
+                          (split-sequence #\Space line :remove-empty-subseqs t :test #'char=)
+                        (destructuring-bind (width-px height-px)
+                            (split-sequence #\× cell-size :test #'char=)
+                          (push (list (make-keyword mode) 
+                                      (make-pathname :defaults index-in
+                                                     :name (subseq png-name 0 
+                                                                   (position #\. png-name :from-end t))
+                                                     :type "png")
+                                      (parse-integer width-px) 
+                                      (parse-integer height-px))
+                                png-list))))))))
+    (format t " … done. Got ~:D PNG files to read." (length png-list))
+    (reverse png-list)))
+
+(defun compile-art-7800 (index-out index-in)
+  (let ((*machine* 7800))
+    (write-7800-binary index-out
+                       (interleave-7800-bytes
+                        (parse-into-7800-bytes
+                         (read-7800-art-index index-in))))))
+
 (defun compile-art (index-out &rest png-files)
   (let ((*machine* (or (machine-from-filename index-out)
-		       2600)))
+		   2600)))
     (dolist (file png-files)
       (dispatch-png file index-out))))
 
@@ -955,12 +1292,12 @@ value ~D for tile-cell ~D is too far down for an image with width ~D" (tile-cell
                                                          :test #'equalp))
                      #'string<)))
       (let ((candidates (loop for each on
-                             (remove-if-not (lambda (def)
-                                              (destructuring-bind (tag x₀ y₀ x₁ y₁) def
-                                                (declare (ignore tag))
-                                                (and (= x₀ x₁) (= y₀ y₁))))
-                                            (reverse *tileset*))
-                           by #'cdr appending each)))
+                                       (remove-if-not (lambda (def)
+                                                        (destructuring-bind (tag x₀ y₀ x₁ y₁) def
+                                                          (declare (ignore tag))
+                                                          (and (= x₀ x₁) (= y₀ y₁))))
+                                                      (reverse *tileset*))
+                              by #'cdr appending each)))
         (let ((chosen (nth (random (length candidates)) candidates)))
           (def->tile-id chosen 0 0))))))
 

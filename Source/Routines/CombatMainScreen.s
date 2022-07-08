@@ -4,9 +4,13 @@
 CombatMainScreen:   .block
 
 BackToPlayer:
-          .mva MoveSelection, # 1
-          .mva GameMode, #ModeCombat
+          .mva MoveSelection, LastPlayerCombatMove
           .mva AlarmCountdown, # 4
+MonsterThwarted:
+          ;; The  MonsterThwarted entry  point  is used  when a  monster
+	;; thinks  it wants  to choose  a healing  move, but  it has  not
+	;; actually been injured yet.
+          .mva GameMode, #ModeCombat
 
           lda StatusFX
           .BitBit StatusSleep
@@ -21,9 +25,22 @@ NotAsleep1:
           .SetUtterance Phrase_Muddled
 
 NotMuddled1:
+
+FindPlayerMove:
+          .FarJSR TextBank, ServiceFetchGrizzardMove
+
+          .mvx CombatMoveSelected, Temp
+MoveFound:
+          lda MoveDeltaHP, x
+          sta CombatMoveDeltaHP
+
+          ldx # 0
+
+          lda CombatMoveDeltaHP
+          bmi GotTarget
+
           ;; copied into CombatVBlank also
 TargetFirstMonster:
-          ldx #0
 -
           lda EnemyHP, x
           bne TargetFirst
@@ -34,6 +51,7 @@ TargetFirstMonster:
 
 TargetFirst:
           inx
+GotTarget:
           stx MoveTarget
 
           .WaitScreenBottom
@@ -49,53 +67,45 @@ Loop:
 
           .case PAL
 
-            .WaitScreenBottom
-            lda WhoseTurn
-            bne NWait0
-
-            .SkipLines 2
-            lda MoveSelection
-            bne NWait0
-
-            .SkipLines 1
-NWait0:
-            lda CombatMajorP
+            ldx WhoseTurn
             beq +
-            stx WSYNC
+
+            ;; skip a few lines because it's the monsters' turn
+            ;; (no, this doesn't make any sense)
+            lda INTIM
+            sec
+            sbc # 5
+            sta TIM64T
 +
+            .WaitScreenBottom
+            .SkipLines 2
 
           .case SECAM
 
-            ;; Modified WaitScreenBottom
-            .WaitForTimer
-            .SkipLines 8
-            lda WhoseTurn
-            bne +
-            stx WSYNC
-+
-            stx WSYNC
-            ;; if not RUN AWAY 
-            lda MoveSelection
-            bne +
-            stx WSYNC
-+
-            lda MoveTarget
-            bne +
-            stx WSYNC
-+
-            lda CombatMajorP
-            beq +
-            .SkipLines 4
-+
-
-            stx WSYNC
-
-            jsr Overscan
+            .WaitScreenBottom
+            .SkipLines 2
 
           .endswitch
 
 LoopFirst:
-          .WaitScreenTopMinus 1, 3
+          .switch TV
+          .case NTSC, PAL
+            .WaitScreenTopMinus 1, 0
+          .case SECAM
+            ;;  broken down WaitScreenTop
+            jsr VSync
+            ldx WhoseTurn
+            beq TopPlayerTurn
+
+            lda # ( ( (76 * 210) / 64 ) - 1)
+            gne CommonTop
+
+TopPlayerTurn:
+            lda # ( ( (76 * 214 ) / 64 ) - 1)
+CommonTop:
+            sta TIM64T
+
+          .endswitch
           jsr Prepare48pxMobBlob
 
           .switch TV
@@ -114,7 +124,7 @@ LoopFirst:
             bne +
             .ldacolu COLGRAY, $8
 +
-          
+
           .case SECAM
 
             lda #COLWHITE
@@ -129,7 +139,6 @@ BGTop:
           .ldacolu COLYELLOW, $f
           sta COLUP0
           sta COLUP1
-
 ;;; 
 MonstersDisplay:
           lda CurrentCombatEncounter
@@ -160,7 +169,10 @@ MonsterWithName:
 +
 
           lda CombatMajorP
-          beq MinorCombatArt
+          bpl MinorCombatArt
+
+          ;; XXX this check should not be necessary but is here for bug #409
+          ;; it prevents an unwinnable boss fight where monsters 2+ exist.
           lda EnemyHP + 1
           ora EnemyHP + 2
           ora EnemyHP + 3
@@ -174,8 +186,9 @@ MajorCombatArt:
           jmp DelayAfterMonsters
 
 MinorCombatArt:
-          ldy # 0               ; necessary here
-          sty CombatMajorP
+          .mvy CombatMajorP, # 0      ; should have already been the case, but bugs are buggy.
+          ;; I don't know why this is sometimes set.
+          ;; XXX once #409 is closed maybe the prior 2 lines can go
           .FarJSR MonsterBank, ServiceDrawMonsterGroup
 
 DelayAfterMonsters:
@@ -187,11 +200,9 @@ BeginPlayerSection:
           .ldacolu COLBLUE, $f
           sta COLUP0
           sta COLUP1
-          lda WhoseTurn
-          beq PlayerBGBottom
-
           .ldacolu COLGRAY, $2
-          jmp BGBottom
+          ldx WhoseTurn
+          bne BGBottom
 
 PlayerBGBottom:
           .if TV == SECAM
@@ -247,7 +258,7 @@ DrawHealthPF:
 
           lda HealthyPF2, x
           sta pp2l
-          gne DoneHealth
+          gne ReadyHealth
 
 FullPF2:
           .mva pp2l, #$ff
@@ -262,7 +273,7 @@ FullPF2:
 
           lda HealthyPF1, x
           sta pp1l
-          gne DoneHealth
+          gne ReadyHealth
 
 FullPF1:                        ; ∈ 8…12
           sec
@@ -273,12 +284,12 @@ FullPF1:                        ; ∈ 8…12
           sta pp0l
           ;; fall through
 
-DoneHealth:
+ReadyHealth:
           stx WSYNC
           .mva PF0, pp0l
           .mva PF1, pp1l
           .mva PF2, pp2l
-          .SkipLines 4
+          .SkipLines 3
           ldy # 0
           sty PF0
           sty PF1
@@ -334,13 +345,16 @@ NotMuddled:
           gne ShowSelectedMove
 
 NotRunAway:
-          stx WSYNC
-
           lda BitMask - 1, x
           bit MovesKnown
           beq NotMoveKnown
 
-          .ldacolu COLTURQUOISE, $e
+          .switch TV
+          .case NTSC, SECAM
+            .ldacolu COLTURQUOISE, $e
+          .case PAL
+            .ldacolu COLTURQUOISE, $8
+          .endswitch
           gne ShowSelectedMove
 
 NotMoveKnown:
@@ -349,14 +363,13 @@ NotMoveKnown:
 ShowSelectedMove:
           sta COLUP0
           sta COLUP1
-          stx WSYNC
           .FarJSR TextBank, ServiceShowMove
 
 UserControls:
           lda NewButtons
           beq ScreenDone
 
-          and #PRESSED
+          and #ButtonI
           bne ScreenDone
 
 GoDoMove:
@@ -380,6 +393,7 @@ DoUseMove:
           beq MoveNotOK
 
 MoveOK:
+          .mva LastPlayerCombatMove, MoveSelection
           .mva GameMode, #ModeCombat
           .mva NextSound, #SoundBlip
           gne CombatAnnouncementScreen
@@ -389,10 +403,18 @@ RunAway:
           .mva GameMode, #ModeMap
 
           .switch TV
+          .case NTSC
+
+            stx WSYNC
+
           .case PAL
-            .SkipLines 17
+
+            .SkipLines 18
+
           .case SECAM
+
             .SkipLines 19
+
           .endswitch
 ;;; 
 ScreenDone:
@@ -412,9 +434,13 @@ Leave:
 
           .switch TV
           .case PAL,SECAM
-            .SkipLines 32
+	
+            .SkipLines 30
+
           .case NTSC
+
             .SkipLines 31
+	
           .endswitch
           jmp GoMap
 
@@ -423,15 +449,21 @@ NotGoingToMap:
           bne NotGoingToStats
 
           .mva DeltaY, #ModeCombat
+          .mva LastPlayerCombatMove, MoveSelection
           .WaitScreenBottom
-          .if NTSC != TV
+          .switch TV
+          .case NTSC
+            ;; no op
+          .case SECAM
             .SkipLines 5
-          .fi
+          .case PAL
+            .SkipLines 2
+          .endswitch
 	jmp GrizzardStatsScreen
 
 NotGoingToStats:
           cmp #ModeCombatAnnouncement
-          beq CombatAnnouncementScreen
+          beq MaybeReadyToAnnounce
 
           cmp #ModeCombatNextTurn
           beq ExecuteCombatMove.NextTurn
@@ -462,7 +494,26 @@ SleepsText:
           .MiniText "SLEEPS"
 MuddleText:
           .MiniText "MUDDLE"
+;;; 
+MaybeReadyToAnnounce:
+          ldx WhoseTurn
+          beq Announce
 
+          ldy MoveSelection
+          jsr FindMonsterMove
+          lda MoveDeltaHP, x
+          bpl Announce
+
+          ;; It's a healing move, are we sure?
+          ldx WhoseTurn
+          lda EnemyHP - 1, x
+          cmp MonsterMaxHP
+          blt CombatAnnouncementScreen
+
+          jmp MonsterThwarted
+
+Announce:
+          ;; falls through to CombatAnnouncementScreen
+          stx WSYNC
+          
           .bend
-
-;;; Audited 2022-02-16 BRPocock

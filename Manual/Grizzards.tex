@@ -7,34 +7,25 @@
 %
 \documentclass[10pt,twocolumn,openany,article]{memoir}
 
+\ifdefined\ATARIAGESAVE
 \setstocksize{9in}{6in}
 \settrimmedsize{\stockheight}{\dimexpr 6in-15mm}{*}
+\else
+\setstocksize{11in}{8.5in}
+\settrimmedsize{\stockheight}{\dimexpr 8.5in-15mm}{*}
+\fi
 
-\setlrmarginsandblock{.5in}{1in}{*}
-\setulmarginsandblock{.75in}{1in}{*}
+\setlrmarginsandblock{.333333in}{.5in}{*}
+\setulmarginsandblock{.75in}{.75in}{*}
 \setheadfoot{.5in}{.5in}
-\checkandfixthelayout
+\widowpenalty=10000
+\clubpenalty=10000
 
+\makeevenhead{plain}{\textit{Grizzards}}{}{}
+\makeoddhead{plain}{}{}{\textit{Grizzards}}
 
-%% TV Standard
-
-\ifdefined\TVNTSC
-\newcommand\TV{NTSC}
-\newcommand\REGION{The Americas, Japan, and Korea}
-\else
-\ifdefined\TVPAL
-\newcommand\TV{PAL}
-\newcommand\REGION{UK and Western Europe (except France)}
-\else
-\ifdefined\TVSECAM
-\newcommand\TV{SECAM}
-\newcommand\REGION{France, Eastern Europe, and Africa}
-\else
-\error{Must define a TV standard}
-\fi
-\fi
-\fi
-
+\makeevenfoot{plain}{\thepage}{}{}
+\makeoddfoot{plain}{}{}{\thepage}
 
 \usepackage[utf8]{inputenc}
 \usepackage{babel}
@@ -49,10 +40,10 @@
 \usepackage{xcolor}
 \hypersetup{
     colorlinks,
-    linkcolor={red!50!black},
+    linkcolor={black},
     citecolor={blue!50!black},
     urlcolor={blue!80!black},
-    pdftitle={Grizzards \ifdefined\DEMO{ Demo }\fi Manual for \TV},
+    pdftitle={Grizzards \ifdefined\DEMO{ Demo }\fi{}Manual},
     pdfsubject={Grizzards videogame for the Atari 2600},
     pdfauthor={Bruce-Robert Pocock}%,
 %    pdfkeywords={Your PDF keywords}
@@ -64,7 +55,10 @@
 
 \newcommand\encircle[1]{%
   \tikz[baseline=(X.base)] 
-  \node (X) [draw, shape=circle, inner sep=0] {\strut #1};}
+  \node (X) [draw, shape=circle, inner sep=.25pt] {#1};}
+
+\setlength{\columnsep}{.333333in}
+%% \setlength\columnseprule{.5pt}
 
 \usepackage{lettrine}
 \usepackage[protrusion=true,expansion=true]{microtype}
@@ -85,11 +79,18 @@
 %
 
 \begin{document}
-\frontmatter
-\includepdf[height=9in,width=6in,fitpaper=true]{../Manual/Cover.png}
 
+\frontmatter
 \thispagestyle{empty}
 
+\begin{tikzpicture}[overlay, remember picture]
+  \node[anchor=north west, xshift=-4pt, yshift=4pt] 
+  at (current page.north west)
+  {\includegraphics[interpolate,width=\paperwidth,height=\paperheight]{../Manual/Cover.png}}; 
+\end{tikzpicture}
+
+
+\thispagestyle{empty}
 
 \twocolumn[
 
@@ -113,22 +114,35 @@ to use its moves to defend you and attack the monsters.
 
 This    is    the     \textit{Grizzards}    \ifdefined\NOSAVE    No-Save
 \fi\ifdefined\DEMO Demo \fi\ifdefined\ATARIAGESAVE Official \else Public
-Release \fi Player's Guide
+Release \fi Player's Guide.
 
-Copyright \copyright{} 2021-2022, Bruce-Robert Pocock
+\vspace{12pt}
+
+The  \textit{Grizzards} videogame  software,  including its  audiovisual
+components   and  this   manual,   are   copyright  \copyright{}   2022,
+Bruce-Robert  Pocock.   All  Rights  are  Reserved   except  as  granted
+under license.
+
+\begin{itemize}
+\item Bruce-Robert Pocock --- Story, Programming, Manual text, Graphics,
+  Sound effects
+\item Zephyr Salz --- Graphics, Printed Artwork, Music
+\end{itemize}
 
 \bigskip
 
-This  version is  for systems  in \REGION{}  using the  \TV{} television
-standard. For Atari  Video Computer System CX-2600  (or Sears Tele-Games
-Video  Arcade  or  Atari 7800  ProSystem)  \ifdefined\ATARIAGESAVE  with
-optional AtariVox device. \else \ifdefined\NOSAVE without \else with \fi
-AtariVox (or MemCard, or SaveKey) device. \fi
+For   Atari    Video   Computer    System   CX-2600    (or   compatible)
+\ifdefined\ATARIAGESAVE   with    optional   AtariVox    device.   \else
+\ifdefined\NOSAVE  without  \else  with  \fi AtariVox  (or  MemCard,  or
+SaveKey)  device.  \fi Screenshots  represent  the  NTSC version;  other
+versions have distinct coloring.
 
 \bigskip
 
 This videogame software was not created, published, or licensed by Atari
 or its successors.
+
+\vspace{12pt}
 
 \ifdefined\DEMO
 \bigskip
@@ -138,11 +152,11 @@ the game. The full version may be different.
 
 \fi
 
-Published by AtariAge.
+Published by AtariAge. \href{https://atariage.com/}{https://atariage.com/}
 
 \ifdefined\ATARIAGESAVE\else  If you  enjoy playing  \textif{Grizzards},
 you  may  be  interested  in  purchasing a  retail  copy  with  built-in
-save-game    memory    from    AtariAge.    Coming    in    2022.    \fi
+save-game    memory    from    AtariAge.    Coming    in    2022.  
 \href{https://atariage.com/}{https://atariage.com/}
 
 \bigskip
@@ -153,6 +167,8 @@ videogame software for \emph{non-commercial personal use}.
 Redistribution not for profit is allowed, but sales of this software
 requires a license.
 
+\fi
+
 ]
 
 \let\cleardoublepage\clearpage
@@ -161,16 +177,17 @@ requires a license.
 
 \tableofcontents
 
-\twocolumn[ \chapter{Setting Up}\label{Setting Up} ]
+\twocolumn[\chapter{Setting Up}\label{Setting Up}]
 
 To play \textit{Grizzards}, you will need:
 
+\vspace{12pt}
+
 \begin{itemize}
-\item An Atari  console: the Atari Video Computer  System CX-2600, Sears
-  Tele-Games  Video Arcade,  Atari  2600jr game  system,  or Atari  7800
-  ProSystem
+\item  An Atari  console: the  Atari  Video Computer  System CX-2600  or
+  compatible console
 \item A TV or video display
-\item A joystick controller
+\item A joystick controller or compatible gamepad
   \ifdefined\ATARIAGESAVE
   \item Optional: an AtariVox device with speakers or headphones
   \else
@@ -185,24 +202,24 @@ To play \textit{Grizzards}, you will need:
 \ifdefined\NOSAVE\else
 \begin{figure*}[b]
   \begin{center}
-    \includegraphics[width=\columnwidth]{../Manual/AtariVox.jpeg}
     \ifdefined\ATARIAGESAVE
     \includegraphics[width=\columnwidth]{../Manual/Atari-2600-Wood-4Sw-Set.png}
     \else
     \includegraphics[width=\columnwidth]{../Manual/SaveKey.jpeg}
     \fi
+    \includegraphics[width=\columnwidth]{../Manual/AtariVox.jpeg}
   \end{center}
 \end{figure*}
 \fi
 
-Set up your console with your TV or video display. Connect a joystick to
-the \emph{left} controller port\ifdefined\ATARIAGESAVE, and (optionally)
-your   AtariVox   device   to    the   \emph{right}   controller   port.
-\else\ifdefined\NOSAVE.\else{},   and   the   memory   device   to   the
+Set up  your console with your  TV or video display.  Connect a joystick
+(or gamepad) to  the \emph{left} controller port\ifdefined\ATARIAGESAVE,
+and  (optionally) your  AtariVox device  to the  \emph{right} controller
+port.  \else\ifdefined\NOSAVE.\else{},  and  the memory  device  to  the
 \emph{right} controller port.
 
-Note that  the retail  cartridge available later  in 2022  from AtariAge
-will \emph{not}  require a  memory device  because the  special AtariAge
+The  retail  cartridge (available  later  in  2022 from  AtariAge)  will
+\emph{not}  require  a  memory   device  because  the  special  AtariAge
 cartridge contains its own save-game memory within it.
 
 To purchase \textit{Grizzards}, SaveKey,  AtariVox+, or many other Atari
@@ -216,79 +233,71 @@ facing  up)  into  the  cartridge  slot,  and  turn  the  \textbf{Power}
 \textbf{on}.
 
 \ifdefined\ATARIAGESAVE\else
-\begin{figure}[h]
-  \begin{center}
-    \includegraphics[width=\columnwidth]{../Manual/Atari-2600-Wood-4Sw-Set.png}
-  \end{center}
-\end{figure}
+\includegraphics[width=\columnwidth]{../Manual/Atari-2600-Wood-4Sw-Set.png}
 \fi
 
-\section{Using a Gamepad}
+\pagebreak
 
-A  SEGA  \ifdefined\TVNTSC{Genesis/}\fi{}MegaDrive   gamepad  (or  other
+\section{Using a Gamepad}\label{sec:Gamepad}
+
+  A  SEGA  Genesis/MegaDrive   gamepad  (or  other
 compatible controller) may also be  used. Use the \encircle{B} button as
 the \textbf{Fire} button. Use the  \encircle{C} button as an alternative
 way  to   press  the   \textbf{Game  Select}   switch  to   access  your
 Grizzard's statistics.
 
-A   RetroGameBoyz    ``Joy2b+''   game    pad   can   also    be   used.
-Button   \encircle{I}   will   work   as   the   \textbf{Fire}   button.
-Button \encircle{II} will work as the \textbf{Game Select} switch.
+A      ``Joy2b+''     game      pad     such      as     those      from
+\href{https://retrogameboyz.com/products/atari-8-bit-2-button-action-joystick-control-pad-gamepad-xegs-theme?variant=39665422565431}{RetroGameBoyz.com}
+can also  be used.  Button \encircle{I} will  work as  the \textbf{Fire}
+button.  Button  \encircle{II} will  work  as  the \textbf{Game  Select}
+switch. Button \encircle{III} will toggle pausing the game.
 
 An    Atari     7800    controller     will    \emph{not}     work    as
-a two-button controller.
+a two-button controller, even on an Atari 7800 console.
 
 Your gamepad  \emph{must} be  plugged in \emph{before}  you turn  on the
-power,    or    the   extra    button    function    will   not    work.
-\ifdefined\ATARIAGESAVE\else If  using a \ifdefined\DEMO Harmony  or \fi
-Harmony  Encore cartridge,  hold down  the \encircle{B}  or \encircle{I}
-button when you power  on your console, or the gamepad  will not work on
-the Harmony menu. \fi
+power, or the extra  buttons will not work. \ifdefined\ATARIAGESAVE\else
+If using a \ifdefined\DEMO Harmony or \fi Harmony Encore cartridge, hold
+down  the \encircle{B}  or \encircle{I}  button when  you power  on your
+console, or the gamepad will not work on the Harmony menu. \fi
 
-\vfill
-
-\columnbreak
-\chapter{How To Play}
+\pagebreak
+\twocolumn[\chapter{How To Play}]
 
 \section{Console Controls}
 
-\ifdefined\TVSECAM
+\ifdefined\ATARIAGESAVE\vfill\fi
 
-\subsection{Color/B\&W Switch}
+\subsection{Pausing the Game}
 
-On  a  SECAM Atari  2600  (or  similar console)  the  \textbf{Color/B\&W
-  Switch} controls the visuals from  your console. In the \textbf{Color}
-position,  your  display will  appear  in  color; in  the  \textbf{B\&W}
-position, the game will appear in shades of gray.
+On an Atari 2600  (or similar console), with the NTSC  or PAL version of
+the game,  push the  \textbf{Color/B\&W} switch into  the \textbf{Color}
+position  to play  the game,  or  the \textbf{B\&W}  position to  pause.
 
-\else
+\vfill
 
-\subsection{Color/B\&W Switch (Pause)}
+With the SECAM  version of the game, the Right  Difficulty Switch can be
+used  to  pause game  play.  When  in  the  ``A'' (Advanced  or  Expert)
+position, your  game will be paused.
 
-On an Atari 2600  (or similar console) you can pause  the game using the
-\textbf{Color/B\&W Switch}. Push the \textbf{Color/B\&W} switch into the
-\textbf{Color} position to play, or  the \textbf{B\&W} position to pause
-the game.
+\vfill
 
 On the  Atari 7800, press  the \textbf{Pause}  button once to  pause the
-game, and  again to  resume playing.  \ifdefined\ATARIAGESAVE\else Note:
-this may not work with certain multi-carts, e.g. the UnoCart. \fi
+game, and again to resume playing. \ifdefined\ATARIAGESAVE\else This may
+not work with certain multi-carts, e.g. the UnoCart or PlusCart. \fi
 
-\fi
+\ifdefined\ATARIAGESAVE\vfill\fi
 
 \subsection{Game Select}
 
-When  viewing the  Title Screen,  you can  use the  \textbf{Game Select}
-switch to
-\ifdefined\NOSAVE
-begin your game or start over
-\else
-choose the Slot you wish to use to save your progress.
-\fi
+When viewing  the Title Screen,  use the \textbf{Game Select}  switch to
+\ifdefined\NOSAVE begin your game or start  over \else choose a Slot and
+begin or resume a game. \fi
 
-While you  are playing the  game, you  can use the  \textbf{Game Select}
-switch to view your Grizzard's  statistics from the Map screen, Combat
-screen, or a Grizzard Depot.
+While you  are playing the  game, use the  \textbf{Game Select}
+switch to view your Grizzard's  statistics.
+
+\ifdefined\ATARIAGESAVE\vfill\pagebreak\fi
 
 \subsection{Game Reset}
 
@@ -300,44 +309,37 @@ While you are playing the game,  press the \textbf{Game Reset} switch to
 You will  lose some  of your  progress since the  last time  you visited
 a Grizzard Depot.
 
-\subsection{Difficulty Switches}
+\ifdefined\ATARIAGESAVE\vfill\fi
 
 \ifdefined\NOSAVE\else
+
+\subsection{Protecting Your Progress}
 
 You  cannot erase  a  game  in progress  (or  un-erase  it) unless  both
 Difficulty  Switches are  in the  ``A'' (Advanced  or Expert)  position.
 To protect your game from being erased, set either one of the Difficulty
 Switches to the ``B'' (Beginner or Novice) position.
 
-On the Atari  7800, note that the Difficulty Switches  (located near the
-controller  ports) are  in the  ``A'' position  when they  are moved  to
-the right.
-
 \fi
+
+\ifdefined\ATARIAGESAVE\vfill\fi
 
 \subsubsection*{Expert Mode}
 
 The Left Difficulty Switch adjusts the  difficulty of the game. When the
 Left Difficulty  Switch is in  the ``A'' (Advanced or  Expert) position,
-monsters will do more damage in  their attacks. When the Left Difficulty
-Switch is in  the ``B'' (Beginner or Novice) position,  monsters will do
-their normal  amount of  damage. You  will also  earn double  points for
-defeating monsters while in the ``A'' position.
+monsters will do more damage in their attacks. You will also earn double
+points for defeating monsters while in the ``A'' position.
 
-\ifdefined\TVSECAM
+On the Atari 7800, the  Difficulty Switches (located near the controller
+ports) are in the ``A'' position when they are moved to the right.
 
-\subsubsection*{Game Pause}
-
-The Right Difficulty Switch  can be used to pause game  play. When in the
-``A'' (Advanced or Expert) position, your  game will be paused until you
-toggle the switch to the ``B'' (Beginner or Novice) position.
-
-\fi
+\ifdefined\ATARIAGESAVE\vfill\pagebreak\fi
 
 \section{Start a Game}
 
 \begin{center}
-  \includegraphics[width=\columnwidth]{../Manual/TitleAquax\TV.png}
+  \includegraphics[width=\columnwidth]{../Manual/TitleAquaxNTSC.png}
 \end{center}
 
 Once your  console is set  up and everything  is connected, turn  on the
@@ -357,21 +359,20 @@ your current game  in progress or \texttt{BEGIN} a new  game, then press
 Select Slot screen.
 
 \begin{center}
-  \includegraphics[width=\columnwidth]{../Manual/SelectSlot\TV.png}
+  \includegraphics[width=\columnwidth]{../Manual/SelectSlotNTSC.png}
 \end{center}
 
 Press  the \textbf{Game  Select} switch  or move  the joystick  left and
-right             to             choose             a             memory
-slot\ifdefined\ATARIAGESAVE\else\footnote{Technical   Note:   The   Slot
-  number chosen  here is relative to  the three save game  slots used by
-  the  \textit{Grizzards} game  program.  Each save  game slot  actually
-  occupies 4 blocks on your memory  device.}\fi for your game. There are
-\ifdefined\ATARIAGESAVE  eight \else  three \fi  memory slots  possible.
-Press  \textbf{Game Select}  or the  joystick left  and right  to rotate
-through them. If someone has already begun to play \textit{Grizzards} in
-a certain  slot, your  screen will  show ``\texttt{RESUME},''  and their
-name  will   appear  as   well.  If   a  slot   is  empty,   you'll  see
-``\texttt{BEGIN}'' instead.
+right to  choose a  memory slot\ifdefined\ATARIAGESAVE\else\footnote{The
+  Slot number chosen here is relative  to the three save game slots used
+  by the \textit{Grizzards}  game program. Each save  game slot actually
+  occupies  4  blocks  on  your  memory  device.}\fi{}  for  your  game.
+There  are \ifdefined\ATARIAGESAVE  eight \else  three \fi  memory slots
+possible. Press \textbf{Game  Select} or the joystick left  and right to
+rotate   through  them.   If   someone  has   already   begun  to   play
+\textit{Grizzards}   in  a   certain   slot,  your   screen  will   show
+``\texttt{RESUME},'' and  their name will appear  as well. If a  slot is
+empty, you'll see ``\texttt{BEGIN}'' instead.
 
 If someone has already \emph{won} the  game once, their name will appear
 in bright yellow. See New Game Plus, page~\pageref{sec:NewGamePlus}.
@@ -380,31 +381,28 @@ in bright yellow. See New Game Plus, page~\pageref{sec:NewGamePlus}.
 
 \skip
 
-This demo saves your progress in  the ``scratchpad'' area of your memory
-device. It's possible that other  games might overwrite and destroy your
-saved progress.  This is  just because  it's a demo,  and does  not have
-a private area reserved for it.
+Your save game progress from the demo is \emph{not} transferable to the
+full game.
 
 \skip
 
 \fi
 
-When you have selected the slot you want to begin (or resume), press the
-\textbf{Game Reset} switch or \textbf{Fire} button.
+When you have selected the slot in which to begin (or resume), press the
+\textbf{Fire} button.
 
 \fi
 
 \ifdefined\NOSAVE\else
 
-When you  first choose  to begin a  new game, you  can enter  your name.
-Press  forward to  select  the  next letter;  pull  back  to select  the
-previous letter.  Press left and right  to move to the  next or previous
-position. You  can have up  to six characters  for your name.  After six
-characters, the  cursor will turn  pink. Press the  \textbf{Fire} button
-to proceed.
+When you begin a new game, enter  your name. Press forward to select the
+next letter;  pull back to  select the  previous letter. Press  left and
+right to move to  the next or previous position. You can  have up to six
+characters for  your name.  After six characters,  the cursor  will turn
+pink; then, press the \textbf{Fire} button to proceed.
 
 \begin{center}
-  \includegraphics[width=\columnwidth]{../Manual/NameEntry\TV.png}
+  \includegraphics[width=\columnwidth]{../Manual/NameEntryNTSC.png}
 \end{center}
 
 \ifdefined\DEMO
@@ -414,26 +412,26 @@ full game, you can choose from one of three starting Grizzard companions.
 
 \else
 
-Next,  you'll  get to  pick  your  starting  Grizzard. There  are  three
-Grizzards  from which  to  choose:  Dirtex, Aquax,  or  Airex. Refer  to
+Next, you'll pick your starting Grizzard. There are three Grizzards from
+which    to    choose:   Dirtex,    Aquax,    or    Airex.   Refer    to
 Chapter~\ref{ch:Grizzards}   on  page~\pageref{ch:Grizzards}   for  more
 information about each of them.
 
 \begin{center}
-  \includegraphics[width=\columnwidth]{../Manual/GrizzardChooser\TV.png}
+  \includegraphics[width=\columnwidth]{../Manual/GrizzardChooserNTSC.png}
 \end{center}
 
 Press left  and right  to choose  a Grizzard  companion, then  press the
 \textbf{Fire} button.
 
-You'll have one  last chance to make sure that  you've entered your name
-correctly and chosen the Grizzard  companion you prefer. Push forward on
-the joystick to select \texttt{CHANGE}  and edit your name and companion
-choice, or  pull back  to choose to  \texttt{BEGIN} your  adventure now.
-Press the \textbf{Fire} button.
+Make  sure  that you've  entered  your  name  correctly and  chosen  the
+Grizzard companion  you prefer. Push  forward on the joystick  to select
+\texttt{CHANGE} and edit your name and companion choice, or pull back to
+choose    to   \texttt{BEGIN}    your   adventure    now.   Press    the
+\textbf{Fire} button.
 
 \begin{center}
-  \includegraphics[width=\columnwidth]{../Manual/ConfirmNewGame\TV.png}
+  \includegraphics[width=\columnwidth]{../Manual/ConfirmNewGameNTSC.png}
 \end{center}
 
 \fi
@@ -454,9 +452,9 @@ You know that to  the east is the extremely dangerous  Fire Bog, so your
 best  bet   is  to  head   west  (left)  and   see  if  there   are  any
 other survivors.
 
-Refer to the  map (back cover of  this manual) for some  ideas about the
-geography of  Syrex. Other  characters in  the game  will also  give you
-advice about places you can go and things you can do.
+Refer to  the map on  the \ifdefined\ATARIAGESAVE back cover  \else last
+page  \fi{} of  this  manual  to learn  about  the  geography of  Syrex.
+Characters in the game will also give you advice.
 
 The Map screen shows your current score  at the top. In the map display,
 you'll see the  current area in which you are  traveling. Guide yourself
@@ -467,104 +465,97 @@ current  Grizzard  companion  by   pressing  the  \textbf{Fire}  button.
 \ifdefined\DEMO However, there are no potions in this demo. \fi
 
 \begin{center}
-  \includegraphics[width=\columnwidth]{../Manual/Map\TV.png}
+  \includegraphics[width=\columnwidth]{../Manual/MapNTSC.png}
 \end{center}
 
-As you  travel, you may  encounter people  and things; to  interact with
-them, simply walk into them.
+To interact with something on the Map screen, just walk into it.
 
 \lettrine[image=true,                lines=5,               findent=3pt,
-nindent=3pt]{../Manual/Monster\TV.png}{A   monster}  (or   a  group   of
+nindent=3pt]{../Manual/MonsterNTSC.png}{A   monster}  (or   a  group   of
 monsters) may  sneak up on you  and attack! Other times  you'll see them
-waiting for you and can avoid battle  --- or walk up to them when you're
+waiting for  you and can avoid  battle --- or approach  them when you're
 ready to  face them. Particularly  giant monsters look different  on the
 map; you'll discover them in your travels.
 
 \lettrine[image=true,                lines=5,               findent=3pt,
-nindent=3pt]{../Manual/Depot\TV.png}{A} Grizzard Depot  is a safe space.
+nindent=3pt]{../Manual/DepotNTSC.png}{Grizzard  Depots} are  safe spaces.
 Your  Grizzards will  be  healed\ifdefined\NOSAVE{}.{}\else{}, and  your
 progress will  be saved \ifdefined\ATARIAGESAVE to  your game cartridge.
 \else to your  memory device. \fi You can also  switch which Grizzard is
-your  current  companion.  \fi See  page~\pageref{sec:GrizzardDepot}  to
-learn more about Grizzard Depots.
+your  current   companion.  \fi  See   page  \pageref{sec:GrizzardDepot}
+for details.
+
+\ifdefined\ATARIAGESAVE\pagebreak\fi
 
 \ifdefined\NOSAVE
 
 \lettrine[image=true,                lines=5,               findent=3pt,
-nindent=3pt]{../Manual/WildGrizzard\TV.png}{Wild  Grizzards}   roam  the
-land sometimes. In this no-save demo, you will have one Grizzard companion at a time,
-beginning with  Aquax.
+nindent=3pt]{../Manual/WildGrizzardNTSC.png}{Wild  Grizzards}   roam  the
+land  sometimes.  In this  no-save  demo,  you  will have  one  Grizzard
+companion at a time, beginning with Aquax.
 
 \else
 
 \lettrine[image=true,                lines=5,               findent=3pt,
-nindent=3pt]{../Manual/WildGrizzard\TV.png}{Wild  Grizzards}   roam  the
+nindent=3pt]{../Manual/WildGrizzardNTSC.png}{Wild  Grizzards}   roam  the
 land  sometimes.   You  can   catch  them   when  you   encounter  them.
-At  a Grizzard  Depot,  you'll have  the option  to  swap your  Grizzard
-companion  between  those you  have  caught,  with  up to  30  different
-Grizzards saved  in your  \ifdefined\ATARIAGESAVE game  cartridge. \else
-memory device. \fi Each Grizzard you catch will have its own moves and
-skill ratings. 
+At  a   Grizzard  Depot,  you   can  change  your   Grizzard  companion.
+Each  Grizzard  you  catch  will  have its  own  moves,  skill  ratings,
+and experience.
 
 \fi
 
 \lettrine[image=true,                lines=5,               findent=3pt,
-nindent=3pt]{../Manual/Door\TV.png}{Doors} lead  you to other  places in
+nindent=3pt]{../Manual/DoorNTSC.png}{Doors} lead  you to other  places in
 the world.
 
-\vspace{16pt}
+\vspace{30pt}
 
 \lettrine[image=true,                lines=5,               findent=3pt,
-nindent=3pt]{../Manual/Signpost\TV.png}{Signposts} can provide necessary
-information to  help you progress. You  might also want to  refer to the
-map on the last page of this manual.
+nindent=3pt]{../Manual/SignpostNTSC.png}{Signposts}  provide  information
+to  help  you  progress.  You  should  also refer  to  the  map  on  the
+\ifdefined\ATARIAGESAVE back cover \else last page \fi{} of this manual.
 
+\ifdefined\ATARIAGESAVE\else\vspace{30pt}\fi
 
 \lettrine[image=true,                lines=5,               findent=3pt,
-nindent=3pt]{../Manual/Person\TV.png}{Other  people} will  converse with
-you and can help  you out. Make sure you talk to  everyone you meet, and
-keep in mind  that some people will respond to  you differently based on
-what has come before.
-
+nindent=3pt]{../Manual/PersonNTSC.png}{People} will converse with you and
+can help you  out. Some people will respond to  you differently based on
+what has come before, so you may want to visit them more than once.
 
 
 \ifdefined\NOSAVE\else
 
 \section{Saving Your Progress}
 
-The game  is automatically  saved whenever you  visit a  Grizzard Depot.
-Some progress is  also saved when you travel  between certain locations,
-catch a wild Grizzard, or when one Grizzard changes into another.
+Your progress  is saved whenever  you visit  a Grizzard Depot.  Once you
+hear the short musical tune, it is safe to power off your console.
 
 \ifdefined\ATARIAGESAVE\else
 
-You should leave your memory device connected at all times while playing
-the game.
+You must leave  your memory device connected at all  times while playing
+the game. Sometimes, the game may auto-save some of your progress.
 
 \fi \fi
 
-\section{Grizzard Depots}\label{sec:GrizzardDepot}
-
-To \ifdefined\NOSAVE\else  swap which  Grizzard you're using,  or to  \fi heal
-your current Grizzard companion, you'll need to find a Grizzard Depot.
-
-\begin{figure*}[hb]
+\begin{figure*}[t]
   \begin{center}
     \includegraphics[width=2\columnwidth]{../Manual/GrizzardDepot.png}
   \end{center}
 \end{figure*}
 
+\section{Grizzard Depots}\label{sec:GrizzardDepot}
+
+To  \ifdefined\NOSAVE\else swap  or  \fi heal  your Grizzard  companion,
+you'll need to visit a Grizzard Depot.
+
 \begin{center}
-  \includegraphics[width=\columnwidth]{../Manual/DepotScreenshot\TV.png}
+  \includegraphics[width=\columnwidth]{../Manual/DepotScreenshotNTSC.png}
 \end{center}
 
-Touch the Grizzard Depot on the map screen to enter it.
-
 \ifdefined\NOSAVE\else Your progress will \emph{immediately} be saved to
-your \ifdefined\ATARIAGESAVE  game cartridge.  \else memory  device. \fi
-\fi
-
-At  a Grizzard  Depot  your  Grizzard companion  will  be fully  healed.
+your \ifdefined\ATARIAGESAVE  game cartridge,  \else memory  device, \fi
+\fi   and    your   Grizzard    companion   will   be    fully   healed.
 \ifdefined\NOSAVE\else  Press the  joystick forward  and back  to choose
 a different Grizzard to travel with you. \fi
 
@@ -574,69 +565,70 @@ to your adventure, press the \textbf{Fire} button.
 
 \section{Conversations}
 
-When you encounter  a person, they'll usually speak to  you. If you have
-an AtariVox  connected, you'll hear  what they have  to say out  loud as
-well.   After  you've   read  what   they   have  to   say,  press   the
-\textbf{Fire} button.
+When  you encounter  a person,  they'll  speak to  you. If  you have  an
+AtariVox  connected,  you'll  hear  what  they have  to  say  out  loud.
+After you've read it, press the \textbf{Fire} button.
 
 \begin{center}
-  \includegraphics[width=\columnwidth]{../Manual/Text\TV.png}
+  \includegraphics[width=\columnwidth]{../Manual/TextNTSC.png}
 \end{center}
 
-Some people will want to know what you have to say, in return. If that's
-the case, you'll be given a choice of two possible answers to give them.
-Press forward or back on the joystick to select a response.
+Some people will want you to answer a question. You'll be given a choice
+of two possible answers. Press forward or back on the joystick to select
+a response.
 
-\begin{center}
-  \includegraphics[width=\columnwidth]{../Manual/Inquire\TV.png}
-\end{center}
-
-If  you  want to  review  what  the person  was  asking,  you can  press
-left on  the joystick to  ask them to repeat  themself instead.
+To review  what  the  person  was  asking, press  left  on
+the joystick.
 
 When you've made your selection, press \textbf{Fire} to continue.
 
+\begin{center}
+  \includegraphics[width=\columnwidth]{../Manual/InquireNTSC.png}
+\end{center}
+
+\ifdefined\ATARIAGESAVE
+\pagebreak
+\fi
+
 \section{Battling Monsters}
 
-Monsters plague the world of Syrex. If you're caught by monsters without
-a  Grizzard companion,  they're sure  to  eat you  alive! Your  Grizzard
-companion will defend you.
+Monsters plague the  world of Syrex. If you're caught  by monsters, your
+Grizzard  companion must  defend  you. You'll  see  this Combat  display.
 
-\begin{figure*}[ht]
+\begin{figure*}[t]
   \includegraphics[width=2\columnwidth]{../Manual/CombatControls.png}
 \end{figure*}
 
-When you  encounter monsters, you'll  see the Combat display.  When it's
-your turn, the bottom part of the screen (showing your Grizzard) will be
-\ifdefined\TVSECAM magenta\else  indigo\fi{}. The long bar  beneath your
-Grizzard shows its hit points.
-
-\begin{center}
-  \includegraphics[width=\columnwidth]{../Manual/GrizzardCombat\TV.png}
-\end{center}
-
-When  it's the  monsters'  turn, the  top  part of  the  screen will  be
-\ifdefined\TVSECAM white. \else red. \fi
-
-\begin{center}
-  \includegraphics[width=\columnwidth]{../Manual/MonsterCombat\TV.png}
-\end{center}
-
 Monsters often  travel in groups, so  you may see more  than one monster
-facing you.
+facing you.  When it's the  monsters' turn, the  top part of  the screen
+will be red (white on SECAM).
 
-You can choose  from the moves that your Grizzard  knows how to perform.
-Press the joystick  forward and back to select a  move. If your Grizzard
-knows how to perform it, it will  appear in light blue. If your Grizzard
-does not yet know how, it will appear in black.
+\begin{center}
+  \includegraphics[width=\columnwidth]{../Manual/MonsterCombatNTSC.png}
+\end{center}
 
-Most Moves will target one monster.  Press left or right on the joystick
-to select a target. Some Moves instead affect yourself.
+When  it's your  turn,  the  bottom part  of  the  screen (showing  your
+Grizzard) will be indigo (magenta on SECAM). 
 
-When   you   have   chosen   a   move  (and   a   target),   press   the
+The long bar beneath your Grizzard represents its hit points.
+
+\begin{center}
+  \includegraphics[width=\columnwidth]{../Manual/GrizzardCombatNTSC.png}
+\end{center}
+
+Press the  joystick forward and  back to select  a Move from  those that
+your  Grizzard knows  how to  perform.  Those your  Grizzard knows  will
+appear in light  blue. If your Grizzard does \emph{not}  know a Move, it
+will appear in black.
+
+To view your Grizzard's statistics, press \textbf{Game Select}.
+
+Most Moves will target a monster. Press left or right on the joystick to
+select a target. Some Moves instead affect yourself.
+
+When   you   have   chosen   a    move   and   a   target,   press   the
 \textbf{Fire} button.
 
-To view the statistics of your Grizzard, press \textbf{Game Select}.
 
 \subsection{Performing a Move}
 
@@ -646,7 +638,7 @@ To view the statistics of your Grizzard, press \textbf{Game Select}.
   \end{center}
 \end{figure*}
 
-After a move has been performed,  the creature targeted by that move may
+After a Move has been performed,  the creature targeted by that move may
 be injured  (lose hit points)  and/or have a  Status Effect\footnote{See
   page~\pageref{sec:StatusEffects} to learn  about Status Effects} added
 to  it. Status  Effects  are temporary  and last  only  the duration  of
@@ -654,7 +646,7 @@ one battle.
 
 It's possible for a move to miss its target. If that happens, you'll see
 \texttt{MISSED} appear  briefly. It's also  possible to have  a critical
-success  ---  that  move  will  do double  the  usual  damage,  and  see
+success ---  that move will do  double the usual damage,  and you'll see
 \texttt{CRIT!} appear on the screen.
 
 If your Grizzard companion loses hit points, the bar below your Grizzard
@@ -665,9 +657,9 @@ can continue from  the last Grizzard Depot you visited  by selecting the
 same game slot on the Select Slot screen. \fi
 
 If you  defeat all of  the monsters, victory  is yours! Your  score will
-increase, and you'll return to the  World Map screen victorious. You may
-also find a potion was left behind by the monsters. \ifdefined\DEMO\else
-There are no potions in the demo. \fi
+increase,  and you'll  return  to  the Map  screen.  You  may also  find
+a potion was  left behind by the monsters. \ifdefined\DEMO  There are no
+potions in the demo. \fi
 
 You  may choose  to run  away from  a fight,  but the  monsters will  be
 immediately healed and may still come after you.
@@ -676,26 +668,27 @@ immediately healed and may still come after you.
 
 Your  Grizzard companion  may  learn from  opposing  Monsters. This  can
 result in your Grizzard increasing  its Attack or Defend rating, maximum
-hit points, or learning a new Move. Your Grizzard can only learn certain
-moves. Moves that  your Grizzard might be able to  perform, but does not
-yet  know, will  appear in  black. Sometimes,  seeing a  monster perform
-a Move will teach it to your Grizzard. Other times, they may work it out
-on their own.
+hit points, or learning a new  Move. Sometimes, seeing a monster perform
+a Move  will teach it to  your Grizzard. Other times,  your Grizzard may
+work it  out on their own.  Your Grizzard can only  learn certain Moves.
+Moves that your Grizzard  does not yet know, but is  able to learn, will
+appear in black.
 
 \section{Statistics}
 
 \begin{center}
-  \includegraphics[width=\columnwidth]{../Manual/StatsScreenshot\TV.png}
+  \includegraphics[width=\columnwidth]{../Manual/StatsScreenshotNTSC.png}
 \end{center}
 
-You can  press the  \textbf{Game Select} switch  while viewing  the Map,
-Combat  screen,  or  at  a   Grizzard  Depot  to  view  your  Grizzard's
-statistics.   Press  the   \textbf{Fire}   button  to   return  to   the
-previous screen.
+Press  the \textbf{Game  Select}  switch\footnote{You can  also use  the
+  \encircle{C} or  \encircle{II} button on  a gamepad. See  the Gamepads
+  section on page~\pageref{sec:Gamepad}.} while  viewing the Map, Combat
+screen,  or at  a Grizzard  Depot  to view  your Grizzard's  statistics.
+Press the \textbf{Fire} button to dismiss the Statistics screen.
 
-At  the top  of the  Statistics screen,  you'll see  a portrait  of your
-Grizzard companion,  their name, and  their unique number. There  are 30
-Grizzards to catch. Can you catch them all?
+At  the top  of the  Statistics screen  is a  portrait of  your Grizzard
+companion, their name,  and their unique number. There  are 30 Grizzards
+to catch. Can you catch them all?
 
 \begin{description}
   
@@ -703,7 +696,7 @@ Grizzards to catch. Can you catch them all?
   likelihood  that your  Grizzard  will  hit and  cause  damage when  it
   attacks a monster. Some Moves cause more damage than others.
   
-\item[\texttt{DEF.}] is the Grizzard's  \emph{defend} rating. This is how
+\item[\texttt{DEF.}] is the Grizzard's \emph{defend} rating. This is how
   likely your Grizzard is to avoid being hurt by a monster's Move.
 
 \item[\texttt{HP}]  is  the  Grizzard's  \emph{hit  points}  or  health.
@@ -711,14 +704,13 @@ Grizzards to catch. Can you catch them all?
   reaches zero, your game is over.
 
 \item[\texttt{MAX}]  is   the  Grizzard's  \emph{maximum   hit  points}.
-  Your Grizzard can gain more hit points up to this amount.
+  Your Grizzard can only gain hit points up to this amount.
   
 \end{description}
 
-Each of  these statistics can  be raised up to  a maximum of  99 points.
-The Attack  rating, Defend  rating, or  Maximum Hit  Points may  go up
-a bit after each monster that you defeat. The more skilled your Grizzard
-becomes, the less often its levels will go up.
+The Attack rating, Defend rating, or Maximum  Hit Points may go up a bit
+after  you defeat  a party  of  monsters. Grizzards  will advance  their
+statistics faster at first, then more slowly as they increase their ratings.
 
 If you are currently in a  combat encounter, there may be Status Effects
 that could change the effectiveness  of your Moves. These are \emph{not}
@@ -726,7 +718,7 @@ displayed on the statistics screen.
 
 \section{Status Effects}\label{sec:StatusEffects}
 
-A move can affect its target with Status Effects. There are six possible
+A Move can affect its target with Status Effects. There are six possible
 Status Effects:
 
 \begin{description}
@@ -740,23 +732,22 @@ Status Effects:
   There is a 50\% chance of clearing its mind.
 \end{description}
 
-These status effects last only the duration of one battle.
-
-Also, these status effects cannot be  doubled up. For example: Once your
-attack has been raised, it cannot be raised further.
+These status effects last only the duration of one battle. They also can
+\emph{not} be stacked. For example: Once your attack has been raised, it
+cannot be raised further.
 
 \section{Scoring}
 
-When you  defeat a monster, you'll  earn points. The number  of points
-you earn  will increase as you  defeat more difficult monsters.  You can
-also earn points for other some other actions you take in the game.
+When you defeat a monster, you'll  earn points. The number of points you
+earn will increase  as you defeat more difficult monsters.  You can also
+earn points for some other actions you take in the game.
 
 The score earned can be increased by:
 
 \begin{itemize}
 \item \ldots{}playing  in Expert  mode (by  setting the  Left Difficulty
   Switch to the ``A'' position)
-\item \ldots{}defeating the larger version of a monster
+\item \ldots{}defeating the larger ``boss'' version of a monster
 \item  \ldots{}playing the  game  in  New Game  Plus  mode after  having
   defeated the final boss.
 \end{itemize}
@@ -776,21 +767,19 @@ Once  you've won  the game,  you can  keep playing!  On the  screen that
 appears when you win, press \textbf{Game  Reset} on your console to save
 your winning score and create a ``new game, plus.''
 
-On your second time through, you'll  have both of the starting Grizzards
-that you  had not  chosen the first  time, as well  as all  your trained
-Grizzards to choose from. Monsters will become more difficult — but also
-yield more points when defeated.
+You'll gain both  of the starting Grizzards that you  had not chosen the
+first time, as well as all  your trained Grizzards. Monsters will become
+more difficult — but also yield more points when defeated.
 
 \section{Game Over}
 
 If  you fail  in  your mission,  your  game is  over.  However, you  can
-continue, and it'll be just as if you'd never failed in the first place.
-You'll start over from \ifdefined\NOSAVE the beginning of the game, with
-your  current progress.  \else  the  last Grizzard  Depot  that you  had
-visited. \fi
+continue. You'll start over from  \ifdefined\NOSAVE the beginning of the
+game, with your current progress. \else the last Grizzard Depot that you
+had visited. \fi
 
 \begin{center}
-  \includegraphics[width=\columnwidth]{../Manual/GameOver\TV.png}
+  \includegraphics[width=\columnwidth]{../Manual/GameOverNTSC.png}
 \end{center}
 
 \section{Starting Over}\label{Starting Your Adventure Over}
@@ -811,16 +800,16 @@ If you want to erase your progress and start again, you must:
   to erase.
 \item Set both  of the Difficulty Switches on your  console to the ``A''
   (Advanced or Expert) position.
-\item With your  joystick controller, pull back  and \emph{while holding
-    the joystick back} press and hold the \textbf{Fire} button.
+\item Pull  back on the  joystick, and \emph{while holding  the joystick
+    back} press \emph{and hold} the \textbf{Fire} button.
 \item If you're \emph{sure} you want to erase your game's progress, then
-  \emph{without}  letting  go  of  the \textbf{Fire}  button,  move  the
+  \emph{without}  letting  go  of  the \textbf{Fire}  button,  push  the
   joystick  forward. \ifdefined\DEMO  Your  game record  will be  erased
   \emph{immediately}. \fi
 \end{itemize}
 
 \begin{center}
-  \includegraphics[width=\columnwidth]{../Manual/EraseSlot\TV.png}
+  \includegraphics[width=\columnwidth]{../Manual/EraseSlotNTSC.png}
 \end{center}
 
 \ifdefined\DEMO
@@ -834,23 +823,15 @@ Make sure  you want to  erase your game.  Press the joystick  forward or
 back to make your choice, and press the \textbf{Fire} button.
 
 \begin{center}
-  \includegraphics[width=\columnwidth]{../Manual/ConfirmErase\TV.png}
+  \includegraphics[width=\columnwidth]{../Manual/ConfirmEraseNTSC.png}
 \end{center}
 
 \fi
 
 The Left  Difficulty Switch is also  used to increase the  difficulty of
-the game. After  erasing your progress, you may want  to return the Left
-Difficulty Switch to your desired position.
-
-
-\ifdefined\TVSECAM
-
-The  Right   Difficulty  Switch  is   also  used  to  pause   the  game.
-After erasing your  progress, return the Right Difficulty  Switch to the
-``B'' position.
-
-\fi
+the  game.  After  erasing  your  progress,  you  may  return  the  Left
+Difficulty  Switch  to  your  desired position.  (On  SECAM,  the  Right
+Difficulty Switch is used to pause the game.)
 
 \subsection{Protecting Your Game Record}
 
@@ -861,56 +842,58 @@ Novice) position, you can't erase a game slot.
 
 \subsection{Recovering an Erased Game}
 
-If you have just erased a game's  progress, and no one has started a new
-game using the same slot yet, you may be able to un-erase it.
+If you have \emph{just} erased a game's progress, and no one has started
+a new game using the same slot yet, you may be able to un-erase it.
 
 To recover  an erased game,  follow the same steps  as if you  wanted to
 erase  a game.  Press  left and  right  on the  joystick  to select  the
 now-empty  slot  (the  screen  will say  ``\texttt{BEGIN}'').  Set  both
-Difficulty Switches  to the  ``A'' (Advanced  or Export)  position, pull
+Difficulty Switches  to the  ``A'' (Advanced  or Expert)  position, pull
 back  on  the joystick,  and  \emph{while  holding  it back},  hold  the
 \textbf{Fire} button.
 
 If your  game's progress can be  recovered, you'll see that  the slot is
-\texttt{ERASED} and you should also see your name appear. To recover the
-game's progress, press forward on the joystick. The game will immediately
-become available to resume.
+\texttt{ERASED} with your name. Press  forward on the joystick. The game
+will immediately become available to resume.
 
-Note that it  is \emph{not possible} to recover a  saved game's progress
-once  a new  game has  been  started in  the  same memory  slot. If  you
-accidentally start  a new game,  but have  not confirmed your  name yet,
-\emph{turn off the power briefly}, then try the recovery steps above.
+It is \emph{not possible} to recover  a saved game's progress once a new
+game has been started in the same memory slot. If you accidentally start
+a new  game, but have  not confirmed your  name yet, \emph{turn  off the
+  power briefly}, then try the recovery steps above.
 
 \fi
 
 \fi % not-nosave
 
-\columnbreak
-\chapter{Grizzards and Moves}
-\label{ch:Grizzards}
-
-There are  30 Grizzards in  the game world,  each with their  own unique
-starting attributes and sets of Moves.
-
-\ifdefined\NOSAVE
-
-In  this  demo,  you  can  play  with  only  one  Grizzard  at  a  time.
-Other   Grizzards  are   available   with  a   memory   device  or   the
-retail cartridge.
-
+\ifdefined\ATARIAGESAVE
+\vfill
 \fi
 
-Each Grizzard is able  to learn up to 8 different  moves, in addition to
-the move \texttt{RUN AWAY}. It's up  to you to discover which Moves each
+\chapter{Grizzards and Moves}\label{ch:Grizzards}
+
+There are  30 Grizzards in  the game world,  each with their  own unique
+starting attributes and  sets of Moves. \ifdefined\NOSAVE  In this demo,
+you  can play  with only  one Grizzard  at a  time. Other  Grizzards are
+available  with  a memory  device  or  the  retail cartridge.  \fi  Each
+Grizzard is able  to learn up to  eight different moves, in  addition to the
+move \texttt{RUN  AWAY}. It's  up to  you to  discover which  Moves each
 Grizzard is able to learn.
+
+\ifdefined\ATARIAGESAVE
+\vfill
+\fi
 
 \ifdefined\DEMO\else
 
+\pagebreak
+
 \section{Dirtex}
 
-\includegraphics[width=\columnwidth]{../Manual/Dirtex.png}
+\begin{center}
+  \includegraphics[width=\columnwidth]{../Manual/Dirtex.png}
+\end{center}
 
-The green  Dirtex Grizzard (Num. 01)  lives in the desert.  It can learn
+The green  Grizzard Dirtex (Num. 01)  lives in the desert.  It can learn
 these Moves:
 
 \begin{itemize}
@@ -924,13 +907,16 @@ these Moves:
 \item \texttt{DUSTY EYES} --- may lower the enemy's defend value.
 \end{itemize}
 
-Dirtex may, if it gains enough experience, metamorphose into Lander.
+When Dirtex gains enough experience, it will metamorphose into Lander.
 
 \fi
 
 \section{Aquax}
 
-\includegraphics[width=\columnwidth]{../Manual/Aquax.png}
+\begin{center}
+  \includegraphics[width=.75\columnwidth]{../Manual/Aquax.png}
+\end{center}
+
 
 Aquax is  a brown Grizzard  (Num. 02) which lives  in the water.  It can
 learn these Moves:
@@ -952,7 +938,9 @@ With enough experience, Aquax can metamorphose into Sailor.
 
 \section{Airex}
 
-\includegraphics[width=\columnwidth]{../Manual/Airex.png}
+\begin{center}
+  \includegraphics[width=\columnwidth]{../Manual/Airex.png}
+\end{center}
 
 Airex is  a teal  Grizzard (Num. 03)  which lives in  the trees.  It can
 learn these Moves:
@@ -960,70 +948,58 @@ learn these Moves:
 \begin{itemize}
 \item \texttt{MILD SHOCK} --- shocks  the enemy with static electricity,
   causing some damage.
-\item \texttt{WIND FIGHT} --- causes a bit more damage than \texttt{MILD SHOCK}
+\item \texttt{WIND FIGHT} --- causes a bit more damage than \texttt{MILD SHOCK}.
 \item \texttt{STEAL ATTACK} --- may lower the enemy's attack value.
 \item \texttt{STEAL DEFEND} --- may lower the enemy's defend value.
 \item \texttt{STEAL TURN} --- may put the enemy to sleep
 \end{itemize}
 
-If Airex gains enough experience, it will metamorphose into Flyer.
+When Airex gains enough experience, it will metamorphose into Flyer.
 
 \fi
+
+\pagebreak
 
 \section{Healing}
 
 Most Grizzards can learn healing moves as well. Some examples:
 
 \begin{itemize}
-\item \texttt{FIRST  AID} ---  heals a small  amount of  health, raising
-  your own hit points.
-\item \texttt{SIMPLE CURE} --- heals a bit larger amount of health.
-\item \texttt{COMMON CURE} --- heals even more health.
+\item \texttt{FIRST AID} --- heals a small amount of health
+\item \texttt{SIMPLE CURE} --- heals a bit larger amount of health
+\item \texttt{COMMON CURE} --- heals even more health
 \end{itemize}
 
 You can also heal your Grizzard  by visiting a Grizzard Depot, or giving
-them a healing  Potion. To use a potion, press  the \textbf{Fire} button
-while on  the map  screen. You  can not  use a  potion during  a battle.
-\ifdefined\DEMO There are no potions in this demo. \fi
+them a Potion. To use a  potion, press the \textbf{Fire} button while on
+the Map screen. You cannot use a potion during a battle. \ifdefined\DEMO
+There are no potions in this demo. \fi
 
 \section{Run Away}
 
-This Move lets you try to escape from a battle.
-
-Your  Grizzard will  \emph{not}  be  healed if  you  run  away, but  the
-monsters that you were facing will be healed immediately.
-
-Certain  monsters  are too  terrifying  to  escape. When  you  encounter
-a ``boss'' monster like that, it will  be a duel to the death. Watch out
-for their unique shape on the map.
+This  Move lets  you try  to escape  from a  battle. Your  Grizzard will
+\emph{not} be  healed if you  run away, but  the monsters that  you were
+facing will be  healed immediately. Certain monsters  are too terrifying
+to escape. When  you encounter a ``boss'' monster like  that, it will be
+a duel to the death. Watch out for their unique shape on the map.
 
 \section{Metamorphosis}
 
 Many Grizzards  can metamorphose into a  new form when they  have gained
-a certain amount  of experience by battling monsters.  Each Grizzard has
-their  own experience;  they only  gain experience  when they  battle as
-your companion.
+a certain  amount of experience. The  new Grizzard may be  able to learn
+different moves and have improved statistics.
 
-When  a Grizzard  undergoes  metamorphosis, you'll  see an  announcement
-screen  \ifdefined\DEMO  which  looks   as  though  you've  just  caught
-a new Grizzard. In the full game, it's more obvious that this is because
-of  a  metamorphosis. \else  which  shows  the Grizzard's  previous  and
-new forms. \fi
+\pagebreak
+\twocolumn[\chapter{Monsters}]
 
-\columnbreak
-\chapter{Monsters}
-
-Terrible monsters are  arriving in Syrex, terrorizing the  people. A few
-of them are described here.
+A slew of monsters are arriving in Syrex, terrorizing the land.
 
 \vspace{14pt}
 
 \lettrine[image=true,                lines=5,               findent=3pt,
 nindent=3pt]{../Manual/Wicked-Slime.png}{Wicked}  Slimes are  weak slime
 monsters that  your Grizzard can  kill fairly  easily … but  beware when
-they travel in large packs. Like  many creatures, they know some healing
-Moves that  might be useful to  learn. Wicked Slimes are  now found near
-Treble Village and the Lost Mine.
+they travel in large packs.
 
 \vspace{14pt}
 
@@ -1035,12 +1011,19 @@ until you've learned some new moves.
 \vspace{14pt}
 
 \lettrine[image=true,                lines=5,               findent=3pt,
-nindent=3pt]{../Manual/Vorpal-Bunny.png}{Vorpal} Bunnies  are a powerful
-monster that will take a few hits  to kill, but they're the only way for
-Aquax to  learn Great Mojo. Beware  their attack Moves, though!  You may
-find Vorpal Bunnies near the Spiral Woods.
+nindent=3pt]{../Manual/Sky-Mutant.png}{Sky Mutants} roam the roads north
+of Mount Peshon  looking for civilians to abduct.
 
 \vspace{14pt}
+
+\lettrine[image=true,                lines=5,               findent=3pt,
+nindent=3pt]{../Manual/Round-Robin.png}{Round Robins} are colorful giant
+birds who live  in the area of  Mount Peshon. Their beaks  and claws are
+dangerous.
+
+\ifdefined\ATARIAGESAVE\pagebreak\else
+\vspace{14pt}
+\fi
 
 \lettrine[image=true,                lines=5,               findent=3pt,
 nindent=3pt]{../Manual/R.O.U.S..png}{Rodents} of Unusual Size are one of
@@ -1058,6 +1041,20 @@ have a higher Attack stat.
 \vspace{14pt}
 
 \lettrine[image=true,                lines=5,               findent=3pt,
+nindent=3pt]{../Manual/Fire-Panda.png}{Fire Pandas}  are a bit  like red
+pandas, or firefoxes, and quite a  bit more dangerous. Unlike a firefox,
+these beasts actually dish out fire-based attacks on their victims.
+
+\vspace{14pt}
+
+\lettrine[image=true,                lines=5,               findent=3pt,
+nindent=3pt]{../Manual/Vorpal-Bunny.png}{Vorpal Bunnies}  are a powerful
+monster that  will take a few  hits to kill. Beware  their attack Moves,
+though! You may find Vorpal Bunnies near the Spiral Woods.
+
+\pagebreak
+
+\lettrine[image=true,                lines=5,               findent=3pt,
 nindent=3pt]{../Manual/Will-O-Wisp.png}{Will-O-Wisps}     are    bright,
 floating sparks  that are  known to  travel in  large groups.  Once your
 Attack rating is high enough to hit them, they go down quickly, but they
@@ -1066,15 +1063,22 @@ have very strong defenses!
 \vspace{14pt}
 
 \lettrine[image=true,                lines=5,               findent=3pt,
-nindent=3pt]{../Manual/Lectro-Sheep.png}{Lectro  Sheep}   are  dangerous
-sheep that are full of static electricity. They roam the countryside, as
-sheep will do.
+nindent=3pt]{../Manual/Cave-Bat.png}{Cave  Bats} are  sometimes seen  in
+the tunnels beneath  Mount Peshon. They may swoop down  from the ceiling
+and attack!
+
+\vspace{14pt}
+
+\textsc{A  Grue} is  a legendary  terror  that dwells  in dark  tunnels.
+Nobody knows  what one  looks like.  If you're not  careful, you  may be
+eaten by a Grue.
 
 \vspace{14pt}
 
 \lettrine[image=true,                lines=5,               findent=3pt,
-nindent=3pt]{../Manual/Viking-Turtle.png}{Viking Turtles}  are dangerous
-waterfront creatures that can be very dangerous to encounter.
+nindent=3pt]{../Manual/Venom-Sheep.png}{Venom Sheep}  seem like harmless
+fluffy creatures, until they lash out with a firey flare --- or slap you
+with a wet noodle.
 
 \vspace{14pt}
 
@@ -1083,12 +1087,20 @@ nindent=3pt]{../Manual/Crazy-Fox.png}{Crazy Foxes} are likely to unleash
 a great deal of  pain. It's said that they were  never actually foxes to
 begin with, but were created already crazy.
 
+\ifdefined\ATARIAGESAVE\pagebreak\else\vspace{14pt}\fi
+
+\lettrine[image=true,                lines=5,               findent=3pt,
+nindent=3pt]{../Manual/Viking-Turtle.png}{Viking Turtles}  live near the
+Spiral Woods. They crawl from the trees to pillage unsuspecting
+travelers, but they do move \emph{very} slowly.
+
 \vspace{14pt}
 
 \lettrine[image=true,                lines=5,               findent=3pt,
-nindent=3pt]{../Manual/Water-Kitty.png}{Water  Kitties}  are  a  special
-kind of  cat that likes to  swim, and to dish  out punishing water-based
-attacks on anyone who comes near them.
+nindent=3pt]{../Manual/Radish-Goblin.png}{Radish} Goblins  are possessed
+plants  that  pluck  themselves  from   the  ground  and  attack  unwary
+travelers.  They  are  well  known   to  be  among  the  more  dangerous
+root vegetables.
 
 \vspace{14pt}
 
@@ -1101,29 +1113,19 @@ mandibles, they hurt!
 
 \lettrine[image=true,                lines=5,               findent=3pt,
 nindent=3pt]{../Manual/Metal-Mouse.png}{Metal   Mice}    are   extremely
-durable, so it  can take a while  to chip away at their  hit points, but
-the rewards in points earned may well be worth it.
+durable, so it  can take a while  to chip away at their  hit points.
 
-\vspace{14pt}
+% \section*{and many more...}
 
-\lettrine[image=true,                lines=5,               findent=3pt,
-nindent=3pt]{../Manual/Fire-Panda.png}{Fire Pandas}  are a bit  like red
-pandas, or firefoxes, and quite a  bit more dangerous. Unlike a firefox,
-these beasts actually dish out fire-based attacks on their victims.
-
-\section*{and many more...}
-
-There  are many  other monsters  roaming the  countryside across  Syrex.
-You'll have to discover the others on your own. Here's a hint: There are
-more than 40 types of monsters that  you can face, and most of them also
-can be found in more powerful giant forms as well.
+% There  are many  other monsters  roaming the  countryside across  Syrex.
+% You'll have to discover the others on your own.
 
 }
 
 \ifdefined\ATARIAGESAVE\else
 
-\columnbreak
-\chapter{Troubleshooting}
+\pagebreak
+\twocolumn[\chapter{Troubleshooting}]
 
 \ifdefined\DEMO
 
@@ -1136,8 +1138,8 @@ by the game's  developer (that's me!) and must be  corrected in the next
 build of the game.
 
 If you see these  effects (or if you are running in  an emulator, if you
-notice that the  scan line count is not \ifdefined\TVNTSC  262 \else 312
-\fi      at     all      times)      please      report     them      to
+notice that the scan line count is  not 262 (NTSC) or 312 (PAL or SECAM)
+at       all       times)        please       report       them       to
 \hred{mailto:support@star-hope.org}{support@star-hope.org} so  that they
 can be corrected before the game is finished.
 
@@ -1155,7 +1157,7 @@ Title Screen.
 
 \subsection{Red Sad Face Screen: Memory Device Needed}
 
-\includegraphics[width=\columnwidth]{../Manual/RedSadFace\TV.png}
+\includegraphics[width=\columnwidth]{../Manual/RedSadFaceNTSC.png}
 
 Your  memory device  was not  found.  Connect an  AtariVox, SaveKey,  or
 MemCard to the  right controller port. You should also  plug in speakers
@@ -1165,7 +1167,7 @@ or headphones to your AtariVox to hear game voices.
 
 \subsection{White Sad Face Screen}
 
-\includegraphics[width=\columnwidth]{../Manual/WhiteSadFace\TV.png}
+\includegraphics[width=\columnwidth]{../Manual/WhiteSadFaceNTSC.png}
 
 The game  has encountered an  error and cannot continue.  Please contact
 \href{mailto:support@star-hope.org}{support@star-hope.org}           for
@@ -1177,8 +1179,20 @@ with your email.
 \section*{Pause button must be held down (7800)}
 
 This  is believed  to  be  a side  effect  of  certain multi-carts,  eg.
-PlusCart.  Note that  you can  press \textbf{Game  Select} to  view your
-Grizzard's statistics and effectively pause the game as well.
+PlusCart.  You  can press  \textbf{Game  Select}  instead to  view  your
+Grizzard's statistics and effectively pause the game.
+
+\section*{Joystick does not work in Stella}
+
+Because  of  the support  for  Joy2b+  gamepads, Stella  may  (generally
+wisely, but in  our case incorrectly) detect that you  would want to use
+a  Keyboard  controller  rather  than   a  joystick.  In  Stella,  press
+\textbf{Tab}  to access  the  settings window,  then click  \textbf{Game
+  Properties}. Go  to the \textbf{Controllers}  tab in that  window, and
+make sure that \textbf{Left Port} is  set to Sega Genesis (or Joystick),
+and \textbf{Right  Port} is  set to  AtariVox (or  SaveKey). If  it says
+Auto-Detect and  the fine  print below says  \textbf{Keyboard detected},
+you will not be able to control the game.
 
 \fi
 
@@ -1205,8 +1219,8 @@ without an AtariVox device. \else with a MemCard or SaveKey device. \fi
 
 \ifdefined\NOSAVE
 
-\columnbreak
-\chapter{No-Save Version}
+\pagebreak
+\twocolumn[\chapter{No-Save Version}]
 
 This special  No-Save demo does not  allow you to save  your progress or
 change Grizzards,  but it can be  used without a memory  device (such as
@@ -1217,70 +1231,78 @@ all progress is erased.
 
 \fi % not AtariAge release
 
+% \ifdefined\ATARIAGESAVE\pagebreak\fi
+
+\vfill
+
+
 \pagebreak
-\chapter{Credits}
 
-{\small
+\twocolumn[\chapter{Credits}]
 
-  The \textit{Grizzards}  videogame software, including  its audiovisual
-  components  and this  manual,  are  copyright \copyright{}  2021-2022,
-  Bruce-Robert  Pocock.  All  Rights  are  Reserved  except  as  granted
-  under license.
+\textit{Grizzards}   was   created   by  Bruce-Robert   Pocock   (story,
+programming, manual text,  graphics, and sound effects)  and Zephyr Salz
+(additional graphics, printed artwork, and music).
 
-\begin{itemize}
-\item Bruce-Robert Pocock --- Programming, Manual text, Graphics,
-  Sound effects
-\item Zephyr Salz --- Graphics and Printed Artwork; Music
-\end{itemize}
-
-\bigskip
-
-Includes VCS  header file by  Matthew Dillon, Olaf  ``Rhialto'' Seibert,
-Andrew  Davie, and  Peter H.  Froehlich. Binary  to decimal  translation
-based upon  code by  Andrew Jacobs,  based upon  code by  Garth Wilsone.
-``Six  Digit Score''  48 pixel  wide  display routines  as explained  on
-Stella list  by Erik  Mooney and  Bradford W.  Mott. SaveKey  EEPROM and
-AtariVox  speech  synthesis driver  based  upon  code by  Alex  Herbert.
-Random  number  generator  by  AtariAge  forum  user  \texttt{Supercat}.
-Some  math  functions  by AtariAge  forum  user  \texttt{Omega\-matrix}.
-Some  math functions  taken  from December  1984 \textit{Apple  Assembly
-  Line}.  ``Have  You   Played  Atari  Today''  jingle   by  Atari  Inc.
-transcribed by AtariAge Forum user \texttt{tigger\-the\-hun}. Atari 7800
-console detection  logic by Fred  Quimby courtesy of Darrell  Spice, Jr.
-AtariVox and SaveKey illustrations in  this manual are from the AtariAge
-store.  \ifdefined\DEMO\else  The AtariAge  logo  and  logotype are  the
-property of AtariAge. \fi
+The \textit{Grizzards} software includes the  VCS header file by Matthew
+Dillon, Olaf ``Rhialto'' Seibert, Andrew  Davie, and Peter H. Froehlich.
+Binary to decimal translation is based upon code by Andrew Jacobs, based
+upon code  by Garth Wilsone. ``Six  Digit Score'' 48 pixel  wide display
+routines are based upon an explanation on Stella list by Erik Mooney and
+Bradford W.  Mott. \ifdefined\ATARIAGESAVE\else  SaveKey EEPROM  and \fi{}
+AtariVox speech  synthesis driver  is based upon  code by  Alex Herbert.
+The random number generator is by AtariAge forum user \texttt{Supercat}.
+Some math  functions are by AtariAge  forum user \texttt{Omega\-matrix}.
+Some  math functions  were taken  from the  December 1984  \textit{Apple
+  Assembly  Line}. ``Have  You Played  Atari Today''  jingle created  by
+Atari    Inc.     and    transcribed    by    AtariAge     Forum    user
+\texttt{tigger\-the\-hun}. Atari 7800 console detection logic written by
+Fred      Quimby      courtesy      of      Darrell      Spice,      Jr.
+AtariVox \ifdefined\ATARIAGESAVE\else and SaveKey \fi{}
+illustrations   in   this   manual   are  from   the   AtariAge   store.
+\ifdefined\ATARIAGESAVE The AtariAge logo  and logotype are the property
+of AtariAge. \fi
 
 Special ``save to cartridge'' circuitry designed by Fred Quimby.
+
+Thanks to SmittyB for helping get the gamepad support working on Atari 7800.
 
 Thanks to Albert Yarusso for publication support.
 
 Special thanks  to everyone in  the Stella and AtariAge  communities for
 making this game possible.
 
+\vspace{30pt}
+
 \subsection{Testers}
 
 Philip Clark,
 James Earl O'Brien,
+Tanya O'Brien,
 Darcy Troy Paulin,
 \texttt{Mika},
 \texttt{vitoco},
 David Bowen,
+\texttt{Fort Apocalypse},
 and miscellaneous users from the AtariAge forum.
-
-An early  (alpha) version of the  game's demo was featured  on Zero Page
-Homebrew on Twitch on Friday, 6 August, 2021.
-
-\href{https://twitch.tv/zeropagehomebrew}{https://twitch.tv/\-zero\-page\-homebrew}
-
-\href{https://youtu.be/yCFDxUqdP-k?t=4200}{https://youtu.be/\-yCFDxUqdP-k?t=4200}
-
-}
 
 \vfill
 
+\ifdefined\ATARIAGESAVE
+TODO: probably put an AtariAge badge here and on the cover?
+\fi
+
+\begin{center}
+  \includegraphics[width=.333\columnwidth]{../Manual/BRP.png}
+\end{center}
+
 \clearpage
 \addcontentsline{toc}{chapter}{Map of Syrex}
-\includepdf[height=9in,width=6in,fitpaper=true]{../Manual/SyrexMap.png}
+\thispagestyle{empty}
+\begin{tikzpicture}[overlay, remember picture]
+  \node[anchor=north west, xshift=-4pt, yshift=4pt] 
+  at (current page.north west)
+  {\includegraphics[interpolate,width=\paperwidth,height=\paperheight]{../Manual/SyrexMap.png}};
+\end{tikzpicture}
 
 \end{document}
