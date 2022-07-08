@@ -109,21 +109,23 @@ LeftyLoopy:
           sta HMP0
           sta HMP1
           stx HMOVE
-          .Sleep 7
+          lax (SignpostAltPixelPointers + 4), y
+          .Sleep 2
 	lda (SignpostAltPixelPointers + 0), y
           sta GRP0
 	lda (SignpostAltPixelPointers + 2), y
-          .Sleep 4
+          .Sleep 2
           sta GRP1
-          lax (SignpostAltPixelPointers + 4), y
+          .Sleep 5
           lda (SignpostAltPixelPointers + 6), y
           stx GRP0
+          .Sleep 3
           sta GRP1
           lda (SignpostAltPixelPointers + 8), y
           sta GRP0
           lda (SignpostAltPixelPointers + 10), y
           sta GRP1
-          .Sleep 8
+          .Sleep 7
           ;; align for cycle 73(76) HMOVE
           lda #$80              ; +8px
           sta HMP0
