@@ -444,11 +444,14 @@ GoScreenRight:
             lda CurrentMap
             cmp # 1
             bne DoneDockBump
-            lda PlayerY
-            cmp #$13
-            bge DoneDockBump
 
-            .mva BlessedY, #$13
+            lda PlayerY
+            bmi GotStuck
+
+            cmp #$10
+            bge DoneDockBump
+GotStuck:
+            .mva BlessedY, #$10
 
 DoneDockBump:
 
