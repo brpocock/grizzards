@@ -89,8 +89,8 @@ AlignedLeft:
           ldy # 4
           .Sleep 7
 LeftyLoopy:
-	lax (PixelPointers + 0), y
-          stx GRP0
+          lda (PixelPointers + 0), y
+          sta GRP0
 	lda (PixelPointers + 2), y
           sta GRP1
           .Sleep 4
@@ -147,8 +147,8 @@ AlignedRight:
           ldy # 4
           .Sleep 7
 RightyLoopy:
-	lax (SignpostAltPixelPointers + 0), y
-          stx GRP0
+          lda (SignpostAltPixelPointers + 0), y
+          sta GRP0
 	lda (SignpostAltPixelPointers + 2), y
           sta GRP1
           .Sleep 2
