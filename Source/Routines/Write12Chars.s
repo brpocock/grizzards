@@ -81,16 +81,16 @@ InterleavedLoop:
           stx GRP0
 	lda (\first + 2), y
           sta GRP1
-          .Sleep 3
+          .Sleep 2
           lax (\first + 4), y
           lda (\first + 6), y
           stx GRP0
           sta GRP1
-          .Sleep 3
-          lax (\first + 8), y
+          lda (\first + 8), y
+          sta GRP0
           lda (\first + 10), y
-          stx GRP0
           sta GRP1
+          .Sleep 4
           .if \first == PixelPointers
             ;; align for cycle 71(74) HMOVE
             lda # 0              ; -8px
@@ -116,11 +116,11 @@ InterleavedLoop:
           lda (\second + 6), y
           stx GRP0
           sta GRP1
-          .Sleep 3
-          lax (\second + 8), y
+          lda (\second + 8), y
+          sta GRP0
           lda (\second + 10), y
-          stx GRP0
           sta GRP1
+          .Sleep 3
           .if \first == PixelPointers
             .Sleep 6
             ;; align for cycle 73(76) HMOVE
