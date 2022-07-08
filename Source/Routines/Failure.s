@@ -120,7 +120,7 @@ Reset:
           jmp GoWarmStart
 
 ;;; 
-          .if !ATARIAGE
+          .if !ATARIAGESAVE
 MemoryText:
           .MiniText "MEMORY"
 DeviceText:
