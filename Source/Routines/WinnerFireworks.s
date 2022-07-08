@@ -28,6 +28,7 @@ NotCaught:
           .WaitScreenBottom
           .WaitScreenTop
 +
+          lda CurrentGrizzard
           cmp # 30
           blt CheckCaughtLoop
 
@@ -137,25 +138,42 @@ AddAllStarters:
           .mva CurrentGrizzard, # 2
 
 ConsiderGrizzard:
-          sta Temp
+          .mva Temp, CurrentGrizzard
           .FarJSR SaveKeyBank, ServicePeekGrizzardXP
 
           bit Temp
           bmi SeenGrizzardBefore
 
           .mva Temp, CurrentGrizzard
+          .WaitScreenBottom
+          ;; Defaults does WaitScreenTop and SaveGrizzard and WaitScreenBottom
           .FarJSR MapServicesBank, ServiceGrizzardDefaults
-          .FarJSR SaveKeyBank, ServiceSaveGrizzard
+          .WaitScreenTop
 
 SeenGrizzardBefore:
           dec CurrentGrizzard
           bpl ConsiderGrizzard
 ;;; 
+SelectAvailableGrizzard:
+          .mva CurrentGrizzard, # 0
+
+GrizzardCheckup:
+          .mva Temp, CurrentGrizzard
+          .FarJSR SaveKeyBank, ServicePeekGrizzard
+
+          bit Temp
+          bmi ValidGrizzardToBeCurrent
+
+          inc CurrentGrizzard
+          gne GrizzardCheckup
+
+ValidGrizzardToBeCurrent:
+          .FarJSR SaveKeyBank, ServiceLoadGrizzard
+;;; 
 ResetProvinceFlags:
           ldy # 0               ; XXX necessary?
           sty CurrentMap
           sty NextMap
-          sty CurrentGrizzard
           tya
 
           iny                   ; Y = 1
