@@ -35,12 +35,13 @@ Loop:
           sty AUDV1
 
           lda GameMode
-          cmp #ModeNoAtariVox
-          bne WhiteSadFace
+          .if !ATARIAGESAVE
+            cmp #ModeNoAtariVox
+            bne WhiteSadFace
 
-          .ldacolu COLRED, $6
-          gne CommonSadness
-
+            .ldacolu COLRED, $6
+            gne CommonSadness
+          .fi
 WhiteSadFace:
           .ldacolu COLGRAY, $e
 
@@ -119,12 +120,14 @@ Reset:
           jmp GoWarmStart
 
 ;;; 
+          .if !ATARIAGE
 MemoryText:
           .MiniText "MEMORY"
 DeviceText:
           .MiniText "DEVICE"
 NeededText:
           .MiniText "NEEDED"
+          .fi
 ErrorText:
           .MiniText "ERROR "
 
