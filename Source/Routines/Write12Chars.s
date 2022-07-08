@@ -59,10 +59,9 @@ PositionPlayers:
           .Sleep 10
           stx RESP0
           .Sleep 3
-          stx RESP1
+          stx RESP1             ; ends on cycle 38
 
-          stx WSYNC
-          .SleepX 71
+          .SleepX 33
           stx HMOVE             ; Cycle 74 HMOVE
 
           lda ClockFrame
@@ -75,62 +74,68 @@ PositionPlayers:
           .endp
 
 ;;; 
-DrawInterleavedLine:       .macro origin
-
-	lax (\origin + 0), y
-	lda (\origin + 2), y
-          stx GRP0
-          sta GRP1
-          lax (\origin + 4), y
-          lda (\origin + 6), y
-          stx GRP0
-          sta GRP1
-          lax (\origin + 8), y
-          lda (\origin + 10), y
-          stx GRP0
-          sta GRP1
-          nop
-          nop
-          nop
- 
-          .endm
-
-ShiftLeft:         .macro
-          ;; align for cycle 71(74) HMOVE
-          lda # 0              ; -8px
-          sta HMP0
-          sta HMP1
-          stx HMOVE
-          nop $71
-          nop
-          .endm
-
-ShiftRight:         .macro
-          ;; align for cycle 73(76) HMOVE
-          lda #$80              ; +8px
-          sta HMP0
-          sta HMP1
-          nop
-          stx HMOVE
-          nop
-          nop $69
-          .endm
-
 DrawLineLoop:       .macro first, second
           .block
 InterleavedLoop:
-          .DrawInterleavedLine \first
+	lax (\first + 0), y
+          stx GRP0
+	lda (\first + 2), y
+          sta GRP1
+          .Sleep 3
+          lax (\first + 4), y
+          lda (\first + 6), y
+          stx GRP0
+          sta GRP1
+          .Sleep 3
+          lax (\first + 8), y
+          lda (\first + 10), y
+          stx GRP0
+          sta GRP1
           .if \first == PixelPointers
-            .ShiftLeft
+            ;; align for cycle 71(74) HMOVE
+            lda # 0              ; -8px
+            sta HMP0
+            sta HMP1
+            stx HMOVE
+            .Sleep 7
           .else
-            .ShiftRight
+            .Sleep 2
+            ;; align for cycle 73(76) HMOVE
+            lda #$80              ; +8px
+            sta HMP0
+            sta HMP1
+            stx HMOVE
+            .Sleep 9
           .fi
-          .Sleep 5
-          .DrawInterleavedLine \second
+	lax (\second + 0), y
+	lda (\second + 2), y
+          stx GRP0
+          sta GRP1
+          .Sleep 3
+          lax (\second + 4), y
+          lda (\second + 6), y
+          stx GRP0
+          sta GRP1
+          .Sleep 3
+          lax (\second + 8), y
+          lda (\second + 10), y
+          stx GRP0
+          sta GRP1
           .if \first == PixelPointers
-            .ShiftRight
+            .Sleep 6
+            ;; align for cycle 73(76) HMOVE
+            lda #$80              ; +8px
+            sta HMP0
+            sta HMP1
+            stx HMOVE
+            .Sleep 4
           .else
-            .ShiftLeft
+            ;; align for cycle 71(74) HMOVE
+            lda # 0              ; -8px
+            sta HMP0
+            sta HMP1
+            stx HMOVE
+            .Sleep 6
           .fi
           dey
           bpl InterleavedLoop
@@ -141,8 +146,13 @@ InterleavedLoop:
           .align $100           ; TODO
 AlignedLeft:
           .page
-          stx WSYNC
-          stx WSYNC
+          ;; we enter on cycle 8 of the scan line
+          .SleepX 57
+          ;; align for cycle 73(76) HMOVE
+          lda #$80              ; +8px
+          sta HMP0
+          sta HMP1
+          stx HMOVE
           ldy # 4
           .Sleep 7
           .DrawLineLoop PixelPointers, SignpostAltPixelPointers
@@ -150,6 +160,7 @@ AlignedLeft:
           ldy # 0
           sty GRP0
           sty GRP1
+          stx WSYNC
           rts
 
 AlignedRight:
@@ -157,7 +168,7 @@ AlignedRight:
           stx WSYNC
           ldy # 4
           .Sleep 7
-          .DrawLineLoop PixelPointers, SignpostAltPixelPointers
+          .DrawLineLoop SignpostAltPixelPointers, PixelPointers
           .endp
           ldy # 0
           sty GRP0
