@@ -3,5 +3,7 @@
 
 SpriteMapper:       .block
 
-          rts
+          ldx # Province0MapBank
+          jmp ReturnFromSpriteMapperToMap
+
           .bend
