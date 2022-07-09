@@ -130,9 +130,13 @@ StringBuffer:
           .byte ?, ?, ?, ?, ?, ?
 
 ;;; But we also recycle this buffer for the “advanced” sprite flicker routines
-          AbsoluteLineCount = StringBuffer + 0
+
           SpriteDrawOrder = StringBuffer + 1
           SpriteFlags = StringBuffer + 2 ; × 4
+
+          SpriteFlagPlayerCx = $01
+          SpriteFlagWallCx = $02
+          SpriteFlagDrawn = $04
 
 DebounceSWCHA:
           .byte ?
