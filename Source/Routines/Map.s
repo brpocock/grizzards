@@ -289,6 +289,7 @@ GotBK:
           .mva PF0, pp4l
           .mva PF1, pp4h
           .mva PF2, pp3l
+
           ldy # 1
           lax (pp5l), y
 ;;; 
@@ -329,12 +330,17 @@ DrawPlayers:
           sta GRP0
           jmp P0Done
 
-NoP0:
-          .mva GRP0, #0
-P0Done:
+NoP0:                           ; 10 cyc on entry
+          lda # 0
+          sta GRP0
+          .Sleep 8
+P0Done:                         ; 23 cyc here
+
+DrawPlayer1:
           lda # 7
           dcp P1LineCounter
           bmi RemapSprites
+
           blt NoP1
 
           ldy P1LineCounter
@@ -344,11 +350,16 @@ P0Done:
 
 RemapSprites:
           jmp GoSpriteMapper
-SpriteMapperReturn:
 
 NoP1:
-          .mva GRP1, #0
-P1Done:
+          .mva GRP1, # 0
+          .Sleep 8
+P1Done:                         ; 48 cyc here
+
+SpriteMapperReturn:
+
+          .SleepX 23
+
           .if TV != NTSC
           ;; extend every even line on PAL/SECAM
             lda #$01
@@ -356,13 +367,13 @@ P1Done:
             beq +
             stx WSYNC
 +
+	  .SleepX 
           .fi
 
           ldy # 1
           lax (pp5l), y
-
+ 
           dec LineCounter
-          stx WSYNC
 
           bne DrawMap
 ;;; 

@@ -60,15 +60,14 @@ AfterScore:
           sec
           stx WSYNC
 P0HPos:
-          sbc #15
+          sbc # 15
           bcs P0HPos
           sta RESP0
 
           eor #$07
-          asl a
-          asl a
-          asl a
-          asl a
+          .rept 4
+            asl a
+          .next
           sta HMP0
 
           lda MapFlags
@@ -85,10 +84,12 @@ NextFlickerCandidate:
           inx
           cpx SpriteCount
           blt FlickerOK
-          ldx #0
+
+          ldx # 0
 FlickerOK:
           dey
           beq SetUpSprites
+
           lda SpriteMotion, x
           cmp # SpriteRandomEncounter
           beq NextFlickerCandidate
@@ -99,15 +100,14 @@ FlickerOK:
           sec
           stx WSYNC
 P1HPos:
-          sbc #15
+          sbc # 15
           bcs P1HPos
           sta RESP1
 
           eor #$07
-          asl a
-          asl a
-          asl a
-          asl a
+          .rept 4
+            asl a
+          .next
           sta HMP1
 
 SetUpSprites:
