@@ -134,14 +134,24 @@ GoSpriteMapper:
 ReturnFromSpriteMapperToMap:
           ;; X register has the target ROM bank
           sta BankSwitch0, x
-          .switch BANK
-          .case 3,4,5
-            jmp Map.SpriteMapperReturn
-          .default
-            brk
-            brk
-            brk
-          .endswitch
+          .if DEMO
+            .if 4 == BANK
+              jmp Map.SpriteMapperReturn
+            .else
+              brk
+              brk
+              brk
+            .fi
+          .else
+            .switch BANK
+            .case 3,4,5
+              jmp Map.SpriteMapperReturn
+            .default
+              brk
+              brk
+              brk
+            .endswitch
+          .fi
 
           ;; a tiny little routine that's used all over the place.
           ;; free up from some wasted space here.
