@@ -34,6 +34,7 @@ BankSwitch:
             .fi
           .bend
           .endm
+
 ;;; 
 
 ;;; The "Wired memory" is present in every bank and must occupy exactly
@@ -53,7 +54,6 @@ GoColdStart:
 ;;; Go to the current map memory bank, and jump to DoMap.
 GoMap:
           .mvx s, #$ff              ; smash the stack
-
           .if DEMO
 
             sta BankSwitch0 + Province0MapBank
@@ -118,9 +118,30 @@ Break:
           ;; Useful constants to save time bit-shifting. Used all over.
 BitMask:
           .byte $01, $02, $04, $08, $10, $20, $40, $80
-          ;; Also fairly useful.
-InvertedBitMask:
-          .byte ~$01, ~$02, ~$04, ~$08, ~$10, ~$20, ~$40, ~$80
+
+          .switch BANK
+          .case 3,4,5,SpriteMapperBank
+GoSpriteMapper:
+            stx BankSwitch0 + SpriteMapperBank
+          .endswitch
+          .switch BANK
+          .case 3,4,5
+            jmp GoSpriteMapper
+          .case SpriteMapperBank
+            jmp SpriteMapper
+          .endswitch
+
+ReturnFromSpriteMapperToMap:
+          ;; X register has the target ROM bank
+          sta BankSwitch0, x
+          .switch BANK
+          .case 3,4,5
+            jmp Map.SpriteMapperReturn
+          .default
+            brk
+            brk
+            brk
+          .endswitch
 
           ;; a tiny little routine that's used all over the place.
           ;; free up from some wasted space here.

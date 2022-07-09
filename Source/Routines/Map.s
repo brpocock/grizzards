@@ -93,11 +93,11 @@ GetMapColors:
               .block
 
               ldy CurrentMap
-              cpy #18
+              cpy # 18
               blt NotDark
-              cpy #19
+              cpy # 19
               beq NotDark
-              cpy #29
+              cpy # 29
               bge NotDark
 
               ora #$08          ; dimmer than usual
@@ -253,11 +253,11 @@ DoneBall:
 
               .block
               ldy CurrentMap
-              cpy #18
+              cpy # 18
               blt NotDark
-              cpy #19
+              cpy # 19
               beq NotDark
-              cpy #29
+              cpy # 29
               bge NotDark
 
               ;;  floor darker than walls in caves
@@ -291,6 +291,7 @@ GotBK:
           lax (pp5l), y
 ;;; 
 DrawMap:
+SpriteMapperReturn:
           ;; Actually draw each line of the map
           dec RunLength
           bne DrawPlayers
