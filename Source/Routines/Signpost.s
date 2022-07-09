@@ -11,6 +11,7 @@ Setup:
           lda GameMode
           cmp #ModeSignpostInquire
           beq +
+
           .WaitScreenTop
           gne Silence
 
@@ -39,6 +40,7 @@ IndexReady:
           ;; is this index in this memory bank?
           cpx #FirstSignpost
           bge NoBankDown
+
 BankDown:
           .if BANK > SignpostBank
             stx BankSwitch0 + BANK - 1
@@ -52,6 +54,7 @@ BankDown:
 NoBankDown:
           cpx #FirstSignpost + len(Signs)
           blt NoBankUp
+
 BankUp:
           .if BANK < SignpostBank + SignpostBankCount - 1
             stx BankSwitch0 + BANK + 1
@@ -69,10 +72,12 @@ NoBankUp:
 ;;; Beyond this point, cross-bank alignment does not matter.
 
           ;; Adjust the index to be relative to this bank
-          txa
-          sec
-          sbc #FirstSignpost
-          tax
+          .if FirstSignpost > 0
+            txa
+            sec
+            sbc #FirstSignpost
+            tax
+          .fi
           stx SignpostIndex
 
           lda SignH, x
@@ -115,8 +120,7 @@ Conditional:
           beq ConditionFailed
 
           ldy # 4               ; jump to which alternative
-          lda (SignpostWork), y
-          tax
+          lax (SignpostWork), y
           jmp IndexReady        ; fetch new alternative
 
 ConditionFailed:
