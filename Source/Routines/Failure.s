@@ -2,7 +2,7 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 Failure:	.block
           tsx
-          cpx #$fd
+          cpx #$fb
           bge NoStack
 
           pla
