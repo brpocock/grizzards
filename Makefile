@@ -202,7 +202,7 @@ Dist/Grizzards.AA.SECAM.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-to
 
 Source/Generated/Makefile:	bin/write-master-makefile ${SOURCES}
 	mkdir -p Source/Generated
-	for bank in 5 7 8 9 a b c d e; do bin/make-speakjet-enums $$bank; done
+	for bank in 5 7 8 9 a b c; do bin/make-speakjet-enums $$bank; done
 	$< > Source/Generated/Makefile
 
 Dist/Grizzards.AA-book.pdf:	Dist/Grizzards.AA.pdf
