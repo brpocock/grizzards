@@ -150,8 +150,6 @@ Loop:
           lda SignpostText + 1
           sta SignpostWork + 1
 
-          .SkipLines 0
-
           stx WSYNC
           ldy # 0
           sty COLUPF
@@ -181,7 +179,7 @@ NextTextLine:
 ;;; 
 DoneDrawing:
           ;; ldy # 0   ; Y already = 0 here
-          .SkipLines 8
+          .SkipLines KernelLines / 6
           sty COLUBK
 
           lda AlarmCountdown      ; require 1-2s to tick before accepting button press; see #140
@@ -421,5 +419,3 @@ Overscan: .block
           stx WSYNC
           rts
           .bend
-
-;;; Audited 2022-04-18 BRPocock
