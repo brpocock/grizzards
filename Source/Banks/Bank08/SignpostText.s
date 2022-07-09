@@ -260,7 +260,7 @@ Sign_TunnelMazeBlocked:
 NPC_LostPendant:
           .colu COLINDIGO, 0
           .colu COLTURQUOISE, $9
-          .byte $ff, 28, 22
+          .byte $ff, 28, 23
           .SignText "I TRAINED   "
           .SignText "GRIZZARDS   "
           .SignText "TOO. I LOST "

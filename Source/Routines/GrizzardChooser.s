@@ -6,6 +6,11 @@ GrizzardChooser:    .block
           lda #ModeGrizzardChooser
           sta GameMode
 
+          lda CurrentGrizzard
+          cmp # 3
+          blt +
+          .mva CurrentGrizzard, # 1
++
           .SetUtterance Phrase_ChooseGrizzard
 
 Loop:

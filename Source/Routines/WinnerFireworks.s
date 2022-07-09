@@ -28,6 +28,7 @@ NotCaught:
           .WaitScreenBottom
           .WaitScreenTop
 +
+          lda CurrentGrizzard
           cmp # 30
           blt CheckCaughtLoop
 
@@ -49,10 +50,11 @@ Loop:
           jsr FarCall
           .WaitScreenBottom
           .switch TV
-          .case PAL
+          .case PAL,SECAM
             .SkipLines 2
           .endswitch
           .WaitScreenTopMinus 1, 0
+          stx WSYNC
           .ldacolu COLRED, $8
           sta COLUBK
           .ldacolu COLGOLD, $0
@@ -85,16 +87,14 @@ DoneAgain:
           cmp # 30
           beq CaughtEmAll
 
-          .enc "minifont"
           sta Temp
 
-          ldx # 0
+          ldx # 5
 BlankFillLoop:
           lda ZeroText, x
           sta StringBuffer, x
-          inx
-          cpx # 6
-          blt BlankFillLoop
+          dex
+          bpl BlankFillLoop
 
           .FarJSR TextBank, ServiceAppendDecimalAndPrint
 
@@ -119,6 +119,7 @@ DoneSwitches:
           and #ButtonI
           bne DoneButtons
 
+GoShowCredits:
           .WaitScreenBottom
           .mvx SignpostIndex, # 108    ; Credits1
           jmp Signpost
@@ -144,18 +145,35 @@ ConsiderGrizzard:
           bmi SeenGrizzardBefore
 
           .mva Temp, CurrentGrizzard
+          .WaitScreenBottom
+          ;; Defaults does WaitScreenTop and SaveGrizzard and WaitScreenBottom
           .FarJSR MapServicesBank, ServiceGrizzardDefaults
-          .FarJSR SaveKeyBank, ServiceSaveGrizzard
+          .WaitScreenTop
 
 SeenGrizzardBefore:
           dec CurrentGrizzard
           bpl ConsiderGrizzard
 ;;; 
+SelectAvailableGrizzard:
+          .mva CurrentGrizzard, # 0
+
+GrizzardCheckup:
+          .mva Temp, CurrentGrizzard
+          .FarJSR SaveKeyBank, ServicePeekGrizzard
+
+          bit Temp
+          bmi ValidGrizzardToBeCurrent
+
+          inc CurrentGrizzard
+          gne GrizzardCheckup
+
+ValidGrizzardToBeCurrent:
+          .FarJSR SaveKeyBank, ServiceLoadGrizzard
+;;; 
 ResetProvinceFlags:
           ldy # 0               ; XXX necessary?
           sty CurrentMap
           sty NextMap
-          sty CurrentGrizzard
           tya
 
           iny                   ; Y = 1
@@ -184,7 +202,8 @@ Wipe8Bytes:
           stx WSYNC
           stx WSYNC
 
-          jmp GoWarmStart
+          .mvx SignpostIndex, # 29 ; NewGamePlusGo
+          jmp Signpost
 ;;; 
 AgainText:
           .MiniText "AGAIN!"
@@ -196,5 +215,3 @@ EmAllText:
           .MiniText "EM ALL"
 
           .bend
-
-;;; Audited 2022-04-23 BRPocock

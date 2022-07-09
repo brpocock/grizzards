@@ -42,3 +42,6 @@ Thanks to our testers and everyone in the Atari Age forums
 
 Villager4:
 The monsters attacked Treble first,but they're coming here
+
+NewGamePlus:
+Press the Game Reset switch to re-start with your Grizzards

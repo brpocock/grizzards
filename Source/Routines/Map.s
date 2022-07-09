@@ -324,7 +324,7 @@ DrawPlayers:
           stx WSYNC
           lda #7
           dcp P0LineCounter
-          bcc NoP0
+          blt NoP0
 
           ldy P0LineCounter
           lda (pp0l), y
@@ -336,7 +336,7 @@ NoP0:
 P0Done:
           lda #7
           dcp P1LineCounter
-          bcc NoP1
+          blt NoP1
 
           ldy P1LineCounter
           lda (pp1l), y
@@ -448,10 +448,13 @@ GoScreenRight:
             lda CurrentMap
             cmp # 1
             bne DoneDockBump
+
             lda PlayerY
+            bmi GotStuck
+
             cmp #$10
             bge DoneDockBump
-
+GotStuck:
             .mva BlessedY, #$10
 
 DoneDockBump:

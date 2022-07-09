@@ -2,6 +2,21 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 CombatOutcomeScreen:          .block
+          .switch TV
+          .case SECAM
+            ldx WhoseTurn
+            bne +
+            .SkipLines 2
++
+            .SkipLines 2
+          .case PAL
+            .SkipLines 2
+          .case NTSC
+            ldx WhoseTurn
+            bne +
+            .SkipLines 2
++
+          .endswitch
           .WaitScreenTopMinus 1, -2
 
           ldy # 0
