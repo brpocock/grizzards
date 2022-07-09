@@ -186,8 +186,6 @@ NoFlip:
 
 FindAnimationFrame:
 
-          .if false             ; XXX
-
           lda ClockFrame
           .BitBit $10
           bne AnimationFrameReady
@@ -200,17 +198,11 @@ FindAnimationFrame:
 +
           sta pp1l
 
-          .fi
-
 AnimationFrameReady:
-
-          .if false             ; XXX
           ldx SpriteFlicker
           lda SpriteY, x
           sta P1LineCounter
           jmp P1Ready
-
-          .fi
 
 NoSprites:
           .mva P1LineCounter, #$ff
