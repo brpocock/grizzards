@@ -311,7 +311,7 @@ DrawMap:
           sta RunLength
           clc
           lda pp5l
-          adc #4
+          adc # 4
           bcc +
           inc pp5h
 +
