@@ -175,6 +175,9 @@ NotCompleted:
 
 
           .include "GrizzardStartingStats.s"
+          .if DEMO
+            .include "SpriteMapperFlicker.s"
+          .fi
           .include "SpriteColor.s"
 
 	.include "EndBank.s"
