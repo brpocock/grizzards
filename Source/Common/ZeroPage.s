@@ -129,6 +129,11 @@ AlarmCountdown:
 StringBuffer:
           .byte ?, ?, ?, ?, ?, ?
 
+;;; But we also recycle this buffer for the “advanced” sprite flicker routines
+          AbsoluteLineCount = StringBuffer + 0
+          SpriteDrawOrder = StringBuffer + 1
+          SpriteFlags = StringBuffer + 2 ; × 4
+
 DebounceSWCHA:
           .byte ?
 DebounceSWCHB:
