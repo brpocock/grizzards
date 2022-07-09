@@ -320,7 +320,7 @@ DrawMap:
 
 DrawPlayers:
           stx WSYNC
-          lda #7
+          lda # 7
           dcp P0LineCounter
           blt NoP0
 
@@ -332,14 +332,19 @@ DrawPlayers:
 NoP0:
           .mva GRP0, #0
 P0Done:
-          lda #7
+          lda # 7
           dcp P1LineCounter
+          bmi RemapSprites
           blt NoP1
 
           ldy P1LineCounter
           lda (pp1l), y
           sta GRP1
           jmp P1Done
+
+RemapSprites:
+          jmp GoSpriteMapper
+SpriteMapperReturn:
 
 NoP1:
           .mva GRP1, #0

@@ -3,7 +3,8 @@
 
 SpriteMapper:       .block
 
-          rts
+          ldx # Province0MapBank
+          jmp ReturnFromSpriteMapperToMap
 
           .fill $100
           .bend
