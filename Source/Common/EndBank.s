@@ -113,7 +113,7 @@ FarReturn:
 Break:
           lda # BANK
           pha
-          BankJump Failure, FailureBank
+          .BankJump Failure, FailureBank
 ;;; 
           ;; Useful constants to save time bit-shifting. Used all over.
 BitMask:
