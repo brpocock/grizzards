@@ -1,21 +1,33 @@
 ;;; Grizzards Source/Routines/NextSprite.s
 ;;; Copyright © 2022 Bruce-Robert Pocock
 
-          ldx SpriteFlicker
           ldy # 5
 NextFlickerCandidate:
           inx
+
+          cpx SpriteFlicker
+          beq NoSprites
+
           cpx SpriteCount
           blt FlickerOK
 
           ldx # 0
 FlickerOK:
           dey
-          beq SetUpSprites
+          beq NoSprites
 
           lda SpriteMotion, x
           cmp # SpriteRandomEncounter
           beq NextFlickerCandidate
+
+          .if SpriteMapperBank == BANK
+
+            ;; if we're already too late to draw it, don't select it
+            lda SpriteY, x
+            sbc # 8             ; it's OK if the carry bit fucks this up a line
+            cmp LineCounter
+            bge NextFlickerCandidate
+          .fi
 
           stx SpriteFlicker
 
@@ -120,4 +132,3 @@ FindAnimationFrame:
           inc pp1h
 +
           sta pp1l
-
