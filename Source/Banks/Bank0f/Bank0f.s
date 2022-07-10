@@ -32,6 +32,7 @@
           .include "ShowPointerText.s"
 
           .include "SpriteMapper.s"
+          .include "SpriteColor.s"
 
 DoLocal:
           cpy #ServiceDrawGrizzard

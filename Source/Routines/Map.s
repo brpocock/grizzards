@@ -338,22 +338,22 @@ P0Done:                         ; 23 cyc here
 DrawPlayer1:
           lda # 7
           dcp P1LineCounter
-          bmi RemapSprites
-
           blt NoP1
 
           ldy P1LineCounter
+          bmi RemapSprites
           lda (pp1l), y
           sta GRP1
           jmp P1Done
 
+NoP1:
+          .mva GRP1, # 0
+          geq P1Done
+
 RemapSprites:
           jmp GoSpriteMapper
 
-NoP1:
-          .mva GRP1, # 0
-          .Sleep 8
-P1Done:                         ; 48 cyc here
+P1Done:                         ; 48 cyc here**??
 
 SpriteMapperReturn:
 
