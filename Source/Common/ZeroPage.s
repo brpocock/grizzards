@@ -429,7 +429,7 @@ NameEntryBuffer:
 FlickerRoundRobin:
           .byte ?
 
-MapUnusedByte:
+SpriteDrawnFlags:
           .byte ?
 
 ;;; How many non-player sprites are on screen now?

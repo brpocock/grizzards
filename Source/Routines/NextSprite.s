@@ -22,9 +22,10 @@ FlickerOK:
 
           .if SpriteMapperBank == BANK
             ;; if we're already too late to draw it, don't select it
-            lda SpriteY, x
-            sbc # 8             ; it's OK if the carry bit fucks this up a line
-            cmp LineCounter
+            lda # 72
+            sec
+            sbc LineCounter
+            cmp SpriteY, x
             bge NextFlickerCandidate
           .fi
 
@@ -38,13 +39,17 @@ P1HPos:
           bcs P1HPos
           sta RESP1
 
-          eor #$07
+          eor #$08
           .rept 4
             asl a
           .next
           sta HMP1
 
 SetUpSprites:
+          .if SpriteMapperBank == BANK
+            stx WSYNC
+          .fi
+
           ldx SpriteCount
           beq NoSprites
 
@@ -95,9 +100,6 @@ NoPuff:
 +
           sta pp1l
 MaybeAnimate:
-          .if SpriteMapperBank == BANK
-            ;;;stx WSYNC
-          .fi
           bit SystemFlags
           bmi AnimationFrameReady
 
@@ -135,3 +137,4 @@ FindAnimationFrame:
           inc pp1h
 +
           sta pp1l
+
