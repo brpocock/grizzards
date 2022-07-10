@@ -2,11 +2,16 @@
 ;;; Copyright © 2022 Bruce-Robert Pocock
 
 SpriteMapper:       .block
-
+          ;; MAGIC — these addresses must be  known and must be the same
+	;; in every map bank.
+          PlayerSprites = $f000
+          MapSprites = PlayerSprites + 16
+          LeadingLines = 4
+;;; 
           lda P0LineCounter
           bmi PlayerOK
 
-          cmp # 10              ; player is being drawn soon or now
+          cmp # 8 + LeadingLines              ; player is being drawn soon or now
           blt Leave
 
           ldx P1LineCounter
@@ -14,64 +19,51 @@ SpriteMapper:       .block
 
 PlayerOK:
           ldx RunLength         ; is RunLength at least 2?
-          dex
-          dex
-          bmi Leave
+          cpx # LeadingLines
+          blt Leave
+
+          lda # COLORANGE | $8
+          sta COLUBK
+;;; 
+          .include "NextSprite.s"
+;;; 
+AnimationFrameReady:
+
+          lda LineCounter
+          sec
+          sbc # LeadingLines
+          bpl +
+          lda # 1
++
+          sta LineCounter
+
+          lda RunLength
+          sec
+          sbc # LeadingLines
+          sta RunLength
+
+          lda P0LineCounter
+          sec
+          sbc # LeadingLines
+          sta P0LineCounter
 
           ldx SpriteFlicker
-          ldy # 5
-NextFlickerCandidate:
-          inx
-          cpx SpriteCount
-          blt FlickerOK
-
-          ldx # 0
-FlickerOK:
-          dey
-          beq SetUpSprites
-
-          lda SpriteMotion, x
-          cmp # SpriteRandomEncounter
-          beq NextFlickerCandidate
-
-          stx SpriteFlicker
-
-          lda SpriteX, x
-          sec
-          stx WSYNC
-P1HPos:
-          sbc # 15
-          bcs P1HPos
-          sta RESP1
-
-          eor #$07
-          .rept 4
-            asl a
-          .next
-          sta HMP1
-
-SetUpSprites:
-          ;; DEBUG
-          lda DebugColor, x
-          sta COLUPF
-          ;; DEBUG
-
-          stx SpriteFlicker
-
-          lda SpriteY, x
+          lda # 72
           sec
           sbc LineCounter
+          sta Temp
+          lda SpriteY, x
+          sec
+          sbc Temp
+          bmi TryAgain
+
+          cmp # 3
+          blt TryAgain
+
           sta P1LineCounter
-
-          .Sleep 50
-
-          .Sleep 65
-
-          dec LineCounter
-          dec P0LineCounter
-          beq Leave
-          dec LineCounter
-          dec P0LineCounter
+P1Ready:
+          lda DebugColor, x
+          sta COLUBK
 
 Leave:
           stx WSYNC
@@ -82,14 +74,42 @@ Leave:
 Return:
           jmp ReturnFromSpriteMapperToMap
 
-          .fill $100
+;;; 
+TryAgain:
+          ldx SpriteFlicker
+          lda DebugColor, x     ; COLRED
+          sta COLUBK
+          .mva P1LineCounter, # 0
+          jmp GetOuttaHere
 
-DebugColor:
-          .byte COLGREEN | $8
-          .byte COLGRAY | $8
-          .byte COLRED | $8
-          .byte COLYELLOW | $8
+NoSprites:
+          .mva COLUBK, # COLPURPLE | $8
+          .mva P1LineCounter, #$ff
+	
+          lda LineCounter
+          sec
+          sbc # LeadingLines
+          sta LineCounter
+
+          lda P0LineCounter
+          sec
+          sbc # LeadingLines
+          bmi TryAgain
+          sta P0LineCounter
+
+GetOuttaHere:
+          ldx CurrentProvince
+          lda ProvinceMapBank, x
+          tax
+
+          jmp ReturnFromSpriteMapperToMap
+
 ProvinceMapBank:
           .byte Province0MapBank, Province1MapBank, Province2MapBank
 
+DebugColor:
+          .colu COLGREEN, $8
+          .colu COLCYAN, $8
+          .colu COLSPRINGGREEN, $8
+          .colu COLBROWN, $8
           .bend

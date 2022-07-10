@@ -239,13 +239,13 @@ MapSides:
 ;;; 
 SpriteList:
           ;; Room 0, "Tier 0"
-          .byte $ff, SpriteFixed              ; not removeable, fixed position sprite
-          .byte $7d, $30         ; x, y position
-          .byte SpriteDoor, 3   ; action
-
           .byte $ff, SpriteFixed
           .byte $7d, $12         ; x, y
           .byte SpriteGrizzardDepot, 0
+
+          .byte $ff, SpriteFixed
+          .byte $7d, $30         ; x, y position
+          .byte SpriteDoor, 3   ; action
 
           .byte 0               ; end of list
 
