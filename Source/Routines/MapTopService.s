@@ -3,7 +3,7 @@
 TopOfScreenService: .block
 
           ;; MAGIC — these addresses must be  known and must be the same
-	;; in every map bank.
+          ;; in every map bank.
           PlayerSprites = $f000
           MapSprites = (PlayerSprites + $0f)
 
@@ -63,7 +63,7 @@ P0HPos:
           bcs P0HPos
           sta RESP0
 
-          eor #$07
+          eor #$08
           .rept 4
             asl a
           .next
@@ -131,4 +131,3 @@ TheEnd:
 
           .bend
 
-;;; Audited 2022-02-16 BRPocock
