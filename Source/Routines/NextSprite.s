@@ -21,7 +21,6 @@ FlickerOK:
           beq NextFlickerCandidate
 
           .if SpriteMapperBank == BANK
-
             ;; if we're already too late to draw it, don't select it
             lda SpriteY, x
             sbc # 8             ; it's OK if the carry bit fucks this up a line
@@ -96,8 +95,12 @@ NoPuff:
 +
           sta pp1l
 MaybeAnimate:
+          .if SpriteMapperBank == BANK
+            ;;;stx WSYNC
+          .fi
           bit SystemFlags
           bmi AnimationFrameReady
+
           lda SpriteAction, x
           cmp #SpriteCombat
           beq Flippy
