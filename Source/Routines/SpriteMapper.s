@@ -3,7 +3,7 @@
 
 SpriteMapper:       .block
           ;; MAGIC — these addresses must be  known and must be the same
-	;; in every map bank.
+          ;; in every map bank.
           PlayerSprites = $f000
           MapSprites = (PlayerSprites + $0f)
           LeadingLines = 4
@@ -11,7 +11,7 @@ SpriteMapper:       .block
           EntryIntim = StringBuffer
           BusyLines = StringBuffer + 1
 
-          DebugColors = true
+          DebugColors = false
 ;;; 
           lda P0LineCounter
           bmi PlayerOK
@@ -19,35 +19,29 @@ SpriteMapper:       .block
           cmp # 8 + LeadingLines              ; player is being drawn soon or now
           blt Leave
 
+          ldx P1LineCounter
+          bpl Leave
+
 PlayerOK:
           ldx RunLength         ; going to have to change the playfield soon
           cpx # LeadingLines
           blt Leave
 
+          stx WSYNC
+
           .if DebugColors
             lda # COLORANGE | $8
-            sta COLUBK
+            sta COLUPF
           .fi
 
-          lda INTIM
-          sta EntryIntim
 ;;; 
           ldx SpriteFlicker
           .include "NextSprite.s"
 ;;; 
 AnimationFrameReady:
-          lda EntryIntim
-          clc
-          sbc INTIM
-          ;; 64/76 = 16/19
-          .Div 19, BusyLines
-          sta BusyLines
-          inc BusyLines
-          inc BusyLines
-
           lda LineCounter
           sec
-          sbc BusyLines
+          sbc # LeadingLines
           bpl +
           lda # 1
 +
@@ -55,15 +49,15 @@ AnimationFrameReady:
 
           lda RunLength
           sec
-          sbc BusyLines
+          sbc # LeadingLines
           sta RunLength
 
           lda P0LineCounter
           sec
-          sbc BusyLines
+          sbc # LeadingLines
           sta P0LineCounter
 
-          ldx SpriteFlicker
+          ;; X = SpriteFlicker at this point
           lda # 72
           sec
           sbc LineCounter
@@ -73,10 +67,18 @@ AnimationFrameReady:
           sbc Temp
           sta P1LineCounter
 P1Ready:
+          stx WSYNC
+          lda #$08
+          sta HMP0              ; Don't reposition P0
+          sta HMBL
           .if DebugColors
             lda DebugColor, x
-            sta COLUBK
+            sta COLUPF
+            .SleepX 71 - 8 - 7
+          .else
+            .SleepX 71 - 8
           .fi
+          stx HMOVE
 
 Leave:
           stx WSYNC
@@ -88,21 +90,20 @@ Return:
           jmp ReturnFromSpriteMapperToMap
 
 ;;; 
-
 NoSprites:
           .if DebugColors
             inx
             lda DebugColor, x
             ora #$0f
-            sta COLUBK
+            sta COLUPF
           .fi
-          .mva P1LineCounter, # 72
+          .mva P1LineCounter, #$7f
 
           dec LineCounter
-          dec RunLength
-          dec P0LineCounter
           dec LineCounter
           dec RunLength
+          dec RunLength
+          dec P0LineCounter
           dec P0LineCounter
           stx WSYNC
 
@@ -118,9 +119,10 @@ ProvinceMapBank:
 
           .if DebugColors
 DebugColor:
-            .colu COLCYAN, $8
-            .colu COLMAGENTA, $8
-            .colu COLYELLOW, $8
-            .colu COLGRAY, $8
+            .colu COLCYAN, $4
+            .colu COLMAGENTA, $4
+            .colu COLYELLOW, $4
+            .colu COLGRAY, $4
           .fi
+
           .bend

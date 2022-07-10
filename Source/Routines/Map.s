@@ -15,7 +15,6 @@ AlternateBackgroundArt:
 ;;; yet. If they have not been, we swap out the background for the
 ;;; BowClosed one.
           .if BANK == Province0MapBank && !DEMO
-
             cpx # 17
             bne NoChangeRLE
 
@@ -227,6 +226,7 @@ NoBallsNoWSync:
 
 DoneBall:
           stx WSYNC
+          .SleepX 71
           sta HMOVE
 ;;; 
           ;; Prepare for the DrawMap loop
@@ -360,7 +360,6 @@ RemapSprites:
 P1Done:                         ; 47 cyc here
 
 SpriteMapperReturn:
-
           .SleepX 29
 
           .if TV != NTSC
