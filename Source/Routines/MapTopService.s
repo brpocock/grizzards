@@ -80,10 +80,11 @@ P0HPos:
 
           ldx FlickerRoundRobin
           inx
-          txa
-          and #$03
-          sta FlickerRoundRobin
-          tax
+          cpx SpriteCount
+          blt +
+          ldx # 0
++
+          stx FlickerRoundRobin
           .include "NextSprite.s"
 AnimationFrameReady:
           lda SpriteY, x
