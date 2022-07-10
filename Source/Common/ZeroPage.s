@@ -129,15 +129,6 @@ AlarmCountdown:
 StringBuffer:
           .byte ?, ?, ?, ?, ?, ?
 
-;;; But we also recycle this buffer for the “advanced” sprite flicker routines
-
-          SpriteDrawOrder = StringBuffer + 1
-          SpriteFlags = StringBuffer + 2 ; × 4
-
-          SpriteFlagPlayerCx = $01
-          SpriteFlagWallCx = $02
-          SpriteFlagDrawn = $04
-
 DebounceSWCHA:
           .byte ?
 DebounceSWCHB:
@@ -435,8 +426,11 @@ NameEntryBuffer:
             * = Scratchpad
 
 ;;; Pointer to the start of the map's RLE display data
-MapLinesPointer:
-          .word ?
+FlickerRoundRobin:
+          .byte ?
+
+MapUnusedByte:
+          .byte ?
 
 ;;; How many non-player sprites are on screen now?
 ;;; These virtual sprites are multiplexed onto Player Graphic 1

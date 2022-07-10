@@ -5,8 +5,11 @@ SpriteMapper:       .block
           ;; MAGIC — these addresses must be  known and must be the same
 	;; in every map bank.
           PlayerSprites = $f000
-          MapSprites = PlayerSprites + 16
+          MapSprites = (PlayerSprites + $0f)
           LeadingLines = 4
+
+          EntryIntim = StringBuffer
+          BusyLines = StringBuffer + 1
 ;;; 
           lda P0LineCounter
           bmi PlayerOK
@@ -14,24 +17,31 @@ SpriteMapper:       .block
           cmp # 8 + LeadingLines              ; player is being drawn soon or now
           blt Leave
 
-          ldx P1LineCounter
-          bpl Leave
-
 PlayerOK:
-          ldx RunLength         ; is RunLength at least 2?
+          ldx RunLength         ; going to have to change the playfield soon
           cpx # LeadingLines
           blt Leave
 
-          lda # COLORANGE | $8
-          sta COLUBK
+          ;; lda # COLORANGE | $8
+          ;; sta COLUBK
+
+          lda INTIM
+          sta EntryIntim
 ;;; 
+          ldx SpriteFlicker
           .include "NextSprite.s"
 ;;; 
 AnimationFrameReady:
+          lda EntryIntim
+          sec
+          sbc INTIM
+          ;; 64/76 = 16/19
+          .Div 19, BusyLines
+          sta BusyLines
 
           lda LineCounter
           sec
-          sbc # LeadingLines
+          sbc BusyLines
           bpl +
           lda # 1
 +
@@ -39,12 +49,12 @@ AnimationFrameReady:
 
           lda RunLength
           sec
-          sbc # LeadingLines
+          sbc BusyLines
           sta RunLength
 
           lda P0LineCounter
           sec
-          sbc # LeadingLines
+          sbc BusyLines
           sta P0LineCounter
 
           ldx SpriteFlicker
@@ -55,15 +65,10 @@ AnimationFrameReady:
           lda SpriteY, x
           sec
           sbc Temp
-          bmi TryAgain
-
-          cmp # 3
-          blt TryAgain
-
           sta P1LineCounter
 P1Ready:
-          lda DebugColor, x
-          sta COLUBK
+          ;; lda DebugColor, x
+          ;; sta COLUBK
 
 Leave:
           stx WSYNC
@@ -77,25 +82,21 @@ Return:
 ;;; 
 TryAgain:
           ldx SpriteFlicker
-          lda DebugColor, x     ; COLRED
-          sta COLUBK
+          ;; lda # COLRED | $8
+          ;; sta COLUBK
           .mva P1LineCounter, # 0
           jmp GetOuttaHere
 
 NoSprites:
-          .mva COLUBK, # COLPURPLE | $8
-          .mva P1LineCounter, #$ff
-	
-          lda LineCounter
-          sec
-          sbc # LeadingLines
-          sta LineCounter
+          ;; inx
+          ;; lda DebugColor, x
+          ;; ora #$0f
+          ;; sta COLUBK
+          .mva P1LineCounter, # 72
 
-          lda P0LineCounter
-          sec
-          sbc # LeadingLines
-          bmi TryAgain
-          sta P0LineCounter
+          dec LineCounter
+          dec RunLength
+          dec P0LineCounter
 
 GetOuttaHere:
           ldx CurrentProvince
@@ -108,8 +109,8 @@ ProvinceMapBank:
           .byte Province0MapBank, Province1MapBank, Province2MapBank
 
 DebugColor:
-          .colu COLGREEN, $8
           .colu COLCYAN, $8
-          .colu COLSPRINGGREEN, $8
-          .colu COLBROWN, $8
+          .colu COLMAGENTA, $8
+          .colu COLYELLOW, $8
+          .colu COLGRAY, $8
           .bend

@@ -5,7 +5,7 @@ TopOfScreenService: .block
           ;; MAGIC — these addresses must be  known and must be the same
 	;; in every map bank.
           PlayerSprites = $f000
-          MapSprites = PlayerSprites + 16
+          MapSprites = (PlayerSprites + $0f)
 
           jsr VSync
           .TimeLines 32
@@ -77,9 +77,15 @@ P0HPos:
           beq NoSprites
 
           stx CXCLR
+
+          ldx FlickerRoundRobin
+          inx
+          txa
+          and #$03
+          sta FlickerRoundRobin
+          tax
           .include "NextSprite.s"
 AnimationFrameReady:
-          ldx SpriteFlicker
           lda SpriteY, x
           sta P1LineCounter
           jmp P1Ready
@@ -88,7 +94,6 @@ NoSprites:
           .mva P1LineCounter, #$ff
 
 P1Ready:
-
           lda PlayerY
           ldy NextMap
           cpy CurrentMap

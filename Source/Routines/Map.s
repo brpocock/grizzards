@@ -336,27 +336,30 @@ P0Done:                         ; 23 cyc here
 
 DrawPlayer1:
           lda # 7
+          ldy P1LineCounter
+          bmi RemapSprites
+
           dcp P1LineCounter
           blt NoP1
 
-          ldy P1LineCounter
-          bmi RemapSprites
           lda (pp1l), y
           sta GRP1
           jmp P1Done
 
-NoP1:
-          .mva GRP1, # 0
+NoP1:                           ; 37 cyc here
+          lda # 0
+          sta GRP1
+          nop
           geq P1Done
 
 RemapSprites:
           jmp GoSpriteMapper
 
-P1Done:                         ; 48 cyc here**??
+P1Done:                         ; 47 cyc here
 
 SpriteMapperReturn:
 
-          .SleepX 23
+          .SleepX 29
 
           .if TV != NTSC
           ;; extend every even line on PAL/SECAM
