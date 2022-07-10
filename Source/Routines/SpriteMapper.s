@@ -10,6 +10,8 @@ SpriteMapper:       .block
 
           EntryIntim = StringBuffer
           BusyLines = StringBuffer + 1
+
+          DebugColors = true
 ;;; 
           lda P0LineCounter
           bmi PlayerOK
@@ -22,8 +24,10 @@ PlayerOK:
           cpx # LeadingLines
           blt Leave
 
-          ;; lda # COLORANGE | $8
-          ;; sta COLUBK
+          .if DebugColors
+            lda # COLORANGE | $8
+            sta COLUBK
+          .fi
 
           lda INTIM
           sta EntryIntim
@@ -33,11 +37,13 @@ PlayerOK:
 ;;; 
 AnimationFrameReady:
           lda EntryIntim
-          sec
+          clc
           sbc INTIM
           ;; 64/76 = 16/19
           .Div 19, BusyLines
           sta BusyLines
+          inc BusyLines
+          inc BusyLines
 
           lda LineCounter
           sec
@@ -67,8 +73,10 @@ AnimationFrameReady:
           sbc Temp
           sta P1LineCounter
 P1Ready:
-          ;; lda DebugColor, x
-          ;; sta COLUBK
+          .if DebugColors
+            lda DebugColor, x
+            sta COLUBK
+          .fi
 
 Leave:
           stx WSYNC
@@ -80,23 +88,23 @@ Return:
           jmp ReturnFromSpriteMapperToMap
 
 ;;; 
-TryAgain:
-          ldx SpriteFlicker
-          ;; lda # COLRED | $8
-          ;; sta COLUBK
-          .mva P1LineCounter, # 0
-          jmp GetOuttaHere
 
 NoSprites:
-          ;; inx
-          ;; lda DebugColor, x
-          ;; ora #$0f
-          ;; sta COLUBK
+          .if DebugColors
+            inx
+            lda DebugColor, x
+            ora #$0f
+            sta COLUBK
+          .fi
           .mva P1LineCounter, # 72
 
           dec LineCounter
           dec RunLength
           dec P0LineCounter
+          dec LineCounter
+          dec RunLength
+          dec P0LineCounter
+          stx WSYNC
 
 GetOuttaHere:
           ldx CurrentProvince
@@ -108,9 +116,11 @@ GetOuttaHere:
 ProvinceMapBank:
           .byte Province0MapBank, Province1MapBank, Province2MapBank
 
+          .if DebugColors
 DebugColor:
-          .colu COLCYAN, $8
-          .colu COLMAGENTA, $8
-          .colu COLYELLOW, $8
-          .colu COLGRAY, $8
+            .colu COLCYAN, $8
+            .colu COLMAGENTA, $8
+            .colu COLYELLOW, $8
+            .colu COLGRAY, $8
+          .fi
           .bend
