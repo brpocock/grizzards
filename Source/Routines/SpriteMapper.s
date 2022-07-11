@@ -57,7 +57,7 @@ FlickerOK:
 
           ;; if we're already too late to draw it, don't select it
           lda LineCounter
-          adc # 8               ; who cares if Carry fucks it up here
+          adc # 8 + LeadingLines     ; who cares if Carry fucks it up here
           cmp SpriteY, x
           bge NextFlickerCandidate
 
