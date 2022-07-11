@@ -10,6 +10,11 @@
 DoVBlankWork:
           .include "MapVBlank.s"
 
+          .include "CheckSpriteCollision.s"
+          .include "CheckPlayerCollision.s"
+          .include "SpriteMovement.s"
+          .include "UserInput.s"
+
           .include "VSync.s"
           .include "VBlank.s"
           
@@ -159,11 +164,6 @@ NotCompleted:
           .include "GrizzardStatsScreen.s"
           .include "GrizzardDepot.s"
           .include "ValidateMap.s"
-
-          .include "CheckSpriteCollision.s"
-          .include "CheckPlayerCollision.s"
-          .include "SpriteMovement.s"
-          .include "UserInput.s"
 
           .if !NOSAVE
             .if ATARIAGESAVE

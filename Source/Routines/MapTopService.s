@@ -22,6 +22,7 @@ TopOfScreenService: .block
 ;;; 
           bit SystemFlags
           bpl DrawScore
+
           .enc "minifont"
           .mva StringBuffer + 0, #"P"
           .mva StringBuffer + 1, #"A"
@@ -38,13 +39,14 @@ ScoreDone:
           .FarJSR TextBank, ServiceDecodeAndShowText
 ;;; 
 AfterScore:
-          .mva CTRLPF, #CTRLPFREF | CTRLPFBALLSZ8 | CTRLPFPFP
+          .mva CTRLPF, #CTRLPFREF | CTRLPFBALLSZ8 ;;; | CTRLPFPFP FIXME
 
-          ldy #0
+          ldy # 0
           sty VDELP0
           sty VDELP1
           sty NUSIZ0
           sty NUSIZ1
+          sty LineCounter
 
           ldx CurrentMap
 
@@ -72,7 +74,7 @@ P0HPos:
           sta HMP0
 
           lda MapFlags
-          and #MapFlagFacing
+          and #MapFlagFacing    ; must = REFLECTED
           sta REFP0
 
           ldx SpriteCount
@@ -81,20 +83,13 @@ P0HPos:
           stx CXCLR
 
           ldx FlickerRoundRobin
-          ldy # 5
 NextFlickerCandidate:
           inx
-
-          cpx SpriteFlicker
-          beq NoSprites
-
           cpx SpriteCount
-          blt FlickerOK
-
+          blt +
           ldx # 0
-FlickerOK:
-          dey
-          beq NoSprites
++
+          stx FlickerRoundRobin
 
           .include "NextSprite.s"
 
@@ -103,15 +98,17 @@ FlickerOK:
           jmp P1Ready
 
 NoSprites:
-          .mva P1LineCounter, #$ff
+          .mva P1LineCounter, #$7f
 
 P1Ready:
+
+ReadyPlayer0:
           lda PlayerY
           ldy NextMap
           cpy CurrentMap
           beq +
           ;; new screen being loaded: player is off the screen
-          lda #$ff
+          lda #$7f
 +
           sta P0LineCounter
           lda # 0
