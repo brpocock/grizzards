@@ -234,11 +234,9 @@ DoneBall:
             lda # 0
           .else
             lda MapColors, x
-            and #$0f
-            asl a
-            asl a
-            asl a
-            asl a
+            .rept 4
+              asl a
+            .next
             .switch BANK
             .case Province1MapBank ; Province 1 is Dark
 

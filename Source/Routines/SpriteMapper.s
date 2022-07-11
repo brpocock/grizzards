@@ -11,7 +11,7 @@ SpriteMapper:       .block
           EntryIntim = StringBuffer
           BusyLines = StringBuffer + 1
 
-          DebugColors = false
+          DebugColors = true
 ;;; 
           lda P0LineCounter
           bmi PlayerOK
@@ -24,7 +24,7 @@ SpriteMapper:       .block
 
 PlayerOK:
           ldx RunLength         ; going to have to change the playfield soon
-          cpx # LeadingLines
+          cpx # 1 + LeadingLines
           blt Leave
 
           stx WSYNC
@@ -68,7 +68,7 @@ AnimationFrameReady:
           sta P1LineCounter
 P1Ready:
           stx WSYNC
-          lda #$08
+          lda #$80
           sta HMP0              ; Don't reposition P0
           sta HMBL
           .if DebugColors
