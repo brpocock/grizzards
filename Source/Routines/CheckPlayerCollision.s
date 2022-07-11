@@ -33,20 +33,16 @@ FindBumpedSpriteLoop:
           cmp SpriteY, y
           blt ScanNextSprite
 
-          tya
-          tax
-          jmp FoundBumpedSprite
+          sty SpriteFlicker
+
+          jsr BumpWall
+
+          .FarJMP MonsterBank, ServiceSpriteCollision
 
 ScanNextSprite:
           iny
           cpy # 4
           blt FindBumpedSpriteLoop
-;;; 
-FoundBumpedSprite:
-          jsr BumpWall
-
-          stx SpriteFlicker
-          .FarJMP MonsterBank, ServiceSpriteCollision
 ;;; 
 BumpWall:
           sta CXCLR
