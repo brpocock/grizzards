@@ -23,7 +23,12 @@ DoLocal:
           cpy #ServicePotion
           beq Potion
 
+          cpy #ServiceSpriteCollision
+          beq HandleSpriteCollision
+
           brk
+
+          .include "ServiceSpriteCollision.s"
 
           .include "VSync.s"
           .include "VBlank.s"

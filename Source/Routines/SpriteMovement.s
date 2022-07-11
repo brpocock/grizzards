@@ -45,8 +45,8 @@ Do10Hz:
           jsr Random            ; Is there a random encounter?
           bne NoRandom
 
-          lda SpriteAction, x
-          jmp CheckPlayerCollision.ActionWithSpriteX
+          stx SpriteFlicker
+          .FarJMP MonsterBank, ServiceSpriteCollision
 
 NoRandom:
           dex
