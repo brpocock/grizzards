@@ -1,19 +1,6 @@
 ;;; Grizzards Source/Routines/NextSprite.s
 ;;; Copyright © 2022 Bruce-Robert Pocock
 
-          lda SpriteMotion, x
-          cmp # SpriteRandomEncounter
-          beq NextFlickerCandidate
-
-          .if SpriteMapperBank == BANK
-            ;; if we're already too late to draw it, don't select it
-            lda LineCounter
-            cmp SpriteY, x
-            bge NextFlickerCandidate
-          .fi
-
-          stx SpriteFlicker
-
           lda SpriteX, x
           clc
           adc # 8

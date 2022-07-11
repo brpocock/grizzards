@@ -8,8 +8,7 @@ SpriteMapper:       .block
           MapSprites = (PlayerSprites + $0f)
           LeadingLines = 4
 
-          EntryIntim = StringBuffer
-          BusyLines = StringBuffer + 1
+          DrawnSprites = StringBuffer
 
           DebugColors = true
 ;;; 
@@ -35,21 +34,34 @@ PlayerOK:
           .fi
 
 ;;; 
+          ldy SpriteCount
+          ldx PrioritySecondSprite
+          bpl NextFlickerCandidateTry
+
           ldx SpriteFlicker
-          ldy # 5
 NextFlickerCandidate:
           inx
-
-          cpx SpriteFlicker
-          beq NoSprites
-
+NextFlickerCandidateTry:
           cpx SpriteCount
           blt FlickerOK
 
           ldx # 0
+          geq NextFlickerCandidateTry
+
 FlickerOK:
           dey
           beq NoSprites
+
+          lda SpriteMotion, x
+          cmp # SpriteRandomEncounter
+          beq NextFlickerCandidate
+
+          ;; if we're already too late to draw it, don't select it
+          lda LineCounter
+          cmp SpriteY, x
+          bge NextFlickerCandidate
+
+          stx SpriteFlicker
 
           .include "NextSprite.s"
 
