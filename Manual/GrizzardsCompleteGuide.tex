@@ -1050,7 +1050,7 @@ have expected.
 
 \chapter{Moves}\label{ch:Moves}
 
-There are  64 Moves which can  be used by Grizzards  and monsters alike.
+There are 64 Moves which can be used by Grizzards and monsters alike.
 
 \section{Run Away}
 
@@ -1201,6 +1201,24 @@ their effects.
 
 The actual  amount of damage or  healing will vary somewhat;  the values
 shown are the base amounts. Healing moves will always heal at least 1 HP.
+
+\subsection{Effectiveness}
+
+Moves have a base effectiveness, shown in the following tables. However,
+their base  effectiveness is modified by  a random factor. This  is like
+``rolling  for  damage''   in  a  tabletop  RPG.  The   exact  range  of
+effectiveness  of  any  Move  can  be determined  based  upon  its  base
+effectiveness with the following table:
+
+\begin{tabular}{l c}
+  Base Effectiveness & Random Modifier \\
+  1 - 3 & $\pm 1$ \\
+  4 - 7 & $\pm 3$ \\
+  8 - 15 & $\pm 7$ \\
+  16 - 31 & $\pm 15$ \\
+  32 - 63 & $\pm 31$ \\
+  64 + & $\pm 63$ \\
+\end{tabular}
 
 \subsection{Defensive Moves}
 
