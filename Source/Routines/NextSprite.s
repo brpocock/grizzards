@@ -32,6 +32,8 @@ FlickerOK:
           stx SpriteFlicker
 
           lda SpriteX, x
+          clc
+          adc # 8
           sec
           stx WSYNC
 P1HPos:
@@ -39,7 +41,7 @@ P1HPos:
           bcs P1HPos
           sta RESP1
 
-          eor #$08
+          eor #$07
           .rept 4
             asl a
           .next

@@ -56,6 +56,8 @@ AfterScore:
           stx HMCLR
 
           lda PlayerX
+          clc
+          adc # 8
           sec
           stx WSYNC
 P0HPos:
@@ -63,7 +65,7 @@ P0HPos:
           bcs P0HPos
           sta RESP0
 
-          eor #$08
+          eor #$07
           .rept 4
             asl a
           .next
@@ -79,12 +81,12 @@ P0HPos:
           stx CXCLR
 
           ldx FlickerRoundRobin
-          inx
-          cpx SpriteCount
-          blt +
-          ldx # 0
-+
-          stx FlickerRoundRobin
+;;           inx
+;;           cpx SpriteCount
+;;           blt +
+;;           ldx # 0
+;; +
+;;           stx FlickerRoundRobin
           .include "NextSprite.s"
 AnimationFrameReady:
           lda SpriteY, x
