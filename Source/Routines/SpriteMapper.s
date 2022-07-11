@@ -8,7 +8,7 @@ SpriteMapper:       .block
           MapSprites = (PlayerSprites + $0f)
           LeadingLines = 4
 
-          DebugColors = true
+          DebugColors = false
 ;;; 
           lda P0LineCounter
           bmi PlayerOK
