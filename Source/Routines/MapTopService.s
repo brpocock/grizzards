@@ -90,6 +90,44 @@ NextFlickerCandidate:
           ldx # 0
 +
           stx FlickerRoundRobin
+          stx PrioritySecondSprite
+
+          lda ClockFrame
+          and # 1
+          beq FindHigherSprite
+
+          inx
+
+FindHigherSprite:
+          lda SpriteY, x
+          sec
+          sbc # 20              ; TODO fine-tune magic number
+          sta Temp
+CheckHigherSprite:
+          inx
+          cpx SpriteCount
+          blt +
+          ldx # 0
++
+          cpx FlickerRoundRobin
+          beq SwitchToP1
+
+          lda SpriteMotion, x
+          cmp #SpriteRandomEncounter
+          beq CheckHigherSprite
+
+          lda SpriteY, x
+          cmp Temp
+          bge CheckHigherSprite
+
+          stx FlickerRoundRobin
+
+SwitchToP1:
+          lda SpriteMotion, x
+          cmp # SpriteRandomEncounter
+          beq NextFlickerCandidate
+
+          stx SpriteFlicker
 
           .include "NextSprite.s"
 
