@@ -149,9 +149,6 @@ GotPF:
           sta pp5l
 ;;; 
 BeforeKernel:
-          ldy # 72              ; 72 × 2 lines = 144 lines total
-          sty LineCounter       ; (72 × 2½ lines = 180 lines on PAL/SECAM)
-
           .mva VBLANK, #ENABLED
           ldx CurrentMap
 
@@ -299,7 +296,7 @@ DrawMap:
           ;; skip run length until the PF regs are written
           ;; or we'll be too late and update halfway into the line
           stx PF0
-          iny
+          ldy # 2
           lda (pp5l), y
           sta PF1
           iny
@@ -315,7 +312,6 @@ DrawMap:
           inc pp5h
 +
           sta pp5l
-          ldy LineCounter
 
 DrawPlayers:
           stx WSYNC
@@ -366,16 +362,17 @@ SpriteMapperReturn:
             bit LineCounter
             beq +
             stx WSYNC
+            .SleepX FIXME
 +
-	  .SleepX 
           .fi
 
           ldy # 1
           lax (pp5l), y
  
-          dec LineCounter
-
-          bne DrawMap
+          inc LineCounter       ; 72 × 2 lines = 144 lines total
+          ldy LineCounter       ; (72 × 2½ lines = 180 lines on PAL/SECAM)
+          cpy # 72
+          blt DrawMap
 ;;; 
 FillBottomScreen:
           .mva VBLANK, #ENABLED

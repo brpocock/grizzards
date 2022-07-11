@@ -7,9 +7,7 @@
 
           .if SpriteMapperBank == BANK
             ;; if we're already too late to draw it, don't select it
-            lda # 72
-            sec
-            sbc LineCounter
+            lda LineCounter
             cmp SpriteY, x
             bge NextFlickerCandidate
           .fi

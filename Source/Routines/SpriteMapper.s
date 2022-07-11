@@ -55,10 +55,7 @@ FlickerOK:
 
           lda LineCounter
           sec
-          sbc # LeadingLines
-          bpl +
-          lda # 1
-+
+          adc # LeadingLines
           sta LineCounter
 
           lda RunLength
@@ -72,13 +69,9 @@ FlickerOK:
           sta P0LineCounter
 
           ;; X = SpriteFlicker at this point
-          lda # 72
           sec
-          sbc LineCounter
-          sta Temp
           lda SpriteY, x
-          sec
-          sbc Temp
+          sbc LineCounter
           sta P1LineCounter
 P1Ready:
           stx WSYNC
@@ -113,8 +106,8 @@ NoSprites:
           .fi
           .mva P1LineCounter, #$7f
 
-          dec LineCounter
-          dec LineCounter
+          inc LineCounter
+          inc LineCounter
           dec RunLength
           dec RunLength
           dec P0LineCounter
