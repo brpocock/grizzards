@@ -8,8 +8,6 @@ SpriteMapper:       .block
           MapSprites = (PlayerSprites + $0f)
           LeadingLines = 4
 
-          DrawnSprites = StringBuffer
-
           DebugColors = true
 ;;; 
           lda P0LineCounter
@@ -35,10 +33,12 @@ PlayerOK:
 
 ;;; 
           ldy SpriteCount
+
           ldx PrioritySecondSprite
           bpl NextFlickerCandidateTry
 
           ldx SpriteFlicker
+
 NextFlickerCandidate:
           inx
 NextFlickerCandidateTry:
@@ -46,7 +46,6 @@ NextFlickerCandidateTry:
           blt FlickerOK
 
           ldx # 0
-          geq NextFlickerCandidateTry
 
 FlickerOK:
           dey
