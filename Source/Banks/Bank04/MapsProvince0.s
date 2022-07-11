@@ -524,7 +524,7 @@ SpriteList:
 
           ;; Room 17, Tier 0
           .byte $ff, SpriteFixed
-          .byte $48, $29
+          .byte $60, $30
           .byte SpritePerson, 3 ; tunnel guardian
 
           .if !DEMO             ; no room for these signs' text in demo
