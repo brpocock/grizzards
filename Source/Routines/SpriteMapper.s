@@ -10,6 +10,10 @@ SpriteMapper:       .block
 
           DebugColors = false
 ;;; 
+          lda MapFlags
+          and #MapFlagRandomSpawn
+          bne LeaveFast
+
           lda P0LineCounter
           bmi PlayerOK
 
