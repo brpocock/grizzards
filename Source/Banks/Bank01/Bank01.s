@@ -10,11 +10,6 @@
 DoVBlankWork:
           .include "MapVBlank.s"
 
-          .include "CheckSpriteCollision.s"
-          .include "CheckPlayerCollision.s"
-          .include "SpriteMovement.s"
-          .include "UserInput.s"
-
           .include "VSync.s"
           .include "VBlank.s"
           
@@ -58,6 +53,11 @@ DoLocal:
           brk
 
           .include "GrizzardMetamorphoseP.s"
+
+          .include "CheckSpriteCollision.s"
+          .include "CheckPlayerCollision.s"
+          .include "SpriteMovement.s"
+          .include "UserInput.s"
 
 JatibuCode:
           .byte P0StickUp, P0StickUp, P0StickDown, P0StickDown

@@ -248,6 +248,8 @@
           ServiceDrawMonsterGroup = $0b
           ServiceGetMonsterColors = $38
           ServicePotion = $37
+          ;; stuck in here because the space existed (barely)
+          ServiceSpriteCollision = $3e
 
 ;;; Animations services
 
