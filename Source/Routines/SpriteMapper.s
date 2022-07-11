@@ -33,11 +33,11 @@ PlayerOK:
 
 ;;; 
           ldy SpriteCount
-
-          ldx PrioritySecondSprite
-          bpl NextFlickerCandidateTry
-
           ldx SpriteFlicker
+
+          lda BitMask, x
+          ora DrawnSprites
+          sta DrawnSprites
 
 NextFlickerCandidate:
           inx
@@ -57,6 +57,7 @@ FlickerOK:
 
           ;; if we're already too late to draw it, don't select it
           lda LineCounter
+          adc # 8               ; who cares if Carry fucks it up here
           cmp SpriteY, x
           bge NextFlickerCandidate
 

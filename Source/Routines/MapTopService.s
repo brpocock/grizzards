@@ -77,10 +77,19 @@ P0HPos:
           and #MapFlagFacing    ; must = REFLECTED
           sta REFP0
 
-          ldx SpriteCount
+          ldy SpriteCount
           beq NoSprites
 
           stx CXCLR
+          lda BitMask, y        ; SpriteCount
+          tax
+          dex
+          cpx DrawnSprites
+          bne +
+          ;; everybody got drawn, do it again maybe?
+          ldx FlickerRoundRobin
+          jmp SwitchToP1
++
 
           ldx FlickerRoundRobin
 NextFlickerCandidate:
@@ -89,37 +98,6 @@ NextFlickerCandidate:
           blt +
           ldx # 0
 +
-          stx FlickerRoundRobin
-          stx PrioritySecondSprite
-
-          lda ClockFrame
-          and # 1
-          beq FindHigherSprite
-
-          inx
-
-FindHigherSprite:
-          lda SpriteY, x
-          sec
-          sbc # 20              ; TODO fine-tune magic number
-          sta Temp
-CheckHigherSprite:
-          inx
-          cpx SpriteCount
-          blt +
-          ldx # 0
-+
-          cpx FlickerRoundRobin
-          beq SwitchToP1
-
-          lda SpriteMotion, x
-          cmp #SpriteRandomEncounter
-          beq CheckHigherSprite
-
-          lda SpriteY, x
-          cmp Temp
-          bge CheckHigherSprite
-
           stx FlickerRoundRobin
 
 SwitchToP1:
@@ -139,6 +117,23 @@ NoSprites:
           .mva P1LineCounter, #$7f
 
 P1Ready:
+          ;; if they're invisible, it counts as having been drawn
+          lda # 0
+          tay
+-
+          lda SpriteMotion, y
+          cmp # SpriteRandomEncounter
+          bne +
+          lda BitMask, y
+          ora DrawnSprites
++
+          iny
+          cpy SpriteCount
+          blt -
+          sta DrawnSprites
+
+          sta DrawnSprites
+          .mvy DrawnSprites, # 0
 
 ReadyPlayer0:
           lda PlayerY

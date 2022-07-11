@@ -429,7 +429,7 @@ NameEntryBuffer:
 FlickerRoundRobin:
           .byte ?
 
-PrioritySecondSprite:
+DrawnSprites:
           .byte ?
 
 ;;; How many non-player sprites are on screen now?
