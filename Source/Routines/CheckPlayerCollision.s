@@ -1,6 +1,8 @@
 ;;; Grizzards Source/Routines/CheckPlayerCollision.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
+          useShove = false
+
 CheckPlayerCollision:         .block
           lda CXP0FB
           and #$c0              ; hit playfield or ball
@@ -11,6 +13,7 @@ CheckPlayerCollision:         .block
 NoBumpWall:
           bit CXPPMM
           bpl PlayerMoveOK         ; did not hit
+          bmi PlayerMoveOK         ;FIXME
 
 BumpSprite:
           jsr BumpWall
@@ -60,16 +63,14 @@ ReadSign:
           rts
 ;;; 
 FightWithSpriteMinor:
-          ldy # 0
-          sty CombatMajorP
+          lda # 0
           geq FightWithSprite
 
 FightWithSpriteMajor:
           lda #$80
-          sta CombatMajorP
           ;; fall through
 FightWithSprite:
-FightWithSpriteX:
+          sta CombatMajorP
           lda SpriteParam, x
           sta CurrentCombatEncounter
           lda SpriteIndex, x
@@ -86,7 +87,6 @@ DoorWithSprite:
 ;;; 
 GetNewGrizzard:
           .mva GameMode, #ModeNewGrizzard
-          ldx SpriteFlicker
           lda SpriteParam, x
           sta NextMap
           rts
@@ -149,6 +149,8 @@ ProvinceChange:
 BumpWall:
           sta CXCLR
 
+          .if useShove
+          
           lda BlessedX
           cmp PlayerX
           beq NeedsXShove
@@ -195,13 +197,19 @@ ShoveY:
           adc PlayerY
           sta PlayerY
 
+          .else                 ; shove mode disabled
+
+          .mva PlayerX, BlessedX
+          .mva PlayerY, BlessedY
+
+          .fi
+
           ldy # 0               ; XXX necessary?
           sty PlayerXFraction
           sty PlayerYFraction
+          
 DoneBump:
           .mva NextSound, #SoundBump
 
           rts
           .bend
-
-;;; Audited 2022-03-22 BRPocock

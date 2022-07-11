@@ -17,15 +17,15 @@ SpriteMapper:       .block
           bmi PlayerOK
 
           cmp # 8 + LeadingLines              ; player is being drawn soon or now
-          blt Leave
-
-          ldx P1LineCounter
-          bpl Leave
+          blt LeaveFast
 
 PlayerOK:
+          ldx P1LineCounter
+          bpl LeaveFast
+
           ldx RunLength         ; going to have to change the playfield soon
           cpx # 1 + LeadingLines
-          blt Leave
+          blt LeaveFast
 
           stx WSYNC
 
@@ -89,7 +89,7 @@ P1Ready:
 
 Leave:
           stx WSYNC
-
+LeaveFast:
           ldx CurrentProvince
           lda ProvinceMapBank, x
           tax
