@@ -1,21 +1,6 @@
 ;;; Grizzards Source/Routines/NextSprite.s
 ;;; Copyright © 2022 Bruce-Robert Pocock
 
-          ldy # 5
-NextFlickerCandidate:
-          inx
-
-          cpx SpriteFlicker
-          beq NoSprites
-
-          cpx SpriteCount
-          blt FlickerOK
-
-          ldx # 0
-FlickerOK:
-          dey
-          beq NoSprites
-
           lda SpriteMotion, x
           cmp # SpriteRandomEncounter
           beq NextFlickerCandidate
@@ -70,7 +55,7 @@ SetUpSprites:
           .mva pp1h, #>MapSprites
           clc
           lda MapFlags
-          and #MapFlagRandomSpawn
+          and # MapFlagRandomSpawn
           tay
           lda SpriteAction, x
           and #$07
@@ -78,7 +63,7 @@ SetUpSprites:
           bne +
           lda # SpriteDoor
 +
-          cpy #MapFlagRandomSpawn
+          cpy # MapFlagRandomSpawn
           beq +                 ; keep poofs until stabilized
           ldy AlarmCountdown
           beq NoPuff            ; otherwise just for countdown time
@@ -113,21 +98,22 @@ MaybeAnimate:
           beq Flippy
 
           cmp #SpriteMajorCombat
-          bne FindAnimationFrame
+          bne NoFlip
 
 Flippy:
           lda ClockFrame
-          .BitBit $20
-          bne NoFlip
+          and #$20
+          beq SetFlip
 
-          .mva REFP1, # 0
-          geq FindAnimationFrame
+          lda # REFLECTED
+          gne SetFlip
 
 NoFlip:
-          .mva REFP1, # REFLECTED
+          lda # 0
+SetFlip:
+          sta REFP1
 
 FindAnimationFrame:
-
           lda ClockFrame
           .BitBit $10
           bne AnimationFrameReady
@@ -140,3 +126,4 @@ FindAnimationFrame:
 +
           sta pp1l
 
+AnimationFrameReady:
