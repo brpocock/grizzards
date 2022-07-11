@@ -263,10 +263,11 @@
           ServiceWrite12Chars = $23
           ServiceGrizzardMetamorphosis = $2d
 
+          ServiceProvinceChange = $3d
+
 ;;; Combat services (stuffed into same bank as animation)
 
           ServiceCombatVBlank = $2b
-
 ;;; 
 ;;; Maximum number of Grizzards allowed
 ;;; The save/load routines should handle up to 36

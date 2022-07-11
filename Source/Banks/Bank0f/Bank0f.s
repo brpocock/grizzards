@@ -62,7 +62,12 @@ DoLocal:
           cpy #ServiceConfirmErase
           beq ConfirmErase
 
+          cpy #ServiceProvinceChange
+          beq ChangeProvince
+
           brk
+
+          .include "ChangeProvince.s"
 
           .include "GrizzardMetamorphosis.s"
           .include "ConfirmErase.s"

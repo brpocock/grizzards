@@ -202,14 +202,14 @@ DoneMagicRing:
 LeftBall:
           stx WSYNC
           sta RESBL
-          lda #$20
+          lda #$a0
           gne EnableBall
 
 RightBall:
           stx WSYNC
           .SleepX 69
           sta RESBL
-          lda # 0
+          lda #$80
 EnableBall:
           sta HMBL
           .mva ENABL, #ENABLED
