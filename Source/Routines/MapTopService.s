@@ -81,14 +81,23 @@ P0HPos:
           stx CXCLR
 
           ldx FlickerRoundRobin
-;;           inx
-;;           cpx SpriteCount
-;;           blt +
-;;           ldx # 0
-;; +
-;;           stx FlickerRoundRobin
+          ldy # 5
+NextFlickerCandidate:
+          inx
+
+          cpx SpriteFlicker
+          beq NoSprites
+
+          cpx SpriteCount
+          blt FlickerOK
+
+          ldx # 0
+FlickerOK:
+          dey
+          beq NoSprites
+
           .include "NextSprite.s"
-AnimationFrameReady:
+
           lda SpriteY, x
           sta P1LineCounter
           jmp P1Ready

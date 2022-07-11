@@ -36,9 +36,23 @@ PlayerOK:
 
 ;;; 
           ldx SpriteFlicker
+          ldy # 5
+NextFlickerCandidate:
+          inx
+
+          cpx SpriteFlicker
+          beq NoSprites
+
+          cpx SpriteCount
+          blt FlickerOK
+
+          ldx # 0
+FlickerOK:
+          dey
+          beq NoSprites
+
           .include "NextSprite.s"
-;;; 
-AnimationFrameReady:
+
           lda LineCounter
           sec
           sbc # LeadingLines
