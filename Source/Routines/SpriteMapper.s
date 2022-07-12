@@ -44,6 +44,24 @@ PlayerOK:
           ora DrawnSprites
           sta DrawnSprites
 
+          and #$f0
+          bne NextFlickerCandidate
+
+          bit CXP1FB
+          bpl NoPFCollision
+Collision:
+          inx
+          inx
+          inx
+          inx
+          lda BitMask, x
+          ora DrawnSprites
+          sta DrawnSprites
+          gne NextFlickerCandidate 
+          
+NoPFCollision:
+          bvs Collision
+
 NextFlickerCandidate:
           inx
 NextFlickerCandidateTry:
