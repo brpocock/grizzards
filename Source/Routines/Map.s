@@ -246,12 +246,11 @@ DoneBall:
             .case Province0MapBank ; only dark in caves
 
               .block
-              ldy CurrentMap
-              cpy # 18
+              cpx # 18
               blt NotDark
-              cpy # 19
+              cpx # 19
               beq NotDark
-              cpy # 29
+              cpx # 29
               bge NotDark
 
               ;;  floor darker than walls in caves
@@ -335,6 +334,7 @@ DrawPlayer1:
           dcp P1LineCounter
           blt NoP1
 
+          ldy P1LineCounter
           lda (pp1l), y
           sta GRP1
           jmp P1Done
