@@ -66,6 +66,9 @@ FlickerOK:
           bge NextFlickerCandidate
 
           stx SpriteFlicker
+          lda BitMask, x
+          ora DrawnSprites
+          sta DrawnSprites
 
           .include "NextSprite.s"
 
