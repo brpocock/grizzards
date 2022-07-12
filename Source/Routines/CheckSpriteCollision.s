@@ -2,10 +2,35 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 CheckSpriteCollision:         .block
-          ldx SpriteFlicker
-          lda CXP1FB
-          and #$c0           ; collision with playfield or ball
-          bne CollisionHasOccurred
+          lda DrawnSprites
+          and #$f0
+          beq NoCollision
+
+          ;; Tricky, BIT already tests bits 7 & 6 for us, so
+          ;; we ask it to test bit 5 as well, and since we
+          ;; know precisely one of those four bits must have
+          ;; been set, if none of those flags are set, it was
+          ;; bit 4.
+          lda #$20
+          bit DrawnSprites
+          bmi Cx4
+          bvs Cx3
+          beq Cx2
+Cx1:
+          ldx # 1
+          gne CollisionHasOccurred
+
+Cx4:
+          ldx # 4
+          gne CollisionHasOccurred
+
+Cx3:
+          ldx # 3
+          gne CollisionHasOccurred
+
+Cx2:
+          ldx # 2
+          gne CollisionHasOccurred
 
 NoCollision:
           lda MapFlags
