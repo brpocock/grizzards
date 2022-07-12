@@ -59,8 +59,7 @@ FightWithSprite:
           sta CurrentCombatEncounter
           lda SpriteIndex, x
           sta CurrentCombatIndex
-          .mva GameMode, #ModeCombat
-          rts
+          jmp GoCombat
 ;;; 
 DoorWithSprite:
           lda SpriteParam, x
