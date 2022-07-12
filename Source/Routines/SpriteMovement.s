@@ -29,12 +29,15 @@ DivByFPS:
           sbc # FramesPerSecond / 10
           bcs DivByFPS
 
-          cmp #$ff
-          beq Do10Hz
+          bmi Do10Hz
 
           rts
 
 Do10Hz:
+          lda BitMask, x
+          and DrawnSprites
+          beq NextSprite
+
           lda SpriteMotion, x
           beq NextSprite
 
@@ -191,7 +194,7 @@ BottomOK:
 
 NextSprite:
           dex
-          bpl MoveSprites
+          bpl Do10Hz
 
 MovementLogicDone:
           rts
