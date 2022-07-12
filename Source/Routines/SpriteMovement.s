@@ -53,7 +53,7 @@ Do10Hz:
 
 NoRandom:
           dex
-          bne MoveSprites
+          bne Do10Hz
           rts
 
 SpriteXMove:
