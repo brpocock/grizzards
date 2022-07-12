@@ -354,9 +354,9 @@ RemapSprites:
           jmp GoSpriteMapper
 
 P1Done:                         ; 47 cyc here
+          .SleepX 29
 
 SpriteMapperReturn:
-          .SleepX 29
 
           .if TV != NTSC
           ;; extend every even line on PAL/SECAM
