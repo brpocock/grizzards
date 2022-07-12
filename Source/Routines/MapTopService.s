@@ -91,8 +91,12 @@ P0HPos:
           jmp SwitchToP1
 +
 
+          iny                   ; SpriteCount + 1
           ldx FlickerRoundRobin
 NextFlickerCandidate:
+          dey
+          beq NoSprites
+
           inx
           cpx SpriteCount
           blt +
