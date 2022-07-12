@@ -180,7 +180,7 @@ DoMagicRing:
             and #~$40             ; clear bit $40
             sta ProvinceFlags + 6
             lda ProvinceFlags + 7
-            and #$fe              ; clear bit 1 = flag 56
+            and #~$01             ; clear bit 1 = flag 56
             sta ProvinceFlags + 7
 
             .mva GameMode, #ModeMapNewRoom
@@ -394,7 +394,7 @@ FillBottomScreen:
             cmp #$3b
             blt DoneMirror
 
-            .mva SignpostIndex, # 51              ; Found the mirror
+            .mva NextMap, # 51              ; Found the mirror
             .mva GameMode, #ModeSignpost
 DoneMirror:
           .fi
@@ -558,6 +558,7 @@ Leave:
           cmp #ModeSignpost
           bne UnknownMode
 
+          .mva SignpostIndex, NextMap
           ldx #SignpostBank
           jsr FarCall
 

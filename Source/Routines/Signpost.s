@@ -267,6 +267,7 @@ ByeBye:
 
           .WaitScreenBottom
 
+          .mva NextMap, CurrentMap
           jmp GoMap
 
 TrainLastMove:
