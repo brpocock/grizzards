@@ -2,11 +2,9 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 CheckPlayerCollision:         .block
-          lda CXP0FB
-          and #$c0              ; hit playfield or ball
-          beq NoBumpWall
-
-          jmp BumpWall          ; tail call
+          bit CXP0FB
+          bmi BumpWall
+          bvs BumpWall
 ;;; 
 NoBumpWall:
           bit CXPPMM
