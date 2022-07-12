@@ -573,9 +573,6 @@ Leave:
           cmp #ModePotion
           beq DoPotions
 
-          cmp #ModeCombat
-          beq GoCombat
-
           cmp #ModeNewGrizzard
           beq GetNewGrizzard
 
