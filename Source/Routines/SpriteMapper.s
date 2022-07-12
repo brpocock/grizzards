@@ -6,9 +6,10 @@ SpriteMapper:       .block
           ;; in every map bank.
           PlayerSprites = $f000
           MapSprites = (PlayerSprites + $10)
-          LeadingLines = 4
 
-          DebugColors = false
+          ;; Tunables for this file
+          LeadingLines = 4
+          DebugColors = true
 ;;; 
           lda MapFlags
           and #MapFlagRandomSpawn
