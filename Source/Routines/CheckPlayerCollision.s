@@ -61,7 +61,7 @@ NeedsXShove:
           jsr Random
 
           and # 1
-          beq ShoveX
+          bne ShoveX
 
           lda #-1
 ShoveX:
@@ -84,7 +84,7 @@ NeedsYShove:
           jsr Random
 
           and # 1
-          beq ShoveY
+          bne ShoveY
 
           lda #-1
 ShoveY:
