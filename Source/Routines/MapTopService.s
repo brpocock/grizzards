@@ -122,22 +122,18 @@ NoSprites:
 
 P1Ready:
           ;; if they're invisible, it counts as having been drawn
-          lda # 0
-          tay
+          .mvy DrawnSprites, # 0
 -
           lda SpriteMotion, y
           cmp # SpriteRandomEncounter
           bne +
-          lda BitMask, y
-          ora DrawnSprites
+          lda DrawnSprites
+          ora BitMask, y
+          sta DrawnSprites
 +
           iny
           cpy SpriteCount
           blt -
-          sta DrawnSprites
-
-          sta DrawnSprites
-          .mvy DrawnSprites, # 0
 
 ReadyPlayer0:
           lda PlayerY
