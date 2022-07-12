@@ -6,9 +6,11 @@ CheckSpriteCollision:         .block
           and #$f0
           bne PriorCollision
 
-          lda CXP1FB
-          beq NoCollision
+          bit CXP1FB
+          bmi CurrentCollision
+          bvc NoCollision
 
+CurrentCollision:
           ldx SpriteFlicker
           jmp CollisionHasOccurred
 
@@ -24,19 +26,19 @@ PriorCollision:
           bvs Cx3
           beq Cx2
 Cx1:
-          ldx # 1
+          ldx # 0
           gne CollisionHasOccurred
 
 Cx4:
-          ldx # 4
-          gne CollisionHasOccurred
-
-Cx3:
           ldx # 3
           gne CollisionHasOccurred
 
-Cx2:
+Cx3:
           ldx # 2
+          gne CollisionHasOccurred
+
+Cx2:
+          ldx # 1
           gne CollisionHasOccurred
 
 NoCollision:
