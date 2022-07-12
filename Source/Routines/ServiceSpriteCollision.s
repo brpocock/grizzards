@@ -42,7 +42,7 @@ ActionWithSpriteX:
 ;;; 
 ReadSign:
           lda SpriteParam, x
-          sta SignpostIndex
+          sta NextMap
           .mva GameMode, #ModeSignpost
           rts
 ;;; 
