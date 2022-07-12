@@ -9,6 +9,13 @@ MapVBlank:        .block
           rts
 
 MovementLogic:
+
+          ;; Ensure last or only sprite is logged properly
+          ldx SpriteFlicker
+          lda BitMask, x
+          ora DrawnSprites
+          sta DrawnSprites
+
           jsr CheckSpriteCollision
 
           jsr SpriteMovement
