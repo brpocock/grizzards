@@ -27,7 +27,7 @@ AlternateBackgroundArt:
 
             .mva pp5l, #<Map_BowClosed
             .mva pp5h, #>Map_BowClosed
-            jmp GotRLE
+            gne GotRLE
 NoChangeRLE:
           .fi
 
