@@ -4,8 +4,15 @@
 CheckSpriteCollision:         .block
           lda DrawnSprites
           and #$f0
+          bne PriorCollision
+
+          lda CXP1FB
           beq NoCollision
 
+          ldx SpriteFlicker
+          jmp CollisionHasOccurred
+
+PriorCollision:
           ;; Tricky, BIT already tests bits 7 & 6 for us, so
           ;; we ask it to test bit 5 as well, and since we
           ;; know precisely one of those four bits must have
