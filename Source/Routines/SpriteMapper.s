@@ -5,7 +5,7 @@ SpriteMapper:       .block
           ;; MAGIC — these addresses must be  known and must be the same
           ;; in every map bank.
           PlayerSprites = $f000
-          MapSprites = (PlayerSprites + $10)
+          MapSprites = (PlayerSprites + $0f)
 
           ;; Tunables for this file
           LeadingLines = 4
@@ -14,6 +14,10 @@ SpriteMapper:       .block
           lda MapFlags
           and #MapFlagRandomSpawn
           bne LeaveFast
+
+          ldx RunLength         ; going to have to change the playfield soon
+          cpx # 2 + LeadingLines
+          blt LeaveFast
 
           lda P0LineCounter
           bmi PlayerOK
@@ -25,19 +29,14 @@ PlayerOK:
           ldx P1LineCounter
           bpl LeaveFast
 
-          ldx RunLength         ; going to have to change the playfield soon
-          cpx # 1 + LeadingLines
-          blt LeaveFast
-
-          stx WSYNC
-
           .if DebugColors
             lda # COLORANGE | $8
             sta COLUPF
           .fi
 
+          stx WSYNC
+
 ;;; 
-          ldy SpriteCount
           ldx SpriteFlicker
 
           lda BitMask, x
@@ -45,7 +44,7 @@ PlayerOK:
           sta DrawnSprites
 
           and #$f0
-          bne NextFlickerCandidate
+          bne FindFlickerCandidate
 
           bit CXP1FB
           bpl NoPFCollision
@@ -57,11 +56,14 @@ Collision:
           lda BitMask, x
           ora DrawnSprites
           sta DrawnSprites
-          gne NextFlickerCandidate 
+          gne FindFlickerCandidate 
           
 NoPFCollision:
           bvs Collision
 
+FindFlickerCandidate:
+          ldy SpriteCount
+          iny
 NextFlickerCandidate:
           inx
 NextFlickerCandidateTry:
@@ -98,7 +100,7 @@ FlickerOK:
 
           lda RunLength
           sec
-          sbc # LeadingLines
+          sbc # LeadingLines + 1
           sta RunLength
 
           lda P0LineCounter
@@ -116,14 +118,12 @@ P1Ready:
           lda #$80
           sta HMP0              ; Don't reposition P0
           sta HMBL
+          .SleepX 71 - 8
+          stx HMOVE
           .if DebugColors
             lda DebugColor, x
             sta COLUPF
-            .SleepX 71 - 8 - 7
-          .else
-            .SleepX 71 - 8
           .fi
-          stx HMOVE
 
 Leave:
           stx WSYNC
