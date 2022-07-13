@@ -405,7 +405,7 @@ RunAway:
           .switch TV
           .case NTSC
 
-            stx WSYNC
+            .SkipLines 1
 
           .case PAL
 
@@ -439,7 +439,7 @@ Leave:
 
           .case NTSC
 
-            .SkipLines 31
+            .SkipLines 32
 	
           .endswitch
           jmp GoMap
