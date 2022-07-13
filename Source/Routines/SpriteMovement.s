@@ -12,20 +12,8 @@ NotPaused:
           ldx SpriteCount
           beq Return0
 
-          ;; this check  should never  have been needed,  but it  can be
-          ;; triggered  during the  first VBlank  after reading  from an
-          ;; EEPROM slot 5-8, so we'll just reset it to zero.
-          ;; cpx # 5
-          ;; blt ValidSpriteCount
-
-          ;;ldx # 0
-
-;;ValidSpriteCount:
-          dex
-
 MoveSprites:
           lda ClockFrame
-          ;; Allow moving approximately 10 Hz regardless of TV region
           sec
 DivByFPS:
           sbc # FramesPerSecond / 10
@@ -45,15 +33,12 @@ Do10Hz:
           bne SpriteXMove
 
           jsr Random            ; Is there a random encounter?
-          bne NoRandom
+          bne Return
+          ;; FIXME DO NOT COMMIT
+          rts
 
           stx SpriteFlicker
           .FarJMP MonsterBank, ServiceSpriteCollision
-
-NoRandom:
-          dex
-          bne Do10Hz
-          rts
 
 SpriteXMove:
           cmp #SpriteMoveIdle
@@ -201,12 +186,13 @@ BubbleSortY:
           blt Return
 
           ldx # 0
-          ldy # 6
 BubbleUp:
           lda SpriteY, x
           cmp SpriteY + 1, x
           blt BubbleNext
--
+
+          ldy # 6
+SwapTwo:
           lda SpriteIndex, x
           sta Temp
           lda SpriteIndex + 1, x
@@ -218,8 +204,9 @@ BubbleUp:
           inx
           inx
           dey
-          bne -
+          bne SwapTwo
 
+Return1:
           lda MapFlags
           and #$0f
           sta MapFlags
@@ -229,10 +216,8 @@ BubbleNext:
           inx
           inx
           cpx SpriteCount
+          bge Return1
           dex
-          blt BubbleUp
-
-MovementLogicDone:
-          rts
+          jmp BubbleUp
 
           .bend
