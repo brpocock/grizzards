@@ -24,10 +24,10 @@ PriorCollision:
           bit DrawnSprites
           bmi Cx4
           bvs Cx3
-          beq Cx2
+          bne Cx2
 Cx1:
           ldx # 0
-          gne CollisionHasOccurred
+          geq CollisionHasOccurred
 
 Cx4:
           ldx # 3
@@ -97,7 +97,8 @@ NoRePosition:
           ;; They must have moved to where they got stuck
           ;; If they didn't move, we're S-O-L.
           lda SpriteMotion, x
-          beq Bye
+          and #SpriteMoveAny
+          beq WiggleIt
 
 CheckLeft:
           .BitBit SpriteMoveLeft
@@ -108,14 +109,9 @@ CheckLeft:
           gne InvertHorizontal
 
 WiggleIt:
-          jsr Random
-          and #$f0
+          lda #SpriteMoveIdle
           sta SpriteMotion, x
-          bne Bye
-
-          lda # 1
-          sta SpriteMotion, x
-          gne Bye
+          gne Return
 
 CheckRight:
           .BitBit SpriteMoveRight
@@ -145,9 +141,8 @@ InvertVertical:
 
 Done:
           sta SpriteMotion, x
-Bye:
           rts
-
+          
 InvertedBitMask:
           .byte ~$01, ~$02, ~$04, ~$08, ~$10, ~$20, ~$40, ~$80
 

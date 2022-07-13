@@ -12,15 +12,6 @@ NotPaused:
           ldx SpriteCount
           beq Return0
 
-;;           ;; XXX this check should never have been needed
-;;           ;; XXX it might be removed in the final roundup
-;;           cpx # 5
-;;           blt ValidSpriteCount
-
-;;           brk
-
-;; ValidSpriteCount:
-
 MoveSprites:
           lda ClockFrame
           sec
@@ -28,7 +19,7 @@ MoveSprites:
           sbc # FramesPerSecond / 10
           bpl -
 
-          adc # FramesPerSecond / 10
+          eor #$ff
           tax
           cpx SpriteCount
           beq BubbleSortY
@@ -214,6 +205,9 @@ BubbleUp:
           dey
           bne -
 
+          lda MapFlags
+          and #$0f
+          sta MapFlags
           rts
 
 BubbleNext:
