@@ -110,8 +110,7 @@ CheckLeft:
 
 WiggleIt:
           lda #SpriteMoveIdle
-          sta SpriteMotion, x
-          gne Return
+          gne Done
 
 CheckRight:
           .BitBit SpriteMoveRight
