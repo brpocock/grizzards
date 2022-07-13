@@ -859,8 +859,8 @@ a terrible Cyclops is raising a herd of venomous sheep.
   \begin{center}
     \begin{tikzpicture}
       \draw (2, 4) rectangle (4, 5);
-      \draw [<->] (0, 4.5) -- (2, 4.5);
-      \node [above] at (1, 4.5) { crossroads };
+      \draw [<->] (1, 4.5) -- (2, 4.5);
+      \node [above] at (1.5, 4.5) { crossroads };
 
       \draw (2, 3) rectangle (4, 4);
       \draw (2, 5) rectangle (4, 6);
@@ -875,14 +875,15 @@ a terrible Cyclops is raising a herd of venomous sheep.
       \draw (8, 6) rectangle (10, 7);
       \draw [<->] (10, 6.5) -- (11, 6.5);
       \draw (11, 6) rectangle (13, 7);
-      \draw [<->] (13, 6.5) -- (14, 6.5);
-      \draw (14, 6) rectangle (16, 7);
+      \draw [<->] (13, 6.5) -- (16.5, 6.5);
+      \draw (16.5, 6) rectangle (18.5, 7);
 
-      \draw [<->] (15, 6) -- (15, 5);
-      \draw (14, 5) rectangle (16, 4);
-      \draw [<->] (15, 4) -- (15, 3);
-      \draw (14, 3) rectangle (16, 2);
+      \draw [<->] (17.5, 6) -- (17.5, 5);
+      \draw (16.5, 5) rectangle (18.5, 4);
+      \draw [<->] (17.5, 4) -- (17.5, 3);
+      \draw (16.5, 3) rectangle (18.5, 2);
 
+      \draw [<->] (14,2.5) -- (16.5, 2.5);
       \draw (12, 2) rectangle (14, 3);
       \draw (10, 2) rectangle (12, 3);
       \draw (8, 2) rectangle (10, 3);
@@ -890,9 +891,10 @@ a terrible Cyclops is raising a herd of venomous sheep.
       \draw [<->] (8.5, 3) -- (8.5, 4);
       \draw (8, 4) rectangle (10, 5);
       \draw (10, 4) rectangle (12, 5);
+      \draw (12, 4) rectangle (14, 5);
+      \draw (14, 4) rectangle (16, 5);
 
-      \node at (11, 4.5) { depot };
-      
+      \node at (15, 4.5) { depot };
     \end{tikzpicture}
   \end{center}
   \addcontentsline{map}{map}{Map of the Spiral Woods}
@@ -1035,7 +1037,159 @@ turn up?
 
 \section{Labyrinth}
 
+\begin{figure*}[ht]
+  \begin{center}
+    \begin{tikzpicture}
+      \foreach \x in {0,...,7}
+      { \foreach \y in {0,...,11}
+        { \draw (\x,\y) -- (\x+.25,\y);
+          \draw (\x+.75,\y) -- (\x+1,\y); } }
+      \draw (0,0) rectangle (8,12);
+      \draw (1,1) -- (1,4);
+      \draw (0,4) -- (2,4);
+      \draw (2,4) -- (2,6);
+      \draw (1,3) -- (1,11);
+      \draw (2,1) -- (4,1);
+      \draw (6,0) -- (6,2);
+      \draw (7,0) -- (7,3);
+      \draw (5,1) -- (5,4);
+      \draw (2,2) -- (2,3);
+      \draw (2,2) -- (4,2) -- (4,8);
+      \draw (3,2) -- (3,4);
+      \draw (4,5) -- (6,5) -- (6,4) -- (8,4);
+      \draw (5,5) -- (5,9);
+      \draw (5,10) -- (5,12);
+      \draw (2,11) -- (2,9) -- (6,9) -- (6,12);
+      \draw (3,11) -- (3,12);
+      \draw (3,5) -- (3,10);
+      \draw (4,9) -- (4,11);
+      \draw (7,5) -- (7,11);
+      \draw (6,5) -- (6,6);
+      \node at (.5,3.5) { \encircle{C} };
+      \node at (7.5,.5) { exit };
+      \node at (2.5,9.5) { 1 };
+      \node at (3.5,2.5) { 2 };
+      \node at (1.5,4.5) { 3 };
+      \node at (5.5,5.5) { 4 };
+      \node at (6.5,.5) { depot };
+      \node at (4.5,5.5) { \encircle{B} };
+      \node at (6.5,6.5) { \encircle{B} };
+      \node at (7.5,10.5) { \encircle{B} };
+      \node at (5.5,11.5) { \encircle{B} };
+    \end{tikzpicture}
+  \end{center}
+  \addcontentsline{map}{map}{Map of Labyrinth Upper Level ``A''}
+  \caption{Labyrinth Upper Level ``A'' (Blue)}
+\end{figure*}
+
+\begin{figure*}[ht]
+  \begin{center}
+    \begin{tikzpicture}
+      \foreach \x in {0,...,7}
+      { \foreach \y in {1,...,11}
+        { \draw (\x,\y) -- (\x+.25,\y);
+          \draw (\x+.75,\y) -- (\x+1,\y); } }
+      \draw (0,0) rectangle (8,12);
+      \draw (1,1) -- (1,10);
+      \draw (0,11) -- (4, 11);
+      \draw (2,0) -- (2,4);
+      \draw (3,0) -- (3,5);
+      \draw (2,9) -- (2,10);
+      \draw (2,8) -- (2,5) -- (4,5) -- (4,8);
+      \draw (2,7) -- (4,7);
+      \draw (3,6) -- (3,7);
+      \draw (3,8) -- (3,10);
+      \draw (4,9) -- (4,10);
+      \draw (5,9) -- (5,10);
+      \draw (6,9) -- (6,12);
+      \draw (7,9) -- (7,11);
+      \draw (4,6) -- (6,6);
+      \draw (5,1) -- (5,8);
+      \draw (6,0) -- (6,3);
+      \draw (4,2) -- (4,4) -- (6,4);
+      \draw (7,1) -- (7,7);
+      \draw (6,5) -- (6,8) -- (8,8);
+      \node at (2.5,5.5) { \encircle{C} };
+      \node at (4.5,5.5) { \encircle{A} };
+      \node at (6.5,6.5) { \encircle{A} };
+      \node at (5.5,11.5) { \encircle{A} };
+      \node at (7.5,10.5) { \encircle{A} };
+      \node at (.5,11.5) { 5 };
+      \node at (3.5,6.5) { 6 };
+      \node at (7.5,7.5) { 7 };
+      \node at (.5,.5) { 8 };
+    \end{tikzpicture}
+  \end{center}
+  \addcontentsline{map}{map}{Map of Labyrinth Mid Level ``B''}
+  \caption{Labyrinth Mid Level ``B'' (Indigo)}
+\end{figure*}
+
+\begin{figure*}[ht]
+  \begin{center}
+    \begin{tikzpicture}
+      \foreach \x in {2,...,3}
+      { \foreach \y in {4,...,5}
+        { \draw (\x,\y) -- (\x+.25,\y);
+          \draw (\x+.75,\y) -- (\x+1,\y); } }
+      \foreach \x in {0,...,5}
+      { \foreach \y in {1,...,3}
+        { \draw (\x,\y) -- (\x+.25,\y);
+          \draw (\x+.75,\y) -- (\x+1,\y); } }
+      \draw (4,4) -- (6,4) -- (6,0) -- (0,0) -- (0,4) -- (2,4);
+      \draw (2,3) -- (2,6) -- (4,6) -- (4,1);
+      \draw (1,4) -- (1,1);
+      \draw (5,0) -- (5,1);
+      \draw (2,0) -- (2,2);
+      \draw (3,1) -- (3,2);
+      \draw (3,4) -- (3,5);
+      \draw (5,2) -- (5,4);
+      \node at (.5,3.5) { \encircle{A} };
+      \node at (2.5,5.5) { \encircle{B} };
+      \node at (4.5,3.5) { 9 };
+      \node at (5.5,.5) { 10 };
+    \end{tikzpicture}
+  \end{center}
+  \addcontentsline{map}{map}{Map of Labyrinth Lower Level ``C''}
+  \caption{Labyrinth Lower Level ``C'' (Purple)}
+\end{figure*}
+
 Ancient legends tell of a mysterious labyrinth in WRITEME
+
+
+\subsection{References on Labyrinth maps}
+
+\begin{description}
+\item[exit]
+  Stairs up to the surface
+\item[depot]
+  A Grizzard Depot
+\item[\encircle{A}]
+  Stairs to Upper Level ``A'' (Blue)
+\item[\encircle{B}]
+  Stairs to Mid Level ``B'' (Indigo)
+\item[\encircle{C}]
+  Stairs to Lower Level ``C'' (Purple)
+\item[1]
+  Sign that tells you where to find Andrew's lair
+\item[2]
+  Sign that tells you where to find Timmy's lair
+\item[3]
+  Lever to open Timmy's lair
+\item[4]
+  Guide to reading runes
+\item[5]
+  Entrance to Andrew's lair
+\item[6]
+  Entrance to Timmy's lair
+\item[7]
+  Lever to open Andrew's lair
+\item[8]
+  Entrance to Fred's lair
+\item[9]
+  Lever to open Fred's lair
+\item[10]
+  Sign that tells you where to find Fred's lair
+\end{description}
 
 \section{Dragons' Lairs}
 

@@ -15,6 +15,7 @@ publish:	demo game no-save doc Dist/Grizzards.Source.tar.gz Dist/Grizzards.Atari
 		Dist/Grizzards.Portable.NTSC.bin \
 		Dist/Grizzards.NTSC.a26 Dist/Grizzards.PAL.a26 Dist/Grizzards.SECAM.a26 \
 		Dist/Grizzards.pdf \
+		Dist/GrizzardsCompleteGuide.pdf \
 		Dist/Grizzards.zip \
 		Dist/Grizzards.AtariAge.zip \
 		star-hope.org:star-hope.org/games/Grizzards/ ; \
