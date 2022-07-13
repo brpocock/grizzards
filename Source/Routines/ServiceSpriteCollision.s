@@ -66,8 +66,7 @@ FightWithSprite:
 DoorWithSprite:
           lda SpriteParam, x
           sta NextMap
-          ldy #ModeMapNewRoomDoor ; XXX why Y?
-          sty GameMode
+          .mva GameMode, #ModeMapNewRoomDoor
           rts
 ;;; 
 GetNewGrizzard:
