@@ -9,8 +9,13 @@ SpriteMapper:       .block
 
           ;; Tunables for this file
           LeadingLines = 4
-          DebugColors = false
+          DebugColors = true
 ;;; 
+          .if DebugColors
+            lda # COLBLUE | $f
+            sta COLUPF
+          .fi
+
           lda MapFlags
           and #MapFlagRandomSpawn
           bne LeaveFast
@@ -128,6 +133,12 @@ P1Ready:
 Leave:
           stx WSYNC
 LeaveFast:
+          .if DebugColors
+            ldx SpriteFlicker
+            lda DebugColor, x
+            sta COLUPF
+          .fi
+
           ldx CurrentProvince
           lda ProvinceMapBank, x
           tax

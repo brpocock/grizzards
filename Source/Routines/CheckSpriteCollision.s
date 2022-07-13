@@ -6,12 +6,12 @@ CheckSpriteCollision:         .block
           and #$f0
           bne PriorCollision
 
+          ldx SpriteFlicker
           bit CXP1FB
           bmi CurrentCollision
           bvc NoCollision
 
 CurrentCollision:
-          ldx SpriteFlicker
           jmp CollisionHasOccurred
 
 PriorCollision:
@@ -106,6 +106,16 @@ CheckLeft:
           inc SpriteX, x
           inc SpriteX, x
           gne InvertHorizontal
+
+WiggleIt:
+          jsr Random
+          and #$f0
+          sta SpriteMotion, x
+          bne Bye
+
+          lda # 1
+          sta SpriteMotion, x
+          gne Bye
 
 CheckRight:
           .BitBit SpriteMoveRight

@@ -5,55 +5,49 @@ SpriteMovement:     .block
           lda SystemFlags
           bpl NotPaused
 
+Return0:
           rts
 
 NotPaused:
           ldx SpriteCount
-          beq MovementLogicDone
+          beq Return0
 
-          ;; XXX this check should never have been needed
-          ;; XXX it might be removed in the final roundup
-          cpx # 5
-          blt ValidSpriteCount
+;;           ;; XXX this check should never have been needed
+;;           ;; XXX it might be removed in the final roundup
+;;           cpx # 5
+;;           blt ValidSpriteCount
 
-          brk
+;;           brk
 
-ValidSpriteCount:
-          dex
+;; ValidSpriteCount:
 
 MoveSprites:
           lda ClockFrame
-          ;; Allow moving approximately 10 Hz regardless of TV region
           sec
-DivByFPS:
+-
           sbc # FramesPerSecond / 10
-          bcs DivByFPS
+          bpl -
 
-          bmi Do10Hz
-
-          rts
+          adc # FramesPerSecond / 10
+          tax
+          cpx SpriteCount
+          beq BubbleSortY
+          bge Return0
 
 Do10Hz:
-          lda BitMask, x
-          and DrawnSprites
-          beq NextSprite
-
           lda SpriteMotion, x
-          beq NextSprite
+          beq Return
 
           cmp #SpriteRandomEncounter
           bne SpriteXMove
 
           jsr Random            ; Is there a random encounter?
-          bne NoRandom
+          bne Return
+          ;; FIXME DO NOT COMMIT
+          rts
 
           stx SpriteFlicker
           .FarJMP MonsterBank, ServiceSpriteCollision
-
-NoRandom:
-          dex
-          bne Do10Hz
-          rts
 
 SpriteXMove:
           cmp #SpriteMoveIdle
@@ -192,13 +186,43 @@ InvertVertical:
           sta SpriteMotion, x
 BottomOK:
 
-NextSprite:
-          dex
-          bpl Do10Hz
+Return:
+          rts
+;;; 
+BubbleSortY:          
+          lda SpriteCount
+          cmp # 2
+          blt Return
 
-MovementLogicDone:
+          ldx # 0
+          ldy # 6
+BubbleUp:
+          lda SpriteY, x
+          cmp SpriteY + 1, x
+          blt BubbleNext
+-
+          lda SpriteIndex, x
+          sta Temp
+          lda SpriteIndex + 1, x
+          sta SpriteIndex, x
+          lda Temp
+          sta SpriteIndex + 1, x
+          inx
+          inx
+          inx
+          inx
+          dey
+          bne -
+
+          rts
+
+BubbleNext:
+          inx
+          inx
+          cpx SpriteCount
+          dex
+          blt BubbleUp
+
           rts
 
           .bend
-
-;;; audited 2022-03-22 BRPocock
