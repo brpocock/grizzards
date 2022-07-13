@@ -9,7 +9,7 @@ SpriteMapper:       .block
 
           ;; Tunables for this file
           LeadingLines = 4
-          DebugColors = true
+          DebugColors = false
 ;;; 
           lda MapFlags
           and #MapFlagRandomSpawn
