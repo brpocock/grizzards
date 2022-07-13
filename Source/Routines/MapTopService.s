@@ -5,7 +5,7 @@ TopOfScreenService: .block
           ;; MAGIC — these addresses must be  known and must be the same
           ;; in every map bank.
           PlayerSprites = $f000
-          MapSprites = (PlayerSprites + $10)
+          MapSprites = (PlayerSprites + $0f)
 
           jsr VSync
           .TimeLines 32

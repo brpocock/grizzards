@@ -314,23 +314,24 @@ DrawMap:
           inc pp5h
 +
           sta pp5l
+          jmp DrawPlayersNoWSync
 
 DrawPlayers:
           stx WSYNC
+DrawPlayersNoWSync:
           lda # 7
           dcp P0LineCounter
           blt NoP0
 
           ldy P0LineCounter
           lda (pp0l), y
-          sta GRP0
           jmp P0Done
 
 NoP0:                           ; 10 cyc on entry
           lda # 0
-          sta GRP0
           .Sleep 8
-P0Done:                         ; 23 cyc here
+P0Done:
+          sta GRP0
 
 DrawPlayer1:
           lda # 7
@@ -341,20 +342,17 @@ DrawPlayer1:
           blt NoP1
 
           lda (pp1l), y
-          sta GRP1
           jmp P1Done
-
-NoP1:                           ; 37 cyc here
-          lda # 0
-          sta GRP1
-          nop
-          geq P1Done
 
 RemapSprites:
           jmp GoSpriteMapper
 
-P1Done:                         ; 47 cyc here
-          .SleepX 29
+NoP1:
+          lda # 0
+          .Sleep 8
+P1Done:
+          sta GRP1
+          .SleepX 32
 
 SpriteMapperReturn:
 
@@ -364,7 +362,7 @@ SpriteMapperReturn:
             bit LineCounter
             beq +
             stx WSYNC
-            .SleepX FIXME
+            .SleepX 40
 +
           .fi
 

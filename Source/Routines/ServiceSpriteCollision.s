@@ -59,6 +59,8 @@ FightWithSprite:
           sta CurrentCombatEncounter
           lda SpriteIndex, x
           sta CurrentCombatIndex
+          .mvx s, #$ff          ; smash the stack
+          .WaitScreenBottom
           jmp GoCombat
 ;;; 
 DoorWithSprite:
