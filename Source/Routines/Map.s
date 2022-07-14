@@ -70,7 +70,6 @@ DoneShore:
 GotRLE:
 ;;; 
 GetMapColors:
-          ldx CurrentMap
           lda MapColors, x
           and #$f0
           ;; Set up the effective color,
@@ -123,27 +122,7 @@ GotPF:
           .fi                   ; end of "not SECAM" section
           sta COLUPF
 
-          ;; Force a load of the next (first) run of map data
-          ldy # 0
-          lda (pp5l), y
-          sta RunLength
-          iny
-          lda (pp5l), y
-          sta pp4l
-          iny
-          lda (pp5l), y
-          sta pp4h
-          iny
-          lda (pp5l), y
-          sta pp3l
-
-          clc
-          lda pp5l
-          adc # 4
-          bcc +
-          inc pp5h
-+
-          sta pp5l
+          .mva RunLength, 1     ; first decrement will take it to zero
 ;;; 
 BeforeKernel:
           .mva VBLANK, #ENABLED
@@ -273,46 +252,50 @@ GotBK:
             .endswitch
           .fi                   ; end of "not SECAM" section
 
-          ldx # 0
-          stx VBLANK
-          stx WSYNC
           sta COLUBK
-          .mva PF0, pp4l
-          .mva PF1, pp4h
-          .mva PF2, pp3l
 
-          ldy # 1
-          lax (pp5l), y
+          ldy # 0
+
+          lda (pp5l), y
+          sta RunLength
+
+          stx WSYNC
+          sty VBLANK
+          jmp FirstLine
+
 ;;; 
-DrawMap:
           ;; Actually draw each line of the map
+DrawMap:
+          stx WSYNC
+FirstLine:
+          ldy # 1
+          lda (pp5l), y
+          sta PF0
+          iny                   ; Y = 2
+          lda (pp5l), y
+          sta PF1
+          iny                   ; Y = 3
+          lda (pp5l), y
+          sta PF2
+
           dec RunLength
           bne DrawPlayers
 
-          ;; skip run length until the PF regs are written
-          ;; or we'll be too late and update halfway into the line
-          stx PF0
-          ldy # 2
-          lda (pp5l), y
-          sta PF1
-          iny
-          lda (pp5l), y
-          sta PF2
-          ldy # 0
-          lda (pp5l), y
-          sta RunLength
-          clc
           lda pp5l
+          ;; Carry is clear here after DEC above
           adc # 4
           bcc +
           inc pp5h
 +
           sta pp5l
-          jmp DrawPlayersNoWSync
+
+          ldy # 0
+          lda (pp5l), y
+          sta RunLength
 
 DrawPlayers:
-          stx WSYNC
-DrawPlayersNoWSync:
+
+DrawPlayer0:
           lda # 7
           dcp P0LineCounter
           blt NoP0
@@ -321,9 +304,10 @@ DrawPlayersNoWSync:
           lda (pp0l), y
           jmp P0Done
 
-NoP0:                           ; 10 cyc on entry
-          lda # 0
+NoP0:
           .Sleep 8
+
+          lda # 0
 P0Done:
           sta GRP0
 
@@ -343,10 +327,8 @@ RemapSprites:
 
 NoP1:
           lda # 0
-          .Sleep 8
 P1Done:
           sta GRP1
-          .SleepX 32
 
 SpriteMapperReturn:
 
@@ -356,19 +338,16 @@ SpriteMapperReturn:
             bit LineCounter
             beq +
             stx WSYNC
-            .SleepX 40
 +
           .fi
 
-          ldy # 1
-          lax (pp5l), y
- 
           inc LineCounter       ; 72 × 2 lines = 144 lines total
           ldy LineCounter       ; (72 × 2½ lines = 180 lines on PAL/SECAM)
           cpy # 72
           blt DrawMap
 ;;; 
 FillBottomScreen:
+          stx WSYNC
           .mva VBLANK, #ENABLED
 ;;; 
           .if BANK == Province2MapBank
