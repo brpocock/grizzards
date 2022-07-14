@@ -5,11 +5,13 @@
           clc
           adc # 8
           sec
+          .page
           stx WSYNC
 P1HPos:
           sbc # 15
           bcs P1HPos
           sta RESP1
+          .endp
 
           eor #$07
           .rept 4
@@ -18,10 +20,6 @@ P1HPos:
           sta HMP1
 
 SetUpSprites:
-          .if SpriteMapperBank == BANK
-            stx WSYNC
-          .fi
-
           ldx SpriteCount
           beq NoSprites
 

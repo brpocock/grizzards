@@ -8,38 +8,34 @@ SpriteMapper:       .block
           MapSprites = (PlayerSprites + $0f)
 
           ;; Tunables for this file
-          LeadingLines = 4
-          DebugColors = false
-;;; 
-          .if DebugColors
+          LeadingLines = 5
+          DebugColors = false 
+          DebugVerbose = false
+ ;;; 
+          .if DebugColors && DebugVerbose
             lda # COLBLUE | $f
-            sta COLUPF
+            sta DebugColors
           .fi
 
           lda MapFlags
           and #MapFlagRandomSpawn
-          bne LeaveFast
+          bne GetOuttaHere
 
           ldx RunLength         ; going to have to change the playfield soon
           cpx # 2 + LeadingLines
-          blt LeaveFast
+          blt GetOuttaHere
 
           lda P0LineCounter
           bmi PlayerOK
 
           cmp # 8 + LeadingLines              ; player is being drawn soon or now
-          blt LeaveFast
+          blt GetOuttaHere
 
 PlayerOK:
-          ldx P1LineCounter
-          bpl LeaveFast
-
           .if DebugColors
             lda # COLORANGE | $8
-            sta COLUPF
+            sta DebugColors
           .fi
-
-          stx WSYNC
 
 ;;; 
           ldx SpriteFlicker
@@ -48,25 +44,27 @@ PlayerOK:
           ora DrawnSprites
           sta DrawnSprites
 
-          and #$f0
+          and #$f0              ; already seen a collision?
           bne FindFlickerCandidate
 
           bit CXP1FB
           bpl NoPFCollision
 Collision:
-          inx
-          inx
-          inx
-          inx
-          lda BitMask, x
+          lda SpriteCxMask, x
           ora DrawnSprites
           sta DrawnSprites
-          gne FindFlickerCandidate 
+          ldx SpriteFlicker
+          clv                   ; so the next branch is never taken
           
 NoPFCollision:
           bvs Collision
 
 FindFlickerCandidate:
+          stx WSYNC
+          inc LineCounter
+          dec RunLength
+          dec P0LineCounter
+
           ldy SpriteCount
           iny
 NextFlickerCandidate:
@@ -76,7 +74,6 @@ NextFlickerCandidateTry:
           blt FlickerOK
 
           ldx # 0
-
 FlickerOK:
           dey
           beq NoSprites
@@ -85,7 +82,7 @@ FlickerOK:
           cmp # SpriteRandomEncounter
           beq NextFlickerCandidate
 
-          ;; if we're already too late to draw it, don't select it
+          ;; if we're already too late to draw it, don't count it
           lda LineCounter
           adc # 8 + LeadingLines     ; who cares if Carry fucks it up here
           cmp SpriteY, x
@@ -96,11 +93,14 @@ FlickerOK:
           ora DrawnSprites
           sta DrawnSprites
 
+MarkedDrawn:
+          ;; we probably reach this point at cycle 24 or 57
+
           .include "NextSprite.s"
 
           ;; X = SpriteFlicker at this point
-          sec
           lda SpriteY, x
+          sec
           sbc LineCounter
           sta P1LineCounter
 P1Ready:
@@ -111,33 +111,27 @@ P1Ready:
 
           lda LineCounter
           sec
-          adc # LeadingLines
+          adc # LeadingLines - 1
           sta LineCounter       ; 21 cycles
 
           lda RunLength
           sec
-          sbc # LeadingLines
+          sbc # LeadingLines - 1
           sta RunLength         ; 34 cycles
 
           lda P0LineCounter
           sec
-          sbc # LeadingLines
+          sbc # LeadingLines - 1
           sta P0LineCounter     ; 47 cycles
 
           .SleepX 71 - 47
-          stx HMOVE
-          .if DebugColors
-            lda DebugColor, x
-            sta COLUPF
-          .fi
+          stx HMOVE             ; Cycle 74 HMOVE
 
-Leave:
-          stx WSYNC
-LeaveFast:
+GetOuttaHere:
           .if DebugColors
             ldx SpriteFlicker
             lda DebugColor, x
-            sta COLUPF
+            sta DebugColors
           .fi
 
           ldx CurrentProvince
@@ -149,10 +143,9 @@ Return:
 ;;; 
 NoSprites:
           .if DebugColors
-            inx
-            lda DebugColor, x
+            lda DebugColor + 4
             ora #$0f
-            sta COLUPF
+            sta DebugColors
           .fi
           .mva P1LineCounter, #$7f
 
@@ -162,14 +155,10 @@ NoSprites:
           dec RunLength
           dec P0LineCounter
           dec P0LineCounter
-          stx WSYNC
+          jmp GetOuttaHere
 
-GetOuttaHere:
-          ldx CurrentProvince
-          lda ProvinceMapBank, x
-          tax
-
-          jmp ReturnFromSpriteMapperToMap
+;;; 
+          ;; Data tables
 
 ProvinceMapBank:
           .byte Province0MapBank, Province1MapBank, Province2MapBank
@@ -180,6 +169,10 @@ DebugColor:
             .colu COLMAGENTA, $4
             .colu COLYELLOW, $4
             .colu COLGRAY, $4
+            .colu COLRED, $4
           .fi
+
+SpriteCxMask:
+          .byte $10, $20, $40, $80
 
           .bend
