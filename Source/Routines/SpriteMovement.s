@@ -73,10 +73,11 @@ SpriteMoveNext:
           bne SpriteMoveReady
 
           tya
-          .BitBit $10
+          and #$30
           beq ChasePlayer
 
-          .BitBit $20
+          tya
+          and #$40
           beq RandomlyMove
 
           lda #SpriteMoveIdle
