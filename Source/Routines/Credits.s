@@ -13,6 +13,8 @@ Loop:
           sta COLUP0
           sta COLUP1
 
+          inc ClockFrame
+
           .SetPointer WithLoveText
           jsr ShowPointerText12
 
