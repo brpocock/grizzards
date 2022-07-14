@@ -278,7 +278,7 @@ SpriteList:
 
           .if !DEMO
           .byte $ff, SpriteWander
-          .byte 120, 32
+          .byte 120, 48
           .byte SpritePerson, 80 ; lover 2
           .fi
 
@@ -294,12 +294,12 @@ SpriteList:
           .byte SpriteSign, 11  ; Treble Village
 
           .byte 19, SpriteWander
-          .byte 100, 32
+          .byte 100, $28
           .byte SpritePerson, 12 ; Fleeing village
 
           .if !DEMO
           .byte $ff, SpriteWander
-          .byte 140, 45
+          .byte $a2, $3c
           .byte SpritePerson, 77 ; used to be fun
           .fi
 
