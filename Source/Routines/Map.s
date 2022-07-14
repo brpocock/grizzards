@@ -261,7 +261,7 @@ GotBK:
 
           stx WSYNC
           sty VBLANK
-          jmp FirstLine
+          jmp DrawPF
 
 ;;; 
           ;; Actually draw each line of the map
@@ -277,12 +277,8 @@ DrawMap:
 +
           sta pp5l
 
-          ldy # 0
-          lda (pp5l), y
-          sta RunLength
-
           stx WSYNC
-FirstLine:
+DrawPF:
           ldy # 1
           lda (pp5l), y
           sta PF0
@@ -292,11 +288,8 @@ FirstLine:
           iny                   ; Y = 3
           lda (pp5l), y
           sta PF2
-          .SleepX 40
-          jmp DrawPlayer0
 
 DrawPlayers:
-          stx WSYNC
 
 DrawPlayer0:
           lda # 7
@@ -312,6 +305,7 @@ NoP0:
 
           lda # 0
 P0Done:
+          stx WSYNC
           sta GRP0
 
 DrawPlayer1:
@@ -332,6 +326,17 @@ NoP1:
           lda # 0
 P1Done:
           sta GRP1
+
+          ldx RunLength
+          bpl SyncWithoutRLE
+
+          ldy # 0
+          lda (pp5l), y
+          sta RunLength
+
+          gne SpriteMapperReturn
+
+SyncWithoutRLE:
           stx WSYNC
 
 SpriteMapperReturn:
@@ -348,7 +353,7 @@ SpriteMapperReturn:
           inc LineCounter       ; 72 × 2 lines = 144 lines total
           ldy LineCounter       ; (72 × 2½ lines = 180 lines on PAL/SECAM)
           cpy # 72
-          blt DrawMap
+          blt DrawMap           ; crosses a page boundary
 ;;; 
 FillBottomScreen:
           stx WSYNC
