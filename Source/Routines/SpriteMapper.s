@@ -9,10 +9,10 @@ SpriteMapper:       .block
 
           ;; Tunables for this file
           LeadingLines = 7
-          DebugColors = false 
-          DebugVerbose = false
+          DebugColors = 0
+          DebugVerbose = true
 ;;; 
-          .if DebugColors && DebugVerbose
+          .if DebugColors != 0 && DebugVerbose
             lda # COLBLUE | $f
             sta DebugColors
           .fi
@@ -28,13 +28,14 @@ SpriteMapper:       .block
           blt Leave
 
 PlayerOK:
-          .if DebugColors
+          .if DebugColors != 0
             lda # COLORANGE | $8
             sta DebugColors
           .fi
 
           ldx RunLength         ; going to have to change the playfield soon
-          cpx # 2 + LeadingLines
+          bmi Leave
+          cpx # LeadingLines
           blt Leave
 
 ;;; 
@@ -66,14 +67,13 @@ FindFlickerCandidate:
           dec P0LineCounter
 
           ldy SpriteCount
-          iny
 NextFlickerCandidate:
           inx
 NextFlickerCandidateTry:
           cpx SpriteCount
           blt FlickerOK
 
-          ldx # 0
+          ldx SpriteFlicker
 FlickerOK:
           dey
           beq NoSprites
@@ -110,17 +110,17 @@ P1Ready:
 
           lda LineCounter
           sec
-          adc # LeadingLines - 1
+          adc # LeadingLines
           sta LineCounter       ; 21 cycles
 
           lda RunLength
           sec
-          sbc # LeadingLines - 1
+          sbc # LeadingLines
           sta RunLength         ; 34 cycles
 
           lda P0LineCounter
           sec
-          sbc # LeadingLines - 1
+          sbc # LeadingLines
           sta P0LineCounter     ; 47 cycles
 
           .SleepX 71 - 47
@@ -128,7 +128,7 @@ P1Ready:
           stx HMOVE             ; Cycle 74 HMOVE
 
 Leave:
-          .if DebugColors
+          .if DebugColors != 0
             ldx SpriteFlicker
             lda DebugColor, x
             sta DebugColors
@@ -142,12 +142,16 @@ Return:
 
 ;;; 
 NoSprites:
-          .if DebugColors
+          .if DebugColors != 0
             lda DebugColor + 4
             ora #$0f
             sta DebugColors
           .fi
           .mva P1LineCounter, #$7f
+
+          inc LineCounter
+          dec RunLength
+          dec P0LineCounter
 
 LeaveLate:
           inc LineCounter
@@ -161,7 +165,10 @@ LeaveLate:
 ProvinceMapBank:
           .byte Province0MapBank, Province1MapBank, Province2MapBank
 
-          .if DebugColors
+SpriteCxMask:
+          .byte 1 << ((0,1,2,3 ) + 4)
+
+          .if DebugColors != 0
 DebugColor:
             .colu COLCYAN, $4
             .colu COLMAGENTA, $4
@@ -169,8 +176,5 @@ DebugColor:
             .colu COLGRAY, $4
             .colu COLRED, $4
           .fi
-
-SpriteCxMask:
-          .byte $10, $20, $40, $80
 
           .bend
