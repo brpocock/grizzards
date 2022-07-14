@@ -98,21 +98,6 @@ FlickerOK:
 
           .include "NextSprite.s"
 
-          lda LineCounter
-          sec
-          adc # LeadingLines
-          sta LineCounter
-
-          lda RunLength
-          sec
-          sbc # LeadingLines + 1
-          sta RunLength
-
-          lda P0LineCounter
-          sec
-          sbc # LeadingLines
-          sta P0LineCounter
-
           ;; X = SpriteFlicker at this point
           sec
           lda SpriteY, x
@@ -121,9 +106,25 @@ FlickerOK:
 P1Ready:
           stx WSYNC
           lda #$80
-          sta HMP0              ; Don't reposition P0
-          sta HMBL
-          .SleepX 71 - 8
+          sta HMP0              ; Don't reposition P0 & BL
+          sta HMBL              ; 8 cycles
+
+          lda LineCounter
+          sec
+          adc # LeadingLines
+          sta LineCounter       ; 21 cycles
+
+          lda RunLength
+          sec
+          sbc # LeadingLines
+          sta RunLength         ; 34 cycles
+
+          lda P0LineCounter
+          sec
+          sbc # LeadingLines
+          sta P0LineCounter     ; 47 cycles
+
+          .SleepX 71 - 47
           stx HMOVE
           .if DebugColors
             lda DebugColor, x
