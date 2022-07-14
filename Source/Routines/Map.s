@@ -260,8 +260,8 @@ GotBK:
 
           sta COLUBK
 
-          ldy # 0
 
+          ldy # 0
           lda (pp5l), y
           sta RunLength
 
@@ -272,6 +272,21 @@ GotBK:
 ;;; 
           ;; Actually draw each line of the map
 DrawMap:
+          dec RunLength
+          bne DrawPlayers
+
+          lda pp5l
+          ;; Carry is clear here
+          adc # 4
+          bcc +
+          inc pp5h
++
+          sta pp5l
+
+          ldy # 0
+          lda (pp5l), y
+          sta RunLength
+
           stx WSYNC
 FirstLine:
           ldy # 1
@@ -283,23 +298,11 @@ FirstLine:
           iny                   ; Y = 3
           lda (pp5l), y
           sta PF2
-
-          dec RunLength
-          bne DrawPlayers
-
-          lda pp5l
-          ;; Carry is clear here after DEC above
-          adc # 4
-          bcc +
-          inc pp5h
-+
-          sta pp5l
-
-          ldy # 0
-          lda (pp5l), y
-          sta RunLength
+          .SleepX 40
+          jmp DrawPlayer0
 
 DrawPlayers:
+          stx WSYNC
 
 DrawPlayer0:
           lda # 7
@@ -335,11 +338,12 @@ NoP1:
           lda # 0
 P1Done:
           sta GRP1
+          stx WSYNC
 
 SpriteMapperReturn:
 
           .if TV != NTSC
-          ;; extend every even line on PAL/SECAM
+          ;; extend every odd line on PAL/SECAM
             lda #$01
             bit LineCounter
             beq +
