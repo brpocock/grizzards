@@ -8,10 +8,10 @@ SpriteMapper:       .block
           MapSprites = (PlayerSprites + $0f)
 
           ;; Tunables for this file
-          LeadingLines = 4
+          LeadingLines = 7
           DebugColors = false 
           DebugVerbose = false
- ;;; 
+;;; 
           .if DebugColors && DebugVerbose
             lda # COLBLUE | $f
             sta DebugColors
@@ -84,7 +84,7 @@ FlickerOK:
 
           ;; if we're already too late to draw it, don't count it
           lda LineCounter
-          adc # 8 + LeadingLines     ; who cares if Carry fucks it up here
+          adc # 8 + LeadingLines
           cmp SpriteY, x
           bge NextFlickerCandidate
 
@@ -94,8 +94,6 @@ FlickerOK:
           sta DrawnSprites
 
 MarkedDrawn:
-          ;; we probably reach this point at cycle 24 or 57
-
           .include "NextSprite.s"
 
           ;; X = SpriteFlicker at this point
@@ -103,6 +101,7 @@ MarkedDrawn:
           sec
           sbc LineCounter
           sta P1LineCounter
+
 P1Ready:
           stx WSYNC
           lda #$80
@@ -125,6 +124,7 @@ P1Ready:
           sta P0LineCounter     ; 47 cycles
 
           .SleepX 71 - 47
+
           stx HMOVE             ; Cycle 74 HMOVE
 
 Leave:
