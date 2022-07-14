@@ -286,7 +286,7 @@ SpriteList:
 
           ;; Room 3, Tier 0
           .byte $ff, SpriteFixed              ; not removeable,fixed position sprite
-          .byte $7d, $30         ; x, y position
+          .byte $7d, $0c         ; x, y position
           .byte SpriteDoor, 0   ; action
 
           .byte $ff, SpriteFixed
