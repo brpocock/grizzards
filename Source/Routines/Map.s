@@ -327,20 +327,18 @@ NoP1:
 P1Done:
           sta GRP1
 
-          ldx RunLength
-          bpl SyncWithoutRLE
+SpriteMapperReturn:
+          ldy RunLength
+          bne SyncWithoutRLE
 
-          ldy # 0
           lda (pp5l), y
           sta RunLength
-
-          gne SpriteMapperReturn
+          gne Sync
 
 SyncWithoutRLE:
           stx WSYNC
 
-SpriteMapperReturn:
-
+Sync:
           .if TV != NTSC
           ;; extend every odd line on PAL/SECAM
             lda #$01
