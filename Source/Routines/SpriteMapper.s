@@ -8,7 +8,7 @@ SpriteMapper:       .block
           MapSprites = (PlayerSprites + $0f)
 
           ;; Tunables for this file
-          LeadingLines = 5
+          LeadingLines = 4
           DebugColors = false 
           DebugVerbose = false
  ;;; 
@@ -19,23 +19,23 @@ SpriteMapper:       .block
 
           lda MapFlags
           and #MapFlagRandomSpawn
-          bne GetOuttaHere
-
-          ldx RunLength         ; going to have to change the playfield soon
-          cpx # 2 + LeadingLines
-          blt GetOuttaHere
+          bne Leave
 
           lda P0LineCounter
           bmi PlayerOK
 
           cmp # 8 + LeadingLines              ; player is being drawn soon or now
-          blt GetOuttaHere
+          blt Leave
 
 PlayerOK:
           .if DebugColors
             lda # COLORANGE | $8
             sta DebugColors
           .fi
+
+          ldx RunLength         ; going to have to change the playfield soon
+          cpx # 2 + LeadingLines
+          blt Leave
 
 ;;; 
           ldx SpriteFlicker
@@ -127,7 +127,7 @@ P1Ready:
           .SleepX 71 - 47
           stx HMOVE             ; Cycle 74 HMOVE
 
-GetOuttaHere:
+Leave:
           .if DebugColors
             ldx SpriteFlicker
             lda DebugColor, x
@@ -149,13 +149,11 @@ NoSprites:
           .fi
           .mva P1LineCounter, #$7f
 
-          inc LineCounter
+LeaveLate:
           inc LineCounter
           dec RunLength
-          dec RunLength
           dec P0LineCounter
-          dec P0LineCounter
-          jmp GetOuttaHere
+          jmp Leave
 
 ;;; 
           ;; Data tables
