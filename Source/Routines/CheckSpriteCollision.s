@@ -130,7 +130,7 @@ CheckUp:
           gne InvertVertical
 
 CheckDown:
-          and #SpriteMoveDown
+          .BitBit SpriteMoveDown
           beq Done
 
           dec SpriteY, x
