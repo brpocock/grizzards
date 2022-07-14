@@ -82,7 +82,8 @@ MapColors:
           .colors COLCYAN, COLCYAN
           .colors COLCYAN, COLCYAN
           .colors COLCYAN, COLCYAN
-          ;; ↑ 66
+          .colors COLGRAY, COLGRAY
+          ;; ↑ 67
 
 ;;; Links up, down, left, right are map indices in this bank
 MapLinks:
@@ -166,6 +167,7 @@ MapLinks:
           ;; 65
           .byte $ff, $ff, $ff, 66
           .byte 64, $ff, 65, $ff
+          .byte $ff, $ff, $ff, $ff
 
 ;;; RLE Map data for each screen.
 
@@ -198,8 +200,8 @@ MapLinks:
           ;; 60
           _ ..= ( Map_InHouse, Map_InHouse, Map_OpenSidesDoorTop, Map_OpenSides, Map_ClosedTop )
           ;; 65
-          ;; special non-existing rooms 67 & 68 define alternate RLE backgrounds for “wave motions”
-          _ ..= ( Map_EWOval, Map_OpenTopDoorSides, Map_SouthShore2, Map_NorthShore2 )
+          ;; special non-existing rooms 68 & 69 define alternate RLE backgrounds for “wave motions”
+          _ ..= ( Map_EWOval, Map_OpenTopDoorSides, Map_FatFourWay, Map_SouthShore2, Map_NorthShore2 )
 
           MapRLE = _
 
@@ -821,5 +823,10 @@ SpriteList:
           .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 79
+
+          ;; Room 67, Greeting Room
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteSign, 115 ; build info
 
           .byte 0
