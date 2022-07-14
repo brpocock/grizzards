@@ -49,7 +49,7 @@ NoChangeRLE:
             bge MaybeNorthShore
 
 SouthShoreAlt:
-            ldx # 67              ; SouthShore2
+            ldx # 68              ; SouthShore2
             gne DoneShore
 
 MaybeNorthShore:
@@ -59,7 +59,7 @@ MaybeNorthShore:
             cpx # 54
             bge DoneShore
 
-            ldx # 68              ; NorthShore2
+            ldx # 69              ; NorthShore2
 DoneShore:
 
           .fi
