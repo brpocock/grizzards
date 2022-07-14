@@ -115,6 +115,12 @@ Break:
           pha
           .BankJump Failure, FailureBank
 ;;; 
+;;; The KnownZeroInEveryBank allows pointer to point to a fixed zero,
+;;; which has proven to be useful on occassion.
+
+Zero:
+          .byte 0
+
           ;; Useful constants to save time bit-shifting. Used all over.
 BitMask:
           .byte $01, $02, $04, $08, $10, $20, $40, $80
@@ -166,12 +172,6 @@ ReturnFromSpriteMapperToMap:
               .fi
             .fi
           .fi
-
-;;; The KnownZeroInEveryBank allows pointer to point to a fixed zero,
-;;; which has proven to be useful on occassion.
-
-Zero:
-          .byte 0
 
 ;;; End of wired memory
 WiredEnd:
