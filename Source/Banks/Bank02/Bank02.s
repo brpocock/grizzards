@@ -10,32 +10,45 @@
 DoLocal:
           cpy #ServiceDecodeAndShowText
           beq DecodeAndShowText
+
           cpy #ServiceShowText
           beq ShowText
+
           cpy #ServiceShowGrizzardName
-          beq ShowGrizzardName 
+          beq ShowGrizzardName
+
           cpy #ServiceCombatOutcome
           beq CombatOutcomeScreen
+
           cpy #ServiceShowGrizzardStats
           beq ShowGrizzardStats
+
           cpy #ServiceShowMove
           beq ShowMove
+
           cpy #ServiceShowMoveDecoded
           beq ShowMoveDecoded
+
           cpy #ServiceAppendDecimalAndPrint
           beq AppendDecimalAndPrintThunk
+
           cpy #ServiceFetchGrizzardMove
           beq FetchGrizzardMove
+
           cpy #ServiceLevelUp
           beq LevelUp
+
           cpy #ServiceCombatIntro
           beq CombatIntroScreen
+
           cpy #ServiceCombatVictory
           beq CombatVictoryScreen
+
           brk
 
 DecodeAndShowText:
           jsr DecodeText
+
           jmp ShowText
 
 AppendDecimalAndPrintThunk:

@@ -487,11 +487,11 @@ release:	all
 	-cp -v Dist/Grizzards.{AA.,Demo.,NoSave.,}{NTSC,PAL,SECAM}.{a26,pro} \
 		Dist/$(RELEASE)
 	cp -v Dist/Grizzards.Portable.NTSC.bin Dist/$(RELEASE)/Grizzards.Portable.$(RELEASE).bin
-	cp -v Dist/Grizzards.{AA-book.,AA.,Demo.,NoSave.}pdf Dist/$(RELEASE)
+	cp -v Dist/Grizzards.{AA-book.,AA.,Demo.,NoSave.,}pdf Dist/$(RELEASE)
 	cp -v Dist/Grizzards.Manual.txt Dist/$(RELEASE)
 	@cd Dist/$(RELEASE) ; \
 	for file in Grizzards.*.{pro,a26,pdf} Grizzards.pdf; do \
-		mv -v $$file $$(echo $$file | perl -pne 's(Grizzards(\..+)\.(pdf|a26|pro)) (Grizzards\1.$(RELEASE).\2)'); \
+		mv -v $$file $$(echo $$file | perl -pne 's(Grizzards(.*)\.(pdf|a26|pro)) (Grizzards\1.$(RELEASE).\2)'); \
 	done
 	@echo "AtariAge Release $(RELEASE) of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
 		(cd Dist; zip --archive-comment -9 \

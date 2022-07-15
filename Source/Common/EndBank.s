@@ -10,7 +10,7 @@ EndBank:
             BankEndAddress = $ff4e      ; keep this as high as possible
           .fi
           .if (* > BankEndAddress) || (* < $f000)
-            .error "Bank ", BANK, " overran ROM space (ending at ", *, "; must end by ", BankEndAddress, ")"
+            .error format ("Bank $%02x overran ROM space (ending at $%04x, ; must end by $%04x) (Config: %s)", BANK, *, BankEndAddress, ConfigPartNumber)
           .else
             .warn format("bank %d ends at %x with %d bytes left (%.1f%%)", BANK, EndBank, BankEndAddress - EndBank, ( (Wired - EndBank) * 100.0 / (BankEndAddress - $f000) ) )
           .fi
