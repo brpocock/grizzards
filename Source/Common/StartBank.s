@@ -23,9 +23,9 @@
 
           .if DEMO
             .if NOSAVE
-              ConfigCode = "NoSave"
+              ConfigCode = "0.NoSave"
             .else
-              ConfigCode = "Demo"
+              ConfigCode = "0.Demo"
             .fi
           .else
             .if ATARIAGESAVE
@@ -35,7 +35,7 @@
             .fi
           .fi
 
-          ConfigPartNumber = format ("Griz0.%s.%s", ConfigCode, TVTypeName)
+          ConfigPartNumber = format ("Griz%s.%s", ConfigCode, TVTypeName)
 
           .enc "Unicode"
           .cdef $00, $1ffff, 0
