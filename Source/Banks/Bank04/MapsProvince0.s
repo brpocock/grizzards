@@ -295,9 +295,9 @@ SpriteList:
           .byte SpritePerson, 12 ; Fleeing village
 
           .if !DEMO
-          .byte $ff, SpriteWander
-          .byte 140, 45
-          .byte SpritePerson, 77 ; used to be fun
+            .byte $ff, SpriteWander
+            .byte 140, 45
+            .byte SpritePerson, 77 ; used to be fun
           .fi
 
           .byte 0
