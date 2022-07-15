@@ -52,6 +52,9 @@ Loop:
           .switch TV
           .case PAL,SECAM
             .SkipLines 2
+            stx TIM64T          ; strobe the clock an extra time …
+          ;; If we don't do this, every 31 frames it just does not work. See
+          ;; #503 and notes on 2022-07-14 (Vol III page "You Won PAL Timings")
           .endswitch
           .WaitScreenTopMinus 1, 0
           stx WSYNC
