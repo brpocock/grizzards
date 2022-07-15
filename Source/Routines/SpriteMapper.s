@@ -12,6 +12,11 @@ SpriteMapper:       .block
           DebugColors = 0
           DebugVerbose = true
 ;;; 
+Leaving:
+          jmp Leave
+;;; 
+Entry:
+
           .if DebugColors != 0 && DebugVerbose
             lda # COLBLUE | $f
             sta DebugColors
@@ -19,13 +24,13 @@ SpriteMapper:       .block
 
           lda MapFlags
           and #MapFlagRandomSpawn
-          bne Leave
+          bne Leaving
 
           lda P0LineCounter
           bmi PlayerOK
 
           cmp # 8 + LeadingLines              ; player is being drawn soon or now
-          blt Leave
+          blt Leaving
 
 PlayerOK:
           .if DebugColors != 0
@@ -35,7 +40,7 @@ PlayerOK:
 
           ldx RunLength         ; going to have to change the playfield soon
           cpx # LeadingLines
-          blt Leave
+          blt Leaving
 
 ;;; 
 CheckPriorP1:
@@ -62,8 +67,7 @@ NoPFCollision:
 ;;; 
 FindFlickerCandidate:
           nop
-          stx WSYNC
-
+ 
           ldy SpriteCount
 NextFlickerCandidate:
           inx
