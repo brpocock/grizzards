@@ -148,7 +148,7 @@ FractionalMovement: .macro deltaVar, fractionVar, positionVar, pxPerSecond
 
 MoveMinus:
           sec
-          sbc #ceil(\pxPerSecond * $80)
+          sbc .ceil(\pxPerSecond * $80)
           sta \fractionVar
           bcs DoneMovement
 
@@ -159,7 +159,7 @@ MoveMinus:
 
 MovePlus:
           clc
-          adc #ceil(\pxPerSecond * $80)
+          adc .ceil(\pxPerSecond * $80)
           sta \fractionVar
           bcc DoneMovement
 
