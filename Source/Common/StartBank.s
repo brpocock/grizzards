@@ -12,6 +12,31 @@
             PORTABLE := false
           .endweak
 
+          .switch TV
+	.case NTSC
+            TVTypeName = "NTSC"
+          .case PAL
+            TVTypeName = "PAL"
+          .case SECAM
+            TVTypeName = "SECAM"
+          .endswitch
+
+          .if DEMO
+            .if NOSAVE
+              ConfigCode = "NoSave"
+            .else
+              ConfigCode = "Demo"
+            .fi
+          .else
+            .if ATARIAGESAVE
+              ConfigCode = "1"
+            .else
+              ConfigCode = "0"
+            .fi
+          .fi
+
+          ConfigPartNumber = format ("Griz0.%s.%s", ConfigCode, TVTypeName)
+
           .enc "Unicode"
           .cdef $00, $1ffff, 0
 
