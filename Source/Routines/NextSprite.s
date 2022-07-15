@@ -10,7 +10,7 @@
 P1HPos:
           sbc # 15
           bcs P1HPos
-          sta RESP1
+          stx RESP1
           .endp
 
           eor #$07
@@ -20,9 +20,6 @@ P1HPos:
           sta HMP1
 
 SetUpSprites:
-          ldx SpriteCount
-          beq NoSprites
-
           ldx SpriteFlicker
           lda SpriteAction, x
           and #$07
