@@ -134,7 +134,7 @@ GoSpriteMapper:
           .case 3,4,5
             jmp GoSpriteMapper
           .case SpriteMapperBank
-            jmp SpriteMapper
+            jmp SpriteMapper.Entry
           .endswitch
 
 ReturnFromSpriteMapperToMap:
