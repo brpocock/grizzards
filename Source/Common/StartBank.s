@@ -23,9 +23,9 @@
 
           .if DEMO
             .if NOSAVE
-              ConfigCode = "0.NoSave"
+              ConfigCode = "0.NOSAVE"
             .else
-              ConfigCode = "0.Demo"
+              ConfigCode = "0.DEMO"
             .fi
           .else
             .if ATARIAGESAVE
