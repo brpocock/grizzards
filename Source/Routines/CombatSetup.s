@@ -57,6 +57,9 @@ SetUpEnemyHP:
           bpl NotCrowned
 
           asl MonsterMaxHP
+          bcc NotCrowned
+
+          .mva MonsterMaxHP, #$ff
 NotCrowned:
           ldy CombatMajorP
           bpl DoneHPBoost
