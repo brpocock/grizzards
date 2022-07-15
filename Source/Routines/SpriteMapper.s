@@ -8,7 +8,7 @@ SpriteMapper:       .block
           MapSprites = (PlayerSprites + $0f)
 
           ;; Tunables for this file
-          LeadingLines = 7
+          LeadingLines = 3
           DebugColors = 0
           DebugVerbose = true
 ;;; 
@@ -34,11 +34,11 @@ PlayerOK:
           .fi
 
           ldx RunLength         ; going to have to change the playfield soon
-          bmi Leave
           cpx # LeadingLines
           blt Leave
 
 ;;; 
+CheckPriorP1:
           ldx SpriteFlicker
 
           lda BitMask, x
@@ -59,12 +59,10 @@ Collision:
           
 NoPFCollision:
           bvs Collision
-
+;;; 
 FindFlickerCandidate:
+          nop
           stx WSYNC
-          inc LineCounter
-          dec RunLength
-          dec P0LineCounter
 
           ldy SpriteCount
 NextFlickerCandidate:
@@ -76,7 +74,7 @@ NextFlickerCandidateTry:
           ldx SpriteFlicker
 FlickerOK:
           dey
-          beq NoSprites
+          beq NoSpritesButWait
 
           lda SpriteMotion, x
           cmp # SpriteRandomEncounter
@@ -109,21 +107,21 @@ P1Ready:
           sta HMBL              ; 8 cycles
 
           lda LineCounter
-          sec
+          clc
           adc # LeadingLines
-          sta LineCounter       ; 21 cycles
+          sta LineCounter       ; 18 cycles
 
           lda RunLength
           sec
           sbc # LeadingLines
-          sta RunLength         ; 34 cycles
+          sta RunLength         ; 28 cycles
 
           lda P0LineCounter
           sec
           sbc # LeadingLines
-          sta P0LineCounter     ; 47 cycles
+          sta P0LineCounter     ; 38 cycles
 
-          .SleepX 71 - 47
+          .SleepX 71 - 38
 
           stx HMOVE             ; Cycle 74 HMOVE
 
@@ -141,6 +139,9 @@ Return:
           jmp ReturnFromSpriteMapperToMap
 
 ;;; 
+NoSpritesButWait:
+          stx WSYNC
+
 NoSprites:
           .if DebugColors != 0
             lda DebugColor + 4
@@ -148,10 +149,6 @@ NoSprites:
             sta DebugColors
           .fi
           .mva P1LineCounter, #$7f
-
-          inc LineCounter
-          dec RunLength
-          dec P0LineCounter
 
 LeaveLate:
           inc LineCounter

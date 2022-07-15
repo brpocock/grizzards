@@ -289,6 +289,21 @@ DrawPF:
           lda (pp5l), y
           sta PF2
 
+DrawPlayer0NoWait:
+          lda # 7
+          dcp P0LineCounter
+          blt NoP0NoWait
+
+          ldy P0LineCounter
+          lda (pp0l), y
+          jmp P0DoneNoWait
+
+NoP0NoWait:
+          lda # 0
+P0DoneNoWait:
+          sta GRP0
+          jmp DrawPlayer1
+
 DrawPlayers:
 
 DrawPlayer0:
@@ -301,8 +316,6 @@ DrawPlayer0:
           jmp P0Done
 
 NoP0:
-          .Sleep 8
-
           lda # 0
 P0Done:
           stx WSYNC
