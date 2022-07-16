@@ -37,7 +37,7 @@ PlayerOK:
           .fi
 
           ldx RunLength         ; going to have to change the playfield soon
-          cpx # LeadingLines
+          cpx # 1 + LeadingLines
           blt Leaving
 
 ;;; 
