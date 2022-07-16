@@ -233,7 +233,7 @@ MapSides:
           .byte 0, 0, 0, 0, 0
           ;; 60
           .byte 0, 0, $80, 0, $40
-          .byte $80, $40
+          .byte $80, $40, 0, 0, 0
 
 ;;; The Sprites Lists
 ;;;
@@ -823,6 +823,8 @@ SpriteList:
           .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 79
+
+          .byte 0
 
           ;; Room 67, Greeting Room
           .byte $ff, SpriteWander
