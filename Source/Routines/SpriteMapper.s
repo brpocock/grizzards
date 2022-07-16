@@ -27,9 +27,7 @@ Entry:
           bne Leaving
 
           lda P0LineCounter
-          bmi PlayerOK
-
-          cmp # 8 + LeadingLines              ; player is being drawn soon or now
+          sbc # 8 + LeadingLines              ; player is being drawn soon or now
           blt Leaving
 
 PlayerOK:
