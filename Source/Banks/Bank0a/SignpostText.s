@@ -183,7 +183,7 @@ NPC_LabyrinthOpen:
           .SignText "BEYOND THAT "
           .SignText "DOOR MAY BE "
           .SignText "WHERE THE   "
-          .SignText "BOSS BEAR IS"
+          .SignText "BOSSES ARE. "
           .byte ModeSignpostDone
 
 ;;; 63
