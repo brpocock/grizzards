@@ -21,6 +21,10 @@ publish:	demo game no-save doc Dist/Grizzards.Source.tar.gz Dist/Grizzards.Atari
 		star-hope.org:star-hope.org/games/Grizzards/ ; \
 	do sleep 1; done
 
+plustest:	Dist/Grizzards.NTSC.a26
+	@echo -e 'put Dist/Grizzards.NTSC.a26 Grizzards.Test.NTSC.EF' | \
+	cadaver https://plusstore.firmaplus.de/remote.php/dav/files/$(USER)/Grizzards
+
 plus:	Dist/Grizzards.NTSC.a26 \
 	Dist/Grizzards.PAL.a26 \
 	Dist/Grizzards.SECAM.a26 \
