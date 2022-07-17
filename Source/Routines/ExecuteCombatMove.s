@@ -84,7 +84,13 @@ MonsterHeals:
 
           ldx WhoseTurn
           lda DefenderHP
+          beq +                 ; HACK (see comment below) #479
+          ;; I cannot figure out why, but once in a while a monster tries to
+          ;; heal and fails (AtariVox says “MISSED”) and then ends up with
+          ;; zero health, without having been killed, and throws everything
+          ;; out of whack. I'm out of ideas, so I'm applying a band-aid.
           sta EnemyHP - 1, x
++
           lda DefenderStatusFX
           sta EnemyStatusFX - 1, x
 

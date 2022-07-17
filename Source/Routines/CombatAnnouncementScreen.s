@@ -39,6 +39,7 @@ CombatAnnouncementScreen:     .block
 
           ;; Y = MoveSelection
           jsr FindMonsterMove
+
           jmp MoveFound
 
 FindPlayerMove:
