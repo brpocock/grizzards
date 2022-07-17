@@ -244,7 +244,7 @@ SpriteList:
           .byte SpriteDoor, 3   ; action
 
           .byte $ff, SpriteFixed
-          .byte $7d, $12         ; x, y
+          .byte $7d, $13         ; x, y
           .byte SpriteGrizzardDepot, 0
 
           .byte 0               ; end of list
