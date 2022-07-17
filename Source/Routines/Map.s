@@ -125,8 +125,6 @@ GotPF:
             .endswitch
           .fi                   ; end of "not SECAM" section
           sta COLUPF
-
-          .mva RunLength, 1     ; first decrement will take it to zero
 ;;; 
 BeforeKernel:
           .mva VBLANK, #ENABLED
@@ -263,8 +261,9 @@ GotBK:
 
 
           ldy # 0
-          lda (pp5l), y
-          sta RunLength
+          lax (pp5l), y
+          inx
+          stx RunLength
 
           stx WSYNC
           sty VBLANK
@@ -351,8 +350,9 @@ SpriteMapperReturn:
           ldy RunLength
           bne SyncWithoutRLE
 
-          lda (pp5l), y
-          sta RunLength
+          lax (pp5l), y
+          inx
+          stx RunLength
           gne Sync
 
 SyncWithoutRLE:
