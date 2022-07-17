@@ -42,7 +42,7 @@ TextLineLoop:
 
           jmp AlignedCode
 
-          .align $20            ; XXX
+          .align $10            ; XXX
 
 AlignedCode:
           .page
@@ -56,7 +56,11 @@ PositionPlayers:
           sty HMP0
           ldy #$a0
           sty HMP1
-          .Sleep 10
+          .if PORTABLE
+            .Sleep 8
+          .else
+            .Sleep 10
+          .fi
           stx RESP0
           .Sleep 3
           stx RESP1             ; ends on cycle 38
@@ -65,8 +69,11 @@ PositionPlayers:
           stx HMOVE             ; Cycle 74 HMOVE
 
           lda ClockFrame
+          eor SignpostWork
           ror a
-          bcc +
+          .if !PORTABLE
+            bcc +
+          .fi
           jmp AlignedLeft
 +
           jmp AlignedRight
@@ -75,11 +82,11 @@ PositionPlayers:
 
 ;;; 
           .if DEMO
-            .align $40          ; XXX
+            .align $20          ; XXX
           .fi
 AlignedLeft:
           ;; we enter on cycle 8 of the scan line
-          .SleepX 57
+          .SleepX 54
           .page
           ;; align for cycle 73(76) HMOVE
           lda #$80              ; +8px
@@ -89,8 +96,8 @@ AlignedLeft:
           ldy # 4
           .Sleep 7
 LeftyLoopy:
-	lax (PixelPointers + 0), y
-          stx GRP0
+          lda (PixelPointers + 0), y
+          sta GRP0
 	lda (PixelPointers + 2), y
           sta GRP1
           .Sleep 4
@@ -102,27 +109,34 @@ LeftyLoopy:
           sta GRP0
           lda (PixelPointers + 10), y
           sta GRP1
-          .Sleep 2
+          .if !PORTABLE
+            .Sleep 2
+          .fi
           ;; align for cycle 71(74) HMOVE
           lda # 0              ; -8px
           sta HMP0
           sta HMP1
           stx HMOVE
-          .Sleep 7
+          .if PORTABLE
+            .Sleep 2
+          .fi
+          lax (SignpostAltPixelPointers + 4), y
+          .Sleep 2
 	lda (SignpostAltPixelPointers + 0), y
           sta GRP0
 	lda (SignpostAltPixelPointers + 2), y
-          .Sleep 4
+          .Sleep 2
           sta GRP1
-          lax (SignpostAltPixelPointers + 4), y
+          .Sleep 5
           lda (SignpostAltPixelPointers + 6), y
           stx GRP0
+          .Sleep 3
           sta GRP1
           lda (SignpostAltPixelPointers + 8), y
           sta GRP0
           lda (SignpostAltPixelPointers + 10), y
           sta GRP1
-          .Sleep 8
+          .Sleep 7
           ;; align for cycle 73(76) HMOVE
           lda #$80              ; +8px
           sta HMP0
@@ -147,8 +161,8 @@ AlignedRight:
           ldy # 4
           .Sleep 7
 RightyLoopy:
-	lax (SignpostAltPixelPointers + 0), y
-          stx GRP0
+          lda (SignpostAltPixelPointers + 0), y
+          sta GRP0
 	lda (SignpostAltPixelPointers + 2), y
           sta GRP1
           .Sleep 2

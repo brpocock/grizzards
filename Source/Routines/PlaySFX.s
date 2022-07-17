@@ -36,11 +36,10 @@ PlayNextSFXNote:
           sta AUDC0
           txa
           and #$f0
-          clc
-          ror a
-          ror a
-          ror a
-          ror a
+          lsr a
+          lsr a
+          lsr a
+          lsr a
           sta AUDV0
           iny
           lda (CurrentSound), y
@@ -79,4 +78,4 @@ TheEnd:
 
           .bend
 
-;;; Audited 2022-02-16 BRPocock
+;;; Audited 2022-07-16 BRPocock

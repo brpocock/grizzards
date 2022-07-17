@@ -41,7 +41,7 @@ GaryPlayerMirror:
 ♂I told her I did not take that stupid mirror,but she's dumb
 
 LabyrinthOpen:
-♂A labyrinth beyond that door may be where the boss bear is
+♂A labyrinth beyond that door may be where the bosses are
 
 Fishing2:
 ♂If I find any more magic items,I'll let you know it
