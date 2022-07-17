@@ -243,7 +243,7 @@ MapSides:
 SpriteList:
           ;; Room 0, "Tier 0"
           .byte $ff, SpriteFixed
-          .byte $7d, $12         ; x, y
+          .byte $7d, $13         ; x, y
           .byte SpriteGrizzardDepot, 0
 
           .byte $ff, SpriteFixed
