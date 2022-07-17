@@ -361,7 +361,7 @@ SpriteList:
           .byte SpriteCombat, 9 ; 3×Horrid Slimes
 
           .byte $ff, SpriteFixed
-          .byte $7c, $36
+          .byte $70, $40
           .byte SpriteGrizzard, 5 ; Wetnas
 
           .byte 0
