@@ -258,7 +258,6 @@ GotBK:
 
           ldy # 0
           lax (pp5l), y
-          inx
           stx RunLength
 
           stx WSYNC
@@ -272,7 +271,7 @@ DrawMap:
           bne DrawPlayers
 
           lda pp5l
-          ;; Carry is clear here
+          ;; Carry is clear here (after DEC)
           adc # 4
           bcc +
           inc pp5h
@@ -347,7 +346,6 @@ SpriteMapperReturn:
           bne SyncWithoutRLE
 
           lax (pp5l), y
-          inx
           stx RunLength
           gne Sync
 
