@@ -73,7 +73,7 @@ NextFlickerCandidateTry:
           cpx SpriteCount
           blt FlickerOK
 
-          ldx SpriteFlicker
+          dex                   ; = SpriteFlicker value now
 FlickerOK:
           dey
           beq NoSpritesButWait
@@ -119,13 +119,43 @@ P1Ready:
           sta RunLength         ; 28 cycles
 
           lda P0LineCounter
-          sec
           sbc # LeadingLines
-          sta P0LineCounter     ; 38 cycles
+          sta P0LineCounter     ; 36 cycles
 
-          .SleepX 71 - 38
+          ldx CurrentProvince
+          lda ProvinceMapBank, x ; 43 cycles
+
+          ;; this duplicates  the Leave  routine below,  but part  of it
+	;; happens before the HMOVE
+          .if DebugColors != 0
+            ldx SpriteFlicker
+            lda DebugColor, x
+            sta DebugColors     ; +11 cycles = 54 cycles
+          .fi
+
+          .if DebugColors != 0
+            .SleepX 71 - 56
+          .else
+            .SleepX 71 - 45
+          .fi
+
+          tax                   ; after the SleepX
 
           stx HMOVE             ; Cycle 74 HMOVE
+
+          jmp ReturnFromSpriteMapperToMap
+
+;;; 
+NoSpritesButWait:
+          stx WSYNC
+
+NoSprites:
+          .mva P1LineCounter, #$7f
+
+LeaveLate:
+          inc LineCounter
+          dec RunLength
+          dec P0LineCounter
 
 Leave:
           .if DebugColors != 0
@@ -139,24 +169,6 @@ Leave:
           tax
 Return:
           jmp ReturnFromSpriteMapperToMap
-
-;;; 
-NoSpritesButWait:
-          stx WSYNC
-
-NoSprites:
-          .if DebugColors != 0
-            lda DebugColor + 4
-            ora #$0f
-            sta DebugColors
-          .fi
-          .mva P1LineCounter, #$7f
-
-LeaveLate:
-          inc LineCounter
-          dec RunLength
-          dec P0LineCounter
-          jmp Leave
 
 ;;; 
           ;; Data tables
