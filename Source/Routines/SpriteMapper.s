@@ -122,24 +122,24 @@ P1Ready:
           sbc # LeadingLines
           sta P0LineCounter     ; 36 cycles
 
-          ldx CurrentProvince
-          lda ProvinceMapBank, x ; 43 cycles
-
           ;; this duplicates  the Leave  routine below,  but part  of it
 	;; happens before the HMOVE
           .if DebugColors != 0
             ldx SpriteFlicker
             lda DebugColor, x
-            sta DebugColors     ; +11 cycles = 54 cycles
+            sta DebugColors     ; +11 cycles
           .fi
 
           .if DebugColors != 0
-            .SleepX 71 - 56
+            .SleepX 71 - 45 - 11
           .else
             .SleepX 71 - 45
           .fi
 
-          tax                   ; after the SleepX
+          ;; keep this after DebugColors and SleepX
+          ldx CurrentProvince
+          lda ProvinceMapBank, x
+          tax                   ; 45 cycles, ignoring the SleepX
 
           stx HMOVE             ; Cycle 74 HMOVE
 
