@@ -303,6 +303,7 @@ DrawPlayer0NoWait:
 
 NoP0NoWait:
           lda # 0
+          .Sleep 4
           jmp P0DoneNoWait
 
 P0NoWait:
