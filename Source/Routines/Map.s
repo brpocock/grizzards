@@ -277,7 +277,6 @@ DrawMap:
 +
           sta pp5l
 
-;;          stx WSYNC
 DrawPF:
           ldy # 1
 DrawPF0:
@@ -289,24 +288,6 @@ DrawPF0:
           iny                   ; Y = 3
           lda (pp5l), y
           sta PF2
-
-DrawPlayer0NoWait:
-          lda # 7
-          dcp P0LineCounter
-          bge P0NoWait
-
-NoP0NoWait:
-          lda # 0
-          .Sleep 4
-          jmp P0DoneNoWait
-
-P0NoWait:
-          ldy P0LineCounter
-          lda (pp0l), y
-
-P0DoneNoWait:
-          sta GRP0
-          jmp DrawPlayer1
 
 DrawPlayers:
 
@@ -322,7 +303,6 @@ DrawPlayer0:
 NoP0:
           lda # 0
 P0Done:
-          stx WSYNC
           sta GRP0
 
 DrawPlayer1:
