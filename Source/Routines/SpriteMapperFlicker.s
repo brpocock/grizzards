@@ -3,6 +3,7 @@
 
 SpriteMapper:       .block
 
+Entry:
           ldx # Province0MapBank
           jmp ReturnFromSpriteMapperToMap
 
