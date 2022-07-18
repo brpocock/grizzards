@@ -296,7 +296,7 @@ SpriteList:
 
           .if !DEMO
             .byte $ff, SpriteWander
-            .byte $a2, $3c
+            .byte $8d, $43
             .byte SpritePerson, 77 ; used to be fun
           .fi
 
