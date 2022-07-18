@@ -307,6 +307,7 @@ DrawPlayer0:
           jmp P0Done
 
 NoP0:
+          .Sleep 8
           lda # 0
 P0Done:
           sta GRP0
@@ -326,6 +327,7 @@ RemapSprites:
           jmp GoSpriteMapper
 
 NoP1:
+          .Sleep 8
           lda # 0
 P1Done:
           sta GRP1
