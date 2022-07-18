@@ -169,9 +169,7 @@ FindAnimationFrame:
 WaitAndAnimationFrameReady:
 
 AnimationFrameReady:
-
-          ;; X = SpriteFlicker at this point
-          lda SpriteY, x
+          lda SpriteY, x        ; X = selected sprite
           sec
           sbc LineCounter
           sta P1LineCounter
@@ -193,6 +191,7 @@ P1Ready:
           sta RunLength         ; 28 cycles
 
           lda P0LineCounter
+          ;; carry should still be set from above
           sbc # LeadingLines
           sta P0LineCounter     ; 36 cycles
 
@@ -215,7 +214,7 @@ P1Ready:
           lda ProvinceMapBank, x
           tax                   ; 45 cycles, ignoring the SleepX
 
-          stx HMOVE             ; Cycle 74 HMOVE
+          stx HMOVE             ; Cycle 74 (71) HMOVE
 
           jmp ReturnFromSpriteMapperToMap
 
