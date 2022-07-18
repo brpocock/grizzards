@@ -57,7 +57,6 @@ Collision:
           lda SpriteCxMask, x
           ora DrawnSprites
           sta DrawnSprites
-          ldx SpriteFlicker
           .byte $0c             ; NOP (4 cycles, 3 bytes)
           
 NoPFCollision:
@@ -98,63 +97,50 @@ MarkedDrawn:
           clc
           adc # 8
           sec
+
           .page
           stx WSYNC
 P1HPos:
           sbc # 15
           bcs P1HPos
+
           stx RESP1
           .endp
 
           eor #$07
-          .rept 4
-            asl a
-          .next
+          tay
+          lda Ash4, y
           sta HMP1
 
 SetUpSprites:
           lda SpriteAction, x
           and #$07
-          cmp # SpriteProvinceDoor
+          tay
+          cpy # SpriteProvinceDoor
           bne +
-          lda # SpriteDoor
+          ldy # SpriteDoor
 +
-          tax
-          lda SpriteColor, x
+          lda SpriteColor, y
           sta COLUP1
 
-          ldx SpriteFlicker
           .mva pp1h, #>MapSprites
-          clc
-
-          lda SpriteAction, x
-          and #$07
-          cmp # SpriteProvinceDoor
-          bne +
-          lda # SpriteDoor
-+
 
 NoPuff:
-          .rept 4
-            asl a
-          .next
+          lda Ash4, y   ; Y = sprite action
+          clc
           adc #<MapSprites
-          bcc +
-          inc pp1h
-+
-          sta pp1l
+          sta pp1l              ; will not cross page boundary
 MaybeAnimate:
           bit SystemFlags
           bmi WaitAndAnimationFrameReady
 
-          lda SpriteAction, x
-          cmp #SpriteCombat
+          cpy #SpriteCombat     ; Y = sprite action
           beq Flippy
 
-          cmp #SpritePerson
+          cpy #SpritePerson
           beq Flippy
 
-          cmp #SpriteMajorCombat
+          cpy #SpriteMajorCombat
           bne NoFlip
 
 Flippy:
@@ -162,7 +148,7 @@ Flippy:
           and #$20
           beq SetFlip
 
-          lda # REFLECTED
+          lda #REFLECTED
           gne SetFlip
 
 NoFlip:
@@ -179,8 +165,6 @@ FindAnimationFrame:
           clc
           adc # 8
           sta pp1l              ; will not cross page boundary
-
-          jmp AnimationFrameReady
 
 WaitAndAnimationFrameReady:
 
@@ -264,11 +248,20 @@ Return:
           ;; Data tables
 
 ProvinceMapBank:
+          .page
           .byte Province0MapBank, Province1MapBank, Province2MapBank
+          .endp
 
 SpriteCxMask:
-          .byte 1 << ((0,1,2,3 ) + 4)
+          .page
+          .byte 1 << ((0,1,2,3) + 4)
+          .endp
 
+Ash4:
+          .page
+          .byte range(0, $f) << 4
+          .endp
+          
           .if DebugColors != 0
 DebugColor:
             .colu COLCYAN, $4
