@@ -58,7 +58,7 @@ Collision:
           ora DrawnSprites
           sta DrawnSprites
           ldx SpriteFlicker
-          clv                   ; so the next branch is never taken
+          .byte $0c             ; NOP (4 cycles, 3 bytes)
           
 NoPFCollision:
           bvs Collision
@@ -94,7 +94,97 @@ FlickerOK:
           sta DrawnSprites
 
 MarkedDrawn:
-          .include "NextSprite.s"
+          lda SpriteX, x
+          clc
+          adc # 8
+          sec
+          .page
+          stx WSYNC
+P1HPos:
+          sbc # 15
+          bcs P1HPos
+          stx RESP1
+          .endp
+
+          eor #$07
+          .rept 4
+            asl a
+          .next
+          sta HMP1
+
+SetUpSprites:
+          lda SpriteAction, x
+          and #$07
+          cmp # SpriteProvinceDoor
+          bne +
+          lda # SpriteDoor
++
+          tax
+          lda SpriteColor, x
+          sta COLUP1
+
+          ldx SpriteFlicker
+          .mva pp1h, #>MapSprites
+          clc
+
+          lda SpriteAction, x
+          and #$07
+          cmp # SpriteProvinceDoor
+          bne +
+          lda # SpriteDoor
++
+
+NoPuff:
+          .rept 4
+            asl a
+          .next
+          adc #<MapSprites
+          bcc +
+          inc pp1h
++
+          sta pp1l
+MaybeAnimate:
+          bit SystemFlags
+          bmi WaitAndAnimationFrameReady
+
+          lda SpriteAction, x
+          cmp #SpriteCombat
+          beq Flippy
+
+          cmp #SpritePerson
+          beq Flippy
+
+          cmp #SpriteMajorCombat
+          bne NoFlip
+
+Flippy:
+          lda ClockFrame
+          and #$20
+          beq SetFlip
+
+          lda # REFLECTED
+          gne SetFlip
+
+NoFlip:
+          lda # 0
+SetFlip:
+          sta REFP1
+
+FindAnimationFrame:
+          lda ClockFrame
+          and #$10
+          bne AnimationFrameReady
+
+          lda pp1l
+          clc
+          adc # 8
+          sta pp1l              ; will not cross page boundary
+
+          jmp AnimationFrameReady
+
+WaitAndAnimationFrameReady:
+
+AnimationFrameReady:
 
           ;; X = SpriteFlicker at this point
           lda SpriteY, x
