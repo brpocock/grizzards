@@ -233,7 +233,7 @@ MapSides:
           .byte 0, 0, 0, 0, 0
           ;; 60
           .byte 0, 0, $80, 0, $40
-          .byte $80, $40
+          .byte $80, $40, 0, 0, 0
 
 ;;; The Sprites Lists
 ;;;
@@ -525,11 +525,11 @@ SpriteList:
 
           ;;Room 34
           .byte $ff, SpriteWander
-          .byte 0, 0
+          .byte $20, $20
           .byte SpritePerson, 43 ; how long is it safe?
 
           .byte $ff, SpriteWander
-          .byte 0, 0
+          .byte $30, $30
           .byte SpritePerson, 44 ; Fat Tony is smart
 
           .byte 0
@@ -564,11 +564,11 @@ SpriteList:
 
           ;;Room 39
           .byte $ff, SpriteWander
-          .byte 0, 0
+          .byte $30, $15
           .byte SpritePerson, 98 ; hungry
 
           .byte $ff, SpriteWander
-          .byte 0, 0
+          .byte $20, $30
           .byte SpritePerson, 42 ; Treble refugee
           
           .byte 0
@@ -823,6 +823,8 @@ SpriteList:
           .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteCombat, 79
+
+          .byte 0
 
           ;; Room 67, Greeting Room
           .byte $ff, SpriteWander

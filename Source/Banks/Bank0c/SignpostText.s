@@ -198,20 +198,12 @@ Sign_BuildInfo:
           .colu COLGRAY, 0
           .colu COLGRAY, $e
           .SignText "<BUILD INFO>"
-          .SignText format("%04d%02d%02d.%03d", YEARNOW, MONTHNOW, DATENOW, JULIANDATENOW)
+          .SignText format(" %04d-%02d-%02d ", YEARNOW, MONTHNOW, DATENOW)
+          .SignText format(" J %04d.%03d ", YEARNOW, JULIANDATENOW)
           .if PUBLISHER
             .SignText "< ATARIAGE >"
           .else
             .SignText " < PUBLIC > "
           .fi
-          .if DEMO
-            .if NOSAVE
-              .SignText "NO-SAVE DEMO"
-            .else
-              .SignText " GAME DEMO  "
-            .fi
-            .SignText "32,768 BYTES"
-          .else
-            .SignText " FULL GAME. "
-            .SignText "65,536 BYTES"
-          .fi
+          .SignText format("%12s", ConfigPartNumber)
+          .byte ModeSignpostDone

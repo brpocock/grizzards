@@ -99,14 +99,12 @@ ShowReturnAddress:
 
           .WaitScreenBottom
 
-          .if !ATARIAGESAVE     ; XXX maybe out of room
-            lda NewButtons
-            beq DoneButtons
+          lda NewButtons
+          beq DoneButtons
 
-            and #ButtonIII
-            beq Reset
+          and #ButtonIII
+          beq Reset
 DoneButtons:
-          .fi
 
           lda NewSWCHB
           beq DoneSwitches
