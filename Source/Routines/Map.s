@@ -299,14 +299,16 @@ DrawPF0:
 DrawPlayer0NoWait:
           lda # 7
           dcp P0LineCounter
-          blt NoP0NoWait
-
-          ldy P0LineCounter
-          lda (pp0l), y
-          jmp P0DoneNoWait
+          bge P0NoWait
 
 NoP0NoWait:
           lda # 0
+          jmp P0DoneNoWait
+
+P0NoWait:
+          ldy P0LineCounter
+          lda (pp0l), y
+
 P0DoneNoWait:
           sta GRP0
           jmp DrawPlayer1
