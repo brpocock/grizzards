@@ -353,17 +353,18 @@ SyncWithoutRLE:
           stx WSYNC
 
 Sync:
+          inc LineCounter       ; 72 × 2 lines = 144 lines total
+          ldy LineCounter       ; (72 × 2½ lines = 180 lines on PAL/SECAM)
+
           .if TV != NTSC
           ;; extend every odd line on PAL/SECAM
-            lda #$01
-            bit LineCounter
+            tya
+            and # 1
             beq +
             stx WSYNC
 +
           .fi
 
-          inc LineCounter       ; 72 × 2 lines = 144 lines total
-          ldy LineCounter       ; (72 × 2½ lines = 180 lines on PAL/SECAM)
           cpy # 72
           blt DrawMap           ; crosses a page boundary
 ;;; 
