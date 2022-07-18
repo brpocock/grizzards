@@ -133,11 +133,10 @@ SetUpSprites:
           bne +
           lda # SpriteDoor
 +
-          tax
-          lda SpriteColor, x
+          tay
+          lda SpriteColor, y
           sta COLUP1
 
-          ldx SpriteFlicker
           .mva pp1h, #>MapSprites
           clc
 
@@ -178,7 +177,7 @@ NoPuff:
           sta pp1l
 MaybeAnimate:
           bit SystemFlags
-          bmi WaitAndAnimationFrameReady
+          bmi AnimationFrameReady
 
           lda SpriteAction, x
           cmp #SpriteCombat
@@ -212,10 +211,6 @@ FindAnimationFrame:
           clc
           adc # 8
           sta pp1l              ; will not cross page boundary
-
-          jmp AnimationFrameReady
-
-WaitAndAnimationFrameReady:
 
 AnimationFrameReady:
           lda SpriteY, x
