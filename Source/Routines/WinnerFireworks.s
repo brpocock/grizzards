@@ -28,6 +28,7 @@ NotCaught:
           .WaitScreenBottom
           .WaitScreenTop
 +
+          lda CurrentGrizzard
           cmp # 30
           blt CheckCaughtLoop
 
@@ -51,6 +52,9 @@ Loop:
           .switch TV
           .case PAL,SECAM
             .SkipLines 2
+            stx TIM64T          ; strobe the clock an extra time …
+          ;; If we don't do this, every 31 frames it just does not work. See
+          ;; #503 and notes on 2022-07-14 (Vol III page "You Won PAL Timings")
           .endswitch
           .WaitScreenTopMinus 1, 0
           stx WSYNC
@@ -86,16 +90,14 @@ DoneAgain:
           cmp # 30
           beq CaughtEmAll
 
-          .enc "minifont"
           sta Temp
 
-          ldx # 0
+          ldx # 5
 BlankFillLoop:
           lda ZeroText, x
           sta StringBuffer, x
-          inx
-          cpx # 6
-          blt BlankFillLoop
+          dex
+          bpl BlankFillLoop
 
           .FarJSR TextBank, ServiceAppendDecimalAndPrint
 
@@ -120,6 +122,7 @@ DoneSwitches:
           and #ButtonI
           bne DoneButtons
 
+GoShowCredits:
           .WaitScreenBottom
           .mvx SignpostIndex, # 108    ; Credits1
           jmp Signpost
@@ -138,25 +141,42 @@ AddAllStarters:
           .mva CurrentGrizzard, # 2
 
 ConsiderGrizzard:
-          sta Temp
+          .mva Temp, CurrentGrizzard
           .FarJSR SaveKeyBank, ServicePeekGrizzardXP
 
           bit Temp
           bmi SeenGrizzardBefore
 
           .mva Temp, CurrentGrizzard
+          .WaitScreenBottom
+          ;; Defaults does WaitScreenTop and SaveGrizzard and WaitScreenBottom
           .FarJSR MapServicesBank, ServiceGrizzardDefaults
-          .FarJSR SaveKeyBank, ServiceSaveGrizzard
+          .WaitScreenTop
 
 SeenGrizzardBefore:
           dec CurrentGrizzard
           bpl ConsiderGrizzard
 ;;; 
+SelectAvailableGrizzard:
+          .mva CurrentGrizzard, # 0
+
+GrizzardCheckup:
+          .mva Temp, CurrentGrizzard
+          .FarJSR SaveKeyBank, ServicePeekGrizzard
+
+          bit Temp
+          bmi ValidGrizzardToBeCurrent
+
+          inc CurrentGrizzard
+          gne GrizzardCheckup
+
+ValidGrizzardToBeCurrent:
+          .FarJSR SaveKeyBank, ServiceLoadGrizzard
+;;; 
 ResetProvinceFlags:
           ldy # 0               ; XXX necessary?
           sty CurrentMap
           sty NextMap
-          sty CurrentGrizzard
           tya
 
           iny                   ; Y = 1

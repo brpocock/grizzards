@@ -49,7 +49,7 @@ NoChangeRLE:
             bge MaybeNorthShore
 
 SouthShoreAlt:
-            ldx # 67              ; SouthShore2
+            ldx # 68              ; SouthShore2
             gne DoneShore
 
 MaybeNorthShore:
@@ -59,7 +59,7 @@ MaybeNorthShore:
             cpx # 54
             bge DoneShore
 
-            ldx # 68              ; NorthShore2
+            ldx # 69              ; NorthShore2
 DoneShore:
 
           .fi
@@ -92,12 +92,11 @@ GetMapColors:
 
               .block
 
-              ldy CurrentMap
-              cpy #18
+              cpx # 18
               blt NotDark
-              cpy #19
+              cpx # 19
               beq NotDark
-              cpy #29
+              cpx # 29
               bge NotDark
 
               ora #$08          ; dimmer than usual
@@ -252,12 +251,11 @@ DoneBall:
             .case Province0MapBank ; only dark in caves
 
               .block
-              ldy CurrentMap
-              cpy #18
+              cpx # 18
               blt NotDark
-              cpy #19
+              cpx # 19
               beq NotDark
-              cpy #29
+              cpx # 29
               bge NotDark
 
               ;;  floor darker than walls in caves
@@ -444,10 +442,13 @@ GoScreenRight:
             lda CurrentMap
             cmp # 1
             bne DoneDockBump
+
             lda PlayerY
+            bmi GotStuck
+
             cmp #$10
             bge DoneDockBump
-
+GotStuck:
             .mva BlessedY, #$10
 
 DoneDockBump:
