@@ -8,7 +8,7 @@ SpriteMapper:       .block
           MapSprites = (PlayerSprites + $0f)
 
           ;; Tunables for this file
-          LeadingLines = 3
+          LeadingLines = 4
           DebugColors = 0
           DebugVerbose = true
 ;;; 
@@ -60,7 +60,7 @@ Collision:
           .byte $0c             ; NOP (4 cycles, 3 bytes)
           
 NoPFCollision:
-          bvs Collision
+          bvs Collision         ; check the ball too
 ;;; 
 FindFlickerCandidate:
           nop
@@ -216,6 +216,7 @@ P1Ready:
 
           stx HMOVE             ; Cycle 74 (71) HMOVE
 
+          stx WSYNC             ; skip a whole extra line to come out even :(
           jmp ReturnFromSpriteMapperToMap
 
 ;;; 
