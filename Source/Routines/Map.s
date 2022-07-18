@@ -255,12 +255,13 @@ GotBK:
 
 
           ldy # 0
-          lax (pp5l), y
-          stx RunLength
+          lda (pp5l), y
+          sta RunLength
 
           stx WSYNC
           sty VBLANK
-          jmp DrawPF
+          iny                   ; Y = 1
+          jmp DrawPF0
 
 ;;; 
           ;; Actually draw each line of the map
@@ -276,9 +277,10 @@ DrawMap:
 +
           sta pp5l
 
-          stx WSYNC
+;;          stx WSYNC
 DrawPF:
           ldy # 1
+DrawPF0:
           lda (pp5l), y
           sta PF0
           iny                   ; Y = 2
@@ -343,8 +345,8 @@ SpriteMapperReturn:
           ldy RunLength
           bne SyncWithoutRLE
 
-          lax (pp5l), y
-          stx RunLength
+          lda (pp5l), y
+          sta RunLength
           gne Sync
 
 SyncWithoutRLE:
