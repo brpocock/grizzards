@@ -13,6 +13,31 @@
             PLUSROM := false
           .endweak
 
+          .switch TV
+	.case NTSC
+            TVTypeName = "NTSC"
+          .case PAL
+            TVTypeName = "PAL"
+          .case SECAM
+            TVTypeName = "SECAM"
+          .endswitch
+
+          .if DEMO
+            .if NOSAVE
+              ConfigCode = "0.NOSAVE"
+            .else
+              ConfigCode = "0.DEMO"
+            .fi
+          .else
+            .if ATARIAGESAVE
+              ConfigCode = "1"
+            .else
+              ConfigCode = "0"
+            .fi
+          .fi
+
+          ConfigPartNumber = format ("Griz%s.%s", ConfigCode, TVTypeName)
+
           .enc "Unicode"
           .cdef $00, $1ffff, 0
 

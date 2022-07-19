@@ -267,7 +267,7 @@ train them.
   WRITEME
 \end{grizzardpage}
 
-\begin{grizzardpage}{Tyrant}{14}{50}{45}{55}{Megax}
+\begin{grizzardpage}{Tyrant}{14}{60}{30}{40}{Megax}
   WRITEME
 \end{grizzardpage}
 
@@ -280,60 +280,64 @@ train them.
 \end{grizzardpage}
 
 \begin{grizzardpage}{Cornet}{17}{30}{15}{15}{Uptrix}
-  WRITEME
+  Cornet is  one of several  Grizzards found in  a cave north  of Anchor
+  Village. You'll need a special key to unlock it.
 \end{grizzardpage}
 
 \begin{grizzardpage}{Ambren}{18}{40}{20}{20}{Altrix}
-  WRITEME
+  Ambren is  one of several  Grizzards found in  a cave north  of Anchor
+  Village. You'll need a special key to unlock it.
 \end{grizzardpage}
 
 \begin{grizzardpage}{Noctis}{19}{40}{20}{20}{Ectrix}
-  WRITEME
+  Noctis is  one of several  Grizzards found in  a cave north  of Anchor
+  Village. You'll need a special key to unlock it.
 \end{grizzardpage}
 
 \begin{grizzardpage}{Corlyn}{20}{40}{20}{20}{Ortrix}
-  WRITEME
+  Corlyn can  be found hidden in  the eastern limits of  the Lion Woods.
+  You may have to search for a while to reveal it.
 \end{grizzardpage}
 
 \begin{grizzardpage}{Wapow}{21}{45}{24}{24}{}
-    WRITEME
-  \end{grizzardpage}
+  WRITEME
+\end{grizzardpage}
 
-  \begin{grizzardpage}{Zendex}{22}{45}{25}{25}{}
-    WRITEME
-  \end{grizzardpage}
+\begin{grizzardpage}{Zendex}{22}{45}{25}{25}{}
+  WRITEME
+\end{grizzardpage}
 
-  \begin{grizzardpage}{Oceax}{23}{45}{25}{25}{}
-    WRITEME
-  \end{grizzardpage}
+\begin{grizzardpage}{Oceax}{23}{45}{25}{25}{}
+  WRITEME
+\end{grizzardpage}
 
-  \begin{grizzardpage}{Flitex}{24}{45}{25}{25}{}
-    WRITEME
-  \end{grizzardpage}
+\begin{grizzardpage}{Flitex}{24}{45}{25}{25}{}
+  WRITEME
+\end{grizzardpage}
 
-  \begin{grizzardpage}{Flarex}{25}{50}{25}{25}{}
-    WRITEME
-  \end{grizzardpage}
+\begin{grizzardpage}{Flarex}{25}{50}{25}{25}{}
+  WRITEME
+\end{grizzardpage}
 
-  \begin{grizzardpage}{Uptrix}{26}{75}{37}{37}{}
-    WRITEME
-  \end{grizzardpage}
+\begin{grizzardpage}{Uptrix}{26}{75}{37}{37}{}
+  WRITEME
+\end{grizzardpage}
 
-  \begin{grizzardpage}{Altrix}{27}{75}{37}{37}{}
-    WRITEME
-  \end{grizzardpage}
+\begin{grizzardpage}{Altrix}{27}{75}{37}{37}{}
+  WRITEME
+\end{grizzardpage}
 
-  \begin{grizzardpage}{Ectrix}{28}{75}{37}{37}{}
-    WRITEME
-  \end{grizzardpage}
+\begin{grizzardpage}{Ectrix}{28}{75}{37}{37}{}
+  WRITEME
+\end{grizzardpage}
 
-  \begin{grizzardpage}{Ortrix}{29}{75}{37}{37}{}
-    WRITEME
-  \end{grizzardpage}
+\begin{grizzardpage}{Ortrix}{29}{75}{37}{37}{}
+  WRITEME
+\end{grizzardpage}
 
-  \begin{grizzardpage}{Megax}{30}{90}{90}{90}{}
-    WRITEME
-  \end{grizzardpage}
+\begin{grizzardpage}{Megax}{30}{90}{90}{90}{}
+  Megax is the biggest, meanest Grizzard there is.
+\end{grizzardpage}
 
 \chapter{Monsters}\label{ch:Monsters}
 
@@ -353,25 +357,36 @@ In addition,  nearly all monsters can  grow to Boss forms.  (Some unique
 monsters \emph{only} occur in Boss forms, however.) Boss forms also have
 enhanced statistics.
 
-\newcommand\twice[1]{\the\numexpr#1*2\relax}
-\newcommand\thrice[1]{\the\numexpr#1*3\relax}
-\newcommand\fourx[1]{\the\numexpr#1*4\relax}
-\newcommand\eightx[1]{\the\numexpr#1*8\relax}
+\newcommand\twicely[1]{\the\numexpr#1*2\relax}
+\newcommand\thricely[1]{\the\numexpr#1*3\relax}
+\newcommand\fourxly[1]{\the\numexpr#1*4\relax}
+\newcommand\eightxly[1]{\the\numexpr#1*8\relax}
+
+\newcommand\bytewise[1]{\ifnum #1 > 255
+  {255}
+  \else
+  #1
+  \fi}
+
+\newcommand\twice[1]{\bytewise{\twicely{#1}}}
+\newcommand\thrice[1]{\bytewise{\thricely{#1}}}
+\newcommand\fourx[1]{\bytewise{\fourxly{#1}}}
+\newcommand\eightx[1]{\bytewise{\eightxly{#1}}}
 
 \newenvironment{monsterpage}[5]{{
     \vspace{24pt}
-    
+
     \section{#1}
 
     \subsection*{Base Stats}
 
     \begin{tabular}{l c c c}
       {} & Basic Mode & Enhanced & Severe \\
-      Normal Attack & #2 & \twice{#2} & \fourx{#2} \\
-      Normal Defend & #3 & \twice{#3} & \fourx{#3} \\
+      Normal Attack & #2 & \twicely{#2} & \fourxly{#2} \\
+      Normal Defend & #3 & \twicely{#3} & \fourxly{#3} \\
       Normal Hit Points & #4 & \twice{#4} & \fourx{#4} \\ \\
-      Boss Attack & \twice{#2} & \fourx{#2} & \eightx{#2} \\
-      Boss Defend & \twice{#3} & \fourx{#3} & \eightx{#3} \\
+      Boss Attack & \twicely{#2} & \fourxly{#2} & \eightxly{#2} \\
+      Boss Defend & \twicely{#3} & \fourxly{#3} & \eightxly{#3} \\
       Boss Hit Points & \twice{#4} & \fourx{#4} & \eightx{#4} \\
     \end{tabular}
 
@@ -379,8 +394,8 @@ enhanced statistics.
 
     \begin{tabular}{l c c c}
       {} & Basic Mode & Enhanced & Severe \\
-      Normal & #5 & \twice{#5} & \thrice{#5} \\
-      Boss & \twice{#5} & \thrice{#5} & \fourx{#5}
+      Normal & #5 & \twicely{#5} & \thricely{#5} \\
+      Boss & \twice{#5} & \thricely{#5} & \fourxly{#5}
     \end{tabular}
     
     \subsection*{Moves}
@@ -402,8 +417,8 @@ enhanced statistics.
 
     \begin{tabular}{l c c c}
       {} & Basic Mode & Enhanced & Severe \\
-      Boss Attack & \twice{#2} & \fourx{#2} & \eightx{#2} \\
-      Boss Defend & \twice{#3} & \fourx{#3} & \eightx{#3} \\
+      Boss Attack & \twicely{#2} & \fourxly{#2} & \eightxly{#2} \\
+      Boss Defend & \twicely{#3} & \fourxly{#3} & \eightxly{#3} \\
       Boss Hit Points & \twice{#4} & \fourx{#4} & \eightx{#4} \\
     \end{tabular}
 
@@ -411,7 +426,7 @@ enhanced statistics.
 
     \begin{tabular}{l c c c}
       {} & Basic Mode & Enhanced & Severe \\
-      Boss & \twice{#5} & \thrice{#5} & \fourx{#5}
+      Boss & \twicely{#5} & \thricely{#5} & \fourxly{#5}
     \end{tabular}
     
     \subsection*{Moves}
@@ -855,8 +870,8 @@ a terrible Cyclops is raising a herd of venomous sheep.
   \begin{center}
     \begin{tikzpicture}
       \draw (2, 4) rectangle (4, 5);
-      \draw [<->] (0, 4.5) -- (2, 4.5);
-      \node [above] at (1, 4.5) { crossroads };
+      \draw [<->] (1, 4.5) -- (2, 4.5);
+      \node [above] at (1.5, 4.5) { crossroads };
 
       \draw (2, 3) rectangle (4, 4);
       \draw (2, 5) rectangle (4, 6);
@@ -871,14 +886,15 @@ a terrible Cyclops is raising a herd of venomous sheep.
       \draw (8, 6) rectangle (10, 7);
       \draw [<->] (10, 6.5) -- (11, 6.5);
       \draw (11, 6) rectangle (13, 7);
-      \draw [<->] (13, 6.5) -- (14, 6.5);
-      \draw (14, 6) rectangle (16, 7);
+      \draw [<->] (13, 6.5) -- (16.5, 6.5);
+      \draw (16.5, 6) rectangle (18.5, 7);
 
-      \draw [<->] (15, 6) -- (15, 5);
-      \draw (14, 5) rectangle (16, 4);
-      \draw [<->] (15, 4) -- (15, 3);
-      \draw (14, 3) rectangle (16, 2);
+      \draw [<->] (17.5, 6) -- (17.5, 5);
+      \draw (16.5, 5) rectangle (18.5, 4);
+      \draw [<->] (17.5, 4) -- (17.5, 3);
+      \draw (16.5, 3) rectangle (18.5, 2);
 
+      \draw [<->] (14,2.5) -- (16.5, 2.5);
       \draw (12, 2) rectangle (14, 3);
       \draw (10, 2) rectangle (12, 3);
       \draw (8, 2) rectangle (10, 3);
@@ -886,9 +902,10 @@ a terrible Cyclops is raising a herd of venomous sheep.
       \draw [<->] (8.5, 3) -- (8.5, 4);
       \draw (8, 4) rectangle (10, 5);
       \draw (10, 4) rectangle (12, 5);
+      \draw (12, 4) rectangle (14, 5);
+      \draw (14, 4) rectangle (16, 5);
 
-      \node at (11, 4.5) { depot };
-      
+      \node at (15, 4.5) { depot };
     \end{tikzpicture}
   \end{center}
   \addcontentsline{map}{map}{Map of the Spiral Woods}
@@ -1031,7 +1048,159 @@ turn up?
 
 \section{Labyrinth}
 
+\begin{figure*}[ht]
+  \begin{center}
+    \begin{tikzpicture}
+      \foreach \x in {0,...,7}
+      { \foreach \y in {0,...,11}
+        { \draw (\x,\y) -- (\x+.25,\y);
+          \draw (\x+.75,\y) -- (\x+1,\y); } }
+      \draw (0,0) rectangle (8,12);
+      \draw (1,1) -- (1,4);
+      \draw (0,4) -- (2,4);
+      \draw (2,4) -- (2,6);
+      \draw (1,3) -- (1,11);
+      \draw (2,1) -- (4,1);
+      \draw (6,0) -- (6,2);
+      \draw (7,0) -- (7,3);
+      \draw (5,1) -- (5,4);
+      \draw (2,2) -- (2,3);
+      \draw (2,2) -- (4,2) -- (4,8);
+      \draw (3,2) -- (3,4);
+      \draw (4,5) -- (6,5) -- (6,4) -- (8,4);
+      \draw (5,5) -- (5,9);
+      \draw (5,10) -- (5,12);
+      \draw (2,11) -- (2,9) -- (6,9) -- (6,12);
+      \draw (3,11) -- (3,12);
+      \draw (3,5) -- (3,10);
+      \draw (4,9) -- (4,11);
+      \draw (7,5) -- (7,11);
+      \draw (6,5) -- (6,6);
+      \node at (.5,3.5) { \encircle{C} };
+      \node at (7.5,.5) { exit };
+      \node at (2.5,9.5) { 1 };
+      \node at (3.5,2.5) { 2 };
+      \node at (1.5,4.5) { 3 };
+      \node at (5.5,5.5) { 4 };
+      \node at (6.5,.5) { depot };
+      \node at (4.5,5.5) { \encircle{B} };
+      \node at (6.5,6.5) { \encircle{B} };
+      \node at (7.5,10.5) { \encircle{B} };
+      \node at (5.5,11.5) { \encircle{B} };
+    \end{tikzpicture}
+  \end{center}
+  \addcontentsline{map}{map}{Map of Labyrinth Upper Level ``A''}
+  \caption{Labyrinth Upper Level ``A'' (Blue)}
+\end{figure*}
+
+\begin{figure*}[ht]
+  \begin{center}
+    \begin{tikzpicture}
+      \foreach \x in {0,...,7}
+      { \foreach \y in {1,...,11}
+        { \draw (\x,\y) -- (\x+.25,\y);
+          \draw (\x+.75,\y) -- (\x+1,\y); } }
+      \draw (0,0) rectangle (8,12);
+      \draw (1,1) -- (1,10);
+      \draw (0,11) -- (4, 11);
+      \draw (2,0) -- (2,4);
+      \draw (3,0) -- (3,5);
+      \draw (2,9) -- (2,10);
+      \draw (2,8) -- (2,5) -- (4,5) -- (4,8);
+      \draw (2,7) -- (4,7);
+      \draw (3,6) -- (3,7);
+      \draw (3,8) -- (3,10);
+      \draw (4,9) -- (4,10);
+      \draw (5,9) -- (5,10);
+      \draw (6,9) -- (6,12);
+      \draw (7,9) -- (7,11);
+      \draw (4,6) -- (6,6);
+      \draw (5,1) -- (5,8);
+      \draw (6,0) -- (6,3);
+      \draw (4,2) -- (4,4) -- (6,4);
+      \draw (7,1) -- (7,7);
+      \draw (6,5) -- (6,8) -- (8,8);
+      \node at (2.5,5.5) { \encircle{C} };
+      \node at (4.5,5.5) { \encircle{A} };
+      \node at (6.5,6.5) { \encircle{A} };
+      \node at (5.5,11.5) { \encircle{A} };
+      \node at (7.5,10.5) { \encircle{A} };
+      \node at (.5,11.5) { 5 };
+      \node at (3.5,6.5) { 6 };
+      \node at (7.5,7.5) { 7 };
+      \node at (.5,.5) { 8 };
+    \end{tikzpicture}
+  \end{center}
+  \addcontentsline{map}{map}{Map of Labyrinth Mid Level ``B''}
+  \caption{Labyrinth Mid Level ``B'' (Indigo)}
+\end{figure*}
+
+\begin{figure*}[ht]
+  \begin{center}
+    \begin{tikzpicture}
+      \foreach \x in {2,...,3}
+      { \foreach \y in {4,...,5}
+        { \draw (\x,\y) -- (\x+.25,\y);
+          \draw (\x+.75,\y) -- (\x+1,\y); } }
+      \foreach \x in {0,...,5}
+      { \foreach \y in {1,...,3}
+        { \draw (\x,\y) -- (\x+.25,\y);
+          \draw (\x+.75,\y) -- (\x+1,\y); } }
+      \draw (4,4) -- (6,4) -- (6,0) -- (0,0) -- (0,4) -- (2,4);
+      \draw (2,3) -- (2,6) -- (4,6) -- (4,1);
+      \draw (1,4) -- (1,1);
+      \draw (5,0) -- (5,1);
+      \draw (2,0) -- (2,2);
+      \draw (3,1) -- (3,2);
+      \draw (3,4) -- (3,5);
+      \draw (5,2) -- (5,4);
+      \node at (.5,3.5) { \encircle{A} };
+      \node at (2.5,5.5) { \encircle{B} };
+      \node at (4.5,3.5) { 9 };
+      \node at (5.5,.5) { 10 };
+    \end{tikzpicture}
+  \end{center}
+  \addcontentsline{map}{map}{Map of Labyrinth Lower Level ``C''}
+  \caption{Labyrinth Lower Level ``C'' (Purple)}
+\end{figure*}
+
 Ancient legends tell of a mysterious labyrinth in WRITEME
+
+
+\subsection{References on Labyrinth maps}
+
+\begin{description}
+\item[exit]
+  Stairs up to the surface
+\item[depot]
+  A Grizzard Depot
+\item[\encircle{A}]
+  Stairs to Upper Level ``A'' (Blue)
+\item[\encircle{B}]
+  Stairs to Mid Level ``B'' (Indigo)
+\item[\encircle{C}]
+  Stairs to Lower Level ``C'' (Purple)
+\item[1]
+  Sign that tells you where to find Andrew's lair
+\item[2]
+  Sign that tells you where to find Timmy's lair
+\item[3]
+  Lever to open Timmy's lair
+\item[4]
+  Guide to reading runes
+\item[5]
+  Entrance to Andrew's lair
+\item[6]
+  Entrance to Timmy's lair
+\item[7]
+  Lever to open Andrew's lair
+\item[8]
+  Entrance to Fred's lair
+\item[9]
+  Lever to open Fred's lair
+\item[10]
+  Sign that tells you where to find Fred's lair
+\end{description}
 
 \section{Dragons' Lairs}
 
@@ -1046,7 +1215,7 @@ have expected.
 
 \chapter{Moves}\label{ch:Moves}
 
-There are  64 Moves which can  be used by Grizzards  and monsters alike.
+There are 64 Moves which can be used by Grizzards and monsters alike.
 
 \section{Run Away}
 
@@ -1130,8 +1299,9 @@ The following table shows all of the Moves that each monster can use.
 Boss monsters have the same moves as the common monsters of the same
 type.
 
-Note that a Wicked Slime is twice  as likely to pick Splish Splash as it
-occupies two of its move slots.
+Some monsters know less than four distinct moves. For examples, a Wicked
+Slime is twice as likely to pick Splish Splash as it occupies two of its
+move slots.
 
 \begin{description}
 \newcommand\monstermoves[5]{%
@@ -1139,35 +1309,52 @@ occupies two of its move slots.
   #2, #3, #4, and #5
 }
 
-\monstermoves{Wicked Slime}{Splish Splash}{Splish Splash}{Slimy Trick}{First Aid}
-\monstermoves{Horrid Slime}{Splish Splash}{Slimy Trick}{Blind Blob}{First Aid}
-\monstermoves{Vorpal Bunny}{Great Mojo}{Shove}{Quick Foot}{Simple Cure}
-\monstermoves{Rodent of Unusual Size}{Dirty Foot}{Quick Foot}{Common Cure}{Kick Dirt}
-\monstermoves{Lectro Sheep}{Back Kick}{Cursed Glance}{Hearty Thump}{Common Cure}
-\monstermoves{Viking Turtle}{Claws Out}{Tail Lash}{Pound Sand}{Common Cure}
-\monstermoves{Crazy Fox}{Tail Lash}{Claws Out}{Rogue Flare}{Nibble}
-\monstermoves{Water Kitty}{Slash}{Bite}{Claws Out}{Common Cure}
-\monstermoves{Flame Doggo}{Hot Spark}{Dirty Foot}{Quick Foot}{Simple Cure}
-\monstermoves{Creepy Spider}{Bite}{Vampy Bite}{Nibble}{Common Cure}
-\monstermoves{Metal Mouse}{Bite}{Claws Out}{Tail Lash}{Simple Cure}
-\monstermoves{Fire Panda}{Hot Spark}{Quick Foot}{Wind Fight}{Simple Cure}
-\monstermoves{Leggy Mutant}{Cruel Stab}{Back Kick}{Stomp Down}{Simple Cure}
-\monstermoves{Sky Mutant}{Hot Spark}{Mild Shock}{Splish Splash}{Kick Dirt}
-\monstermoves{Will-O-Wisp}{Burnt Edges}{Great Muddle}{Hot Spark}{Simple Cure}
+\monstermoves{Anubis Jackal}{Firey Breath}{Nasty Goop}{Death Glare}{Great Cure}
+\monstermoves{Bigger Crab}{Crush}{Head Butt}{Pirate Curse}{Common Cure}
+\monstermoves{Boss Bear}{Firey Breath}{Evil Eye}{Sharp Fangs}{Death Glare}
 \monstermoves{Butterfly}{Double Flares}{Slash}{Wings Flap}{Common Cure}
-\monstermoves{Scary Rat}{Poison Bite}{Cursed Glance}{Claw Badly}{Slash}
-\monstermoves{Cave Grue}{Tail Whip}{Nibble}{Great Mojo}{Shove}
 \monstermoves{Cave Bat}{Deadly Swoop}{Nibble}{Great Mojo}{Burnt Edges}
-\monstermoves{Venom Sheep}{Wet Noodle}{Rogue Flare}{First Aid}{Common Cure}
-\monstermoves{One-Eyed Cyclops}{Pound Sand}{Wet Noodle}{Rogue Flare}{Great Muddle}
-\monstermoves{Fierce Raptor}{Claw Badly}{Slash}{Bite}{Simple Cure}
+\monstermoves{Cave Grue}{Tail Whip}{Nibble}{Great Mojo}{Shove}
+\monstermoves{Crazy Fox}{Tail Lash}{Claws Out}{Rogue Flare}{Nibble}
+\monstermoves{Crazy Skull}{Firey Breath}{Death Glare}{Pirate Curse}{Death Glare}
+\monstermoves{Creepy Spider}{Bite}{Vampy Bite}{Nibble}{Common Cure}
 \monstermoves{Devil Skull}{Poison Bite}{Head Butt}{Cursed Glance}{Common Cure}
+\monstermoves{Dragon Andrew}{Stomp Down}{Crush}{Firey Breath}{Evil Eye}
+\monstermoves{Dragon Fred}{Stomp Down}{Crush}{Firey Breath}{Evil Eye}
+\monstermoves{Dragon Timmy}{Stomp Down}{Crush}{Firey Breath}{Evil Eye}
+\monstermoves{Fierce Raptor}{Claw Badly}{Slash}{Bite}{Simple Cure}
+\monstermoves{Fire Drake}{Back Kick}{Double Flares}{Claw Badly}{Common Cure}
+\monstermoves{Fire Panda}{Hot Spark}{Quick Foot}{Wind Fight}{Simple Cure}
+\monstermoves{Flame Doggo}{Hot Spark}{Dirty Foot}{Quick Foot}{Simple Cure}
+\monstermoves{Flying Skull}{Pirate Curse}{Pirate Curse}{Head Butt}{Poison Bite}
+\monstermoves{Giant  Slime}{Slime   Impact}{Slime  Impact}{Slime  Impact}{Common  Cure}
+\monstermoves{Giant Bat}{Evil Eye}{Talon Vise}{Talon Vise}{Great Cure}
+\monstermoves{Giant Crab}{Slash}{Hard Jab}{Hearty Thump}{Bite}
+\monstermoves{Giant Spider}{Death Glare}{Sharp Fangs}{Death Glare}{Great Cure}
+\monstermoves{Grabby Crabby}{Slash}{Hard Jab}{Claws Out}{Pound Sand}
+\monstermoves{Great Wyrm}{Evil Eye}{Sharp Fangs}{Evil Eye}{Great Cure}
+\monstermoves{Horrid Slime}{Splish Splash}{Slimy Trick}{Blind Blob}{First Aid}
+\monstermoves{Lectro Sheep}{Back Kick}{Cursed Glance}{Hearty Thump}{Common Cure}
+\monstermoves{Leggy Mutant}{Cruel Stab}{Back Kick}{Stomp Down}{Simple Cure}
+\monstermoves{Man Bull}{Head Butt}{Cruel Stab}{Stomp Down}{Head Butt}
+\monstermoves{Maze Jaguar}{Evil Eye}{Sharp Fangs}{Crush}{Great Cure}
+\monstermoves{Mean Robber}{Hearty Thump}{Pound Sand}{Common Cure}{Great Muddle}
+\monstermoves{Metal Mouse}{Bite}{Claws Out}{Tail Lash}{Simple Cure}
+\monstermoves{One-Eyed Cyclops}{Pound Sand}{Wet Noodle}{Rogue Flare}{Great Muddle}
+\monstermoves{Poison Asp}{Poison Bite}{Poison Bite}{Poison Bite}{Great Cure}
+\monstermoves{Radish Goblin}{Tail Lash}{Pound Sand}{Nibble}{Simple Cure}
+\monstermoves{Rodent of Unusual Size}{Dirty Foot}{Quick Foot}{Common Cure}{Kick Dirt}
 \monstermoves{Round Robin}{First Aid}{Mild Shock}{Splish Splash}{Kick Dirt}
-
-
-\monstermoves{Giant Crab}XXXX
-
-
+\monstermoves{Scary Rat}{Poison Bite}{Cursed Glance}{Claw Badly}{Slash}
+\monstermoves{Sky Mutant}{Hot Spark}{Mild Shock}{Splish Splash}{Kick Dirt}
+\monstermoves{Turnip Goblin}{Poison Bite}{Cursed Glance}{Stomp Down}{Great Cure}
+\monstermoves{Uber Slime}{Slime Impact}{Slime Impact}{Nasty Goop}{Nasty Goop}
+\monstermoves{Venom Sheep}{Wet Noodle}{Rogue Flare}{First Aid}{Common Cure}
+\monstermoves{Viking Turtle}{Claws Out}{Tail Lash}{Pound Sand}{Common Cure}
+\monstermoves{Vorpal Bunny}{Great Mojo}{Shove}{Quick Foot}{Simple Cure}
+\monstermoves{Water Kitty}{Slash}{Bite}{Claws Out}{Common Cure}
+\monstermoves{Wicked Slime}{Splish Splash}{Splish Splash}{Slimy Trick}{First Aid}
+\monstermoves{Will-O-Wisp}{Burnt Edges}{Great Muddle}{Hot Spark}{Simple Cure}
 
 \end{description}
 
@@ -1179,6 +1366,24 @@ their effects.
 
 The actual  amount of damage or  healing will vary somewhat;  the values
 shown are the base amounts. Healing moves will always heal at least 1 HP.
+
+\subsection{Effectiveness}
+
+Moves have a base effectiveness, shown in the following tables. However,
+their base  effectiveness is modified by  a random factor. This  is like
+``rolling  for  damage''   in  a  tabletop  RPG.  The   exact  range  of
+effectiveness  of  any  Move  can  be determined  based  upon  its  base
+effectiveness with the following table:
+
+\begin{tabular}{l c}
+  Base Effectiveness & Random Modifier \\
+  1 - 3 & $\pm 1$ \\
+  4 - 7 & $\pm 3$ \\
+  8 - 15 & $\pm 7$ \\
+  16 - 31 & $\pm 15$ \\
+  32 - 63 & $\pm 31$ \\
+  64 + & $\pm 63$ \\
+\end{tabular}
 
 \subsection{Defensive Moves}
 

@@ -2,7 +2,7 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 Failure:	.block
           tsx
-          cpx #$fd
+          cpx #$fb
           bge NoStack
 
           pla
@@ -34,15 +34,14 @@ Loop:
           sty AUDV0
           sty AUDV1
 
-          lda GameMode
-          cmp #ModeNoAtariVox
-          bne WhiteSadFace
+          .if !ATARIAGESAVE
+            .ldacolu COLGRAY, $e
+            ldx GameMode
+            cpx #ModeNoAtariVox
+            bne CommonSadness
 
           .ldacolu COLRED, $6
-          gne CommonSadness
-
-WhiteSadFace:
-          .ldacolu COLGRAY, $e
+          .fi
 
 CommonSadness:      
           sta COLUPF
@@ -65,9 +64,11 @@ DrawSadFace:
 
           jsr Prepare48pxMobBlob
 
+          .if !ATARIAGESAVE
           lda GameMode
           cmp #ModeNoAtariVox
           bne Crashed
+
 NoVoxMessage:
           .SetPointer MemoryText
           jsr ShowPointerText
@@ -79,6 +80,7 @@ NoVoxMessage:
           jsr ShowPointerText
 
           jmp ShowReturnAddress
+          .fi
 
 Crashed:
           .SetPointer ErrorText
@@ -97,10 +99,17 @@ ShowReturnAddress:
 
           .WaitScreenBottom
 
+          lda NewButtons
+          beq DoneButtons
+
+          and #ButtonIII
+          beq Reset
+DoneButtons:
+
           lda NewSWCHB
           beq DoneSwitches
 
-          .BitBit SWCHBReset
+          and #SWCHBReset
           beq Reset
 
 DoneSwitches:	
@@ -110,6 +119,7 @@ Reset:
           jmp GoWarmStart
 
 ;;; 
+          .if !ATARIAGESAVE
           .if PLUSROM
 
 MemoryText:
@@ -129,7 +139,7 @@ NeededText:
           .MiniText "NEEDED"
 
           .fi
-
+          .fi
 ErrorText:
           .MiniText "ERROR "
 
@@ -144,5 +154,3 @@ SadFace:
           .byte %11111100
 
           .bend
-
-;;; Audited 2022-02-15 BRPocock

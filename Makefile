@@ -16,11 +16,16 @@ publish:	demo game no-save doc Dist/Grizzards.Source.tar.gz Dist/Grizzards.Atari
 		Dist/Grizzards.Portable.NTSC.bin \
 		Dist/Grizzards.NTSC.a26 Dist/Grizzards.PAL.a26 Dist/Grizzards.SECAM.a26 \
 		Dist/Grizzards.pdf \
+		Dist/GrizzardsCompleteGuide.pdf \
 		Dist/Grizzards.zip \
 		Dist/Grizzards.AtariAge.zip \
 		star-hope.org:star-hope.org/games/Grizzards/ ; \
 	do sleep 1; done
 	@ssh star-hope.org chmod +x star-hope.org/games/Grizzards/PlusROM
+
+plustest:	Dist/Grizzards.NTSC.a26
+	@echo -e 'put Dist/Grizzards.NTSC.a26 Grizzards.Test.NTSC.EF' | \
+	cadaver https://plusstore.firmaplus.de/remote.php/dav/files/$(USER)/Grizzards
 
 plus:	Dist/Grizzards.NTSC.a26 \
 	Dist/Grizzards.PAL.a26 \
@@ -216,7 +221,7 @@ Dist/Grizzards.AA.SECAM.a26:	${SOURCES} Source/Generated/Makefile bin/skyline-to
 
 Source/Generated/Makefile:	bin/write-master-makefile ${SOURCES}
 	mkdir -p Source/Generated
-	for bank in 5 7 8 9 a b c d e; do bin/make-speakjet-enums $$bank; done
+	for bank in 5 7 8 9 a b c; do bin/make-speakjet-enums $$bank; done
 	$< > Source/Generated/Makefile
 
 Dist/Grizzards.AA-book.pdf:	Dist/Grizzards.AA.pdf
@@ -552,11 +557,11 @@ release:	all
 	-cp -v Dist/Grizzards.{AA.,Demo.,NoSave.,}{NTSC,PAL,SECAM}.{a26,pro} \
 		Dist/$(RELEASE)
 	cp -v Dist/Grizzards.Portable.NTSC.bin Dist/$(RELEASE)/Grizzards.Portable.$(RELEASE).bin
-	cp -v Dist/Grizzards.{AA-book.,AA.,Demo.,NoSave.}pdf Dist/$(RELEASE)
+	cp -v Dist/Grizzards.{AA-book.,AA.,Demo.,NoSave.,}pdf Dist/$(RELEASE)
 	cp -v Dist/Grizzards.Manual.txt Dist/$(RELEASE)
 	@cd Dist/$(RELEASE) ; \
 	for file in Grizzards.*.{pro,a26,pdf} Grizzards.pdf; do \
-		mv -v $$file $$(echo $$file | perl -pne 's(Grizzards(\..+)\.(pdf|a26|pro)) (Grizzards\1.$(RELEASE).\2)'); \
+		mv -v $$file $$(echo $$file | perl -pne 's(Grizzards(.*)\.(pdf|a26|pro)) (Grizzards\1.$(RELEASE).\2)'); \
 	done
 	@echo "AtariAge Release $(RELEASE) of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
 		(cd Dist; zip --archive-comment -9 \

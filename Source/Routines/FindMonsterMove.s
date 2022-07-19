@@ -10,7 +10,7 @@ FindMonsterMove:    .block
           lda EncounterMonster, x
           asl a
           asl a
-          clc
+          ; clc ;; already clear after ASL A (x < 64)
           adc #<MonsterMoves
           bcc +
           inc Pointer + 1
@@ -24,4 +24,4 @@ FindMonsterMove:    .block
 
           .bend
 
-;;; Audited 2022-04-18 BRPocock
+;;; Audited 2022-07-14 BRPocock
