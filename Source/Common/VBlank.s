@@ -35,13 +35,11 @@ VBlank: .block
           beq NotGenesis
 
           tya                 ; Y = 0
-          .if 11 != BANK        ; ran out of space in Bank 11 ($b)
-            bit INPT0
-            bmi DoneButtonIII
+          bit INPT0
+          bmi DoneButtonIII
 
-            lda #ButtonIII
+          lda #ButtonIII
 DoneButtonIII:
-          .fi
           bit INPT1
           bmi DoneButtonII
 
@@ -73,7 +71,7 @@ ButtonsChanged:
           lda #~SWCHBSelect | $40     ; zero = Select button pressed, $40 = changed
           sta NewSWCHB
 DoneButtonIISelect:
-          .if 11 != BANK && 6 != BANK
+          .if 6 != BANK
             lda NewButtons
             and #ButtonIII
             bne DoneButtons

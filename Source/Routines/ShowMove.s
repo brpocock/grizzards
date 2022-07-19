@@ -23,30 +23,31 @@ ShowMove: .block
 
 ;;; Alternate entry point, when you already know the move ID
 WithDecodedMoveID:              ; move ID is in Y register
-          .mva Pointer + 1, #>MovesTable
+          .mva Pointer + 1, # 0
 
           tya                   ; move number
-          and #$3f         ; there are only 64 moves
-          clc              ; XXX necessary?
+          and #$3f         ; there are only 64 moves XXX paranoid much?
 
-          asl a
-          asl a                 ; × 4
+          asl a                 ; × 2
+          asl a                 ; × 4 (won't overflow)
           sta Pointer
           asl a                 ; × 8
-          bcc +
-          inc Pointer + 1
-+
-          clc
+          rol Pointer + 1
           adc Pointer           ; × 12
           bcc +
           inc Pointer + 1
-+
           clc
++
           adc #<MovesTable
           bcc +
           inc Pointer + 1
 +
           sta Pointer
+
+          lda Pointer + 1
+          clc
+          adc #>MovesTable
+          sta Pointer + 1
 
           jsr ShowPointerText
 

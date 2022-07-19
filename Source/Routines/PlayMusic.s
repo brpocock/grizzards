@@ -78,9 +78,8 @@ ReallyPlayMusic:
 
           txa
           and #$f0
-          clc
           .rept 4
-          ror a
+          lsr a
           .next
           sta AUDV1
 
@@ -109,4 +108,4 @@ ReallyPlayMusic:
 
 TheEnd:
 
-;;; Audited 2022-02-16 BRPocock
+;;; Audited 2022-07-16 BRPocock

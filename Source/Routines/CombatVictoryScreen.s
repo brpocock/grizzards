@@ -63,10 +63,13 @@ AfterMetamorphosis:
             cmp #$7f            ; allow up to 127 potions
             bge AfterPotions
 
+            lda CombatMajorP
+            bne GetAPotion
+
             jsr Random
             and #$03
             bne AfterPotions
-
+GetAPotion:
             .mva DeltaY, #1          ; potion gained
 
             inc Potions

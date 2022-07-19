@@ -5,7 +5,7 @@
 Sleep:    .macro Cycles
 
           .if \Cycles < 0
-          .error "Can't sleep back-in-time for ", \Cycles, " cycles"
+            .error "Can't sleep back-in-time for ", \Cycles, " cycles"
           .else
           .switch \Cycles
 
@@ -48,11 +48,11 @@ Sleep:    .macro Cycles
           .default
           .if 1 == \Cycles & 1
           ;; make sure we can't end up trying to sleep 1
-          .Sleep 9
-          .Sleep \Cycles - 9
+            .Sleep 9
+            .Sleep \Cycles - 9
           .else
-          .Sleep 8
-          .Sleep \Cycles - 8
+            .Sleep 8
+            .Sleep \Cycles - 8
           .fi
           .endswitch
           .fi
@@ -64,35 +64,35 @@ SleepX: .macro Cycles
           .block
 
           .if \Cycles < 10
-          .Sleep \Cycles
+            .Sleep \Cycles
           .else
 
           Loopable = \Cycles - 1
           .if (((* % $100) >= $fc) && ((* % $100) <= $fe))
-          ;; going to cross page boundary on branch
-          ;; so each loop takes 6 cycles instead of 5
-          LoopCycles = Loopable / 6
-          ModuloCycles = Loopable % 6 + 1
+            ;; going to cross page boundary on branch
+            ;; so each loop takes 6 cycles instead of 5
+            LoopCycles = Loopable / 6
+            ModuloCycles = Loopable % 6 + 1
           .else                 ; no page cross
-          LoopCycles = Loopable / 5
-          ModuloCycles = Loopable % 5
+            LoopCycles = Loopable / 5
+            ModuloCycles = Loopable % 5
           .fi
 
           .if ModuloCycles < 2
-          .SleepX \Cycles - 2
-          nop
+            .SleepX \Cycles - 2
+            nop
 
           .else
 
-          ldx #LoopCycles       ; 2
+            ldx #LoopCycles       ; 2
 SleepLoop:
-          dex                   ; 2
-          bne SleepLoop         ; 2 (3+)
-          ;; so overhead of +2 for ldx, -1 for no final branch
-          ;; net overhead of +1, with 5 cycles per loop
-          ;; if page boundary (dex occurs on $Xfd, $Xfe, $Xff)
-          ;; then each loop is 6 cycles.
-          .Sleep ModuloCycles
+            dex                   ; 2
+            bne SleepLoop         ; 2 (3+)
+            ;; so overhead of +2 for ldx, -1 for no final branch
+            ;; net overhead of +1, with 5 cycles per loop
+            ;; if page boundary (dex occurs on $Xfd, $Xfe, $Xff)
+            ;; then each loop is 6 cycles.
+            .Sleep ModuloCycles
 
           .fi
           .fi
@@ -130,7 +130,7 @@ Set16 .macro target, value
 ;;; 
 Locale .macro ThisLang, string
           .if \ThisLang == LANG
-          .MiniText \string
+            .MiniText \string
           .fi
           .endm
 ;;; 
@@ -219,7 +219,7 @@ KillMusic:          .macro
 FarJSR:   .macro bank, service
           .proff
           .if \bank == BANK
-          .error "Don't do FarJSR for the local bank for ", \service
+            .error "Don't do FarJSR for the local bank for ", \service
           .fi
           .pron
           ldy #\service
@@ -230,7 +230,7 @@ FarJSR:   .macro bank, service
 FarJMP:   .macro bank, service
           .proff
           .if \bank == BANK
-          .error "Don't do FarJMP for the local bank for ", \service
+            .error "Don't do FarJMP for the local bank for ", \service
           .fi
           .pron
           ldy #\service
@@ -257,7 +257,7 @@ SkipLines:          .macro length
           .if \length < 4
 
           .rept \length
-          stx WSYNC
+            stx WSYNC
           .next
 
           .else

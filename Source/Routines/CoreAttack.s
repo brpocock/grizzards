@@ -121,10 +121,6 @@ SetStatusFX:
           ora DefenderStatusFX
           sta DefenderStatusFX
 
-          .if TV == SECAM       ; No room for this nicety in SECAM — XXX
-NoStatusFX:
-          .else
-          
           bne Done
 
 NoStatusFX:
@@ -134,8 +130,6 @@ NoStatusFX:
           .mvy CriticalHitP, # 0
 
 Done:
-          .fi
-
           .mva MoveHitMiss, # 1
           rts
 

@@ -76,6 +76,8 @@ NPC_MirandaMirror:
           .SignText "LET'S TALK  "
           .SignText "ABOUT THOSE "
           .SignText "OLD LEGENDS."
+          .byte ModeSignpostPoints
+          .word $0500
           .byte ModeSignpostSetFlag, 9
 
 ;;; 54
@@ -98,13 +100,12 @@ NPC_MirandaTip2:
           .SignText "GO INTO HELL"
           .SignText "IT'S THROUGH"
           .SignText "A LABYRINTH."
-          .byte ModeSignpostNext, 56
+          .byte ModeSignpostNext, 65
 
 ;;; 56
 NPC_MirandaTip3:
           .colu COLPURPLE, 0
           .colu COLTURQUOISE, $c
-          .byte $ff, 56, 65     ; labyrinth closed still
           .SignText "THERE ARE 3 "
           .SignText "DRAGONS WHO "
           .SignText "ANSWER TO A "
@@ -133,6 +134,8 @@ NPC_GotRing:
           .SignText "I WILL NOW  "
           .SignText "REVEAL THE  "
           .SignText "LABYRINTH.  "
+          .byte ModeSignpostPoints
+          .word $0500
           .byte ModeSignpostSetFlag, 54
 
 ;;; 59
@@ -178,7 +181,7 @@ NPC_LabyrinthOpen:
           .SignText "BEYOND THAT "
           .SignText "DOOR MAY BE "
           .SignText "WHERE THE   "
-          .SignText "BOSS BEAR IS"
+          .SignText "BOSSES ARE. "
           .byte ModeSignpostDone
 
 ;;; 63
@@ -201,12 +204,13 @@ NPC_MirandaLabyrinth:
           .SignText "THE BOSSES  "
           .SignText "OF MONSTERS."
           .SignText "UNCOVER IT. "
-          .byte ModeSignpostDone
+          .byte ModeSignpostSetFlag, 12
 
 ;;; 65
 NPC_MirandaDone:
           .colu COLPURPLE, 0
           .colu COLTURQUOISE, $c
+          .byte $ff, 54, 56     ; labyrinth closed still
           .SignText "MAYBE FAT   "
           .SignText "TONY CAN    "
           .SignText "SHOW YOU THE"
@@ -225,7 +229,7 @@ Sign_DocksToTreble:
           .SignText "TREBLE NOW. "
           .byte ModeSignpostInquire
           .byte 96, 97
-          .SignText " SAIL  STAY "
+          .Response "SAIL  ", "STAY  "
 
 ;;; 67
 Sign_FindAndrew:

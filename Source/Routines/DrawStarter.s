@@ -82,36 +82,38 @@ DrawAquax1:
 
 AquaxBottom:
           jsr Random
-          and # 7
-          bne +
+          rol a
+          and #$70
+          bne AquaxWaveNoChange
+          ;; A = 0
+          bcc AquaxWaveZero
 
-          jsr Random
+          rol a                 ; A = 1
 
-          and # 1
+AquaxWaveZero:
           sta PlayerXFraction
-+
+AquaxWaveNoChange:
           lda PlayerXFraction
-          beq +
-          inc PlayerYFraction
-          jmp SetWaveLevel
+          beq AquaxWaveNegative
 
-+
+          inc PlayerYFraction
+          gne SetWaveLevel
+
+AquaxWaveNegative:
           dec PlayerYFraction
 SetWaveLevel:
           lda PlayerYFraction
           lsr a
-          clc
-          lsr a
-          clc
           lsr a
           lsr a
-          tax
+          lsr a
           and #$1f
+          tax
           inx
--
+WaveWait:
           stx WSYNC
           dex
-          bne -
+          bne WaveWait
 
           .ldacolu COLBLUE, $e
           sta COLUBK

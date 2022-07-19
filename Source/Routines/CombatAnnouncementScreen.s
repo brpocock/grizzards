@@ -16,14 +16,12 @@ CombatAnnouncementScreen:     .block
             stx WSYNC
 
           .case SECAM
-            ;; This is all crazy shit discovered by experiment
-            ;; There is no rational explanation
             .WaitForTimer
             lda WhoseTurn
             beq +
-            .SkipLines 5
+            .SkipLines 4
 +
-            .SkipLines 11
+            .SkipLines 3
             jsr Overscan
 
           .endswitch
@@ -41,6 +39,7 @@ CombatAnnouncementScreen:     .block
 
           ;; Y = MoveSelection
           jsr FindMonsterMove
+
           jmp MoveFound
 
 FindPlayerMove:

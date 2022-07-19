@@ -14,7 +14,6 @@ DoVBlankWork:
           .include "VBlank.s"
           
           .include "48Pixels.s"
-          .align $10            ; XXX alignment
           .include "Prepare48pxMobBlob.s"
 
 DoLocal:

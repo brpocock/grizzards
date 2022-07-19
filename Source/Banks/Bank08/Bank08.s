@@ -4,9 +4,7 @@
 
           .include "StartBank.s"
 
-
           .include "SpeakJetIDs.s" ; from this bank, not bank 7
-
 
 DoLocal:
           .include "Signpost.s"

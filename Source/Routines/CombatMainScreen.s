@@ -5,9 +5,12 @@ CombatMainScreen:   .block
 
 BackToPlayer:
           .mva MoveSelection, LastPlayerCombatMove
-MonsterThwarted:
-          .mva GameMode, #ModeCombat
           .mva AlarmCountdown, # 4
+MonsterThwarted:
+          ;; The  MonsterThwarted entry  point  is used  when a  monster
+	;; thinks  it wants  to choose  a healing  move, but  it has  not
+	;; actually been injured yet.
+          .mva GameMode, #ModeCombat
 
           lda StatusFX
           .BitBit StatusSleep
@@ -22,9 +25,22 @@ NotAsleep1:
           .SetUtterance Phrase_Muddled
 
 NotMuddled1:
+
+FindPlayerMove:
+          .FarJSR TextBank, ServiceFetchGrizzardMove
+
+          .mvx CombatMoveSelected, Temp
+MoveFound:
+          lda MoveDeltaHP, x
+          sta CombatMoveDeltaHP
+
+          ldx # 0
+
+          lda CombatMoveDeltaHP
+          bmi GotTarget
+
           ;; copied into CombatVBlank also
 TargetFirstMonster:
-          ldx #0
 -
           lda EnemyHP, x
           bne TargetFirst
@@ -35,6 +51,7 @@ TargetFirstMonster:
 
 TargetFirst:
           inx
+GotTarget:
           stx MoveTarget
 
           .WaitScreenBottom
@@ -61,24 +78,34 @@ Loop:
             sta TIM64T
 +
             .WaitScreenBottom
-            stx WSYNC
-            stx WSYNC
+            .SkipLines 2
 
           .case SECAM
 
-            ;; Modified WaitScreenBottom
-            .WaitForTimer
-            lda AlarmCountdown
-            bne +
-            stx WSYNC
-+
-            stx WSYNC
-            jsr Overscan
+            .WaitScreenBottom
+            .SkipLines 2
 
           .endswitch
 
 LoopFirst:
-          .WaitScreenTopMinus 1, 0
+          .switch TV
+          .case NTSC, PAL
+            .WaitScreenTopMinus 1, 0
+          .case SECAM
+            ;;  broken down WaitScreenTop
+            jsr VSync
+            ldx WhoseTurn
+            beq TopPlayerTurn
+
+            lda # ( ( (76 * 210) / 64 ) - 1)
+            gne CommonTop
+
+TopPlayerTurn:
+            lda # ( ( (76 * 214 ) / 64 ) - 1)
+CommonTop:
+            sta TIM64T
+
+          .endswitch
           jsr Prepare48pxMobBlob
 
           .switch TV
@@ -318,8 +345,6 @@ NotMuddled:
           gne ShowSelectedMove
 
 NotRunAway:
-          stx WSYNC
-
           lda BitMask - 1, x
           bit MovesKnown
           beq NotMoveKnown
@@ -338,7 +363,6 @@ NotMoveKnown:
 ShowSelectedMove:
           sta COLUP0
           sta COLUP1
-          stx WSYNC
           .FarJSR TextBank, ServiceShowMove
 
 UserControls:
@@ -425,6 +449,7 @@ NotGoingToMap:
           bne NotGoingToStats
 
           .mva DeltaY, #ModeCombat
+          .mva LastPlayerCombatMove, MoveSelection
           .WaitScreenBottom
           .switch TV
           .case NTSC
@@ -474,6 +499,7 @@ MaybeReadyToAnnounce:
           ldx WhoseTurn
           beq Announce
 
+          ldy MoveSelection
           jsr FindMonsterMove
           lda MoveDeltaHP, x
           bpl Announce

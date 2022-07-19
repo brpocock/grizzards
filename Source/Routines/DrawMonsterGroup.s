@@ -314,6 +314,9 @@ DrawMonsterLoop:
           ;; must return with Y=0 and Z flag set
           rts
 ;;; 
+          .if SECAM == TV
+            .text "BRP"         ; 3 bytes padding
+          .fi
 DrawNothing:
 
           ldy # 0

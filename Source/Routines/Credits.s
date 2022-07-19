@@ -13,14 +13,17 @@ Loop:
           sta COLUP0
           sta COLUP1
 
+          sta SignpostWork
           .SetPointer WithLoveText
           jsr ShowPointerText12
 
+          inc SignpostWork
           .SetPointer ZephyrText
           jsr ShowPointerText12
 
           .SkipLines 80
 
+          inc SignpostWork
           .SetPointer DatestampText
           jsr ShowPointerText12
 
