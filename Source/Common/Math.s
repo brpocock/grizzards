@@ -49,6 +49,7 @@ Inc16 .macro address
 
 Sub16cs .macro address, subtrahend
           .block
+          lda \address
           sbc \subtrahend
           bcs _cs
           dec \address + 1
