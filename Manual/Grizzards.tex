@@ -84,12 +84,19 @@
 \frontmatter
 \thispagestyle{empty}
 
+\ifdefined\ATARIAGESAVE
 \begin{tikzpicture}[overlay, remember picture]
   \node[anchor=north west, xshift=-4pt, yshift=4pt] 
   at (current page.north west)
-  {\includegraphics[interpolate,width=\paperwidth,height=\paperheight]{../Manual/Cover.png}}; 
+  {\includegraphics[interpolate,width=6in,height=9in]{../Manual/Cover.eps}}; 
 \end{tikzpicture}
-
+\else
+\begin{tikzpicture}[overlay, remember picture]
+  \node[anchor=north west, xshift=-4pt, yshift=4pt] 
+  at (current page.north west)
+  {\includegraphics[interpolate,width=\paperwidth,height=\paperheight]{../Manual/Cover.eps}}; 
+\end{tikzpicture}
+\fi
 
 \thispagestyle{empty}
 
