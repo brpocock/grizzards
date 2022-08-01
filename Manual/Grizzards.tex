@@ -20,6 +20,7 @@
 \setheadfoot{.5in}{.5in}
 \widowpenalty=10000
 \clubpenalty=10000
+\raggedbottom
 
 \makeevenhead{plain}{\textit{Grizzards}}{}{}
 \makeoddhead{plain}{}{}{\textit{Grizzards}}
@@ -98,6 +99,8 @@
 
 The  land of  Syrex  is  a dangerous  place.  Fierce  monsters roam  the
 countryside. But luckily for you, you're a Grizzard handler!
+
+\skip
 
 Train your Grizzard to  use a variety of moves to  take on the monsters.
 Discover new kinds  of Grizzards with new capabilities.  Can you conquer
@@ -199,6 +202,7 @@ To play \textit{Grizzards}, you will need:
   or a multi-cart with the \textit{Grizzards} data on it. \fi
 \end{itemize}
 
+\ifdefined\ATARIAGESAVE\else
 \ifdefined\NOSAVE\else
 \begin{figure*}[b]
   \begin{center}
@@ -210,6 +214,7 @@ To play \textit{Grizzards}, you will need:
     \includegraphics[width=\columnwidth]{../Manual/AtariVox.jpeg}
   \end{center}
 \end{figure*}
+\fi
 \fi
 
 Set up  your console with your  TV or video display.  Connect a joystick
@@ -232,9 +237,11 @@ Finally, insert  the \textit{Grizzards}  game cartridge (with  the label
 facing  up)  into  the  cartridge  slot,  and  turn  the  \textbf{Power}
 \textbf{on}.
 
-\ifdefined\ATARIAGESAVE\else
-\includegraphics[width=\columnwidth]{../Manual/Atari-2600-Wood-4Sw-Set.png}
+\ifdefined\ATARIAGESAVE
+\vfill
 \fi
+
+\includegraphics[width=\columnwidth]{../Manual/Atari-2600-Wood-4Sw-Set.png}
 
 \pagebreak
 
@@ -246,8 +253,8 @@ the \textbf{Fire} button. Use the  \encircle{C} button as an alternative
 way  to   press  the   \textbf{Game  Select}   switch  to   access  your
 Grizzard's statistics.
 
-A      ``Joy2b+''     game      pad     such      as     those      from
-\href{https://retrogameboyz.com/products/atari-8-bit-2-button-action-joystick-control-pad-gamepad-xegs-theme?variant=39665422565431}{RetroGameBoyz.com}
+A ``Joy2b+'' game pad, such as those from 
+\href{https://retrogameboyz.com/products/atari-8-bit-2-button-action-joystick-control-pad-gamepad-xegs-theme?variant=39665422565431}{RetroGameBoyz.com},
 can also  be used.  Button \encircle{I} will  work as  the \textbf{Fire}
 button.  Button  \encircle{II} will  work  as  the \textbf{Game  Select}
 switch. Button \encircle{III} will toggle pausing the game.
@@ -261,12 +268,16 @@ If using a \ifdefined\DEMO Harmony or \fi Harmony Encore cartridge, hold
 down  the \encircle{B}  or \encircle{I}  button when  you power  on your
 console, or the gamepad will not work on the Harmony menu. \fi
 
+\ifdefined\ATARIAGESAVE
+\vfill
+\includegraphics[width=\columnwidth]{../Manual/AtariVox.jpeg}
+\fi
+
+
 \pagebreak
 \twocolumn[\chapter{How To Play}]
 
 \section{Console Controls}
-
-\ifdefined\ATARIAGESAVE\vfill\fi
 
 \subsection{Pausing the Game}
 
@@ -274,19 +285,13 @@ On an Atari 2600  (or similar console), with the NTSC  or PAL version of
 the game,  push the  \textbf{Color/B\&W} switch into  the \textbf{Color}
 position  to play  the game,  or  the \textbf{B\&W}  position to  pause.
 
-\vfill
-
 With the SECAM  version of the game, the Right  Difficulty Switch can be
 used  to  pause game  play.  When  in  the  ``A'' (Advanced  or  Expert)
 position, your  game will be paused.
 
-\vfill
-
 On the  Atari 7800, press  the \textbf{Pause}  button once to  pause the
 game, and again to resume playing. \ifdefined\ATARIAGESAVE\else This may
 not work with certain multi-carts, e.g. the UnoCart or PlusCart. \fi
-
-\ifdefined\ATARIAGESAVE\vfill\fi
 
 \subsection{Game Select}
 
@@ -336,7 +341,7 @@ ports) are in the ``A'' position when they are moved to the right.
 
 \ifdefined\ATARIAGESAVE\vfill\pagebreak\fi
 
-\section{Start a Game}
+\section{Starting a Game}
 
 \begin{center}
   \includegraphics[width=\columnwidth]{../Manual/TitleAquaxNTSC.png}
@@ -485,8 +490,6 @@ progress will  be saved \ifdefined\ATARIAGESAVE to  your game cartridge.
 your  current   companion.  \fi  See   page  \pageref{sec:GrizzardDepot}
 for details.
 
-\ifdefined\ATARIAGESAVE\pagebreak\fi
-
 \ifdefined\NOSAVE
 
 \lettrine[image=true,                lines=5,               findent=3pt,
@@ -504,6 +507,8 @@ Each  Grizzard  you  catch  will  have its  own  moves,  skill  ratings,
 and experience.
 
 \fi
+
+\ifdefined\ATARIAGESAVE\pagebreak\fi
 
 \lettrine[image=true,                lines=5,               findent=3pt,
 nindent=3pt]{../Manual/DoorNTSC.png}{Doors} lead  you to other  places in
@@ -577,14 +582,14 @@ Some people will want you to answer a question. You'll be given a choice
 of two possible answers. Press forward or back on the joystick to select
 a response.
 
+\begin{center}
+  \includegraphics[width=\columnwidth]{../Manual/InquireNTSC.png}
+\end{center}
+
 To review  what  the  person  was  asking, press  left  on
 the joystick.
 
 When you've made your selection, press \textbf{Fire} to continue.
-
-\begin{center}
-  \includegraphics[width=\columnwidth]{../Manual/InquireNTSC.png}
-\end{center}
 
 \ifdefined\ATARIAGESAVE
 \pagebreak
@@ -592,20 +597,20 @@ When you've made your selection, press \textbf{Fire} to continue.
 
 \section{Battling Monsters}
 
-Monsters plague the  world of Syrex. If you're caught  by monsters, your
-Grizzard  companion must  defend  you. You'll  see  this Combat  display.
-
 \begin{figure*}[t]
   \includegraphics[width=2\columnwidth]{../Manual/CombatControls.png}
 \end{figure*}
 
-Monsters often  travel in groups, so  you may see more  than one monster
-facing you.  When it's the  monsters' turn, the  top part of  the screen
-will be red (white on SECAM).
+Monsters plague the  world of Syrex. If you're caught  by monsters, your
+Grizzard  companion must  defend  you. You'll  see  this Combat  display.
 
 \begin{center}
   \includegraphics[width=\columnwidth]{../Manual/MonsterCombatNTSC.png}
 \end{center}
+
+Monsters often  travel in groups, so  you may see more  than one monster
+facing you.  When it's the  monsters' turn, the  top part of  the screen
+will be red (white on SECAM).
 
 When  it's your  turn,  the  bottom part  of  the  screen (showing  your
 Grizzard) will be indigo (magenta on SECAM). 
@@ -646,7 +651,7 @@ one battle.
 
 It's possible for a move to miss its target. If that happens, you'll see
 \texttt{MISSED} appear  briefly. It's also  possible to have  a critical
-success ---  that move will do  double the usual damage,  and you'll see
+success.  That move  will do  double the  usual damage,  and you'll  see
 \texttt{CRIT!} appear on the screen.
 
 If your Grizzard companion loses hit points, the bar below your Grizzard
@@ -732,9 +737,9 @@ Status Effects:
   There is a 50\% chance of clearing its mind.
 \end{description}
 
-These status effects last only the duration of one battle. They also can
-\emph{not} be stacked. For example: Once your attack has been raised, it
-cannot be raised further.
+These status  effects last only  the duration  of one battle.  They also
+\emph{cannot} be stacked. For example: Once your attack has been raised,
+it cannot be raised further.
 
 \section{Scoring}
 
@@ -746,8 +751,8 @@ The score earned can be increased by:
 
 \begin{itemize}
 \item \ldots{}playing  in Expert  mode (by  setting the  Left Difficulty
-  Switch to the ``A'' position)
-\item \ldots{}defeating the larger ``boss'' version of a monster
+  Switch to the ``A'' position).
+\item \ldots{}defeating the larger ``boss'' version of a monster.
 \item  \ldots{}playing the  game  in  New Game  Plus  mode after  having
   defeated the final boss.
 \end{itemize}
@@ -965,9 +970,9 @@ When Airex gains enough experience, it will metamorphose into Flyer.
 Most Grizzards can learn healing moves as well. Some examples:
 
 \begin{itemize}
-\item \texttt{FIRST AID} --- heals a small amount of health
-\item \texttt{SIMPLE CURE} --- heals a bit larger amount of health
-\item \texttt{COMMON CURE} --- heals even more health
+\item \texttt{FIRST AID} --- heals a small amount of health.
+\item \texttt{SIMPLE CURE} --- heals a bit larger amount of health.
+\item \texttt{COMMON CURE} --- heals even more health.
 \end{itemize}
 
 You can also heal your Grizzard  by visiting a Grizzard Depot, or giving
@@ -1249,7 +1254,7 @@ Dillon, Olaf ``Rhialto'' Seibert, Andrew  Davie, and Peter H. Froehlich.
 Binary to decimal translation is based upon code by Andrew Jacobs, based
 upon code  by Garth Wilsone. ``Six  Digit Score'' 48 pixel  wide display
 routines are based upon an explanation on Stella list by Erik Mooney and
-Bradford W.  Mott. \ifdefined\ATARIAGESAVE\else  SaveKey EEPROM  and \fi{}
+Bradford W. Mott. \ifdefined\ATARIAGESAVE\else  SaveKey EEPROM and \fi{}
 AtariVox speech  synthesis driver  is based upon  code by  Alex Herbert.
 The random number generator is by AtariAge forum user \texttt{Supercat}.
 Some math  functions are by AtariAge  forum user \texttt{Omega\-matrix}.
@@ -1257,15 +1262,16 @@ Some  math functions  were taken  from the  December 1984  \textit{Apple
   Assembly  Line}. ``Have  You Played  Atari Today''  jingle created  by
 Atari    Inc.     and    transcribed    by    AtariAge     Forum    user
 \texttt{tigger\-the\-hun}. Atari 7800 console detection logic written by
-Fred      Quimby      courtesy      of      Darrell      Spice,      Jr.
-AtariVox \ifdefined\ATARIAGESAVE\else and SaveKey \fi{}
-illustrations   in   this   manual   are  from   the   AtariAge   store.
-\ifdefined\ATARIAGESAVE The AtariAge logo  and logotype are the property
-of AtariAge. \fi
+Fred    Quimby    courtesy    of   Darrell    Spice,    Jr.    AtariVox+
+\ifdefined\ATARIAGESAVE\else          and         SaveKey          \fi{}
+photograph\ifdefined\ATARIAGESAVE{}  is  \else{s}  are  \fi{}  from  the
+AtariAge store.  \ifdefined\ATARIAGESAVE The AtariAge logo  and logotype
+are the property of AtariAge. \fi
 
 Special ``save to cartridge'' circuitry designed by Fred Quimby.
 
-Thanks to SmittyB for helping get the gamepad support working on Atari 7800.
+Thanks  to  SmittyB for  helping  get  the  gamepad support  working  on
+Atari 7800.
 
 Thanks to Albert Yarusso for publication support.
 
@@ -1288,11 +1294,12 @@ and miscellaneous users from the AtariAge forum.
 
 \vfill
 
-\ifdefined\ATARIAGESAVE
-TODO: probably put an AtariAge badge here and on the cover?
-\fi
-
 \begin{center}
+  \ifdefined\ATARIAGESAVE
+  \includegraphics[width=.6667\columnwidth]{../Manual/AtariAgeHorizontalColor.eps}
+  \vspace{14pt}
+  \fi
+
   \includegraphics[width=.333\columnwidth]{../Manual/BRP.png}
 \end{center}
 
