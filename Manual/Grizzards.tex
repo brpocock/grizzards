@@ -51,6 +51,8 @@
   }
 \usepackage{caption}
 \captionsetup{labelformat=empty}
+\usepackage{fontspec}
+\setmonofont{Source Code Pro}
 
 \usepackage{tikz}
 
@@ -190,9 +192,9 @@ To play \textit{Grizzards}, you will need:
 
 \begin{itemize}
 \item  An Atari  console: the  Atari  Video Computer  System CX-2600  or
-  compatible console
+  a compatible console
 \item A TV or video display
-\item A joystick controller or compatible gamepad
+\item A joystick controller or a compatible gamepad
   \ifdefined\ATARIAGESAVE
   \item Optional: an AtariVox device with speakers or headphones
   \else
@@ -255,7 +257,7 @@ the \textbf{Fire} button. Use the  \encircle{C} button as an alternative
 way  to   press  the   \textbf{Game  Select}   switch  to   access  your
 Grizzard's statistics.
 
-A ``Joy2b+'' game pad, such as those from 
+A ``Joy2b$^+$'' game pad, such as those from 
 \href{https://retrogameboyz.com/products/atari-8-bit-2-button-action-joystick-control-pad-gamepad-xegs-theme?variant=39665422565431}{RetroGameBoyz.com},
 can also  be used.  Button \encircle{I} will  work as  the \textbf{Fire}
 button.  Button  \encircle{II} will  work  as  the \textbf{Game  Select}
@@ -304,8 +306,6 @@ begin or resume a game. \fi
 While you  are playing the  game, use the  \textbf{Game Select}
 switch to view your Grizzard's  statistics.
 
-\ifdefined\ATARIAGESAVE\vfill\pagebreak\fi
-
 \subsection{Game Reset}
 
 When  viewing the  Select  Slot screen,  press  the \textbf{Game  Reset}
@@ -316,11 +316,9 @@ While you are playing the game,  press the \textbf{Game Reset} switch to
 You will  lose some  of your  progress since the  last time  you visited
 a Grizzard Depot.
 
-\ifdefined\ATARIAGESAVE\vfill\fi
-
 \ifdefined\NOSAVE\else
 
-\subsection{Protecting Your Progress}
+\subsection{Protecting Your Game Record}
 
 You  cannot erase  a  game  in progress  (or  un-erase  it) unless  both
 Difficulty  Switches are  in the  ``A'' (Advanced  or Expert)  position.
@@ -328,8 +326,6 @@ To protect your game from being erased, set either one of the Difficulty
 Switches to the ``B'' (Beginner or Novice) position.
 
 \fi
-
-\ifdefined\ATARIAGESAVE\vfill\fi
 
 \subsubsection*{Expert Mode}
 
@@ -375,11 +371,10 @@ right to  choose a  memory slot\ifdefined\ATARIAGESAVE\else\footnote{The
   by the \textit{Grizzards}  game program. Each save  game slot actually
   occupies  4  blocks  on  your  memory  device.}\fi{}  for  your  game.
 There  are \ifdefined\ATARIAGESAVE  eight \else  three \fi  memory slots
-possible. Press \textbf{Game  Select} or the joystick left  and right to
-rotate   through  them.   If   someone  has   already   begun  to   play
-\textit{Grizzards}   in  a   certain   slot,  your   screen  will   show
-``\texttt{RESUME},'' and  their name will appear  as well. If a  slot is
-empty, you'll see ``\texttt{BEGIN}'' instead.
+available. If  someone has  already begun  to play  \textit{Grizzards} in
+a certain  slot, your  screen will  show ``\texttt{RESUME},''  and their
+name  will   appear  as   well.  If   a  slot   is  empty,   you'll  see
+``\texttt{BEGIN}'' instead.
 
 If someone has already \emph{won} the  game once, their name will appear
 in bright yellow. See New Game Plus, page~\pageref{sec:NewGamePlus}.
@@ -402,9 +397,9 @@ When you have selected the slot in which to begin (or resume), press the
 
 \ifdefined\NOSAVE\else
 
-When you begin a new game, enter  your name. Press forward to select the
+When you begin a  new game, enter your name. Push  forward to select the
 next letter;  pull back to  select the  previous letter. Press  left and
-right to move to  the next or previous position. You can  have up to six
+right to move to  the previous or next position. You can  use up to six
 characters for  your name.  After six characters,  the cursor  will turn
 pink; then, press the \textbf{Fire} button to proceed.
 
@@ -606,11 +601,14 @@ When you've made your selection, press \textbf{Fire} to continue.
 \section{Battling Monsters}
 
 \begin{figure*}[t]
-  \includegraphics[width=2\columnwidth]{../Manual/CombatControls.png}
+  \begin{center}
+    \includegraphics[width=2\columnwidth]{../Manual/CombatControls.eps}
+  \end{center}
 \end{figure*}
 
-Monsters plague the  world of Syrex. If you're caught  by monsters, your
-Grizzard  companion must  defend  you. You'll  see  this Combat  display.
+Monsters have  begun to plague the  world of Syrex. If  you're caught by
+monsters,  your Grizzard  companion  must defend  you.  You'll see  this
+Combat display.
 
 \begin{center}
   \includegraphics[width=\columnwidth]{../Manual/MonsterCombatNTSC.png}
@@ -674,8 +672,8 @@ increase,  and you'll  return  to  the Map  screen.  You  may also  find
 a potion was  left behind by the monsters. \ifdefined\DEMO  There are no
 potions in the demo. \fi
 
-You  may choose  to run  away from  a fight,  but the  monsters will  be
-immediately healed and may still come after you.
+% You  may choose  to run  away from  a fight,  but the  monsters will  be
+% immediately healed and may still come after you.
 
 \subsection{Grizzard Learning}
 
@@ -689,10 +687,6 @@ appear in black.
 
 \section{Statistics}
 
-\begin{center}
-  \includegraphics[width=\columnwidth]{../Manual/StatsScreenshotNTSC.png}
-\end{center}
-
 Press  the \textbf{Game  Select}  switch\footnote{You can  also use  the
   \encircle{C} or  \encircle{II} button on  a gamepad. See  the Gamepads
   section on page~\pageref{sec:Gamepad}.} while  viewing the Map, Combat
@@ -702,6 +696,10 @@ Press the \textbf{Fire} button to dismiss the Statistics screen.
 At  the top  of the  Statistics screen  is a  portrait of  your Grizzard
 companion, their name,  and their unique number. There  are 30 Grizzards
 to catch. Can you catch them all?
+
+\begin{center}
+  \includegraphics[width=\columnwidth]{../Manual/StatsScreenshotNTSC.png}
+\end{center}
 
 \begin{description}
   
@@ -773,6 +771,10 @@ $4\times$ if all three are true.
 
 You can  win the  game by  discovering what dark  forces are  behind the
 onslaught of so many monsters, and defeating them.
+
+You'll  be rewarded  with  a  special screen  when  you've defeated  the
+final boss, showing  your name, score, and the number  of Grizzards that
+have joined you.
 
 \subsection*{New Game Plus}\label{sec:NewGamePlus}
 
@@ -848,8 +850,10 @@ Difficulty Switch is used to pause the game.)
 
 \subsection{Protecting Your Game Record}
 
-If  either of  your Difficulty  Switches is  in the  ``B'' (Beginner  or
-Novice) position, you can't erase a game slot.
+You  cannot erase  a  game  in progress  (or  un-erase  it) unless  both
+Difficulty  Switches are  in the  ``A'' (Advanced  or Expert)  position.
+To protect your game from being erased, set either one of the Difficulty
+Switches to the ``B'' (Beginner or Novice) position.
 
 \ifdefined\DEMO\else
 
@@ -888,9 +892,12 @@ Grizzard is able  to learn up to  eight different moves, in  addition to the
 move \texttt{RUN  AWAY}. It's  up to  you to  discover which  Moves each
 Grizzard is able to learn.
 
-\ifdefined\ATARIAGESAVE
-\vfill
-\fi
+% When you begin your adventure, you can choose one of the following three
+% Grizzards as your initial companion.
+
+% \ifdefined\ATARIAGESAVE
+% \vfill
+% \fi
 
 \ifdefined\DEMO\else
 
@@ -899,7 +906,9 @@ Grizzard is able to learn.
 \section{Dirtex}
 
 \begin{center}
+  \vspace{14pt}
   \includegraphics[width=\columnwidth]{../Manual/Dirtex.png}
+  \vspace{14pt}
 \end{center}
 
 The green  Grizzard Dirtex (Num. 01)  lives in the desert.  It can learn
@@ -988,9 +997,11 @@ There are no potions in this demo. \fi
 
 This  Move lets  you try  to escape  from a  battle. Your  Grizzard will
 \emph{not} be  healed if you  run away, but  the monsters that  you were
-facing will be  healed immediately. Certain monsters  are too terrifying
-to escape. When  you encounter a ``boss'' monster like  that, it will be
-a duel to the death. Watch out for their unique shape on the map.
+facing will be healed immediately.
+
+Certain  monsters  are too  terrifying  to  escape. When  you  encounter
+a ``boss'' monster like this, it will  be a duel to the death. Watch out
+for their unique shape on the map.
 
 \section{Metamorphosis}
 
@@ -998,7 +1009,6 @@ Many Grizzards  can metamorphose into a  new form when they  have gained
 a certain  amount of experience. The  new Grizzard may be  able to learn
 different moves and have improved statistics.
 
-\pagebreak
 \twocolumn[\chapter{Monsters}]
 
 A slew of monsters are arriving in Syrex, terrorizing the land.
@@ -1006,27 +1016,27 @@ A slew of monsters are arriving in Syrex, terrorizing the land.
 \vspace{14pt}
 
 \lettrine[image=true,                lines=5,               findent=3pt,
-nindent=3pt]{../Manual/Wicked-Slime.png}{Wicked}  Slimes are  weak slime
+nindent=3pt]{../Manual/Wicked-Slime.png}{}Wicked  Slimes are  weak slime
 monsters that  your Grizzard can  kill fairly  easily … but  beware when
 they travel in large packs.
 
 \vspace{14pt}
 
 \lettrine[image=true,                lines=5,               findent=3pt,
-nindent=3pt]{../Manual/Horrid-Slime.png}{Horrid}    Slimes   are    more
+nindent=3pt]{../Manual/Horrid-Slime.png}{}Horrid   Slimes   are    more
 dangerous than a  Wicked Slime. A Horrid Slime may  survive your attacks
 until you've learned some new moves.
 
 \vspace{14pt}
 
 \lettrine[image=true,                lines=5,               findent=3pt,
-nindent=3pt]{../Manual/Sky-Mutant.png}{Sky Mutants} roam the roads north
+nindent=3pt]{../Manual/Sky-Mutant.png}{} Sky Mutants roam the roads north
 of Mount Peshon  looking for civilians to abduct.
 
 \vspace{14pt}
 
 \lettrine[image=true,                lines=5,               findent=3pt,
-nindent=3pt]{../Manual/Round-Robin.png}{Round Robins} are colorful giant
+nindent=3pt]{../Manual/Round-Robin.png}{} Round Robins are colorful giant
 birds who live  in the area of  Mount Peshon. Their beaks  and claws are
 dangerous.
 
@@ -1035,14 +1045,14 @@ dangerous.
 \fi
 
 \lettrine[image=true,                lines=5,               findent=3pt,
-nindent=3pt]{../Manual/R.O.U.S..png}{Rodents} of Unusual Size are one of
+nindent=3pt]{../Manual/R.O.U.S..png}{} Rodents of Unusual Size are one of
 the  dangers of  the Fire  Bog (but  I don't  think they  really exist).
 They're known to attack pirates and princesses alike.
 
 \vspace{14pt}
 
 \lettrine[image=true,                lines=5,               findent=3pt,
-nindent=3pt]{../Manual/Flame-Doggo.png}{Flame  Doggos} are  a danger  of
+nindent=3pt]{../Manual/Flame-Doggo.png}{} Flame Doggos are a danger of
 the Fire  Bogs. These beasts  often roam in packs,  and their fur  is on
 fire. Avoid the Fire Bogs until you have begun to train your Grizzard to
 have a higher Attack stat.
@@ -1050,21 +1060,21 @@ have a higher Attack stat.
 \vspace{14pt}
 
 \lettrine[image=true,                lines=5,               findent=3pt,
-nindent=3pt]{../Manual/Fire-Panda.png}{Fire Pandas}  are a bit  like red
+nindent=3pt]{../Manual/Fire-Panda.png}{} Fire Pandas are a bit like red
 pandas, or firefoxes, and quite a  bit more dangerous. Unlike a firefox,
 these beasts actually dish out fire-based attacks on their victims.
 
 \vspace{14pt}
 
 \lettrine[image=true,                lines=5,               findent=3pt,
-nindent=3pt]{../Manual/Vorpal-Bunny.png}{Vorpal Bunnies}  are a powerful
+nindent=3pt]{../Manual/Vorpal-Bunny.png}{} Vorpal Bunnies are a powerful
 monster that  will take a few  hits to kill. Beware  their attack Moves,
 though! You may find Vorpal Bunnies near the Spiral Woods.
 
 \pagebreak
 
 \lettrine[image=true,                lines=5,               findent=3pt,
-nindent=3pt]{../Manual/Will-O-Wisp.png}{Will-O-Wisps}     are    bright,
+nindent=3pt]{../Manual/Will-O-Wisp.png}{} Will-O-Wisps are bright,
 floating sparks  that are  known to  travel in  large groups.  Once your
 Attack rating is high enough to hit them, they go down quickly, but they
 have very strong defenses!
@@ -1072,7 +1082,7 @@ have very strong defenses!
 \vspace{14pt}
 
 \lettrine[image=true,                lines=5,               findent=3pt,
-nindent=3pt]{../Manual/Cave-Bat.png}{Cave  Bats} are  sometimes seen  in
+nindent=3pt]{../Manual/Cave-Bat.png}{} Cave Bats are sometimes seen in
 the tunnels beneath  Mount Peshon. They may swoop down  from the ceiling
 and attack!
 
@@ -1085,28 +1095,28 @@ eaten by a Grue.
 \vspace{14pt}
 
 \lettrine[image=true,                lines=5,               findent=3pt,
-nindent=3pt]{../Manual/Venom-Sheep.png}{Venom Sheep}  seem like harmless
+nindent=3pt]{../Manual/Venom-Sheep.png}{} Venom Sheep seem like harmless
 fluffy creatures, until they lash out with a firey flare --- or slap you
 with a wet noodle.
 
 \vspace{14pt}
 
 \lettrine[image=true,                lines=5,               findent=3pt,
-nindent=3pt]{../Manual/Crazy-Fox.png}{Crazy Foxes} are likely to unleash
+nindent=3pt]{../Manual/Crazy-Fox.png}{} Crazy Foxes are likely to unleash
 a great deal of  pain. It's said that they were  never actually foxes to
 begin with, but were created already crazy.
 
 \ifdefined\ATARIAGESAVE\pagebreak\else\vspace{14pt}\fi
 
 \lettrine[image=true,                lines=5,               findent=3pt,
-nindent=3pt]{../Manual/Viking-Turtle.png}{Viking Turtles}  live near the
+nindent=3pt]{../Manual/Viking-Turtle.png}{} Viking Turtles live near the
 Spiral Woods. They crawl from the trees to pillage unsuspecting
 travelers, but they do move \emph{very} slowly.
 
 \vspace{14pt}
 
 \lettrine[image=true,                lines=5,               findent=3pt,
-nindent=3pt]{../Manual/Radish-Goblin.png}{Radish} Goblins  are possessed
+nindent=3pt]{../Manual/Radish-Goblin.png}{} Radish Goblins are possessed
 plants  that  pluck  themselves  from   the  ground  and  attack  unwary
 travelers.  They  are  well  known   to  be  among  the  more  dangerous
 root vegetables.
@@ -1114,14 +1124,14 @@ root vegetables.
 \vspace{14pt}
 
 \lettrine[image=true,                lines=5,               findent=3pt,
-nindent=3pt]{../Manual/Creepy-Spider.png}{Creepy   Spiders}   are   much
+nindent=3pt]{../Manual/Creepy-Spider.png}{} Creepy Spiders are much
 bigger than  the sort  where you  come from. Watch  out for  those giant
 mandibles, they hurt!
 
 \vspace{14pt}
 
 \lettrine[image=true,                lines=5,               findent=3pt,
-nindent=3pt]{../Manual/Metal-Mouse.png}{Metal   Mice}    are   extremely
+nindent=3pt]{../Manual/Metal-Mouse.png}{} Metal Mice are extremely
 durable, so it  can take a while  to chip away at their  hit points.
 
 % \section*{and many more...}
@@ -1249,9 +1259,15 @@ all progress is erased.
 
 \twocolumn[\chapter{Credits}]
 
-\textit{Grizzards}   was   created   by  Bruce-Robert   Pocock   (story,
-programming, manual text,  graphics, and sound effects)  and Zephyr Salz
-(additional graphics, printed artwork, and music).
+\subsection{Story, Programming, Graphics}
+
+Bruce-Robert Pocock
+
+\subsection{Additional Graphics and Music}
+
+Zephyr Salz
+
+\subsection{Program Code}
 
 The \textit{Grizzards} software includes the  VCS header file by Matthew
 Dillon, Olaf ``Rhialto'' Seibert, Andrew  Davie, and Peter H. Froehlich.
@@ -1263,7 +1279,11 @@ AtariVox speech  synthesis driver  is based upon  code by  Alex Herbert.
 The random number generator is by AtariAge forum user \texttt{Supercat}.
 Some math  functions are by AtariAge  forum user \texttt{Omega\-matrix}.
 Some  math functions  were taken  from the  December 1984  \textit{Apple
-  Assembly  Line}. ``Have  You Played  Atari Today''  jingle created  by
+  Assembly  Line}. 
+
+\subsection{Art}
+
+``Have  You Played  Atari Today''  jingle created  by
 Atari    Inc.     and    transcribed    by    AtariAge     Forum    user
 \texttt{tigger\-the\-hun}. Atari 7800 console detection logic written by
 Fred    Quimby    courtesy    of   Darrell    Spice,    Jr.    AtariVox+
@@ -1271,6 +1291,8 @@ Fred    Quimby    courtesy    of   Darrell    Spice,    Jr.    AtariVox+
 photograph\ifdefined\ATARIAGESAVE{}  is  \else{s}  are  \fi{}  from  the
 AtariAge store.  \ifdefined\ATARIAGESAVE The AtariAge logo  and logotype
 are the property of AtariAge. \fi
+
+\subsection{Special Thanks}
 
 Special ``save to cartridge'' circuitry designed by Fred Quimby.
 
