@@ -1313,10 +1313,19 @@ and miscellaneous users from the AtariAge forum.
 \clearpage
 \addcontentsline{toc}{chapter}{Map of Syrex}
 \thispagestyle{empty}
+
+\ifdefined\ATARIAGESAVE
+\begin{tikzpicture}[overlay, remember picture]
+  \node[anchor=north west, xshift=-4pt, yshift=4pt] 
+  at (current page.north west)
+  {\includegraphics[interpolate,width=6in,height=9in]{../Manual/SyrexMap.png}};
+\end{tikzpicture}
+\else
 \begin{tikzpicture}[overlay, remember picture]
   \node[anchor=north west, xshift=-4pt, yshift=4pt] 
   at (current page.north west)
   {\includegraphics[interpolate,width=\paperwidth,height=\paperheight]{../Manual/SyrexMap.png}};
 \end{tikzpicture}
+\fi
 
 \end{document}
