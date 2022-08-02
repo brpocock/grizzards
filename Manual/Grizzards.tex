@@ -60,6 +60,9 @@
   \tikz[baseline=(X.base)] 
   \node (X) [draw, shape=circle, inner sep=.25pt] {#1};}
 
+\newenvironment{ritemize}{\begin{itemize}\raggedright}{\end{itemize}}
+\newenvironment{rdescribe}{\begin{description}\raggedright}{\end{description}}
+
 \setlength{\columnsep}{.333333in}
 %% \setlength\columnseprule{.5pt}
 
@@ -190,7 +193,7 @@ To play \textit{Grizzards}, you will need:
 
 \vspace{12pt}
 
-\begin{itemize}
+\begin{ritemize}
 \item  An Atari  console: the  Atari  Video Computer  System CX-2600  or
   a compatible console
 \item A TV or video display
@@ -204,7 +207,7 @@ To play \textit{Grizzards}, you will need:
   \fi\fi
 \item The \textit{Grizzards} game cartridge \ifdefined\ATARIAGESAVE\else
   or a multi-cart with the \textit{Grizzards} data on it. \fi
-\end{itemize}
+\end{ritemize}
 
 \ifdefined\ATARIAGESAVE\else
 \ifdefined\NOSAVE\else
@@ -701,7 +704,7 @@ to catch. Can you catch them all?
   \includegraphics[width=\columnwidth]{../Manual/StatsScreenshotNTSC.png}
 \end{center}
 
-\begin{description}
+\begin{rdescribe}
   
 \item[\texttt{ATK.}] is  the Grizzard's  \emph{Attack} ability.  This is
   the likelihood  that your Grizzard will  hit and cause damage  when it
@@ -717,7 +720,7 @@ to catch. Can you catch them all?
 \item[\texttt{MAX}]  is   the  Grizzard's  \emph{maximum   hit  points}.
   Your Grizzard can only gain hit points up to this amount.
   
-\end{description}
+\end{rdescribe}
 
 The Attack  ability, Defend  ability, or  Maximum Hit  Points may  go up
 a bit after you defeat a party of monsters. Grizzards will advance their
@@ -733,7 +736,7 @@ displayed on the Statistics screen.
 A Move can affect its target with Status Effects. There are six possible
 Status Effects:
 
-\begin{description}
+\begin{rdescribe}
 \item[\texttt{SLEEP}] A  creature cannot  move on their turn.  There is
   a 50\% chance of waking up.
 \item[\texttt{ATK UP} / \texttt{ATK DN}] Raises or lowers the creature's
@@ -742,7 +745,7 @@ Status Effects:
   effective Defend ability.
 \item[\texttt{MUDDLE}]  A  creature will  choose  its  Moves at  random.
   There is a 50\% chance of clearing its mind.
-\end{description}
+\end{rdescribe}
 
 These status  effects last only  the duration  of one battle.  They also
 \emph{cannot} be stacked. For example: Once your attack has been raised,
@@ -756,13 +759,13 @@ earn points for some other actions you take in the game.
 
 The score earned can be increased by:
 
-\begin{itemize}
+\begin{ritemize}
 \item \ldots{}playing  in Expert  mode (by  setting the  Left Difficulty
   Switch to the ``A'' position).
 \item \ldots{}defeating the larger ``boss'' version of a monster.
 \item  \ldots{}playing the  game  in  New Game  Plus  mode after  having
   defeated the final boss.
-\end{itemize}
+\end{ritemize}
 
 The score for  defeating a monster will be increased  to $2\times$ for any
 one of these  factors, to $3\times$ for  any two of these  factors, and to
@@ -810,7 +813,7 @@ previous progress will be erased.
 
 If you want to erase your progress and start again, you must:
 
-\begin{itemize}
+\begin{ritemize}
 \item Go  to the Select Slot  screen, and press \textbf{Game  Select} or
   move  the joystick  left and  right until  you see  the slot  you want
   to erase.
@@ -822,7 +825,7 @@ If you want to erase your progress and start again, you must:
   \emph{without}  letting  go  of  the \textbf{Fire}  button,  push  the
   joystick  forward. \ifdefined\DEMO  Your  game record  will be  erased
   \emph{immediately}. \fi
-\end{itemize}
+\end{ritemize}
 
 \begin{center}
   \includegraphics[width=\columnwidth]{../Manual/EraseSlotNTSC.png}
@@ -915,7 +918,7 @@ is able to learn.
 The green Grizzard Dirtex (Num. \texttt{01}) lives in the desert. It can
 learn these Moves:
 
-\begin{itemize}
+\begin{ritemize}
 \item \texttt{KICK DIRT} --- kick dirt at the enemy, causing some damage
   to them.
 \item \texttt{BURY DEEP} --- try to bury the enemy, which may cause them
@@ -924,7 +927,7 @@ learn these Moves:
   enemy's Defend ability.
 \item \texttt{LOAMY FEAR} --- may lower the enemy's Attack ability.
 \item \texttt{DUSTY EYES} --- may lower the enemy's Defend ability.
-\end{itemize}
+\end{ritemize}
 
 When Dirtex gains enough experience, it will metamorphose into Lander.
 
@@ -940,7 +943,7 @@ When Dirtex gains enough experience, it will metamorphose into Lander.
 Aquax is a  brown Grizzard (Num. \texttt{02}) which lives  in the water.
 It can learn these Moves:
 
-\begin{itemize}
+\begin{ritemize}
 \item  \texttt{SPLISH SPLASH}  --- splash  water at  the enemy,  causing
   some damage. 
 \item \texttt{RAISE HOPE} --- may increase its own Defend ability.
@@ -949,7 +952,7 @@ It can learn these Moves:
   the enemy's Defend ability.
 \item \texttt{GREAT MOJO}  --- causes some damage and  may also decrease
   the enemy's Attack ability.
-\end{itemize}
+\end{ritemize}
 
 With enough experience, Aquax can metamorphose into Sailor.
 
@@ -964,14 +967,14 @@ With enough experience, Aquax can metamorphose into Sailor.
 Airex is  a teal Grizzard (Num.  \texttt{03}) which lives in  the trees.
 It can learn these Moves:
 
-\begin{itemize}
+\begin{ritemize}
 \item \texttt{MILD SHOCK} --- shocks  the enemy with static electricity,
   causing some damage.
 \item \texttt{WIND FIGHT} --- causes a bit more damage than \texttt{MILD SHOCK}.
 \item \texttt{STEAL ATTACK} --- may lower the enemy's Attack ability.
 \item \texttt{STEAL DEFEND} --- may lower the enemy's Defend ability.
 \item \texttt{STEAL TURN} --- may put the enemy to sleep.
-\end{itemize}
+\end{ritemize}
 
 When Airex gains enough experience, it will metamorphose into Flyer.
 
@@ -983,11 +986,11 @@ When Airex gains enough experience, it will metamorphose into Flyer.
 
 Most Grizzards can learn healing Moves as well. Some examples:
 
-\begin{itemize}
+\begin{ritemize}
 \item \texttt{FIRST AID} --- heals a small amount of health.
 \item \texttt{SIMPLE CURE} --- heals a bit larger amount of health.
 \item \texttt{COMMON CURE} --- heals even more health.
-\end{itemize}
+\end{ritemize}
 
 You can also heal your Grizzard  by visiting a Grizzard Depot, or giving
 them a Potion. To use a  potion, press the \textbf{Fire} button while on
@@ -1014,6 +1017,7 @@ different Moves and have improved statistics.
 
 A slew of monsters are arriving in Syrex, terrorizing the land.
 
+{\raggedright
 \vspace{14pt}
 
 \lettrine[image=true,                lines=5,               findent=3pt,
@@ -1031,8 +1035,8 @@ until you've learned some new Moves.
 \vspace{14pt}
 
 \lettrine[image=true,                lines=5,               findent=3pt,
-nindent=3pt]{../Manual/Sky-Mutant.png}{}Sky Mutants roam the roads north
-of Mount Peshon looking for civilians to abduct.
+nindent=3pt]{../Manual/Sky-Mutant.png}{}~Sky~Mutants~roam
+the~roads~north~of Mount Peshon looking for civilians to abduct.
 
 \vspace{14pt}
 
@@ -1135,6 +1139,7 @@ mandibles, they hurt!
 nindent=3pt]{../Manual/Metal-Mouse.png}{}Metal   Mice    are   extremely
 durable, so it can take a while to chip away at their hit points.
 
+} % \raggedright
 % \section*{and many more...}
 
 % There  are many  other monsters  roaming the  countryside across  Syrex.
