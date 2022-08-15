@@ -111,20 +111,17 @@ portable:	Dist/Grizzards.Portable.NTSC.bin
 	  echo "Patch Makefile for your $$(uname -s) OS" ; \
 	fi
 
+CMYK=-sDEVICE=pdfwrite \
+	-sProcessColorModel=DeviceCMYK \
+	-sColorConversionStrategy=CMYK \
+	-sColorConversionStrategyForImages=CMYK
+
 Dist/SyrexMap.pdf:	Manual/SyrexMap.pdf
-	gs -o $@ -sDEVICE=pdfwrite \
-		-sProcessColorModel=DeviceCMYK \
-		-sColorConversionStrategy=CMYK \
-		-sColorConversionStrategyForImages=CMYK \
-		$<
+	gs -o $@ $(CMYK) $<
 
 
 Dist/MapBack.pdf:	Manual/MapBack.pdf
-	gs -o $@ -sDEVICE=pdfwrite \
-		-sProcessColorModel=DeviceCMYK \
-		-sColorConversionStrategy=CMYK \
-		-sColorConversionStrategyForImages=CMYK \
-		$<
+	gs -o $@ $(CMYK) $<
 
 
 Dist/Grizzards.AtariAge.zip:	\
@@ -254,11 +251,7 @@ Dist/Grizzards.AA.pdf: Manual/Grizzards.tex
 	-cd Object/AA.pdf ; xelatex -interaction=batchmode "\def\ATARIAGESAVE{}\input{Grizzards}"
 	-cd Object/AA.pdf ; xelatex -interaction=batchmode "\def\ATARIAGESAVE{}\input{Grizzards}"
 	mkdir -p Dist
-	gs -o $@ -sDEVICE=pdfwrite \
-		-sProcessColorModel=DeviceCMYK \
-		-sColorConversionStrategy=CMYK \
-		-sColorConversionStrategyForImages=CMYK \
-		Object/AA.pdf/Grizzards.pdf
+	gs -o $@ $(CMYK) Object/AA.pdf/Grizzards.pdf
 
 Dist/Grizzards.Demo.pdf: Manual/Grizzards.tex
 	mkdir -p Object/Demo.pdf
@@ -505,7 +498,8 @@ release:	all
 		Dist/$(RELEASE)
 	cp -v Dist/Grizzards.Portable.NTSC.bin Dist/$(RELEASE)/Grizzards.Portable.$(RELEASE).bin
 	cp -v Dist/Grizzards.{AA.,Demo.,NoSave.,}pdf Dist/$(RELEASE)
-	cp -v Manual/SyrexMap.pdf Manual/MapBack.pdf Dist/$(RELEASE)
+	cp -v Dist/SyrexMap.pdf Dist/MapBack.pdf Dist/$(RELEASE)
+	cp -v Dist/BoxNoTemplate.pdf Dist/FrontLabel.pdf Dist/EndLabel.pdf Dist/$(RELEASE)
 	cp -v Dist/Grizzards.Manual.txt Dist/$(RELEASE)
 	@cd Dist/$(RELEASE) ; \
 	for file in Grizzards.*.{pro,a26,pdf} Grizzards.pdf; do \
@@ -515,7 +509,9 @@ release:	all
 		(cd Dist; zip --archive-comment -9 \
 		$(RELEASE)/Grizzards.AtariAge.$(RELEASE).zip \
 		$(RELEASE)/Grizzards.AA.$(RELEASE).{a26,pdf,pro} \
-		$(RELEASE)/SyrexMap.pdf $(RELEASE)/MapBack.pdf )
+		$(RELEASE)/SyrexMap.pdf $(RELEASE)/MapBack.pdf \
+		$(RELEASE)/EndLabel.pdf $(RELEASE)/FrontLabel.pdf \
+		$(RELEASE)/BoxNoTemplate.pdf )
 	@echo "Public Release $(RELEASE) of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
 		(cd Dist; zip --archive-comment -9 \
 		$(RELEASE)/Grizzards.$(RELEASE).zip \
