@@ -109,210 +109,210 @@ Div .macro denominator, temp
 
           .case 2
           ;;1 byte, 2 cycles
-          lsr
+          lsr a
 
           .case 3
           ;;18 bytes, 30 cycles
           sta \temp
-          lsr
+          lsr a
           adc #21
-          lsr
+          lsr a
           adc \temp
           ror
-          lsr
+          lsr a
           adc \temp
           ror
-          lsr
+          lsr a
           adc \temp
           ror
-          lsr
+          lsr a
 
           .case 4
           ;;2 bytes, 4 cycles
-          lsr
-          lsr
+          lsr a
+          lsr a
 
           .case 5
           ;;18 bytes, 30 cycles
           sta \temp
-          lsr
+          lsr a
           adc #13
           adc \temp
           ror
-          lsr
-          lsr
+          lsr a
+          lsr a
           adc \temp
           ror
           adc \temp
           ror
-          lsr
-          lsr
+          lsr a
+          lsr a
 
           .case 6
           ;;17 bytes, 30 cycles
-          lsr
+          lsr a
           sta \temp
-          lsr
-          lsr
+          lsr a
+          lsr a
           adc \temp
           ror
-          lsr
+          lsr a
           adc \temp
           ror
-          lsr
+          lsr a
           adc \temp
           ror
-          lsr
+          lsr a
 
           .case 7
           ;;Divide by 7 (From December '84 Apple Assembly Line)
           ;;15 bytes, 27 cycles
           sta \temp
-          lsr
-          lsr
-          lsr
+          lsr a
+          lsr a
+          lsr a
           adc \temp
           ror
-          lsr
-          lsr
+          lsr a
+          lsr a
           adc \temp
           ror
-          lsr
-          lsr
+          lsr a
+          lsr a
 
           .case 8
           ;;3 bytes, 6 cycles
-          lsr
-          lsr
-          lsr
+          lsr a
+          lsr a
+          lsr a
 
           .case 9
           ;;17 bytes, 30 cycles
           sta \temp
-          lsr
-          lsr
-          lsr
+          lsr a
+          lsr a
+          lsr a
           adc \temp
           ror
           adc \temp
           ror
           adc \temp
           ror
-          lsr
-          lsr
-          lsr
+          lsr a
+          lsr a
+          lsr a
 
           .case 10
           ;;17 bytes, 30 cycles
-          lsr
+          lsr a
           sta \temp
-          lsr
+          lsr a
           adc \temp
           ror
-          lsr
-          lsr
+          lsr a
+          lsr a
           adc \temp
           ror
           adc \temp
           ror
-          lsr
-          lsr
+          lsr a
+          lsr a
 
           .case 11
           ;;20 bytes, 35 cycles
           sta \temp
-          lsr
-          lsr
+          lsr a
+          lsr a
           adc \temp
           ror
           adc \temp
           ror
           adc \temp
           ror
-          lsr
+          lsr a
           adc \temp
           ror
-          lsr
-          lsr
-          lsr
+          lsr a
+          lsr a
+          lsr a
 
           .case 12
           ;;17 bytes, 30 cycles
-          lsr
-          lsr
+          lsr a
+          lsr a
           sta \temp
-          lsr
+          lsr a
           adc \temp
           ror
-          lsr
+          lsr a
           adc \temp
           ror
-          lsr
+          lsr a
           adc \temp
           ror
-          lsr
+          lsr a
 
           .case 13
           ;; 21 bytes, 37 cycles
           sta \temp
-          lsr
+          lsr a
           adc \temp
           ror
           adc \temp
           ror
           adc \temp
           ror
-          lsr
-          lsr
+          lsr a
+          lsr a
           clc
           adc \temp
           ror
-          lsr
-          lsr
-          lsr
+          lsr a
+          lsr a
+          lsr a
 
           .case 14
           ;;1⁄14 = 1⁄7 × 1⁄2
           ;;16 bytes, 29 cycles
           sta \temp
-          lsr
-          lsr
-          lsr
+          lsr a
+          lsr a
+          lsr a
           adc \temp
           ror
-          lsr
-          lsr
+          lsr a
+          lsr a
           adc \temp
           ror
-          lsr
-          lsr
-          lsr
+          lsr a
+          lsr a
+          lsr a
 
           .case 15
           ;;14 bytes, 24 cycles
           sta \temp
-          lsr
+          lsr a
           adc #4
-          lsr
-          lsr
-          lsr
+          lsr a
+          lsr a
+          lsr a
           adc \temp
           ror
-          lsr
-          lsr
-          lsr
+          lsr a
+          lsr a
+          lsr a
 
           .case 16
           ;;4 bytes, 8 cycles
-          lsr
-          lsr
-          lsr
-          lsr
+          lsr a
+          lsr a
+          lsr a
+          lsr a
 
           .case 17
           ;;18 bytes, 30 cycles
           sta \temp
-          lsr
+          lsr a
           adc \temp
           ror
           adc \temp
@@ -320,248 +320,248 @@ Div .macro denominator, temp
           adc \temp
           ror
           adc #0
-          lsr
-          lsr
-          lsr
-          lsr
+          lsr a
+          lsr a
+          lsr a
+          lsr a
 
           .case 18
           ;;Divide by 18 = 1⁄9 × 1⁄2
           ;;18 bytes, 32 cycles
           sta \temp
-          lsr
-          lsr
-          lsr
+          lsr a
+          lsr a
+          lsr a
           adc \temp
           ror
           adc \temp
           ror
           adc \temp
           ror
-          lsr
-          lsr
-          lsr
-          lsr
+          lsr a
+          lsr a
+          lsr a
+          lsr a
 
           .case 19
           ;;17 bytes, 30 cycles
           sta \temp
-          lsr
+          lsr a
           adc \temp
           ror
-          lsr
+          lsr a
           adc \temp
           ror
           adc \temp
           ror
-          lsr
-          lsr
-          lsr
-          lsr
+          lsr a
+          lsr a
+          lsr a
+          lsr a
 
           .case 20
           ;;18 bytes, 32 cycles
-          lsr
-          lsr
+          lsr a
+          lsr a
           sta \temp
-          lsr
+          lsr a
           adc \temp
           ror
-          lsr
-          lsr
+          lsr a
+          lsr a
           adc \temp
           ror
           adc \temp
           ror
-          lsr
-          lsr
+          lsr a
+          lsr a
 
           .case 21
           ;;20 bytes, 36 cycles
           sta \temp
-          lsr
+          lsr a
           adc \temp
           ror
-          lsr
-          lsr
-          lsr
-          lsr
+          lsr a
+          lsr a
+          lsr a
+          lsr a
           adc \temp
           ror
           adc \temp
           ror
-          lsr
-          lsr
-          lsr
-          lsr
+          lsr a
+          lsr a
+          lsr a
+          lsr a
 
           .case 22
           ;;21 bytes, 34 cycles
-          lsr
+          lsr a
           cmp #33
           adc #0
           sta \temp
-          lsr
+          lsr a
           adc \temp
           ror
           adc \temp
           ror
-          lsr
+          lsr a
           adc \temp
           ror
-          lsr
-          lsr
-          lsr
+          lsr a
+          lsr a
+          lsr a
 
           .case 23
           ;;19 bytes, 34 cycles
           sta \temp
-          lsr
-          lsr
-          lsr
+          lsr a
+          lsr a
+          lsr a
           adc \temp
           ror
           adc \temp
           ror
-          lsr
+          lsr a
           adc \temp
           ror
-          lsr
-          lsr
-          lsr
-          lsr
+          lsr a
+          lsr a
+          lsr a
+          lsr a
 
           .case 24
           ;;15 bytes, 27 cycles
-          lsr
-          lsr
-          lsr
+          lsr a
+          lsr a
+          lsr a
           sta \temp
-          lsr
-          lsr
+          lsr a
+          lsr a
           adc \temp
           ror
-          lsr
+          lsr a
           adc \temp
           ror
-          lsr
+          lsr a
 
           .case 25
           ;;16 bytes, 29 cycles
           sta \temp
-          lsr
-          lsr
-          lsr
+          lsr a
+          lsr a
+          lsr a
           adc \temp
           ror
-          lsr
+          lsr a
           adc \temp
           ror
-          lsr
-          lsr
-          lsr
-          lsr
+          lsr a
+          lsr a
+          lsr a
+          lsr a
 
           .case 26
           ;;21 bytes, 37 cycles
-          lsr
+          lsr a
           sta \temp
-          lsr
+          lsr a
           adc \temp
           ror
           adc \temp
           ror
           adc \temp
           ror
-          lsr
-          lsr
+          lsr a
+          lsr a
           adc \temp
           ror
-          lsr
-          lsr
-          lsr
+          lsr a
+          lsr a
+          lsr a
 
           .case 27
           ;;15 bytes, 27 cycles
           sta \temp
-          lsr
+          lsr a
           adc \temp
           ror
-          lsr
-          lsr
+          lsr a
+          lsr a
           adc \temp
           ror
-          lsr
-          lsr
-          lsr
-          lsr
+          lsr a
+          lsr a
+          lsr a
+          lsr a
 
           .case 28
           ;;14 bytes, 24 cycles
-          lsr
-          lsr
+          lsr a
+          lsr a
           sta \temp
-          lsr
+          lsr a
           adc #2
-          lsr
-          lsr
+          lsr a
+          lsr a
           adc \temp
           ror
-          lsr
-          lsr
+          lsr a
+          lsr a
 
           .case 29
           ;;20 bytes, 36 cycles
           sta \temp
-          lsr
-          lsr
+          lsr a
+          lsr a
           adc \temp
           ror
           adc \temp
           ror
           .rept 3
-          lsr
+          lsr a
           .next
           adc \temp
           ror
           .rept 4
-          lsr
+          lsr a
           .next
 
           .case 30
           ;;14 bytes, 26 cycles
           sta \temp
           .rept 4
-          lsr
+          lsr a
           .next
           sec
           adc \temp
           ror
           .rept 4
-          lsr
+          lsr a
           .next
 
           .case 31
           ;;14 bytes, 26 cycles
           sta \temp
-          lsr
-          lsr
-          lsr
-          lsr
-          lsr
+          lsr a
+          lsr a
+          lsr a
+          lsr a
+          lsr a
           adc \temp
           ror
-          lsr
-          lsr
-          lsr
-          lsr
+          lsr a
+          lsr a
+          lsr a
+          lsr a
 
           .case 32
-          lsr
-          lsr
-          lsr
-          lsr
-          lsr
+          lsr a
+          lsr a
+          lsr a
+          lsr a
+          lsr a
 
           .default
           .error "no optimized code to divide by ", \denominator
