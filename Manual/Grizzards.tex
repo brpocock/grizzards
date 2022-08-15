@@ -17,7 +17,7 @@
 
 \setlrmarginsandblock{.4in}{.5in}{*}
 \setulmarginsandblock{.6667in}{.6667in}{*}
-\setheadfoot{.5in}{.5in}
+\setheadfoot{.45in}{.45in}
 \widowpenalty=10000
 \clubpenalty=10000
 \raggedbottom
@@ -29,7 +29,7 @@
 \makeoddfoot{plain}{}{}{\thepage}
 
 \usepackage[utf8]{inputenc}
-\usepackage[en]{babel}
+\usepackage{babel}
 \usepackage{stfloats}
 \usepackage{microtype}
 \usepackage{graphicx}
@@ -52,13 +52,14 @@
 \usepackage{caption}
 \captionsetup{labelformat=empty}
 \usepackage{fontspec}
+\setmainfont{Bitstream Charter}
 \setmonofont{Source Code Pro}
 
 \usepackage{tikz}
 
 \newcommand\encircle[1]{%
-  \tikz[baseline=(0,0)]
-  \draw (0,0) circle [radius=5.25pt] node {{\tiny\textbf{#1}}};}
+  \tikz[baseline=(0,3pt)]
+  \draw (0,0) circle [radius=5.25pt] node {{\footnotesize\textbf{#1}}};}
 
 \newenvironment{ritemize}{\begin{itemize}\raggedright}{\end{itemize}}
 \newenvironment{rdescribe}{\begin{description}\raggedright}{\end{description}}
@@ -128,32 +129,33 @@ monsters. Monsters may  surprise you as you travel, or  you may see them
 coming. When faced  with terrifying beasts, you'll  direct your Grizzard
 to use its Moves to defend you and attack the monsters.
 
-\picaskip\vfill
+\vfill
+\noindent\rule{\pagewidth}{0.4pt}
+\picaskip
 
-This    is    the     \textit{Grizzards}    \ifdefined\NOSAVE    No-Save
-\fi\ifdefined\DEMO Demo \fi\ifdefined\ATARIAGESAVE Official \else Public
-Release \fi Player's Guide.
+{ \footnotesize This is the \textit{Grizzards} \ifdefined\NOSAVE No-Save
+  \fi\ifdefined\DEMO  Demo   \fi\ifdefined\ATARIAGESAVE  Official  \else
+  Public Release \fi Player's Guide. }
 
 \picaskip
 
-{\small 
-The  \textit{Grizzards} videogame  software,  including its  audiovisual
-components   and  this   manual,   are   copyright  \copyright{}   2022,
-Bruce-Robert  Pocock.   All  Rights  are  Reserved   except  as  granted
-under license. }
+{ \footnotesize The \textit{Grizzards} videogame software, including its
+  audiovisual  components and  this manual,  are copyright  \copyright{}
+  2022, Bruce-Robert Pocock.  All Rights are Reserved  except as granted
+  under license. }
 
-\bigskip
+\picaskip
 
-{\small For Atari Video Computer System CX-2600 (or compatible)
-\ifdefined\ATARIAGESAVE   with    optional   AtariVox    device.   \else
-\ifdefined\NOSAVE  without  \else  with  \fi AtariVox  (or  MemCard,  or
-SaveKey)  device.  \fi Screenshots  represent  the  NTSC version;  other
-versions have distinct coloring. }
+{ \footnotesize For Atari Video  Computer System CX-2600 (or compatible)
+  \ifdefined\ATARIAGESAVE   with   optional   AtariVox   device.   \else
+  \ifdefined\NOSAVE  without \else  with  \fi AtariVox  (or MemCard,  or
+  SaveKey)  device. \fi  Screenshots represent  the NTSC  version; other
+  versions have distinct coloring. }
 
-\bigskip
+\picaskip
 
-{\small This videogame software was not created, published, or licensed by Atari
-or its successors. }
+{ \footnotesize This  videogame software was not  created, published, or
+  licensed by Atari or its successors. }
 
 \picaskip
 
@@ -182,11 +184,9 @@ requires a license.
 
 \fi
 
-\bigskip
+\picaskip]
 
-]
-
-\includegraphics[width=2in]{../Manual/AtariVoxEnhanced.eps}
+\includegraphics[width=1.5in]{../Manual/AtariVoxEnhanced.eps}
 
 \let\cleardoublepage\clearpage
 
@@ -284,7 +284,7 @@ console, or the gamepad will not work on the Harmony menu. \fi
 
 \ifdefined\ATARIAGESAVE
 \vfill
-\includegraphics[width=.7\columnwidth]{../Manual/AtariVox.jpeg}
+\includegraphics[width=.6667\columnwidth]{../Manual/AtariVox.jpeg}
 \fi
 
 \pagebreak
@@ -380,10 +380,11 @@ right to  choose a  memory slot\ifdefined\ATARIAGESAVE\else\footnote{The
   by the \textit{Grizzards}  game program. Each save  game slot actually
   occupies  4  blocks  on  your  memory  device.}\fi{}  for  your  game.
 There  are \ifdefined\ATARIAGESAVE  eight \else  three \fi  memory slots
-available. If  someone has  already begun  to play  \textit{Grizzards} in
-a certain  slot, your  screen will  show \texttt{RESUME},  and their
-name  will   appear  as   well.  If   a  slot   is  empty,   you'll  see
-\texttt{BEGIN} instead.
+available.
+
+If someone  has already  begun to play  \textit{Grizzards} in  a certain
+slot, your screen will show  \texttt{RESUME}, and their name will appear
+as well. If a slot is empty, you'll see \texttt{BEGIN} instead.
 
 If someone has already \emph{won} the  game once, their name will appear
 in bright yellow. See ``New Game Plus,'' page~\pageref{sec:NewGamePlus}.
@@ -472,7 +473,7 @@ using the joystick.
 \end{center}
 
 Refer to \ifdefined\ATARIAGESAVE  the included map \else the  map on the
-last page  \fi of  this manual  to learn about  the geography  of Syrex.
+last page  of this  manual \fi  to learn about  the geography  of Syrex.
 Characters in the game will also give you advice.
 
 You can check your inventory of potions,  and choose to give one to your
@@ -494,7 +495,7 @@ the map; you'll discover them in your travels.
 
 \lettrine[image=true,                lines=4,               findent=3pt,
 nindent=3pt]{../Manual/DepotNTSC.png}{}\noindent{}Grizzard~Depots~are
-safe spaces. Your Grizzards will be healed\ifdefined\NOSAVE{}.{}\else{},
+safe~spaces.~Your Grizzards will be healed\ifdefined\NOSAVE{}.{}\else{},
 and your  progress will  be saved  \ifdefined\ATARIAGESAVE to  your game
 cartridge. \else  to your memory device.  \fi You can also  switch which
 Grizzard    is     your    current     companion.    \fi     See    page
@@ -523,16 +524,16 @@ and experience.
 \englishskip
 
 \lettrine[image=true,                lines=4,               findent=3pt,
-nindent=3pt]{../Manual/DoorNTSC.png}{}\noindent{}Doors~can~lead  you  to
-other places in the world. \\
+nindent=3pt]{../Manual/DoorNTSC.png}{}\noindent{}Doors~can~lead~ you
+to~other~places~in the world. \\
 
 \englishskip
 
 \lettrine[image=true,                lines=4,               findent=3pt,
 nindent=3pt]{../Manual/SignpostNTSC.png}{}\noindent{}Signposts~provide
-information   to  help   you  progress.   You  should   also  refer   to
-\ifdefined\ATARIAGESAVE the included map \else  the map on the last page
-\fi{} of this manual.
+information~to~help   you   progress.   You   should   also   refer   to
+\ifdefined\ATARIAGESAVE the included map. \else the map on the last page
+of this manual. \fi
 
 \englishskip
 
@@ -556,31 +557,6 @@ You must leave  your memory device connected at all  times while playing
 the game. Sometimes, the game may auto-save some of your progress.
 
 \fi \fi
-
-\begin{figure*}[t]
-  \begin{center}
-    \includegraphics[width=1.6667\columnwidth]{../Manual/GrizzardDepot.png}
-  \end{center}
-\end{figure*}
-
-\section{Grizzard Depots}\label{sec:GrizzardDepot}
-
-To  \ifdefined\NOSAVE\else swap  or  \fi heal  your Grizzard  companion,
-you'll need to visit a Grizzard Depot.
-
-\begin{center}
-  \includegraphics[width=.75\columnwidth]{../Manual/DepotScreenshotNTSC.png}
-\end{center}
-
-\ifdefined\NOSAVE\else Your progress will \emph{immediately} be saved to
-your \ifdefined\ATARIAGESAVE  game cartridge,  \else memory  device, \fi
-\fi   and    your   Grizzard    companion   will   be    fully   healed.
-\ifdefined\NOSAVE\else  Push the  joystick  forward and  back to  choose
-a different Grizzard to travel with you. \fi
-
-To  view  your Grizzard's  statistics,  press  the \textbf{Game  Select}
-switch or move  the joystick left or right. When  you're ready to return
-to your adventure, press the \textbf{Fire} button.
 
 \section{Conversations}
 
@@ -608,6 +584,30 @@ When you've made your selection, press the \textbf{Fire} button to continue.
 %% \ifdefined\ATARIAGESAVE
 %% \pagebreak
 %% \fi
+\begin{figure*}[t]
+  \begin{center}
+    \includegraphics[width=1.6667\columnwidth]{../Manual/GrizzardDepot.png}
+  \end{center}
+\end{figure*}
+
+\section{Grizzard Depots}\label{sec:GrizzardDepot}
+
+To  \ifdefined\NOSAVE\else swap  or  \fi heal  your Grizzard  companion,
+you'll need to visit a Grizzard Depot.
+
+\begin{center}
+  \includegraphics[width=.75\columnwidth]{../Manual/DepotScreenshotNTSC.png}
+\end{center}
+
+\ifdefined\NOSAVE\else Your progress will \emph{immediately} be saved to
+your \ifdefined\ATARIAGESAVE  game cartridge,  \else memory  device, \fi
+\fi   and    your   Grizzard    companion   will   be    fully   healed.
+\ifdefined\NOSAVE\else  Push the  joystick  forward and  back to  choose
+a different Grizzard to travel with you. \fi
+
+To  view  your Grizzard's  statistics,  press  the \textbf{Game  Select}
+switch or move  the joystick left or right. When  you're ready to return
+to your adventure, press the \textbf{Fire} button.
 
 \section{Battling Monsters}
 
@@ -653,12 +653,6 @@ When   you   have   chosen   a    Move   and   a   target,   press   the
 
 
 \subsection{Performing a Move}
-
-\begin{figure*}[b]
-  \begin{center}
-    \includegraphics[width=2\columnwidth,height=\columnwidth]{../Manual/GrizzardCombat.png}
-  \end{center}
-\end{figure*}
 
 After a Move has been performed,  the creature targeted by that move may
 be injured  (lose hit points)  and/or have a  Status Effect\footnote{See
@@ -798,6 +792,7 @@ You'll gain both  of the starting Grizzards that you  had not chosen the
 first time, as well as all  your trained Grizzards. Monsters will become
 more difficult — but also yield more points when defeated.
 
+\ifdefined\ATARIAGESAVE\pagebreak\fi
 \section{Game Over}
 
 If  you fail  in  your mission,  your  game is  over.  However, you  can
@@ -888,7 +883,7 @@ will immediately become available to resume.
 It is \emph{not possible} to recover  a saved game's progress once a new
 game has been started in the same memory slot. If you accidentally start
 a new  game, but have  not confirmed your  name yet, \emph{turn  off the
-  power briefly}, then try the recovery steps above.
+  power briefly}, then try the preceding recovery steps..
 
 \fi
 
@@ -1017,7 +1012,7 @@ facing will be healed immediately.
 
 Certain  monsters  are too  terrifying  to  escape. When  you  encounter
 a ``boss'' monster like this, it will  be a duel to the death. Watch out
-for their unique shape on the map.
+for their unique shape on the map screen.
 
 \section{Metamorphosis}
 
@@ -1280,17 +1275,17 @@ all progress is erased.
 
 \twocolumn[\chapter{Credits}]
 
-\subsection{Story, Programming, Graphics}
+\subsection{\small Story, Programming, Graphics}
 
-Bruce-Robert Pocock
+{ \small Bruce-Robert Pocock }
 
-\subsection{Music, Additional Art}
+\subsection{\small Music, Additional Art}
 
-Zephyr Salz
+{ \small Zephyr Salz }
 
-\subsection{Program Code}
+\subsection{\small Program Code}
 
-{ \small The \textit{Grizzards} software includes the VCS header file by
+{ \footnotesize The \textit{Grizzards} software includes the VCS header file by
   Matthew Dillon, Olaf  ``Rhialto'' Seibert, Andrew Davie,  and Peter H.
   Froehlich. Binary to decimal translation  is based upon code by Andrew
   Jacobs, based upon code by Garth  Wilson. ``Six Digit Score'' 48 pixel
@@ -1304,50 +1299,46 @@ Zephyr Salz
   detection  logic written  by Fred  Quimby courtesy  of Darrell  Spice,
   Jr. }
 
-\subsection{Art}
+\subsection{\small Art}
 
-{ \small  ``Have You Played Atari  Today'' jingle created by  Atari Inc.
+{ \footnotesize  ``Have You Played Atari  Today'' jingle created by  Atari Inc.
   and  transcribed  by  AtariAge Forum  user  \texttt{tigger\-the\-hun}.
   AtariVox+     \ifdefined\ATARIAGESAVE\else    and     SaveKey    \fi{}
   photograph\ifdefined\ATARIAGESAVE{}  is  \else{s}  are  \fi  from  the
   AtariAge store. \ifdefined\ATARIAGESAVE The AtariAge logo and logotype
   are the property of AtariAge. \fi }
 
-\subsection{Special Thanks}
+\subsection{\small Special Thanks}
 
-{ \small
+{  \footnotesize  Special  ``save  to cartridge''  circuitry  designed  by
+  Fred Quimby. }
 
-  Special ``save to cartridge'' circuitry designed by Fred Quimby.
+{ \footnotesize Thanks to SmittyB for helping get the gamepad support working on the
+  Atari 7800. }
 
-  Thanks to SmittyB  for helping get the gamepad support  working on the
-  Atari 7800.
+{ \footnotesize Thanks to Albert Yarusso for publication support. }
 
-  Thanks to Albert Yarusso for publication support.
-
-  Special thanks to everyone in  the Stella and AtariAge communities for
+{ \footnotesize Special thanks to everyone in the Stella and AtariAge communities for
   making this game possible. }
 
-\subsection{Testers}
+\subsection{\small Testers}
 
-{ \small  Philip Clark,  James Earl O'Brien,  Tanya O'Brien,  Darcy Troy
-  Paulin,  \texttt{Mika},  \texttt{vitoco},  David  Bowen,  \texttt{Fort
-    Apocalypse}, and miscellaneous users from the AtariAge forum. }
+{ \footnotesize  Philip Clark, Dany  Santana, James Earl  O'Brien, Tanya
+  O'Brien,  Darcy  Troy  Paulin, \texttt{Mika},  \texttt{vitoco},  David
+  Bowen,  \texttt{Fort Apocalypse},  and  miscellaneous  users from  the
+  AtariAge forum. }
 
 \vfill
 
-\ifdefined\ATARIAGESAVE\else
-\begin{center}
+ \begin{center}
   \ifdefined\ATARIAGESAVE
   \includegraphics[width=.6667\columnwidth]{../Manual/AtariAgeHorizontalColor.eps}
+
   \englishskip
+
   \fi
   \includegraphics[width=.333\columnwidth]{../Manual/BRP.png}
 \end{center}
-\fi
-
-\clearpage
-\addcontentsline{toc}{chapter}{Map of Syrex}
-\thispagestyle{empty}
 
 \ifdefined\ATARIAGESAVE
 % \begin{tikzpicture}[overlay, remember picture]
@@ -1356,6 +1347,11 @@ Zephyr Salz
 %   {\includegraphics[width=5in,height=7in]{../Manual/SyrexMap.eps}};
 % \end{tikzpicture}
 \else
+
+\clearpage
+\addcontentsline{toc}{chapter}{Map of Syrex}
+\thispagestyle{empty}
+
 \begin{tikzpicture}[overlay, remember picture]
   \node[anchor=north west, xshift=-4pt, yshift=4pt] 
   at (current page.north west)
