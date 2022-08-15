@@ -15,7 +15,7 @@
 \settrimmedsize{\stockheight}{\dimexpr 8.5in-15mm}{*}
 \fi
 
-\setlrmarginsandblock{.2in}{.333333in}{*}
+\setlrmarginsandblock{.4in}{.5in}{*}
 \setulmarginsandblock{.6667in}{.6667in}{*}
 \setheadfoot{.5in}{.5in}
 \widowpenalty=10000
@@ -194,7 +194,7 @@ requires a license.
 
 \tableofcontents
 
-\chapter{Setting Up}\label{Setting Up}
+\twocolumn[\chapter{Setting Up}\label{Setting Up}]
 
 \noindent{}To play \textit{Grizzards}, you will need:
 
@@ -251,13 +251,13 @@ Finally, insert  the \textit{Grizzards}  game cartridge (with  the label
 facing  up)  into  the  cartridge  slot,  and  turn  the  \textbf{Power}
 \textbf{on}.
 
-%% \ifdefined\ATARIAGESAVE
-%% \vfill
-%% \fi
+% \ifdefined\ATARIAGESAVE
+% \vfill
+% \fi
 
-%% \includegraphics[width=\columnwidth]{../Manual/Atari-2600-Wood-4Sw-Set.png}
+\includegraphics[width=.8\columnwidth]{../Manual/Atari-2600-Wood-4Sw-Set.png}
 
-%% \pagebreak
+\pagebreak
 
 \section{Using a Gamepad}\label{sec:Gamepad}
 
@@ -282,13 +282,13 @@ If using a \ifdefined\DEMO Harmony or \fi Harmony Encore cartridge, hold
 down  the \encircle{B}  or \encircle{I}  button when  you power  on your
 console, or the gamepad will not work on the Harmony menu. \fi
 
-%% \ifdefined\ATARIAGESAVE
-%% \vfill
-%% \includegraphics[width=\columnwidth]{../Manual/AtariVox.jpeg}
-%% \fi
+\ifdefined\ATARIAGESAVE
+\vfill
+\includegraphics[width=.7\columnwidth]{../Manual/AtariVox.jpeg}
+\fi
 
-%% \pagebreak
-\chapter{How To Play}
+\pagebreak
+\twocolumn[\chapter{How To Play}]
 
 \section{Console Controls}
 
@@ -471,8 +471,8 @@ using the joystick.
   \includegraphics[width=.75\columnwidth]{../Manual/MapNTSC.png}
 \end{center}
 
-Refer to  the map on  the \ifdefined\ATARIAGESAVE back cover  \else last
-page  \fi of  this  manual  to learn  about  the  geography of  Syrex.
+Refer to \ifdefined\ATARIAGESAVE  the included map \else the  map on the
+last page  \fi of  this manual  to learn about  the geography  of Syrex.
 Characters in the game will also give you advice.
 
 You can check your inventory of potions,  and choose to give one to your
@@ -483,17 +483,17 @@ To interact with something on the Map screen, just walk into it.
 
 \englishskip
 
-\lettrine[image=true,                lines=3,               findent=3pt,
+\lettrine[image=true,                lines=4,               findent=3pt,
 nindent=3pt]{../Manual/MonsterNTSC.png}{}\noindent{}A     monster,    or
 a group of monsters, may sneak up  on you and attack! Other times you'll
 see them waiting for you and can  avoid battle --- or approach them when
 you're ready to face them. Particularly giant monsters look different on
 the map; you'll discover them in your travels.
 
-\englishskip
+\ifdefined\ATARIAGESAVE \pagebreak \else \englishskip \fi
 
-\lettrine[image=true,                lines=3,               findent=3pt,
-nindent=3pt]{../Manual/DepotNTSC.png}{}\noindent{}Grizzard~Depots    are
+\lettrine[image=true,                lines=4,               findent=3pt,
+nindent=3pt]{../Manual/DepotNTSC.png}{}\noindent{}Grizzard~Depots~are
 safe spaces. Your Grizzards will be healed\ifdefined\NOSAVE{}.{}\else{},
 and your  progress will  be saved  \ifdefined\ATARIAGESAVE to  your game
 cartridge. \else  to your memory device.  \fi You can also  switch which
@@ -504,14 +504,14 @@ Grizzard    is     your    current     companion.    \fi     See    page
 
 \ifdefined\NOSAVE
 
-\lettrine[image=true,                lines=3,               findent=3pt,
+\lettrine[image=true,                lines=4,               findent=3pt,
 nindent=3pt]{../Manual/WildGrizzardNTSC.png}{}\noindent{}Wild  Grizzards
 roam  the land  sometimes.  In  this no-save  demo,  you  will have  one
 Grizzard companion at a time, beginning with Aquax.
 
 \else
 
-\lettrine[image=true,                lines=3,               findent=3pt,
+\lettrine[image=true,                lines=4,               findent=3pt,
 nindent=3pt]{../Manual/WildGrizzardNTSC.png}{}\noindent{}Wild  Grizzards
 roam the  land sometimes. You  can catch  them when you  encounter them.
 At  a   Grizzard  Depot,  you   can  change  your   Grizzard  companion.
@@ -522,21 +522,21 @@ and experience.
 
 \englishskip
 
-\lettrine[image=true,                lines=3,               findent=3pt,
+\lettrine[image=true,                lines=4,               findent=3pt,
 nindent=3pt]{../Manual/DoorNTSC.png}{}\noindent{}Doors~can~lead  you  to
-other places in the world.
+other places in the world. \\
 
 \englishskip
 
-\lettrine[image=true,                lines=3,               findent=3pt,
-nindent=3pt]{../Manual/SignpostNTSC.png}{}\noindent{}Signposts   provide
-information to  help you progress. You  should also refer to  the map on
-the  \ifdefined\ATARIAGESAVE  back  cover   \else  last  page  \fi{}  of
-this manual.
+\lettrine[image=true,                lines=4,               findent=3pt,
+nindent=3pt]{../Manual/SignpostNTSC.png}{}\noindent{}Signposts~provide
+information   to  help   you  progress.   You  should   also  refer   to
+\ifdefined\ATARIAGESAVE the included map \else  the map on the last page
+\fi{} of this manual.
 
 \englishskip
 
-\lettrine[image=true,                lines=3,               findent=3pt,
+\lettrine[image=true,                lines=4,               findent=3pt,
 nindent=3pt]{../Manual/PersonNTSC.png}{}\noindent{}People  will converse
 with  you  and  can help  you  out.  Some  people  will respond  to  you
 differently based on what has come before, so you may want to visit them
@@ -611,11 +611,11 @@ When you've made your selection, press the \textbf{Fire} button to continue.
 
 \section{Battling Monsters}
 
-\begin{figure*}[t]
-  \begin{center}
-    \includegraphics[width=2\columnwidth]{../Manual/CombatControls.eps}
-  \end{center}
-\end{figure*}
+% \begin{figure*}[t]
+%   \begin{center}
+%     \includegraphics[width=2\columnwidth]{../Manual/CombatControls.eps}
+%   \end{center}
+% \end{figure*}
 
 Monsters have  begun to plague the  world of Syrex. If  you're caught by
 monsters,  your Grizzard  companion  must defend  you.  You'll see  this
@@ -894,7 +894,7 @@ a new  game, but have  not confirmed your  name yet, \emph{turn  off the
 
 \fi % not-nosave
 
-\chapter{Grizzards and Moves}\label{ch:Grizzards}
+\twocolumn[\chapter{Grizzards and Moves}\label{ch:Grizzards}]
 
 There are  30 Grizzards in  the game world,  each with their  own unique
 starting attributes and  sets of Moves. \ifdefined\NOSAVE  In this demo,
@@ -913,7 +913,7 @@ is able to learn.
 
 \ifdefined\DEMO\else
 
-%% \pagebreak
+\pagebreak
 
 \section{Dirtex}
 
@@ -941,6 +941,8 @@ When Dirtex gains enough experience, it will metamorphose into Lander.
 
 \fi
 
+\pagebreak
+
 \section{Aquax}
 
 \begin{center}
@@ -965,6 +967,8 @@ the water. It can learn these Moves:
 With enough experience, Aquax can metamorphose into Sailor.
 
 \ifdefined\DEMO\else
+
+\pagebreak
 
 \section{Airex}
 
@@ -1021,48 +1025,48 @@ Many  Grizzards can  meta-morphose into  a  new form  when they  have
 gained a certain  amount of experience. The new Grizzard  may be able to
 learn different Moves and have improved statistics.
 
-\chapter{Monsters}
+\twocolumn[\chapter{Monsters}]
 
 A slew of monsters are arriving in Syrex, terrorizing the land.
 
 {%%\raggedright
 \englishskip
 
-\lettrine[image=true,                lines=3,               findent=3pt,
+\lettrine[image=true,                lines=4,               findent=3pt,
 nindent=3pt]{../Manual/Wicked-Slime.png}{}\noindent{}Wicked  Slimes  are
 weak slime  monsters that  your Grizzard  can kill  fairly easily  … but
 beware when they travel in large packs.
 
 \englishskip
 
-\lettrine[image=true,                lines=3,               findent=3pt,
+\lettrine[image=true,                lines=4,               findent=3pt,
 nindent=3pt]{../Manual/Horrid-Slime.png}{}\noindent{}Horrid  Slimes  are
 more dangerous  than a  Wicked Slime.  A Horrid  Slime may  survive your
 attacks until you've learned some new Moves.
 
 \englishskip
 
-\lettrine[image=true,                lines=3,               findent=3pt,
+\lettrine[image=true,                lines=4,               findent=3pt,
 nindent=3pt]{../Manual/Sky-Mutant.png}{}\noindent{}~Sky~Mutants~roam
 the~roads~north~of Mount~Peshon~looking for~civilians~to abduct.
 
 \englishskip
 
-\lettrine[image=true,                lines=3,               findent=3pt,
+\lettrine[image=true,                lines=4,               findent=3pt,
 nindent=3pt]{../Manual/Round-Robin.png}{}\noindent{}Round   Robins   are
 colorful giant birds  who live in the area of  Mount Peshon. Their beaks
 and claws are dangerous.
 
 \englishskip
 
-\lettrine[image=true,                lines=3,               findent=3pt,
+\lettrine[image=true,                lines=4,               findent=3pt,
 nindent=3pt]{../Manual/R.O.U.S..png}{}\noindent{}Rodents of Unusual Size
 are one of the  dangers of the Fire Bog (but I  don't think they exist).
 They're known to attack pirates and princesses alike.
 
 \englishskip
 
-\lettrine[image=true,                lines=3,               findent=3pt,
+\lettrine[image=true,                lines=4,               findent=3pt,
 nindent=3pt]{../Manual/Flame-Doggo.png}{}\noindent{}Flame   Doggos   are
 a danger of the  Fire Bogs. These beasts often roam  in packs, and their
 fur is on fire.  Avoid the Fire Bogs until you have  begun to train your
@@ -1070,7 +1074,7 @@ Grizzard to have a higher Attack ability.
 
 \englishskip
 
-\lettrine[image=true,                lines=3,               findent=3pt,
+\lettrine[image=true,                lines=4,               findent=3pt,
 nindent=3pt]{../Manual/Fire-Panda.png}{}\noindent{}Fire Pandas are a bit
 like  red  pandas,  or  firefoxes,  and  quite  a  bit  more  dangerous.
 Unlike a firefox,  these beasts actually dish out  fire-based attacks on
@@ -1078,14 +1082,14 @@ their victims.
 
 \englishskip
 
-\lettrine[image=true,                lines=3,               findent=3pt,
+\lettrine[image=true,                lines=4,               findent=3pt,
 nindent=3pt]{../Manual/Vorpal-Bunny.png}{}\noindent{}Vorpal  Bunnies are
 a  powerful monster  that will  take a  few hits  to kill.  Beware their
 attack Moves, though! You may find Vorpal Bunnies in the Spiral Woods.
 
 \englishskip
 
-\lettrine[image=true,                lines=3,               findent=3pt,
+\lettrine[image=true,                lines=4,               findent=3pt,
 nindent=3pt]{../Manual/Will-O-Wisp.png}{}\noindent{}Will-O-Wisps     are
 bright,  floating sparks  that  are  known to  travel  in large  groups.
 Once  your Attack  ability is  high  enough to  hit them,  they go  down
@@ -1093,14 +1097,14 @@ quickly, but they have very strong defenses!
 
 \englishskip
 
-\lettrine[image=true,                lines=3,               findent=3pt,
+\lettrine[image=true,                lines=4,               findent=3pt,
 nindent=3pt]{../Manual/Cave-Bat.png}{}\noindent{}Cave Bats are sometimes
 seen~in~the tunnels beneath  Mount Peshon. They may swoop  down from the
 ceiling and attack!
 
 \englishskip
 
-\lettrine[image=true,                lines=3,               findent=3pt,
+\lettrine[image=true,                lines=4,               findent=3pt,
 nindent=3pt]{../Manual/QuestionMark.png}{}\noindent{}A~Grue~is~a
 sinister, lurking presence in the dark places of the earth. Its favorite
 diet is adventurers, but its insatiable appetite is tempered by its fear
@@ -1110,28 +1114,28 @@ are likely to be eaten by a Grue.
 
 \englishskip
 
-\lettrine[image=true,                lines=3,               findent=3pt,
+\lettrine[image=true,                lines=4,               findent=3pt,
 nindent=3pt]{../Manual/Venom-Sheep.png}{}\noindent{}Venom   Sheep   seem
 like  harmless  fluffy creatures,  until  they  lash  out with  a  firey
 flare --- or slap you with a wet noodle.
 
 \englishskip
 
-\lettrine[image=true,                lines=3,               findent=3pt,
+\lettrine[image=true,                lines=4,               findent=3pt,
 nindent=3pt]{../Manual/Crazy-Fox.png}{}\noindent{}Crazy Foxes are likely
 to unleash a great deal of pain. It's said that they were never actually
 foxes to begin with, but were created already crazy.
 
 \englishskip
 
-\lettrine[image=true,                lines=3,               findent=3pt,
+\lettrine[image=true,                lines=4,               findent=3pt,
 nindent=3pt]{../Manual/Viking-Turtle.png}{}\noindent{}Viking     Turtles
 live  near the  Spiral  Woods.  They crawl  from  the  trees to  pillage
 unsuspecting travelers, but they do move \emph{very} slowly.
 
 \englishskip
 
-\lettrine[image=true,                lines=3,               findent=3pt,
+\lettrine[image=true,                lines=4,               findent=3pt,
 nindent=3pt]{../Manual/Radish-Goblin.png}{}\noindent{}Radish Goblins are
 possessed plants that pluck themselves from the ground and attack unwary
 travelers.  They  are  well  known   to  be  among  the  more  dangerous
@@ -1139,14 +1143,14 @@ root vegetables.
 
 \englishskip
 
-\lettrine[image=true,                lines=3,               findent=3pt,
+\lettrine[image=true,                lines=4,               findent=3pt,
 nindent=3pt]{../Manual/Creepy-Spider.png}{}\noindent{}Creepy Spiders are
 much bigger than the sort where you come from. Watch out for those giant
 mandibles, they hurt!
 
 \englishskip
 
-\lettrine[image=true,                lines=3,               findent=3pt,
+\lettrine[image=true,                lines=4,               findent=3pt,
 nindent=3pt]{../Manual/Metal-Mouse.png}{}\noindent{}Metal~Mice~are
 extremely~durable,  so  it can  take  a  while  to  chip away  at  their
 hit points.
@@ -1274,7 +1278,7 @@ all progress is erased.
 
 %% \pagebreak
 
-\chapter{Credits}
+\twocolumn[\chapter{Credits}]
 
 \subsection{Story, Programming, Graphics}
 
@@ -1344,11 +1348,11 @@ Zephyr Salz
 \thispagestyle{empty}
 
 \ifdefined\ATARIAGESAVE
-\begin{tikzpicture}[overlay, remember picture]
-  \node[anchor=north west, xshift=-4pt, yshift=4pt] 
-  at (current page.north west)
-  {\includegraphics[width=5in,height=7in]{../Manual/SyrexMap.eps}};
-\end{tikzpicture}
+% \begin{tikzpicture}[overlay, remember picture]
+%   \node[anchor=north west, xshift=-4pt, yshift=4pt] 
+%   at (current page.north west)
+%   {\includegraphics[width=5in,height=7in]{../Manual/SyrexMap.eps}};
+% \end{tikzpicture}
 \else
 \begin{tikzpicture}[overlay, remember picture]
   \node[anchor=north west, xshift=-4pt, yshift=4pt] 
