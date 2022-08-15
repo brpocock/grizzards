@@ -650,6 +650,12 @@ select a target. Some Moves instead affect your Grizzard itself.
 When   you   have   chosen   a    Move   and   a   target,   press   the
 \textbf{Fire} button.
 
+\begin{figure*}[b]
+  \begin{center}
+    \includegraphics[width=2\columnwidth,height=\columnwidth]{../Manual/GrizzardCombat.png}
+  \end{center}
+\end{figure*}
+
 
 \subsection{Performing a Move}
 
@@ -791,7 +797,7 @@ You'll gain both  of the starting Grizzards that you  had not chosen the
 first time, as well as all  your trained Grizzards. Monsters will become
 more difficult — but also yield more points when defeated.
 
-\ifdefined\ATARIAGESAVE\pagebreak\fi
+
 \section{Game Over}
 
 If  you fail  in  your mission,  your  game is  over.  However, you  can
@@ -888,6 +894,8 @@ a new  game, but have  not confirmed your  name yet, \emph{turn  off the
 
 \fi % not-nosave
 
+\ifdefined\ATARIAGESAVE\pagebreak\fi
+
 \chapter{Grizzards and Moves}\label{ch:Grizzards}
 
 There are  30 Grizzards in  the game world,  each with their  own unique
@@ -897,6 +905,13 @@ available  with  a memory  device  or  the  retail cartridge.  \fi  Each
 Grizzard is able to learn eight different Moves, in addition to the move
 \texttt{RUN AWAY}. It's up to you  to discover which Moves each Grizzard
 is able to learn.
+
+\section{Metamorphosis}
+
+Many Grizzards  can metamorphose into a  new form when they  have gained
+a certain  amount of experience. The  new Grizzard may be  able to learn
+different Moves and have improved statistics.
+
 
 % When you begin your adventure, you can choose one of the following three
 % Grizzards as your initial companion.
@@ -912,9 +927,8 @@ is able to learn.
 \section{Dirtex}
 
 \begin{center}
-  \englishskip
-  \includegraphics[width=.8\columnwidth]{../Manual/Dirtex.png}
-  \englishskip
+  \vspace{11pt}
+  \includegraphics[width=\columnwidth]{../Manual/Dirtex.png}
 \end{center}
 
 \noindent{}The  green Grizzard  Dirtex (Num.  \texttt{01}) lives  in the
@@ -967,6 +981,7 @@ With enough experience, Aquax can metamorphose into Sailor.
 \section{Airex}
 
 \begin{center}
+  \vspace{10pt}
   \includegraphics[width=.8\columnwidth]{../Manual/Airex.png}
 \end{center}
 
@@ -1005,21 +1020,17 @@ There are no potions in this demo. \fi
 
 \section{Running Away}
 
-This  Move lets  you try  to escape  from a  battle. Your  Grizzard will
-\emph{not} be  healed if you  run away, but  the monsters that  you were
-facing will be healed immediately.
+The  Move \texttt{RUN  AWAY}  lets  you try  to  escape  from a  battle.
+Your  Grizzard will  \emph{not}  be  healed if  you  run  away, but  the
+monsters that you were facing will be healed immediately.
 
 Certain  monsters  are too  terrifying  to  escape. When  you  encounter
 a ``boss'' monster like this, it will  be a duel to the death. Watch out
 for their unique shape on the map screen.
 
-\section{Metamorphosis}
+\pagebreak
 
-Many Grizzards  can metamorphose into a  new form when they  have gained
-a certain  amount of experience. The  new Grizzard may be  able to learn
-different Moves and have improved statistics.
-
-\chapter{Monsters}
+\twocolumn[\chapter{Monsters}]
 
 A slew of monsters are arriving in Syrex, terrorizing the land.
 
@@ -1051,7 +1062,7 @@ nindent=3pt]{../Manual/Round-Robin.png}{}\noindent{}Round   Robins   are
 colorful giant birds  who live in the area of  Mount Peshon. Their beaks
 and claws are dangerous.
 
-\englishskip
+\ifdefined\ATARIAGESAVE\pagebreak\else\englishskip\fi
 
 \lettrine[image=true,                lines=4,               findent=3pt,
 nindent=3pt]{../Manual/R.O.U.S..png}{}\noindent{}Rodents of Unusual Size
@@ -1113,14 +1124,14 @@ nindent=3pt]{../Manual/Venom-Sheep.png}{}\noindent{}Venom   Sheep   seem
 like  harmless  fluffy creatures,  until  they  lash  out with  a  firey
 flare --- or slap you with a wet noodle.
 
-\englishskip
+\ifdefined\ATARIAGESAVE\pagebreak\else\englishskip\fi
 
 \lettrine[image=true,                lines=4,               findent=3pt,
 nindent=3pt]{../Manual/Crazy-Fox.png}{}\noindent{}Crazy Foxes are likely
 to unleash a great deal of pain. It's said that they were never actually
 foxes to begin with, but were created already crazy.
 
-\ifdefined\ATARIAGESAVE\pagebreak\else\englishskip\fi
+\englishskip
 
 \lettrine[image=true,                lines=4,               findent=3pt,
 nindent=3pt]{../Manual/Viking-Turtle.png}{}\noindent{}Viking     Turtles
@@ -1268,65 +1279,71 @@ all progress is erased.
 
 % \ifdefined\ATARIAGESAVE\pagebreak\fi
 
-%% \vfill
+\vfill
 
-%% \pagebreak
+\pagebreak
 
-\twocolumn[\chapter{Credits}]
+\chapter{Credits}
 
-\subsection{\small Story, Programming, Graphics}
+\subsection{Story, Programming, Graphics}
 
-{ \small Bruce-Robert Pocock }
+{ Bruce-Robert Pocock }
 
-\subsection{\small Music, Additional Art}
+\subsection{Music, Additional Art}
 
-{ \small Zephyr Salz }
+{ Zephyr Salz }
 
-\subsection{\small Program Code}
+\subsection{Program Code}
 
-{ \footnotesize The \textit{Grizzards} software includes the VCS header file by
-  Matthew Dillon, Olaf  ``Rhialto'' Seibert, Andrew Davie,  and Peter H.
-  Froehlich. Binary to decimal translation  is based upon code by Andrew
-  Jacobs, based upon code by Garth  Wilson. ``Six Digit Score'' 48 pixel
-  wide display routines are based upon  an explanation on Stella list by
-  Erik Mooney and Bradford W. Mott. \ifdefined\ATARIAGESAVE\else SaveKey
-  EEPROM and \fi{}  AtariVox speech synthesis driver is  based upon code
-  by Alex Herbert. The random number generator is by AtariAge forum user
-  \texttt{Supercat}.  Some math  functions  are by  AtariAge forum  user
-  \texttt{Omega\-matrix}.  Some  math  functions  were  taken  from  the
-  December  1984  \textit{Apple  Assembly   Line}.  Atari  7800  console
-  detection  logic written  by Fred  Quimby courtesy  of Darrell  Spice,
-  Jr. }
+The \textit{Grizzards} software includes the  VCS header file by Matthew
+Dillon, Olaf ``Rhialto'' Seibert, Andrew Davie, and Peter H. Froehlich.
 
-\subsection{\small Art}
+Binary to decimal translation is based upon code by Andrew Jacobs, based
+upon code by Garth Wilson.
 
-{ \footnotesize  ``Have You Played Atari  Today'' jingle created by  Atari Inc.
-  and  transcribed  by  AtariAge Forum  user  \texttt{tigger\-the\-hun}.
-  AtariVox+     \ifdefined\ATARIAGESAVE\else    and     SaveKey    \fi{}
-  photograph\ifdefined\ATARIAGESAVE{}  is  \else{s}  are  \fi  from  the
-  AtariAge store. \ifdefined\ATARIAGESAVE The AtariAge logo and logotype
-  are the property of AtariAge. \fi }
+``Six Digit  Score'' 48 pixel  wide display  routines are based  upon an
+explanation on Stella list by Erik Mooney and Bradford W. Mott.
 
-\subsection{\small Special Thanks}
+\ifdefined\ATARIAGESAVE\else  SaveKey EEPROM  and \fi{}  AtariVox speech
+synthesis driver is based upon code by Alex Herbert.
 
-{  \footnotesize  Special  ``save  to cartridge''  circuitry  designed  by
-  Fred Quimby. }
+The random number generator is by AtariAge forum user \texttt{Supercat}.
+Some math  functions are by AtariAge  forum user \texttt{Omega\-matrix}.
+Some  math functions  were taken  from the  December 1984  \textit{Apple
+  Assembly Line}.
 
-{ \footnotesize Thanks to SmittyB for helping get the gamepad support working on the
-  Atari 7800. }
+Atari 7800  console detection logic  written by Fred Quimby  courtesy of
+Darrell Spice, Jr.
 
-{ \footnotesize Thanks to Albert Yarusso for publication support. }
+\subsection{Art}
 
-{ \footnotesize Special thanks to everyone in the Stella and AtariAge communities for
-  making this game possible. }
+``Have  You   Played  Atari  Today''   jingle  created  by   Atari  Inc.
+and transcribed by AtariAge Forum user \texttt{tigger\-the\-hun}.
 
-\subsection{\small Testers}
+AtariVox+     \ifdefined\ATARIAGESAVE\else     and     SaveKey     \fi{}
+photograph\ifdefined\ATARIAGESAVE{}  is   \else{s}  are  \fi   from  the
+AtariAge store.  \ifdefined\ATARIAGESAVE The AtariAge logo  and logotype
+are the property of AtariAge. \fi
 
-{ \footnotesize  Philip Clark, Dany  Santana, James Earl  O'Brien, Tanya
-  O'Brien,  Darcy  Troy  Paulin, \texttt{Mika},  \texttt{vitoco},  David
-  Bowen,  \texttt{Fort Apocalypse},  and  miscellaneous  users from  the
-  AtariAge forum. }
+\subsection{Special Thanks}
 
+Special ``save to cartridge'' circuitry designed by Fred Quimby.
+
+Thanks to  SmittyB for helping  get the  gamepad support working  on the
+Atari 7800.
+
+Thanks to Albert Yarusso for publication support.
+
+Special thanks  to everyone in  the Stella and AtariAge  communities for
+making this game possible.
+
+\subsection{Testers}
+
+Philip Clark,  Dany Santana,  James Earl  O'Brien, Tanya  O'Brien, Darcy
+Troy Paulin,  \texttt{Mika}, \texttt{vitoco}, David  Bowen, \texttt{Fort
+  Apocalypse}, and other users from the AtariAge forum.
+
+\ifdefined\ATARIAGESAVE\else
 \vfill
 
  \begin{center}
@@ -1338,6 +1355,8 @@ all progress is erased.
   \fi
   \includegraphics[width=.333\columnwidth]{../Manual/BRP.png}
 \end{center}
+
+\fi
 
 \ifdefined\ATARIAGESAVE
 % \begin{tikzpicture}[overlay, remember picture]
