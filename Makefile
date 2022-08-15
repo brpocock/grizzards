@@ -119,8 +119,16 @@ CMYK=-sDEVICE=pdfwrite \
 Dist/SyrexMap.pdf:	Manual/SyrexMap.pdf
 	gs -o $@ $(CMYK) $<
 
-
 Dist/MapBack.pdf:	Manual/MapBack.pdf
+	gs -o $@ $(CMYK) $<
+
+Dist/BoxNoTemplate.pdf:	Manual/BoxNoTemplate.pdf
+	gs -o $@ $(CMYK) $<
+
+Dist/FrontLabel.pdf:	Manual/FrontLabel.pdf
+	gs -o $@ $(CMYK) $<
+
+Dist/EndLabel.pdf:	Manual/EndLabel.pdf
 	gs -o $@ $(CMYK) $<
 
 
