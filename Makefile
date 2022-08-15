@@ -122,13 +122,13 @@ Dist/SyrexMap.pdf:	Manual/SyrexMap.pdf
 Dist/MapBack.pdf:	Manual/MapBack.pdf
 	gs -o $@ $(CMYK) $<
 
-Dist/BoxNoTemplate.pdf:	Manual/BoxNoTemplate.pdf
+Dist/BoxNoTemplate.pdf:	Package/BoxNoTemplate.pdf
 	gs -o $@ $(CMYK) $<
 
-Dist/FrontLabel.pdf:	Manual/FrontLabel.pdf
+Dist/FrontLabel.pdf:	Package/FrontLabel.pdf
 	gs -o $@ $(CMYK) $<
 
-Dist/EndLabel.pdf:	Manual/EndLabel.pdf
+Dist/EndLabel.pdf:	Package/EndLabel.pdf
 	gs -o $@ $(CMYK) $<
 
 
@@ -176,7 +176,12 @@ doc:	Dist/Grizzards.pdf \
 	Dist/Grizzards.Demo.pdf \
 	Dist/Grizzards.Manual.txt \
 	Dist/Grizzards.NoSave.pdf \
-	Dist/GrizzardsCompleteGuide.pdf
+	Dist/GrizzardsCompleteGuide.pdf \
+	Dist/SyrexMap.pdf \
+	Dist/MapBack.pdf \
+	Dist/FrontLabel.pdf \
+	Dist/EndLabel.pdf \
+	Dist/BoxNoTemplate.pdf
 
 .PRECIOUS: %.s %.png %.a26 %.txt %.zip %.tar.gz
 
