@@ -5,11 +5,11 @@
 %
 % If you're a human, skip to "\mainmatter" to skip over the preamble.
 %
-\documentclass[10pt,twocolumn,openany,article]{memoir}
-
+\documentclass[9pt,twocolumn,openany,article]{memoir}
 \ifdefined\ATARIAGESAVE
-\setstocksize{9in}{6in}
-\settrimmedsize{\stockheight}{\dimexpr 6in-15mm}{*}
+\setstocksize{7in}{5in}
+\settrimmedsize{\stockheight}{\dimexpr 5in-15mm}{*}
+\setlength\normalsize
 \else
 \setstocksize{11in}{8.5in}
 \settrimmedsize{\stockheight}{\dimexpr 8.5in-15mm}{*}
@@ -29,7 +29,7 @@
 \makeoddfoot{plain}{}{}{\thepage}
 
 \usepackage[utf8]{inputenc}
-\usepackage{babel}
+\usepackage[en]{babel}
 \usepackage{stfloats}
 \usepackage{microtype}
 \usepackage{graphicx}
@@ -57,11 +57,14 @@
 \usepackage{tikz}
 
 \newcommand\encircle[1]{%
-  \tikz[baseline=(X.base)] 
-  \node (X) [draw, shape=circle, inner sep=.25pt] {#1};}
+  \tikz[baseline=(0,0)]
+  \draw (0,0) circle [radius=5.5pt] node {\small\textbf{#1}};}
 
 \newenvironment{ritemize}{\begin{itemize}\raggedright}{\end{itemize}}
 \newenvironment{rdescribe}{\begin{description}\raggedright}{\end{description}}
+
+\newcommand\picaskip{\vspace{12pt}}
+\newcommand\englishskip{\vspace{14pt}}
 
 \setlength{\columnsep}{.333333in}
 %% \setlength\columnseprule{.5pt}
@@ -93,13 +96,13 @@
 \begin{tikzpicture}[overlay, remember picture]
   \node[anchor=north west, xshift=-4pt, yshift=4pt] 
   at (current page.north west)
-  {\includegraphics[interpolate,width=6in,height=9in]{../Manual/Cover.eps}}; 
+  {\includegraphics[width=5in,height=7in]{../Manual/Cover.eps}};
 \end{tikzpicture}
 \else
 \begin{tikzpicture}[overlay, remember picture]
   \node[anchor=north west, xshift=-4pt, yshift=4pt] 
   at (current page.north west)
-  {\includegraphics[interpolate,width=\paperwidth,height=\paperheight]{../Manual/Cover.eps}}; 
+  {\includegraphics[width=\paperwidth,height=\paperheight]{../Manual/Cover.eps}};
 \end{tikzpicture}
 \fi
 
@@ -125,13 +128,13 @@ monsters. Monsters may  surprise you as you travel, or  you may see them
 coming. When faced  with terrifying beasts, you'll  direct your Grizzard
 to use its Moves to defend you and attack the monsters.
 
-\vspace{1in}\vfill
+\picaskip\vfill
 
 This    is    the     \textit{Grizzards}    \ifdefined\NOSAVE    No-Save
 \fi\ifdefined\DEMO Demo \fi\ifdefined\ATARIAGESAVE Official \else Public
 Release \fi Player's Guide.
 
-\vspace{12pt}
+\picaskip
 
 {\small 
 The  \textit{Grizzards} videogame  software,  including its  audiovisual
@@ -152,7 +155,7 @@ versions have distinct coloring. }
 {\small This videogame software was not created, published, or licensed by Atari
 or its successors. }
 
-\vspace{12pt}
+\picaskip
 
 \ifdefined\DEMO
 \bigskip
@@ -179,7 +182,11 @@ requires a license.
 
 \fi
 
+\bigskip
+
 ]
+
+\includegraphics[width=2in]{../Manual/AtariVoxEnhanced.eps}
 
 \let\cleardoublepage\clearpage
 
@@ -189,9 +196,9 @@ requires a license.
 
 \twocolumn[\chapter{Setting Up}\label{Setting Up}]
 
-To play \textit{Grizzards}, you will need:
+\noindent{}To play \textit{Grizzards}, you will need:
 
-\vspace{12pt}
+\picaskip
 
 \begin{ritemize}
 \item  An Atari  console: the  Atari  Video Computer  System CX-2600  or
@@ -218,7 +225,7 @@ To play \textit{Grizzards}, you will need:
     \else
     \includegraphics[width=\columnwidth]{../Manual/SaveKey.jpeg}
     \fi
-    \includegraphics[width=\columnwidth]{../Manual/AtariVox.jpeg}
+    \includegraphics[width=.75\columnwidth]{../Manual/AtariVox.jpeg}
   \end{center}
 \end{figure*}
 \fi
@@ -466,7 +473,7 @@ using the joystick.
 \end{center}
 
 Refer to  the map on  the \ifdefined\ATARIAGESAVE back cover  \else last
-page  \fi{} of  this  manual  to learn  about  the  geography of  Syrex.
+page  \fi of  this  manual  to learn  about  the  geography of  Syrex.
 Characters in the game will also give you advice.
 
 You can check your inventory of potions,  and choose to give one to your
@@ -475,7 +482,7 @@ current  Grizzard  companion  by   pressing  the  \textbf{Fire}  button.
 
 To interact with something on the Map screen, just walk into it.
 
-\vspace{14pt}
+\englishskip
 
 \lettrine[image=true,                lines=5,               findent=3pt,
 nindent=3pt]{../Manual/MonsterNTSC.png}{}  A  monster,  or  a  group  of
@@ -484,7 +491,7 @@ waiting for  you and can avoid  battle --- or approach  them when you're
 ready to  face them. Particularly  giant monsters look different  on the
 map; you'll discover them in your travels.
 
-\vspace{14pt}
+\englishskip
 
 \lettrine[image=true,                lines=5,               findent=3pt,
 nindent=3pt]{../Manual/DepotNTSC.png}{} Grizzard Depots are safe spaces.
@@ -494,7 +501,7 @@ progress will  be saved \ifdefined\ATARIAGESAVE to  your game cartridge.
 your  current   companion.  \fi  See   page  \pageref{sec:GrizzardDepot}
 for details.
 
-\vspace{14pt}
+\englishskip
 
 \ifdefined\NOSAVE
 
@@ -514,7 +521,7 @@ and experience.
 
 \fi
 
-\vspace{14pt}
+\englishskip
 
 \lettrine[image=true,                lines=5,               findent=3pt,
 nindent=3pt]{../Manual/DoorNTSC.png}{}  Doors  can  lead  you  to  other
@@ -527,7 +534,7 @@ nindent=3pt]{../Manual/SignpostNTSC.png}{} Signposts provide information
 to  help  you  progress.  You  should  also refer  to  the  map  on  the
 \ifdefined\ATARIAGESAVE back cover \else last page \fi{} of this manual.
 
-\ifdefined\ATARIAGESAVE\vspace{14pt}\else\vspace{30pt}\fi
+\ifdefined\ATARIAGESAVE\englishskip\else\vspace{30pt}\fi
 
 \lettrine[image=true,                lines=5,               findent=3pt,
 nindent=3pt]{../Manual/PersonNTSC.png}{} People  will converse  with you
@@ -910,13 +917,13 @@ is able to learn.
 \section{Dirtex}
 
 \begin{center}
-  \vspace{14pt}
+  \englishskip
   \includegraphics[width=\columnwidth]{../Manual/Dirtex.png}
-  \vspace{14pt}
+  \englishskip
 \end{center}
 
-The green Grizzard Dirtex (Num. \texttt{01}) lives in the desert. It can
-learn these Moves:
+\noindent{}The  green Grizzard  Dirtex (Num.  \texttt{01}) lives  in the
+desert. It can learn these Moves:
 
 \begin{ritemize}
 \item \texttt{KICK DIRT} --- kick dirt at the enemy, causing some damage
@@ -940,8 +947,8 @@ When Dirtex gains enough experience, it will metamorphose into Lander.
 \end{center}
 
 
-Aquax is a  brown Grizzard (Num. \texttt{02}) which lives  in the water.
-It can learn these Moves:
+\noindent{}Aquax is a  brown Grizzard (Num. \texttt{02})  which lives in
+the water. It can learn these Moves:
 
 \begin{ritemize}
 \item  \texttt{SPLISH SPLASH}  --- splash  water at  the enemy,  causing
@@ -964,8 +971,8 @@ With enough experience, Aquax can metamorphose into Sailor.
   \includegraphics[width=\columnwidth]{../Manual/Airex.png}
 \end{center}
 
-Airex is  a teal Grizzard (Num.  \texttt{03}) which lives in  the trees.
-It can learn these Moves:
+\noindent{}Airex is  a teal Grizzard  (Num. \texttt{03}) which  lives in
+the trees. It can learn these Moves:
 
 \begin{ritemize}
 \item \texttt{MILD SHOCK} --- shocks  the enemy with static electricity,
@@ -1009,36 +1016,36 @@ for their unique shape on the map.
 
 \section{Metamorphosis}
 
-Many Grizzards can meta\-morphose into a  new form when they have gained
-a certain  amount of experience. The  new Grizzard may be  able to learn
-different Moves and have improved statistics.
+Many  Grizzards can  meta-morphose into  a  new form  when they  have
+gained a certain  amount of experience. The new Grizzard  may be able to
+learn different Moves and have improved statistics.
 
 \twocolumn[\chapter{Monsters}]
 
 A slew of monsters are arriving in Syrex, terrorizing the land.
 
 {\raggedright
-\vspace{14pt}
+\englishskip
 
 \lettrine[image=true,                lines=5,               findent=3pt,
 nindent=3pt]{../Manual/Wicked-Slime.png}{}Wicked  Slimes are  weak slime
 monsters that  your Grizzard can  kill fairly  easily … but  beware when
 they travel in large packs.
 
-\vspace{14pt}
+\englishskip
 
 \lettrine[image=true,                lines=5,               findent=3pt,
 nindent=3pt]{../Manual/Horrid-Slime.png}{}Horrid   Slimes   are    more
 dangerous than a  Wicked Slime. A Horrid Slime may  survive your attacks
 until you've learned some new Moves.
 
-\vspace{14pt}
+\englishskip
 
 \lettrine[image=true,                lines=5,               findent=3pt,
 nindent=3pt]{../Manual/Sky-Mutant.png}{}~Sky~Mutants~roam
 the~roads~north~of Mount~Peshon~looking for~civilians~to abduct.
 
-\vspace{14pt}
+\englishskip
 
 \lettrine[image=true,                lines=5,               findent=3pt,
 nindent=3pt]{../Manual/Round-Robin.png}{}Round Robins are colorful giant
@@ -1046,7 +1053,7 @@ birds who live  in the area of  Mount Peshon. Their beaks  and claws are
 dangerous.
 
 \ifdefined\ATARIAGESAVE\pagebreak\else
-\vspace{14pt}
+\englishskip
 \fi
 
 \lettrine[image=true,                lines=5,               findent=3pt,
@@ -1054,7 +1061,7 @@ nindent=3pt]{../Manual/R.O.U.S..png}{}Rodents of Unusual Size are one of
 the  dangers  of   the  Fire  Bog  (but  I  don't   think  they  exist).
 They're known to attack pirates and princesses alike.
 
-\vspace{14pt}
+\englishskip
 
 \lettrine[image=true,                lines=5,               findent=3pt,
 nindent=3pt]{../Manual/Flame-Doggo.png}{} Flame Doggos are a danger of
@@ -1062,14 +1069,14 @@ the Fire  Bogs. These beasts  often roam in packs,  and their fur  is on
 fire. Avoid the Fire Bogs until you have begun to train your Grizzard to
 have a higher Attack ability.
 
-\vspace{14pt}
+\englishskip
 
 \lettrine[image=true,                lines=5,               findent=3pt,
 nindent=3pt]{../Manual/Fire-Panda.png}{}Fire Pandas  are a bit  like red
 pandas, or firefoxes, and quite a  bit more dangerous. Unlike a firefox,
 these beasts actually dish out fire-based attacks on their victims.
 
-\vspace{14pt}
+\englishskip
 
 \lettrine[image=true,                lines=5,               findent=3pt,
 nindent=3pt]{../Manual/Vorpal-Bunny.png}{}Vorpal Bunnies  are a powerful
@@ -1084,43 +1091,45 @@ floating sparks  that are  known to  travel in  large groups.  Once your
 Attack ability  is high enough  to hit them,  they go down  quickly, but
 they have very strong defenses!
 
-\vspace{14pt}
+\englishskip
 
 \lettrine[image=true,                lines=5,               findent=3pt,
 nindent=3pt]{../Manual/Cave-Bat.png}{}Cave     Bats    are     sometimes
 seen~in~the tunnels beneath  Mount Peshon. They may swoop  down from the
 ceiling and attack!
 
-\vspace{14pt}
+\englishskip
 
-\textsc{A Grue}  is a sinister, lurking  presence in the dark  places of
-the earth. Its favorite diet is adventurers, but its insatiable appetite
-is tempered  by its fear  of light.  No grue has  ever been seen  by the
-light of day, and few have survived  its fearsome jaws to tell the tale.
-If you're not careful, you are likely to be eaten by a Grue.
+\lettrine[image=true,                lines=5,               findent=3pt,
+nindent=3pt]{../Manual/QuestionMark.png}{}A~Grue~is~a sinister, lurking
+presence  in  the  dark  places  of the  earth.  Its  favorite  diet  is
+adventurers,  but its  insatiable appetite  is tempered  by its  fear of
+light. No  Grue has ever  been seen  by the light  of day, and  few have
+survived its fearsome jaws to tell  the tale. If you're not careful, you
+are likely to be eaten by a Grue.
 
-\vspace{14pt}
+\englishskip
 
 \lettrine[image=true,                lines=5,               findent=3pt,
 nindent=3pt]{../Manual/Venom-Sheep.png}{}Venom Sheep  seem like harmless
 fluffy creatures, until they lash out with a firey flare --- or slap you
 with a wet noodle.
 
-\ifdefined\ATARIAGESAVE\pagebreak\else\vspace{14pt}\fi
+\ifdefined\ATARIAGESAVE\pagebreak\else\englishskip\fi
 
 \lettrine[image=true,                lines=5,               findent=3pt,
 nindent=3pt]{../Manual/Crazy-Fox.png}{}Crazy Foxes are likely to unleash
 a great deal of  pain. It's said that they were  never actually foxes to
 begin with, but were created already crazy.
 
-\vspace{14pt}
+\englishskip
 
 \lettrine[image=true,                lines=5,               findent=3pt,
 nindent=3pt]{../Manual/Viking-Turtle.png}{}Viking Turtles  live near the
 Spiral  Woods.  They  crawl  from  the  trees  to  pillage  unsuspecting
 travelers, but they do move \emph{very} slowly.
 
-\vspace{14pt}
+\englishskip
 
 \lettrine[image=true,                lines=5,               findent=3pt,
 nindent=3pt]{../Manual/Radish-Goblin.png}{}Radish Goblins  are possessed
@@ -1128,14 +1137,14 @@ plants  that  pluck  themselves  from   the  ground  and  attack  unwary
 travelers.  They  are  well  known   to  be  among  the  more  dangerous
 root vegetables.
 
-\vspace{14pt}
+\englishskip
 
 \lettrine[image=true,                lines=5,               findent=3pt,
 nindent=3pt]{../Manual/Creepy-Spider.png}{}Creepy   Spiders   are   much
 bigger than  the sort  where you  come from. Watch  out for  those giant
 mandibles, they hurt!
 
-\vspace{14pt}
+\englishskip
 
 \lettrine[image=true,                lines=5,               findent=3pt,
 nindent=3pt]{../Manual/Metal-Mouse.png}{}Metal~Mice~are
@@ -1296,7 +1305,7 @@ Quimby courtesy of Darrell Spice, Jr.
 ``Have  You   Played  Atari  Today''   jingle  created  by   Atari  Inc.
 and  transcribed  by   AtariAge  Forum  user  \texttt{tigger\-the\-hun}.
 AtariVox+     \ifdefined\ATARIAGESAVE\else     and     SaveKey     \fi{}
-photograph\ifdefined\ATARIAGESAVE{}  is  \else{s}  are  \fi{}  from  the
+photograph\ifdefined\ATARIAGESAVE{}  is   \else{s}  are  \fi   from  the
 AtariAge store.  \ifdefined\ATARIAGESAVE The AtariAge logo  and logotype
 are the property of AtariAge. \fi
 
@@ -1314,6 +1323,7 @@ making this game possible.
 
 \subsection{Testers}
 
+{ \small
 Philip Clark,
 James Earl O'Brien,
 Tanya O'Brien,
@@ -1322,14 +1332,14 @@ Darcy Troy Paulin,
 \texttt{vitoco},
 David Bowen,
 \texttt{Fort Apocalypse},
-and miscellaneous users from the AtariAge forum.
+and miscellaneous users from the AtariAge forum. }
 
 \vfill
 
 \begin{center}
   \ifdefined\ATARIAGESAVE
   \includegraphics[width=.6667\columnwidth]{../Manual/AtariAgeHorizontalColor.eps}
-  \vspace{14pt}
+  \englishskip
   \fi
 
   \includegraphics[width=.333\columnwidth]{../Manual/BRP.png}
@@ -1343,13 +1353,13 @@ and miscellaneous users from the AtariAge forum.
 \begin{tikzpicture}[overlay, remember picture]
   \node[anchor=north west, xshift=-4pt, yshift=4pt] 
   at (current page.north west)
-  {\includegraphics[interpolate,width=6in,height=9in]{../Manual/SyrexMap.eps}};
+  {\includegraphics[width=5in,height=7in]{../Manual/SyrexMap.eps}};
 \end{tikzpicture}
 \else
 \begin{tikzpicture}[overlay, remember picture]
   \node[anchor=north west, xshift=-4pt, yshift=4pt] 
   at (current page.north west)
-  {\includegraphics[interpolate,width=\paperwidth,height=\paperheight]{../Manual/SyrexMap.eps}};
+  {\includegraphics[width=\paperwidth,height=\paperheight]{../Manual/SyrexMap.eps}};
 \end{tikzpicture}
 \fi
 
