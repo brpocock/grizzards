@@ -33,18 +33,25 @@ _cc:
           .bend
           .endm
 
-Inc16cc .macro address
+AddWord:  .macro a, b
           .block
-          inc \address
-          bcc _cc
-          inc \address + 1
-_cc:
+          clc
+          lda \a
+          adc \b
+          sta \a
+          lda \a + 1
+          adc \b + 1
+          sta \a + 1
           .bend
           .endm
-
-Inc16 .macro address
-          clc
-          .Inc16cc \address
+          
+Inc16:    .macro address
+          .block
+          inc \address
+          bne +
+          inc \address + 1
++
+          .bend
           .endm
 
 Sub16cs .macro address, subtrahend
@@ -63,18 +70,39 @@ Sub16 .macro address, subtrahend
           sta \address
           .endm
 
-Dec16cs .macro address
+          ;; from “BillG” on 6502.org forum
+CmpLt16:    .macro number, otherNumber, branchTarget
           .block
-          dec \address
-          bcs _cs
-          dec \address + 1
-_cs:
+          lda \number + 1
+          cmp \otherNumber + 1
+          bne Decide
+          lda \number
+          cmp \otherNumber
+Decide:
+          blt \branchTarget
           .bend
           .endm
 
-Dec16 .macro address
-          sec
-          .Dec16cs \address
+CmpEq16:   .macro number, otherNumber, branchTarget
+          .block
+          lda \number + 1
+          cmp \otherNumber + 1
+          bne Decide
+          lda \number
+          cmp \otherNumber
+          beq \branchTarget
+Decide:
+          .bend
+          .endm
+
+Dec16:    .macro address
+          .block
+          lda \address
+          bne +
+          dec \address + 1
++
+          dec \address
+          .bend
           .endm
 
 
@@ -582,62 +610,62 @@ Mul .macro factor, temp
           ;; nothing
 
           .case 2
-          asl
+          asl a
 
           .case 3
           sta \temp
-          asl
+          asl a
           adc \temp
 
           .case 4
-          asl
-          asl
+          asl a
+          asl a
 
           .case 5
           sta \temp
-          asl
-          asl
+          asl a
+          asl a
           adc \temp
 
           .case 6
           .Mul 3, \temp
-          asl
+          asl a
 
           .case 7
           sta \temp
-          asl
-          asl
-          asl
+          asl a
+          asl a
+          asl a
           sbc \temp
 
           .case 8
-          asl
-          asl
-          asl
+          asl a
+          asl a
+          asl a
 
           .case 12
           .Mul 6, \temp
-          asl
+          asl a
 
           .case 14
           .Mul 7, \temp
-          asl
+          asl a
 
           .case 15
           sta \temp
           .rept 4
-          asl
+          asl a
           .next
           sbc \temp
 
           .case 16
           .rept 4
-          asl
+          asl a
           .next
 
           .case 32
           .rept 5
-          asl
+          asl a
           .next
 
           .default
