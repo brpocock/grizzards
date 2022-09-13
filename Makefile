@@ -131,7 +131,6 @@ Dist/FrontLabel.pdf:	Package/FrontLabel.pdf
 Dist/EndLabel.pdf:	Package/EndLabel.pdf
 	gs -o $@ $(CMYK) $<
 
-
 Dist/Grizzards.AtariAge.zip:	\
 	Dist/Grizzards.AA.NTSC.a26 Dist/Grizzards.AA.PAL.a26 Dist/Grizzards.AA.SECAM.a26 \
 	Dist/Grizzards.AA.NTSC.pro Dist/Grizzards.AA.PAL.pro Dist/Grizzards.AA.SECAM.pro \
