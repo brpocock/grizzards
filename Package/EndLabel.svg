@@ -7,8 +7,8 @@
    viewBox="0 0 73.025 17.462499"
    version="1.1"
    id="svg16103"
-   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
-   sodipodi:docname="End Label.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   sodipodi:docname="EndLabel.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -24,9 +24,9 @@
      inkscape:pagecheckerboard="1"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
-     showgrid="false"
+     showgrid="true"
      inkscape:zoom="3.42868"
-     inkscape:cx="152.09935"
+     inkscape:cx="122.05863"
      inkscape:cy="51.623365"
      inkscape:window-width="1920"
      inkscape:window-height="1011"
@@ -38,7 +38,14 @@
      units="in"
      borderlayer="true"
      showguides="true"
-     inkscape:guide-bbox="true" />
+     inkscape:guide-bbox="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid798"
+       spacingx="1.5875"
+       spacingy="1.5875"
+       units="in" />
+  </sodipodi:namedview>
   <defs
      id="defs16100">
     <linearGradient
@@ -245,7 +252,7 @@
        ry="12.699997" />
     <g
        id="g41695"
-       transform="matrix(0.14726014,0.00208694,-0.00208694,0.14726014,-204.76743,42.994861)">
+       transform="matrix(0.13111247,0.0018581,-0.0018581,0.13111247,-172.65807,47.550758)">
       <path
          id="path41457"
          clip-path="url(#clipPath16453-9)"
