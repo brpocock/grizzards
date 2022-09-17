@@ -5,11 +5,11 @@
 %
 % If you're a human, skip to "\mainmatter" to skip over the preamble.
 %
-\documentclass[9pt,twocolumn,openany,article]{memoir}
+\documentclass[9pt,twocolumn,openany,article,crop]{memoir}
 \ifdefined\ATARIAGESAVE
-\setstocksize{7in}{5in}
-\settrimmedsize{\stockheight}{\stockwidth}{*}
-\setlength\normalsize
+\setstocksize{7.25in}{5.25in}
+\setpagecc{7in}{5in}{*}
+%\setlength\normalsize
 \else
 \setstocksize{11in}{8.5in}
 \settrimmedsize{\stockheight}{\dimexpr 8.5in-15mm}{*}
@@ -90,13 +90,12 @@
 \begin{document}
 
 \frontmatter
-\thispagestyle{empty}
-
+\thispagestyle{empty}\noindent
 \ifdefined\ATARIAGESAVE
 \begin{tikzpicture}[overlay, remember picture]
-  \node[anchor=north west, xshift=-4pt, yshift=4pt] 
+  \node[anchor=north west, xshift=-4pt, yshift=21pt] 
   at (current page.north west)
-  {\includegraphics[width=5in,height=7in]{../Manual/Cover.eps}};
+  {\includegraphics[width=5.25in,height=7.25in]{../Manual/Cover.eps}};
 \end{tikzpicture}
 \else
 \begin{tikzpicture}[overlay, remember picture]

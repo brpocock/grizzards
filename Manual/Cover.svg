@@ -2,12 +2,12 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="5in"
-   height="7in"
-   viewBox="0 0 127 177.79999"
+   width="5.25in"
+   height="7.25in"
+   viewBox="0 0 133.35 184.14999"
    version="1.1"
    id="svg16103"
-   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
    sodipodi:docname="Cover.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -26,8 +26,8 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="0.89515563"
-     inkscape:cx="292.68654"
-     inkscape:cy="275.92967"
+     inkscape:cx="425.06575"
+     inkscape:cy="447.9668"
      inkscape:window-width="1920"
      inkscape:window-height="1011"
      inkscape:window-x="0"
@@ -309,14 +309,14 @@
      id="layer1"
      transform="translate(-51.449673,-75.773621)">
     <rect
-       style="fill:#dcd76d;fill-opacity:1;stroke-width:0.202493;stroke-linecap:square;stroke-linejoin:round;paint-order:markers stroke fill"
+       style="fill:#dcd76d;fill-opacity:1;stroke-width:0.208559;stroke-linecap:square;stroke-linejoin:round;paint-order:markers stroke fill"
        id="rect3156"
-       width="131.66615"
-       height="194.00522"
+       width="142.23788"
+       height="190.50592"
        x="48.790886"
        y="73.878105"
-       rx="0.45730397"
-       ry="1.0234985" />
+       rx="0.4940218"
+       ry="1.0050375" />
     <ellipse
        style="vector-effect:non-scaling-stroke;fill:url(#radialGradient154312);fill-opacity:1;stroke:none;stroke-width:3.95793e-05;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;-inkscape-stroke:hairline;paint-order:markers stroke fill"
        id="path154016"
