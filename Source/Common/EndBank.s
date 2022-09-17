@@ -189,31 +189,38 @@ WiredEnd:
           .if DEMO
 
             * = $fff4
-            .offs -$f000
             .text "grizbrp", 0
 
           .else
 
             * = $ffe0
-            .offs -$f000
             .text "grizbrp", 0
             ;; magic cookie for Stella
             nop $1fe0
 
           .fi
 
+          .if ATARIAGESAVE
+
+            ;; Save-to-cart hotspots
+            * = $fff0
+            ;;  SCL & SDA write lines, data irrelevant.
+            ;;  Using this for Stella's benefit.
+            .text "EFFB"
+            ;; SDA reads return these values for 0/1 bits
+            .byte 0, $80
+
+            ;; for Stella's benefit
+            * = $fff8
+            .text "EFEF"
+          .fi
+
 ;;; 6507 special vectors
 ;;;
-          * = NMIVEC
-          .offs -$f000
-          .word GoColdStart
-
           * = RESVEC             ; CPU reset and BRK (IRQ) vectors (no NMI)
-          .offs -$f000
           .word GoColdStart
 
           * = IRQVEC
-          .offs -$f000
           .word Break
 
           .if * != $0000

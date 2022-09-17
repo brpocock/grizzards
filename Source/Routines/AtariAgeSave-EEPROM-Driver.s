@@ -7,41 +7,39 @@
 ;;; Original by Alex Herbert, 2004
 ;;;
 ;;; Converted and adapted by Bruce-Robert Pocock, 2017, 2020-2022
+;;;
+;;; With co-operation of Fred Quimby (batari)
 SaveGameSignatureString:
           .text SaveGameSignature
 
-          i2cControlPort = $fff0
-          i2cWritePort = $fff1
-          i2cReadPort = $fff2
+          i2cClockPort0 = $1ff0
+          i2cClockPort1 = $1ff1
+          i2cDataPort0 = $1ff2
+          i2cDataPort1 = $1ff3
+          i2cReadPort = $1ff4
 
-          i2cSDAMask = $04
-          i2cSCLMask = $08
+          EEPROMRead = %10100001
+          EEPROMWrite = %10100000
 
           SaveWritesPerScreen = $20
 ;;; 
 i2cSCL0:  .macro
-          lda # 0
-          sta i2cWritePort
+          lda i2cDataPort0
+          lda i2cClockPort0
           .endm
 
 i2cSCL1:  .macro
-          lda #i2cSCLMask
-          sta i2cWritePort
+          lda i2cDataPort1
+          lda i2cClockPort0
           .endm
 
 i2cSDAIn: .macro
-          lda #i2cSCLMask
-          sta i2cControlPort
           .endm
 
 i2cSDAOut: .macro
-          lda #i2cSCLMask | i2cSDAMask
-          sta i2cControlPort
           .endm
 
 i2cReset: .macro
-          lda #0
-          sta i2cControlPort
           .endm
 
 i2cStart: .macro
@@ -57,13 +55,19 @@ i2cStop:  .macro
           .endm
 
 i2cTxBit: .macro
+          .block
           .i2cSCL0
-          lda # 1
-          rol a
-          asl a
-          asl a
-          sta i2cControlPort ; SDA = !C
+          bcc Send1
+
+          lda i2cDataPort0
+          gcs Done
+
+Send1:
+          lda i2cDataPort1
+
+Done:
           .i2cSCL1
+          .bend
           .endm
 
 i2cTxACK: .macro
@@ -83,8 +87,6 @@ i2cRxBit: .macro
           .i2cSDAIn
           .i2cSCL1
           lda i2cReadPort
-          lsr a
-          lsr a
           lsr a ; C = SDA
           .endm
 
@@ -92,8 +94,6 @@ i2cRxACK: .macro
           .i2cRxBit
           .endm
 
-          EEPROMRead = %10100001
-          EEPROMWrite = %10100000
 ;;; 
 i2cStartRead:
           clv               ; Use V to flag if previous byte needs ACK
@@ -161,4 +161,3 @@ i2cWaitForAck:
           bcs -
           jmp i2cStopWrite      ; tail call
 
-          .fill 19              ; In case this has to grow
