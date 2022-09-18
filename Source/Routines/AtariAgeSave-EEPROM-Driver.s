@@ -24,13 +24,13 @@ SaveGameSignatureString:
           SaveWritesPerScreen = $20
 ;;; 
 i2cSCL0:  .macro
-          lda i2cDataPort0
-          lda i2cClockPort0
+          nop i2cDataPort0
+          nop i2cClockPort0
           .endm
 
 i2cSCL1:  .macro
-          lda i2cDataPort1
-          lda i2cClockPort0
+          nop i2cDataPort1
+          nop i2cClockPort0
           .endm
 
 i2cSDAIn: .macro
@@ -59,11 +59,11 @@ i2cTxBit: .macro
           .i2cSCL0
           bcc Send1
 
-          lda i2cDataPort0
+          nop i2cDataPort0
           gcs Done
 
 Send1:
-          lda i2cDataPort1
+          nop i2cDataPort1
 
 Done:
           .i2cSCL1

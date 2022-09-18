@@ -208,7 +208,7 @@ WiredEnd:
             ;;  Using this for Stella's benefit.
             .text "EFFB"
             ;; SDA reads return these values for 0/1 bits
-            .byte 0, $80
+            .byte 0, 1
 
             ;; for Stella's benefit
             * = $fff8
