@@ -24,34 +24,20 @@ SaveGameSignatureString:
           SaveWritesPerScreen = $20
 ;;; 
 i2cSCL0:  .macro
-          nop i2cDataPort0
           nop i2cClockPort0
           .endm
 
 i2cSCL1:  .macro
-          nop i2cDataPort1
-          nop i2cClockPort0
-          .endm
-
-i2cSDAIn: .macro
-          .endm
-
-i2cSDAOut: .macro
-          .endm
-
-i2cReset: .macro
+          nop i2cClockPort1
           .endm
 
 i2cStart: .macro
           .i2cSCL1
-          .i2cSDAOut
           .endm
 
 i2cStop:  .macro
           .i2cSCL0
-          .i2cSDAOut
           .i2cSCL1
-          .i2cReset
           .endm
 
 i2cTxBit: .macro
@@ -72,19 +58,16 @@ Done:
 
 i2cTxACK: .macro
           .i2cSCL0
-          .i2cSDAOut
           .i2cSCL1
           .endm
 
 i2cTxNAK: .macro
           .i2cSCL0
-          .i2cSDAIn
           .i2cSCL1
           .endm
 
 i2cRxBit: .macro
           .i2cSCL0
-          .i2cSDAIn
           .i2cSCL1
           lda i2cReadPort
           lsr a ; C = SDA
