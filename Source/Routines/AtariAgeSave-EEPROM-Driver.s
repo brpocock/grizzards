@@ -47,7 +47,7 @@ i2cSDAOut: .macro ; no action needs to be done
           .endm
 
 i2cReset: .macro ; float SDA
-          .i2cDataPort1
+          .i2cSDA1
           .endm
 
 i2cStart: .macro
