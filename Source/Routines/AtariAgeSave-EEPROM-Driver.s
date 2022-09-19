@@ -8,7 +8,8 @@
 ;;;
 ;;; Converted and adapted by Bruce-Robert Pocock, 2017, 2020-2022
 ;;;
-;;; With co-operation of Fred Quimby (batari)
+;;; Adapted for AtariAge save circuit by Fred Quimby (batari)
+
 SaveGameSignatureString:
           .text SaveGameSignature
 
@@ -18,85 +19,79 @@ SaveGameSignatureString:
           i2cDataPort1 = $1ff3
           i2cReadPort = $1ff4
 
-          EEPROMRead = %10100001
-          EEPROMWrite = %10100000
-
           SaveWritesPerScreen = $20
-;;; 
-i2cSDA0:  .macro
-          nop i2cDataPort0
-          .endm
-
-i2cSDA1:  .macro
-          nop i2cDataPort1
-          .endm
-
+;;; 
 i2cSCL0:  .macro
+          nop i2cDataPort0
+          nop i2cClockPort0
+         .endm
+
+i2cSCL1:  .macro
           nop i2cClockPort0
           .endm
 
-i2cSCL1:  .macro
-          nop i2cClockPort1
+i2cSDAIn: .macro
+          nop i2cDataPort1
+          .endm
+
+i2cSDAOut: .macro
+          nop
+          .endm
+
+i2cReset: .macro
+          nop i2cDataPort1
           .endm
 
 i2cStart: .macro
-          .i2cSDA1
           .i2cSCL1
-          .i2cSDA0
-          nop
-          nop
-          .i2cSCL0
+          .i2cSDAOut
           .endm
 
 i2cStop:  .macro
-          .i2cSDA1
-          .i2cSCL1
           .i2cSCL0
-          nop
-          nop
-          .i2cSDA0
+          .i2cSDAOut
+          .i2cSCL1
+          .i2cReset
           .endm
 
 i2cTxBit: .macro
-          .block
           .i2cSCL0
           bcc Send1
-
-          nop i2cDataPort0
-          gcs Done
-
+          .i2cSDA0
+          bcc Sent0
 Send1:
-          nop i2cDataPort1
-
-Done:
+          .i2cSDA1
+Sent0:
           .i2cSCL1
-          .bend
           .endm
 
 i2cTxACK: .macro
-          .i2cSDA1
           .i2cSCL0
+          .i2cSDAOut
           .i2cSCL1
           .endm
 
 i2cTxNAK: .macro
-          .i2cSDA0
           .i2cSCL0
+          .i2cSDAIn
           .i2cSCL1
           .endm
 
 i2cRxBit: .macro
           .i2cSCL0
-          lda i2cReadPort
-          lsr a ; C = SDA
+          .i2cSDAIn
           .i2cSCL1
+          lda i2cReadPort ; C = SDA
+          lsr
           .endm
 
 i2cRxACK: .macro
           .i2cRxBit
           .endm
 
-;;; 
+          EEPROMRead = %10100001
+          EEPROMWrite = %10100000
+;;; 
 i2cStartRead:
           clv               ; Use V to flag if previous byte needs ACK
           .i2cStart
@@ -124,6 +119,7 @@ i2cTxByteLoop:
 i2cRxByte:
           ldy # 8           ; loop (bit) counter
           bvc i2cRxSkipACK
+
           .i2cTxACK
 
 i2cRxByteLoop:
@@ -142,6 +138,7 @@ VBit:
 
 i2cStopRead:
           bvc i2cStopWrite
+
           .i2cTxNAK
 
 i2cStopWrite:
@@ -154,12 +151,14 @@ i2cK:                           ; K is "switch over to (you) sending" in Morse c
           jsr i2cTxByte
 i2cK2:                          ; switch without a final byte to send
           jsr i2cStopWrite
+
           jmp i2cStartRead      ; tail call
 
 i2cWaitForAck:
           ;; Wait for acknowledge bit
 -
           jsr i2cStartWrite
+
           bcs -
           jmp i2cStopWrite      ; tail call
 
