@@ -21,25 +21,33 @@ SaveGameSignatureString:
 
           SaveWritesPerScreen = $20
 ;;; 
-i2cSCL0:  .macro
+i2cSDA0:  .macro
           nop i2cDataPort0
+         .endm
+
+i2cSDA1:  .macro
+          nop i2cDataPort1
+          .endm
+
+i2cSCL0:  .macro ; Setting SDA=0 seems to require changing SDA=1 to possibly allow the bus to float
+          nop i2cDataPort1
           nop i2cClockPort0
          .endm
 
 i2cSCL1:  .macro
-          nop i2cClockPort0
+          nop i2cClockPort1
           .endm
 
 i2cSDAIn: .macro
-          nop i2cDataPort1
+          nop i2cDataPort1 ; float SDA
           .endm
 
-i2cSDAOut: .macro
+i2cSDAOut: .macro ; no action needs to be done
           nop
           .endm
 
-i2cReset: .macro
-          nop i2cDataPort1
+i2cReset: .macro ; float SDA
+          .i2cDataPort1
           .endm
 
 i2cStart: .macro
@@ -56,12 +64,12 @@ i2cStop:  .macro
 
 i2cTxBit: .macro
           .i2cSCL0
-          bcc Send1
-          .i2cSDA0
-          bcc Sent0
-Send1:
+          bcs Send0
           .i2cSDA1
-Sent0:
+          bcs Sent1 ; sending 1 is potentially slower so pad with branch
+Send0:
+          .i2cSDA0 ; Sending 0 is fast so no need to pad
+Sent1:
           .i2cSCL1
           .endm
 
@@ -161,4 +169,3 @@ i2cWaitForAck:
 
           bcs -
           jmp i2cStopWrite      ; tail call
-
