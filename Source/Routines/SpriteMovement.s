@@ -11,12 +11,13 @@ NotPaused:
           ldx SpriteCount
           beq MovementLogicDone
 
-          ;; XXX this check should never have been needed
-          ;; XXX it might be removed in the final roundup
+          ;; this check  should never  have been needed,  but it  can be
+          ;; triggered  during the  first VBlank  after reading  from an
+          ;; EEPROM slot 5-8, so we'll just reset it to zero.
           cpx # 5
           blt ValidSpriteCount
 
-          brk
+          ldx # 0
 
 ValidSpriteCount:
           dex
