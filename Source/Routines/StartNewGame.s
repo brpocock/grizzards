@@ -82,11 +82,11 @@ Loop:
           beq Leave
 
           jsr i2cStartWrite
-          bcc LetsStart
-          jsr i2cStopWrite
+          ;; bcc LetsStart
+          ;; jsr i2cStopWrite
 
-          .mva GameMode, #ModeNoAtariVox
-          brk
+          ;; .mva GameMode, #ModeNoAtariVox
+          ;; brk
 
 LetsStart:
           lda SaveGameSlot

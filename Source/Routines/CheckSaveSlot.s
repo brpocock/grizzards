@@ -1,11 +1,11 @@
 ;;; Grizzards Source/Routines/CheckSaveSlot.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
-EEPROMFail:
-          jsr i2cStopWrite
+;; EEPROMFail:
+;;           jsr i2cStopWrite
 
-          .mva GameMode, #ModeNoAtariVox
-          brk
+;;           .mva GameMode, #ModeNoAtariVox
+;;           brk
 
 CheckSaveSlot: .block
           ;; Check SaveGameSlot for a save game
@@ -16,7 +16,7 @@ CheckSaveSlot: .block
           jsr SeedRandom
 
 	jsr i2cStartWrite
-	bcs EEPROMFail
+	;; bcs EEPROMFail
 
           lda SaveGameSlot
           clc
