@@ -66,7 +66,7 @@ i2cTxBit: .macro
           .i2cSCL0
           bcs Send0
           .i2cSDA1
-          bcs Sent1 ; sending 1 is potentially slower so pad with branch
+          bcc Sent1 ; sending 1 is potentially slower so pad with branch
 Send0:
           .i2cSDA0 ; Sending 0 is fast so no need to pad
 Sent1:
