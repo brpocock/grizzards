@@ -64,9 +64,9 @@ i2cStop:  .macro
 
 i2cTxBit: .macro
           .i2cSCL0
-          bcs Send0
+          bcc Send0
           .i2cSDA1
-          bcc Sent1 ; sending 1 is potentially slower so pad with branch
+          bcs Sent1 ; sending 1 is potentially slower so pad with branch
 Send0:
           .i2cSDA0 ; Sending 0 is fast so no need to pad
 Sent1:
@@ -111,7 +111,6 @@ i2cStartWrite:
           lda # EEPROMWrite
 
 i2cTxByte:
-          eor #$ff
           sta Temp
 
           ldy # 8           ; loop (bit) counter
