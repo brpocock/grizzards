@@ -21,74 +21,51 @@ SaveGameSignatureString:
 
           SaveWritesPerScreen = $20
 ;;; 
-i2cSDA0:  .macro
-          nop i2cDataPort0
-         .endm
-
-i2cSDA1:  .macro
-          nop i2cDataPort1
-          .endm
-
-i2cSCL0:  .macro ; Setting SDA=0 seems to require changing SDA=1 to possibly allow the bus to float
-          nop i2cDataPort1
-          nop i2cClockPort0
-         .endm
-
-i2cSCL1:  .macro
-          nop i2cClockPort1
-          .endm
-
-i2cSDAIn: .macro
-          nop i2cDataPort1 ; float SDA
-          .endm
-
-i2cSDAOut: .macro ; no action needs to be done
-          nop
-          .endm
-
 i2cReset: .macro ; float SDA
-          .i2cSDA1
+          nop i2cDataPort1
           .endm
 
 i2cStart: .macro
-          .i2cSCL1
-          .i2cSDAOut
+          nop i2cClockPort1
           .endm
 
 i2cStop:  .macro
-          .i2cSCL0
-          .i2cSDAOut
-          .i2cSCL1
+          nop i2cDataPort1 ; Setting SDA=0 seems to require changing SDA=1 to possibly allow the bus to float
+          nop i2cClockPort0
+          nop i2cClockPort1
           .i2cReset
           .endm
 
 i2cTxBit: .macro
-          .i2cSCL0
+          nop i2cDataPort1 ; Setting SDA=0 seems to require changing SDA=1 to possibly allow the bus to float
+          nop i2cClockPort0
           bcc Send0
-          .i2cSDA1
+          nop i2cDataPort1
           bcc Sent1 ; sending 1 is potentially slower so pad with branch
 Send0:
-          .i2cSDA0 ; Sending 0 is fast so no need to pad
+          nop i2cDataPort0 ; Sending 0 is fast so no need to pad
 Sent1:
-          .i2cSCL1
+          nop i2cClockPort1
           .endm
 
 i2cTxACK: .macro
-          .i2cSCL0
-          .i2cSDAOut
-          .i2cSCL1
+          nop i2cDataPort1 ; Setting SDA=0 seems to require changing SDA=1 to possibly allow the bus to float
+          nop i2cClockPort0
+          nop i2cClockPort1
           .endm
 
 i2cTxNAK: .macro
-          .i2cSCL0
-          .i2cSDAIn
-          .i2cSCL1
+          nop i2cDataPort1 ; Setting SDA=0 seems to require changing SDA=1 to possibly allow the bus to float
+          nop i2cClockPort0
+          nop i2cDataPort1 ; float SDA
+          nop i2cClockPort1
           .endm
 
 i2cRxBit: .macro
-          .i2cSCL0
-          .i2cSDAIn
-          .i2cSCL1
+          nop i2cDataPort1 ; Setting SDA=0 seems to require changing SDA=1 to possibly allow the bus to float
+          nop i2cClockPort0
+          nop i2cDataPort1 ; float SDA
+          nop i2cClockPort1
           lda i2cReadPort ; C = SDA
           lsr
           .endm
