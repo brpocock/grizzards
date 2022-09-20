@@ -5,7 +5,7 @@
 
           FirstSignpost = 99
 
-          Signs = ( NPC_HungryCookie, NPC_NoCookieForYou, NPC_CookieGiven, NPC_HadCookie, Game_Win1, NPC_Potions, NPC_GotPotions, NPC_MineHint, NPC_FishMonsters, Credits_1, Credits_2, Credits_3, Credits_4, Credits_5, NPC_Villager4, Sign_NewGamePlus, Sign_BuildInfo )
+          Signs = ( NPC_HungryCookie, NPC_NoCookieForYou, NPC_CookieGiven, NPC_HadCookie, Game_Win1, NPC_Potions, NPC_GotPotions, NPC_MineHint, NPC_FishMonsters, Credits_1, Credits_2, Credits_3, Credits_4, Credits_5, NPC_Villager4, Sign_NewGamePlus, Sign_EasterEgg )
 
 SignH:    .byte >(Signs)
 SignL:    .byte <(Signs)
@@ -194,16 +194,16 @@ Sign_NewGamePlus:
           .byte ModeWinnerFireworks
 
 ;;; 115
-Sign_BuildInfo:
+Sign_EasterEgg:
           .colu COLGRAY, 0
           .colu COLGRAY, $e
           .SignText "<BUILD INFO>"
+          .if PUBLISHER
+            .SignText "ATARIAGE.COM"
+          .else
+            .SignText "PUBLIC BUILD"
+          .fi
           .SignText format(" %04d-%02d-%02d ", YEARNOW, MONTHNOW, DATENOW)
           .SignText format(" J %04d.%03d ", YEARNOW, JULIANDATENOW)
-          .if PUBLISHER
-            .SignText "< ATARIAGE >"
-          .else
-            .SignText " < PUBLIC > "
-          .fi
-          .SignText format("%12s", ConfigPartNumber)
+          .SignText format("%-12s", ConfigPartNumber)
           .byte ModeSignpostDone

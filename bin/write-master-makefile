@@ -8,7 +8,8 @@ my @banks = ();
   }
 }
 
-print '# Makefile (generated)
+print <<'END';
+# Makefile (generated)
 # -*- makefile -*-
 
 
@@ -22,11 +23,11 @@ ASFLAGS=--nostart --long-branch --case-sensitive \
 	--ascii -I. -I Source/Common -I Source/Routines -I Source/Generated/Common \
 	-D YEARNOW=${YEAR} -D MONTHNOW=${MONTH} \
 	-D DATENOW=${DATE} -D JULIANDATENOW=${JULIAN} \
-	-D BUILD=${BUILD} \
+	-D BUILD='"${BUILD}"' \
 	-Wall -Wno-shadow -Wno-leading-zeros
 AS2600=64tass ${ASFLAGS} --m6502 -m --tab-size=1 --verbose-list
 
-';
+END
 
 for my $bank (qw( 05 07 08 09 0a 0b 0c 0d 0e )) {
   print "Source/Generated/Bank$bank/SpeakJetIDs.s:	\$(shell ls -1 Source/Banks/Bank$bank/*Speech.txt)

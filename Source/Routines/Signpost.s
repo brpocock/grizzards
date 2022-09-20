@@ -74,9 +74,7 @@ NoBankUp:
           ;; Adjust the index to be relative to this bank
           .if FirstSignpost > 0
             txa
-            sec
-            sbc #FirstSignpost
-            tax
+            sbx #FirstSignpost
           .fi
           stx SignpostIndex
 
