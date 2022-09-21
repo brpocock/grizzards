@@ -93,8 +93,6 @@ LoadNameLoop:
           jsr i2cRxByte
 
           sta NameEntryBuffer, x
-          beq MaybeDeleted
-
           inx
           cpx # 6
           bne LoadNameLoop
