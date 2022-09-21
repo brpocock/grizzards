@@ -13,70 +13,15 @@ CheckSaveSlot: .block
           ;; player name in NameEntryBuffer,
           ;; and sets SaveSlotBusy and SaveSlotErased to
           ;; either $00 for false or non-zero for true
-          jsr SeedRandom
 
-	jsr i2cStartWrite
-	;; bcs EEPROMFail
-
-          lda SaveGameSlot
-          clc
-          adc #>SaveGameSlotPrefix
-          jsr i2cTxByte
-
-          lda #<SaveGameSlotPrefix
-          jsr i2cK
-
-          ldx # 0
-          jsr i2cRxByte
-
-          beq MaybeDeleted
-
-ReadLoop:
-          cmp SaveGameSignatureString, x
-          bne SlotEmpty
-
-          inx
-          jsr i2cRxByte
-
-          cpx # 5
-          bne ReadLoop
-
-          jsr i2cStopRead
-
-          ldy # 1               ; slot busy
-          sty SaveSlotBusy
-
-          gne ReadSlotName
-
-SlotEmpty:
-          jsr i2cStopRead
-
-          ldy # 0               ; slot empty
-          sty SaveSlotBusy
-          sty SaveSlotErased
-          rts
-
-MaybeDeleted:
-          inx
-ReadLoop0:
-          jsr i2cRxByte
-
-          cmp SaveGameSignatureString, x
-          bne SlotEmpty
-
-          inx
-          cpx # 5
-          bne ReadLoop0
-
-          jsr i2cStopRead
-
-          ldx # 0
+          ;; XXX DO NOT merge this to main.
+          ldx #$ff
           stx SaveSlotBusy
-          inx                   ; X ← 1
+          inx
           stx SaveSlotErased
-          ;; fall through
+
 ReadSlotName:
-          jsr i2cWaitForAck
+          ;; jsr i2cWaitForAck
 
           jsr i2cStartWrite
 
@@ -93,12 +38,14 @@ LoadNameLoop:
           jsr i2cRxByte
 
           sta NameEntryBuffer, x
-          beq MaybeDeleted
 
           inx
           cpx # 6
           bne LoadNameLoop
 
+          rts                   ; XXX
+
+          
           lda #$80
 
           jsr i2cStopRead
