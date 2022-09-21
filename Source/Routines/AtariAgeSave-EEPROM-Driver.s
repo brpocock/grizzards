@@ -26,13 +26,17 @@ i2cReset: .macro ; float SDA
           .endm
 
 i2cStart: .macro
+          nop i2cDataPort0
           nop i2cClockPort1
+          nop i2cDataPort1
+          nop i2cClockPort0
           .endm
 
 i2cStop:  .macro
-          nop i2cDataPort1 ; Setting SDA=0 seems to require changing SDA=1 to possibly allow the bus to float
-          nop i2cClockPort0
+          nop i2cDataPort1
           nop i2cClockPort1
+          nop i2cDataPort0
+          nop i2cClockPort0
           .i2cReset
           .endm
 
@@ -41,7 +45,7 @@ i2cTxBit: .macro
           nop i2cClockPort0
           bcc Send0
           nop i2cDataPort1
-          bcc Sent1 ; sending 1 is potentially slower so pad with branch
+          bcs Sent1 ; sending 1 is potentially slower so pad with branch
 Send0:
           nop i2cDataPort0 ; Sending 0 is fast so no need to pad
 Sent1:
