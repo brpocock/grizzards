@@ -43,12 +43,12 @@ LoadNameLoop:
           cpx # 6
           bne LoadNameLoop
 
-          rts                   ; XXX
+          jsr i2cStopRead
 
+          rts                   ; XXX
+  
           
           lda #$80
-
-          jsr i2cStopRead
 
 ReadCrownBit:
           jsr i2cWaitForAck
