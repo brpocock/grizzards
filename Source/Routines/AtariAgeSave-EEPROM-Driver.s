@@ -81,8 +81,15 @@ i2cTxByteLoop:
           .i2cSCL0
           lda #0
           adc #0
-          tax
-          nop $1FF2,x ; SDA = C
+          beq Send0
+
+          nop $1ff3
+          bne Sent
+
+Send0:
+          nop $1ff2
+
+Sent:     
           .i2cSCL1
           dey
           bne i2cTxByteLoop
