@@ -58,7 +58,7 @@ i2cStartWrite:
 i2cTxByte:          .block
           sta Temp
           ldy # 8               ; bits to send
-i2cTxByteLoop:
+Loop:
           lda # 0
           rol Temp
           bcc Send0
@@ -78,10 +78,13 @@ SendClock:
           lda i2cReadPort
           nop i2cClockPort0
           dey
-          bne i2cTxByteLoop
+          bne Loop
 
 GetAck:
           nop i2cDataPort1
+
+          nop
+
           nop i2cClockPort1
 
           nop
@@ -96,9 +99,34 @@ GetAck:
           
 i2cRxByte:          .block
           ldy # 8           ; loop (bit) counter
+          bvc SkipAck
+
+          bcc Ack0
+
+Ack1:
+          nop i2cDataPort1
+          bcs SentAck
+
+Ack0:
+          nop i2cDataPort0
+
+SentAck:
+          nop i2cClockPort1
+
+          nop
 
           nop i2cDataPort1
-i2cRxByteLoop:
+
+          nop
+
+          lda i2cReadPort
+
+          nop i2cClockPort0
+
+AckDone:
+          nop i2cDataPort1
+
+Loop:
           nop i2cClockPort1
 
           nop
@@ -109,10 +137,14 @@ i2cRxByteLoop:
 
           nop i2cClockPort0
           dey
-          bne i2cRxByteLoop
+          bne Loop
 
           rts
 
+SkipAck:
+          bit VBit
+VBit:
+          bvs Loop
           .bend
 
 i2cStopRead:
