@@ -34,6 +34,11 @@ LoadNameLoop:
 
           lda #$80
 
-          jmp i2cStopRead
+          jsr i2cStopRead
+
+          ror a                 ; high bit of A = C state
+          sta Potions
+
+          rts
 
 	.bend
