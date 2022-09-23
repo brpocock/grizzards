@@ -25,74 +25,52 @@ SaveGameSignatureString:
           EEPROMWrite = %10100000
 ;;; 
 
-i2cWait:  .macro
-          nop
-          .endm
-          
 i2cStartRead:
-          nop i2cDataPort1
-          nop i2cClockPort1
-
-          .i2cWait
-
-          nop i2cDataPort0
-          nop i2cClockPort0
-
+          clv                   ; previous byte does not need ACK
           lda # EEPROMRead
-
-          jmp i2cTxByte         ; tail call
+          bvc i2cSignalStart    ; always taken
 
 i2cStartWrite:
-          nop i2cDataPort1
-          nop i2cClockPort1
-
-          .i2cWait
-
-          nop i2cDataPort0
-          nop i2cClockPort0
-
           lda # EEPROMWrite
 
+i2cSignalStart:
+          ;; Transition data 1→0 while clock is high
+          ;; to signal start of a stream
+          nop i2cDataPort1
+          nop i2cClockPort1
+          nop
+          nop i2cDataPort0
+          nop
+          nop i2cClockPort0
           ;; fall through
-
 i2cTxByte:          .block
           sta Temp
           ldy # 8               ; bits to send
 Loop:
-          lda # 0
-          rol Temp
+          asl Temp              ; bit into C
           bcc Send0
 
-Send1:
           nop i2cDataPort1
-          bcs SendClock
+          bcs SendClock         ; always taken
 
 Send0:
           nop i2cDataPort0
 
 SendClock:
           nop i2cClockPort1
-
           nop
-
-          lda i2cReadPort
           nop i2cClockPort0
           dey
           bne Loop
 
 GetAck:
           nop i2cDataPort1
-
-          nop
-
           nop i2cClockPort1
-
           nop
-
           lda i2cReadPort
-          lsr a
+          lsr a                 ; C = SDA
           nop i2cClockPort0
-
+          ;; return C = ACK bit
           rts
 
           .bend
@@ -101,62 +79,49 @@ i2cRxByte:          .block
           ldy # 8           ; loop (bit) counter
           bvc SkipAck
 
-          bcc Ack0
-
-Ack1:
-          nop i2cDataPort1
-          bcs SentAck
-
-Ack0:
-          nop i2cDataPort0
-
-SentAck:
-          nop i2cClockPort1
-
-          nop
-
-          nop i2cDataPort1
-
-          nop
-
-          lda i2cReadPort
-
           nop i2cClockPort0
-
-AckDone:
           nop i2cDataPort1
+          nop i2cClockPort1
+          nop
+          nop i2cClockPort0
 
 Loop:
           nop i2cClockPort1
-
           nop
-
           lda i2cReadPort
           ror a
           rol Temp
-
           nop i2cClockPort0
           dey
           bne Loop
 
+          lda Temp
           rts
 
 SkipAck:
-          bit VBit
+          bit VBit              ; set V=1
 VBit:
           bvs Loop
           .bend
 
 i2cStopRead:
-i2cStopWrite:
+          bvc i2cStopWrite
+
+          ;; send NAK
           nop i2cDataPort0
-
+          nop i2cClockPort1
           nop
-
           nop i2cClockPort0
 
+i2cStopWrite:
+          ;;  A low-to-high transition on the  SDA line while the SCL is
+          ;;  high defines a STOP condition
+          nop i2cDataPort0
+          nop i2cClockPort1
           nop
-
+          nop i2cDataPort1
+          nop
+          nop i2cClockPort0
           nop i2cDataPort0
 
           rts
