@@ -47,6 +47,7 @@ i2cTxByte:          .block
           sta Temp
           ldy # 8               ; bits to send
 Loop:
+          nop i2cClockPort0
           asl Temp              ; bit into C
           bcc Send0
 
@@ -101,7 +102,9 @@ Loop:
 SkipAck:
           bit VBit              ; set V=1
 VBit:
-          bvs Loop
+          bvs Loop              ; always taken
+
+          brk                   ; unreachable?
           .bend
 
 i2cStopRead:
