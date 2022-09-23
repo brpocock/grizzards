@@ -13,41 +13,26 @@
 SaveGameSignatureString:
           .text SaveGameSignature
 
-          i2cClockPort0 = $1ff0
-          i2cClockPort1 = $1ff1
-          i2cDataPort0 = $1ff2
-          i2cDataPort1 = $1ff3
-          i2cReadPort = $1ff4
-
           SaveWritesPerScreen = $20
 ;;; 
-i2cSDA0:  .macro
-          nop i2cDataPort0
-         .endm
-
-i2cSDA1:  .macro
-          nop i2cDataPort1
+i2cSCL0:  .macro
+          nop $1ff0
           .endm
 
-i2cSCL0:  .macro ; Setting SDA=0 seems to require changing SDA=1 to possibly allow the bus to float
-          nop i2cDataPort1
-          nop i2cClockPort0
-         .endm
-
 i2cSCL1:  .macro
-          nop i2cClockPort1
+          nop $1ff1
           .endm
 
 i2cSDAIn: .macro
-          nop i2cDataPort1 ; float SDA
+          nop $1ff3
           .endm
 
-i2cSDAOut: .macro ; no action needs to be done
-          nop
+i2cSDAOut: .macro
           .endm
 
-i2cReset: .macro ; float SDA
-          .i2cSDA1
+i2cReset: .macro
+          nop $1ff0
+          nop $1ff3
           .endm
 
 i2cStart: .macro
@@ -62,17 +47,6 @@ i2cStop:  .macro
           .i2cReset
           .endm
 
-i2cTxBit: .macro
-          .i2cSCL0
-          bcc Send0
-          .i2cSDA1
-          bcs Sent1 ; sending 1 is potentially slower so pad with branch
-Send0:
-          .i2cSDA0 ; Sending 0 is fast so no need to pad
-Sent1:
-          .i2cSCL1
-          .endm
-
 i2cTxACK: .macro
           .i2cSCL0
           .i2cSDAOut
@@ -85,21 +59,9 @@ i2cTxNAK: .macro
           .i2cSCL1
           .endm
 
-i2cRxBit: .macro
-          .i2cSCL0
-          .i2cSDAIn
-          .i2cSCL1
-          lda i2cReadPort ; C = SDA
-          lsr
-          .endm
-
-i2cRxACK: .macro
-          .i2cRxBit
-          .endm
-
           EEPROMRead = %10100001
           EEPROMWrite = %10100000
-;;; 
+
 i2cStartRead:
           clv               ; Use V to flag if previous byte needs ACK
           .i2cStart
@@ -116,11 +78,17 @@ i2cTxByte:
           ldy # 8           ; loop (bit) counter
 i2cTxByteLoop:
           asl Temp          ; next bit into C
-          .i2cTxBit
+          .i2cSCL0
+          lda #0
+          adc #0
+          tax
+          nop $1FF2,x ; SDA = C
+          .i2cSCL1
           dey
           bne i2cTxByteLoop
 
-          .i2cRxACK         ; receive ACK bit
+          lda $1FF4
+          lsr
           rts
 
 i2cRxByte:
@@ -130,7 +98,11 @@ i2cRxByte:
           .i2cTxACK
 
 i2cRxByteLoop:
-          .i2cRxBit
+          .i2cSCL0
+          .i2cSDAIn
+          .i2cSCL1
+          lda $1FF4
+          lsr
           rol Temp          ; rotate C into scratchpad
           dey
           bne i2cRxByteLoop
@@ -167,3 +139,4 @@ i2cWaitForAck:
 
           bcs i2cWaitForAck
           jmp i2cStopWrite      ; tail call
+
