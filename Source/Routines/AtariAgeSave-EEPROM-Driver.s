@@ -51,7 +51,7 @@ i2cStartWrite:
           nop i2cDataPort0
           nop i2cClockPort0
 
-          lda # EEPROMRead
+          lda # EEPROMWrite
 
           jmp i2cTxByte         ; tail call
 
