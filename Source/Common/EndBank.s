@@ -206,13 +206,13 @@ WiredEnd:
             * = $fff0
             ;;  SCL & SDA write lines, data irrelevant.
             ;;  Using this for Stella's benefit.
-            .text "EFFB"
+            .text "effb"
             ;; SDA reads return these values for 0/1 bits
             .byte 0, 1
 
             ;; for Stella's benefit
             * = $fff8
-            .text "EFEF"
+            .text "efef"
           .fi
 
 ;;; 6507 special vectors
