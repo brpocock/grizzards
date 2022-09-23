@@ -26,11 +26,7 @@ SaveGameSignatureString:
 ;;; 
 
 i2cWait:  .macro
-          .block
-Wait:
-          lda i2cReadPort
-          beq Wait
-          .bend
+          nop
           .endm
           
 i2cStartRead:
