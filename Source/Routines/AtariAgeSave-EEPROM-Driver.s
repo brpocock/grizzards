@@ -20,138 +20,119 @@ SaveGameSignatureString:
           i2cReadPort = $1ff4
 
           SaveWritesPerScreen = $20
-;;; 
-i2cSDA0:  .macro
-          nop i2cDataPort0
-         .endm
-
-i2cSDA1:  .macro
-          nop i2cDataPort1
-          .endm
-
-i2cSCL0:  .macro ; Setting SDA=0 seems to require changing SDA=1 to possibly allow the bus to float
-          nop i2cDataPort1
-          nop i2cClockPort0
-         .endm
-
-i2cSCL1:  .macro
-          nop i2cClockPort1
-          .endm
-
-i2cSDAIn: .macro
-          nop i2cDataPort1 ; float SDA
-          .endm
-
-i2cSDAOut: .macro ; no action needs to be done
-          nop
-          .endm
-
-i2cReset: .macro ; float SDA
-          .i2cSDA1
-          .endm
-
-i2cStart: .macro
-          .i2cSCL1
-          .i2cSDAOut
-          .endm
-
-i2cStop:  .macro
-          .i2cSCL0
-          .i2cSDAOut
-          .i2cSCL1
-          .i2cReset
-          .endm
-
-i2cTxBit: .macro
-          .i2cSCL0
-          bcc Send0
-          .i2cSDA1
-          bcs Sent1 ; sending 1 is potentially slower so pad with branch
-Send0:
-          .i2cSDA0 ; Sending 0 is fast so no need to pad
-Sent1:
-          .i2cSCL1
-          .endm
-
-i2cTxACK: .macro
-          .i2cSCL0
-          .i2cSDAOut
-          .i2cSCL1
-          .endm
-
-i2cTxNAK: .macro
-          .i2cSCL0
-          .i2cSDAIn
-          .i2cSCL1
-          .endm
-
-i2cRxBit: .macro
-          .i2cSCL0
-          .i2cSDAIn
-          .i2cSCL1
-          lda i2cReadPort ; C = SDA
-          lsr
-          .endm
-
-i2cRxACK: .macro
-          .i2cRxBit
-          .endm
-
+;;; 
           EEPROMRead = %10100001
           EEPROMWrite = %10100000
-;;; 
+;;; 
+
+i2cWait:  .macro
+          .block
+Wait:
+          lda i2cReadPort
+          beq Wait
+          .bend
+          .endm
+          
 i2cStartRead:
-          clv               ; Use V to flag if previous byte needs ACK
-          .i2cStart
+          nop i2cDataPort1
+          nop i2cClockPort1
+
+          .i2cWait
+
+          nop i2cDataPort0
+          nop i2cClockPort0
+
           lda # EEPROMRead
-          bvc i2cTxByte
+
+          jmp i2cTxByte         ; tail call
 
 i2cStartWrite:
-          .i2cStart
-          lda # EEPROMWrite
+          nop i2cDataPort1
+          nop i2cClockPort1
 
-i2cTxByte:
+          .i2cWait
+
+          nop i2cDataPort0
+          nop i2cClockPort0
+
+          lda # EEPROMRead
+
+          jmp i2cTxByte         ; tail call
+
+i2cTxByte:          .block
           sta Temp
-
-          ldy # 8           ; loop (bit) counter
+          ldy # 8               ; bits to send
 i2cTxByteLoop:
-          asl Temp          ; next bit into C
-          .i2cTxBit
+          lda # 0
+          rol Temp
+          bcc Send0
+
+Send1:
+          nop i2cDataPort1
+          bcs SendClock
+
+Send0:
+          nop i2cDataPort0
+
+SendClock:
+          nop i2cClockPort1
+
+          nop
+
+          lda i2cReadPort
+          nop i2cClockPort0
           dey
           bne i2cTxByteLoop
 
-          .i2cRxACK         ; receive ACK bit
+GetAck:
+          nop i2cDataPort1
+          nop i2cClockPort1
+
+          nop
+
+          lda i2cReadPort
+          lsr a
+          nop i2cClockPort0
+
           rts
 
-i2cRxByte:
+          .bend
+          
+i2cRxByte:          .block
           ldy # 8           ; loop (bit) counter
-          bvc i2cRxSkipACK
 
-          .i2cTxACK
-
+          nop i2cDataPort1
 i2cRxByteLoop:
-          .i2cRxBit
-          rol Temp          ; rotate C into scratchpad
+          nop i2cClockPort1
+
+          nop
+
+          lda i2cReadPort
+          ror a
+          rol Temp
+
+          nop i2cClockPort0
           dey
           bne i2cRxByteLoop
 
-          lda Temp
           rts
 
-i2cRxSkipACK:
-          bit VBit          ; set V - next byte/s require ACK
-VBit:
-          bvs i2cRxByteLoop
+          .bend
 
 i2cStopRead:
-          bvc i2cStopWrite
-
-          .i2cTxNAK
-
 i2cStopWrite:
-          .i2cStop
-          rts
+          nop i2cDataPort0
 
+          nop
+
+          nop i2cClockPort0
+
+          nop
+
+          nop i2cDataPort0
+
+          rts
+;;; 
           ;; The following functions added by BRPocock, not found in the
           ;; standard library code
 i2cK:                           ; K is "switch over to (you) sending" in Morse code
