@@ -78,6 +78,9 @@ CheckSaveSlot: .block
 ;; ReadSlotName:
 ;;           jsr i2cWaitForAck
 
+          .mva SaveSlotBusy, #$ff
+          .mva SaveSlotErased, # 0
+
           jsr i2cStartWrite
 
           lda SaveGameSlot
