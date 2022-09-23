@@ -53,7 +53,7 @@ i2cStartWrite:
 
           lda # EEPROMWrite
 
-          jmp i2cTxByte         ; tail call
+          ;; fall through
 
 i2cTxByte:          .block
           sta Temp
