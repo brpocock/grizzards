@@ -115,7 +115,7 @@ Dist/Grizzards.AtariAge.zip:	\
 	Dist/Grizzards.AA.NTSC.a26 Dist/Grizzards.AA.PAL.a26 Dist/Grizzards.AA.SECAM.a26 \
 	Dist/Grizzards.AA.NTSC.pro Dist/Grizzards.AA.PAL.pro Dist/Grizzards.AA.SECAM.pro \
 	Dist/Grizzards.AA-book.pdf \
-	Package/Box.svg Package/EndLabel.png Package/FrontLabel.png
+	Package/Box.svg Package/End\ Label.pdf Package/Front\ Label.pdf
 	@echo "AtariAge daily build of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
 		zip  --archive-comment -9 "$@" $^
 

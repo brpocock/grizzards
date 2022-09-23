@@ -7,7 +7,7 @@ Preamble: .block
 
 PublisherPresentsMode:
             .SetUpFortyEight AtariAgeLogo
-            .ldacolu COLGRAY, $f
+            .ldacolu COLGRAY, 0
             sta COLUBK
             .if SECAM == TV
               lda #COLBLUE
