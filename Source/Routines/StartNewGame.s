@@ -81,7 +81,7 @@ Loop:
           cmp #$ff
           beq Leave
 
-          jsr i2cStartWrite
+          ;; jsr i2cStartWrite
           ;; bcc LetsStart
           ;; jsr i2cStopWrite
 

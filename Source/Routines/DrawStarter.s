@@ -38,12 +38,12 @@ Write:      .macro value
           bne -
 
           .enc "minifont"
-          .Write "t"
-          .Write "e"
-          .Write "s"
-          .Write "t"
-          .Write "o"
-          .Write "k"
+          .Write "T"
+          .Write "E"
+          .Write "S"
+          .Write "T"
+          .Write "O"
+          .Write "K"
 
           jsr i2cStopWrite
 
