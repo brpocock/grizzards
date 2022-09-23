@@ -21,14 +21,14 @@ Write:      .macro value
           jsr i2cStartWrite
 
           .Write >SaveGameSlotPrefix
-          .Write <0
+          .Write 0
 
           .enc "Unicode"
           .Write "G"
           .Write "R"
           .Write "I"
           .Write "Z"
-          .Write "0"
+          .Write "1"
 
           ldx # $20 - 5 - GlobalGameDataLength - 6
 -
