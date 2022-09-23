@@ -36,6 +36,7 @@ i2cStartWrite:
 i2cSignalStart:
           ;; Transition data 1→0 while clock is high
           ;; to signal start of a stream
+          nop i2cClockPort0
           nop i2cDataPort1
           nop i2cClockPort1
           nop
@@ -52,7 +53,7 @@ Loop:
           bcc Send0
 
           nop i2cDataPort1
-          bcs SendClock         ; always taken
+          gcs SendClock         ; always taken
 
 Send0:
           nop i2cDataPort0
@@ -60,11 +61,11 @@ Send0:
 SendClock:
           nop i2cClockPort1
           nop
-          nop i2cClockPort0
           dey
           bne Loop
 
 GetAck:
+          nop i2cClockPort0
           nop i2cDataPort1
           nop i2cClockPort1
           nop
@@ -84,25 +85,24 @@ i2cRxByte:          .block
           nop i2cDataPort1
           nop i2cClockPort1
           nop
-          nop i2cClockPort0
-
 Loop:
+          nop i2cClockPort0
           nop i2cClockPort1
           nop
           lda i2cReadPort
-          ror a
+          lsr a
           rol Temp
-          nop i2cClockPort0
           dey
           bne Loop
 
+          nop i2cClockPort0
           lda Temp
           rts
 
 SkipAck:
-          bit VBit              ; set V=1
+          bit VBit              ; set V=1 — next byte requires ACK
 VBit:
-          bvs Loop              ; always taken
+          gvs Loop              ; always taken
 
           brk                   ; unreachable?
           .bend
@@ -111,6 +111,7 @@ i2cStopRead:
           bvc i2cStopWrite
 
           ;; send NAK
+          nop i2cClockPort0
           nop i2cDataPort0
           nop i2cClockPort1
           nop
@@ -119,6 +120,7 @@ i2cStopRead:
 i2cStopWrite:
           ;;  A low-to-high transition on the  SDA line while the SCL is
           ;;  high defines a STOP condition
+          nop i2cClockPort0
           nop i2cDataPort0
           nop i2cClockPort1
           nop
