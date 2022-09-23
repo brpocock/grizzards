@@ -79,9 +79,7 @@ i2cTxByte:
 i2cTxByteLoop:
           asl Temp          ; next bit into C
           .i2cSCL0
-          lda #0
-          adc #0
-          beq Send0
+          bcc Send0
 
           nop $1ff3
           bne Sent

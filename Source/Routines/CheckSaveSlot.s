@@ -1,7 +1,7 @@
 ;;; Grizzards Source/Routines/CheckSaveSlot.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             EEPROMFail:
+EEPROMFail:
           jsr i2cStopWrite
 
           .mva GameMode, #ModeNoAtariVox
@@ -16,67 +16,70 @@ CheckSaveSlot: .block
           jsr SeedRandom
 
 	jsr i2cStartWrite
-	bcs EEPROMFail
+	;; bcs EEPROMFail
 
-          lda SaveGameSlot
-          clc
-          adc #>SaveGameSlotPrefix
-          jsr i2cTxByte
+;;           lda SaveGameSlot
+;;           clc
+;;           adc #>SaveGameSlotPrefix
+;;           jsr i2cTxByte
 
-          lda #<SaveGameSlotPrefix
-          jsr i2cK
+;;           lda #<SaveGameSlotPrefix
+;;           jsr i2cK
 
-          ldx # 0
-          jsr i2cRxByte
+;;           ldx # 0
+;;           jsr i2cRxByte
 
-          beq MaybeDeleted
+;;           beq MaybeDeleted
 
-ReadLoop:
-          cmp SaveGameSignatureString, x
-          bne SlotEmpty
+;; ReadLoop:
+;;           cmp SaveGameSignatureString, x
+;;           bne SlotEmpty
 
-          inx
-          jsr i2cRxByte
+;;           inx
+;;           jsr i2cRxByte
 
-          cpx # 5
-          bne ReadLoop
+;;           cpx # 5
+;;           bne ReadLoop
 
-          jsr i2cStopRead
+;;           jsr i2cStopRead
 
-          ldy # 1               ; slot busy
-          sty SaveSlotBusy
+;;           ldy # 1               ; slot busy
+;;           sty SaveSlotBusy
 
-          gne ReadSlotName
+;;           gne ReadSlotName
 
-SlotEmpty:
-          jsr i2cStopRead
+;; SlotEmpty:
+;;           jsr i2cStopRead
 
-          ldy # 0               ; slot empty
-          sty SaveSlotBusy
-          sty SaveSlotErased
-          rts
+;;           ldy # 0               ; slot empty
+;;           sty SaveSlotBusy
+;;           sty SaveSlotErased
+;;           rts
 
-MaybeDeleted:
-          inx
-ReadLoop0:
-          jsr i2cRxByte
+;; MaybeDeleted:
+;;           inx
+;; ReadLoop0:
+;;           jsr i2cRxByte
 
-          cmp SaveGameSignatureString, x
-          bne SlotEmpty
+;;           cmp SaveGameSignatureString, x
+;;           bne SlotEmpty
 
-          inx
-          cpx # 5
-          bne ReadLoop0
+;;           inx
+;;           cpx # 5
+;;           bne ReadLoop0
 
-          jsr i2cStopRead
+;;           jsr i2cStopRead
 
-          ldx # 0
-          stx SaveSlotBusy
-          inx                   ; X ← 1
-          stx SaveSlotErased
-          ;; fall through
-ReadSlotName:
-          jsr i2cWaitForAck
+;;           ldx # 0
+;;           stx SaveSlotBusy
+;;           inx                   ; X ← 1
+;;           stx SaveSlotErased
+;;           ;; fall through
+;; ReadSlotName:
+;;           jsr i2cWaitForAck
+
+          .mva SaveSlotBusy, #$ff
+          .mva SaveSlotErased, # 0
 
           jsr i2cStartWrite
 
@@ -93,8 +96,6 @@ LoadNameLoop:
           jsr i2cRxByte
 
           sta NameEntryBuffer, x
-          beq MaybeDeleted
-
           inx
           cpx # 6
           bne LoadNameLoop
