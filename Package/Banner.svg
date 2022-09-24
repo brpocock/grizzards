@@ -6,7 +6,7 @@
    version="1.1"
    id="svg13"
    sodipodi:docname="Banner.svg"
-   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -14,11 +14,6 @@
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
      id="defs17">
-    <pattern
-       inkscape:collect="always"
-       xlink:href="#pattern37683-3"
-       id="pattern15451"
-       patternTransform="matrix(0.02645833,0,0,0.02645833,37.793688,98.227724)" />
     <clipPath
        clipPathUnits="userSpaceOnUse"
        id="clipPath16453-9">
@@ -872,16 +867,18 @@
      inkscape:pagecheckerboard="1"
      inkscape:document-units="cm"
      showgrid="false"
-     inkscape:zoom="0.11166026"
-     inkscape:cx="111.94673"
-     inkscape:cy="1235.8918"
-     inkscape:window-width="1920"
-     inkscape:window-height="1011"
+     inkscape:zoom="0.088738624"
+     inkscape:cx="2096.0433"
+     inkscape:cy="2355.2315"
+     inkscape:window-width="1366"
+     inkscape:window-height="702"
      inkscape:window-x="0"
-     inkscape:window-y="32"
+     inkscape:window-y="29"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1"
-     borderlayer="true" />
+     borderlayer="true"
+     inkscape:showpageshadow="0"
+     inkscape:deskcolor="#d1d1d1" />
   <style
      type="text/css"
      id="style2">.common {fill:none;stroke-width:0.1} .bleed {stroke:#E61937;} .trim {stroke:#1D44B8;} .safe {stroke:#17E600;} .ornament {stroke: #000000;} .cut {stroke: #0045AD} .fold {stroke: #CC21A1;}</style>
@@ -936,13 +933,6 @@
        id="text5061"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:C059;-inkscape-font-specification:C059;white-space:pre;shape-inside:url(#rect5063-3);display:inline;fill:#000000;fill-opacity:1;stroke:none"
        transform="matrix(0.02645833,0,0,0.02645833,52.732948,24.124246)" />
-    <rect
-       style="display:inline;fill:url(#pattern15451);stroke:none;stroke-width:0.0264583"
-       width="1.2126178"
-       height="1.0629655"
-       x="37.793694"
-       y="98.227722"
-       id="rect37695" />
     <ellipse
        style="display:inline;vector-effect:non-scaling-stroke;fill:url(#radialGradient24231);fill-opacity:1;stroke:none;stroke-width:1.68623e-05;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;-inkscape-stroke:hairline;paint-order:markers stroke fill"
        id="ellipse24229"
@@ -1015,7 +1005,7 @@
        transform="matrix(0.14757187,0,0,0.14757187,-124.78078,45.872071)"><tspan
          x="945.25201"
          y="345.23404"
-         id="tspan6095">For the Atari 2600 and compatible systems</tspan></text>
+         id="tspan2854">For the Atari 2600 and compatible systems</tspan></text>
     <g
        id="g5879"
        transform="translate(-1.598273)">
