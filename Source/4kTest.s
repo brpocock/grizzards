@@ -29,6 +29,7 @@ Main:     .block
 
 Loop:
           .WaitScreenBottom
+          .SkipLines 30
           .WaitScreenTop
 
           .mva COLUBK, #$68
