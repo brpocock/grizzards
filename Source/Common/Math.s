@@ -48,9 +48,9 @@ AddWord:  .macro a, b
 Inc16:    .macro address
           .block
           inc \address
-          bne +
+          bne IncNE
           inc \address + 1
-+
+IncNE:
           .bend
           .endm
 
@@ -146,13 +146,13 @@ Div .macro denominator, temp
           adc #21
           lsr a
           adc \temp
-          ror
+          ror a
           lsr a
           adc \temp
-          ror
+          ror a
           lsr a
           adc \temp
-          ror
+          ror a
           lsr a
 
           .case 4
@@ -166,13 +166,13 @@ Div .macro denominator, temp
           lsr a
           adc #13
           adc \temp
-          ror
+          ror a
           lsr a
           lsr a
           adc \temp
-          ror
+          ror a
           adc \temp
-          ror
+          ror a
           lsr a
           lsr a
 
@@ -183,13 +183,13 @@ Div .macro denominator, temp
           lsr a
           lsr a
           adc \temp
-          ror
+          ror a
           lsr a
           adc \temp
-          ror
+          ror a
           lsr a
           adc \temp
-          ror
+          ror a
           lsr a
 
           .case 7
@@ -200,11 +200,11 @@ Div .macro denominator, temp
           lsr a
           lsr a
           adc \temp
-          ror
+          ror a
           lsr a
           lsr a
           adc \temp
-          ror
+          ror a
           lsr a
           lsr a
 
@@ -221,11 +221,11 @@ Div .macro denominator, temp
           lsr a
           lsr a
           adc \temp
-          ror
+          ror a
           adc \temp
-          ror
+          ror a
           adc \temp
-          ror
+          ror a
           lsr a
           lsr a
           lsr a
@@ -236,13 +236,13 @@ Div .macro denominator, temp
           sta \temp
           lsr a
           adc \temp
-          ror
+          ror a
           lsr a
           lsr a
           adc \temp
-          ror
+          ror a
           adc \temp
-          ror
+          ror a
           lsr a
           lsr a
 
@@ -252,14 +252,14 @@ Div .macro denominator, temp
           lsr a
           lsr a
           adc \temp
-          ror
+          ror a
           adc \temp
-          ror
+          ror a
           adc \temp
-          ror
+          ror a
           lsr a
           adc \temp
-          ror
+          ror a
           lsr a
           lsr a
           lsr a
@@ -271,13 +271,13 @@ Div .macro denominator, temp
           sta \temp
           lsr a
           adc \temp
-          ror
+          ror a
           lsr a
           adc \temp
-          ror
+          ror a
           lsr a
           adc \temp
-          ror
+          ror a
           lsr a
 
           .case 13
@@ -285,16 +285,16 @@ Div .macro denominator, temp
           sta \temp
           lsr a
           adc \temp
-          ror
+          ror a
           adc \temp
-          ror
+          ror a
           adc \temp
-          ror
+          ror a
           lsr a
           lsr a
           clc
           adc \temp
-          ror
+          ror a
           lsr a
           lsr a
           lsr a
@@ -307,11 +307,11 @@ Div .macro denominator, temp
           lsr a
           lsr a
           adc \temp
-          ror
+          ror a
           lsr a
           lsr a
           adc \temp
-          ror
+          ror a
           lsr a
           lsr a
           lsr a
@@ -325,7 +325,7 @@ Div .macro denominator, temp
           lsr a
           lsr a
           adc \temp
-          ror
+          ror a
           lsr a
           lsr a
           lsr a
@@ -342,11 +342,11 @@ Div .macro denominator, temp
           sta \temp
           lsr a
           adc \temp
-          ror
+          ror a
           adc \temp
-          ror
+          ror a
           adc \temp
-          ror
+          ror a
           adc #0
           lsr a
           lsr a
@@ -361,11 +361,11 @@ Div .macro denominator, temp
           lsr a
           lsr a
           adc \temp
-          ror
+          ror a
           adc \temp
-          ror
+          ror a
           adc \temp
-          ror
+          ror a
           lsr a
           lsr a
           lsr a
@@ -376,12 +376,12 @@ Div .macro denominator, temp
           sta \temp
           lsr a
           adc \temp
-          ror
+          ror a
           lsr a
           adc \temp
-          ror
+          ror a
           adc \temp
-          ror
+          ror a
           lsr a
           lsr a
           lsr a
@@ -394,13 +394,13 @@ Div .macro denominator, temp
           sta \temp
           lsr a
           adc \temp
-          ror
+          ror a
           lsr a
           lsr a
           adc \temp
-          ror
+          ror a
           adc \temp
-          ror
+          ror a
           lsr a
           lsr a
 
@@ -409,15 +409,15 @@ Div .macro denominator, temp
           sta \temp
           lsr a
           adc \temp
-          ror
+          ror a
           lsr a
           lsr a
           lsr a
           lsr a
           adc \temp
-          ror
+          ror a
           adc \temp
-          ror
+          ror a
           lsr a
           lsr a
           lsr a
@@ -431,12 +431,12 @@ Div .macro denominator, temp
           sta \temp
           lsr a
           adc \temp
-          ror
+          ror a
           adc \temp
-          ror
+          ror a
           lsr a
           adc \temp
-          ror
+          ror a
           lsr a
           lsr a
           lsr a
@@ -448,12 +448,12 @@ Div .macro denominator, temp
           lsr a
           lsr a
           adc \temp
-          ror
+          ror a
           adc \temp
-          ror
+          ror a
           lsr a
           adc \temp
-          ror
+          ror a
           lsr a
           lsr a
           lsr a
@@ -468,10 +468,10 @@ Div .macro denominator, temp
           lsr a
           lsr a
           adc \temp
-          ror
+          ror a
           lsr a
           adc \temp
-          ror
+          ror a
           lsr a
 
           .case 25
@@ -481,10 +481,10 @@ Div .macro denominator, temp
           lsr a
           lsr a
           adc \temp
-          ror
+          ror a
           lsr a
           adc \temp
-          ror
+          ror a
           lsr a
           lsr a
           lsr a
@@ -496,15 +496,15 @@ Div .macro denominator, temp
           sta \temp
           lsr a
           adc \temp
-          ror
+          ror a
           adc \temp
-          ror
+          ror a
           adc \temp
-          ror
+          ror a
           lsr a
           lsr a
           adc \temp
-          ror
+          ror a
           lsr a
           lsr a
           lsr a
@@ -514,11 +514,11 @@ Div .macro denominator, temp
           sta \temp
           lsr a
           adc \temp
-          ror
+          ror a
           lsr a
           lsr a
           adc \temp
-          ror
+          ror a
           lsr a
           lsr a
           lsr a
@@ -534,7 +534,7 @@ Div .macro denominator, temp
           lsr a
           lsr a
           adc \temp
-          ror
+          ror a
           lsr a
           lsr a
 
@@ -544,14 +544,14 @@ Div .macro denominator, temp
           lsr a
           lsr a
           adc \temp
-          ror
+          ror a
           adc \temp
-          ror
+          ror a
           .rept 3
           lsr a
           .next
           adc \temp
-          ror
+          ror a
           .rept 4
           lsr a
           .next
@@ -564,7 +564,7 @@ Div .macro denominator, temp
           .next
           sec
           adc \temp
-          ror
+          ror a
           .rept 4
           lsr a
           .next
@@ -578,7 +578,7 @@ Div .macro denominator, temp
           lsr a
           lsr a
           adc \temp
-          ror
+          ror a
           lsr a
           lsr a
           lsr a
