@@ -8,6 +8,9 @@
 
 ;;; Source/4kTest.s for new EEPROM
 
+
+          Menu = $e0
+          
           BANK = $00
 
           .include "StartBank.s"
@@ -22,6 +25,8 @@
 DoLocal:
 Main:     .block
 
+          .mva Menu, # 0
+
 Loop:
           .WaitScreenBottom
           .WaitScreenTop
@@ -31,26 +36,77 @@ Loop:
 
           jsr Prepare48pxMobBlob
 
-          .SetPointer HelloText
-
+          .SetPointer TestQYText
+          lda Menu
+          bne +
+          .SetPointer TestQNText
++
           jsr ShowPointerText
 
+          lda SWCHA
+          and #P0StickUp
+          bne +
+          .mva Menu, #$ff
++
+          lda SWCHA
+          and #P0StickDown
+          bne +
+          .mva Menu, # 0
++
+
+          lda Menu
+          beq DoRead
+
+DoWrite:
+          jsr i2cStartWrite
+          lda #$01
+          jsr i2cTxByte
+          lda #$1a
+          jsr i2cTxByte
+          jsr Random
+          and #$1f
+          jsr i2cTxByte
+          jsr i2cStopWrite
+
+          .mva Menu, # 0
+          jmp Loop
+
+DoRead:
+          .SetPointer ReadText
+          jsr CopyPointerText
+
+          jsr i2cStartWrite
+          lda #$01
+          jsr i2cTxByte
+          lda #$1a
+          jsr i2cTxByte
+          jsr i2cStopWrite
+          jsr i2cStartRead
+          jsr i2cRxByte
+          sta StringBuffer + 5
+          jsr i2cStopRead
+          jsr DecodeAndShowText
           jmp Loop
 
           .bend
 
-HelloText:
           .enc "minifont"
-          .text "HELLO!"
+TestQYText:
+          .text "WRITE "
+TestQNText:
+          .text " READ "
 
-            .if ATARIAGESAVE
-              .include "AtariAgeSave-EEPROM-Driver.s"
-            .else
-              .include "AtariVox-EEPROM-Driver.s"
-            .fi
+ReadText:
+          .text "READ.0"
 
-            .include "CheckSaveSlot.s"
-            .include "EraseSlotSignature.s"
+          .if ATARIAGESAVE
+            .include "AtariAgeSave-EEPROM-Driver.s"
+          .else
+            .include "AtariVox-EEPROM-Driver.s"
+          .fi
+
+          .include "CheckSaveSlot.s"
+          .include "EraseSlotSignature.s"
 
           .include "Random.s"
           .include "VSync.s"
@@ -58,12 +114,12 @@ HelloText:
 
           .include "CopyPointerText.s"
           .include "DecodeText.s"
-          .include "ShowText.s"
           .include "DecodeScore.s"
           .include "WaitScreenBottom.s"
 
 ShowPointerText:
           jsr CopyPointerText
+DecodeAndShowText:
           jsr DecodeText
           jmp ShowText
 
@@ -73,11 +129,9 @@ Overscan: rts
 
           .align $100
           .include "Prepare48pxMobBlob.s"
+          .include "ShowText.s"
 
-          
           EndBank = *
-
-          .if ATARIAGESAVE
 
             ;; Save-to-cart hotspots
             * = $fff0
@@ -90,7 +144,6 @@ Overscan: rts
             ;; for Stella's benefit
             * = $fff8
             .text "efef"
-          .fi
 
 ;;; 6507 special vectors
 ;;;
