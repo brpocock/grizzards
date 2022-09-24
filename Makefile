@@ -6,7 +6,7 @@ default:	game doc
 		-D YEARNOW=2022 -D MONTHNOW=09 -D DATENOW=24 -D JULIANDATENOW=267 \
 		-D BUILD='"4kTest"' -Wall -Wno-shadow -Wno-leading-zeros --m6502 -m \
 		--tab-size=1 --verbose-list -DATARIAGESAVE=true -DPUBLISHER=false -DTV=NTSC \
-		-l $@.list.txt \
+		-L $@.list.txt \
 		$< -o $@ 
 
 all:	game demo no-save doc atariage
