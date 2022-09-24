@@ -15,9 +15,9 @@ NotPaused:
 MoveSprites:
           lda ClockFrame
           sec
-DivByFPS:
+-
           sbc # FramesPerSecond / 10
-          bcs DivByFPS
+          bpl -
 
           eor #$ff
           tax
