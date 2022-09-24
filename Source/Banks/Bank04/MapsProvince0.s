@@ -236,6 +236,9 @@ MapSides:
           .byte 0, 0, $80, $80, 0
           ;; 60
           .byte 0, $40, 0, 0, 0
+          .byte 0, 0, 0, 0, 0
+          ;; 70
+          .byte 0, 0, 0, 0
 ;;; 
 SpriteList:
           ;; Room 0, "Tier 0"
