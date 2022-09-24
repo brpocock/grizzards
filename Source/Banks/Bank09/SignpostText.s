@@ -229,8 +229,8 @@ NPC_FoundRing:
           .SignText "LOOKING FOR "
           .SignText "SOMETHING?  "
           .byte ModeSignpostInquire
-          .byte 86, 87
-          .Response "RING  ", "MIRROR"
+          .byte 86, 104
+          .Response " RING ", "POTION"
 
 ;;; 42
 NPC_TrebleRefugee:
