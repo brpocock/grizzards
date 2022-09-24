@@ -93,9 +93,9 @@
 \thispagestyle{empty}\noindent
 \ifdefined\ATARIAGESAVE
 \begin{tikzpicture}[overlay, remember picture]
-  \node[anchor=north west, xshift=-4pt, yshift=21pt] 
+  \node[anchor=north west, xshift=42pt, yshift=21pt] 
   at (current page.north west)
-  {\includegraphics[width=5.25in,height=7.25in]{../Manual/Cover.eps}};
+  {\includegraphics[width=5.25in,height=7.25in,interpolate]{../Manual/Cover.pdf}};
 \end{tikzpicture}
 \else
 \begin{tikzpicture}[overlay, remember picture]
@@ -487,7 +487,7 @@ To interact with something on the Map screen, just walk into it.
 \englishskip
 
 \lettrine[image=true,                lines=4,               findent=3pt,
-nindent=3pt]{../Manual/MonsterNTSC.png}{}\noindent{}A     monster,    or
+nindent=3pt]{../Manual/MonsterNTSC.png}~{}A     monster,    or
 a group of monsters, may sneak up  on you and attack! Other times you'll
 see them waiting for you and can  avoid battle --- or approach them when
 you're ready to face them. Particularly giant monsters look different on
@@ -496,7 +496,7 @@ the map; you'll discover them in your travels.
 \ifdefined\ATARIAGESAVE \pagebreak \else \englishskip \fi
 
 \lettrine[image=true,                lines=4,               findent=3pt,
-nindent=3pt]{../Manual/DepotNTSC.png}{}\noindent{}Grizzard~Depots~are
+nindent=3pt]{../Manual/DepotNTSC.png}~{}Grizzard~Depots~are
 safe~spaces.~Your Grizzards will be healed\ifdefined\NOSAVE{}.{}\else{},
 and your  progress will  be saved  \ifdefined\ATARIAGESAVE to  your game
 cartridge. \else  to your memory device.  \fi You can also  switch which
@@ -508,14 +508,14 @@ Grizzard    is     your    current     companion.    \fi     See    page
 \ifdefined\NOSAVE
 
 \lettrine[image=true,                lines=4,               findent=3pt,
-nindent=3pt]{../Manual/WildGrizzardNTSC.png}{}\noindent{}Wild  Grizzards
+nindent=3pt]{../Manual/WildGrizzardNTSC.png}~{}Wild  Grizzards
 roam  the land  sometimes.  In  this no-save  demo,  you  will have  one
 Grizzard companion at a time, beginning with Aquax.
 
 \else
 
 \lettrine[image=true,                lines=4,               findent=3pt,
-nindent=3pt]{../Manual/WildGrizzardNTSC.png}{}\noindent{}Wild  Grizzards
+nindent=3pt]{../Manual/WildGrizzardNTSC.png}~{}Wild  Grizzards
 roam the  land sometimes. You  can catch  them when you  encounter them.
 At  a   Grizzard  Depot,  you   can  change  your   Grizzard  companion.
 Each  Grizzard  you  catch  will  have its  own  Moves,  skill  ratings,
@@ -526,13 +526,13 @@ and experience.
 \englishskip
 
 \lettrine[image=true,                lines=4,               findent=3pt,
-nindent=3pt]{../Manual/DoorNTSC.png}{}\noindent{}Doors~can~lead~ you
+nindent=3pt]{../Manual/DoorNTSC.png}~{}Doors~can~lead~ you
 to~other~places~in the world. \\
 
 \englishskip
 
 \lettrine[image=true,                lines=4,               findent=3pt,
-nindent=3pt]{../Manual/SignpostNTSC.png}{}\noindent{}Signposts~provide
+nindent=3pt]{../Manual/SignpostNTSC.png}~{}Signposts~provide
 information~to~help   you   progress.   You   should   also   refer   to
 \ifdefined\ATARIAGESAVE the included map. \else the map on the last page
 of this manual. \fi
@@ -540,7 +540,7 @@ of this manual. \fi
 \englishskip
 
 \lettrine[image=true,                lines=4,               findent=3pt,
-nindent=3pt]{../Manual/PersonNTSC.png}{}\noindent{}People  will converse
+nindent=3pt]{../Manual/PersonNTSC.png}~{}People  will converse
 with  you  and  can help  you  out.  Some  people  will respond  to  you
 differently based on what has come before, so you may want to visit them
 more than once.
