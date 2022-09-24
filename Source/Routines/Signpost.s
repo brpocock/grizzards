@@ -119,7 +119,9 @@ Conditional:
 
           ldy # 4               ; jump to which alternative
           lax (SignpostWork), y
-          jmp IndexReady        ; fetch new alternative
+          sta SignpostIndex
+          .WaitScreenBottom
+          jmp Setup        ; fetch new alternative
 
 ConditionFailed:
           .Add16 SignpostText, # 5

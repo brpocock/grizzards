@@ -177,6 +177,7 @@ NPC_FishingWantRing:
 NPC_FishingWantMirror:
           .colu COLINDIGO, 0
           .colu COLCYAN, $9
+          .byte $ff, 15, 41     ; also looking for ring?
           .SignText "MIRANDA HAS "
           .SignText "ALWAYS LOST "
           .SignText "THAT MIRROR "
