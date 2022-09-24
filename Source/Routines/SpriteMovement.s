@@ -31,7 +31,7 @@ DivByFPS:
           sbc # FramesPerSecond / 10
           bcs DivByFPS
 
-          adc # FramesPerSecond / 10
+          eor #$ff
           tax
           cpx SpriteCount
           beq BubbleSortY
@@ -220,6 +220,9 @@ BubbleUp:
           dey
           bne -
 
+          lda MapFlags
+          and #$0f
+          sta MapFlags
           rts
 
 BubbleNext:
