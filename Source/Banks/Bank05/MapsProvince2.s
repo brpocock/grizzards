@@ -209,7 +209,7 @@ MapLinks:
           ;; special non-existing rooms 68 & 69 define alternate RLE backgrounds for “wave motions”
           _ ..= ( Map_EWOval, Map_OpenTopDoorSides, Map_FatFourWay, Map_SouthShore2, Map_NorthShore2 )
           ;; 70
-          _ ..= ( Map_FatFourWay, )
+          _ ..= ( Map_FatFourWay )
 
           MapRLE = _
 
