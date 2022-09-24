@@ -31,6 +31,8 @@
           .include "CopyPointerText.s"
           .include "ShowPointerText.s"
 
+          .include "SpriteMapper.s"
+
 DoLocal:
           cpy #ServiceDrawGrizzard
           beq DrawGrizzard

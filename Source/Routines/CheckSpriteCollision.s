@@ -103,6 +103,10 @@ Done:
           sta SpriteMotion, x
 Bye:
           rts
+
+InvertedBitMask:
+          .byte ~$01, ~$02, ~$04, ~$08, ~$10, ~$20, ~$40, ~$80
+
           .bend
 
 ;;; audited 2022-03-22 BRPocock
