@@ -7,41 +7,47 @@
 ;;; Original by Alex Herbert, 2004
 ;;;
 ;;; Converted and adapted by Bruce-Robert Pocock, 2017, 2020-2022
+;;;
+;;; Adapted for AtariAge save circuit by Fred Quimby (batari)
+
 SaveGameSignatureString:
           .text SaveGameSignature
 
-          i2cControlPort = $fff0
-          i2cWritePort = $fff1
-          i2cReadPort = $fff2
-
-          i2cSDAMask = $04
-          i2cSCLMask = $08
+          i2cClockPort0 = $1ff0
+          i2cClockPort1 = $1ff1
+          i2cDataPort0 = $1ff2
+          i2cDataPort1 = $1ff3
+          i2cReadPort = $1ff4
 
           SaveWritesPerScreen = $20
-;;; 
-i2cSCL0:  .macro
-          lda # 0
-          sta i2cWritePort
+;;; 
+i2cSDA0:  .macro
+          nop i2cDataPort0
+         .endm
+
+i2cSDA1:  .macro
+          nop i2cDataPort1
           .endm
 
+i2cSCL0:  .macro ; Setting SDA=0 seems to require changing SDA=1 to possibly allow the bus to float
+          nop i2cDataPort1
+          nop i2cClockPort0
+         .endm
+
 i2cSCL1:  .macro
-          lda #i2cSCLMask
-          sta i2cWritePort
+          nop i2cClockPort1
           .endm
 
 i2cSDAIn: .macro
-          lda #i2cSCLMask
-          sta i2cControlPort
+          nop i2cDataPort1 ; float SDA
           .endm
 
-i2cSDAOut: .macro
-          lda #i2cSCLMask | i2cSDAMask
-          sta i2cControlPort
+i2cSDAOut: .macro ; no action needs to be done
+          nop
           .endm
 
-i2cReset: .macro
-          lda #0
-          sta i2cControlPort
+i2cReset: .macro ; float SDA
+          .i2cSDA1
           .endm
 
 i2cStart: .macro
@@ -58,11 +64,12 @@ i2cStop:  .macro
 
 i2cTxBit: .macro
           .i2cSCL0
-          lda # 1
-          rol a
-          asl a
-          asl a
-          sta i2cControlPort ; SDA = !C
+          bcc Send0
+          .i2cSDA1
+          bcc Sent1 ; sending 1 is potentially slower so pad with branch
+Send0:
+          .i2cSDA0 ; Sending 0 is fast so no need to pad
+Sent1:
           .i2cSCL1
           .endm
 
@@ -82,10 +89,8 @@ i2cRxBit: .macro
           .i2cSCL0
           .i2cSDAIn
           .i2cSCL1
-          lda i2cReadPort
-          lsr a
-          lsr a
-          lsr a ; C = SDA
+          lda i2cReadPort ; C = SDA
+          lsr
           .endm
 
 i2cRxACK: .macro
@@ -94,7 +99,7 @@ i2cRxACK: .macro
 
           EEPROMRead = %10100001
           EEPROMWrite = %10100000
-;;; 
+;;; 
 i2cStartRead:
           clv               ; Use V to flag if previous byte needs ACK
           .i2cStart
@@ -106,7 +111,6 @@ i2cStartWrite:
           lda # EEPROMWrite
 
 i2cTxByte:
-          eor #$ff
           sta Temp
 
           ldy # 8           ; loop (bit) counter
@@ -122,6 +126,7 @@ i2cTxByteLoop:
 i2cRxByte:
           ldy # 8           ; loop (bit) counter
           bvc i2cRxSkipACK
+
           .i2cTxACK
 
 i2cRxByteLoop:
@@ -140,6 +145,7 @@ VBit:
 
 i2cStopRead:
           bvc i2cStopWrite
+
           .i2cTxNAK
 
 i2cStopWrite:
@@ -152,13 +158,12 @@ i2cK:                           ; K is "switch over to (you) sending" in Morse c
           jsr i2cTxByte
 i2cK2:                          ; switch without a final byte to send
           jsr i2cStopWrite
+
           jmp i2cStartRead      ; tail call
 
 i2cWaitForAck:
           ;; Wait for acknowledge bit
--
           jsr i2cStartWrite
-          bcs -
-          jmp i2cStopWrite      ; tail call
 
-          .fill 19              ; In case this has to grow
+          bcs i2cWaitForAck
+          jmp i2cStopWrite      ; tail call

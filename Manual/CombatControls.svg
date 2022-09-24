@@ -2,12 +2,12 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="6in"
-   height="4in"
-   viewBox="0 0 152.4 101.6"
+   width="5.124712in"
+   height="3.8079202in"
+   viewBox="0 0 130.16768 96.721174"
    version="1.1"
    id="svg5"
-   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
    sodipodi:docname="CombatControls.svg"
    inkscape:export-filename="/home/brpocock/Projects/Grizzards/Manual/CombatControls.png"
    inkscape:export-xdpi="300"
@@ -30,16 +30,24 @@
      width="6in"
      borderlayer="true"
      inkscape:zoom="1.9427083"
-     inkscape:cx="262.26273"
-     inkscape:cy="205.38338"
+     inkscape:cx="243.73191"
+     inkscape:cy="195.60322"
      inkscape:window-width="1920"
      inkscape:window-height="1011"
      inkscape:window-x="0"
      inkscape:window-y="32"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer1" />
+     inkscape:current-layer="layer1"
+     inkscape:showpageshadow="0"
+     inkscape:deskcolor="#d1d1d1" />
   <defs
      id="defs2">
+    <rect
+       x="400.25299"
+       y="175.24129"
+       width="81.916733"
+       height="27.508118"
+       id="rect1011" />
     <marker
        style="overflow:visible"
        id="marker3096"
@@ -86,7 +94,8 @@
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     id="layer1">
+     id="layer1"
+     transform="translate(-4.8640351,-2.6511904)">
     <g
        id="g13711"
        transform="matrix(0.71518617,0,0,0.71518617,4.2671264,-10.761093)">
@@ -176,7 +185,7 @@
        id="text6782"><tspan
          sodipodi:role="line"
          id="tspan6780"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:'Garamond Libre';-inkscape-font-specification:'Garamond Libre';stroke-width:0.264583px"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:C059;-inkscape-font-specification:C059;stroke-width:0.264583px"
          x="81.476814"
          y="15.828521">Select a Move</tspan></text>
     <text
@@ -187,13 +196,13 @@
        id="text10480"><tspan
          sodipodi:role="line"
          id="tspan10478"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:'Garamond Libre';-inkscape-font-specification:'Garamond Libre';stroke-width:0.264583px"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:C059;-inkscape-font-specification:C059;stroke-width:0.264583px"
          x="81.622864"
          y="41.571316">Select a Monster</tspan><tspan
          sodipodi:role="line"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:'Garamond Libre';-inkscape-font-specification:'Garamond Libre';stroke-width:0.264583px"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:C059;-inkscape-font-specification:C059;stroke-width:0.264583px"
          x="81.622864"
-         y="48.017357"
+         y="48.225323"
          id="tspan11028">to target</tspan></text>
     <text
        xml:space="preserve"
@@ -203,7 +212,7 @@
        id="text12528"><tspan
          sodipodi:role="line"
          id="tspan12526"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:'Garamond Libre';-inkscape-font-specification:'Garamond Libre';stroke-width:0.264583px"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:C059;-inkscape-font-specification:C059;stroke-width:0.264583px"
          x="81.533966"
          y="71.024223">Use selected Move</tspan></text>
     <g
@@ -244,7 +253,7 @@
          id="text14709"><tspan
            sodipodi:role="line"
            id="tspan14707"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:'Garamond Libre';-inkscape-font-specification:'Garamond Libre';stroke-width:0.264583px"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:C059;-inkscape-font-specification:C059;stroke-width:0.264583px"
            x="12.109272"
            y="99.144821">Game Select</tspan></text>
     </g>
@@ -256,8 +265,13 @@
        id="text15413"><tspan
          sodipodi:role="line"
          id="tspan15411"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:'Garamond Libre';-inkscape-font-specification:'Garamond Libre';stroke-width:0.264583px"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:C059;-inkscape-font-specification:C059;stroke-width:0.264583px"
          x="56.220066"
          y="88.654037">Show your Grizzard's stats</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="scale(0.26458333)"
+       id="text1009"
+       style="font-size:17.3333px;line-height:100%;font-family:'Noto Sans';-inkscape-font-specification:'Noto Sans';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect1011);fill:#000000;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stop-color:#000000" />
   </g>
 </svg>

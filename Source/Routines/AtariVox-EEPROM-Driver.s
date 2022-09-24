@@ -154,10 +154,9 @@ i2cK2:                          ; switch without a final byte to send
 
 i2cWaitForAck:
           ;; Wait for acknowledge bit
--
           jsr i2cStartWrite
 
-          bcs -
+          bcs i2cWaitForAck
           jmp i2cStopWrite      ; tail call
 
 ;;; Audited 2022-02-15 BRP
