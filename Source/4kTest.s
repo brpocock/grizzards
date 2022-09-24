@@ -10,7 +10,8 @@
 
 
           Menu = $e0
-          
+          SeenZeroP = $e1
+
           BANK = $00
 
           .include "StartBank.s"
@@ -23,6 +24,7 @@
           ;; falls through to
 
 DoLocal:
+          .mva SeenZeroP, # 0
 Main:     .block
 
           .mva Menu, # 0
@@ -37,12 +39,11 @@ Loop:
 
           jsr Prepare48pxMobBlob
 
-          .SetPointer TestQYText
-          lda Menu
-          bne +
-          .SetPointer TestQNText
-+
-          jsr ShowPointerText
+          .SetPointer SeenZeroText
+          jsr CopyPointerText
+          lda SeenZeroP
+          sta StringBuffer + 5
+          jsr DecodeAndShowText
 
           lda SWCHA
           and #P0StickUp
@@ -92,10 +93,8 @@ DoRead:
           .bend
 
           .enc "minifont"
-TestQYText:
-          .text "WRITE "
-TestQNText:
-          .text " READ "
+SeenZeroText:
+          .text "ZERO.0"
 
 ReadText:
           .text "READ.0"

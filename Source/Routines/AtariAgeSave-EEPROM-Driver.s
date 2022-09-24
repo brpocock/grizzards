@@ -70,6 +70,9 @@ GetAck:
           nop i2cClockPort1
           nop
           lda i2cReadPort
+          bne +
+          inc SeenZeroP
++
           lsr a                 ; C = SDA
           nop i2cClockPort0
           ;; return C = ACK bit
