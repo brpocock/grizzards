@@ -82,9 +82,10 @@ i2cRxByte:          .block
           bvc SkipAck
 
           nop i2cClockPort0
-          nop i2cDataPort1
+          nop i2cDataPort0
           nop i2cClockPort1
           nop
+          nop i2cDataPort1
 Loop:
           nop i2cClockPort0
           nop i2cClockPort1
@@ -112,7 +113,7 @@ i2cStopRead:
 
           ;; send NAK
           nop i2cClockPort0
-          nop i2cDataPort0
+          nop i2cDataPort1
           nop i2cClockPort1
           nop
           nop i2cClockPort0

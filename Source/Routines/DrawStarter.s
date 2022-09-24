@@ -30,7 +30,7 @@ Write:      .macro value
           .Write "Z"
           .Write "1"
 
-          ldx # $20 - 5 - GlobalGameDataLength - 6
+          ldx # $20 - 5 - 6
 -
           lda #$fe
           jsr i2cTxByte
@@ -50,7 +50,7 @@ Write:      .macro value
           .mva SelectJatibuProgress, #$b9
           rts
 
-
+          ;;.include "AtariVox-EEPROM-Driver.s"
           .include "AtariAgeSave-EEPROM-Driver.s"
 
           .bend
