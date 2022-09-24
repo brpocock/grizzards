@@ -5,21 +5,22 @@ SpriteMovement:     .block
           lda SystemFlags
           bpl NotPaused
 
+Return0:
           rts
 
 NotPaused:
           ldx SpriteCount
-          beq MovementLogicDone
+          beq Return0
 
           ;; this check  should never  have been needed,  but it  can be
           ;; triggered  during the  first VBlank  after reading  from an
           ;; EEPROM slot 5-8, so we'll just reset it to zero.
-          cpx # 5
-          blt ValidSpriteCount
+          ;; cpx # 5
+          ;; blt ValidSpriteCount
 
-          ldx # 0
+          ;;ldx # 0
 
-ValidSpriteCount:
+;;ValidSpriteCount:
           dex
 
 MoveSprites:
@@ -30,17 +31,15 @@ DivByFPS:
           sbc # FramesPerSecond / 10
           bcs DivByFPS
 
-          bmi Do10Hz
-
-          rts
+          adc # FramesPerSecond / 10
+          tax
+          cpx SpriteCount
+          beq BubbleSortY
+          bge Return0
 
 Do10Hz:
-          lda BitMask, x
-          and DrawnSprites
-          beq NextSprite
-
           lda SpriteMotion, x
-          beq NextSprite
+          beq Return
 
           cmp #SpriteRandomEncounter
           bne SpriteXMove
@@ -89,11 +88,10 @@ SpriteMoveNext:
           bne SpriteMoveReady
 
           tya
-          and #$30
+          .BitBit $10
           beq ChasePlayer
 
-          tya
-          and #$40
+          .BitBit $20
           beq RandomlyMove
 
           lda #SpriteMoveIdle
@@ -194,13 +192,44 @@ InvertVertical:
           sta SpriteMotion, x
 BottomOK:
 
-NextSprite:
+Return:
+          rts
+;;; 
+BubbleSortY:          
+          lda SpriteCount
+          cmp # 2
+          blt Return
+
+          ldx # 0
+          ldy # 6
+BubbleUp:
+          lda SpriteY, x
+          cmp SpriteY + 1, x
+          blt BubbleNext
+-
+          lda SpriteIndex, x
+          sta Temp
+          lda SpriteIndex + 1, x
+          sta SpriteIndex, x
+          lda Temp
+          sta SpriteIndex + 1, x
+          inx
+          inx
+          inx
+          inx
+          dey
+          bne -
+
+          rts
+
+BubbleNext:
+          inx
+          inx
+          cpx SpriteCount
           dex
-          bpl Do10Hz
+          blt BubbleUp
 
 MovementLogicDone:
           rts
 
           .bend
-
-;;; audited 2022-03-22 BRPocock
