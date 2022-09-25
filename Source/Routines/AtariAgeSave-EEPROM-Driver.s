@@ -21,8 +21,8 @@ SaveGameSignatureString:
 
           SaveWritesPerScreen = $20
 ;;; 
-          EEPROMRead = %10100001
-          EEPROMWrite = %10100000
+          EEPROMRead = $a9
+          EEPROMWrite = $a8
 ;;; 
 
 i2cStartRead:

@@ -42,8 +42,6 @@ Loop:
 
 DoWrite:
           jsr i2cStartWrite
-          lda #$01
-          jsr i2cTxByte
           lda #$1a
           jsr i2cTxByte
           jsr Random
@@ -56,8 +54,6 @@ DoRead:
           jsr CopyPointerText
 
           jsr i2cStartWrite
-          lda #$01
-          jsr i2cTxByte
           lda #$1a
           jsr i2cTxByte
           jsr i2cStopWrite
