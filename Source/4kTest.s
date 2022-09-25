@@ -9,9 +9,6 @@
 ;;; Source/4kTest.s for new EEPROM
 
 
-          Menu = $e0
-          SeenZeroP = $e1
-
           BANK = $00
 
           .include "StartBank.s"
@@ -24,10 +21,7 @@
           ;; falls through to
 
 DoLocal:
-          .mva SeenZeroP, # 0
 Main:     .block
-
-          .mva Menu, # 0
 
 Loop:
           .WaitScreenBottom
@@ -39,25 +33,12 @@ Loop:
 
           jsr Prepare48pxMobBlob
 
-          .SetPointer SeenZeroText
-          jsr CopyPointerText
-          lda SeenZeroP
-          sta StringBuffer + 5
-          jsr DecodeAndShowText
+          .SetPointer TopText
+          jsr ShowPointerText
 
           lda SWCHA
           and #P0StickUp
-          bne +
-          .mva Menu, #$ff
-+
-          lda SWCHA
-          and #P0StickDown
-          bne +
-          .mva Menu, # 0
-+
-
-          lda Menu
-          beq DoRead
+          bne DoRead
 
 DoWrite:
           jsr i2cStartWrite
@@ -69,9 +50,6 @@ DoWrite:
           and #$1f
           jsr i2cTxByte
           jsr i2cStopWrite
-
-          .mva Menu, # 0
-          jmp Loop
 
 DoRead:
           .SetPointer ReadText
@@ -93,8 +71,8 @@ DoRead:
           .bend
 
           .enc "minifont"
-SeenZeroText:
-          .text "ZERO.0"
+TopText:
+          .text "ACKNAK"
 
 ReadText:
           .text "READ.0"

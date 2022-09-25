@@ -91,10 +91,9 @@ i2cRxACK: .macro
           EEPROMWrite = %10100000
 ;;; 
 i2cStartRead:
-          clv               ; Use V to flag if previous byte needs ACK
           .i2cStart
           lda # EEPROMRead
-          bvc i2cTxByte
+          jmp i2cTxByte
 
 i2cStartWrite:
           .i2cStart
@@ -116,9 +115,6 @@ i2cTxByteLoop:
 
 i2cRxByte:
           ldy # 8           ; loop (bit) counter
-          bvc i2cRxSkipACK
-
-          .i2cTxACK
 
 i2cRxByteLoop:
           .i2cRxBit
@@ -126,18 +122,20 @@ i2cRxByteLoop:
           dey
           bne i2cRxByteLoop
 
+          .i2cTxACK
+
           lda Temp
           rts
 
-i2cRxSkipACK:
-          bit VBit          ; set V - next byte/s require ACK
-VBit:
-          bvs i2cRxByteLoop
-
 i2cStopRead:
-          bvc i2cStopWrite
+          ldy # 8
+i2cIgnoreRead:
+          .i2cRxBit
+          dey
+          bne i2cIgnoreRead
 
           .i2cTxNAK
+          ;; fall through
 
 i2cStopWrite:
           .i2cStop

@@ -26,9 +26,8 @@ SaveGameSignatureString:
 ;;; 
 
 i2cStartRead:
-          clv                   ; previous byte does not need ACK
           lda # EEPROMRead
-          bvc i2cSignalStart    ; always taken
+          gne i2cSignalStart
 
 i2cStartWrite:
           lda # EEPROMWrite
@@ -70,9 +69,6 @@ GetAck:
           nop i2cClockPort1
           nop
           lda i2cReadPort
-          bne +
-          inc SeenZeroP
-+
           lsr a                 ; C = SDA
           nop i2cClockPort0
           ;; return C = ACK bit
@@ -82,7 +78,6 @@ GetAck:
           
 i2cRxByte:          .block
           ldy # 8           ; loop (bit) counter
-          bvc SkipAck
 
           nop i2cClockPort0
           nop i2cDataPort0
@@ -99,20 +94,28 @@ Loop:
           dey
           bne Loop
 
+          ;; send ACK
           nop i2cClockPort0
+          nop i2cDataPort1
+          nop i2cClockPort1
+          nop
+          nop i2cClockPort0
+
           lda Temp
           rts
 
-SkipAck:
-          bit VBit              ; set V=1 — next byte requires ACK
-VBit:
-          gvs Loop              ; always taken
-
-          brk                   ; unreachable?
           .bend
 
 i2cStopRead:
-          bvc i2cStopWrite
+          ;; Discard one byte worth of reading
+          ldy # 8
+          nop i2cClockPort0
+-
+          nop i2cClockPort1
+          nop
+          nop i2cClockPort0
+          dey
+          bne -
 
           ;; send NAK
           nop i2cClockPort0
