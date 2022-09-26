@@ -81,18 +81,24 @@ Loop:
           cmp #$ff
           beq Leave
 
+          .if ATARIAGESAVE
+            lda SaveGameSlot
+          .fi
           jsr i2cStartWrite
           bcc LetsStart
+
           jsr i2cStopWrite
 
           .mva GameMode, #ModeNoAtariVox
           brk
 
 LetsStart:
-          lda SaveGameSlot
-          clc
-          adc #>SaveGameSlotPrefix
-          jsr i2cTxByte
+          .if !ATARIAGESAVE
+            lda SaveGameSlot
+            clc
+            adc #>SaveGameSlotPrefix
+            jsr i2cTxByte
+          .fi
           clc
           ;; if this is non-zero other things will bomb
           .if ($ff & SaveGameSlotPrefix) != 0
@@ -169,13 +175,16 @@ SaveName:
           .fi
           .WaitScreenTop
 
+          .if ATARIAGESAVE
+            lda SaveGameSlot
+          .fi
           jsr i2cStartWrite
-
-          lda SaveGameSlot
-          clc
-          adc #>SaveGameSlotPrefix
-          jsr i2cTxByte
-
+          .if !ATARIAGESAVE
+            lda SaveGameSlot
+            clc
+            adc #>SaveGameSlotPrefix
+            jsr i2cTxByte
+          .fi
           clc
           lda #<SaveGameSlotPrefix
           adc #$1a
