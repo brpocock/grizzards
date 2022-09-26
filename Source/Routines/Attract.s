@@ -24,6 +24,11 @@ WarmStart:
           txs
           jsr SeedRandom
 
+          ldy # 0
+          sty CurrentMusic + 1
+          sty AUDF1
+          sty AUDC1
+          sty AUDV1
           .mva NextSound, #SoundAtariToday
 
           .if PUBLISHER

@@ -1,0 +1,52 @@
+GRIZZARDS: A Turn-Based Role-Playing Game for the Atari 2600
+
+The land of Syrex is a dangerous place. Fierce monsters roam the
+countryside. But luckily for you, you're a Grizzard handler! Train your
+Grizzard to use a variety of Moves to take on the monsters. Discover new
+kinds of Grizzards with new capabilities. Can you conquer all the
+monsters of Syrex? In this game you'll explore Syrex on over 200
+screens; catch, train, and metamorphose unique Grizzard companions; talk
+to and help out over 30 different non-player characters; and fight over
+80 kinds of monsters.
+
+Explore the game world, starting in your destroyed home of Treble
+Village. Avoid the dangerous Fire Bogs until you've trained your
+Grizzard some new moves and gained stronger Attack and Defend abilities.
+Choose your battles, catch new Grizzards, and return to a Grizzard Depot
+(purple building) to heal, save your progress, and switch between your
+Grizzard companions. Discover who's behind the influx of monsters, and
+battle your way to the end boss, then continue in New Game Plus mode
+where you can try to acquire all 30 Grizzards for ultimate mastery.
+
+Press the joystick to walk around the map; B button for potions; or walk
+into people, signs, monsters, doors, or Grizzard Depots to interact with
+them. In combat, Joystick left/right selects a target, up/down selects
+a Move, B to take action. Game Select or C button to review your current
+stats. To heal, use Potions on the map, healing Moves in combat, or
+visit a Grizzard Depot. Left Difficulty Switch: "B" for Normal, "A" for
+Expert. Color/B&W switch pauses the game on the map screen.
+
+
+
+
+HARDWARE
+
+Supports: Atari 2600 compatible one-button joysticks or game pads; SEGA
+Genesis 3-button controllers (using only buttons "B" and "C"); or Joy2b+
+3-button controllers (button I=action, II=stats, III=pause).
+
+AtariVox optional.
+
+Save-to-cartridge memory has 8 slots for simultaneous play.
+
+Game ROM is 64kiB (+ 2kiB EEPROM).
+
+
+OPERATOR NOTES
+
+To erase a game slot, set both Difficulty Switches to "A", then go to
+SELECT SLOT screen, left/right to select the slot, then pull down on the
+joystick, and while holding down, press the B button and hold it while
+moving the joystick forward. Same steps to un-erase. (Reset Left
+Difficulty to "B" afterwards for Normal play mode.)
+

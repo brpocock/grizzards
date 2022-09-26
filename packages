@@ -15,3 +15,5 @@ texlive-pdfpages
 texlive-pgf
 texlive-xcolor
 texlive-xetex
+texlive-sttools
+texlive-pdfbook2

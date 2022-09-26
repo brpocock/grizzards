@@ -111,11 +111,33 @@ portable:	Dist/Grizzards.Portable.NTSC.bin
 	  echo "Patch Makefile for your $$(uname -s) OS" ; \
 	fi
 
+CMYK=-sDEVICE=pdfwrite \
+	-dPDFSETTINGS=/default \
+	-dCompressMode=1 \
+	-sProcessColorModel=DeviceCMYK \
+	-sColorConversionStrategy=CMYK \
+	-sColorConversionStrategyForImages=CMYK
+
+Dist/SyrexMap.pdf:	Manual/SyrexMap.pdf
+	gs -o $@ $(CMYK) $<
+
+Dist/MapBack.pdf:	Manual/MapBack.pdf
+	gs -o $@ $(CMYK) $<
+
+Dist/BoxNoTemplate.pdf:	Package/BoxNoTemplate.pdf
+	gs -o $@ $(CMYK) $<
+
+Dist/FrontLabel.pdf:	Package/FrontLabel.pdf
+	gs -o $@ $(CMYK) $<
+
+Dist/EndLabel.pdf:	Package/EndLabel.pdf
+	gs -o $@ $(CMYK) $<
+
 Dist/Grizzards.AtariAge.zip:	\
 	Dist/Grizzards.AA.NTSC.a26 Dist/Grizzards.AA.PAL.a26 Dist/Grizzards.AA.SECAM.a26 \
 	Dist/Grizzards.AA.NTSC.pro Dist/Grizzards.AA.PAL.pro Dist/Grizzards.AA.SECAM.pro \
-	Dist/Grizzards.AA-book.pdf \
-	Package/Box.svg Package/End\ Label.pdf Package/Front\ Label.pdf
+	Dist/Grizzards.AA.pdf Dist/SyrexMap.pdf Dist/MapBack.pdf \
+	Dist/BoxNoTemplate.pdf Dist/EndLabel.pdf Dist/FrontLabel.pdf
 	@echo "AtariAge daily build of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
 		zip  --archive-comment -9 "$@" $^
 
@@ -151,11 +173,16 @@ Dist/Grizzards.NoSave.zip: \
 game:	Dist/Grizzards.zip
 
 doc:	Dist/Grizzards.pdf \
-	Dist/Grizzards.AA-book.pdf \
+	Dist/Grizzards.AA.pdf \
 	Dist/Grizzards.Demo.pdf \
 	Dist/Grizzards.Manual.txt \
 	Dist/Grizzards.NoSave.pdf \
-	Dist/GrizzardsCompleteGuide.pdf
+	Dist/GrizzardsCompleteGuide.pdf \
+	Dist/SyrexMap.pdf \
+	Dist/MapBack.pdf \
+	Dist/FrontLabel.pdf \
+	Dist/EndLabel.pdf \
+	Dist/BoxNoTemplate.pdf
 
 .PRECIOUS: %.s %.png %.a26 %.txt %.zip %.tar.gz
 
@@ -210,9 +237,6 @@ Source/Generated/Makefile:	bin/write-master-makefile ${SOURCES}
 	for bank in 5 7 8 9 a b c; do bin/make-speakjet-enums $$bank; done
 	$< > Source/Generated/Makefile
 
-Dist/Grizzards.AA-book.pdf:	Dist/Grizzards.AA.pdf
-	pdfbook2 --paper=legalpaper -o 0 -i 0 -t 0 -b 0 $<
-
 Dist/GrizzardsCompleteGuide.pdf: Manual/GrizzardsCompleteGuide.tex
 	mkdir -p Object/Complete.pdf
 	cp $< Object/Complete.pdf/
@@ -241,7 +265,7 @@ Dist/Grizzards.AA.pdf: Manual/Grizzards.tex
 	-cd Object/AA.pdf ; xelatex -interaction=batchmode "\def\ATARIAGESAVE{}\input{Grizzards}"
 	-cd Object/AA.pdf ; xelatex -interaction=batchmode "\def\ATARIAGESAVE{}\input{Grizzards}"
 	mkdir -p Dist
-	mv Object/AA.pdf/Grizzards.pdf Dist/Grizzards.AA.pdf
+	gs -o $@ $(CMYK) Object/AA.pdf/Grizzards.pdf
 
 Dist/Grizzards.Demo.pdf: Manual/Grizzards.tex
 	mkdir -p Object/Demo.pdf
@@ -487,7 +511,9 @@ release:	all
 	-cp -v Dist/Grizzards.{AA.,Demo.,NoSave.,}{NTSC,PAL,SECAM}.{a26,pro} \
 		Dist/$(RELEASE)
 	cp -v Dist/Grizzards.Portable.NTSC.bin Dist/$(RELEASE)/Grizzards.Portable.$(RELEASE).bin
-	cp -v Dist/Grizzards.{AA-book.,AA.,Demo.,NoSave.,}pdf Dist/$(RELEASE)
+	cp -v Dist/Grizzards.{AA.,Demo.,NoSave.,}pdf Dist/$(RELEASE)
+	cp -v Dist/SyrexMap.pdf Dist/MapBack.pdf Dist/$(RELEASE)
+	cp -v Dist/BoxNoTemplate.pdf Dist/FrontLabel.pdf Dist/EndLabel.pdf Dist/$(RELEASE)
 	cp -v Dist/Grizzards.Manual.txt Dist/$(RELEASE)
 	@cd Dist/$(RELEASE) ; \
 	for file in Grizzards.*.{pro,a26,pdf} Grizzards.pdf; do \
@@ -497,7 +523,9 @@ release:	all
 		(cd Dist; zip --archive-comment -9 \
 		$(RELEASE)/Grizzards.AtariAge.$(RELEASE).zip \
 		$(RELEASE)/Grizzards.AA.$(RELEASE).{a26,pdf,pro} \
-		$(RELEASE)/Grizzards.AA-book.$(RELEASE).pdf )
+		$(RELEASE)/SyrexMap.pdf $(RELEASE)/MapBack.pdf \
+		$(RELEASE)/EndLabel.pdf $(RELEASE)/FrontLabel.pdf \
+		$(RELEASE)/BoxNoTemplate.pdf )
 	@echo "Public Release $(RELEASE) of Grizzards for the Atari 2600. © 2021-2022 Bruce-Robert Pocock." | \
 		(cd Dist; zip --archive-comment -9 \
 		$(RELEASE)/Grizzards.$(RELEASE).zip \

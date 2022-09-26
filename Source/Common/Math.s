@@ -33,18 +33,25 @@ _cc:
           .bend
           .endm
 
-Inc16cc .macro address
+AddWord:  .macro a, b
           .block
-          inc \address
-          bcc _cc
-          inc \address + 1
-_cc:
+          clc
+          lda \a
+          adc \b
+          sta \a
+          lda \a + 1
+          adc \b + 1
+          sta \a + 1
           .bend
           .endm
-
-Inc16 .macro address
-          clc
-          .Inc16cc \address
+          
+Inc16:    .macro address
+          .block
+          inc \address
+          bne +
+          inc \address + 1
++
+          .bend
           .endm
 
 Sub16cs .macro address, subtrahend
@@ -109,7 +116,7 @@ Div .macro denominator, temp
 
           .case 2
           ;;1 byte, 2 cycles
-          lsr
+          lsr a
 
           .case 3
           ;;18 bytes, 30 cycles
