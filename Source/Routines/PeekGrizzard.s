@@ -12,6 +12,9 @@ PeekGrizzard:       .block
 
           jsr i2cStopWrite
 
+          .if ATARIAGESAVE
+            lda SaveGameSlot
+          .fi
           jsr i2cStartRead
 
           jsr i2cRxByte
@@ -37,4 +40,3 @@ NoGrizzard:
 
           .bend
 
-;;; Audited 2022-04-25 BRPocock
