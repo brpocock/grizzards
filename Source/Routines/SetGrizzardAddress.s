@@ -3,8 +3,6 @@
 SetGrizzardAddress: .block
           ;; Call with Grizzard ID in .A
 
-          tax    ; stash it for a second
-
           ;; Grizzard data is weirder storage layout.
           ;; We save 12 grizzards at 5 bytes each in each of
           ;; the 3 blocks following the master block. That
@@ -12,12 +10,6 @@ SetGrizzardAddress: .block
 
           ;; The four 64 byte blocks together make one page,
           ;; so the high byte of the address is the same for all.
-          lda #>SaveGameSlotPrefix
-          clc
-          adc SaveGameSlot
-          sta Pointer + 1
-
-          txa                   ; get back Grizzard ID
 
           ;; First, figure out which block the desired Grizzard
           ;; can be found in.
@@ -62,14 +54,17 @@ ReadyToSendAddress:
           sta Pointer
 
           ;; Finally we know our offset, let's send  it.
+          .if ATARIAGESAVE
+            lda SaveGameSlot
+          .fi
           jsr i2cStartWrite
-
-          lda Pointer + 1
-          jsr i2cTxByte
-
+          .if !ATARIAGESAVE
+            lda #>SaveGameSlotPrefix
+            clc
+            adc SaveGameSlot
+            jsr i2cTxByte
+          .fi
           lda Pointer
           jmp i2cTxByte         ; tail call
 
           .bend
-
-;;; Audited 2022-02-16 BRPocock

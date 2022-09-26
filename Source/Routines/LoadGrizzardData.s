@@ -6,7 +6,11 @@ LoadGrizzardData:   .block
 
           jsr SetGrizzardAddress
 
-          jsr i2cK2             ; K without send
+          jsr i2cStopWrite
+          .if ATARIAGESAVE
+            lda SaveGameSlot
+          .fi
+          jsr i2cStartRead
 
           ldx # 0
 -
@@ -31,5 +35,3 @@ LoadGrizzardData:   .block
           rts
 
           .bend
-
-;;; Audited 2022-02-16 BRPocock
