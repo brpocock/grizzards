@@ -11,17 +11,22 @@ WriteMasterBlock:
           ;; (which must end before $20) and then the 32 bytes of
           ;; Province flags (8 bytes × 4 provinces)
 
-          ;; First set the write pointer up for the first block of this
-          ;; save game slot ($1700, $1800, or $1900)
-	jsr i2cStartWrite
-
-	lda #>SaveGameSlotPrefix
-	clc
-	adc SaveGameSlot
-	jsr i2cTxByte
-
           .if (SaveGameSlotPrefix & $ff) != 0
             .error "Save routines assume that SaveGameSlotPrefix is aligned to $100"
+          .fi
+
+          ;; First set the write pointer up  for the first block of this
+          ;; save game slot ($1100, $1200,  or $1300 if SaveKey, $00-$07
+          ;; for save-to-cart)
+          .if ATARIAGESAVE
+            lda SaveGameSlot
+          .fi
+	jsr i2cStartWrite
+          .if !ATARIAGESAVE
+            lda #>SaveGameSlotPrefix
+            clc
+            adc SaveGameSlot
+            jsr i2cTxByte
           .fi
 
 	lda # 0
