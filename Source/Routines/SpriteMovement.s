@@ -10,15 +10,13 @@ Return0:
 
 NotPaused:
           ldx SpriteCount
-          beq MovementLogicDone
+          beq Return0
 
           ;; this check  should never  have been needed,  but it  can be
           ;; triggered  during the  first VBlank  after reading  from an
           ;; EEPROM slot 5-8, so we'll just reset it to zero.
           cpx # 5
-          blt ValidSpriteCount
-
-          ldx # 0
+          bge Return0
 
 ValidSpriteCount:
           dex
