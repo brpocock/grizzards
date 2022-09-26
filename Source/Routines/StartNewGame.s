@@ -177,10 +177,9 @@ SaveName:
 
           .if ATARIAGESAVE
             lda SaveGameSlot
-            jsr i2cStartWrite
-          .else
-            jsr i2cStartWrite
-
+          .fi
+          jsr i2cStartWrite
+          .if !ATARIAGESAVE
             lda SaveGameSlot
             clc
             adc #>SaveGameSlotPrefix
