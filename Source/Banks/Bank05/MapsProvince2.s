@@ -2,7 +2,7 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
           ;; How many maps are in these tables?
-MapCount = 67
+MapCount = 71
 
 ;;; Foreground and background colors
 ;;; Remember SECAM and don't make these too similar
@@ -83,7 +83,10 @@ MapColors:
           .colors COLCYAN, COLCYAN
           .colors COLCYAN, COLCYAN
           .colors COLGRAY, COLGRAY
-          ;; ↑ 67
+          .colors COLGRAY, COLGRAY ; unused / shore room
+          .colors COLGRAY, COLGRAY ; unused / shore room
+          ;; 70
+          .colors COLGRAY, COLGRAY
 
 ;;; Links up, down, left, right are map indices in this bank
 MapLinks:
@@ -167,7 +170,10 @@ MapLinks:
           ;; 65
           .byte $ff, $ff, $ff, 66
           .byte 64, $ff, 65, $ff
-          .byte $ff, $ff, $ff, $ff
+          .byte 70, 70, 70, 70
+          .byte $ff, $ff, $ff, $ff ; unused — shore
+          .byte $ff, $ff, $ff, $ff ; unused — shore
+          .byte 67, 67, 67, 67
 
 ;;; RLE Map data for each screen.
 
@@ -202,6 +208,8 @@ MapLinks:
           ;; 65
           ;; special non-existing rooms 68 & 69 define alternate RLE backgrounds for “wave motions”
           _ ..= ( Map_EWOval, Map_OpenTopDoorSides, Map_FatFourWay, Map_SouthShore2, Map_NorthShore2 )
+          ;; 70
+          _ ..= ( Map_FatFourWay, )
 
           MapRLE = _
 
@@ -234,6 +242,8 @@ MapSides:
           ;; 60
           .byte 0, 0, $80, 0, $40
           .byte $80, $40, 0, 0, 0
+          ;; 70
+          .byte 0
 
 ;;; The Sprites Lists
 ;;;
@@ -830,5 +840,32 @@ SpriteList:
           .byte $ff, SpriteWander
           .byte 0, 0
           .byte SpriteSign, 115 ; build info
+
+          .byte 0
+
+          ;; Room 68, non existing (shore)
+
+          .byte 0
+
+          ;; Room 69, non existing (shore)
+
+          .byte 0
+
+          ;; Room 70, Starters Room
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteGrizzard, 0 ; Dirtex
+
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteGrizzard, 1 ; Aquax
+
+          .byte $ff, SpriteWander
+          .byte 0, 0
+          .byte SpriteGrizzard, 2 ; Airex
+
+          .byte $ff, SpriteFixed
+          .byte $7b, $13
+          .byte SpriteDoor, 61  ; to Last Move guy's house
 
           .byte 0

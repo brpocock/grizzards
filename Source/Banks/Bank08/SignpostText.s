@@ -161,7 +161,7 @@ NPC_TrebleVillage:
           .SignText "KEEP GETTING"
           .SignText "CLOSER TO US"
           .byte ModeSignpostPoints
-          .word $0003
+          .word 3
           .byte ModeSignpostSetFlag, 19
 
 ;;; 13

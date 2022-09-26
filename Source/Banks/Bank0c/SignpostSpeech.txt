@@ -46,6 +46,5 @@ The monsters attacked Treble first,but they're coming here
 NewGamePlus:
 Press the Game Reset switch to re-start with your Grizzards
 
-BuildInfo:
-♂You have  found an Easter  Egg.There are four secrets  in Grizzards.Can
-you discover them ¿all
+EasterEgg:
+♂It's a secret to everyone.Congrats on finding it

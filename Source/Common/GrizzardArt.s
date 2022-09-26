@@ -19,7 +19,7 @@ GrizzardColor:
           .colu COLTURQUOISE, $6
           .colu COLTEAL, $c
           .colu COLSEAFOAM, $6
-          .colu COLGREEN, $c
+          .colu COLGREEN, $4
           .colu COLGOLD, $6
           ;; 10
           .colu COLBROWN, $c

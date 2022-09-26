@@ -158,16 +158,10 @@ WiredEnd:
 
 ;;; 6507 special vectors
 ;;;
-          * = NMIVEC
-          .offs -$f000
-          .word GoColdStart
-
           * = RESVEC             ; CPU reset and BRK (IRQ) vectors (no NMI)
-          .offs -$f000
           .word GoColdStart
 
           * = IRQVEC
-          .offs -$f000
           .word Break
 
           .if * != $0000

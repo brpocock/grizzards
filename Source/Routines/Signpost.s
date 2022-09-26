@@ -76,9 +76,7 @@ NoBankUp:
           ;; Adjust the index to be relative to this bank
           .if FirstSignpost > 0
             txa
-            sec
-            sbc #FirstSignpost
-            tax
+            sbx #FirstSignpost
           .fi
           stx SignpostIndex
 
@@ -123,7 +121,9 @@ Conditional:
 
           ldy # 4               ; jump to which alternative
           lax (SignpostWork), y
-          jmp IndexReady        ; fetch new alternative
+          sta SignpostIndex
+          .WaitScreenBottom
+          jmp Setup        ; fetch new alternative
 
 ConditionFailed:
           .Add16 SignpostText, # 5
