@@ -2,7 +2,7 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
           ;; How many maps are in these tables?
-MapCount = 71
+MapCount = 70
 
 ;;; Foreground and background colors
 ;;; Remember SECAM and don't make these too similar
