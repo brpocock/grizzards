@@ -5,6 +5,8 @@ SpriteMovement:     .block
           lda SystemFlags
           bpl NotPaused
 
+
+Return0:
           rts
 
 NotPaused:
