@@ -61,8 +61,6 @@ PlayMusic:
           .if BANK != 7
             bit SystemFlags
             bpl MusicIsAllowed ; Pause flag = $80
-            sty AUDF1
-            sty AUDC1
             sty AUDV1
             iny                 ; Y = 1
             sty NoteTimer

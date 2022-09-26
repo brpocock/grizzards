@@ -884,10 +884,6 @@ SpriteList:
           .byte 0, 0
           .byte SpriteMajorCombat, 14
 
-          .byte $ff, SpriteFixed
-          .byte $89, $0e
-          .byte SpriteGrizzardDepot, 0
-
           .byte 0
 
           ;; Room 60, Tier 13
