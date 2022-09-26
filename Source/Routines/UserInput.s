@@ -46,6 +46,7 @@ NoSelect:
 
             and #SWCHBP1Advanced        ; SECAM pause
             beq +
+            .mva NoteTimer, # 1
             lda SystemFlags
             ora #SystemFlagPaused
             gne SetPause
@@ -68,6 +69,7 @@ DonePause:
             and #SWCHBColor
             bne UnPause
 
+            .mva NoteTimer, # 1
             lda SystemFlags
             ora #SystemFlagPaused
             gne SaveFlags
