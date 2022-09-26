@@ -21,7 +21,7 @@ WriteMasterBlock:
           .if ATARIAGESAVE
             lda SaveGameSlot
           .fi
-	jsr i2cStartWrite
+          jsr i2cStartWrite
           .if !ATARIAGESAVE
             lda #>SaveGameSlotPrefix
             clc
@@ -29,31 +29,31 @@ WriteMasterBlock:
             jsr i2cTxByte
           .fi
 
-	lda # 0
-	jsr i2cTxByte
+          lda # 0
+          jsr i2cTxByte
 
           ;; The signature is how we can tell that the slot is
           ;; occupied. Really any 2 bytes that are not $00 or $ff
           ;; would suffice, but this works too and we can
           ;; actually spare the space.
-	ldx # 0
+          ldx # 0
 WriteSignatureLoop:
-	lda SaveGameSignatureString, x
-	jsr i2cTxByte
+          lda SaveGameSignatureString, x
+          jsr i2cTxByte
 
-	inx
-	cpx # 5
-	bne WriteSignatureLoop
+          inx
+          cpx # 5
+          bne WriteSignatureLoop
 
           ;; The GlobalGameData block has all the persistent vars
           ;; that are not ProvinceFlags or Grizzard stats.
-	ldx # 0
+          ldx # 0
 WriteGlobalLoop:
-	lda GlobalGameData, x
-	jsr i2cTxByte
-	inx
-	cpx # GlobalGameDataLength
-	bne WriteGlobalLoop
+          lda GlobalGameData, x
+          jsr i2cTxByte
+          inx
+          cpx # GlobalGameDataLength
+          bne WriteGlobalLoop
 
           .WaitScreenBottom
           .WaitScreenTop
@@ -84,6 +84,4 @@ SaveRetry:
           .WaitScreenBottom
           jmp SaveToSlot
 
-	.bend
-
-;;; Audited 2022-02-16 BRPocock
+          .bend
