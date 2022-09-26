@@ -20,148 +20,131 @@ SaveGameSignatureString:
           i2cReadPort = $1ff4
 
           SaveWritesPerScreen = $20
-;;; 
-i2cSDA0:  .macro
-          nop i2cDataPort0
-         .endm
+;;; 
+          EEPROMRead = $a1
+          EEPROMWrite = $a0
+;;; 
 
-i2cSDA1:  .macro
-          nop i2cDataPort1
-          .endm
-
-i2cSCL0:  .macro ; Setting SDA=0 seems to require changing SDA=1 to possibly allow the bus to float
-          nop i2cDataPort1
-          nop i2cClockPort0
-         .endm
-
-i2cSCL1:  .macro
-          nop i2cClockPort1
-          .endm
-
-i2cSDAIn: .macro
-          nop i2cDataPort1 ; float SDA
-          .endm
-
-i2cSDAOut: .macro ; no action needs to be done
-          nop
-          .endm
-
-i2cReset: .macro ; float SDA
-          .i2cSDA1
-          .endm
-
-i2cStart: .macro
-          .i2cSCL1
-          .i2cSDAOut
-          .endm
-
-i2cStop:  .macro
-          .i2cSCL0
-          .i2cSDAOut
-          .i2cSCL1
-          .i2cReset
-          .endm
-
-i2cTxBit: .macro
-          .i2cSCL0
-          bcc Send0
-          .i2cSDA1
-          bcc Sent1 ; sending 1 is potentially slower so pad with branch
-Send0:
-          .i2cSDA0 ; Sending 0 is fast so no need to pad
-Sent1:
-          .i2cSCL1
-          .endm
-
-i2cTxACK: .macro
-          .i2cSCL0
-          .i2cSDAOut
-          .i2cSCL1
-          .endm
-
-i2cTxNAK: .macro
-          .i2cSCL0
-          .i2cSDAIn
-          .i2cSCL1
-          .endm
-
-i2cRxBit: .macro
-          .i2cSCL0
-          .i2cSDAIn
-          .i2cSCL1
-          lda i2cReadPort ; C = SDA
-          lsr
-          .endm
-
-i2cRxACK: .macro
-          .i2cRxBit
-          .endm
-
-          EEPROMRead = %10100001
-          EEPROMWrite = %10100000
-;;; 
 i2cStartRead:
-          clv               ; Use V to flag if previous byte needs ACK
-          .i2cStart
-          lda # EEPROMRead
-          bvc i2cTxByte
+          ;; Read page in A
+          asl a
+          ora # EEPROMRead
+          gne i2cSignalStart
 
 i2cStartWrite:
-          .i2cStart
-          lda # EEPROMWrite
+          asl a
+          ora # EEPROMWrite
 
-i2cTxByte:
+i2cSignalStart:
+          ;; Transition data 1→0 while clock is high
+          ;; to signal start of a stream
+          nop i2cClockPort0
+          nop i2cDataPort1
+          nop i2cClockPort1
+          nop
+          nop i2cDataPort0
+          nop
+          nop i2cClockPort0
+          ;; fall through
+i2cTxByte:          .block
           sta Temp
+          ldy # 8               ; bits to send
+Loop:
+          nop i2cClockPort0
+          asl Temp              ; bit into C
+          bcc Send0
 
-          ldy # 8           ; loop (bit) counter
-i2cTxByteLoop:
-          asl Temp          ; next bit into C
-          .i2cTxBit
+          nop i2cDataPort1
+          gcs SendClock         ; always taken
+
+Send0:
+          nop i2cDataPort0
+
+SendClock:
+          nop i2cClockPort1
+          nop
           dey
-          bne i2cTxByteLoop
+          bne Loop
 
-          .i2cRxACK         ; receive ACK bit
+GetAck:
+          nop i2cClockPort0
+          nop i2cDataPort1
+          nop i2cClockPort1
+          nop
+          lda i2cReadPort
+          lsr a                 ; C = SDA
+          nop i2cClockPort0
+          ;; return C = ACK bit
           rts
 
-i2cRxByte:
+          .bend
+          
+i2cRxByte:          .block
           ldy # 8           ; loop (bit) counter
-          bvc i2cRxSkipACK
 
-          .i2cTxACK
-
-i2cRxByteLoop:
-          .i2cRxBit
-          rol Temp          ; rotate C into scratchpad
+          nop i2cClockPort0
+          nop i2cDataPort0
+          nop i2cClockPort1
+          nop
+          nop i2cDataPort1
+Loop:
+          nop i2cClockPort0
+          nop i2cClockPort1
+          nop
+          lda i2cReadPort
+          lsr a
+          rol Temp
           dey
-          bne i2cRxByteLoop
+          bne Loop
+
+          ;; send ACK
+          nop i2cClockPort0
+          nop i2cDataPort1
+          nop i2cClockPort1
+          nop
+          nop i2cClockPort0
 
           lda Temp
           rts
 
-i2cRxSkipACK:
-          bit VBit          ; set V - next byte/s require ACK
-VBit:
-          bvs i2cRxByteLoop
+          .bend
 
 i2cStopRead:
-          bvc i2cStopWrite
+          ;; Discard one byte worth of reading
+          ldy # 8
+          nop i2cClockPort0
+-
+          nop i2cClockPort1
+          nop
+          nop i2cClockPort0
+          dey
+          bne -
 
-          .i2cTxNAK
+          ;; send NAK
+          nop i2cClockPort0
+          nop i2cDataPort1
+          nop i2cClockPort1
+          nop
+          nop i2cClockPort0
 
 i2cStopWrite:
-          .i2cStop
+          ;;  A low-to-high transition on the  SDA line while the SCL is
+          ;;  high defines a STOP condition
+          nop i2cClockPort0
+          nop i2cDataPort0
+          nop i2cClockPort1
+          nop
+          nop i2cDataPort1
+          nop
+          nop i2cClockPort0
+          nop i2cDataPort0
+
           rts
-
-          ;; The following functions added by BRPocock, not found in the
+;;; 
+          ;; The following function added by BRPocock, not found in the
           ;; standard library code
-i2cK:                           ; K is "switch over to (you) sending" in Morse code
-          jsr i2cTxByte
-i2cK2:                          ; switch without a final byte to send
-          jsr i2cStopWrite
-
-          jmp i2cStartRead      ; tail call
-
 i2cWaitForAck:
+          lda SaveGameSlot
           ;; Wait for acknowledge bit
           jsr i2cStartWrite
 

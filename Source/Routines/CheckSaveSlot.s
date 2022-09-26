@@ -15,16 +15,26 @@ CheckSaveSlot: .block
           ;; either $00 for false or non-zero for true
           jsr SeedRandom
 
-	jsr i2cStartWrite
-	bcs EEPROMFail
+          .if ATARIAGESAVE
+            lda SaveGameSlot
+          .fi
+          jsr i2cStartWrite
+          bcs EEPROMFail
 
-          lda SaveGameSlot
-          clc
-          adc #>SaveGameSlotPrefix
-          jsr i2cTxByte
+          .if !ATARIAGESAVE
+            lda SaveGameSlot
+            clc
+            adc #>SaveGameSlotPrefix
+            jsr i2cTxByte
+          .fi
 
           lda #<SaveGameSlotPrefix
-          jsr i2cK
+          jsr i2cTxByte
+          jsr i2cStopWrite
+          .if ATARIAGESAVE
+            lda SaveGameSlot
+          .fi
+          jsr i2cStartRead
 
           ldx # 0
           jsr i2cRxByte
@@ -78,15 +88,26 @@ ReadLoop0:
 ReadSlotName:
           jsr i2cWaitForAck
 
+          .if ATARIAGESAVE
+            lda SaveGameSlot
+          .fi
           jsr i2cStartWrite
+          bcs EEPROMFail
 
-          lda SaveGameSlot
-          clc
-          adc #>SaveGameSlotPrefix
-          jsr i2cTxByte
+          .if !ATARIAGESAVE
+            lda SaveGameSlot
+            clc
+            adc #>SaveGameSlotPrefix
+            jsr i2cTxByte
+          .fi
 
           lda #<SaveGameSlotPrefix + $1a ; Name offset
-          jsr i2cK
+          jsr i2cTxByte
+          jsr i2cStopWrite
+          .if ATARIAGESAVE
+            lda SaveGameSlot
+          .fi
+          jsr i2cStartRead
 
           ldx # 0
 LoadNameLoop:
@@ -104,15 +125,27 @@ LoadNameLoop:
 ReadCrownBit:
           jsr i2cWaitForAck
 
+          .if ATARIAGESAVE
+            lda SaveGameSlot
+          .fi
           jsr i2cStartWrite
+          bcs EEPROMFail
 
-          lda SaveGameSlot
-          clc
-          adc #>SaveGameSlotPrefix
-          jsr i2cTxByte
+          .if !ATARIAGESAVE
+            lda SaveGameSlot
+            clc
+            adc #>SaveGameSlotPrefix
+            jsr i2cTxByte
+          .fi
 
           lda #<SaveGameSlotPrefix + 5 + Potions - GlobalGameData
-          jsr i2cK
+          jsr i2cTxByte
+
+          jsr i2cStopWrite
+          .if ATARIAGESAVE
+            lda SaveGameSlot
+          .fi
+          jsr i2cStartRead
 
           jsr i2cRxByte
 
@@ -123,5 +156,3 @@ ReadCrownBit:
           rts
 
 	.bend
-
-;;; Audited 2022-02-16 BRPocock
