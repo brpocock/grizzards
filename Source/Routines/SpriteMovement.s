@@ -15,7 +15,7 @@ NotPaused:
           ;; this check  should never  have been needed,  but it  can be
           ;; triggered  during the  first VBlank  after reading  from an
           ;; EEPROM slot 5-8, so we'll just reset it to zero.
-          cpx # 5
+          cpx # 6
           bge Return0
 
 ValidSpriteCount:
@@ -234,3 +234,5 @@ BubbleNext:
           jmp BubbleUp
 
           .bend
+
+;;; audited 2022-03-22 BRPocock
