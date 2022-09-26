@@ -6,6 +6,7 @@ DEADJOE
 .DS_Store
 *.orig
 *.fasl
+arc/*
 
 # Generated files
 Dist/*
@@ -18,4 +19,7 @@ bin/buildapp
 
 # Not mine to share
 bin/SaveKey Editor.a26
+
+# Random junk link that gets created by Make on a bad day
 Manual/Manual
+
