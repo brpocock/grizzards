@@ -381,6 +381,10 @@ SpriteList:
           .byte 0
 
           ;; Room 18, Tier 12
+          .byte $ff, SpriteFixed
+          .byte $89, $0e
+          .byte SpriteGrizzardDepot, 0
+
           .byte $ff, SpriteRandomEncounter
           .byte 0, 0
           .byte SpriteCombat, 58
@@ -879,6 +883,10 @@ SpriteList:
           .byte 34, SpriteWander
           .byte 0, 0
           .byte SpriteMajorCombat, 14
+
+          .byte $ff, SpriteFixed
+          .byte $89, $0e
+          .byte SpriteGrizzardDepot, 0
 
           .byte 0
 
