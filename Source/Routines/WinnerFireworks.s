@@ -3,6 +3,79 @@
 
 WinnerFireworks:    .block
           .KillMusic
+
+;;; 
+NewGamePlus:
+          .mva Potions, #$80 | 25
+          .mvy Score, # 0
+          sty Score + 1
+          sty Score + 2
+AddAllStarters:
+          .mva CurrentGrizzard, # 2
+
+ConsiderGrizzard:
+          .mva Temp, CurrentGrizzard
+          .FarJSR SaveKeyBank, ServicePeekGrizzardXP
+
+          bit Temp
+          bmi SeenGrizzardBefore
+
+          .mva Temp, CurrentGrizzard
+          .WaitScreenBottom
+          ;; Defaults does WaitScreenTop and SaveGrizzard and WaitScreenBottom
+          .FarJSR MapServicesBank, ServiceGrizzardDefaults
+          .WaitScreenTop
+
+SeenGrizzardBefore:
+          dec CurrentGrizzard
+          bpl ConsiderGrizzard
+;;; 
+SelectAvailableGrizzard:
+          .mva CurrentGrizzard, # 0
+
+GrizzardCheckup:
+          .mva Temp, CurrentGrizzard
+          .FarJSR SaveKeyBank, ServicePeekGrizzard
+
+          bit Temp
+          bmi ValidGrizzardToBeCurrent
+
+          inc CurrentGrizzard
+          gne GrizzardCheckup
+
+ValidGrizzardToBeCurrent:
+          .FarJSR SaveKeyBank, ServiceLoadGrizzard
+;;; 
+ResetProvinceFlags:
+          ldy # 0               ; XXX necessary?
+          sty CurrentMap
+          sty NextMap
+          tya
+
+          iny                   ; Y = 1
+          sty CurrentProvince
+
+WipeProvinceFlags:
+          ldx # 8
+Wipe8Bytes:
+          sta ProvinceFlags - 1, x
+          dex
+          bne Wipe8Bytes
+
+          .WaitScreenBottom
+
+          ;; Save Province 1 as zeroes
+          .FarJSR SaveKeyBank, ServiceSaveProvinceData
+
+          ;; Save Province 2 as zeroes
+          inc CurrentProvince
+          .FarJSR SaveKeyBank, ServiceSaveProvinceData
+
+          .mvy CurrentProvince, # 0
+          ;; Save global data, also save province 0 as zeroes
+          .FarJSR SaveKeyBank, ServiceSaveToSlot
+;;; 
+AnnounceWin:
           .mva NextSound, #SoundRoar
 
           .WaitScreenBottom
@@ -140,76 +213,6 @@ Leave:
           .WaitScreenBottom
           .WaitScreenTop
 ;;; 
-NewGamePlus:
-          .mva Potions, #$80 | 25
-          .mvy Score, # 0
-          sty Score + 1
-          sty Score + 2
-;;; 
-AddAllStarters:
-          .mva CurrentGrizzard, # 2
-
-ConsiderGrizzard:
-          .mva Temp, CurrentGrizzard
-          .FarJSR SaveKeyBank, ServicePeekGrizzardXP
-
-          bit Temp
-          bmi SeenGrizzardBefore
-
-          .mva Temp, CurrentGrizzard
-          .WaitScreenBottom
-          ;; Defaults does WaitScreenTop and SaveGrizzard and WaitScreenBottom
-          .FarJSR MapServicesBank, ServiceGrizzardDefaults
-          .WaitScreenTop
-
-SeenGrizzardBefore:
-          dec CurrentGrizzard
-          bpl ConsiderGrizzard
-;;; 
-SelectAvailableGrizzard:
-          .mva CurrentGrizzard, # 0
-
-GrizzardCheckup:
-          .mva Temp, CurrentGrizzard
-          .FarJSR SaveKeyBank, ServicePeekGrizzard
-
-          bit Temp
-          bmi ValidGrizzardToBeCurrent
-
-          inc CurrentGrizzard
-          gne GrizzardCheckup
-
-ValidGrizzardToBeCurrent:
-          .FarJSR SaveKeyBank, ServiceLoadGrizzard
-;;; 
-ResetProvinceFlags:
-          ldy # 0               ; XXX necessary?
-          sty CurrentMap
-          sty NextMap
-          tya
-
-          iny                   ; Y = 1
-          sty CurrentProvince
-
-WipeProvinceFlags:
-          ldx # 8
-Wipe8Bytes:
-          sta ProvinceFlags - 1, x
-          dex
-          bne Wipe8Bytes
-
-          .WaitScreenBottom
-
-          ;; Save Province 1 as zeroes
-          .FarJSR SaveKeyBank, ServiceSaveProvinceData
-
-          ;; Save Province 2 as zeroes
-          inc CurrentProvince
-          .FarJSR SaveKeyBank, ServiceSaveProvinceData
-
-          .mvy CurrentProvince, # 0
-          ;; Save global data, also save province 0 as zeroes
-          .FarJSR SaveKeyBank, ServiceSaveToSlot
 
           stx WSYNC
           stx WSYNC
