@@ -112,6 +112,8 @@ portable:	Dist/Grizzards.Portable.NTSC.bin
 	fi
 
 CMYK=-sDEVICE=pdfwrite \
+	-dPDFSETTINGS=/default \
+	-dCompressMode=1 \
 	-sProcessColorModel=DeviceCMYK \
 	-sColorConversionStrategy=CMYK \
 	-sColorConversionStrategyForImages=CMYK

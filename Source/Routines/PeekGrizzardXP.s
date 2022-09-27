@@ -9,7 +9,11 @@ PeekGrizzardXP:       .block
           lda Temp
           jsr SetGrizzardAddress ; takes input in A as well
 
-          jsr i2cK2
+          jsr i2cStopWrite
+          .if ATARIAGESAVE
+            lda SaveGameSlot
+          .fi
+          jsr i2cStartRead
 
           ;; Max HP, Attack, Defend, XP, Moves Known
           ldx # 5
@@ -40,5 +44,3 @@ FoundGrizzard:
           rts
 
           .bend
-
-;;; Audited 2022-02-16 BRPocock

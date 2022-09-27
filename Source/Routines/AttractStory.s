@@ -257,7 +257,7 @@ NextGrizzard:
           sty CurrentGrizzard
 DoneNextGrizzard:
 
-          .mva GameMode, #ModeAttractTitle
+          .mva GameMode, #ModeAttractHighScore
           rts
 ;;; 
 StillStory:

@@ -244,7 +244,7 @@ SpriteList:
           .byte SpriteDoor, 3   ; action
 
           .byte $ff, SpriteFixed
-          .byte $7d, $12         ; x, y
+          .byte $7d, $13         ; x, y
           .byte SpriteGrizzardDepot, 0
 
           .byte 0               ; end of list
@@ -283,7 +283,7 @@ SpriteList:
 
           ;; Room 3, Tier 0
           .byte $ff, SpriteFixed              ; not removeable,fixed position sprite
-          .byte $7d, $30         ; x, y position
+          .byte $7d, $0c         ; x, y position
           .byte SpriteDoor, 0   ; action
 
           .byte $ff, SpriteFixed
@@ -291,12 +291,12 @@ SpriteList:
           .byte SpriteSign, 11  ; Treble Village
 
           .byte 19, SpriteWander
-          .byte 100, 32
+          .byte 100, $28
           .byte SpritePerson, 12 ; Fleeing village
 
           .if !DEMO
             .byte $ff, SpriteWander
-            .byte 140, 45
+            .byte $8d, $43
             .byte SpritePerson, 77 ; used to be fun
           .fi
 
@@ -361,7 +361,7 @@ SpriteList:
           .byte SpriteCombat, 9 ; 3×Horrid Slimes
 
           .byte $ff, SpriteFixed
-          .byte $7c, $36
+          .byte $72, $40
           .byte SpriteGrizzard, 5 ; Wetnas
 
           .byte 0

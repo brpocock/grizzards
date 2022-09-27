@@ -15,6 +15,7 @@
           ModeAttractTitle = $11
           ModeAttractCopyright = $12
           ModeAttractStory = $13
+          ModeAttractHighScore = $16
           ModeCreditSecret = $14
           ModeBRPPreamble = $1e
           ModePublisherPresents = $1f
@@ -200,6 +201,8 @@
           ServiceSaveToSlot = $10
           ServiceSetCurrentGrizzard = $2f
           ServiceCheckSaveSlot = $39
+          ServiceCheckHighScore = $3a
+          ServiceSetHighScore = $3b
 
 ;;; Map services bank
 
@@ -255,6 +258,7 @@
           ServiceInquire = $24
           ServiceWrite12Chars = $23
           ServiceGrizzardMetamorphosis = $2d
+          ServiceHighScore = $3c
 
 ;;; Combat services (stuffed into same bank as animation)
 
