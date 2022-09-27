@@ -201,12 +201,13 @@ BubbleSortY:
           blt Return
 
           ldx # 0
-          ldy # 6
 BubbleUp:
           lda SpriteY, x
           cmp SpriteY + 1, x
           blt BubbleNext
--
+
+          ldy # 6
+SwapTwo:
           lda SpriteIndex, x
           sta Temp
           lda SpriteIndex + 1, x
@@ -218,14 +219,16 @@ BubbleUp:
           inx
           inx
           dey
-          bne -
+          bne SwapTwo
 
+Return1:
           rts
 
 BubbleNext:
           inx
           inx
           cpx SpriteCount
+          bge Return1
           dex
           blt BubbleUp
 
