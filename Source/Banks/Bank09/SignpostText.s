@@ -211,7 +211,7 @@ NPC_GaryVindicated:
 NPC_Fishing:
           .colu COLINDIGO, 0
           .colu COLCYAN, $9
-          .byte $ff, 15, 41     ; looking for ring?
+          .byte $ff, 7, 87      ; looking for mirror (maybe also ring?)
           .SignText "I FISH HERE "
           .SignText "WHENEVER THE"
           .SignText "MONSTERS LET"
@@ -229,8 +229,8 @@ NPC_FoundRing:
           .SignText "LOOKING FOR "
           .SignText "SOMETHING?  "
           .byte ModeSignpostInquire
-          .byte 86, 87
-          .Response "RING  ", "MIRROR"
+          .byte 86, 104
+          .Response " RING ", "POTION"
 
 ;;; 42
 NPC_TrebleRefugee:

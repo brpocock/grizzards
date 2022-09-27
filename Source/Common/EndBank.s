@@ -10,7 +10,7 @@ EndBank:
             BankEndAddress = $ff4e      ; keep this as high as possible
           .fi
           .if (* > BankEndAddress) || (* < $f000)
-            .error "Bank ", BANK, " overran ROM space (ending at ", *, "; must end by ", BankEndAddress, ")"
+            .error format ("Bank $%02x overran ROM space (ending at $%04x, ; must end by $%04x) (Config: %s)", BANK, *, BankEndAddress, ConfigPartNumber)
           .else
             .warn format("bank %d ends at %x with %d bytes left (%.1f%%)", BANK, EndBank, BankEndAddress - EndBank, ( (Wired - EndBank) * 100.0 / (BankEndAddress - $f000) ) )
           .fi
@@ -113,7 +113,7 @@ FarReturn:
 Break:
           lda # BANK
           pha
-          BankJump Failure, FailureBank
+          .BankJump Failure, FailureBank
 ;;; 
           ;; Useful constants to save time bit-shifting. Used all over.
 BitMask:
@@ -189,31 +189,38 @@ WiredEnd:
           .if DEMO
 
             * = $fff4
-            .offs -$f000
             .text "grizbrp", 0
 
           .else
 
             * = $ffe0
-            .offs -$f000
             .text "grizbrp", 0
             ;; magic cookie for Stella
             nop $1fe0
 
           .fi
 
+          .if ATARIAGESAVE
+
+            ;; Save-to-cart hotspots
+            * = $fff0
+            ;;  SCL & SDA write lines, data irrelevant.
+            ;;  Using this for Stella's benefit.
+            .text "EFFB"
+            ;; SDA reads return these values for 0/1 bits
+            .byte 0, 1
+
+            ;; for Stella's benefit
+            * = $fff8
+            .text "EFEF"
+          .fi
+
 ;;; 6507 special vectors
 ;;;
-          * = NMIVEC
-          .offs -$f000
-          .word GoColdStart
-
           * = RESVEC             ; CPU reset and BRK (IRQ) vectors (no NMI)
-          .offs -$f000
           .word GoColdStart
 
           * = IRQVEC
-          .offs -$f000
           .word Break
 
           .if * != $0000

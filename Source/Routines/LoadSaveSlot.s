@@ -10,15 +10,26 @@ LoadSaveSlot: .block
           .WaitScreenTop
 
 ReallyLoadIt:
+          .if ATARIAGESAVE
+            lda SaveGameSlot
+          .fi
           jsr i2cStartWrite
+          bcs EEPROMFail
 
-          lda SaveGameSlot
-          clc
-          adc #>SaveGameSlotPrefix
+          .if !ATARIAGESAVE
+            lda SaveGameSlot
+            clc
+            adc #>SaveGameSlotPrefix
+            jsr i2cTxByte
+          .fi
+
+          lda # 0               ; this happens to be #<SaveGameSlotPrefix
           jsr i2cTxByte
-
-          lda #<SaveGameSlotPrefix
-          jsr i2cK
+          jsr i2cStopWrite
+          .if ATARIAGESAVE
+            lda SaveGameSlot
+          .fi
+          jsr i2cStartRead
 
 DiscardSignature:
           ldx # 0
@@ -65,4 +76,3 @@ LoadFailed:
 
           .bend
 
-;;; Audited 2022-02-16 BRPocock

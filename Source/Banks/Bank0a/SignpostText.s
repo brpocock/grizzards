@@ -43,7 +43,7 @@ NPC_Miranda1:
           .SignText "MIRROR, IF  "
           .SignText "YOU SEE IT. "
           .byte ModeSignpostSetFlag, 7
-          
+
 ;;; 51
 NPC_SueMirror:
           .colu COLMAGENTA, $f
@@ -123,8 +123,6 @@ NPC_NeedRing:
           .SignText "MAGIC RING  "
           .SignText "OPENS THE   "
           .SignText "LABYRINTH.  "
-          .byte ModeSignpostPoints
-          .word $0100
           .byte ModeSignpostSetFlag, 15
 
 ;;; 58
@@ -183,7 +181,7 @@ NPC_LabyrinthOpen:
           .SignText "BEYOND THAT "
           .SignText "DOOR MAY BE "
           .SignText "WHERE THE   "
-          .SignText "BOSS BEAR IS"
+          .SignText "BOSSES ARE. "
           .byte ModeSignpostDone
 
 ;;; 63

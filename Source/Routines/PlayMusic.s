@@ -56,19 +56,25 @@ PlayMusic:
             bne TheEnd
           .fi
 
+          ldy # 0
+
+          .if BANK != 7
+            bit SystemFlags
+            bpl MusicIsAllowed ; Pause flag = $80
+            sty AUDV1
+            iny                 ; Y = 1
+            sty NoteTimer
+            gne TheEnd
+          .fi
+
+MusicIsAllowed:
           dec NoteTimer
           bne TheEnd
 
           ;; make the notes slightly more staccatto
-          ldy # 0
           sty AUDF1
           sty AUDC1
           sty AUDV1
-
-          .if BANK != 7
-            bit SystemFlags
-            bmi TheEnd
-          .fi
 
 ReallyPlayMusic:
           ldy #0
@@ -78,9 +84,8 @@ ReallyPlayMusic:
 
           txa
           and #$f0
-          clc
           .rept 4
-          ror a
+          lsr a
           .next
           sta AUDV1
 
@@ -108,5 +113,3 @@ ReallyPlayMusic:
           ;; jmp TheEnd
 
 TheEnd:
-
-;;; Audited 2022-02-16 BRPocock

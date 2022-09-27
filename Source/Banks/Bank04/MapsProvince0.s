@@ -217,10 +217,10 @@ MapSides:
           ;; 10
           .byte 0, 0, 0, 0, 0
           .if DEMO
-          ;; block off area to right of screen 15
-          .byte $40, $40, $40, 0, $80
+            ;; block off area to right of screen 15
+            .byte $40, $40, $40, 0, $80
           .else
-          .byte 0, $40, $40, 0, $80
+            .byte 0, $40, $40, 0, $80
           .fi
           ;; 20
           .byte $80, 0, 0, 0, 0
@@ -236,9 +236,6 @@ MapSides:
           .byte 0, 0, $80, $80, 0
           ;; 60
           .byte 0, $40, 0, 0, 0
-          .byte 0, 0, 0, 0, 0
-          ;; 70
-          .byte 0, 0, 0, 0
 ;;; 
 SpriteList:
           ;; Room 0, "Tier 0"
@@ -247,7 +244,7 @@ SpriteList:
           .byte SpriteDoor, 3   ; action
 
           .byte $ff, SpriteFixed
-          .byte $7d, $12         ; x, y
+          .byte $7d, $13         ; x, y
           .byte SpriteGrizzardDepot, 0
 
           .byte 0               ; end of list
@@ -277,16 +274,16 @@ SpriteList:
           .byte SpriteSign, 0   ; Beware
 
           .if !DEMO
-          .byte $ff, SpriteWander
-          .byte 120, 32
-          .byte SpritePerson, 80 ; lover 2
+            .byte $ff, SpriteWander
+            .byte 120, 32
+            .byte SpritePerson, 80 ; lover 2
           .fi
 
           .byte 0
 
           ;; Room 3, Tier 0
           .byte $ff, SpriteFixed              ; not removeable,fixed position sprite
-          .byte $7d, $30         ; x, y position
+          .byte $7d, $0c         ; x, y position
           .byte SpriteDoor, 0   ; action
 
           .byte $ff, SpriteFixed
@@ -294,13 +291,13 @@ SpriteList:
           .byte SpriteSign, 11  ; Treble Village
 
           .byte 19, SpriteWander
-          .byte 100, 32
+          .byte 100, $28
           .byte SpritePerson, 12 ; Fleeing village
 
           .if !DEMO
-          .byte $ff, SpriteWander
-          .byte 140, 45
-          .byte SpritePerson, 77 ; used to be fun
+            .byte $ff, SpriteWander
+            .byte $8d, $43
+            .byte SpritePerson, 77 ; used to be fun
           .fi
 
           .byte 0
@@ -364,16 +361,16 @@ SpriteList:
           .byte SpriteCombat, 9 ; 3×Horrid Slimes
 
           .byte $ff, SpriteFixed
-          .byte $7c, $36
+          .byte $72, $40
           .byte SpriteGrizzard, 5 ; Wetnas
 
           .byte 0
 
           ;; Room 8, Tier 2
           .if !DEMO
-          .byte $ff, SpriteFixed
-          .byte $38, $30
-          .byte SpriteProvinceDoor | $10, 2
+            .byte $ff, SpriteFixed
+            .byte $38, $30
+            .byte SpriteProvinceDoor | $10, 2
           .fi
 
           .byte $ff, SpriteFixed
@@ -496,9 +493,9 @@ SpriteList:
           .byte $ff, SpriteFixed
           .byte $a0, $2b
           .if DEMO
-          .byte SpriteSign, 10  ; Spiral Woods closed
+            .byte SpriteSign, 10  ; Spiral Woods closed
           .else
-          .byte SpriteSign, 18  ; Spiral Woods open
+            .byte SpriteSign, 18  ; Spiral Woods open
           .fi
 
           .byte 0
@@ -524,13 +521,13 @@ SpriteList:
 
           ;; Room 17, Tier 0
           .byte $ff, SpriteFixed
-          .byte $48, $29
+          .byte $60, $30
           .byte SpritePerson, 3 ; tunnel guardian
 
           .if !DEMO             ; no room for these signs' text in demo
-          .byte 1, SpriteFixed
-          .byte $48, $20
-          .byte SpriteSign, 17  ; tunnel closed
+            .byte 1, SpriteFixed
+            .byte $48, $20
+            .byte SpriteSign, 17  ; tunnel closed
           .fi
 
           .byte 0
@@ -852,9 +849,9 @@ SpriteList:
 
           ;; Room 47, Tier 0
           .if !DEMO
-          .byte 29, SpriteFixed
-          .byte $44, $1d
-          .byte SpritePerson, 73 ; Radio shack
+            .byte 29, SpriteFixed
+            .byte $44, $1d
+            .byte SpritePerson, 73 ; Radio shack
           .fi
 
           .byte 0

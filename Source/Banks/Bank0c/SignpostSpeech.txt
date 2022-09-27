@@ -45,3 +45,6 @@ The monsters attacked Treble first,but they're coming here
 
 NewGamePlus:
 Press the Game Reset switch to re-start with your Grizzards
+
+EasterEgg:
+♂It's a secret to everyone.Congrats on finding it

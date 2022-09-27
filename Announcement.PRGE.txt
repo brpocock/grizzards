@@ -1,0 +1,82 @@
+The  physical release  of  Grizzards  is coming  to  the Portland  Retro
+Gaming Expo.
+
+Thanks  to AtariAge  —  with  special thanks  to  @Albert for  extensive
+publication support,  and @batari for  the electronics design —  we will
+have a boxed set that includes:
+
+- the box itself, as lovely as it is,
+
+- a 20-page manual, revised, edited, and professionally printed,
+
+- a printed map of Syrex to help you get started in your adventuring,
+
+- and, best  of all, the  game cartridge  which features the  ability to
+  save up  to 8  players' games in  progress at a  time directly  to the
+  cartridge itself.
+
+This is otherwise quite similar to  the 64k builds that have been posted
+previously to the forums, but with  an additional 2k EEPROM hooked up to
+provide save game storage. This is a 64k game (66k if you count the save
+game space!) and does not make use of an ARM (or any other) coprocessor.
+
+Hardware Support:
+
+ * The game is available for each  of the three Atari 2600 TV standards.
+   The NTSC  and PAL versions  are quite  similar, except for  color and
+   frame rate changes. The SECAM version  is not just the PAL version in
+   Black & White mode, though: it has been specially designed with SECAM
+   players in mind, featuring colors  specifically chosen to display "as
+   well  as possible"  on the  SECAM 2600,  while also  using the  Right
+   Difficulty  Switch  (rather  than   the  Color/B&W  switch)  for  the
+   pause function.
+
+ * The  game  also  makes  extensive  use  of  AtariVox,  with  complete
+   narration of all  NPC encounters, all combat actions,  and many other
+   game events.
+
+ * You  can  play  perfectly  well enough  with  a  standard  one-button
+   joystick,  like  the trusty  CX-40,  or  any compatible  replacement.
+   You can also use a  SEGA Genesis/MegaDrive controller as a two-button
+   input (button "C" brings up your  stats screen, making the game Couch
+   Compliant™), or a Joy2b+ controller  for a three-button input (button
+   "II" for stats, and button "III" to pause the game).
+
+As you may be aware, Grizzards has:
+
+ * 30  Grizzard companions  to either  catch or  metamorphose, including
+   your choice of one of three Starter Grizzards to begin the game.
+
+ * Two difficulty levels, Normal, and Expert (Left Difficulty Switch)
+ 
+ * A New Game Plus mode that is  more difficult, but allows you to start
+   over with your  Grizzards team and also pick up  the two Starters you
+   did not choose originally.
+
+ * Over 200  rooms to  explore (201,  actually, in  the main  game, plus
+   a couple of secret bonus rooms)
+
+ * Over  30 non-player  characters to  meet  and perhaps  save from  the
+   monsters
+
+ * Over  80 kinds  of  monsters, including  "normal"  monsters (who  may
+   travel in parties) and bigger, stronger "boss" variants.
+
+ * A total of 64 different combat  Moves from which to choose, including
+   healing and buffing Moves for  your Grizzards to use upon themselves,
+   and attack moves  to use against the enemies. Learn  new moves either
+   by watching enemies use them, or by gaining experience.
+
+ * Combat experience  may raise your  Attack or Defend  ability, Maximum
+   Hit  Points,  or  even  cause  your  Grizzard  to  metamorphose  into
+   a new form.
+
+ * There are  four main music tracks  in the game, and  when played with
+   the AtariVox, there are over  300 unique speech utterances drawn from
+   a dictionary of around 2,000 words.
+
+If you'll  be at PRGE,  Grizzards will also be  on demo at  the AtariAge
+booth, so you  can experience it yourself.  I will also be  at the show,
+along with  my partner Zephyr  Salz who  created the original  music and
+printed art work, including the label/box/manual cover.
+

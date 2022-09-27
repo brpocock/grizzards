@@ -5,18 +5,19 @@ SpriteMovement:     .block
           lda SystemFlags
           bpl NotPaused
 
+
+Return0:
           rts
 
 NotPaused:
           ldx SpriteCount
-          beq MovementLogicDone
+          beq Return0
 
-          ;; XXX this check should never have been needed
-          ;; XXX it might be removed in the final roundup
-          cpx # 5
-          blt ValidSpriteCount
-
-          brk
+          ;; this check  should never  have been needed,  but it  can be
+          ;; triggered  during the  first VBlank  after reading  from an
+          ;; EEPROM slot 5-8, so we'll just reset it to zero.
+          cpx # 6
+          bge Return0
 
 ValidSpriteCount:
           dex
@@ -85,10 +86,11 @@ SpriteMoveNext:
           bne SpriteMoveReady
 
           tya
-          .BitBit $10
+          and #$30
           beq ChasePlayer
 
-          .BitBit $20
+          tya
+          and #$40
           beq RandomlyMove
 
           lda #SpriteMoveIdle

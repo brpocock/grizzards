@@ -4,12 +4,18 @@
 SetCurrentGrizzard:       .block
           jsr i2cWaitForAck
 
+          .if ATARIAGESAVE
+            lda SaveGameSlot
+          .fi
           jsr i2cStartWrite
+          bcs EEPROMFail
 
-          lda #>SaveGameSlotPrefix
-          clc
-          adc SaveGameSlot
-          jsr i2cTxByte
+          .if !ATARIAGESAVE
+            lda SaveGameSlot
+            clc
+            adc #>SaveGameSlotPrefix
+            jsr i2cTxByte
+          .fi
 
           lda # 5 + CurrentGrizzard - GlobalGameData
           jsr i2cTxByte
@@ -21,4 +27,3 @@ SetCurrentGrizzard:       .block
 
           .bend
 
-;;; Audited 2022-02-16 BRPocock
