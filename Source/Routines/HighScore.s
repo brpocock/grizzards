@@ -68,6 +68,6 @@ NextMode:
 HighText:
           .text " HIGH "
 ScoreText:
-          .text "SCORE "
+          .text "SCORE!"
 
           .bend
