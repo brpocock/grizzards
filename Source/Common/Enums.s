@@ -113,6 +113,7 @@
           SpriteMoveRight = $20
           SpriteMoveUp = $40
           SpriteMoveDown = $80
+          SpriteMoveAny = $f0
 ;;; 
 ;;; Sprite actions
           SpriteCombat = $00

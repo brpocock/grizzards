@@ -49,7 +49,7 @@ Do10Hz:
 
           stx SpriteFlicker
           .FarJMP MonsterBank, ServiceSpriteCollision
-
+ 
 NoRandom:
           dex
           bne Do10Hz

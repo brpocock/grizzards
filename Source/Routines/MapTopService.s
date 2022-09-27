@@ -39,7 +39,7 @@ ScoreDone:
           .FarJSR TextBank, ServiceDecodeAndShowText
 ;;; 
 AfterScore:
-          .mva CTRLPF, #CTRLPFREF | CTRLPFBALLSZ8 ;;; | CTRLPFPFP FIXME
+          .mva CTRLPF, #CTRLPFREF | CTRLPFBALLSZ8 | CTRLPFPFP
 
           ldy # 0
           sty VDELP0
@@ -81,27 +81,24 @@ P0HPos:
           beq NoSprites
 
           stx CXCLR
-          lda BitMask, y        ; SpriteCount
-          tax
-          dex
-          cpx DrawnSprites
-          bne +
-          ;; everybody got drawn, do it again maybe?
+
           ldx FlickerRoundRobin
-          jmp SwitchToP1
-+
 
           iny                   ; SpriteCount + 1
-          ldx FlickerRoundRobin
 NextFlickerCandidate:
-          dey
-          beq NoSprites
-
           inx
           cpx SpriteCount
           blt +
           ldx # 0
 +
+
+          dey
+          bmi SwitchToP1
+
+          lda BitMask, x
+          and DrawnSprites
+          bne NextFlickerCandidate
+
           stx FlickerRoundRobin
 
 SwitchToP1:
