@@ -23,7 +23,7 @@ ReallyLoadIt:
             jsr i2cTxByte
           .fi
 
-          lda #<SaveGameSlotPrefix
+          lda # 0               ; this happens to be #<SaveGameSlotPrefix
           jsr i2cTxByte
           jsr i2cStopWrite
           .if ATARIAGESAVE

@@ -11,44 +11,49 @@ WriteMasterBlock:
           ;; (which must end before $20) and then the 32 bytes of
           ;; Province flags (8 bytes × 4 provinces)
 
-          ;; First set the write pointer up for the first block of this
-          ;; save game slot ($1700, $1800, or $1900)
-	jsr i2cStartWrite
-
-	lda #>SaveGameSlotPrefix
-	clc
-	adc SaveGameSlot
-	jsr i2cTxByte
-
           .if (SaveGameSlotPrefix & $ff) != 0
             .error "Save routines assume that SaveGameSlotPrefix is aligned to $100"
           .fi
 
-	lda # 0
-	jsr i2cTxByte
+          ;; First set the write pointer up  for the first block of this
+          ;; save game slot ($1100, $1200,  or $1300 if SaveKey, $00-$07
+          ;; for save-to-cart)
+          .if ATARIAGESAVE
+            lda SaveGameSlot
+          .fi
+          jsr i2cStartWrite
+          .if !ATARIAGESAVE
+            lda #>SaveGameSlotPrefix
+            clc
+            adc SaveGameSlot
+            jsr i2cTxByte
+          .fi
+
+          lda # 0
+          jsr i2cTxByte
 
           ;; The signature is how we can tell that the slot is
           ;; occupied. Really any 2 bytes that are not $00 or $ff
           ;; would suffice, but this works too and we can
           ;; actually spare the space.
-	ldx # 0
+          ldx # 0
 WriteSignatureLoop:
-	lda SaveGameSignatureString, x
-	jsr i2cTxByte
+          lda SaveGameSignatureString, x
+          jsr i2cTxByte
 
-	inx
-	cpx # 5
-	bne WriteSignatureLoop
+          inx
+          cpx # 5
+          bne WriteSignatureLoop
 
           ;; The GlobalGameData block has all the persistent vars
           ;; that are not ProvinceFlags or Grizzard stats.
-	ldx # 0
+          ldx # 0
 WriteGlobalLoop:
-	lda GlobalGameData, x
-	jsr i2cTxByte
-	inx
-	cpx # GlobalGameDataLength
-	bne WriteGlobalLoop
+          lda GlobalGameData, x
+          jsr i2cTxByte
+          inx
+          cpx # GlobalGameDataLength
+          bne WriteGlobalLoop
 
           .WaitScreenBottom
           .WaitScreenTop
@@ -79,6 +84,4 @@ SaveRetry:
           .WaitScreenBottom
           jmp SaveToSlot
 
-	.bend
-
-;;; Audited 2022-02-16 BRPocock
+          .bend

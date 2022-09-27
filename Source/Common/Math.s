@@ -48,9 +48,9 @@ AddWord:  .macro a, b
 Inc16:    .macro address
           .block
           inc \address
-          bne +
+          bne _ne
           inc \address + 1
-+
+_ne:
           .bend
           .endm
 
@@ -653,4 +653,3 @@ Mul .macro factor, temp
           .endswitch
           .endm
 
-;;;

@@ -9,19 +9,11 @@ SpriteMapper:       .block
 
           ;; Tunables for this file
           LeadingLines = 4
-          DebugColors = 0
-          DebugVerbose = true
 ;;; 
 Leaving:
           jmp Leave
 ;;; 
 Entry:
-
-          .if DebugColors != 0 && DebugVerbose
-            lda # COLBLUE | $f
-            sta DebugColors
-          .fi
-
           lda MapFlags
           and #MapFlagRandomSpawn
           bne Leaving
@@ -31,11 +23,6 @@ Entry:
           blt Leaving
 
 PlayerOK:
-          .if DebugColors != 0
-            lda # COLORANGE | $8
-            sta DebugColors
-          .fi
-
           ldx RunLength         ; going to have to change the playfield soon
           cpx # 1 + LeadingLines
           blt Leaving
@@ -53,6 +40,7 @@ CheckPriorP1:
 
           bit CXP1FB
           bpl NoPFCollision
+
 Collision:
           lda SpriteCxMask, x
           ora DrawnSprites
@@ -97,7 +85,6 @@ MarkedDrawn:
           clc
           adc # 8
           sec
-
           .page
           stx WSYNC
 P1HPos:
@@ -197,19 +184,9 @@ P1Ready:
 
           ;; this duplicates  the Leave  routine below,  but part  of it
 	;; happens before the HMOVE
-          .if DebugColors != 0
-            ldx SpriteFlicker
-            lda DebugColor, x
-            sta DebugColors     ; +11 cycles
-          .fi
+          .SleepX 71 - 45
 
-          .if DebugColors != 0
-            .SleepX 71 - 45 - 11
-          .else
-            .SleepX 71 - 45
-          .fi
-
-          ;; keep this after DebugColors and SleepX
+          ;; keep this after SleepX
           ldx CurrentProvince
           lda ProvinceMapBank, x
           tax                   ; 45 cycles, ignoring the SleepX
@@ -218,7 +195,6 @@ P1Ready:
 
           stx WSYNC             ; skip a whole extra line to come out even :(
           jmp ReturnFromSpriteMapperToMap
-
 ;;; 
 NoSpritesButWait:
           stx WSYNC
@@ -232,18 +208,11 @@ LeaveLate:
           dec P0LineCounter
 
 Leave:
-          .if DebugColors != 0
-            ldx SpriteFlicker
-            lda DebugColor, x
-            sta DebugColors
-          .fi
-
           ldx CurrentProvince
           lda ProvinceMapBank, x
           tax
 Return:
           jmp ReturnFromSpriteMapperToMap
-
 ;;; 
           ;; Data tables
 
@@ -262,13 +231,4 @@ Ash4:
           .byte range(0, $f) << 4
           .endp
           
-          .if DebugColors != 0
-DebugColor:
-            .colu COLCYAN, $4
-            .colu COLMAGENTA, $4
-            .colu COLYELLOW, $4
-            .colu COLGRAY, $4
-            .colu COLRED, $4
-          .fi
-
           .bend

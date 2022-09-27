@@ -225,11 +225,12 @@ DoneBall:
             .case Province0MapBank ; only dark in caves
 
               .block
-              cpx # 18
+              ldy CurrentMap
+              cpy # 18
               blt NotDark
-              cpx # 19
+              cpy # 19
               beq NotDark
-              cpx # 29
+              cpy # 29
               bge NotDark
 
               ;;  floor darker than walls in caves

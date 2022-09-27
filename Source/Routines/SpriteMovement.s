@@ -43,10 +43,13 @@ Do10Hz:
           bne SpriteXMove
 
           jsr Random            ; Is there a random encounter?
-          bne NoRandom
+          bne Return
+          ;; FIXME DO NOT COMMIT — disable random encounters
+          rts
 
           stx SpriteFlicker
           .FarJMP MonsterBank, ServiceSpriteCollision
+ 
 NoRandom:
           ;; XXX dex
           ;; XXX bne MoveSprites
@@ -220,6 +223,7 @@ SwapTwo:
           bne SwapTwo
 
 Return1:
+          ;; XXX may not be needed any more?
           lda MapFlags
           and #$0f
           sta MapFlags
@@ -231,8 +235,8 @@ BubbleNext:
           cpx SpriteCount
           bge Return1
           dex
-          jmp BubbleUp
+          blt BubbleUp
+
+          rts
 
           .bend
-
-;;; audited 2022-03-22 BRPocock
