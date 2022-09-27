@@ -200,6 +200,8 @@
           ServiceSaveToSlot = $10
           ServiceSetCurrentGrizzard = $2f
           ServiceCheckSaveSlot = $39
+          ServiceCheckHighScore = $3a
+          ServiceSetHighScore = $3b
 
 ;;; Map services bank
 

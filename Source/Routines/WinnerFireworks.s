@@ -42,92 +42,11 @@ NotCaught:
           .endswitch
           .WaitScreenTopMinus 1, 1
           .FarJSR SaveKeyBank, ServiceCheckSaveSlot
+
           .WaitScreenBottom
           .WaitScreenTop
-CheckHighScore:
-          ;; NOT specific to player's save game slot, it's always on the end of Slot 0
-          .if ATARIAGESAVE
-            lda # 0
-          .fi
-          jsr i2cStartWrite
-          .if !ATARIAGESAVE
-            lda #>SaveGameSlotPrefix
-            jsr i2cTxByte
-          .fi
-          lda #$fd
-          jsr i2cTxByte
-          jsr i2cStopWrite
-          .if ATARIAGESAVE
-            lda #$00
-          .fi
-          jsr i2cStartRead
-          jsr i2cRxByte
-          cmp #$ff
-          beq SetHighScore
 
-          cmp Score + 2
-          bge DoneHighScore
-
-          jsr i2cRxByte
-          cmp Score + 1
-          bge NotHighScore
-
-          jsr i2cRxByte
-          cmp Score + 0
-          bge NotHighScore
-
-SetHighScore:
-          jsr i2cStopRead
-LoadPlayerName:
-          .if ATARIAGESAVE
-            lda SaveGameSlot
-          .fi
-          jsr i2cStartWrite
-          .if !ATARIAGESAVE
-            lda #>SaveGameSlotPrefix
-            jsr i2cTxByte
-          .fi
-          lda #$1a              ; player name offset
-          jsr i2cTxByte
-          jsr i2cStopWrite
-          .if ATARIAGESAVE
-            lda SaveGameSlot
-          .fi
-          jsr i2cStartRead
-          ldx # 0
--
-          jsr i2cRxByte
-          sta NameEntryBuffer, x
-          inx
-          cpx # 6
-          bne -
-SaveHighScore:
-          .if ATARIAGESAVE
-            lda # 0
-          .fi
-          jsr i2cStartWrite
-          .if !ATARIAGESAVE
-            lda #>SaveGameSlotPrefix
-            jsr i2cTxByte
-          .fi
-          lda #$f7
-          jsr i2cTxByte
-          ldx # 0
--
-          lda NameEntryBuffer, x
-          jsr i2cTxByte
-          inx
-          cpx # 6
-          bne -
-          lda Score + 2
-          jsr i2cTxByte
-          lda Score + 1
-          jsr i2cTxByte
-          lda Score + 0
-          jsr i2cTxByte
-          jsr i2cStopWrite
-
-DoneHighScore:
+          .FarJSR MapServicesBank, ServiceSetHighScore
 
           .WaitScreenBottom
           .WaitScreenTopMinus 1, 1
