@@ -91,11 +91,14 @@ GetMapColors:
 
               .block
 
-              cpx # 18
+              ldy CurrentMap
+              cpy # 18
               blt NotDark
-              cpx # 19
+
+              cpy # 19
               beq NotDark
-              cpx # 29
+
+              cpy # 29
               bge NotDark
 
               ora #$08          ; dimmer than usual
@@ -132,7 +135,6 @@ BeforeKernel:
             .mva ENAM1, # 0
             cpx # 28              ; Labyrinth entrance
             bne DoneMagicRing
-
             lda ProvinceFlags + 6
             .BitBit $40              ; flag # 54
             beq DoneMagicRing
@@ -225,11 +227,14 @@ DoneBall:
             .case Province0MapBank ; only dark in caves
 
               .block
-              cpx # 18
+              ldy CurrentMap
+              cpy # 18
               blt NotDark
-              cpx # 19
+
+              cpy # 19
               beq NotDark
-              cpx # 29
+
+              cpy # 29
               bge NotDark
 
               ;;  floor darker than walls in caves
@@ -399,32 +404,6 @@ FillBottomScreen:
             .mva NextMap, # 51              ; Found the mirror
             .mva GameMode, #ModeSignpost
 DoneMirror:
-            lda CurrentMap
-            cmp # 29
-            bne DoneSecretRoom
-
-            lda PlayerX
-            cmp #$38
-            bge DoneSecretRoom
-
-            lda CurrentGrizzard
-            cmp # 3
-            blt FoundSecretRoom
-
-            .between 8, 10
-            bcs FoundSecretRoom
-
-            .between 21, 23
-            bcc DoneSecretRoom
-
-FoundSecretRoom:
-            .mva BlessedX, #$7c
-            .mva BlessedY, #$16
-            .mva NextMap, # 67
-            .mva GameMode, ModeMapNewRoom
-
-DoneSecretRoom:
-
           .fi
 ;;; 
 ScreenJumpLogic:

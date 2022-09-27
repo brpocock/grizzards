@@ -33,18 +33,25 @@ _cc:
           .bend
           .endm
 
-Inc16cc .macro address
+AddWord:  .macro a, b
           .block
-          inc \address
-          bcc _cc
-          inc \address + 1
-_cc:
+          clc
+          lda \a
+          adc \b
+          sta \a
+          lda \a + 1
+          adc \b + 1
+          sta \a + 1
           .bend
           .endm
-
-Inc16 .macro address
-          clc
-          .Inc16cc \address
+          
+Inc16:    .macro address
+          .block
+          inc \address
+          bne IncNE
+          inc \address + 1
+IncNE:
+          .bend
           .endm
 
 Sub16cs .macro address, subtrahend
@@ -63,18 +70,39 @@ Sub16 .macro address, subtrahend
           sta \address
           .endm
 
-Dec16cs .macro address
+          ;; from “BillG” on 6502.org forum
+CmpLt16:    .macro number, otherNumber, branchTarget
           .block
-          dec \address
-          bcs _cs
-          dec \address + 1
-_cs:
+          lda \number + 1
+          cmp \otherNumber + 1
+          bne Decide
+          lda \number
+          cmp \otherNumber
+Decide:
+          blt \branchTarget
           .bend
           .endm
 
-Dec16 .macro address
-          sec
-          .Dec16cs \address
+CmpEq16:   .macro number, otherNumber, branchTarget
+          .block
+          lda \number + 1
+          cmp \otherNumber + 1
+          bne Decide
+          lda \number
+          cmp \otherNumber
+          beq \branchTarget
+Decide:
+          .bend
+          .endm
+
+Dec16:    .macro address
+          .block
+          lda \address
+          bne +
+          dec \address + 1
++
+          dec \address
+          .bend
           .endm
 
 
@@ -109,7 +137,7 @@ Div .macro denominator, temp
 
           .case 2
           ;;1 byte, 2 cycles
-          lsr
+          lsr a
 
           .case 3
           ;;18 bytes, 30 cycles

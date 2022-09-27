@@ -236,16 +236,19 @@ MapSides:
           .byte 0, 0, $80, $80, 0
           ;; 60
           .byte 0, $40, 0, 0, 0
+          .byte 0, 0, 0, 0, 0
+          ;; 70
+          .byte 0, 0, 0, 0
 ;;; 
 SpriteList:
           ;; Room 0, "Tier 0"
-          .byte $ff, SpriteFixed              ; not removeable, fixed position sprite
-          .byte $7d, $30         ; x, y position
-          .byte SpriteDoor, 3   ; action
-
           .byte $ff, SpriteFixed
           .byte $7d, $13         ; x, y
           .byte SpriteGrizzardDepot, 0
+
+          .byte $ff, SpriteFixed
+          .byte $7d, $30         ; x, y position
+          .byte SpriteDoor, 3   ; action
 
           .byte 0               ; end of list
 
@@ -291,12 +294,12 @@ SpriteList:
           .byte SpriteSign, 11  ; Treble Village
 
           .byte 19, SpriteWander
-          .byte 100, $28
+          .byte 100, 32
           .byte SpritePerson, 12 ; Fleeing village
 
           .if !DEMO
             .byte $ff, SpriteWander
-            .byte $8d, $43
+            .byte 140, 45
             .byte SpritePerson, 77 ; used to be fun
           .fi
 

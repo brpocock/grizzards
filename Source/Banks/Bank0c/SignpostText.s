@@ -72,8 +72,8 @@ Game_Win1:
 
 ;;; 104
 NPC_Potions:
-          .colu COLMAGENTA, $e
-          .colu COLGREEN, $2
+          .colu COLINDIGO, 0
+          .colu COLCYAN, $9
           .SignText "YOU SEEM TO "
           .SignText "BE LOW ON   "
           .SignText "POTIONS. I  "
@@ -84,8 +84,8 @@ NPC_Potions:
 
 ;;; 105
 NPC_GotPotions:
-          .colu COLMAGENTA, $e
-          .colu COLGREEN, $2
+          .colu COLINDIGO, 0
+          .colu COLCYAN, $9
           .SignText "IF YOU RUN  "
           .SignText "LOW ON      "
           .SignText "POTIONS, I  "
