@@ -59,8 +59,10 @@ DoLocal:
           cpy #ServiceConfirmErase
           beq ConfirmErase
 
-          cpy #ServiceHighScore
-          beq HighScore
+          .if ATARIAGESAVE
+            cpy #ServiceHighScore
+            beq HighScore
+          .fi
 
           brk
 
@@ -68,7 +70,9 @@ DoLocal:
           .include "ConfirmErase.s"
           .include "Death.s"
           .include "FinalScore.s"
-          .include "HighScore.s"
+          .if ATARIAGESAVE
+            .include "HighScore.s"
+          .fi
 
           .include "DecodeScore.s"
 

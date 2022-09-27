@@ -50,11 +50,13 @@ DoLocal:
           cpy #ServiceGrizzardMetamorphoseP
           beq GrizzardMetamorphoseP
 
-          cpy #ServiceCheckHighScore
-          beq CheckHighScore
+          .if ATARIAGESAVE
+            cpy #ServiceCheckHighScore
+            beq CheckHighScore
 
-          cpy #ServiceSetHighScore
-          beq SetHighScore
+            cpy #ServiceSetHighScore
+            beq SetHighScore
+          .fi
 
           brk
 
@@ -166,14 +168,9 @@ NotCompleted:
           .include "GrizzardDepot.s"
           .include "ValidateMap.s"
 
-          .if true              ; XXX DO NOT MERGE THIS TO MAIN
-CheckSpriteCollision:         rts
-SpriteMovement:     rts
-          .else
-            .include "CheckSpriteCollision.s"
-            .include "SpriteMovement.s"
-          .fi
+          .include "CheckSpriteCollision.s"
           .include "CheckPlayerCollision.s"
+          .include "SpriteMovement.s"
           .include "UserInput.s"
 
           .if !NOSAVE
@@ -184,7 +181,9 @@ SpriteMovement:     rts
             .fi
           .fi
 
-          .include "CheckAndSetHighScore.s"
+          .if ATARIAGESAVE
+            .include "CheckAndSetHighScore.s"
+          .fi
 
           .include "GrizzardStartingStats.s"
           .include "SpriteColor.s"
