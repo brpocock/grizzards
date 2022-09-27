@@ -68,9 +68,8 @@ P0HPos:
           sta RESP0
 
           eor #$07
-          .rept 4
-            asl a
-          .next
+          tay
+          lda Ash4, y
           sta HMP0
 
           lda MapFlags
@@ -121,9 +120,8 @@ P1HPos:
           .endp
 
           eor #$07
-          .rept 4
-            asl a
-          .next
+          tay
+          lda Ash4, y
           sta HMP1
 
 SetUpSprites:
@@ -167,9 +165,8 @@ Puff:
           lda #SpriteCombatPuff
 
 NoPuff:
-          .rept 4
-            asl a
-          .next
+          tax
+          lda Ash4, x
           adc #<MapSprites
           bcc +
           inc pp1h
@@ -270,5 +267,10 @@ TheEnd:
           .WaitForTimer
           rts
 
+Ash4:
+          .page
+          .byte range(0, $f) << 4
+          .endp
+          
           .bend
 
