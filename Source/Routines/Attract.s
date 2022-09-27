@@ -69,6 +69,9 @@ Loop:
           cmp #ModeCreditSecret
           beq Credits
 
+          cmp #ModeAttractHighScore
+          beq GoHighScore
+
           .if PUBLISHER
             cmp #ModePublisherPresents
             beq Preamble.PublisherPresentsMode
@@ -77,15 +80,21 @@ Loop:
             beq Preamble.BRPPreambleMode
           .fi
 ;;; 
+GoHighScore:
+          .FarJSR AnimationsBank, ServiceHighScore
+
+          lda GameMode
+          cmp #ModeSelectSlot
+          beq Leave
+
+          jmp Attract
+          
 StoryMode:
           .FarJSR AnimationsBank, ServiceAttractStory
 
           lda GameMode
-          cmp #ModeAttractStory
-          beq Loop
-
-          cmp #ModeAttractTitle
-          beq Loop
+          cmp #ModeAttractHighScore
+          beq GoHighScore
 
           jmp Leave
 ;;; 

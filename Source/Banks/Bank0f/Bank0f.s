@@ -59,12 +59,16 @@ DoLocal:
           cpy #ServiceConfirmErase
           beq ConfirmErase
 
+          cpy #ServiceHighScore
+          beq HighScore
+
           brk
 
           .include "GrizzardMetamorphosis.s"
           .include "ConfirmErase.s"
           .include "Death.s"
           .include "FinalScore.s"
+          .include "HighScore.s"
 
           .include "DecodeScore.s"
 

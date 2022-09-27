@@ -166,9 +166,14 @@ NotCompleted:
           .include "GrizzardDepot.s"
           .include "ValidateMap.s"
 
-          .include "CheckSpriteCollision.s"
+          .if true              ; XXX DO NOT MERGE THIS TO MAIN
+CheckSpriteCollision:         rts
+SpriteMovement:     rts
+          .else
+            .include "CheckSpriteCollision.s"
+            .include "SpriteMovement.s"
+          .fi
           .include "CheckPlayerCollision.s"
-          .include "SpriteMovement.s"
           .include "UserInput.s"
 
           .if !NOSAVE

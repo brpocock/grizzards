@@ -15,6 +15,7 @@
           ModeAttractTitle = $11
           ModeAttractCopyright = $12
           ModeAttractStory = $13
+          ModeAttractHighScore = $16
           ModeCreditSecret = $14
           ModeBRPPreamble = $1e
           ModePublisherPresents = $1f
@@ -257,6 +258,7 @@
           ServiceInquire = $24
           ServiceWrite12Chars = $23
           ServiceGrizzardMetamorphosis = $2d
+          ServiceHighScore = $3c
 
 ;;; Combat services (stuffed into same bank as animation)
 
