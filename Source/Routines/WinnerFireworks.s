@@ -1,7 +1,7 @@
 ;;; Grizzards Source/Routines/WinnerFireworks.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
-WinnerFireworks:    .block
 
+WinnerFireworks:    .block
           .KillMusic
           .mva NextSound, #SoundRoar
 
