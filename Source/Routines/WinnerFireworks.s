@@ -1,7 +1,7 @@
 ;;; Grizzards Source/Routines/WinnerFireworks.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
-WinnerFireworks:    .block
 
+WinnerFireworks:    .block
           .KillMusic
           .mva NextSound, #SoundRoar
 
@@ -42,6 +42,12 @@ NotCaught:
           .endswitch
           .WaitScreenTopMinus 1, 1
           .FarJSR SaveKeyBank, ServiceCheckSaveSlot
+
+          .WaitScreenBottom
+          .WaitScreenTop
+
+          .FarJSR MapServicesBank, ServiceSetHighScore
+
           .WaitScreenBottom
           .WaitScreenTopMinus 1, 1
 ;;; 
@@ -136,6 +142,9 @@ Leave:
 ;;; 
 NewGamePlus:
           .mva Potions, #$80 | 25
+          .mvy Score, # 0
+          sty Score + 1
+          sty Score + 2
 ;;; 
 AddAllStarters:
           .mva CurrentGrizzard, # 2
