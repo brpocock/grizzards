@@ -5,7 +5,6 @@ SpriteMovement:     .block
           lda SystemFlags
           bpl NotPaused
 
-
 Return0:
           rts
 
@@ -30,23 +29,23 @@ DivByFPS:
           sbc # FramesPerSecond / 10
           bcs DivByFPS
 
-          bmi Do10Hz
-
-          rts
+          adc # FramesPerSecond / 10
+          tax
+          cpx SpriteCount
+          beq BubbleSortY
+          bge Return0
 
 Do10Hz:
-          lda BitMask, x
-          and DrawnSprites
-          beq NextSprite
-
           lda SpriteMotion, x
-          beq NextSprite
+          beq Return
 
           cmp #SpriteRandomEncounter
           bne SpriteXMove
 
           jsr Random            ; Is there a random encounter?
-          bne NoRandom
+          bne Return
+          ;; FIXME DO NOT COMMIT
+          rts
 
           stx SpriteFlicker
           .FarJMP MonsterBank, ServiceSpriteCollision
@@ -89,11 +88,10 @@ SpriteMoveNext:
           bne SpriteMoveReady
 
           tya
-          and #$30
+          .BitBit $10
           beq ChasePlayer
 
-          tya
-          and #$40
+          .BitBit $20
           beq RandomlyMove
 
           lda #SpriteMoveIdle
@@ -194,13 +192,43 @@ InvertVertical:
           sta SpriteMotion, x
 BottomOK:
 
-NextSprite:
-          dex
-          bpl Do10Hz
+Return:
+          rts
+;;; 
+BubbleSortY:          
+          lda SpriteCount
+          cmp # 2
+          blt Return
 
-MovementLogicDone:
+          ldx # 0
+          ldy # 6
+BubbleUp:
+          lda SpriteY, x
+          cmp SpriteY + 1, x
+          blt BubbleNext
+-
+          lda SpriteIndex, x
+          sta Temp
+          lda SpriteIndex + 1, x
+          sta SpriteIndex, x
+          lda Temp
+          sta SpriteIndex + 1, x
+          inx
+          inx
+          inx
+          inx
+          dey
+          bne -
+
+          rts
+
+BubbleNext:
+          inx
+          inx
+          cpx SpriteCount
+          dex
+          blt BubbleUp
+
           rts
 
           .bend
-
-;;; audited 2022-03-22 BRPocock
