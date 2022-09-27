@@ -142,6 +142,9 @@ Leave:
 ;;; 
 NewGamePlus:
           .mva Potions, #$80 | 25
+          .mvy Score, # 0
+          sty Score + 1
+          sty Score + 2
 ;;; 
 AddAllStarters:
           .mva CurrentGrizzard, # 2
