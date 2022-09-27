@@ -45,11 +45,13 @@ NoSelect:
             beq DonePause
 
             and #SWCHBP1Advanced        ; SECAM pause
-            beq +
+            beq UnPause
+
             lda SystemFlags
             ora #SystemFlagPaused
             gne SetPause
-+
+
+UnPause:
             lda SystemFlags
             and #~SystemFlagPaused
 SetPause:

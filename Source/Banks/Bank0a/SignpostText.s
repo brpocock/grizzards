@@ -43,7 +43,7 @@ NPC_Miranda1:
           .SignText "MIRROR, IF  "
           .SignText "YOU SEE IT. "
           .byte ModeSignpostSetFlag, 7
-          
+
 ;;; 51
 NPC_SueMirror:
           .colu COLMAGENTA, $f

@@ -50,6 +50,14 @@ DoLocal:
           cpy #ServiceGrizzardMetamorphoseP
           beq GrizzardMetamorphoseP
 
+          .if ATARIAGESAVE
+            cpy #ServiceCheckHighScore
+            beq CheckHighScore
+
+            cpy #ServiceSetHighScore
+            beq SetHighScore
+          .fi
+
           brk
 
           .include "GrizzardMetamorphoseP.s"
@@ -173,6 +181,9 @@ NotCompleted:
             .fi
           .fi
 
+          .if ATARIAGESAVE
+            .include "CheckAndSetHighScore.s"
+          .fi
 
           .include "GrizzardStartingStats.s"
           .if DEMO

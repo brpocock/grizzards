@@ -4,12 +4,16 @@
 SaveProvinceData:   .block
           .WaitScreenTop
 PositionProvinceData:
+          .if ATARIAGESAVE
+            lda SaveGameSlot
+          .fi
           jsr i2cStartWrite
-
-	lda #>SaveGameSlotPrefix
-	clc
-	adc SaveGameSlot
-	jsr i2cTxByte
+          .if !ATARIAGESAVE
+            lda #>SaveGameSlotPrefix
+            clc
+            adc SaveGameSlot
+            jsr i2cTxByte
+          .fi
 
           lda CurrentProvince
           asl a
@@ -33,5 +37,3 @@ WriteProvinceData:
           .WaitScreenBottomTail
 
           .bend
-
-;;; Audited 2022-02-16 BRPocock

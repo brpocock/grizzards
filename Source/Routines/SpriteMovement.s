@@ -12,12 +12,19 @@ NotPaused:
           ldx SpriteCount
           beq Return0
 
+          ;; this check  should never  have been needed,  but it  can be
+          ;; triggered  during the  first VBlank  after reading  from an
+          ;; EEPROM slot 5-8, so we'll just reset it to zero.
+          cpx # 6
+          bge Return0
+
 MoveSprites:
           lda ClockFrame
+          ;; Allow moving approximately 10 Hz regardless of TV region
           sec
--
+DivByFPS:
           sbc # FramesPerSecond / 10
-          bpl -
+          bcs DivByFPS
 
           eor #$ff
           tax
@@ -34,7 +41,7 @@ Do10Hz:
 
           jsr Random            ; Is there a random encounter?
           bne Return
-          ;; FIXME DO NOT COMMIT
+          ;; FIXME DO NOT COMMIT — Disable Random Encounters
           rts
 
           stx SpriteFlicker

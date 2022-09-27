@@ -65,6 +65,11 @@ DoLocal:
           cpy #ServiceProvinceChange
           beq ChangeProvince
 
+          .if ATARIAGESAVE
+            cpy #ServiceHighScore
+            beq HighScore
+          .fi
+
           brk
 
           .include "ChangeProvince.s"
@@ -73,6 +78,9 @@ DoLocal:
           .include "ConfirmErase.s"
           .include "Death.s"
           .include "FinalScore.s"
+          .if ATARIAGESAVE
+            .include "HighScore.s"
+          .fi
 
           .include "DecodeScore.s"
 
