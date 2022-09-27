@@ -180,6 +180,11 @@
             SignpostBank = $08
             SignpostBankCount = 5
           .fi
+          .if DEMO
+            SpriteMapperBank = $01
+          .else
+            SpriteMapperBank = $0f
+          .fi
 
           .if !DEMO
             FinaleBank = $0f
