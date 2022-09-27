@@ -51,8 +51,8 @@ Do10Hz:
           .FarJMP MonsterBank, ServiceSpriteCollision
  
 NoRandom:
-          dex
-          bne Do10Hz
+          ;; XXX dex
+          ;; XXX bne MoveSprites
           rts
 
 SpriteXMove:
