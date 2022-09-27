@@ -40,6 +40,7 @@ CheckPriorP1:
 
           bit CXP1FB
           bpl NoPFCollision
+
 Collision:
           lda SpriteCxMask, x
           ora DrawnSprites
@@ -84,7 +85,6 @@ MarkedDrawn:
           clc
           adc # 8
           sec
-
           .page
           stx WSYNC
 P1HPos:
