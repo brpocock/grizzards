@@ -11,7 +11,7 @@ StartI2C: .macro
           .else
 
 StartI2C: .macro
-          .StartI2C
+          jsr SetSlotAddress
           .endm
 
 EEPROMFail:
