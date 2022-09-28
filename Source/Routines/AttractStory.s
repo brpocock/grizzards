@@ -257,7 +257,11 @@ NextGrizzard:
           sty CurrentGrizzard
 DoneNextGrizzard:
 
-          .mva GameMode, #ModeAttractHighScore
+          .if ATARIAGESAVE
+            .mva GameMode, #ModeAttractHighScore
+          .else
+            .mva GameMOde, #ModePublisherPresents
+          .fi
           rts
 ;;; 
 StillStory:
