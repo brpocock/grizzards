@@ -18,9 +18,8 @@
 
           .if DEMO
             .align $100
+Grizzard11:                     ; no animation for you
             .include "Source/Generated/Bank0d/Grizzard1-0.s"
-            .align $100
-            .include "Source/Generated/Bank0d/Grizzard1-1.s"
             Title2=Grizzard10
             Title3=Grizzard11
           .fi
