@@ -18,7 +18,7 @@
           ModeAttractHighScore = $16
           ModeCreditSecret = $14
           ModeBRPPreamble = $1e
-          ModePublisherPresents = $1f
+          ModePublisherPresents = $1e ; same, just a different build
           ModeWinnerFireworks = $15
 
           ModeSelectSlot = $20

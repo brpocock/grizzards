@@ -2,7 +2,8 @@
 ;;; Copyright © 2022 Bruce-Robert Pocock
 
 CheckHighScore:     .block
-          ;; NOT specific to player's save game slot, it's always on the end of Slot 0
+          ;; NOT specific to player's save game slot, it's always on the
+          ;; end of Slot 0
           .if ATARIAGESAVE
             lda # 0
           .fi
@@ -37,7 +38,13 @@ CheckHighScore:     .block
           .bend
           
 SetHighScore:       .block
-          ;; NOT specific to player's save game slot, it's always on the end of Slot 0
+          ;; NOT specific to player's save game slot, it's always on the
+          ;; end of Slot 0
+          lda Score + 2
+          ;; Jatibu sets score to start with "F0"
+          cmp #$99
+          bge DoneHighScore
+
           .if ATARIAGESAVE
             lda # 0
           .fi
