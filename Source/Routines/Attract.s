@@ -31,11 +31,7 @@ WarmStart:
           sty AUDV1
           .mva NextSound, #SoundAtariToday
 
-          .if PUBLISHER
-            lda #ModePublisherPresents
-          .else
-            lda #ModeBRPPreamble
-          .fi
+          lda #ModePublisherPresents
           sta GameMode
 
           .mva PlayerYFraction, #$80   ; what is this being used for??
@@ -107,7 +103,7 @@ StoryMode:
             cmp #ModeAttractStory
             beq Loop
 
-            cmp #ModeAttractTitle
+            cmp #ModePublisherPresents
             beq Loop
           .fi
 
