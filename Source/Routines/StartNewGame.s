@@ -52,10 +52,8 @@ InitGameVars:
 
           lda # 80              ; Player start position
           sta BlessedX
-          sta PlayerX
           lda # 25
           sta BlessedY
-          sta PlayerY
 
           lda # 1
           sta GrizzardAttack
