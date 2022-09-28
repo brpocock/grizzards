@@ -1,5 +1,6 @@
 ;;; Grizzards Source/Routines/StartNewGame.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
+
 StartNewGame:          .block
           .if NOSAVE
             .WaitScreenBottom
@@ -8,8 +9,7 @@ StartNewGame:          .block
 
           .mva GameMode, #ModeStartGame ; XXX unused?
 
-          ldx #$ff              ; destroy stack. We are here to stay.
-          txs
+          .mvx s, #$ff              ; destroy stack. We are here to stay.
 
 InitGameVars:
           ;; Set up actual game vars for a new game
@@ -74,6 +74,76 @@ InitGameVars:
 
           .else
 
+WipeGrizzards:
+          .WaitScreenTop
+
+          .if ATARIAGESAVE
+            lda SaveGameSlot
+          .fi
+          jsr i2cStartWrite
+          .if !ATARIAGESAVE
+            lda #>SaveGameSlotPrefix
+            clc
+            adc SaveGameSlot
+            jsr i2cTxByte
+          .fi
+          lda #$40
+          jsr i2cTxByte
+
+          ldx # 12 * 5
+-
+          lda # 0
+          jsr i2cTxByte
+          dex
+          bne -
+
+          jsr i2cStopWrite
+          jsr i2cWaitForAck
+
+          .if ATARIAGESAVE
+            lda SaveGameSlot
+          .fi
+          jsr i2cStartWrite
+          .if !ATARIAGESAVE
+            lda #>SaveGameSlotPrefix
+            clc
+            adc SaveGameSlot
+            jsr i2cTxByte
+          .fi
+          lda #$80
+          jsr i2cTxByte
+
+          ldx # 12 * 5
+-
+          lda # 0
+          jsr i2cTxByte
+          dex
+          bne -
+
+          jsr i2cStopWrite
+          jsr i2cWaitForAck
+
+          .if ATARIAGESAVE
+            lda SaveGameSlot
+          .fi
+          jsr i2cStartWrite
+          .if !ATARIAGESAVE
+            lda #>SaveGameSlotPrefix
+            clc
+            adc SaveGameSlot
+            jsr i2cTxByte
+          .fi
+          lda #$c0
+          jsr i2cTxByte
+
+          ldx # 7 * 5
+-
+          lda # 0
+          jsr i2cTxByte
+          dex
+          bne -
+
+DoneWipingGrizzards:
           ldy # 0               ; XXX necessary?
           sty NameEntryBuffer
 EnterName:
