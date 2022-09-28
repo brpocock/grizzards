@@ -38,19 +38,19 @@ InitGameVars:
           .mva GameMode, #ModeMap
 
           ldy # 0
+
+          ;; Wipe CurrentMap, Clock*, and Score
+          ldx # 8
+-
+          sty CurrentMap - 1, x
+          dex
+          bne -
+
           sty CurrentProvince
           sty NextMap
-          sty CurrentMap
           .if DEMO
             sty Potions
           .fi
-          sty Score
-          sty Score + 1
-          sty Score + 2
-          sty ClockFrame
-          sty ClockSeconds
-          sty ClockMinutes
-          sty ClockFourHours
 
           lda # 80              ; Player start position
           sta BlessedX
