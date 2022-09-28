@@ -88,32 +88,7 @@ InitGameVars:
 
           .else
 
-WipeGrizzards:
-          .WaitScreenTop
-
-          jsr StartAddress
-
-          lda #$40
-          ldx # 12 * 5
-          jsr WipeSome
-
-          jsr ChangeAddress
-
-          lda #$80
-          ldx # 12 * 5
-          jsr WipeSome
-
-          jsr ChangeAddress
-
-          lda #$c0
-          ldx # 7 * 5
-          jsr WipeSome
-
-          jsr i2cStopWrite
-          jsr i2cWaitForAck
-
-DoneWipingGrizzards:
-          .FarJSR SaveKeyBank, ServiceSaveToSlot
+          .FarJSR SaveKeyBank, ServiceNewGame2
 
           lda Potions
           beq SaveName
@@ -134,7 +109,16 @@ SaveName:
           .fi
           .WaitScreenTop
 
-          jsr StartAddress
+          .if ATARIAGESAVE
+            lda SaveGameSlot
+            jsr i2cStartWrite   ; tail call
+          .else
+            jsr i2cStartWrite
+            lda #>SaveGameSlotPrefix
+            clc
+            adc SaveGameSlot
+            jsr i2cTxByte       ; tail call
+          .fi
           clc
           lda #<SaveGameSlotPrefix
           adc #$1a
@@ -150,39 +134,10 @@ SaveName:
           bne -
 
           jsr i2cStopWrite
-
+          
           .WaitScreenBottom
 
           .fi       ; end of not-NOSAVE
 
           jmp GoMap
-;;; 
-          .if !NOSAVE
-
-WipeSome:
-          jsr i2cTxByte
-Wiping:
-          lda # 0
-          jsr i2cTxByte
-          dex
-          bne Wiping
-          rts
-;;; 
-ChangeAddress:
-          jsr i2cStopWrite
-          jsr i2cWaitForAck
-          ;; f all through
-StartAddress:
-          .if ATARIAGESAVE
-            lda SaveGameSlot
-            jmp i2cStartWrite   ; tail call
-          .else
-            jsr i2cStartWrite
-            lda #>SaveGameSlotPrefix
-            clc
-            adc SaveGameSlot
-            jmp i2cTxByte       ; tail call
-          .fi
-
-          .fi                   ; end of !NOSAVE
           .bend

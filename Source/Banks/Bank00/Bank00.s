@@ -85,6 +85,11 @@ DoLocal:
             beq CheckSaveSlot
           .fi
 
+          .if !NOSAVE
+            cpy #ServiceNewGame2
+            beq NewGame2
+          .fi
+
           brk
 
           ;; falls through to
@@ -138,6 +143,7 @@ PeekGrizzard:                   ; NOSAVE
             .include "SetGrizzardAddress.s"
             .include "SaveGrizzard.s"
             .include "SetCurrentGrizzard.s"
+            .include "NewGame2.s"
 
           .fi
 

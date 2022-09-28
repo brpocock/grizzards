@@ -203,6 +203,7 @@
           ServiceCheckSaveSlot = $39
           ServiceCheckHighScore = $3a
           ServiceSetHighScore = $3b
+          ServiceNewGame2 = $3d
 
 ;;; Map services bank
 
