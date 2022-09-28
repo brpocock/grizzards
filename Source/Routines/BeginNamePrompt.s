@@ -8,6 +8,7 @@ BeginNamePrompt:
           lda NameEntryBuffer
           bpl BufferReady
 
+ClearName:
           lda #" "
           ldx # 5
 BlankNameLoop:
@@ -252,22 +253,18 @@ CompareKingMe:
             dex
             bne CompareKingMe
 
-            lda #$80 | 25
-            sta Potions
-
-            lda # 0
-            sta CurrentGrizzard
+            .mva Potions, #$80 | 25
+            .mva CurrentGrizzard, # 0
             .FarJSR SaveKeyBank, ServiceSaveGrizzard
 
-            lda # 1
-            sta CurrentGrizzard
+            .mva CurrentGrizzard, # 1
             .FarJSR SaveKeyBank, ServiceSaveGrizzard
 
-            lda # 2
-            sta CurrentGrizzard
+            .mva CurrentGrizzard, # 2
             .FarJSR SaveKeyBank, ServiceSaveGrizzard
 
-            rts
+            .mva NextSound, # SoundVictory
+            jmp ClearName
 
 FirstQuest:
             ldy # 0
