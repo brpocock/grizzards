@@ -21,8 +21,6 @@ EnterName:
 
             .FarJSR SaveKeyBank, ServiceChooseGrizzard
 
-            .FarJSR SaveKeyBank, ServiceConfirmNewGame
-
             lda GameMode
             cmp #ModeEnterName
             beq EnterName

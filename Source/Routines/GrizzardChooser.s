@@ -99,7 +99,12 @@ DoneButtons:
 
           jmp Loop
 
-Leave:    
+Leave:
+          lda GameMOde
+          cmp #ModeConfirmNewGame
+          bne +
+          jmp ConfirmNewGame
++
           rts
 
           .bend
