@@ -35,6 +35,24 @@ ZeroTIALoop:
           sty SWBCNT
 
           sty SystemFlags
+
+          .if ATARIAGESAVE
+            ;; Wipe out High Score record when powered on with ALL THE SWITCHES in their least-usual state.
+            lda SWCHB
+            and # SWCHBReset | SWCHBSelect | SWCHBColor | SWCHBP0Advanced | SWCHBP1Advanced
+            bne ResetStack
+
+            lda # 0
+            jsr i2cStartWrite
+            lda #$fd            ; position of high score
+            jsr i2cTxByte
+            ldx # 3
+-
+            lda # 0
+            jsr i2cTxByte
+            dex
+            bne -
+          .fi
 	
 ResetStack:
           .mvx s, #$ff
@@ -44,5 +62,3 @@ ResetStack:
           
           ;; Fall through to DetectConsole
 	.bend
-
-;;; Audited 2022-02-16 BRPocock
