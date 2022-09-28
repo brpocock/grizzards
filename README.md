@@ -1,8 +1,7 @@
 Grizzards
 =====================
 
-TL;DR  —   A  turn-based  RPG beta  release  that   requires  SaveKey or
-AtariVox.
+TL;DR — A turn-based RPG beta release that requires SaveKey or AtariVox.
 
 
 Building: `make` at the top level
