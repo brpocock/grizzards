@@ -260,7 +260,7 @@ DoneNextGrizzard:
           .if ATARIAGESAVE
             .mva GameMode, #ModeAttractHighScore
           .else
-            .mva GameMOde, #ModePublisherPresents
+            .mva GameMode, #ModePublisherPresents
           .fi
           rts
 ;;; 
