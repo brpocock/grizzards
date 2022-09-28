@@ -165,7 +165,7 @@ ButtonPressed:
           ;; default to A if the space is blank
           .if !DEMO
 
-            ;; XXX This would be nice, but was cut for space.
+            ;; XXX This would be nice, but was cut from the demo for space.
             .mva NextSound, #SoundBlip
 
             inc NameEntryPosition
