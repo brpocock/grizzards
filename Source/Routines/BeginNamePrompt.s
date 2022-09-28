@@ -6,8 +6,9 @@ BeginNamePrompt:
           .SetUtterance Phrase_EnterName
 
           lda NameEntryBuffer
-          bne BufferReady
+          bpl BufferReady
 
+ClearName:
           lda #" "
           ldx # 5
 BlankNameLoop:
@@ -78,9 +79,9 @@ CopyNameLoop:
           jmp BeginGrossPosition
 
           .if 3 == BANK && NTSC == TV
-            .align $10            ; XXX alignment
+            .align $10
           .else
-            .align $20            ; XXX alignment
+            .align $20
           .fi
 
 BeginGrossPosition:
@@ -164,7 +165,7 @@ ButtonPressed:
           ;; default to A if the space is blank
           .if !DEMO
 
-            ;; XXX This would be nice, but was cut for space.
+            ;; XXX This would be nice, but was cut from the demo for space.
             .mva NextSound, #SoundBlip
 
             inc NameEntryPosition
@@ -247,34 +248,21 @@ Submit:
 CompareKingMe:
             lda NameEntryBuffer - 1, x
             cmp SecondQuest - 1, x
-            bne FirstQuest
-
-            dex
-            bne CompareKingMe
-
-            lda #$80 | 25
-            sta Potions
-
-            lda # 0
-            sta CurrentGrizzard
-            .FarJSR SaveKeyBank, ServiceSaveGrizzard
-
-            lda # 1
-            sta CurrentGrizzard
-            .FarJSR SaveKeyBank, ServiceSaveGrizzard
-
-            lda # 2
-            sta CurrentGrizzard
-            .FarJSR SaveKeyBank, ServiceSaveGrizzard
+            beq KingThem
 
             rts
 
-FirstQuest:
-            ldy # 0
-            sty Potions
-          .fi
+KingThem:
+            dex
+            bne CompareKingMe
 
-          rts
+            .mva Potions, #$80 | 25
+            .mva NextSound, # SoundVictory
+            jmp ClearName
+
+          .else
+            rts
+          .fi
 ;;; 
 EnterText:
           .MiniText "ENTER "

@@ -10,18 +10,7 @@ LoadSaveSlot: .block
           .WaitScreenTop
 
 ReallyLoadIt:
-          .if ATARIAGESAVE
-            lda SaveGameSlot
-          .fi
-          jsr i2cStartWrite
-          bcs EEPROMFail
-
-          .if !ATARIAGESAVE
-            lda SaveGameSlot
-            clc
-            adc #>SaveGameSlotPrefix
-            jsr i2cTxByte
-          .fi
+          .StartI2C
 
           lda # 0               ; this happens to be #<SaveGameSlotPrefix
           jsr i2cTxByte

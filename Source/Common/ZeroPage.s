@@ -393,9 +393,9 @@ CombatMajorP:
 ;;; 
 ;;; Scratchpad for Name Entry
           * = Scratchpad
-;;; Which memory block is being wiped right now?
-;;; We need to blank global + all provincial data
-StartGameWipeBlock:
+;;; No longer  used, but I  don't want to test  what happens if  all the
+;;; other vars move up 2 bytes, so reserving the space anyways.
+StartGameUnused0:
           .word ?
 
 ;;; Which save slot did we last test?

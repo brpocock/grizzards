@@ -42,4 +42,4 @@ GrizzardColor:
           .colu COLGOLD, $c
           .colu COLPURPLE, $6
           .colu COLYELLOW, $c
-          .colu COLINDIGO, $8
+          .colu COLINDIGO, $6

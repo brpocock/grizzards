@@ -19,8 +19,7 @@
           .if DEMO
             .align $100
             .include "Source/Generated/Bank0d/Grizzard1-0.s"
-            .align $100
-            .include "Source/Generated/Bank0d/Grizzard1-1.s"
+            Grizzard11=Grizzard10
             Title2=Grizzard10
             Title3=Grizzard11
           .fi
@@ -85,6 +84,11 @@ DoLocal:
             beq CheckSaveSlot
           .fi
 
+          .if !NOSAVE
+            cpy #ServiceNewGame2
+            beq NewGame2
+          .fi
+
           brk
 
           ;; falls through to
@@ -116,6 +120,7 @@ PeekGrizzard:                   ; NOSAVE
 
           .else                 ; Not the NOSAVE build
 
+            .include "SetSlotAddress.s"
             .include "SaveToSlot.s"
             .include "PeekGrizzard.s"
             .if !DEMO
@@ -138,6 +143,7 @@ PeekGrizzard:                   ; NOSAVE
             .include "SetGrizzardAddress.s"
             .include "SaveGrizzard.s"
             .include "SetCurrentGrizzard.s"
+            .include "NewGame2.s"
 
           .fi
 

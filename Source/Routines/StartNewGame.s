@@ -7,40 +7,57 @@ StartNewGame:          .block
           .fi
           .WaitScreenTopMinus 1, -1
 
-          .mva GameMode, #ModeStartGame ; XXX unused?
-
           .mvx s, #$ff              ; destroy stack. We are here to stay.
+
+          ;; Need to set NameEntryBuffer+0 ← $ff to indicate that
+          ;; we're starting a new name entry.
+          stx NameEntryBuffer
+EnterName:
+          .FarJSR StretchBank, ServiceBeginName
+
+          .if DEMO
+
+            lda # 1               ; Aquax
+            sta CurrentGrizzard
+
+          .else
+
+            .FarJSR SaveKeyBank, ServiceChooseGrizzard
+
+            lda GameMode
+            cmp #ModeEnterName
+            beq EnterName
+
+          .fi
 
 InitGameVars:
           ;; Set up actual game vars for a new game
           .mva GameMode, #ModeMap
 
           ldy # 0
+
+          ;; Wipe CurrentMap, Clock*, and Score
+          ldx # 8
+-
+          sty CurrentMap - 1, x
+          dex
+          bne -
+
           sty CurrentProvince
           sty NextMap
-          sty CurrentMap
           .if DEMO
             sty Potions
           .fi
-          sty Score
-          sty Score + 1
-          sty Score + 2
-          sty ClockFrame
-          sty ClockSeconds
-          sty ClockMinutes
-          sty ClockFourHours
 
           lda # 80              ; Player start position
           sta BlessedX
-          sta PlayerX
           lda # 25
           sta BlessedY
-          sta PlayerY
 
           lda # 1
           sta GrizzardAttack
           sta GrizzardDefense
-          
+
           sty GrizzardXP
 
           lda #$03
@@ -59,9 +76,6 @@ InitGameVars:
           sta MaxHP
           sta CurrentHP
 
-          ldy # 0               ; XXX necessary?
-          sty StartGameWipeBlock
-
           .WaitScreenBottom
           .if TV != NTSC
             stx WSYNC
@@ -69,104 +83,23 @@ InitGameVars:
 
           .if NOSAVE
 
-            .mva CurrentGrizzard, # 1               ; Aquax
+            .mva CurrentGrizzard, # 1        ; Aquax
             .mva ProvinceFlags + 4, #$ff
 
           .else
 
-WipeGrizzards:
-          .WaitScreenTop
+          .FarJSR SaveKeyBank, ServiceNewGame2
 
-          .if ATARIAGESAVE
-            lda SaveGameSlot
-          .fi
-          jsr i2cStartWrite
-          .if !ATARIAGESAVE
-            lda #>SaveGameSlotPrefix
-            clc
-            adc SaveGameSlot
-            jsr i2cTxByte
-          .fi
-          lda #$40
-          jsr i2cTxByte
+          lda Potions
+          beq SaveName
 
-          ldx # 12 * 5
--
-          lda # 0
-          jsr i2cTxByte
-          dex
-          bne -
+          .mva CurrentGrizzard, # 2
+GetAllStarters:
+          .FarJSR SaveKeyBank, ServiceSaveGrizzard
+          dec CurrentGrizzard
+          bpl GetAllStarters
 
-          jsr i2cStopWrite
-          jsr i2cWaitForAck
-
-          .if ATARIAGESAVE
-            lda SaveGameSlot
-          .fi
-          jsr i2cStartWrite
-          .if !ATARIAGESAVE
-            lda #>SaveGameSlotPrefix
-            clc
-            adc SaveGameSlot
-            jsr i2cTxByte
-          .fi
-          lda #$80
-          jsr i2cTxByte
-
-          ldx # 12 * 5
--
-          lda # 0
-          jsr i2cTxByte
-          dex
-          bne -
-
-          jsr i2cStopWrite
-          jsr i2cWaitForAck
-
-          .if ATARIAGESAVE
-            lda SaveGameSlot
-          .fi
-          jsr i2cStartWrite
-          .if !ATARIAGESAVE
-            lda #>SaveGameSlotPrefix
-            clc
-            adc SaveGameSlot
-            jsr i2cTxByte
-          .fi
-          lda #$c0
-          jsr i2cTxByte
-
-          ldx # 7 * 5
--
-          lda # 0
-          jsr i2cTxByte
-          dex
-          bne -
-
-DoneWipingGrizzards:
-          ldy # 0               ; XXX necessary?
-          sty NameEntryBuffer
-EnterName:
-          .FarJSR StretchBank, ServiceBeginName
-
-          .if DEMO
-
-            lda # 1               ; Aquax
-            sta CurrentGrizzard
-
-          .else
-
-            .FarJSR SaveKeyBank, ServiceChooseGrizzard
-
-            .FarJSR SaveKeyBank, ServiceConfirmNewGame
-
-            lda GameMode
-            cmp #ModeEnterName
-            beq EnterName
-
-          .fi
-
-          .FarJSR SaveKeyBank, ServiceSaveToSlot
+          inc CurrentGrizzard
 
 SaveName:
           .if NTSC == TV
@@ -176,16 +109,7 @@ SaveName:
           .fi
           .WaitScreenTop
 
-          .if ATARIAGESAVE
-            lda SaveGameSlot
-          .fi
-          jsr i2cStartWrite
-          .if !ATARIAGESAVE
-            lda SaveGameSlot
-            clc
-            adc #>SaveGameSlotPrefix
-            jsr i2cTxByte
-          .fi
+          .StartI2C
           clc
           lda #<SaveGameSlotPrefix
           adc #$1a
@@ -201,11 +125,10 @@ SaveName:
           bne -
 
           jsr i2cStopWrite
-
+          
           .WaitScreenBottom
 
           .fi       ; end of not-NOSAVE
 
           jmp GoMap
-
           .bend

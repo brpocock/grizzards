@@ -4,18 +4,7 @@
 LoadProvinceData:   .block
           ;; Province data are 8 bytes blocks starting at $20
           ;; in the master block.
-          .if ATARIAGESAVE
-            lda SaveGameSlot
-          .fi
-          jsr i2cStartWrite
-          bcs EEPROMFail
-
-          .if !ATARIAGESAVE
-            lda SaveGameSlot
-            clc
-            adc #>SaveGameSlotPrefix
-            jsr i2cTxByte
-          .fi
+          .StartI2C
 
           lda CurrentProvince
           asl a
