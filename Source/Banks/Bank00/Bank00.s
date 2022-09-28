@@ -18,8 +18,8 @@
 
           .if DEMO
             .align $100
-Grizzard11:                     ; no animation for you
             .include "Source/Generated/Bank0d/Grizzard1-0.s"
+            Grizzard11=Grizzard10
             Title2=Grizzard10
             Title3=Grizzard11
           .fi
