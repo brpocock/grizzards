@@ -10,7 +10,7 @@ NewGame2: .block
 WipeGrizzards:
           .WaitScreenTop
 
-          jsr StartAddress
+          jsr SetSlotAddress
 
           lda #$40
           ldx # 12 * 5
@@ -46,17 +46,5 @@ Wiping:
 ChangeAddress:
           jsr i2cStopWrite
           jsr i2cWaitForAck
-          ;; f all through
-StartAddress:
-          .if ATARIAGESAVE
-            lda SaveGameSlot
-            jmp i2cStartWrite   ; tail call
-          .else
-            jsr i2cStartWrite
-            lda #>SaveGameSlotPrefix
-            clc
-            adc SaveGameSlot
-            jmp i2cTxByte       ; tail call
-          .fi
-
+          jmp SetSlotAddress
           .bend

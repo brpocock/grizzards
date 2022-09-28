@@ -55,16 +55,7 @@ ReadyToSendAddress:
           sta Pointer
 
           ;; Finally we know our offset, let's send  it.
-          .if ATARIAGESAVE
-            lda SaveGameSlot
-          .fi
-          jsr i2cStartWrite
-          .if !ATARIAGESAVE
-            lda #>SaveGameSlotPrefix
-            clc
-            adc SaveGameSlot
-            jsr i2cTxByte
-          .fi
+          jsr SetSlotAddress
           lda Pointer
           jmp i2cTxByte         ; tail call
 

@@ -1,12 +1,6 @@
 ;;; Grizzards Source/Routines/CheckSaveSlot.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
-EEPROMFail:
-          jsr i2cStopWrite
-
-          .mva GameMode, #ModeNoAtariVox
-          brk
-
 CheckSaveSlot: .block
           ;; Check SaveGameSlot for a save game
           ;; Returns values of Potions (crown bit $80),
@@ -15,18 +9,7 @@ CheckSaveSlot: .block
           ;; either $00 for false or non-zero for true
           jsr SeedRandom
 
-          .if ATARIAGESAVE
-            lda SaveGameSlot
-          .fi
-          jsr i2cStartWrite
-          bcs EEPROMFail
-
-          .if !ATARIAGESAVE
-            lda SaveGameSlot
-            clc
-            adc #>SaveGameSlotPrefix
-            jsr i2cTxByte
-          .fi
+          jsr SetSlotAddress
 
           lda #<SaveGameSlotPrefix
           jsr i2cTxByte
@@ -88,18 +71,7 @@ ReadLoop0:
 ReadSlotName:
           jsr i2cWaitForAck
 
-          .if ATARIAGESAVE
-            lda SaveGameSlot
-          .fi
-          jsr i2cStartWrite
-          bcs EEPROMFail
-
-          .if !ATARIAGESAVE
-            lda SaveGameSlot
-            clc
-            adc #>SaveGameSlotPrefix
-            jsr i2cTxByte
-          .fi
+          jsr SetSlotAddress
 
           lda #<SaveGameSlotPrefix + $1a ; Name offset
           jsr i2cTxByte
@@ -125,18 +97,7 @@ LoadNameLoop:
 ReadCrownBit:
           jsr i2cWaitForAck
 
-          .if ATARIAGESAVE
-            lda SaveGameSlot
-          .fi
-          jsr i2cStartWrite
-          bcs EEPROMFail
-
-          .if !ATARIAGESAVE
-            lda SaveGameSlot
-            clc
-            adc #>SaveGameSlotPrefix
-            jsr i2cTxByte
-          .fi
+          jsr SetSlotAddress
 
           lda #<SaveGameSlotPrefix + 5 + Potions - GlobalGameData
           jsr i2cTxByte

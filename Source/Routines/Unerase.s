@@ -2,17 +2,8 @@
 ;;; Copyright © 2022 Bruce-Robert Pocock
 
 Unerase:       .block
+          jsr SetSlotAddress
 
-          .if ATARIAGESAVE
-            lda SaveGameSlot
-          .fi
-          jsr i2cStartWrite
-          .if !ATARIAGESAVE
-            lda #>SaveGameSlotPrefix
-            clc
-            adc SaveGameSlot
-            jsr i2cTxByte
-          .fi
           lda #<SaveGameSlotPrefix
           jsr i2cTxByte
 

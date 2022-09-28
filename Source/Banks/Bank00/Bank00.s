@@ -120,6 +120,7 @@ PeekGrizzard:                   ; NOSAVE
 
           .else                 ; Not the NOSAVE build
 
+            .include "SetSlotAddress.s"
             .include "SaveToSlot.s"
             .include "PeekGrizzard.s"
             .if !DEMO

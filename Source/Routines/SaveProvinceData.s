@@ -4,16 +4,7 @@
 SaveProvinceData:   .block
           .WaitScreenTop
 PositionProvinceData:
-          .if ATARIAGESAVE
-            lda SaveGameSlot
-          .fi
-          jsr i2cStartWrite
-          .if !ATARIAGESAVE
-            lda #>SaveGameSlotPrefix
-            clc
-            adc SaveGameSlot
-            jsr i2cTxByte
-          .fi
+          jsr SetSlotAddress
 
           lda CurrentProvince
           asl a

@@ -2,18 +2,7 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 EraseSlotSignature: .block
-          .if ATARIAGESAVE
-            lda SaveGameSlot
-          .fi
-          jsr i2cStartWrite
-          bcs EEPROMFail
-
-          .if !ATARIAGESAVE
-            lda SaveGameSlot
-            clc
-            adc #>SaveGameSlotPrefix
-            jsr i2cTxByte
-          .fi
+          jsr SetSlotAddress
 
           lda #<SaveGameSlotPrefix
           jsr i2cTxByte
