@@ -7,8 +7,6 @@ StartNewGame:          .block
           .fi
           .WaitScreenTopMinus 1, -1
 
-          .mva GameMode, #ModeStartGame ; XXX unused?
-
           .mvx s, #$ff              ; destroy stack. We are here to stay.
 
           inx                   ; X = 0
@@ -121,7 +119,7 @@ WipeGrizzards:
           jsr WipeSome
 
 DoneWipingGrizzards:
-
+          ;; XXX does this not work now?
           .FarJSR SaveKeyBank, ServiceSaveToSlot
 
 SaveName:
