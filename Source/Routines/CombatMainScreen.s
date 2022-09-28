@@ -225,7 +225,7 @@ DrawGrizzard:
 DrawHealthBar:
           stx WSYNC
 
-          .if SECAM == TV       ; XXX no color for SECAM due to space limits!
+          .if SECAM == TV       ; no color for SECAM, out of room for code
             .ldacolu COLGREEN, $f
             sta COLUPF
           .else
