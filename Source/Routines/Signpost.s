@@ -207,6 +207,23 @@ DoneButtons:
           and #SWCHBReset
           bne DoneSwitches
 
+          .if BANK == $0c
+            ldx SignpostIndex
+            cpx # 114 - FirstSignpost
+            beq ResetFromCredits
+
+            cpx # 108 - FirstSignpost
+            blt NotCredits
+
+            cpx # 112 - FirstSignpost + 1
+            bge NotCredits
+
+ResetFromCredits:
+            jmp WinnerFireworks.Leave
+
+NotCredits:
+          .fi
+
           .FarJMP SaveKeyBank, ServiceAttract
 
 DoneSwitches:
