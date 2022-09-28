@@ -9,6 +9,9 @@ StartNewGame:          .block
 
           .mvx s, #$ff              ; destroy stack. We are here to stay.
 
+          ;; Need to set NameEntryBuffer+0 ← $ff to indicate that
+          ;; we're starting a new name entry.
+          stx NameEntryBuffer
 EnterName:
           .FarJSR StretchBank, ServiceBeginName
 
