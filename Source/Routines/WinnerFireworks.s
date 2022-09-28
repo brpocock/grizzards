@@ -114,14 +114,15 @@ NotCaught:
             stx WSYNC
           .endswitch
           .WaitScreenTopMinus 1, 1
+          ;; Do this whether or not we're checking for high scores, because we need to populate the NameEntryBuffer for the 
           .FarJSR SaveKeyBank, ServiceCheckSaveSlot
 
           .WaitScreenBottom
-          .WaitScreenTop
-
-          .FarJSR MapServicesBank, ServiceSetHighScore
-
-          .WaitScreenBottom
+          .if ATARIAGESAVE
+            .WaitScreenTop
+            .FarJSR MapServicesBank, ServiceSetHighScore
+            .WaitScreenBottom
+          .fi
           .WaitScreenTopMinus 1, 1
 ;;; 
 Loop:
