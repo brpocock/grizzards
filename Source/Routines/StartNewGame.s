@@ -9,8 +9,6 @@ StartNewGame:          .block
 
           .mvx s, #$ff              ; destroy stack. We are here to stay.
 
-          inx                   ; X = 0
-          stx NameEntryBuffer
 EnterName:
           .FarJSR StretchBank, ServiceBeginName
 
@@ -110,8 +108,9 @@ WipeGrizzards:
           ldx # 7 * 5
           jsr WipeSome
 
+          jsr i2cStopWrite
+
 DoneWipingGrizzards:
-          ;; XXX does this not work now?
           .FarJSR SaveKeyBank, ServiceSaveToSlot
 
 SaveName:
