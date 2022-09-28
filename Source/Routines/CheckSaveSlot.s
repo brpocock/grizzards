@@ -9,7 +9,7 @@ CheckSaveSlot: .block
           ;; either $00 for false or non-zero for true
           jsr SeedRandom
 
-          jsr SetSlotAddress
+          .StartI2C
 
           lda #<SaveGameSlotPrefix
           jsr i2cTxByte
@@ -71,7 +71,7 @@ ReadLoop0:
 ReadSlotName:
           jsr i2cWaitForAck
 
-          jsr SetSlotAddress
+          .StartI2C
 
           lda #<SaveGameSlotPrefix + $1a ; Name offset
           jsr i2cTxByte
@@ -97,7 +97,7 @@ LoadNameLoop:
 ReadCrownBit:
           jsr i2cWaitForAck
 
-          jsr SetSlotAddress
+          .StartI2C
 
           lda #<SaveGameSlotPrefix + 5 + Potions - GlobalGameData
           jsr i2cTxByte

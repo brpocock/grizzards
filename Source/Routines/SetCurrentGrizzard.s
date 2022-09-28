@@ -4,7 +4,7 @@
 SetCurrentGrizzard:       .block
           jsr i2cWaitForAck
 
-          jsr SetSlotAddress
+          .StartI2C
 
           lda # 5 + CurrentGrizzard - GlobalGameData
           jsr i2cTxByte

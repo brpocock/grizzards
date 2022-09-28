@@ -2,7 +2,7 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 EraseSlotSignature: .block
-          jsr SetSlotAddress
+          .StartI2C
 
           lda #<SaveGameSlotPrefix
           jsr i2cTxByte

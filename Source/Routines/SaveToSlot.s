@@ -18,7 +18,7 @@ WriteMasterBlock:
           ;; First set the write pointer up  for the first block of this
           ;; save game slot ($1100, $1200,  or $1300 if SaveKey, $00-$07
           ;; for save-to-cart)
-          jsr SetSlotAddress
+          .StartI2C
 
           lda # 0
           jsr i2cTxByte

@@ -109,7 +109,7 @@ SaveName:
           .fi
           .WaitScreenTop
 
-          jsr SetSlotAddress
+          .StartI2C
           clc
           lda #<SaveGameSlotPrefix
           adc #$1a

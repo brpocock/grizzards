@@ -2,7 +2,7 @@
 ;;; Copyright © 2022 Bruce-Robert Pocock
 
 Unerase:       .block
-          jsr SetSlotAddress
+          .StartI2C
 
           lda #<SaveGameSlotPrefix
           jsr i2cTxByte

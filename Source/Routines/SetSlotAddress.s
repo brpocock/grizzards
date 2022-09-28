@@ -1,20 +1,27 @@
 ;;; Grizzards Source/Routines/SetSlotAddress.s
 ;;; Copyright © 2022 Bruce-Robert Pocock
 
-          .if !ATARIAGESAVE
+          .if ATARIAGESAVE
+
+StartI2C: .macro
+          lda SaveGameSlot
+          jsr i2cStartWrite
+          .endm
+
+          .else
+
+StartI2C: .macro
+          .StartI2C
+          .endm
+
 EEPROMFail:
           jsr i2cStopWrite
 
           .mva GameMode, #ModeNoAtariVox
           brk
-          .fi
 
 SetSlotAddress:     .block
 
-          .if ATARIAGESAVE
-            lda SaveGameSlot
-            jmp i2cStartWrite   ; tail call
-          .else
             jsr i2cStartWrite
             bcs EEPROMFail
 
@@ -22,5 +29,8 @@ SetSlotAddress:     .block
             clc
             adc #>SaveGameSlotPrefix
             jmp i2cTxByte       ; tail call
-          .fi
+
           .bend
+
+          .fi
+          

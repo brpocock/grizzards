@@ -4,7 +4,7 @@
 LoadProvinceData:   .block
           ;; Province data are 8 bytes blocks starting at $20
           ;; in the master block.
-          jsr SetSlotAddress
+          .StartI2C
 
           lda CurrentProvince
           asl a

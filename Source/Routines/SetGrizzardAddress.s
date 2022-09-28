@@ -55,7 +55,7 @@ ReadyToSendAddress:
           sta Pointer
 
           ;; Finally we know our offset, let's send  it.
-          jsr SetSlotAddress
+          .StartI2C
           lda Pointer
           jmp i2cTxByte         ; tail call
 

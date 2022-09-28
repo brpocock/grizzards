@@ -4,7 +4,7 @@
 SaveProvinceData:   .block
           .WaitScreenTop
 PositionProvinceData:
-          jsr SetSlotAddress
+          .StartI2C
 
           lda CurrentProvince
           asl a
