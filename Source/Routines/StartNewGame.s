@@ -121,12 +121,11 @@ DoneWipingGrizzards:
           .mva CurrentGrizzard, # 0
           .FarJSR SaveKeyBank, ServiceSaveGrizzard
 
-          .mva CurrentGrizzard, # 1
+          inc CurrentGrizzard   ; 1
           .FarJSR SaveKeyBank, ServiceSaveGrizzard
 
-          .mva CurrentGrizzard, # 2
+          inc CurrentGrizzard   ; 2
           .FarJSR SaveKeyBank, ServiceSaveGrizzard
-
 
 SaveName:
           .if NTSC == TV
