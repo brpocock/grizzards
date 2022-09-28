@@ -122,16 +122,7 @@ SaveName:
           .fi
           .WaitScreenTop
 
-          .if ATARIAGESAVE
-            lda SaveGameSlot
-          .fi
-          jsr i2cStartWrite
-          .if !ATARIAGESAVE
-            lda SaveGameSlot
-            clc
-            adc #>SaveGameSlotPrefix
-            jsr i2cTxByte
-          .fi
+          jsr StartAddress
           clc
           lda #<SaveGameSlotPrefix
           adc #$1a
