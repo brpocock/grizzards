@@ -95,24 +95,18 @@ WipeGrizzards:
           jsr StartAddress
 
           lda #$40
-          jsr i2cTxByte
-
           ldx # 12 * 5
           jsr WipeSome
 
           jsr ChangeAddress
 
           lda #$80
-          jsr i2cTxByte
-
           ldx # 12 * 5
           jsr WipeSome
 
           jsr ChangeAddress
 
           lda #$c0
-          jsr i2cTxByte
-
           ldx # 7 * 5
           jsr WipeSome
 
@@ -161,10 +155,12 @@ SaveName:
           jmp GoMap
 ;;; 
 WipeSome:
+          jsr i2cTxByte
+Wiping:
           lda # 0
           jsr i2cTxByte
           dex
-          bne WipeSome
+          bne Wiping
           rts
 ;;; 
 ChangeAddress:
