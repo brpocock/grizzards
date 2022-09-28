@@ -107,6 +107,7 @@ WipeGrizzards:
           jsr WipeSome
 
           jsr i2cStopWrite
+          jsr i2cWaitForAck
 
 DoneWipingGrizzards:
           .FarJSR SaveKeyBank, ServiceSaveToSlot
