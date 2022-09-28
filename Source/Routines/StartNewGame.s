@@ -99,71 +99,29 @@ InitGameVars:
 WipeGrizzards:
           .WaitScreenTop
 
-          .if ATARIAGESAVE
-            lda SaveGameSlot
-          .fi
-          jsr i2cStartWrite
-          .if !ATARIAGESAVE
-            lda #>SaveGameSlotPrefix
-            clc
-            adc SaveGameSlot
-            jsr i2cTxByte
-          .fi
+          jsr StartAddress
+
           lda #$40
           jsr i2cTxByte
 
           ldx # 12 * 5
--
-          lda # 0
-          jsr i2cTxByte
-          dex
-          bne -
+          jsr WipeSome
 
-          jsr i2cStopWrite
-          jsr i2cWaitForAck
+          jsr ChangeAddress
 
-          .if ATARIAGESAVE
-            lda SaveGameSlot
-          .fi
-          jsr i2cStartWrite
-          .if !ATARIAGESAVE
-            lda #>SaveGameSlotPrefix
-            clc
-            adc SaveGameSlot
-            jsr i2cTxByte
-          .fi
           lda #$80
           jsr i2cTxByte
 
           ldx # 12 * 5
--
-          lda # 0
-          jsr i2cTxByte
-          dex
-          bne -
+          jsr WipeSome
 
-          jsr i2cStopWrite
-          jsr i2cWaitForAck
+          jsr ChangeAddress
 
-          .if ATARIAGESAVE
-            lda SaveGameSlot
-          .fi
-          jsr i2cStartWrite
-          .if !ATARIAGESAVE
-            lda #>SaveGameSlotPrefix
-            clc
-            adc SaveGameSlot
-            jsr i2cTxByte
-          .fi
           lda #$c0
           jsr i2cTxByte
 
           ldx # 7 * 5
--
-          lda # 0
-          jsr i2cTxByte
-          dex
-          bne -
+          jsr WipeSome
 
 DoneWipingGrizzards:
 
@@ -208,5 +166,28 @@ SaveName:
           .fi       ; end of not-NOSAVE
 
           jmp GoMap
-
+;;; 
+WipeSome:
+          lda # 0
+          jsr i2cTxByte
+          dex
+          bne WipeSome
+          rts
+;;; 
+ChangeAddress:
+          jsr i2cStopWrite
+          jsr i2cWaitForAck
+          ;; f all through
+StartAddress:
+          .if ATARIAGESAVE
+            lda SaveGameSlot
+            jmp i2cStartWrite   ; tail call
+          .else
+            jsr i2cStartWrite
+            lda #>SaveGameSlotPrefix
+            clc
+            adc SaveGameSlot
+            jmp i2cTxByte       ; tail call
+          .fi
+          
           .bend
