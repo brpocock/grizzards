@@ -11,6 +11,28 @@ StartNewGame:          .block
 
           .mvx s, #$ff              ; destroy stack. We are here to stay.
 
+          inx                   ; X = 0
+          stx NameEntryBuffer
+EnterName:
+          .FarJSR StretchBank, ServiceBeginName
+
+          .if DEMO
+
+            lda # 1               ; Aquax
+            sta CurrentGrizzard
+
+          .else
+
+            .FarJSR SaveKeyBank, ServiceChooseGrizzard
+
+            .FarJSR SaveKeyBank, ServiceConfirmNewGame
+
+            lda GameMode
+            cmp #ModeEnterName
+            beq EnterName
+
+          .fi
+
 InitGameVars:
           ;; Set up actual game vars for a new game
           .mva GameMode, #ModeMap
@@ -144,27 +166,6 @@ WipeGrizzards:
           bne -
 
 DoneWipingGrizzards:
-          ldy # 0               ; XXX necessary?
-          sty NameEntryBuffer
-EnterName:
-          .FarJSR StretchBank, ServiceBeginName
-
-          .if DEMO
-
-            lda # 1               ; Aquax
-            sta CurrentGrizzard
-
-          .else
-
-            .FarJSR SaveKeyBank, ServiceChooseGrizzard
-
-            .FarJSR SaveKeyBank, ServiceConfirmNewGame
-
-            lda GameMode
-            cmp #ModeEnterName
-            beq EnterName
-
-          .fi
 
           .FarJSR SaveKeyBank, ServiceSaveToSlot
 
