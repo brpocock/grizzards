@@ -146,6 +146,8 @@ SaveName:
 
           jmp GoMap
 ;;; 
+          .if !NOSAVE
+
 WipeSome:
           jsr i2cTxByte
 Wiping:
@@ -170,5 +172,6 @@ StartAddress:
             adc SaveGameSlot
             jmp i2cTxByte       ; tail call
           .fi
-          
+
+          .fi                   ; end of !NOSAVE
           .bend
