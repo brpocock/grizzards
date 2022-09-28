@@ -118,14 +118,13 @@ DoneWipingGrizzards:
           lda Potions
           beq SaveName
 
-          .mva CurrentGrizzard, # 0
+          .mva CurrentGrizzard, # 2
+GetAllStarters:
           .FarJSR SaveKeyBank, ServiceSaveGrizzard
+          dec CurrentGrizzard
+          bpl GetAllStarters
 
-          inc CurrentGrizzard   ; 1
-          .FarJSR SaveKeyBank, ServiceSaveGrizzard
-
-          inc CurrentGrizzard   ; 2
-          .FarJSR SaveKeyBank, ServiceSaveGrizzard
+          inc CurrentGrizzard
 
 SaveName:
           .if NTSC == TV
