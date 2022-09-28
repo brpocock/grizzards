@@ -79,9 +79,9 @@ CopyNameLoop:
           jmp BeginGrossPosition
 
           .if 3 == BANK && NTSC == TV
-            .align $10            ; XXX alignment
+            .align $10
           .else
-            .align $20            ; XXX alignment
+            .align $20
           .fi
 
 BeginGrossPosition:
