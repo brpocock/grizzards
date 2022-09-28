@@ -7,6 +7,10 @@ WinnerFireworks:    .block
 ;;; 
 NewGamePlus:
           .mva Potions, #$80 | 25
+
+          lda CurrentGrizzard
+          pha                   ; CurrentGrizzard
+
           .mvy Score, # 0
           sty Score + 1
           sty Score + 2
@@ -104,6 +108,9 @@ NotCaught:
           lda CurrentGrizzard
           cmp # 30
           blt CheckCaughtLoop
+
+          pla                   ; CurrentGrizzard
+          sta CurrentGrizzard
 
           ;; First, save everything, then pull the user's name for the message text
           ;; SaveToSlot starts _and ends_ with WaitScreenBottom calls.
