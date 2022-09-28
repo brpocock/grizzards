@@ -37,7 +37,7 @@ DoLocal:
 
           .include "GetMonsterColors.s"
 
-          .align $20           ; XXX alignment
+          .align $20           ; alignment
           .include "CombatSpriteTables.s"
           .include "MonsterColors.s"
           .include "BossArt.s"
