@@ -248,30 +248,21 @@ Submit:
 CompareKingMe:
             lda NameEntryBuffer - 1, x
             cmp SecondQuest - 1, x
-            bne FirstQuest
+            beq KingThem
 
+            rts
+
+KingThem:
             dex
             bne CompareKingMe
 
             .mva Potions, #$80 | 25
-            .mva CurrentGrizzard, # 0
-            .FarJSR SaveKeyBank, ServiceSaveGrizzard
-
-            .mva CurrentGrizzard, # 1
-            .FarJSR SaveKeyBank, ServiceSaveGrizzard
-
-            .mva CurrentGrizzard, # 2
-            .FarJSR SaveKeyBank, ServiceSaveGrizzard
-
             .mva NextSound, # SoundVictory
             jmp ClearName
 
-FirstQuest:
-            ldy # 0
-            sty Potions
+          .else
+            rts
           .fi
-
-          rts
 ;;; 
 EnterText:
           .MiniText "ENTER "

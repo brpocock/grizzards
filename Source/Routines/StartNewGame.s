@@ -115,6 +115,19 @@ WipeGrizzards:
 DoneWipingGrizzards:
           .FarJSR SaveKeyBank, ServiceSaveToSlot
 
+          lda Potions
+          beq SaveName
+
+          .mva CurrentGrizzard, # 0
+          .FarJSR SaveKeyBank, ServiceSaveGrizzard
+
+          .mva CurrentGrizzard, # 1
+          .FarJSR SaveKeyBank, ServiceSaveGrizzard
+
+          .mva CurrentGrizzard, # 2
+          .FarJSR SaveKeyBank, ServiceSaveGrizzard
+
+
 SaveName:
           .if NTSC == TV
             .SkipLines 2
