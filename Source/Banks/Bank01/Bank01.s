@@ -185,7 +185,9 @@ NotCompleted:
             .include "CheckAndSetHighScore.s"
           .fi
 
-          .include "SetSlotAddress.s"
+          .if !NOSAVE
+            .include "SetSlotAddress.s"
+          .fi
           .include "GrizzardStartingStats.s"
           .include "SpriteColor.s"
 
