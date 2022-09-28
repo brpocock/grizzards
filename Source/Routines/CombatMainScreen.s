@@ -187,8 +187,10 @@ MajorCombatArt:
 
 MinorCombatArt:
           .mvy CombatMajorP, # 0      ; should have already been the case, but bugs are buggy.
-          ;; I don't know why this is sometimes set.
-          ;; XXX once #409 is closed maybe the prior 2 lines can go
+          ;; I don't know why this (above) is sometimes set. I had said,
+          ;; “once #409  is closed, maybe  we can remove  the preceding”
+          ;; but at  this stage  in the  game (only  days left  to final
+          ;; release) I am not going to change it.
           .FarJSR MonsterBank, ServiceDrawMonsterGroup
 
 DelayAfterMonsters:
