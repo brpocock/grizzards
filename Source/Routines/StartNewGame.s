@@ -62,7 +62,7 @@ InitGameVars:
           lda # 1
           sta GrizzardAttack
           sta GrizzardDefense
-          
+
           sty GrizzardXP
 
           lda #$03
@@ -81,9 +81,6 @@ InitGameVars:
           sta MaxHP
           sta CurrentHP
 
-          ldy # 0               ; XXX necessary?
-          sty StartGameWipeBlock
-
           .WaitScreenBottom
           .if TV != NTSC
             stx WSYNC
@@ -91,7 +88,7 @@ InitGameVars:
 
           .if NOSAVE
 
-            .mva CurrentGrizzard, # 1               ; Aquax
+            .mva CurrentGrizzard, # 1        ; Aquax
             .mva ProvinceFlags + 4, #$ff
 
           .else
