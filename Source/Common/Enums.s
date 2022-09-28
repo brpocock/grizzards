@@ -326,7 +326,7 @@
           Monster_Cyclops = 24
 ;;; 
 ;;; Game tunable
-          GrizzardMetamorphosisXP = 27
+          GrizzardMetamorphosisXP = 36
 ;;; 
 ;;; Gamepad buttons
           ButtonI = $80
