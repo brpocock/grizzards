@@ -100,7 +100,7 @@ DoneButtons:
           jmp Loop
 
 Leave:
-          lda GameMOde
+          lda GameMode
           cmp #ModeConfirmNewGame
           bne +
           jmp ConfirmNewGame
