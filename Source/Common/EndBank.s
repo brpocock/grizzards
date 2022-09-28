@@ -7,7 +7,11 @@ EndBank:
           .if DEMO
             BankEndAddress = $ff76      ; keep this as high as possible
           .else
-            BankEndAddress = $ff4e      ; keep this as high as possible
+            .if ATARIAGESAVE
+              BankEndAddress = $ff55
+            .else
+              BankEndAddress = $ff4e      ; keep this as high as possible
+            .fi
           .fi
           .if (* > BankEndAddress) || (* < $f000)
             .error format ("Bank $%02x overran ROM space (ending at $%04x, ; must end by $%04x) (Config: %s)", BANK, *, BankEndAddress, ConfigPartNumber)

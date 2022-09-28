@@ -6,7 +6,7 @@ BeginNamePrompt:
           .SetUtterance Phrase_EnterName
 
           lda NameEntryBuffer
-          bne BufferReady
+          bpl BufferReady
 
           lda #" "
           ldx # 5
