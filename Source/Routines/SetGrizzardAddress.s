@@ -15,6 +15,7 @@ SetGrizzardAddress: .block
           ;; can be found in.
           cmp # 12
           blt InBlock1
+
           cmp # 24
           blt InBlock2
 
