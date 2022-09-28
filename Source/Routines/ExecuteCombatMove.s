@@ -195,14 +195,14 @@ IncrementScore:
           sta Score + 1
           bcc ScoreNoCarry
 
-          inc Score + 2
-          bne ScoreNoCarry
+          adc Score + 2
+          bcc ScoreNoCarry
 
           lda #$99
-          sta Score + 1
-          sta Score + 2
           sta Score
+          sta Score + 1
 ScoreNoCarry:
+          sta Score + 2
 
           dex
           bne IncrementScore

@@ -1,8 +1,7 @@
 Grizzards
 =====================
 
-TL;DR  —   A  turn-based  RPG beta  release  that   requires  SaveKey or
-AtariVox.
+TL;DR — A turn-based RPG beta release that requires SaveKey or AtariVox.
 
 
 Building: `make` at the top level
@@ -27,21 +26,6 @@ The full build is 64kiB (EF banked) and can be compiled for SaveKey or for
 its own proprietary AtariAge cartridge with built-in save game support.
 
 
-Cartridge Image files
----------------------
-
-https://star-hope.org/games/Grizzards/Grizzards.Demo.NTSC.a26
-
-https://star-hope.org/games/Grizzards/Grizzards.Demo.PAL.a26
-
-https://star-hope.org/games/Grizzards/Grizzards.Demo.SECAM.a26
-
-All image files with draft PDF manuals
------------------------
-
-https://star-hope.org/games/Grizzards/Grizzards.Demo.zip
-
-
 
 How to Play
 ------------
@@ -52,18 +36,14 @@ Check the Manual for full detailed instructions.
 Testing
 ---------
 
-This  has only  been lightly  tested, mostly  in Stella,  but also  with
-a real (4 switch) NTSC 2600 using  Harmony, Plus, & Uno carts and an 
-AtariVox.
+This has  been somewhat  thoroughly tested, mostly  in Stella,  but also
+with a real (4 switch) NTSC 2600  woody, a 2600 vader, and a 7800, using
+Harmony, Plus, & Uno carts and SaveKey and AtariVox.
 
 If the game crashes,  you'll likely get sent to the  screen with a white
 sad  face. If  it's unable  to  communicate with  the SaveKey  (MemCard,
 AtariVox save  function) you'll get  a red sad  face; that's not  a bug,
-just a limitation.
-
-There's an Easter  Egg hidden that displays a special  message and shows
-the build date  of the cartridge image file (as YYYY-MM-DD). It's not super
-complicated to access but I'd be curious if anyone ran into it.
+just a limitation. "MEMORY DEVICE NEEDED," as it says.
 
 Naturally, I'm excited to see any feedback.
 
@@ -111,8 +91,24 @@ and, to test:
 and, to burn EPROMS:
 * MiniPro USB recording tools, a  MiniPro USB EPROM burner, and AT27C256
   or AT27C512 EPROMs or compatible.
+  
+On Fedora, you can install prerequisite packages with
 
-`cd` into the top-level directory and  run `make demo` to build the demo
+         sudo dnf -y install $(<packages)
+         
+If you run  into trouble with SBCL not auto-loading  a Quicklisp package
+(I'm not  sure why this sometimes  occurs on a fresh  install), then try
+running `sbcl` (or, better, `rlwrap sbcl`) and enter:
+
+           (load "~/quicklisp/setup.lisp")
+           (ql:quickload "the-package-name")
+           (quit)
+           
+The  next  time you  run  `make`  it  will  probably find  the  packages
+just fine. I imagine  this is a limitation of my  setup script not being
+smart enough.
+
+`cd` into the top-level directory and run `make demo` to build the demo
 software  for  all  three  regions  (NTSC,  PAL,  and  SECAM)  into  the
 `Dist` directory.
 
@@ -124,7 +120,7 @@ cart-secam`
 
 If you  have a  Harmony or  Uno cartridge  and mount  the SD  card under
 `/run/media/${USER}/HARMONY` or `/run/media/${USER}/TBA_2600`, which are
-the  default  mount  points  and  SD disk  labels  for  those  platforms
-respectively,  you can  write  to  the top  level  directory with  `make
-harmony` or `make uno`.  It may be just as easy to  `make demo` and copy
-the `.a26` files over directly.
+the  default  mount  points  and   SD  disk  labels  for  those  devices
+respectively  on  Fedora at  least,  you  can  write  to the  top  level
+directory with `make harmony`  or `make uno`. It may be  just as easy to
+`make demo` and copy the `.a26` files over directly.

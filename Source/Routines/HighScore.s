@@ -64,10 +64,9 @@ NextMode:
           .mva GameMode, #ModePublisherPresents
           rts
           
-          .enc "minifont"
 HighText:
-          .text " HIGH "
+          .MiniText " HIGH "
 ScoreText:
-          .text "SCORE!"
+          .MiniText "SCORE!"
 
           .bend

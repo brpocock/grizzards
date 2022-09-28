@@ -10,9 +10,7 @@ DoLocal:
           .include "Signpost.s"
 
           .include "WinnerFireworks.s"
-          .align $100           ; XXX alignment
-          .include "BossBearDies.s"
-          .align $20            ; XXX alignment
+          .align $10
           .include "ShowPicture.s"
 
           .include "CopyPointerText.s"
@@ -30,5 +28,8 @@ DoLocal:
           .include "SpeakJetIndex.s"
 
           .include "PlaySpeech.s"
+
+          .align $100           ; XXX alignment
+          .include "BossBearDies.s"
 
           .include "EndBank.s"

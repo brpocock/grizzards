@@ -3,7 +3,7 @@
 (asdf:defsystem :skyline-tool
   :description "A tool for building tile-based adventure games for 8-bit systems"
   :author "Bruce-Robert Pocock"
-  :version "0.8.1"
+  :version "0.8.2"
   :maintainer "Bruce-Robert Pocock"
   :mailto "brpocock+skyline@star-hope.org"
   :licence "MIT" ; if this poses a problem, ask me for a waiver.

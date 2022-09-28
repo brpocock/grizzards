@@ -74,6 +74,8 @@ LoopFirst:
             sta COLUP1
 
           .fi
+
+          .SkipLines KernelLines/3
 ;;; 
           lda MoveAnnouncement
           cmp # 5
