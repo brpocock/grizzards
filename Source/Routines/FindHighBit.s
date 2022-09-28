@@ -37,7 +37,5 @@ CalculateAttackMask:          .block
 ;;; 
 AttackMask:
           .byte 1, 1, 3, 7, 15, 31, 63, 127
-          ;; ↑ XXX experimental; below is the original
-          ;; .byte 1, 3, 7, 15, 31, 63, 127, 255
 
 ;;; Audited 2022-02-15 BRPocock
