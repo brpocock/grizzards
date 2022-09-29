@@ -166,12 +166,12 @@ PlayerKilledMonster:
 +
 
           ldx # 1               ; 1× scoring…
-          lda CombatMajorP
+          bit CombatMajorP
           bpl +
           inx                   ; 2 × scoring
 +
 
-          lda Potions
+          bit Potions
           bpl +
           inx                   ; 2-3× scoring
 +
@@ -179,6 +179,7 @@ PlayerKilledMonster:
           lda DebounceSWCHB
           and #SWCHBP0Advanced
           bne DoneScoreDifficulty
+
           inx
 DoneScoreDifficulty:
           sed
