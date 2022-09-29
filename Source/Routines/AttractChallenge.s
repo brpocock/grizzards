@@ -10,7 +10,6 @@ AttractChallenge: .block
 Loop:
           .WaitScreenTop
 
-          inc ClockFrame
           ldy # 0
           sty COLUPF
           dey                   ; Y = $ff
@@ -33,14 +32,17 @@ Loop:
           .SetPointer Challenge3
           jsr ShowPointerText12
 
-          .SetPointer Challenge4
-          jsr ShowPointerText12
-
           .ldacolu COLBLUE, $8
           sta COLUP0
           sta COLUP1
 
+          .SetPointer Challenge4
+          jsr ShowPointerText12
+
           .SetPointer Challenge5
+          jsr ShowPointerText12
+
+          .SetPointer Challenge6
           jsr ShowPointerText12
 
           lda AlarmCountdown
@@ -61,7 +63,7 @@ CheckFire:
 
           .mva GameMode, #ModeSelectSlot
           rts
-          
+
 LoopMe:
           .WaitScreenBottom
           jmp Loop
@@ -78,14 +80,16 @@ NextPhase:
           rts
 
 Challenge1:
-          .SignText "THE WORLD OF"
-Challenge2:
           .SignText "SYREX HAS   "
-Challenge3:
+Challenge2:
           .SignText "BEEN INVADED"
-Challenge4:
+Challenge3:
           .SignText "BY MONSTERS."
+Challenge4:
+          .SignText " TRAIN YOUR "
 Challenge5:
+          .SignText "GRIZZARDS TO"
+Challenge6:
           .SignText "  SAVE IT!  "
 
 ShowPointerText12:
