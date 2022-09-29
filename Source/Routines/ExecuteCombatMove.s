@@ -158,13 +158,9 @@ PlayerAttacks:
           bne WaitOutScreen
 
 PlayerKilledMonster:
-          ;; add to score the amount for that monster
-          lda GrizzardXP
-          cmp # 199
-          bge +
           inc GrizzardXP
-+
 
+          ;; add to score the amount for that monster
           ldx # 1               ; 1× scoring…
           bit CombatMajorP
           bpl +
