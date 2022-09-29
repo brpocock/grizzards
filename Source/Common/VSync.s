@@ -27,14 +27,18 @@ VSync: .block
           lda ClockFrame
           cmp # FramesPerSecond
           bne FrameNZero
+
           ldy AlarmCountdown
           beq FrameNZero
+
           dec AlarmCountdown
 FrameNZero:
           cmp # (FramesPerSecond / 2)
           bne FramesNHalf
+
           ldy AlarmCountdown
           beq FramesNHalf
+
           dec AlarmCountdown
 FramesNHalf:
           cmp #FramesPerSecond
@@ -53,11 +57,13 @@ FramesNHalf:
           lda ClockMinutes
           cmp #240
           bne NoTime
+
           lda #0
           sta ClockMinutes
           clc
           inc ClockFourHours
           bcc NoTime
+
           lda #$ff
           sta ClockFourHours
 
