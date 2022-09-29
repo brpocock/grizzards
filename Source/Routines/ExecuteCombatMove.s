@@ -132,7 +132,7 @@ PlayerAttacks:
 +
 
           ;; Bosses get double defend ratings
-          lda CombatMajorP
+          bit CombatMajorP
           bpl +
           asl DefenderDefend
 +
