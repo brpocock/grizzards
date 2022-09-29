@@ -21,6 +21,7 @@
           ModePublisherPresents = $1e ; same, just a different build
           ModeWinnerFireworks = $15
           ModeAttractBestiary = $17
+          ModeAttractChallenge = $18
 
           ModeSelectSlot = $20
           ModeEraseSlot = $21

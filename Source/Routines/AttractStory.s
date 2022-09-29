@@ -260,8 +260,8 @@ DoneNextGrizzard:
             .mva GameMode, #ModePublisherPresents
             rts
           .else
-            .mva GameMode, #ModeAttractChallenge
-            jmp AttractChallenge
+            .mva GameMode, #ModeAttractBestiary
+            jmp AttractBestiary
           .fi
 ;;; 
 StillStory:

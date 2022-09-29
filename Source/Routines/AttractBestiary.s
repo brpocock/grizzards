@@ -1,7 +1,7 @@
-;;; Grizzards Source/Routines/Bestiary.s
+;;; Grizzards Source/Routines/AttractBestiary.s
 ;;; Copyright © 2022 Bruce-Robert Pocock
 
-Bestiary: .block
+AttractBestiary: .block
           .mva EnemyHP, # 1
           .mva AlarmCountdown, # 18
           .mva CombatMajorP, #$80
@@ -41,13 +41,8 @@ LoopMe:
           jmp Loop
 
 NextPhase:
-          .if ATARIAGESAVE
-            .mva AlarmCountdown, # 30
-            .mva GameMode, #ModeAttractHighScore
-          .else
-            .mva AlarmCountdown, # 8
-            .mva GameMode, #ModePublisherPresents
-          .fi
+          .mva GameMode, #ModeAttractChallenge
+          jmp AttractChallenge
 
           rts
           

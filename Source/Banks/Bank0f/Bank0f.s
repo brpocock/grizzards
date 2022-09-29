@@ -73,9 +73,11 @@ DoLocal:
           .if ATARIAGESAVE
             .include "HighScore.s"
           .fi
-          .include "Bestiary.s"
+          .include "AttractBestiary.s"
+          .include "AttractChallenge.s"
 
           .include "DecodeScore.s"
+          .include "CopyPointerText12.s"
 
           .include "GrizzardImages.s"
           .include "GrizzardArt.s"
