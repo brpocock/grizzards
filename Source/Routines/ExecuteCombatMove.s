@@ -195,7 +195,8 @@ IncrementScore:
           sta Score + 1
           bcc ScoreNoCarry
 
-          adc Score + 2
+          lda Score + 2
+          adc # 0
           bcc ScoreNoCarry
 
           lda #$99
