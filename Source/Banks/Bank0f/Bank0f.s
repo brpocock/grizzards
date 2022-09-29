@@ -73,6 +73,7 @@ DoLocal:
           .if ATARIAGESAVE
             .include "HighScore.s"
           .fi
+          .include "Bestiary.s"
 
           .include "DecodeScore.s"
 

@@ -243,7 +243,6 @@ StoryDone:
           blt StillStory
 
           ;; Return to title screen, with a new Grizzard
-          .mva AlarmCountdown, # 30
           ldy # 0               ; necessary? XXX
           sty DeltaY
 
@@ -257,13 +256,13 @@ NextGrizzard:
           sty CurrentGrizzard
 DoneNextGrizzard:
 
-          .if ATARIAGESAVE
-            .mva GameMode, #ModeAttractHighScore
-          .else
-            .mva AlarmCountdown, # 8
+          .if DEMO
             .mva GameMode, #ModePublisherPresents
+            rts
+          .else
+            .mva GameMode, #ModeAttractBestiary
+            jmp Bestiary
           .fi
-          rts
 ;;; 
 StillStory:
           lda NewSWCHB
