@@ -190,7 +190,7 @@ IncrementScore:
           lda (CurrentMonsterPointer), y
           adc Score + 1
           sta Score + 1
-          bcc ScoreNoCarry
+          bcc ScoreNoCarry2
 
           lda Score + 2
           adc # 0
@@ -201,7 +201,7 @@ IncrementScore:
           sta Score + 1
 ScoreNoCarry:
           sta Score + 2
-
+ScoreNoCarry2:
           dex
           bne IncrementScore
 
