@@ -12,7 +12,7 @@ AttractStory:       .block
 
           jsr Random
 
-          and #$07
+          and #$0f
           tax
           lda MonsterShapes, x
           sta CurrentMonsterArt
@@ -260,8 +260,8 @@ DoneNextGrizzard:
             .mva GameMode, #ModePublisherPresents
             rts
           .else
-            .mva GameMode, #ModeAttractBestiary
-            jmp Bestiary
+            .mva GameMode, #ModeAttractChallenge
+            jmp AttractChallenge
           .fi
 ;;; 
 StillStory:
@@ -287,7 +287,8 @@ LoopMe:
           jmp Loop
 ;;; 
 Monsters:
-          .byte 0, 1, 2, 8, 11, 13, 18, 23
+          .byte 0, 1, 2, 8,   11, 13, 18, 23
+          .byte 3, 5, 9, 14,  19, 6, 42, 10
 MonsterShapes:
           .byte Monster_SlimeSmall
           .byte Monster_SlimeSmall
@@ -298,4 +299,12 @@ MonsterShapes:
           .byte Monster_Bat
           .byte Monster_Bird
 
+          .byte Monster_Rodent
+          .byte Monster_Turtle
+          .byte Monster_Spider
+          .byte Monster_WillOWisp
+          .byte Monster_Sheep
+          .byte Monster_Fox
+          .byte Monster_Radish
+          .byte Monster_Rodent
           .bend
