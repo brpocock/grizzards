@@ -5,6 +5,10 @@ DoMusic:
           lda CurrentMusic + 1
           bne PlayMusic
 
+          ;; a phantom read of $ffe1 was happening on branch
+          .if ($fee0 < *) && (* < $feef)
+            .align $fef0, $ea
+          .fi
 LoopMusic:
           ;; Don't loop if there's currently a sound effect playing
           ;; e.g. Atari Today jingle, victory music from combat, &c.
