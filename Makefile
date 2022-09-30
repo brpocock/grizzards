@@ -47,8 +47,11 @@ Dist/Grizzards.Source.tar.gz:	game
 	find Source Manual -name \*~ -exec rm {} \;
 	tar zcf $@ Makefile README.md Guts.txt Source Manual
 
-cart:	Dist/Grizzards.AA.NTSC.a26
-	minipro -p AT27C512@DIP32 -w $<
+amcart:	Dist/Grizzards.AA.NTSC.a26
+	minipro -p AM27C512@DIP28 -w $<
+
+mcart:	Dist/Grizzards.AA.NTSC.a26
+	minipro -p M27C512@DIP28 -w $<
 
 
 USBMOUNT=$(shell echo \"$$(mount | grep /run/media/$$USER | grep vfat | head -n 1 | \
