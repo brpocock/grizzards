@@ -14,10 +14,10 @@ DoLocal:
           .include "Random.s"
           .include "48Pixels.s"
 
+          .include "PlaySpeech.s"
+
           .include "SignpostText.s"
           .include "SignpostSpeech.s"
           .include "SpeakJetIndex.s"
-
-          .include "PlaySpeech.s"
 
           .include "EndBank.s"
