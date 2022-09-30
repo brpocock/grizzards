@@ -396,10 +396,10 @@ DoneMirror:
             cmp # 3
             blt FoundSecretRoom
 
-            .between 8, 10
+            .between 7, 11
             bcs FoundSecretRoom
 
-            .between 21, 23
+            .between 20, 24
             bcc DoneSecretRoom
 
 FoundSecretRoom:
