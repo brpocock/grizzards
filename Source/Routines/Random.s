@@ -10,8 +10,8 @@ SeedRandom:         .block
             lda INPT1
             eor INPT3
             sta Rand
-            lda INPT2
-            eor INPT5
+            lda INPT0
+            eor INPT2
             sta Rand + 1
             rts
 
