@@ -247,14 +247,9 @@ StoryDone:
           sty DeltaY
 
 NextGrizzard:
-          inc CurrentGrizzard
-          lda CurrentGrizzard
-          cmp # 3
-          blt DoneNextGrizzard
-
-          ldy # 0               ; XXX necessary?
-          sty CurrentGrizzard
-DoneNextGrizzard:
+          ldx CurrentGrizzard
+          lda IncMod3, x
+          sta CurrentGrizzard
 
           .if DEMO
             .mva GameMode, #ModePublisherPresents
@@ -307,4 +302,7 @@ MonsterShapes:
           .byte Monster_Fox
           .byte Monster_Radish
           .byte Monster_Rodent
+
+IncMod3:
+          .byte 1, 2, 0
           .bend
