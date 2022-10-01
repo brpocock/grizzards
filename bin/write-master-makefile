@@ -18,12 +18,14 @@ YEAR2=$(shell date +%y)
 MONTH=$(shell date +%m)
 DATE=$(shell date +%d)
 JULIAN=$(shell date +%j)
+HOUR=$(shell date +%H)
+MINUTE=$(shell date +%M)
 BUILD=$(shell date +%y.%j)
 ASFLAGS=--nostart --long-branch --case-sensitive \
 	--ascii -I. -I Source/Common -I Source/Routines -I Source/Generated/Common \
 	-D YEARNOW=${YEAR} -D MONTHNOW=${MONTH} \
 	-D DATENOW=${DATE} -D JULIANDATENOW=${JULIAN} \
-	-D BUILD='"${BUILD}"' \
+	-D BUILD='"${BUILD}"' -D HOURNOW=${HOUR} -D MINUTENOW=${MINUTE} \
 	-Wall -Wno-shadow -Wno-leading-zeros
 AS2600=64tass ${ASFLAGS} --m6502 -m --tab-size=1 --verbose-list
 
