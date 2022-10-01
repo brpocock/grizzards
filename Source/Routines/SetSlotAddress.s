@@ -6,6 +6,9 @@
 StartI2C: .macro
           lda SaveGameSlot
           jsr i2cStartWrite
+          bcc +
+          brk
++
           .endm
 
           .else
