@@ -9,6 +9,8 @@ StartNewGame:          .block
 
           .mvx s, #$ff              ; destroy stack. We are here to stay.
 
+          .mvy Potions, # 0     ; clear potions value, can be altered by KINGME cheat
+
           ;; Need to set NameEntryBuffer+0 ← $ff to indicate that
           ;; we're starting a new name entry.
           stx NameEntryBuffer
