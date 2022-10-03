@@ -252,6 +252,8 @@ Leave:
           sty Score + 1
           sty Score + 2
 
+          .mva Potions, #$99
+
           .mvx SignpostIndex, # 29 ; NewGamePlusGo
           jmp Signpost
 ;;; 
