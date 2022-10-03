@@ -6,10 +6,19 @@ WinnerFireworks:    .block
 
 ;;; 
 NewGamePlus:
+          lda Potions
+          pha
           .mva Potions, #$80 | 25
 
           lda CurrentGrizzard
           pha                   ; CurrentGrizzard
+
+          lda Score + 2
+          pha
+          lda Score + 1
+          pha
+          lda Score
+          pha
 
           .mvy Score, # 0
           sty Score + 1
@@ -60,11 +69,18 @@ ResetProvinceFlags:
           sty CurrentProvince
 
 WipeProvinceFlags:
-          ldx # 8
+          ldx # 7
 Wipe8Bytes:
           sta ProvinceFlags - 1, x
           dex
           bne Wipe8Bytes
+          lda #$ff
+          sta ProvinceFlags + 7
+
+          lda # 80              ; Player start position
+          sta BlessedX
+          lda # 25
+          sta BlessedY
 
           .WaitScreenBottom
 
@@ -79,6 +95,12 @@ Wipe8Bytes:
           ;; Save global data, also save province 0 as zeroes
           .FarJSR SaveKeyBank, ServiceSaveToSlot
 ;;; 
+          pla
+          sta Score
+          pla
+          sta Score + 1
+          pla
+          sta Score + 2
 AnnounceWin:
           .mva NextSound, #SoundRoar
 
@@ -111,6 +133,9 @@ NotCaught:
 
           pla                   ; CurrentGrizzard
           sta CurrentGrizzard
+
+          pla
+          sta Potions
 
           ;; First, save everything, then pull the user's name for the message text
           ;; SaveToSlot starts _and ends_ with WaitScreenBottom calls.
@@ -224,6 +249,12 @@ Leave:
 
           stx WSYNC
           stx WSYNC
+
+          .mvy Score, # 0
+          sty Score + 1
+          sty Score + 2
+
+          .mva Potions, #$99
 
           .mvx SignpostIndex, # 29 ; NewGamePlusGo
           jmp Signpost

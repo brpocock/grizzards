@@ -144,7 +144,11 @@
           .if DEMO
             SaveGameSignature = "griz1"
           .else
-            SaveGameSignature = "griz0"
+            .if ATARIAGESAVE
+              SaveGameSignature = "griza"
+            .else
+              SaveGameSignature = "griz0"
+            .fi
           .fi
           .enc "none"
 ;;; 

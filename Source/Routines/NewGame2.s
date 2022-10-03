@@ -12,21 +12,32 @@ WipeGrizzards:
 
           .StartI2C
 
-          lda #$40
-          ldx # 12 * 5
+          lda CurrentGrizzard
+          pha
+
+          WipeGrizzard = CurrentGrizzard
+
+          .mva WipeGrizzard, #$40
+Wipe16Bytes:
+          ldx #$10
+          lda WipeGrizzard
           jsr WipeSome
 
           jsr ChangeAddress
 
-          lda #$80
-          ldx # 12 * 5
+          lda WipeGrizzard
+          clc
+          adc #$10
+          cmp #$e0
+          sta WipeGrizzard
+          blt Wipe16Bytes
+
+          lda #$e0
+          ldx # 4
           jsr WipeSome
 
-          jsr ChangeAddress
-
-          lda #$c0
-          ldx # 7 * 5
-          jsr WipeSome
+          pla
+          sta CurrentGrizzard
 
           jsr i2cStopWrite
           jsr i2cWaitForAck
