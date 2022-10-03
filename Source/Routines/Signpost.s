@@ -43,7 +43,7 @@ IndexReady:
 
 BankDown:
           .if BANK > SignpostBank
-            stx BankSwitch0 + BANK - 1
+            nop BankSwitch0 + BANK - 1
           .else
             brk                 ; cross-bank alignment!
             brk
@@ -57,7 +57,7 @@ NoBankDown:
 
 BankUp:
           .if BANK < SignpostBank + SignpostBankCount - 1
-            stx BankSwitch0 + BANK + 1
+            nop BankSwitch0 + BANK + 1
           .else
             brk                 ; cross-bank alignment!
             brk
