@@ -266,7 +266,7 @@ Leave:
 
           cmp #ModeWinnerFireworks
           .if BANK == $0c
-            beq WinnerFireworks
+            beq StartFireworks
           .else
             beq Break
           .fi
@@ -276,7 +276,20 @@ Leave:
 
 Break:
           brk
+;;; 
+          .if BANK == $0c
+StartFireworks:     
+            ldx SignpostIndex
+            cpx # 114 - FirstSignpost
+            beq WinnerFireworks.AnnounceWin
 
+            cpx # 108 - FirstSignpost
+            blt WinnerFirefowks
+
+            cpx # 112 - FirstSignpost + 1
+            bge WinnerFireworks
+            glt WinnerFireworks.AnnounceWin
+          .fi
 ;;; 
 ByeBye:
           .mvy CurrentUtterance, # 0
