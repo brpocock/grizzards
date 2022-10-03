@@ -1,0 +1,156 @@
+Save game file: WETNAS
+ - Starts on narrow screen with vertical path
+ - Score = ABC001
+ - Select (or C) to confirm Grizzard is Dirtex
+ - To the left, you can capture Wetnas
+ - Select (or C) to confirm Grizzard is Wetnas
+ - Travel one screen south; enter door (to Lost Mine)
+ - Background music changes to “underworld” theme
+ - Press Game Reset
+ - Select again the same slot to resume
+ - Resumes on narrow path screen
+ - Select/C to confirm Grizzard is Dirtex
+ - Wetnas should not appear on screen
+ - Travel north one screen, east two, (Treble Village square)
+ - Enter door
+ - Touch Depot
+ - Press up/down, confirm Dirtex and Wetnas are both present
+ - Game Reset
+ - Navigate to WETNAS slot
+ - press joystick: up, up, down, down, left, right, left, right
+ - hear “combat won” jingle
+ - press Fire to resume
+ - Score now starts with “F”
+ - Select/C: Grizzard is Megax
+
+Save game file: UNERAS
+
+From Select Slot:
+ - Both Difficulty Switches to “A”
+ - Pull back on joystick; while holding, press and hold button.
+ - screen should show slot name as UNERAS
+ - push forward to un-erase
+ - Slot should show BEGIN UNERAS
+ - Press Fire to begin
+ - Starts on first screen with score = ABC002
+ - Select/C: Grizzard is Airex
+ - Game Reset
+ - Navigate to slot UNERAS
+ - Pull back on joystick; while holding, press and hold button
+ - screen should offer to ERASE, push forward on stick
+ - Confirmation appears; choose ERASE
+ - Slot shows BEGIN option on that slot now
+ - press fire, enter any name (eg: AAAAAA)
+ - pick Aquax or Dirtex
+ - DO NOT confirm, instead, press Reset
+ - navigate to slot, it should still save BEGIN
+ - pull back on stick, press and hold button
+ - Unerase the file again
+ - Start playing
+ - Should be on first screen, score ABC002, with Airex
+
+Save game file: TUNNEL
+ - Start at tunnel entrance, only exit is north
+ - Score ABC003
+ - Walk over, talk to (ram into) lady
+ - NOW THAT YOU BROUGHT THEM I CAN OPEN THE TUNNELS TO ANCHOR
+ - screen changes so that there is an opening to the left
+
+Save game file: MCBOAT
+ - Start at Treble Docks
+ - Score ABC004
+ - Walk over to Signpost (ignore man)
+ - TREBLE DOCKS: A SHIP IS HERE, GOING TO PORT LION. WANT TO GO?
+ - BOARD
+ - THE SHIP TO PORT LION IS DEPARTING. ALL ABOARD!
+ - Ocean waves sound effect, appear on dock at Port Lion
+ - Background music is different (Port Lion theme)
+ - Walk one screen west (signpost there)
+ - Walk three screens north (green house)
+ - Walk one more north (brown house)
+ - Walk three screens west (orangey house)
+ - Enter house
+ - Touch Depot to save
+ - Game Reset
+ - go through Select Slot to resume same game
+ - Restart inside of orange house
+
+Save game file: DRAGON
+ - Start in dragon's lair
+ - Music is Port Lion theme
+ - Score ABC005
+ - Touch Depot; PLAYED MANY HOURS
+ - Select/C confirm Grizzard is Megax with 255's on all stats
+ - Walk to screen north (big empty boss fight arena)
+ - Walk over, touch “Jolly Green Giant” boss icon
+ - Boss fight begins. Sorry, no fast forward or real cheating available.
+ - Defeat the dragon. (Spamming MEGA KILL will probs work)
+ - You will probably end the battle with less than Max HP.
+ - Screen goes to black.
+ - After a second, “footsteps approach” sound effect
+ - Boss Bear graphic appears
+ - BOSS BEAR caption
+ - Immediately begin Boss Bear battle with ominous sound effect
+ - Select/C to confirm you start this battle with Max HP again
+ - Press Game Reset
+ - Start over at Depot below dragon's lair
+
+Extended test…
+ - Defeat dragon again, continue into Boss Bear fight.
+ - Defeat Boss Bear. (Possibly just use MEGA KILL and LIFE RETURN)
+ - YOU HAVE HIT THE FINAL BLOW OF THE BATTLE! THE BOSS BEAR …
+ - DRAGON WON! screen
+ - Score: 999999
+ - Should NOT say “AGAIN!”
+ - Dead bear graphic
+ - CAUGHT 02
+ - Press Game Reset
+ - NEW GAME PLUS BEGINS NOW
+ - Save at Depot
+ - Press up/down. Should have now Dirtex, Aquax, Airex, and Megax
+ - Wait through Attract sequence; HIGH SCORE DRAGON WON! 999999
+ - Go to Select Slot
+ - Power off
+ - Hold Select & Reset
+ - Power on; note: No special feedback occurs.
+ - Wait through Attract sequence; no High Score display
+
+Save game file: SECRET
+ - Start on top of Red Cliffs (Port Lion music)
+ - Score: ABC006
+ - Select/C: Grizzard is Dirtex
+ - Walk to left (into wall)
+ - Reappear in black-and-white room with door
+ - Two Grizzards are here (Aquax, Airex), catch both
+ - Walk off screen in any direction
+ - Identical screen, but with a wandering signpost
+ - <BUILD INFO> screen appears
+ - Speech: “It's a secret to everyone. Congrats on finding it.”
+ - Walk off screen in any direction
+ - Back to screen with only door now
+ - Walk through door; appear in orange house with Depot
+
+------------------------------------------------------------------------
+
+Save game file: PTLION
+ - Start in Port Lion orange house
+ - Talk to everyone EXCEPT Miranda (red house just south of orange one)
+ - Avoid southeast corner of Sue's house
+ - Talk to Miranda last, she's lost her mirror
+ - Travel to north beach, northeast corner
+ - Talk to fisherman, he complains about monsters
+ - Defeat monsters on that screen
+ - Talk to fisherman, he advises Sue's house
+ - Talk to Gary, he denies knowledge
+ - Return to Sue's house, southeast corner, find mirror
+ - Talk to Gary
+ - Talk to Miranda, twice in a row.
+ - Talk to Gary once more
+ - Travel to Red Cliffs west screen, talk to Fat Tony
+ - Talk to Fisherman
+ - Talk to Fat Tony
+ - “animation” of magic ray occurs for about 2 sec.
+ - Talk to Fat Tony
+ - Enter Labyrinth
+ - Music is underworld theme, same as Lost Mine
+
