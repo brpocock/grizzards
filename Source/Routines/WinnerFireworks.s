@@ -66,6 +66,11 @@ Wipe8Bytes:
           dex
           bne Wipe8Bytes
 
+          lda # 80              ; Player start position
+          sta BlessedX
+          lda # 25
+          sta BlessedY
+
           .WaitScreenBottom
 
           ;; Save Province 1 as zeroes
