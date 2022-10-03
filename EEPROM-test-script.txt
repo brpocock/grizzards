@@ -1,3 +1,17 @@
+Attract sequence:
+ - Note which Grizzard appears on title screen
+ - Wait for “story” (combat) screen, not which monster appears.
+ - Wait out the rotation through the attract sequence
+ - Different Grizzard should occur.
+  (rotation is Dirtex → Aquax → Airex → Dirtex)
+ - Wait for story, should be different monster.
+  (MAY be the same monster, an  it's randomly selected, but there are 16
+    monsters from which to choose, so it's relatively unlikely.)
+
+VALIDATES: random  number generator,  attract sequence,  bank switching,
+drawing  starter  Grizzards and  combat  version  of Grizzards,  drawing
+monster groups and boss monsters, 12 char interlaced text display.
+
 Save game file: WETNAS
  - Starts on narrow screen with vertical path
  - Score = ABC001
@@ -9,7 +23,6 @@ Save game file: WETNAS
  - Press Game Reset
  - Select again the same slot to resume
  - Resumes on narrow path screen
- - Select/C to confirm Grizzard is Dirtex
  - Wetnas should not appear on screen
  - Travel north one screen, east two, (Treble Village square)
  - Enter door
@@ -21,7 +34,10 @@ Save game file: WETNAS
  - hear “combat won” jingle
  - press Fire to resume
  - Score now starts with “F”
- - Select/C: Grizzard is Megax
+ - Depot: now have Dirtex, Wetnas, and Megax
+
+VALIDATES:  detecting  Grizzard  has  been  caught,  catching  Grizzard,
+changing provinces via door, “Konami code” cheat, switching Grizzards.
 
 Save game file: UNERAS
 
@@ -49,12 +65,18 @@ From Select Slot:
  - Start playing
  - Should be on first screen, score ABC002, with Airex
 
+VALIDATES: Un-erasing  a saved  game accidentally erased;  erasing game;
+starting new game does not overwrite erased game until confirmed.
+
 Save game file: TUNNEL
  - Start at tunnel entrance, only exit is north
  - Score ABC003
  - Walk over, talk to (ram into) lady
  - NOW THAT YOU BROUGHT THEM I CAN OPEN THE TUNNELS TO ANCHOR
  - screen changes so that there is an opening to the left
+
+VALIDATES:   Saving/loading  province   data,   special  transition   of
+tunnels opening.
 
 Save game file: MCBOAT
  - Start at Treble Docks
@@ -74,6 +96,9 @@ Save game file: MCBOAT
  - Game Reset
  - go through Select Slot to resume same game
  - Restart inside of orange house
+
+VALIDATES:  changing  provinces by  sailing,  saving  game in  different
+province
 
 Save game file: DRAGON
  - Start in dragon's lair
@@ -95,6 +120,11 @@ Save game file: DRAGON
  - Press Game Reset
  - Start over at Depot below dragon's lair
 
+VALIDATES: MANY  HOURS display,  boss fight  with third  dragon triggers
+Boss Bear,  “Reveal Boss Bear”  “cut scene,”  Grizzard healed to  Max HP
+before Boss Bear fight, able to  resume with third dragon if defeated or
+reset during Boss Bear fight.
+
 Extended test…
  - Defeat dragon again, continue into Boss Bear fight.
  - Defeat Boss Bear. (Possibly just use MEGA KILL and LIFE RETURN)
@@ -104,16 +134,25 @@ Extended test…
  - Should NOT say “AGAIN!”
  - Dead bear graphic
  - CAUGHT 02
- - Press Game Reset
+ - Press Fire to begin credits loop
+ - At any time, press Game Reset
  - NEW GAME PLUS BEGINS NOW
+ - Character should be near center-left (same as new game)
  - Save at Depot
  - Press up/down. Should have now Dirtex, Aquax, Airex, and Megax
  - Wait through Attract sequence; HIGH SCORE DRAGON WON! 999999
  - Go to Select Slot
+ - DRAGON slot now appears in yellow
  - Power off
  - Hold Select & Reset
  - Power on; note: No special feedback occurs.
  - Wait through Attract sequence; no High Score display
+
+VALIDATES:  Winning sequence,  (you)  WON! screen,  high score  setting,
+Grizzards Caught  display, New  Game Plus triggers,  resetting character
+position for New  Game Plus, adding other two Starter  Grizzards for New
+Game  Plus, Attract  sequence displays  high score,  New Game  Plus slot
+shows in yellow, erasing high score record
 
 Save game file: SECRET
  - Start on top of Red Cliffs (Port Lion music)
@@ -130,11 +169,13 @@ Save game file: SECRET
  - Back to screen with only door now
  - Walk through door; appear in orange house with Depot
 
-------------------------------------------------------------------------
+VALIDATES: Secret room, catching Starter Grizzards
 
 Save game file: PTLION
  - Start in Port Lion orange house
  - Talk to everyone EXCEPT Miranda (red house just south of orange one)
+ - Nobody must mention mirror, especially not Gary.
+  (He should moan about Miranda talking about legends)
  - Avoid southeast corner of Sue's house
  - Talk to Miranda last, she's lost her mirror
  - Travel to north beach, northeast corner
@@ -154,3 +195,5 @@ Save game file: PTLION
  - Enter Labyrinth
  - Music is underworld theme, same as Lost Mine
 
+VALIDATES:   Miranda/Mirror/Magic  Ring   quest  sequence,   Magic  Ring
+“animation,” transition between provinces via door.
