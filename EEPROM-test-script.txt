@@ -1,16 +1,19 @@
-Attract sequence:
- - Note which Grizzard appears on title screen
- - Wait for “story” (combat) screen, not which monster appears.
- - Wait out the rotation through the attract sequence
- - Different Grizzard should occur.
-  (rotation is Dirtex → Aquax → Airex → Dirtex)
- - Wait for story, should be different monster.
-  (MAY be the same monster, an  it's randomly selected, but there are 16
-    monsters from which to choose, so it's relatively unlikely.)
+Test Script
+Takes advantage of “pre-loaded” EEPROM for some tests
 
-VALIDATES: random  number generator,  attract sequence,  bank switching,
-drawing  starter  Grizzards and  combat  version  of Grizzards,  drawing
-monster groups and boss monsters, 12 char interlaced text display.
+------------------------------------------------------------------------
+
+Log failures as new issues at:
+
+https://github.com/brpocock/grizzards/issues/new
+
+Put a short description  of the failing step as the  title, any notes in
+the Comments  box, in right margin  assign to @brpocock, set  labels Bug
+and Hardware, Project Grizzards, Milestone AtariAge.
+
+------------------------------------------------------------------------
+
+SCRIPT 1.
 
 Save game file: WETNAS
  - Starts on narrow screen with vertical path
@@ -38,6 +41,10 @@ Save game file: WETNAS
 
 VALIDATES:  detecting  Grizzard  has  been  caught,  catching  Grizzard,
 changing provinces via door, “Konami code” cheat, switching Grizzards.
+
+
+
+SCRIPT 2.
 
 Save game file: UNERAS
 
@@ -78,6 +85,9 @@ Save game file: TUNNEL
 VALIDATES:   Saving/loading  province   data,   special  transition   of
 tunnels opening.
 
+
+SCRIPT 3.
+
 Save game file: MCBOAT
  - Start at Treble Docks
  - Score ABC004
@@ -99,6 +109,10 @@ Save game file: MCBOAT
 
 VALIDATES:  changing  provinces by  sailing,  saving  game in  different
 province
+
+
+
+SCRIPT 4.
 
 Save game file: DRAGON
  - Start in dragon's lair
@@ -124,6 +138,10 @@ VALIDATES: MANY  HOURS display,  boss fight  with third  dragon triggers
 Boss Bear,  “Reveal Boss Bear”  “cut scene,”  Grizzard healed to  Max HP
 before Boss Bear fight, able to  resume with third dragon if defeated or
 reset during Boss Bear fight.
+
+
+
+SCRIPT 4A.
 
 Extended test…
  - Defeat dragon again, continue into Boss Bear fight.
@@ -154,6 +172,10 @@ position for New  Game Plus, adding other two Starter  Grizzards for New
 Game  Plus, Attract  sequence displays  high score,  New Game  Plus slot
 shows in yellow, erasing high score record
 
+
+
+SCRIPT 5.
+
 Save game file: SECRET
  - Start on top of Red Cliffs (Port Lion music)
  - Score: ABC006
@@ -170,6 +192,10 @@ Save game file: SECRET
  - Walk through door; appear in orange house with Depot
 
 VALIDATES: Secret room, catching Starter Grizzards
+
+
+
+SCRIPT 6.
 
 Save game file: PTLION
  - Start in Port Lion orange house
@@ -197,3 +223,210 @@ Save game file: PTLION
 
 VALIDATES:   Miranda/Mirror/Magic  Ring   quest  sequence,   Magic  Ring
 “animation,” transition between provinces via door.
+
+
+
+SCRIPT 8.
+
+Hardware detection / Pause feature
+ - Boot up on 2600 with Joy2b+ controller
+ - Start/resume any game file.
+ - Switch Color/B&W switch to B&W
+ - Game pauses
+ - Toggle back to Color
+ - Game resumes
+ - Press III on gamepad
+ - Game pauses
+ - Press III on gamepad
+ - Game resumes
+ - Press III on gamepad
+ - Game pauses
+ - Toggle to B&W
+ - Game remains paused
+ - Toggle to Color
+ - Game resumes
+ - Press II on gamepad
+ - Stats appear
+ - Press I on gamepad
+ - Stats clear
+ - Press I again
+ - USE POTIONS screen appears.
+
+Also
+ - Boot up on 7800 with Joy2b+ controller
+ - Start/resume any game file
+ - Press Pause on console
+ - Game pauses
+ - Press Pause on console again
+ - Game resumes
+ - Press III on gamepad
+ - Game pauses
+ - Press Pause on console
+ - Game resumes
+ - Press Pause on console
+ - Game pauses
+ - Press III on gamepad
+ - Game resumes
+
+VALIDATES: 2600/7800 detection, Joy2b+ functionality, Joy2b+ not getting
+“stuck” on 7800 due to ProLine mode (regression: #422)
+
+Once validated: Close #529 with comment please.
+
+
+
+SCRIPT 8.
+
+Attract sequence:
+ - Note which Grizzard appears on title screen
+ - Wait for “story” (combat) screen, not which monster appears.
+ - Wait out the rotation through the attract sequence
+ - Different Grizzard should occur.
+  (rotation is Dirtex → Aquax → Airex → Dirtex)
+ - Wait for story, should be different monster.
+  (MAY be the same monster, an  it's randomly selected, but there are 16
+    monsters from which to choose, so it's relatively unlikely.)
+
+VALIDATES: random  number generator,  attract sequence,  bank switching,
+drawing  starter  Grizzards and  combat  version  of Grizzards,  drawing
+monster groups and boss monsters, 12 char interlaced text display.
+
+
+
+SCRIPT 9.
+
+EXHAUSTIVE WALKTHROUGH
+
+As needed  in this  process, return  to Depot,  use potions,  and battle
+other minor monsters as you encounter them to gain XP / raise your levels.
+
+ - Start new game.
+ - Register name.
+ - Pick Grizzard.
+ - Confirm. Appear in “your house”
+ - Walk out door.
+ - Talk to NPC near signpost.
+ - NPC disappears after speaking.
+ - Score increments to 000,003 points.
+ - Walk east one screen.
+ - Read sign (FIRE BOG)
+ - Encounter any monsters
+ - Attempt to battle them
+ - Continue battling monsters on this screen until defeated
+ - GAME OVER. Score should be at least 000,003
+   (may be higher if you defeated any monsters)
+ - Resume same game slot.
+ - Start in your house
+ - Score is back to 000,000
+ - Exit house
+ - NPC is back
+ - Talk to NPC, they vanish, score goes to 000,003
+ - Go back into door
+ - Touch Depot
+ - Leave Depot, leave house
+ - Go east one screen, battle monsters until dying.
+ - Resume same game slot.
+ - Score is 000,003
+ - exit house
+ - NPC is missing
+ - go west
+ - battle slimes and win
+ - talk to lover
+ - return east
+ - enter door
+ - take not of score.
+ - touch Depot
+ - Game Reset
+ - resume same slot
+ - score is as expected.
+ - exit house
+ - go west
+ - monster is not present
+ - go west 2 screens
+ - check sign, there should NOT be any ship in port.
+ - talk to man on dock
+ - reply SOUTH
+ - he mentions tunnels.
+ - talk to man again
+ - when options for reply come up, press Left
+ - man repeats himself
+ - reply WEST
+ - he talks about needing a radio to call for a ship
+ - return to Depot and save
+ - exit house, go west 2 screens to T-junction screen
+ - go south one screen
+ - defeat Horrid Slimes blocking the path
+ - catch Wetnas
+ - return to Depot, swap for Starter
+ - continue south 2 screens
+ - talk to man, he's planning to close up shop
+ - return to Depot and save
+ - travel back: out door, west 2 screens, south 2 screens
+ - from screen with signpost/door, go east two screens
+ - battle either one of the two monsters blocking the path
+ - continue a screen east, and then south
+ - talk to lady
+ - don't help
+ - she still begs for help
+ - talk to her again
+ - HELP
+ - travel north one screen, east one, north one
+ - talk to man, he complains about monsters
+ - defeat monsters (both of them)
+ - talk to man, get artifact
+ - talk again, get message about “hope it helps”
+ - return south, west, south to tunnel lady
+ - talk to her, she does NOT open tunnels yet
+ - travel north 3 screens, east one
+ - catch Flamex
+ - talk to man, obtain artifact 2
+ - west one screen, south 3, to tunnel lady
+ - now she will open tunnels
+ - west two screens to depot, swap back to starter
+ - by now, it's likely your starter will have metamorphosed
+ - you may need to wander the Fire Bogs and east/west road
+   to build up XP and learn some good Moves with new Grizzard
+ - from the tunnel Depot, travel east one screen, south one
+ - signs should block path south
+ - one screen west
+ - defeat the Grue
+ - return to center of tunnels, signs are gone
+ - south two screens to fields, wander around
+ - talk to everyone in town, particularly ensure:
+   → get broken radio
+   → learn pattern for Lost Mine
+   → meet retired Grizzard trainer
+   → get note from lover
+ - return through tunnels to entrance, then north, east twice
+ - follow spiral around in woods: north, then east, then south.
+ - after turning west, the first east-west screen has no monsters.
+ - explore that screen until you find the lost pendant
+ - continue west, north, and east
+ - pick up Windoo, visit Depot
+ - circle your way back out of woods, continue west along long road
+ - when you reach the Lost Mine, enter and continue west
+ - when you reach the first screen with exits on every side,
+   wander around a while
+ - travel east 1-2 screens to return to east-west passages
+ - travel back west to first four-way room
+ - follow directions from Anchor (down, up, down, right)
+ - catch Splodo, visit Depot
+ - east to exit Mine
+ - south from mine entrance to radio guy
+ - talk to man, he fixes radio
+ - talk to him again, he leaves
+ - back east, then south through tunnels to Anchor
+ - return radio, she calls for a ship
+ - return pendant, get key
+ - talk to her again to learn what key is for
+ - go north to screen which now has Depot and door
+ - enter door, catch 3 Grizzards
+ - visit Depot
+ - return all the way to Treble village
+ - talk to lover (between docks and town square)
+ - go west to docks
+ - signpost allows you to board a ship
+ - ocean sounds
+ - Fat Tony is good at geography
+ - … do some more things.
+ - win.
