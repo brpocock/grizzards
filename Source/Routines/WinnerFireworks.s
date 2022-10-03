@@ -11,6 +11,13 @@ NewGamePlus:
           lda CurrentGrizzard
           pha                   ; CurrentGrizzard
 
+          lda Score + 2
+          pha
+          lda Score + 1
+          pha
+          lda Score
+          pha
+
           .mvy Score, # 0
           sty Score + 1
           sty Score + 2
@@ -84,6 +91,12 @@ Wipe8Bytes:
           ;; Save global data, also save province 0 as zeroes
           .FarJSR SaveKeyBank, ServiceSaveToSlot
 ;;; 
+          pla
+          sta Score
+          pla
+          sta Score + 1
+          pla
+          sta Score + 2
 AnnounceWin:
           .mva NextSound, #SoundRoar
 
