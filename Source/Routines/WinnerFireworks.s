@@ -243,6 +243,10 @@ Leave:
           stx WSYNC
           stx WSYNC
 
+          .mvy Score, # 0
+          sty Score + 1
+          sty Score + 2
+
           .mvx SignpostIndex, # 29 ; NewGamePlusGo
           jmp Signpost
 ;;; 
