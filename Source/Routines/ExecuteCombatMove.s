@@ -193,6 +193,9 @@ IncrementScore:
           bcc ScoreNoCarry2
 
           lda Score + 2
+          cmp #$f0              ; Jatibu sets this as a flag
+          bge ScoreNoCarry2
+
           adc # 0
           bcc ScoreNoCarry
 
