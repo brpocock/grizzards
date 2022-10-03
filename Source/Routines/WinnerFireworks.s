@@ -69,11 +69,13 @@ ResetProvinceFlags:
           sty CurrentProvince
 
 WipeProvinceFlags:
-          ldx # 8
+          ldx # 7
 Wipe8Bytes:
           sta ProvinceFlags - 1, x
           dex
           bne Wipe8Bytes
+          lda #$ff
+          sta ProvinceFlags + 7
 
           lda # 80              ; Player start position
           sta BlessedX
