@@ -10,9 +10,6 @@ NewGamePlus:
           pha
           .mva Potions, #$80 | 25
 
-          lda CurrentGrizzard
-          pha                   ; CurrentGrizzard
-
           lda Score + 2
           pha
           lda Score + 1
@@ -57,7 +54,7 @@ GrizzardCheckup:
           gne GrizzardCheckup
 
 ValidGrizzardToBeCurrent:
-          .FarJSR SaveKeyBank, ServiceLoadGrizzard
+          pha                   ; valid Grizzard
 ;;; 
 ResetProvinceFlags:
           ldy # 0               ; XXX necessary?
@@ -131,8 +128,9 @@ NotCaught:
           cmp # 30
           blt CheckCaughtLoop
 
-          pla                   ; CurrentGrizzard
+          pla                   ; valid CurrentGrizzard
           sta CurrentGrizzard
+          .FarJSR SaveKeyBank, ServiceLoadGrizzard
 
           pla
           sta Potions
