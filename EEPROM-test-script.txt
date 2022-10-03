@@ -164,7 +164,7 @@ Save game file: SECRET
  - Walk off screen in any direction
  - Identical screen, but with a wandering signpost
  - <BUILD INFO> screen appears
- - Speech: “It's a secret to everyone. Congrats on finding it.”
+ - Speech: “It's a secret to everyone.”
  - Walk off screen in any direction
  - Back to screen with only door now
  - Walk through door; appear in orange house with Depot
