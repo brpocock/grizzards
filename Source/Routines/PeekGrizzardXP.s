@@ -24,6 +24,6 @@ PeekGrizzardXP:       .block
           jsr i2cRxByte         ; Defend
           jsr i2cRxByte         ; XP
           beq PeekGrizzard.NoGrizzard
-          bne PeekGrizzard.FoundGrizzard
+          gne PeekGrizzard.FoundGrizzard
 
           .bend
