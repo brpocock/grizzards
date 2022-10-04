@@ -1,0 +1,481 @@
+Test Script
+Takes advantage of “pre-loaded” EEPROM for some tests
+
+------------------------------------------------------------------------
+
+Log failures as new issues at:
+
+https://github.com/brpocock/grizzards/issues/new
+
+Put a short description  of the failing step as the  title, any notes in
+the Comments  box, in right margin  assign to @brpocock, set  labels Bug
+and Hardware, Project Grizzards, Milestone AtariAge.
+
+------------------------------------------------------------------------
+
+Specific regression test on clearing save game slots
+
+Load CHEAT build onto PlusCart (or EPROM)
+
+   * Zephyr: Ask Bruce-Robert to push the cheat build, then load it from
+     the same spot (Grizzards/Grizzards.NTSC.EF) in the PlusCart menu as
+     you  would  load  the  usual  game.  After  testing  this  §,  have
+     Bruce-Robert push back  the MAIN branch build  without the cheating
+     signpost on it, for other tests.
+
+ - Navigate to a blank slot
+ - Start new game
+ - Leave house into Treble Square
+ - Visit Signpost
+ - You won!
+ - Game Reset
+ - Visit Depot
+ - Should have all 3 starters
+ - Game Reset
+ - Button I (or II) for Select Slot screen
+ - Go to new game's slot
+ - Difficulty Switches both to A (right on 7800) position
+ - Press down on D-pad, and hold; press button I, and hold.
+ - While holding Button I, press up on D-pad.
+ - Yes, ERASE slot.
+ - In SAME slot, press button I to start new game
+ - Visit Depot
+ - Confirm that you have only the one Grizzard
+ - Game Reset
+ - Erase save game slot again
+ - Begin to start new game, but enter name as KINGME
+ - Pick any Grizzard
+ - You'll be prompted for name again, enter something else
+ - Pick a different Grizzard
+ - Confirm to begin
+ - Visit Depot. You should have all three Starters
+ - Game Reset
+ - Save game slot should be gold (New Game Plus)
+ - Erase slot AGAIN
+ - Start new game, do not KINGME.
+ - Visit Depot, have only one Grizzard you chose
+ - Return to Map screen
+ - Press Button I, you have no potions.
+
+VALIDATES: New  game clearing save  game memory and Grizzards  list, New
+Game Plus, KINGME cheat.
+
+------------------------------------------------------------------------
+
+SCRIPT 1.
+
+Save game file: WETNAS
+ - Starts on narrow screen with vertical path
+ - Score = ABC001
+ - Select (or C) to confirm Grizzard is Dirtex
+ - To the left, you can capture Wetnas
+ - Select (or C) to confirm Grizzard is Wetnas
+ - Travel one screen south; enter door (to Lost Mine)
+ - Background music changes to “underworld” theme
+ - Press Game Reset
+ - Select again the same slot to resume
+ - Resumes on narrow path screen
+ - Wetnas should not appear on screen
+ - Travel north one screen, east two, (Treble Village square)
+ - Enter door
+ - Touch Depot
+ - Press up/down, confirm Dirtex and Wetnas are both present
+ - Game Reset
+ - Navigate to WETNAS slot
+ - press joystick: up, up, down, down, left, right, left, right
+ - hear “combat won” jingle
+ - press Fire to resume
+ - Score now starts with “F”
+ - Depot: now have Dirtex, Wetnas, and Megax
+
+VALIDATES:  detecting  Grizzard  has  been  caught,  catching  Grizzard,
+changing provinces via door, “Konami code” cheat, switching Grizzards.
+
+
+
+SCRIPT 2.
+
+Save game file: UNERAS
+
+From Select Slot:
+ - Both Difficulty Switches to “A”
+ - Pull back on joystick; while holding, press and hold button.
+ - screen should show slot name as UNERAS
+ - push forward to un-erase
+ - Slot should show BEGIN UNERAS
+ - Press Fire to begin
+ - Starts on first screen with score = ABC002
+ - Select/C: Grizzard is Airex
+ - Game Reset
+ - Navigate to slot UNERAS
+ - Pull back on joystick; while holding, press and hold button
+ - screen should offer to ERASE, push forward on stick
+ - Confirmation appears; choose ERASE
+ - Slot shows BEGIN option on that slot now
+ - press fire, enter any name (eg: AAAAAA)
+ - pick Aquax or Dirtex
+ - DO NOT confirm, instead, press Reset
+ - navigate to slot, it should still save BEGIN
+ - pull back on stick, press and hold button
+ - Unerase the file again
+ - Start playing
+ - Should be on first screen, score ABC002, with Airex
+
+VALIDATES: Un-erasing  a saved  game accidentally erased;  erasing game;
+starting new game does not overwrite erased game until confirmed.
+
+Save game file: TUNNEL
+ - Start at tunnel entrance, only exit is north
+ - Score ABC003
+ - Walk over, talk to (ram into) lady
+ - NOW THAT YOU BROUGHT THEM I CAN OPEN THE TUNNELS TO ANCHOR
+ - screen changes so that there is an opening to the left
+
+VALIDATES:   Saving/loading  province   data,   special  transition   of
+tunnels opening.
+
+
+SCRIPT 3.
+
+Save game file: MCBOAT
+ - Start at Treble Docks
+ - Score ABC004
+ - Walk over to Signpost (ignore man)
+ - TREBLE DOCKS: A SHIP IS HERE, GOING TO PORT LION. WANT TO GO?
+ - BOARD
+ - THE SHIP TO PORT LION IS DEPARTING. ALL ABOARD!
+ - Ocean waves sound effect, appear on dock at Port Lion
+ - Background music is different (Port Lion theme)
+ - Walk one screen west (signpost there)
+ - Walk three screens north (green house)
+ - Walk one more north (brown house)
+ - Walk three screens west (orangey house)
+ - Enter house
+ - Touch Depot to save
+ - Game Reset
+ - go through Select Slot to resume same game
+ - Restart inside of orange house
+
+VALIDATES:  changing  provinces by  sailing,  saving  game in  different
+province
+
+
+
+SCRIPT 4.
+
+Save game file: DRAGON
+ - Start in dragon's lair
+ - Music is Port Lion theme
+ - Score ABC005
+ - Touch Depot; PLAYED MANY HOURS
+ - Select/C confirm Grizzard is Megax with 255's on all stats
+ - Walk to screen north (big empty boss fight arena)
+ - Walk over, touch “Jolly Green Giant” boss icon
+ - Boss fight begins. Sorry, no fast forward or real cheating available.
+ - Defeat the dragon. (Spamming MEGA KILL will probs work)
+ - You will probably end the battle with less than Max HP.
+ - Screen goes to black.
+ - After a second, “footsteps approach” sound effect
+ - Boss Bear graphic appears
+ - BOSS BEAR caption
+ - Immediately begin Boss Bear battle with ominous sound effect
+ - Select/C to confirm you start this battle with Max HP again
+ - Press Game Reset
+ - Start over at Depot below dragon's lair
+
+VALIDATES: MANY  HOURS display,  boss fight  with third  dragon triggers
+Boss Bear,  “Reveal Boss Bear”  “cut scene,”  Grizzard healed to  Max HP
+before Boss Bear fight, able to  resume with third dragon if defeated or
+reset during Boss Bear fight.
+
+
+
+SCRIPT 4A.
+
+Extended test…
+ - Defeat dragon again, continue into Boss Bear fight.
+ - Defeat Boss Bear. (Possibly just use MEGA KILL and LIFE RETURN)
+ - YOU HAVE HIT THE FINAL BLOW OF THE BATTLE! THE BOSS BEAR …
+ - DRAGON WON! screen
+ - Score: 999999
+ - Should NOT say “AGAIN!”
+ - Dead bear graphic
+ - CAUGHT 02
+ - Press Fire to begin credits loop
+ - At any time, press Game Reset
+ - NEW GAME PLUS BEGINS NOW
+ - Character should be near center-left (same as new game)
+ - Save at Depot
+ - Press up/down. Should have now Dirtex, Aquax, Airex, and Megax
+ - Wait through Attract sequence; HIGH SCORE DRAGON WON! 999999
+ - Go to Select Slot
+ - DRAGON slot now appears in yellow
+ - Power off
+ - Hold Select & Reset
+ - Power on; note: No special feedback occurs.
+ - Wait through Attract sequence; no High Score display
+
+VALIDATES:  Winning sequence,  (you)  WON! screen,  high score  setting,
+Grizzards Caught  display, New  Game Plus triggers,  resetting character
+position for New  Game Plus, adding other two Starter  Grizzards for New
+Game  Plus, Attract  sequence displays  high score,  New Game  Plus slot
+shows in yellow, erasing high score record
+
+
+
+SCRIPT 5.
+
+Save game file: SECRET
+ - Start on top of Red Cliffs (Port Lion music)
+ - Score: ABC006
+ - Select/C: Grizzard is Dirtex
+ - Walk to left (into wall)
+ - Reappear in black-and-white room with door
+ - Two Grizzards are here (Aquax, Airex), catch both
+ - Walk off screen in any direction
+ - Identical screen, but with a wandering signpost
+ - <BUILD INFO> screen appears
+ - Speech: “It's a secret to everyone.”
+ - Walk off screen in any direction
+ - Back to screen with only door now
+ - Walk through door; appear in orange house with Depot
+
+VALIDATES: Secret room, catching Starter Grizzards
+
+
+
+SCRIPT 6.
+
+Save game file: PTLION
+ - Start in Port Lion orange house
+ - Talk to everyone EXCEPT Miranda (red house just south of orange one)
+ - Nobody must mention mirror, especially not Gary.
+  (He should moan about Miranda talking about legends)
+ - Avoid southeast corner of Sue's house
+ - Talk to Miranda last, she's lost her mirror
+ - Travel to north beach, northeast corner
+ - Talk to fisherman, he complains about monsters
+ - Defeat monsters on that screen
+ - Talk to fisherman, he advises Sue's house
+ - Talk to Gary, he denies knowledge
+ - Return to Sue's house, southeast corner, find mirror
+ - Talk to Gary
+ - Talk to Miranda, twice in a row.
+ - Talk to Gary once more
+ - Travel to Red Cliffs west screen, talk to Fat Tony
+ - Talk to Fisherman
+ - Talk to Fat Tony
+ - “animation” of magic ray occurs for about 2 sec.
+ - Talk to Fat Tony
+ - Enter Labyrinth
+ - Music is underworld theme, same as Lost Mine
+
+VALIDATES:   Miranda/Mirror/Magic  Ring   quest  sequence,   Magic  Ring
+“animation,” transition between provinces via door.
+
+
+
+SCRIPT 7.
+
+Hardware detection / Pause feature
+ - Boot up on 2600 with Joy2b+ controller
+ - Start/resume any game file.
+ - Switch Color/B&W switch to B&W
+ - Game pauses
+ - Toggle back to Color
+ - Game resumes
+ - Press III on gamepad
+ - Game pauses
+ - Press III on gamepad
+ - Game resumes
+ - Press III on gamepad
+ - Game pauses
+ - Toggle to B&W
+ - Game remains paused
+ - Toggle to Color
+ - Game resumes
+ - Press II on gamepad
+ - Stats appear
+ - Press I on gamepad
+ - Stats clear
+ - Press I again
+ - USE POTIONS screen appears.
+
+Also
+ - Boot up on 7800 with Joy2b+ controller
+ - Start/resume any game file
+ - Press Pause on console
+ - Game pauses
+ - Press Pause on console again
+ - Game resumes
+ - Press III on gamepad
+ - Game pauses
+ - Press Pause on console
+ - Game resumes
+ - Press Pause on console
+ - Game pauses
+ - Press III on gamepad
+ - Game resumes
+
+VALIDATES: 2600/7800 detection, Joy2b+ functionality, Joy2b+ not getting
+“stuck” on 7800 due to ProLine mode (regression: #422)
+
+Once validated: Close #529 with comment please.
+
+
+
+SCRIPT 8.
+
+Attract sequence:
+ - Note which Grizzard appears on title screen
+ - Wait for “story” (combat) screen, not which monster appears.
+ - Wait out the rotation through the attract sequence
+ - Different Grizzard should occur.
+  (rotation is Dirtex → Aquax → Airex → Dirtex)
+ - Wait for story, should be different monster.
+  (MAY be the same monster, an  it's randomly selected, but there are 16
+    monsters from which to choose, so it's relatively unlikely.)
+
+VALIDATES: random  number generator,  attract sequence,  bank switching,
+drawing  starter  Grizzards and  combat  version  of Grizzards,  drawing
+monster groups and boss monsters, 12 char interlaced text display.
+
+
+
+SCRIPT 9.
+
+EXHAUSTIVE WALKTHROUGH
+
+As needed  in this  process, return  to Depot,  use potions,  and battle
+other minor monsters as you encounter them to gain XP / raise your levels.
+
+ - Start new game.
+ - Register name.
+ - Pick Grizzard.
+ - Confirm. Appear in “your house”
+ - Walk out door.
+ - Talk to NPC near signpost.
+ - NPC disappears after speaking.
+ - Score increments to 000,003 points.
+ - Walk east one screen.
+ - Read sign (FIRE BOG)
+ - Encounter any monsters
+ - Attempt to battle them
+ - Continue battling monsters on this screen until defeated
+ - GAME OVER. Score should be at least 000,003
+   (may be higher if you defeated any monsters)
+ - Resume same game slot.
+ - Start in your house
+ - Score is back to 000,000
+ - Exit house
+ - NPC is back
+ - Talk to NPC, they vanish, score goes to 000,003
+ - Go back into door
+ - Touch Depot
+ - Leave Depot, leave house
+ - Go east one screen, battle monsters until dying.
+ - Resume same game slot.
+ - Score is 000,003
+ - exit house
+ - NPC is missing
+ - go west
+ - battle slimes and win
+ - talk to lover
+ - return east
+ - enter door
+ - take not of score.
+ - touch Depot
+ - Game Reset
+ - resume same slot
+ - score is as expected.
+ - exit house
+ - go west
+ - monster is not present
+ - go west 2 screens
+ - check sign, there should NOT be any ship in port.
+ - talk to man on dock
+ - reply SOUTH
+ - he mentions tunnels.
+ - talk to man again
+ - when options for reply come up, press Left
+ - man repeats himself
+ - reply WEST
+ - he talks about needing a radio to call for a ship
+ - return to Depot and save
+ - exit house, go west 2 screens to T-junction screen
+ - go south one screen
+ - defeat Horrid Slimes blocking the path
+ - catch Wetnas
+ - return to Depot, swap for Starter
+ - continue south 2 screens
+ - talk to man, he's planning to close up shop
+ - return to Depot and save
+ - travel back: out door, west 2 screens, south 2 screens
+ - from screen with signpost/door, go east two screens
+ - battle either one of the two monsters blocking the path
+ - continue a screen east, and then south
+ - talk to lady
+ - don't help
+ - she still begs for help
+ - talk to her again
+ - HELP
+ - travel north one screen, east one, north one
+ - talk to man, he complains about monsters
+ - defeat monsters (both of them)
+ - talk to man, get artifact
+ - talk again, get message about “hope it helps”
+ - return south, west, south to tunnel lady
+ - talk to her, she does NOT open tunnels yet
+ - travel north 3 screens, east one
+ - catch Flamex
+ - talk to man, obtain artifact 2
+ - west one screen, south 3, to tunnel lady
+ - now she will open tunnels
+ - west two screens to depot, swap back to starter
+ - by now, it's likely your starter will have metamorphosed
+ - you may need to wander the Fire Bogs and east/west road
+   to build up XP and learn some good Moves with new Grizzard
+ - from the tunnel Depot, travel east one screen, south one
+ - signs should block path south
+ - one screen west
+ - defeat the Grue
+ - return to center of tunnels, signs are gone
+ - south two screens to fields, wander around
+ - talk to everyone in town, particularly ensure:
+   → get broken radio
+   → learn pattern for Lost Mine
+   → meet retired Grizzard trainer
+   → get note from lover
+ - return through tunnels to entrance, then north, east twice
+ - follow spiral around in woods: north, then east, then south.
+ - after turning west, the first east-west screen has no monsters.
+ - explore that screen until you find the lost pendant
+ - continue west, north, and east
+ - pick up Windoo, visit Depot
+ - circle your way back out of woods, continue west along long road
+ - when you reach the Lost Mine, enter and continue west
+ - when you reach the first screen with exits on every side,
+   wander around a while
+ - travel east 1-2 screens to return to east-west passages
+ - travel back west to first four-way room
+ - follow directions from Anchor (down, up, down, right)
+ - catch Splodo, visit Depot
+ - east to exit Mine
+ - south from mine entrance to radio guy
+ - talk to man, he fixes radio
+ - talk to him again, he leaves
+ - back east, then south through tunnels to Anchor
+ - return radio, she calls for a ship
+ - return pendant, get key
+ - talk to her again to learn what key is for
+ - go north to screen which now has Depot and door
+ - enter door, catch 3 Grizzards
+ - visit Depot
+ - return all the way to Treble village
+ - talk to lover (between docks and town square)
+ - go west to docks
+ - signpost allows you to board a ship
+ - ocean sounds
+ - Fat Tony is good at geography
+ - … do some more things.
+ - win.
