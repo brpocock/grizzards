@@ -19,9 +19,8 @@ Load CHEAT build onto PlusCart (or EPROM)
 
    * Zephyr: Ask Bruce-Robert to push the cheat build, then load it from
      the  same spot  (Grizzards/Grizzards.Cheating.EF)  in the  PlusCart
-     menu as you  would load the usual game. After  testing this §, have
-     Bruce-Robert push back  the MAIN branch build  without the cheating
-     signpost on it, for other tests.
+     menu as you  would load the usual game. After  testing this §, switch
+     back to Grizzards/Grizzards.NTSC.EF for the other tests.
 
  - Navigate to a blank slot
  - Start new game
