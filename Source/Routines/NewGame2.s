@@ -13,7 +13,7 @@ WipeGrizzards:
           .StartI2C
 
           lda CurrentGrizzard
-          pha
+          pha                   ; CurrentGrizzard
 
           WipeGrizzard = CurrentGrizzard
 
@@ -36,7 +36,7 @@ Wipe16Bytes:
           ldx # 4
           jsr WipeSome
 
-          pla
+          pla                   ; CurrentGrizzard
           sta CurrentGrizzard
 
           jsr i2cStopWrite

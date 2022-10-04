@@ -13,17 +13,17 @@ CheckForGrizzard:
           bne CheckForGrizzard
 
           lda SpriteParam, x
-          sta Temp
-          txa
-          pha
+          sta Temp              ; SpriteParam, x
+          txa                   ; sprite being validated
+          pha                   ; sprite begin validated
           .FarJSR SaveKeyBank, ServicePeekGrizzard
 
           bcc DidNotCatchGrizzardYet
 
 AlreadyCaughtGrizzard:
-          pla
-          pha
-          tax
+          pla                   ; sprite being validated
+          pha                   ; sprite being validated
+          tax                   ; sprite being validated
 
 ShiftSpritesDownOne:
           lda SpriteIndex + 1, x
@@ -51,8 +51,8 @@ ShiftSpritesDownOne:
           dec SpriteCount
 
 DidNotCatchGrizzardYet:
-          pla
-          tax
+          pla                   ; sprite being validated
+          tax                   ; sprite being validated
 
           jmp CheckForGrizzard
 ;;; 
