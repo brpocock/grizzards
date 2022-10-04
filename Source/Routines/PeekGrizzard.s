@@ -19,12 +19,11 @@ PeekGrizzard:       .block
           jsr i2cStartRead
 
           jsr i2cRxByte
-
           beq NoGrizzard        ; MaxHP = 0 = no Grizzard
 
+FoundGrizzard:
           jsr i2cStopRead
 
-          ;; Grizzard found!
           .mva Temp, #$80
           sec
           rts
