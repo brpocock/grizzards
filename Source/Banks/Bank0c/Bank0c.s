@@ -9,7 +9,7 @@
 DoLocal:
           .include "Signpost.s"
 
-          .align $10
+          .align $20
           .include "ShowPicture.s"
           .include "WinnerFireworks.s"
 
