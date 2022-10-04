@@ -13,6 +13,55 @@ and Hardware, Project Grizzards, Milestone AtariAge.
 
 ------------------------------------------------------------------------
 
+Specific regression test on clearing save game slots
+
+Load CHEAT build onto PlusCart (or EPROM)
+
+   * Zephyr: Ask Bruce-Robert to push the cheat build, then load it from
+     the same spot (Grizzards/Grizzards.NTSC.EF) in the PlusCart menu as
+     you  would  load  the  usual  game.  After  testing  this  §,  have
+     Bruce-Robert push back  the MAIN branch build  without the cheating
+     signpost on it, for other tests.
+
+ - Navigate to a blank slot
+ - Start new game
+ - Leave house into Treble Square
+ - Visit Signpost
+ - You won!
+ - Game Reset
+ - Visit Depot
+ - Should have all 3 starters
+ - Game Reset
+ - Button I (or II) for Select Slot screen
+ - Go to new game's slot
+ - Difficulty Switches both to A (right on 7800) position
+ - Press down on D-pad, and hold; press button I, and hold.
+ - While holding Button I, press up on D-pad.
+ - Yes, ERASE slot.
+ - In SAME slot, press button I to start new game
+ - Visit Depot
+ - Confirm that you have only the one Grizzard
+ - Game Reset
+ - Erase save game slot again
+ - Begin to start new game, but enter name as KINGME
+ - Pick any Grizzard
+ - You'll be prompted for name again, enter something else
+ - Pick a different Grizzard
+ - Confirm to begin
+ - Visit Depot. You should have all three Starters
+ - Game Reset
+ - Save game slot should be gold (New Game Plus)
+ - Erase slot AGAIN
+ - Start new game, do not KINGME.
+ - Visit Depot, have only one Grizzard you chose
+ - Return to Map screen
+ - Press Button I, you have no potions.
+
+VALIDATES: New  game clearing save  game memory and Grizzards  list, New
+Game Plus, KINGME cheat.
+
+------------------------------------------------------------------------
+
 SCRIPT 1.
 
 Save game file: WETNAS
