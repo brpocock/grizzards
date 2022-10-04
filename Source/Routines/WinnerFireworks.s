@@ -22,6 +22,7 @@ NewGamePlus:
           sty Score + 1
           sty Score + 2
 AddAllStarters:
+          .FarJSR SaveKeyBank, ServiceSaveGrizzard
           .mva CurrentGrizzard, # 2
 
 ConsiderGrizzard:
@@ -140,7 +141,6 @@ NotCaught:
 
           pla                   ; valid CurrentGrizzard
           sta CurrentGrizzard
-          .FarJSR SaveKeyBank, ServiceLoadGrizzard
  
           pla                   ; recover Score
           sta Score
@@ -244,7 +244,7 @@ GoShowCredits:
 
 DoneButtons:
           jmp Loop
-;;; 
+ ;;; 
 Leave:
           .WaitScreenBottom
           .WaitScreenTop
@@ -258,6 +258,10 @@ Leave:
           sty Score + 2
 
           .mva Potions, #$99
+          .mva CurrentHP, MaxHP
+
+          .mva Temp, CurrentGrizzard
+          .FarJSR SaveKeyBank, ServiceSetCurrentGrizzard
 
           .mvx SignpostIndex, # 29 ; NewGamePlusGo
           jmp Signpost
