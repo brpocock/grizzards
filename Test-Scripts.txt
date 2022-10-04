@@ -275,7 +275,7 @@ VALIDATES:   Miranda/Mirror/Magic  Ring   quest  sequence,   Magic  Ring
 
 
 
-SCRIPT 7.
+SCRIPT 8.
 
 Hardware detection / Pause feature
  - Boot up on 2600 with Joy2b+ controller
