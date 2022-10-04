@@ -55,6 +55,7 @@ GrizzardCheckup:
           gne GrizzardCheckup
 
 ValidGrizzardToBeCurrent:
+          lda CurrentGrizzard
           pha                   ; valid Grizzard
 ;;; 
 ResetProvinceFlags:
