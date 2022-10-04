@@ -92,6 +92,8 @@ InitGameVars:
 
           .FarJSR SaveKeyBank, ServiceNewGame2
 
+          ;; If  they   used  the  KINGME   code,  give  them   all  the
+          ;; starter Grizzards.
           lda Potions
           beq SaveName
 
@@ -112,9 +114,7 @@ SaveName:
           .WaitScreenTop
 
           .StartI2C
-          clc
-          lda #<SaveGameSlotPrefix
-          adc #$1a
+          lda #$1a
           jsr i2cTxByte
 
           ldx # 0

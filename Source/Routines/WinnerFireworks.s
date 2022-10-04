@@ -7,18 +7,15 @@ WinnerFireworks:    .block
 ;;; 
 NewGamePlus:
           lda Potions
-          pha
+          pha                   ; Potions before New Game Plus
           .mva Potions, #$80 | 25
 
-          lda CurrentGrizzard
-          pha                   ; CurrentGrizzard
-
           lda Score + 2
-          pha
+          pha                   ; Score + 2
           lda Score + 1
-          pha
+          pha                   ; Score + 1
           lda Score
-          pha
+          pha                   ; Score + 0
 
           .mvy Score, # 0
           sty Score + 1
@@ -57,7 +54,7 @@ GrizzardCheckup:
           gne GrizzardCheckup
 
 ValidGrizzardToBeCurrent:
-          .FarJSR SaveKeyBank, ServiceLoadGrizzard
+          pha                   ; valid Grizzard
 ;;; 
 ResetProvinceFlags:
           ldy # 0               ; XXX necessary?
@@ -95,12 +92,6 @@ Wipe8Bytes:
           ;; Save global data, also save province 0 as zeroes
           .FarJSR SaveKeyBank, ServiceSaveToSlot
 ;;; 
-          pla
-          sta Score
-          pla
-          sta Score + 1
-          pla
-          sta Score + 2
 AnnounceWin:
           .mva NextSound, #SoundRoar
 
@@ -131,10 +122,18 @@ NotCaught:
           cmp # 30
           blt CheckCaughtLoop
 
-          pla                   ; CurrentGrizzard
+          pla                   ; valid CurrentGrizzard
           sta CurrentGrizzard
+          .FarJSR SaveKeyBank, ServiceLoadGrizzard
+ 
+          pla                   ; recover Score
+          sta Score
+          pla                   ; recover Score + 1
+          sta Score + 1
+          pla                   ; recover Score + 2
+          sta Score + 2
 
-          pla
+          pla                   ; Potions (before New Game Plus)
           sta Potions
 
           ;; First, save everything, then pull the user's name for the message text
