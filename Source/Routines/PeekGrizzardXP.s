@@ -18,23 +18,12 @@ PeekGrizzardXP:       .block
           jsr i2cStartRead
 
           jsr i2cRxByte         ; Max HP
-          bne FoundGrizzard
+          bne PeekGrizzard.FoundGrizzard
 
           jsr i2cRxByte         ; Attack
           jsr i2cRxByte         ; Defend
           jsr i2cRxByte         ; XP
-          beq NoGrizzard
-
-FoundGrizzard:
-          jsr i2cStopRead
-
-          .mva Temp, #$80
-          rts
-
-NoGrizzard:
-          jsr i2cStopRead
-
-          .mva Temp, # 0
-          rts
+          beq PeekGrizzard.NoGrizzard
+          bne PeekGrizzard.FoundGrizzard
 
           .bend
