@@ -156,9 +156,13 @@ NotCaught:
           .if ATARIAGESAVE
             .WaitScreenTop
             .FarJSR MapServicesBank, ServiceSetHighScore
-            .WaitScreenBottom
+            .if NTSC == TV      ; XXX out of room
+              .WaitScreenBottom
+            .fi
           .fi
-          .WaitScreenTopMinus 1, 1
+          .if NTSC == TV         ; XXX out of room
+            .WaitScreenTopMinus 1, 1
+          .fi
 ;;; 
 Loop:
           ldx # SFXBank
@@ -244,12 +248,11 @@ GoShowCredits:
 
 DoneButtons:
           jmp Loop
- ;;; 
+;;; 
 Leave:
           .WaitScreenBottom
           .WaitScreenTop
 ;;; 
-
           stx WSYNC
           stx WSYNC
 
