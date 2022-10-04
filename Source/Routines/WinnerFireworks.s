@@ -122,6 +122,20 @@ NotCaught:
           cmp # 30
           blt CheckCaughtLoop
 
+          ;; First, save everything, then pull the user's name for the message text
+          ;; SaveToSlot starts _and ends_ with WaitScreenBottom calls.
+          .FarJSR SaveKeyBank, ServiceSaveToSlot
+          .switch TV
+          .case NTSC
+            stx WSYNC
+            stx WSYNC
+          .endswitch
+          .WaitScreenTopMinus 1, 1
+          ;; Do  this whether  or not  we're checking  for high  scores,
+          ;; because  we need  to populate  the NameEntryBuffer  for the
+          ;; winning screen.
+          .FarJSR SaveKeyBank, ServiceCheckSaveSlot
+
           pla                   ; valid CurrentGrizzard
           sta CurrentGrizzard
           .FarJSR SaveKeyBank, ServiceLoadGrizzard
@@ -135,18 +149,6 @@ NotCaught:
 
           pla                   ; Potions (before New Game Plus)
           sta Potions
-
-          ;; First, save everything, then pull the user's name for the message text
-          ;; SaveToSlot starts _and ends_ with WaitScreenBottom calls.
-          .FarJSR SaveKeyBank, ServiceSaveToSlot
-          .switch TV
-          .case NTSC
-            stx WSYNC
-            stx WSYNC
-          .endswitch
-          .WaitScreenTopMinus 1, 1
-          ;; Do this whether or not we're checking for high scores, because we need to populate the NameEntryBuffer for the 
-          .FarJSR SaveKeyBank, ServiceCheckSaveSlot
 
           .WaitScreenBottom
           .if ATARIAGESAVE
