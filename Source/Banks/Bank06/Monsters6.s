@@ -230,7 +230,7 @@ Monsters:
           .byte 52, 52, 55
           .word $0140
 ;;; 38
-          .Text12 "MAZE   JAGUAR" ; Tier 14
+          .Text12 "MAZE  JAGUAR" ; Tier 14
           .byte Monster_Cat
           .mcolu COLBLUE, $8
           .byte 54, 54, 56
