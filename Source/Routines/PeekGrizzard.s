@@ -2,6 +2,10 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
 PeekGrizzard:       .block
+          ;; Peek to see if a Grizzard is _currently_ in the party
+          
+          ;; Use  PeekGrizzardXP to  find those  who have  metamorphosed
+          ;; as well.
 
           ;; Call with Grizzard index in Temp
           ;; Return with Carry Set if found
