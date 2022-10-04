@@ -535,11 +535,11 @@ SpriteList:
 
           ;;Room 34
           .byte $ff, SpriteWander
-          .byte $20, $20
+          .byte $7c, $25
           .byte SpritePerson, 43 ; how long is it safe?
 
           .byte $ff, SpriteWander
-          .byte $30, $30
+          .byte $50, $36
           .byte SpritePerson, 44 ; Fat Tony is smart
 
           .byte 0
