@@ -384,6 +384,8 @@ FillBottomScreen:
             .mva SignpostIndex, # 51              ; Found the mirror
             .mva GameMode, #ModeSignpost
 DoneMirror:
+
+CheckSecretRoom:
             lda CurrentMap
             cmp # 29
             bne DoneSecretRoom
@@ -403,10 +405,10 @@ DoneMirror:
             bcc DoneSecretRoom
 
 FoundSecretRoom:
-            .mva BlessedX, #$7c
+            .mva BlessedX, #$40
             .mva BlessedY, #$16
             .mva NextMap, # 67
-            .mva GameMode, ModeMapNewRoom
+            .mva GameMode, #ModeMapNewRoom
 
 DoneSecretRoom:
 
