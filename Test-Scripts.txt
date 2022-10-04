@@ -18,8 +18,8 @@ Specific regression test on clearing save game slots
 Load CHEAT build onto PlusCart (or EPROM)
 
    * Zephyr: Ask Bruce-Robert to push the cheat build, then load it from
-     the same spot (Grizzards/Grizzards.NTSC.EF) in the PlusCart menu as
-     you  would  load  the  usual  game.  After  testing  this  §,  have
+     the  same spot  (Grizzards/Grizzards.Cheating.EF)  in the  PlusCart
+     menu as you  would load the usual game. After  testing this §, have
      Bruce-Robert push back  the MAIN branch build  without the cheating
      signpost on it, for other tests.
 
