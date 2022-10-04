@@ -263,8 +263,10 @@ Leave:
           cmp #ModeSignpostPoints
           beq GetPoints
 
-          cmp #ModeSignpostInquire
-          beq Inquire
+          .if BANK != $0b
+            cmp #ModeSignpostInquire
+            beq Inquire
+          .fi
 
           cmp #ModeWinnerFireworks
           .if BANK == $0c
@@ -385,6 +387,7 @@ ProvinceChange:
           sta NextMap
           ldy #ModeMapNewRoom
           sty GameMode
+          ldy # 0
           sty CurrentUtterance + 1 ; suppress speech from new bank (garbage)
           
           .FarJSR SaveKeyBank, ServiceLoadProvinceData
@@ -394,8 +397,7 @@ ProvinceChange:
           .fi
           jmp GoMap
 
-          .fi                   ; $b == BANK
-
+          .else                 ; By amazing luck, there are no inquiries in bank $b
 Inquire:
           .Add16 SignpostText, # (9 * 5) + 1
 
@@ -426,6 +428,8 @@ Inquire:
             sta SignpostIndex
           .fi
           .FarJMP AnimationsBank, ServiceInquire
+
+          .fi                   ; Bank $b or not
 
           .bend
 ;;; 
