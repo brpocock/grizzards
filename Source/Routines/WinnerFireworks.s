@@ -1,6 +1,7 @@
 ;;; Grizzards Source/Routines/WinnerFireworks.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
+          GrizzardsCount = $ae  ; DeltaX or CombatMoveSelected
 WinnerFireworks:    .block
           .KillMusic
           sta CurrentMusic + 1  ; A = 0
@@ -21,6 +22,30 @@ NewGamePlus:
           .mvy Score, # 0
           sty Score + 1
           sty Score + 2
+
+          sty GrizzardsCount
+          sty CurrentGrizzard   ; search each Grizzard, 0 - 29
+CheckCaughtLoop:
+          .mva Temp, CurrentGrizzard
+          .FarJSR SaveKeyBank, ServicePeekGrizzardXP
+
+          bit Temp
+          bpl NotCaught
+
+          inc GrizzardsCount
+NotCaught:
+          inc CurrentGrizzard
+          lda CurrentGrizzard
+          ;; Stop periodically to keep the frame count OK
+          and #$04
+          beq +
+          .WaitScreenBottom
+          .WaitScreenTop
++
+          lda CurrentGrizzard
+          cmp # 30
+          blt CheckCaughtLoop
+
 AddAllStarters:
           .FarJSR SaveKeyBank, ServiceSaveGrizzard
           .mva CurrentGrizzard, # 2
@@ -95,35 +120,13 @@ Wipe8Bytes:
           ;; Save global data, also save province 0 as zeroes
           .FarJSR SaveKeyBank, ServiceSaveToSlot
 ;;; 
-AnnounceWin:
+AnnounceWin: 
           .mva NextSound, #SoundRoar
 
           .WaitScreenBottom
           .WaitScreenTop
 
           .mvy NewButtons, # 0
-          sty CurrentHP         ; now = Grizzards Count
-          sty CurrentGrizzard   ; search each Grizzard, 0 - 29
-CheckCaughtLoop:
-          .mva Temp, CurrentGrizzard
-          .FarJSR SaveKeyBank, ServicePeekGrizzardXP
-
-          bit Temp
-          bpl NotCaught
-
-          inc CurrentHP         ; Grizzards Count
-NotCaught:
-          inc CurrentGrizzard
-          lda CurrentGrizzard
-          ;; Stop periodically to keep the frame count OK
-          and #$04
-          beq +
-          .WaitScreenBottom
-          .WaitScreenTop
-+
-          lda CurrentGrizzard
-          cmp # 30
-          blt CheckCaughtLoop
 
           ;; First, save everything, then pull the user's name for the message text
           ;; SaveToSlot starts _and ends_ with WaitScreenBottom calls.
@@ -205,7 +208,7 @@ DoneAgain:
           .SetPointer CaughtText
           jsr ShowPointerText
 
-          lda CurrentHP         ; Grizzards Count
+          lda GrizzardsCount
           cmp # 30
           beq CaughtEmAll
 
