@@ -9,7 +9,9 @@ PeekGrizzardXP:       .block
           lda Temp               ; parameter = Grizzard ID
           jsr SetGrizzardAddress ; takes input in A as well
 
-          jsr i2cStopWrite
+          .if !ATARIAGESAVE
+            jsr i2cStopWrite
+          .fi
           .if ATARIAGESAVE
             lda SaveGameSlot
           .fi

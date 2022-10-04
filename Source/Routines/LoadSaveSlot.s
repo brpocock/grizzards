@@ -14,7 +14,9 @@ ReallyLoadIt:
 
           lda # 0               ; this happens to be #<SaveGameSlotPrefix
           jsr i2cTxByte
-          jsr i2cStopWrite
+          .if !ATARIAGESAVE
+            jsr i2cStopWrite
+          .fi
           .if ATARIAGESAVE
             lda SaveGameSlot
           .fi

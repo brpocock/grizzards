@@ -6,7 +6,9 @@ LoadGrizzardData:   .block
 
           jsr SetGrizzardAddress
 
-          jsr i2cStopWrite
+          .if !ATARIAGESAVE
+            jsr i2cStopWrite
+          .fi
           .if ATARIAGESAVE
             lda SaveGameSlot
           .fi
