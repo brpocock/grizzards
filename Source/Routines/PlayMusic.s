@@ -6,8 +6,8 @@ DoMusic:
           bne PlayMusic
 
           ;; a phantom read of $ffe1 was happening on branch
-          .if ($fee0 < *) && (* < $feef)
-            .align $fef0, $ea
+          .if ($fee0 < *) && (* < $fef5)
+            .align $fef6, $ea
           .fi
 LoopMusic:
           ;; Don't loop if there's currently a sound effect playing
@@ -21,15 +21,11 @@ LoopMusic:
           .case 7
 
             lda GameMode
-            .if PUBLISHER
-              cmp #ModePublisherPresents
-            .else
-              cmp #ModeBRPPreamble
-            .fi
+            cmp # ModePublisherPresents
             beq TheEnd
 
             and #$f0
-            cmp #ModeAttract
+            cmp # ModeAttract   ; includes WinnerFireworks
             bne TheEnd
 
             .mva CurrentMusic + 1, #>SongTheme

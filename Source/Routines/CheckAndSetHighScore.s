@@ -14,7 +14,9 @@ CheckHighScore:     .block
           .fi
           lda #$f7
           jsr i2cTxByte
-          jsr i2cStopWrite
+          .if !ATARIAGESAVE
+            jsr i2cStopWrite
+          .fi
           .if ATARIAGESAVE
             lda #$00
           .fi
@@ -55,7 +57,9 @@ SetHighScore:       .block
           .fi
           lda #$fd
           jsr i2cTxByte
-          jsr i2cStopWrite
+          .if !ATARIAGESAVE
+            jsr i2cStopWrite
+          .fi
           .if ATARIAGESAVE
             lda #$00
           .fi

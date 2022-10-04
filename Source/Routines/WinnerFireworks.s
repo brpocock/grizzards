@@ -3,6 +3,7 @@
 
 WinnerFireworks:    .block
           .KillMusic
+          sta CurrentMusic + 1  ; A = 0
 
 ;;; 
 NewGamePlus:
@@ -159,7 +160,7 @@ NotCaught:
           .WaitScreenTopMinus 1, 1
 ;;; 
 Loop:
-          ldx #SFXBank
+          ldx # SFXBank
           jsr FarCall
           .WaitScreenBottom
           .switch TV

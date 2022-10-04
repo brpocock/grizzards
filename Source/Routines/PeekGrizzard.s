@@ -14,20 +14,20 @@ PeekGrizzard:       .block
           lda Temp
           jsr SetGrizzardAddress ; takes input in .A as well
 
-          jsr i2cStopWrite
-
+          .if !ATARIAGESAVE
+            jsr i2cStopWrite
+          .fi
           .if ATARIAGESAVE
             lda SaveGameSlot
           .fi
           jsr i2cStartRead
 
           jsr i2cRxByte
-
           beq NoGrizzard        ; MaxHP = 0 = no Grizzard
 
+FoundGrizzard:
           jsr i2cStopRead
 
-          ;; Grizzard found!
           .mva Temp, #$80
           sec
           rts

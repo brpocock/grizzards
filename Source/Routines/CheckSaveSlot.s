@@ -13,7 +13,9 @@ CheckSaveSlot: .block
 
           lda #<SaveGameSlotPrefix
           jsr i2cTxByte
-          jsr i2cStopWrite
+          .if !ATARIAGESAVE
+            jsr i2cStopWrite
+          .fi
           .if ATARIAGESAVE
             lda SaveGameSlot
           .fi
@@ -75,7 +77,9 @@ ReadSlotName:
 
           lda #<SaveGameSlotPrefix + $1a ; Name offset
           jsr i2cTxByte
-          jsr i2cStopWrite
+          .if !ATARIAGESAVE
+            jsr i2cStopWrite
+          .fi
           .if ATARIAGESAVE
             lda SaveGameSlot
           .fi
@@ -102,7 +106,9 @@ ReadCrownBit:
           lda #<SaveGameSlotPrefix + 5 + Potions - GlobalGameData
           jsr i2cTxByte
 
-          jsr i2cStopWrite
+          .if !ATARIAGESAVE
+            jsr i2cStopWrite
+          .fi
           .if ATARIAGESAVE
             lda SaveGameSlot
           .fi
