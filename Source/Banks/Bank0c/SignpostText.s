@@ -204,6 +204,6 @@ Sign_EasterEgg:
             .SignText "PUBLIC BUILD"
           .fi
           .SignText format(" %04d-%02d-%02d ", YEARNOW, MONTHNOW, DATENOW)
-          .SignText format(" J %04d.%03d ", YEARNOW, JULIANDATENOW)
+          .SignText format(" J%03d T%02d%02d ", JULIANDATENOW, HOURNOW, MINUTENOW)
           .SignText format("%-12s", ConfigPartNumber)
           .byte ModeSignpostDone
