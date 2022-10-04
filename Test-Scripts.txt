@@ -91,6 +91,10 @@ Save game file: WETNAS
 VALIDATES:  detecting  Grizzard  has  been  caught,  catching  Grizzard,
 changing provinces via door, “Konami code” cheat, switching Grizzards.
 
+Manual set-up: from  a new game, proceed out of  house to Treble Square,
+west two  screens to  the T  screen with  multiple monsters,  south one,
+defeat the Horrid Slimes blocking the path.
+
 
 
 SCRIPT 2.
@@ -124,6 +128,14 @@ From Select Slot:
 VALIDATES: Un-erasing  a saved  game accidentally erased;  erasing game;
 starting new game does not overwrite erased game until confirmed.
 
+Manual set-up: create a new game, earn a few points, then Game Reset and
+erase the game slot.
+
+
+
+
+SCRIPT 2A.
+
 Save game file: TUNNEL
  - Start at tunnel entrance, only exit is north
  - Score ABC003
@@ -133,6 +145,10 @@ Save game file: TUNNEL
 
 VALIDATES:   Saving/loading  province   data,   special  transition   of
 tunnels opening.
+
+Manual set-up: proceed through the  game, visit tunnel lady, then obtain
+the two artifacts, proceed to the tunnel entrance.
+
 
 
 SCRIPT 3.
@@ -158,6 +174,10 @@ Save game file: MCBOAT
 
 VALIDATES:  changing  provinces by  sailing,  saving  game in  different
 province
+
+Manual set-up: get through to Anchor  village, talk to radio lady, go to
+radio  shop by  Lost  Mine,  return fixed  radio  to  Anchor, return  to
+Treble docks.
 
 
 
@@ -187,6 +207,12 @@ VALIDATES: MANY  HOURS display,  boss fight  with third  dragon triggers
 Boss Bear,  “Reveal Boss Bear”  “cut scene,”  Grizzard healed to  Max HP
 before Boss Bear fight, able to  resume with third dragon if defeated or
 reset during Boss Bear fight.
+
+Manual set-up: For “many hours” you would need to leave the game running
+for 43 days or  so, so that's unreasonable. For the  rest, you'd need to
+fight through  the entire game  and defeat 2  dragons, then save  at the
+Depot by the third dragon's lair. Probably far easier to hex edit a save
+game file.
 
 
 
@@ -242,6 +268,10 @@ Save game file: SECRET
 
 VALIDATES: Secret room, catching Starter Grizzards
 
+Manual  set-up:   Use  any   Grizzard  which  is   a  Starter,   or  the
+metamorphosized form  of a Starter,  and go to the  west end of  the Red
+Cliffs on Port Lion.
+
 
 
 SCRIPT 6.
@@ -272,6 +302,8 @@ Save game file: PTLION
 
 VALIDATES:   Miranda/Mirror/Magic  Ring   quest  sequence,   Magic  Ring
 “animation,” transition between provinces via door.
+
+Manual set-up: Arrive at Port Lion.
 
 
 
@@ -322,6 +354,9 @@ VALIDATES: 2600/7800 detection, Joy2b+ functionality, Joy2b+ not getting
 
 Once validated: Close #529 with comment please.
 
+Manual set-up:  This one  just requires  that you  have the  actual game
+cartridge, since it differs slightly from PlusCart/Harmony Encore.
+
 
 
 SCRIPT 8.
@@ -339,6 +374,8 @@ Attract sequence:
 VALIDATES: random  number generator,  attract sequence,  bank switching,
 drawing  starter  Grizzards and  combat  version  of Grizzards,  drawing
 monster groups and boss monsters, 12 char interlaced text display.
+
+Manual set-up: None required.
 
 
 
@@ -479,3 +516,5 @@ other minor monsters as you encounter them to gain XP / raise your levels.
  - Fat Tony is good at geography
  - … do some more things.
  - win.
+
+Manual set-up: none required.
