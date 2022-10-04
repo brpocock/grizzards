@@ -159,7 +159,7 @@ NotCaught:
           .WaitScreenTopMinus 1, 1
 ;;; 
 Loop:
-          ldx #SFXBank
+          ldx # SFXBank
           jsr FarCall
           .WaitScreenBottom
           .switch TV
