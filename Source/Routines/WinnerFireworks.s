@@ -244,12 +244,11 @@ GoShowCredits:
 
 DoneButtons:
           jmp Loop
- ;;; 
+;;; 
 Leave:
           .WaitScreenBottom
           .WaitScreenTop
 ;;; 
-
           stx WSYNC
           stx WSYNC
 
