@@ -385,6 +385,7 @@ ProvinceChange:
           sta NextMap
           ldy #ModeMapNewRoom
           sty GameMode
+          ldy # 0
           sty CurrentUtterance + 1 ; suppress speech from new bank (garbage)
           
           .FarJSR SaveKeyBank, ServiceLoadProvinceData
