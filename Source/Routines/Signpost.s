@@ -252,8 +252,10 @@ Leave:
           cmp #ModeSignpostSet0And63
           beq SetFlags0And63
 
-          cmp #ModeSignpostWarp
-          beq Warp
+          .if $b == BANK
+            cmp # ModeSignpostWarp
+            beq Warp
+          .fi
 
           cmp #ModeSignpostPotions
           beq GetPotions
@@ -357,6 +359,7 @@ SetFlags0And63:
           sta ProvinceFlags + 7
           gne ByeBye
 
+          .if $b == BANK
 Warp:
 ProvinceChange:
 ;;; Duplicated in Signpost.s and CheckPlayerCollision.s nearly exactly
@@ -382,6 +385,7 @@ ProvinceChange:
           sta NextMap
           ldy #ModeMapNewRoom
           sty GameMode
+          sty CurrentUtterance + 1 ; suppress speech from new bank (garbage)
           
           .FarJSR SaveKeyBank, ServiceLoadProvinceData
           .WaitScreenBottom
@@ -389,6 +393,8 @@ ProvinceChange:
             .SkipLines 2
           .fi
           jmp GoMap
+
+          .fi                   ; $b == BANK
 
 Inquire:
           .Add16 SignpostText, # (9 * 5) + 1
