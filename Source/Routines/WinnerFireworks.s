@@ -3,6 +3,7 @@
 
 WinnerFireworks:    .block
           .KillMusic
+          sta CurrentMusic + 1  ; A = 0
 
 ;;; 
 NewGamePlus:
