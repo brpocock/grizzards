@@ -10,7 +10,9 @@ PeekGrizzard:       .block
           lda Temp
           jsr SetGrizzardAddress ; takes input in .A as well
 
-          jsr i2cStopWrite
+          .if !ATARIAGESAVE
+            jsr i2cStopWrite
+          .fi
 
           .if ATARIAGESAVE
             lda SaveGameSlot
