@@ -42,21 +42,33 @@ WriteSignatureLoop:
           bne WriteSignatureLoop
 
 SwitchFromSignatureToGlobal:
-          jsr i2cStopWrite
-          jsr i2cWaitForAck
-          .StartI2C
-          lda # 5
-          jsr i2cTxByte
-
           ;; The GlobalGameData block has all the persistent vars
           ;; that are not ProvinceFlags or Grizzard stats.
+
+          .if GlobalGameDataLength != 14
+            .error format("This was rewritten to only work with GlobalGameDataLength=14, not %d", GlobalGameDataLength)
+          .fi
+          
           ldx # 0
 WriteGlobalLoop:
           lda GlobalGameData, x
           jsr i2cTxByte
           inx
-          cpx # GlobalGameDataLength
+          cpx # 11
           bne WriteGlobalLoop
+
+          jsr i2cStopWrite
+          jsr i2cWaitForAck
+          .StartI2C
+          lda #$10
+          jsr i2cTxByte
+
+          lda GlobalGameData + 11
+          jsr i2cTxByte
+          lda GlobalGameData + 12
+          jsr i2cTxByte
+          lda GlobalGameData + 13
+          jsr i2cTxByte
 
           jsr i2cStopWrite
           jsr i2cWaitForAck
