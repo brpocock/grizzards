@@ -100,6 +100,7 @@ InitGameVars:
           .mva CurrentGrizzard, # 2
 GetAllStarters:
           .FarJSR SaveKeyBank, ServiceSaveGrizzard
+          jsr i2cWaitForAck
           dec CurrentGrizzard
           bpl GetAllStarters
 
