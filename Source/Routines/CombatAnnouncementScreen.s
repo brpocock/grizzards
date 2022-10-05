@@ -314,7 +314,7 @@ BlankStringLoop:
           sta StringBuffer + 3
           .FarJMP TextBank, ServiceDecodeAndShowText ; tail call
 ;;; 
-SayPlayerGrizzard:
+SayPlayerGrizzard:              ; XXX could inline this with jmp SpeechQueued
           lda #>Phrase_Grizzard0
           sta CurrentUtterance + 1
           lda #<Phrase_Grizzard0
