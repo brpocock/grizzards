@@ -71,8 +71,6 @@ ReadLoop0:
           stx SaveSlotErased
           ;; fall through
 ReadSlotName:
-          jsr i2cWaitForAck
-
           .StartI2C
 
           lda #<SaveGameSlotPrefix + $1a ; Name offset
@@ -97,8 +95,6 @@ LoadNameLoop:
           jsr i2cStopRead
 
 ReadCrownBit:
-          jsr i2cWaitForAck
-
           .StartI2C
 
           lda #<SaveGameSlotPrefix + 5 + Potions - GlobalGameData
