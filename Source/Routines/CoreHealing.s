@@ -33,6 +33,9 @@ HealsCommon:
           sta MoveHP
           clc
           adc DefenderHP
+          bcc +
+          lda #$ff
++
           cmp DefenderMaxHP
           blt HealingBelowMax
 
