@@ -66,6 +66,7 @@ FirstTime:
 
           lda WhoseTurn
           bne MonsterTurnColor
+
           .ldacolu COLTURQUOISE, $f
           gne +
 MonsterTurnColor:
@@ -153,9 +154,7 @@ Speech0:
           beq SayPlayerSubject
 
 SayMonsterSubject:
-          jsr SayMonster
-
-          gne SpeechQueued
+          jmp SayMonster
 
 SayPlayerSubject:
           jsr SayPlayerGrizzard
@@ -194,7 +193,7 @@ Speech3:
           lda #>Phrase_Move01 - 1
           sta CurrentUtterance + 1
           lda #<Phrase_Move01 - 1
-          clc
+          clc                   ; necessary (BGE = BCC)
           adc CombatMoveSelected
           sta CurrentUtterance
           gne SpeechQueued
@@ -219,9 +218,7 @@ SayObjectForMonster:
           bpl SayPlayerAndGo
 
 SayMonsterAndGo:
-          jsr SayMonster
-
-          jmp SpeechQueued
+          jmp SayMonster
 
 SayObjectForPlayer:
           bit CombatMoveDeltaHP
@@ -317,7 +314,7 @@ SayMonster:
           clc
           adc EncounterMonster, x
           sta CurrentUtterance
-          rts
+          jmp SpeechQueued
 
 SayPlayerGrizzard:
           lda #>Phrase_Grizzard0
