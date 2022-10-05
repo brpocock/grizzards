@@ -140,14 +140,14 @@
           .fi
           
           ;; Must be exactly 5 bytes for the driver routines to work
-          .enc "ascii"
+          .enc "Unicode"
           .if DEMO
-            SaveGameSignature = "griz1"
+            SaveGameSignature = "GRIZ1"
           .else
             .if ATARIAGESAVE
-              SaveGameSignature = "griza"
+              SaveGameSignature = "GRIZA"
             .else
-              SaveGameSignature = "griz0"
+              SaveGameSignature = "GRIZ0"
             .fi
           .fi
           .enc "none"
