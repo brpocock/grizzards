@@ -21,10 +21,11 @@ Setup:
 
 Silence:
           .KillMusic
-          sta AUDC0
+          sta AUDC0  ; zero from KillMusic
           sta AUDF0
           sta AUDV0
-          sta CurrentUtterance + 1  ; zero from KillMusic
+          sta CurrentUtterance
+          sta CurrentUtterance + 1
 
           .mvx s, #$ff
 
