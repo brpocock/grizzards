@@ -60,6 +60,10 @@ InitGameVars:
           sta GrizzardAttack
           sta GrizzardDefense
 
+          lda # 10
+          sta MaxHP
+          sta CurrentHP
+
           sty GrizzardXP
 
           lda #$03
@@ -73,10 +77,6 @@ InitGameVars:
           bne -
 
           .mva ProvinceFlags + 7, #$ff
-
-          lda # 10
-          sta MaxHP
-          sta CurrentHP
 
           .WaitScreenBottom
           .if TV != NTSC
