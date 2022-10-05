@@ -154,7 +154,15 @@ Speech0:
           beq SayPlayerSubject
 
 SayMonsterSubject:
-          jmp SayMonster
+SayMonster:
+          lda #>MonsterPhrase
+          sta CurrentUtterance + 1
+          lda #<MonsterPhrase
+          ldx CurrentCombatEncounter
+          clc
+          adc EncounterMonster, x
+          sta CurrentUtterance
+          jmp SpeechQueued
 
 SayPlayerSubject:
           jsr SayPlayerGrizzard
@@ -218,7 +226,7 @@ SayObjectForMonster:
           bpl SayPlayerAndGo
 
 SayMonsterAndGo:
-          jmp SayMonster
+          gmi SayMonster
 
 SayObjectForPlayer:
           bit CombatMoveDeltaHP
@@ -306,16 +314,6 @@ BlankStringLoop:
           sta StringBuffer + 3
           .FarJMP TextBank, ServiceDecodeAndShowText ; tail call
 ;;; 
-SayMonster:
-          lda #>MonsterPhrase
-          sta CurrentUtterance + 1
-          lda #<MonsterPhrase
-          ldx CurrentCombatEncounter
-          clc
-          adc EncounterMonster, x
-          sta CurrentUtterance
-          jmp SpeechQueued
-
 SayPlayerGrizzard:
           lda #>Phrase_Grizzard0
           sta CurrentUtterance + 1
