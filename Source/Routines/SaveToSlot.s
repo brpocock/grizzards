@@ -19,6 +19,7 @@ WriteMasterBlock:
             .error format("2kiB EEPROM can't handle more than $10 bytes at a go, GlobalGameDataLength is $%02x", GlobalGameDataLength)
           .fi
 
+          jsr i2cWaitForAck
           ;; First set the write pointer up  for the first block of this
           ;; save game slot ($1100, $1200,  or $1300 if SaveKey, $00-$07
           ;; for save-to-cart)
