@@ -40,7 +40,7 @@ CombatAnnouncementScreen:     .block
           ;; Y = MoveSelection
           jsr FindMonsterMove
 
-          gne MoveFound         ; monsters can't Run Away so it's non-zero
+          jmp MoveFound
 
 FindPlayerMove:
           .FarJSR TextBank, ServiceFetchGrizzardMove
@@ -226,7 +226,7 @@ SayObjectForMonster:
           bpl SayPlayerAndGo
 
 SayMonsterAndGo:
-          gmi SayMonster
+          jmp SayMonster
 
 SayObjectForPlayer:
           bit CombatMoveDeltaHP
