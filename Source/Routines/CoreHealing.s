@@ -40,7 +40,7 @@ HealsCommon:
           blt HealingBelowMax
 
           lda DefenderMaxHP
-          sec
+          ;; carry is set (BLT = BCC)
           sbc DefenderHP
           sta MoveHP
           lda DefenderMaxHP
