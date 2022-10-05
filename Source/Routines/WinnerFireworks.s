@@ -23,6 +23,9 @@ NewGamePlus:
           sty Score + 1
           sty Score + 2
 
+          .FarJSR SaveKeyBank, ServiceSaveGrizzard
+
+CountGrizzardsCaught:
           sty GrizzardsCount
           sty CurrentGrizzard   ; search each Grizzard, 0 - 29
 CheckCaughtLoop:
@@ -47,7 +50,6 @@ NotCaught:
           blt CheckCaughtLoop
 
 AddAllStarters:
-          .FarJSR SaveKeyBank, ServiceSaveGrizzard
           .mva CurrentGrizzard, # 2
 
 ConsiderGrizzard:
