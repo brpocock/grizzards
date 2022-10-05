@@ -10,8 +10,6 @@ NewGame2: .block
 WipeGrizzards:
           .WaitScreenTop
 
-          .StartI2C
-
           lda CurrentGrizzard
           pha                   ; CurrentGrizzard
 
@@ -39,20 +37,20 @@ Wipe16Bytes:
           pla                   ; CurrentGrizzard
           sta CurrentGrizzard
 
-          jsr i2cStopWrite
-          jsr i2cWaitForAck
 
 DoneWipingGrizzards:
           jmp SaveToSlot        ; tail call
 ;;; 
 WipeSome:
+          .StartI2C
           jsr i2cTxByte
 Wiping:
           lda # 0
           jsr i2cTxByte
           dex
           bne Wiping
-          rts
+          jsr i2cStopWrite
+          jmp i2cWaitForAck     ; tail call
 ;;; 
 ChangeAddress:
           jsr i2cStopWrite
