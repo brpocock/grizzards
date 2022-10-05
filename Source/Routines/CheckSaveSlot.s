@@ -38,7 +38,7 @@ ReadLoop:
 
           ldy # 0
           sty SaveSlotErased
-          iny               ; slot busy
+          dey               ; slot busy, Y ← $ff
           sty SaveSlotBusy
 
           gne ReadSlotName
