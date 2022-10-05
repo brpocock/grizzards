@@ -281,7 +281,7 @@ KeepWaiting:
           beq CombatMoveDone
 
 GoBack:
-          jmp Loop
+          gne Loop
 
 CombatMoveDone:
           jmp ExecuteCombatMove
