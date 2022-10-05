@@ -18,10 +18,7 @@ WipeGrizzards:
           .mva WipeGrizzard, #$40
 Wipe16Bytes:
           ldx #$10
-          lda WipeGrizzard
           jsr WipeSome
-
-          jsr ChangeAddress
 
           lda WipeGrizzard
           clc
@@ -30,19 +27,18 @@ Wipe16Bytes:
           sta WipeGrizzard
           blt Wipe16Bytes
 
-          lda #$e0
           ldx # 4
           jsr WipeSome
 
           pla                   ; CurrentGrizzard
           sta CurrentGrizzard
 
-
 DoneWipingGrizzards:
           jmp SaveToSlot        ; tail call
 ;;; 
 WipeSome:
           .StartI2C
+          lda WipeGrizzard
           jsr i2cTxByte
 Wiping:
           lda # 0
@@ -51,14 +47,3 @@ Wiping:
           bne Wiping
           jsr i2cStopWrite
           jmp i2cWaitForAck     ; tail call
-;;; 
-ChangeAddress:
-          jsr i2cStopWrite
-          jsr i2cWaitForAck
-          .if ATARIAGESAVE
-            lda SaveGameSlot
-            jmp i2cStartWrite
-          .else
-            jmp SetSlotAddress
-          .fi
-          .bend
