@@ -7,6 +7,19 @@ NewGame2: .block
           ;; to bang  on the SaveKey/EEPROM  so there's really  no place
           ;; else to  stick it. It's  not logically separate,  it's just
           ;; from running out of space at the Very Last Minute.
+WipeProvinceFlags:
+          .WaitScreenTop
+
+          .mva CurrentProvince, # 2
+          jsr SaveProvinceData
+          jsr i2cWaitForAck
+          .mva CurrentProvince, # 1
+          jsr SaveProvinceData
+          jsr i2cWaitForAck
+          .mva CurrentProvince, # 0
+          ;; Will be handled this time by SaveToSlot later
+          .WaitScreenBottom
+
 WipeGrizzards:
           .WaitScreenTop
 
