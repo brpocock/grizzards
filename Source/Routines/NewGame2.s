@@ -60,3 +60,5 @@ Wiping:
           bne Wiping
           jsr i2cStopWrite
           jmp i2cWaitForAck     ; tail call
+
+          .bend
