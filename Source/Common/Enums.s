@@ -140,7 +140,6 @@
           .fi
           
           ;; Must be exactly 5 bytes for the driver routines to work
-          .enc "Unicode"
           .if DEMO
             SaveGameSignature = "GRIZ1"
           .else
@@ -150,7 +149,6 @@
               SaveGameSignature = "GRIZ0"
             .fi
           .fi
-          .enc "none"
 ;;; 
 ;;; Special Memory Banks
 
