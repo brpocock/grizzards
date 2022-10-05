@@ -58,17 +58,6 @@ WriteGlobalLoop:
           cpx # GlobalGameDataLength
           bne WriteGlobalLoop
 
-          .WaitScreenBottom
-          .WaitScreenTop
-
-          ;; Pad out to $20
-          ldx # $20 - 5 - GlobalGameDataLength - 6
-WritePadAfterGlobal:
-          lda #$fe             ; totally arbitrary pad value
-          jsr i2cTxByte
-          dex
-          bne WritePadAfterGlobal
-
           jsr i2cStopWrite
           jsr i2cWaitForAck
 
