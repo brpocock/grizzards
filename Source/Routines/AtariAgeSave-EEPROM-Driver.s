@@ -11,7 +11,7 @@
 ;;; Adapted for AtariAge save circuit by Fred Quimby (batari)
 
 SaveGameSignatureString:
-          .enc "none"
+          .enc "Unicode"
           .text SaveGameSignature
 
           i2cClockPort0 = $1ff0
@@ -23,7 +23,7 @@ SaveGameSignatureString:
           SaveWritesPerScreen = $20
 ;;; 
 
-          EEPROMRead = $a1c
+          EEPROMRead = $a1
           EEPROMWrite = $a0
 ;;; 
 
