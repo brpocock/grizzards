@@ -7,8 +7,6 @@ CheckSaveSlot: .block
           ;; player name in NameEntryBuffer,
           ;; and sets SaveSlotBusy and SaveSlotErased to
           ;; either $00 for false or non-zero for true
-          jsr SeedRandom
-
           .StartI2C
 
           lda #<SaveGameSlotPrefix
