@@ -38,7 +38,9 @@ ReadLoop:
 
           jsr i2cStopRead
 
-          ldy # 1               ; slot busy
+          ldy # 0
+          sty SaveSlotErased
+          iny               ; slot busy
           sty SaveSlotBusy
 
           gne ReadSlotName
@@ -93,8 +95,6 @@ LoadNameLoop:
           inx
           cpx # 6
           bne LoadNameLoop
-
-          lda #$80
 
           jsr i2cStopRead
 
