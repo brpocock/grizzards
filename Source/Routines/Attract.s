@@ -19,6 +19,8 @@ ZeroRAM:
 
           .SetUtterance Phrase_Reset
 
+          jsr SeedRandom
+
 WarmStart:
           ldx #$ff
           txs
