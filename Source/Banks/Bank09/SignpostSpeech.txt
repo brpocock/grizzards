@@ -14,7 +14,7 @@ ReturnChild:
 ♂Peter,you are home...♀Daddy,I'm safe now
 
 ChildReward:
-♂Thank you for saving Peter.Have this as a reward.To do
+♂Thank you for saving Peter.Have this cookie as a reward.
 
 NewGamePlusGo:
 \Volume\127\Speed\100☿New Game Plus Begins Now\CallPhrase\0
