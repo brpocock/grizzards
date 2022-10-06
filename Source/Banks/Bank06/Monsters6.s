@@ -2,19 +2,19 @@
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 Monsters:
 ;;; 0
-          .Text12 "WICKEDSLIME " ; Tier 1
+          .Text12 "WICKED SLIME" ; Tier 1
           .byte Monster_SlimeSmall
           .mcolu COLGREEN, $f
           .byte 2, 1, 2         ; ATK, DEF, HP
           .word $0005
 ;;; 1
-          .Text12 "HORRIDSLIME " ; Tier 1
+          .Text12 "HORRID SLIME" ; Tier 1
           .byte Monster_SlimeSmall
           .mcolu COLRED, $f
           .byte 2, 2, 4
           .word $0008
 ;;; 2
-          .Text12 "VORPALBUNNY " ; Tier 4
+          .Text12 "VORPAL BUNNY" ; Tier 4
           .byte Monster_Bunny
           .mcolu COLGOLD, $4
           .byte 12, 12, 15
@@ -110,7 +110,7 @@ Monsters:
           .byte 16, 16, 17
           .word $0050
 ;;; 18
-          .Text12 "CAVE  BAT   " ; Tier 5
+          .Text12 "CAVE     BAT" ; Tier 5
           .byte Monster_Bat
           .mcolu COLGRAY, $4
           .byte 18, 18, 20
@@ -134,7 +134,7 @@ Monsters:
           .byte 38, 38, 40
           .word $0100
 ;;; 22
-          .Text12 "DEVIL SKULL " ; Tier 12
+          .Text12 "DEVIL  SKULL" ; Tier 12
           .byte Monster_Skull
           .mcolu COLRED, $8
           .byte 43, 42, 46
@@ -146,25 +146,25 @@ Monsters:
           .byte 6, 6, 8
           .word $0020
 ;;; 24
-          .Text12 "GIANT  CRAB " ; Tier 9
+          .Text12 "GIANT   CRAB" ; Tier 9
           .byte Monster_Crab
           .mcolu COLTURQUOISE, $8
           .byte 32, 32, 35
           .word $0090
 ;;; 25
-          .Text12 "BIGGER CRAB " ; Tier 13
+          .Text12 "BIGGER  CRAB" ; Tier 13
           .byte Monster_Crab
           .mcolu COLCYAN, $8
           .byte 47, 47, 50
           .word $0130
 ;;; 26
-          .Text12 " MEAN ROBBER" ; 8
+          .Text12 "MEAN  ROBBER" ; 8
           .byte Monster_Human
           .mcolu COLBROWN, $e
           .byte 29, 29, 31
           .word $0080
 ;;; 27
-          .Text12 "GIANT SLIME " ; Tier 13
+          .Text12 "GIANT  SLIME" ; Tier 13
           .byte Monster_SlimeBig
           .mcolu COLINDIGO, $8
           .byte 48, 48, 51
@@ -188,31 +188,31 @@ Monsters:
           .byte 35, 35, 100
           .word $1250
 ;;; 31
-          .Text12 " UBER  SLIME" ; Tier 15
+          .Text12 "UBER   SLIME" ; Tier 15
           .byte Monster_SlimeBig
           .mcolu COLBROWN, $f
           .byte 55, 55, 57
           .word $0150
 ;;; 32
-          .Text12 "FLYINGSKULL " ; Tier 13
+          .Text12 "FLYING SKULL" ; Tier 13
           .byte Monster_Skull
           .mcolu COLTURQUOISE, $e
           .byte 50, 50, 52
           .word $0130
 ;;; 33
-          .Text12 "CRAZY SKULL " ; Tier 15
+          .Text12 "CRAZY  SKULL" ; Tier 15
           .byte Monster_Skull
           .mcolu COLMAGENTA, $a
           .byte 56, 56, 58
           .word $0150
 ;;; 34
-          .Text12 "GREAT  WYRM " ; Tier 15
+          .Text12 "GREAT   WYRM" ; Tier 15
           .byte Monster_Serpent
           .mcolu COLBLUE, $8
           .byte 51, 51, 54
           .word $0150
 ;;; 35
-          .Text12 "POISON ASP  " ; Tier 12
+          .Text12 "POISON   ASP" ; Tier 12
           .byte Monster_Serpent
           .mcolu COLBLUE, $8
           .byte 44, 44, 47
@@ -224,13 +224,13 @@ Monsters:
           .byte 34, 34, 36
           .word $0090
 ;;; 37
-          .Text12 "GIANT  BAT  " ; Tier 14
+          .Text12 "GIANT    BAT" ; Tier 14
           .byte Monster_Bat
           .mcolu COLGRAY, $4
           .byte 52, 52, 55
           .word $0140
 ;;; 38
-          .Text12 " MAZE JAGUAR" ; Tier 14
+          .Text12 "MAZE  JAGUAR" ; Tier 14
           .byte Monster_Cat
           .mcolu COLBLUE, $8
           .byte 54, 54, 56
@@ -242,13 +242,13 @@ Monsters:
           .byte 57, 57, 59
           .word $0150
 ;;; 40
-          .Text12 " FIRE DRAKE " ; Tier 11
+          .Text12 "FIRE   DRAKE" ; Tier 11
           .byte Monster_Dragon
           .mcolu COLORANGE, $8
           .byte 42, 42, 44
           .word $0110
 ;;; 41
-          .Text12 " MAN   BULL " ; Tier 12
+          .Text12 "MAN     BULL" ; Tier 12
           .byte Monster_Minotaur
           .mcolu COLBROWN, $8
           .byte 46, 46, 48

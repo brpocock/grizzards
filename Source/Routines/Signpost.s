@@ -21,10 +21,11 @@ Setup:
 
 Silence:
           .KillMusic
-          sta AUDC0
+          sta AUDC0  ; zero from KillMusic
           sta AUDF0
           sta AUDV0
-          sta CurrentUtterance + 1  ; zero from KillMusic
+          sta CurrentUtterance
+          sta CurrentUtterance + 1
 
           .mvx s, #$ff
 
@@ -43,7 +44,7 @@ IndexReady:
 
 BankDown:
           .if BANK > SignpostBank
-            stx BankSwitch0 + BANK - 1
+            nop BankSwitch0 + BANK - 1
           .else
             brk                 ; cross-bank alignment!
             brk
@@ -57,7 +58,7 @@ NoBankDown:
 
 BankUp:
           .if BANK < SignpostBank + SignpostBankCount - 1
-            stx BankSwitch0 + BANK + 1
+            nop BankSwitch0 + BANK + 1
           .else
             brk                 ; cross-bank alignment!
             brk
@@ -252,8 +253,10 @@ Leave:
           cmp #ModeSignpostSet0And63
           beq SetFlags0And63
 
-          cmp #ModeSignpostWarp
-          beq Warp
+          .if $b == BANK
+            cmp # ModeSignpostWarp
+            beq Warp
+          .fi
 
           cmp #ModeSignpostPotions
           beq GetPotions
@@ -261,14 +264,17 @@ Leave:
           cmp #ModeSignpostPoints
           beq GetPoints
 
-          cmp #ModeSignpostInquire
-          beq Inquire
+          .if BANK != $0b
+            cmp #ModeSignpostInquire
+            beq Inquire
+          .fi
 
-          cmp #ModeWinnerFireworks
           .if BANK == $0c
+            cmp #ModeWinnerFireworks
             beq WinnerFireworks
-          .else
-            beq Break
+
+            cmp #ModeWinnerWinning
+            beq WinnerFireworks.AnnounceWin
           .fi
 
           cmp #ModeSignpostNext
@@ -357,6 +363,7 @@ SetFlags0And63:
           sta ProvinceFlags + 7
           gne ByeBye
 
+          .if $b == BANK
 Warp:
 ProvinceChange:
 ;;; Duplicated in Signpost.s and CheckPlayerCollision.s nearly exactly
@@ -382,6 +389,8 @@ ProvinceChange:
           sta NextMap
           ldy #ModeMapNewRoom
           sty GameMode
+          ldy # 0
+          sty CurrentUtterance + 1 ; suppress speech from new bank (garbage)
           
           .FarJSR SaveKeyBank, ServiceLoadProvinceData
           .WaitScreenBottom
@@ -390,6 +399,7 @@ ProvinceChange:
           .fi
           jmp GoMap
 
+          .else                 ; By amazing luck, there are no inquiries in bank $b
 Inquire:
           .Add16 SignpostText, # (9 * 5) + 1
 
@@ -420,6 +430,8 @@ Inquire:
             sta SignpostIndex
           .fi
           .FarJMP AnimationsBank, ServiceInquire
+
+          .fi                   ; Bank $b or not
 
           .bend
 ;;; 

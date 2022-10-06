@@ -4,20 +4,20 @@
 NewGrizzard:        .block
           ;; Call with new Grizzard in Temp
           lda Temp
-          pha
+          pha                   ; new Grizzard ID
 
           .WaitScreenTop
 
           .KillMusic
 
-          pla
-          pha
+          pla                   ; new Grizzard ID
+          pha                   ; new Grizzard ID
           .FarJSR SaveKeyBank, ServicePeekGrizzard
           bit Temp
           bpl CatchEm
 
           ;; Already caught, nothing doing, return
-          pla        ; discard stashed ID
+          pla        ; discard stashed Grizzard ID, already caught it
           .mva NextMap, CurrentMap
           jmp WaitScreenBottomSub ; tail call
 
@@ -29,8 +29,8 @@ CatchEm:
             stx WSYNC
           .fi
           ;; … and set up this one with default levels
-          pla
-          sta Temp
+          pla                   ; new Grizzard ID
+          sta Temp              ; param to Defaults
           jsr Defaults
 
           stx WSYNC

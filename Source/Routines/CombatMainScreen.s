@@ -208,7 +208,7 @@ BeginPlayerSection:
 
 PlayerBGBottom:
           .if TV == SECAM
-            lda #COLMAGENTA
+            lda # COLMAGENTA
           .else
             .ldacolu COLINDIGO, $4
           .fi

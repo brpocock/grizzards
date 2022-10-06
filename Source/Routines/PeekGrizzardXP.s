@@ -6,41 +6,24 @@ PeekGrizzardXP:       .block
           ;; Return with Temp = $80 if found
           ;; Return with Temp = $00 it not
 
-          lda Temp
+          lda Temp               ; parameter = Grizzard ID
           jsr SetGrizzardAddress ; takes input in A as well
 
-          jsr i2cStopWrite
+          .if !ATARIAGESAVE
+            jsr i2cStopWrite
+          .fi
           .if ATARIAGESAVE
             lda SaveGameSlot
           .fi
           jsr i2cStartRead
 
-          ;; Max HP, Attack, Defend, XP, Moves Known
-          ldx # 5
-Read5Bytes:
-          jsr i2cRxByte
+          jsr i2cRxByte         ; Max HP
+          bne PeekGrizzard.FoundGrizzard
 
-          beq NotYet
-
-          cmp #$ff
-          beq NotYet
-
-          jmp FoundGrizzard
-
-NotYet:
-          dex
-          bne Read5Bytes
-
-NoGrizzard:
-          jsr i2cStopRead
-
-          .mva Temp, # 0
-          rts
-
-FoundGrizzard:
-          jsr i2cStopRead
-
-          .mva Temp, #$80
-          rts
+          jsr i2cRxByte         ; Attack
+          jsr i2cRxByte         ; Defend
+          jsr i2cRxByte         ; XP
+          beq PeekGrizzard.NoGrizzard
+          gne PeekGrizzard.FoundGrizzard
 
           .bend

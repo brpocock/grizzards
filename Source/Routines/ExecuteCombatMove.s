@@ -132,7 +132,7 @@ PlayerAttacks:
 +
 
           ;; Bosses get double defend ratings
-          lda CombatMajorP
+          bit CombatMajorP
           bpl +
           asl DefenderDefend
 +
@@ -158,20 +158,16 @@ PlayerAttacks:
           bne WaitOutScreen
 
 PlayerKilledMonster:
-          ;; add to score the amount for that monster
-          lda GrizzardXP
-          cmp # 199
-          bge +
           inc GrizzardXP
-+
 
+          ;; add to score the amount for that monster
           ldx # 1               ; 1× scoring…
-          lda CombatMajorP
+          bit CombatMajorP
           bpl +
           inx                   ; 2 × scoring
 +
 
-          lda Potions
+          bit Potions
           bpl +
           inx                   ; 2-3× scoring
 +
@@ -179,6 +175,7 @@ PlayerKilledMonster:
           lda DebounceSWCHB
           and #SWCHBP0Advanced
           bne DoneScoreDifficulty
+
           inx
 DoneScoreDifficulty:
           sed
@@ -193,9 +190,13 @@ IncrementScore:
           lda (CurrentMonsterPointer), y
           adc Score + 1
           sta Score + 1
-          bcc ScoreNoCarry
+          bcc ScoreNoCarry2
 
-          adc Score + 2
+          lda Score + 2
+          cmp #$f0              ; Jatibu sets this as a flag
+          bge ScoreNoCarry2
+
+          adc # 0
           bcc ScoreNoCarry
 
           lda #$99
@@ -203,7 +204,7 @@ IncrementScore:
           sta Score + 1
 ScoreNoCarry:
           sta Score + 2
-
+ScoreNoCarry2:
           dex
           bne IncrementScore
 

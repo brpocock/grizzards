@@ -22,6 +22,8 @@ LoopFirst:
           sta COLUP0
           sta COLUP1
 
+          jsr Prepare48pxMobBlob
+
           .SkipLines 20
 
           .SetPointer HighText

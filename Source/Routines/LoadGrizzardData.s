@@ -6,7 +6,9 @@ LoadGrizzardData:   .block
 
           jsr SetGrizzardAddress
 
-          jsr i2cStopWrite
+          .if !ATARIAGESAVE
+            jsr i2cStopWrite
+          .fi
           .if ATARIAGESAVE
             lda SaveGameSlot
           .fi
@@ -22,6 +24,30 @@ LoadGrizzardData:   .block
           blt -
 
           jsr i2cStopRead
+
+          lda GrizzardAttack
+          bne +
+          lda # 1
+          sta GrizzardAttack
++
+
+          lda GrizzardDefense
+          bne +
+          lda # 1
+          sta GrizzardDefense
++
+
+          lda MaxHP
+          bne +
+          lda # 10
+          sta MaxHP
++
+
+          lda MovesKnown
+          bne +
+          lda #$03
+          sta MovesKnown
++
 
           .mva CurrentHP, MaxHP
 

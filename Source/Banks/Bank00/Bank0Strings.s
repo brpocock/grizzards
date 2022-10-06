@@ -33,7 +33,7 @@ ZephyrText:
           .SignText "ZEPHYR SALZ "
 
 DatestampText:
-          .SignText format(" %04d-%02d-%02d ", YEARNOW, MONTHNOW, DATENOW)
+          .SignText format("%04d%02d%02d%02d%02d", YEARNOW, MONTHNOW, DATENOW, HOURNOW, MINUTENOW)
 
 AquaxText:
           .MiniText "AQUAX "

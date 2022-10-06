@@ -31,13 +31,19 @@ BRPPreambleMode:
           lda AlarmCountdown
           bne StillPresenting
 
-RandomGrizzard:
-          jsr Random
+          inc Rand
+          dec Rand + 1
 
+          lda CurrentGrizzard
+RandomGrizzard:
           and #$03
           cmp # 3
-          beq RandomGrizzard
+          bne IsValidGrizzard
 
+          jsr Random
+          bne RandomGrizzard
+
+IsValidGrizzard:
           sta CurrentGrizzard
 
           .mva AlarmCountdown, # 60

@@ -1,23 +1,18 @@
 ;;; Grizzards. Source/Routines/CheckAndSetHighScore.s
 ;;; Copyright © 2022 Bruce-Robert Pocock
 
+          .if !ATARIAGESAVE
+            .error "Not supported"
+          .fi
+          
 CheckHighScore:     .block
           ;; NOT specific to player's save game slot, it's always on the
           ;; end of Slot 0
-          .if ATARIAGESAVE
-            lda # 0
-          .fi
+          lda # 0
           jsr i2cStartWrite
-          .if !ATARIAGESAVE
-            lda #>SaveGameSlotPrefix
-            jsr i2cTxByte
-          .fi
           lda #$f7
           jsr i2cTxByte
-          jsr i2cStopWrite
-          .if ATARIAGESAVE
-            lda #$00
-          .fi
+          lda # 0
           jsr i2cStartRead
           ldx # 0
 -
@@ -45,20 +40,11 @@ SetHighScore:       .block
           cmp #$99
           bge DoneHighScore
 
-          .if ATARIAGESAVE
-            lda # 0
-          .fi
+          lda # 0
           jsr i2cStartWrite
-          .if !ATARIAGESAVE
-            lda #>SaveGameSlotPrefix
-            jsr i2cTxByte
-          .fi
           lda #$fd
           jsr i2cTxByte
-          jsr i2cStopWrite
-          .if ATARIAGESAVE
-            lda #$00
-          .fi
+          lda # 0
           jsr i2cStartRead
           jsr i2cRxByte
           cmp #$ff
@@ -83,14 +69,8 @@ SetHighScore:
           ;; player's  name   into  NameEntryBuffer,  this   happens  in
           ;; WinnerFireworks just before it calls us.
 SaveHighScore:
-          .if ATARIAGESAVE
-            lda # 0
-          .fi
+          lda # 0
           jsr i2cStartWrite
-          .if !ATARIAGESAVE
-            lda #>SaveGameSlotPrefix
-            jsr i2cTxByte
-          .fi
           lda #$f7
           jsr i2cTxByte
           ldx # 0

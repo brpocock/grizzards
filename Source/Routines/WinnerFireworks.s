@@ -1,19 +1,54 @@
 ;;; Grizzards Source/Routines/WinnerFireworks.s
 ;;; Copyright © 2021-2022 Bruce-Robert Pocock
 
+          GrizzardsCount = $ae  ; DeltaX or CombatMoveSelected
 WinnerFireworks:    .block
           .KillMusic
+          sta CurrentMusic + 1  ; A = 0
 
 ;;; 
 NewGamePlus:
+          lda Potions
+          pha                   ; Potions before New Game Plus
           .mva Potions, #$80 | 25
 
-          lda CurrentGrizzard
-          pha                   ; CurrentGrizzard
+          lda Score + 2
+          pha                   ; Score + 2
+          lda Score + 1
+          pha                   ; Score + 1
+          lda Score
+          pha                   ; Score + 0
 
           .mvy Score, # 0
           sty Score + 1
           sty Score + 2
+
+          .FarJSR SaveKeyBank, ServiceSaveGrizzard
+
+CountGrizzardsCaught:
+          sty GrizzardsCount
+          sty CurrentGrizzard   ; search each Grizzard, 0 - 29
+CheckCaughtLoop:
+          .mva Temp, CurrentGrizzard
+          .FarJSR SaveKeyBank, ServicePeekGrizzardXP
+
+          bit Temp
+          bpl NotCaught
+
+          inc GrizzardsCount
+NotCaught:
+          inc CurrentGrizzard
+          lda CurrentGrizzard
+          ;; Stop periodically to keep the frame count OK
+          and #$04
+          beq +
+          .WaitScreenBottom
+          .WaitScreenTop
++
+          lda CurrentGrizzard
+          cmp # 30
+          blt CheckCaughtLoop
+
 AddAllStarters:
           .mva CurrentGrizzard, # 2
 
@@ -48,7 +83,8 @@ GrizzardCheckup:
           gne GrizzardCheckup
 
 ValidGrizzardToBeCurrent:
-          .FarJSR SaveKeyBank, ServiceLoadGrizzard
+          lda CurrentGrizzard
+          pha                   ; valid Grizzard
 ;;; 
 ResetProvinceFlags:
           ldy # 0               ; XXX necessary?
@@ -60,11 +96,18 @@ ResetProvinceFlags:
           sty CurrentProvince
 
 WipeProvinceFlags:
-          ldx # 8
+          ldx # 7
 Wipe8Bytes:
           sta ProvinceFlags - 1, x
           dex
           bne Wipe8Bytes
+          lda #$ff
+          sta ProvinceFlags + 7
+
+          lda # 80              ; Player start position
+          sta BlessedX
+          lda # 25
+          sta BlessedY
 
           .WaitScreenBottom
 
@@ -79,38 +122,8 @@ Wipe8Bytes:
           ;; Save global data, also save province 0 as zeroes
           .FarJSR SaveKeyBank, ServiceSaveToSlot
 ;;; 
-AnnounceWin:
-          .mva NextSound, #SoundRoar
-
           .WaitScreenBottom
           .WaitScreenTop
-
-          .mvy NewButtons, # 0
-          sty CurrentHP         ; now = Grizzards Count
-          sty CurrentGrizzard   ; search each Grizzard, 0 - 29
-CheckCaughtLoop:
-          .mva Temp, CurrentGrizzard
-          .FarJSR SaveKeyBank, ServicePeekGrizzardXP
-
-          bit Temp
-          bpl NotCaught
-
-          inc CurrentHP         ; Grizzards Count
-NotCaught:
-          inc CurrentGrizzard
-          lda CurrentGrizzard
-          ;; Stop periodically to keep the frame count OK
-          and #$04
-          beq +
-          .WaitScreenBottom
-          .WaitScreenTop
-+
-          lda CurrentGrizzard
-          cmp # 30
-          blt CheckCaughtLoop
-
-          pla                   ; CurrentGrizzard
-          sta CurrentGrizzard
 
           ;; First, save everything, then pull the user's name for the message text
           ;; SaveToSlot starts _and ends_ with WaitScreenBottom calls.
@@ -121,19 +134,44 @@ NotCaught:
             stx WSYNC
           .endswitch
           .WaitScreenTopMinus 1, 1
-          ;; Do this whether or not we're checking for high scores, because we need to populate the NameEntryBuffer for the 
+
+          pla                   ; valid CurrentGrizzard
+          sta CurrentGrizzard
+ 
+          pla                   ; recover Score
+          sta Score
+          pla                   ; recover Score + 1
+          sta Score + 1
+          pla                   ; recover Score + 2
+          sta Score + 2
+
+          pla                   ; Potions (before New Game Plus)
+          sta Potions
+
+AnnounceWin: 
+          .mva NextSound, #SoundRoar
+
+          .mvy NewButtons, # 0
+
+          ;; Do  this whether  or not  we're checking  for high  scores,
+          ;; because  we need  to populate  the NameEntryBuffer  for the
+          ;; winning screen.
           .FarJSR SaveKeyBank, ServiceCheckSaveSlot
 
           .WaitScreenBottom
           .if ATARIAGESAVE
             .WaitScreenTop
             .FarJSR MapServicesBank, ServiceSetHighScore
-            .WaitScreenBottom
+            .if NTSC == TV      ; XXX out of room
+              .WaitScreenBottom
+            .fi
           .fi
-          .WaitScreenTopMinus 1, 1
+          .if NTSC == TV         ; XXX out of room
+            .WaitScreenTopMinus 1, 1
+          .fi
 ;;; 
 Loop:
-          ldx #SFXBank
+          ldx # SFXBank
           jsr FarCall
           .WaitScreenBottom
           .switch TV
@@ -173,7 +211,7 @@ DoneAgain:
           .SetPointer CaughtText
           jsr ShowPointerText
 
-          lda CurrentHP         ; Grizzards Count
+          lda GrizzardsCount
           cmp # 30
           beq CaughtEmAll
 
@@ -221,9 +259,18 @@ Leave:
           .WaitScreenBottom
           .WaitScreenTop
 ;;; 
+          stx WSYNC
+          stx WSYNC
 
-          stx WSYNC
-          stx WSYNC
+          .mvy Score, # 0
+          sty Score + 1
+          sty Score + 2
+
+          .mva Potions, #$99
+          .mva CurrentHP, MaxHP
+
+          .mva Temp, CurrentGrizzard
+          .FarJSR SaveKeyBank, ServiceSetCurrentGrizzard
 
           .mvx SignpostIndex, # 29 ; NewGamePlusGo
           jmp Signpost

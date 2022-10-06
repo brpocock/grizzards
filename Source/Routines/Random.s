@@ -8,10 +8,13 @@ SeedRandom:         .block
             bne +
           
             lda INPT1
+            asl a
             eor INPT3
             sta Rand
-            lda INPT2
-            eor INPT5
+
+            lda INPT0
+            asl a
+            eor INPT2
             sta Rand + 1
             rts
 

@@ -11,6 +11,7 @@
 ;;; Adapted for AtariAge save circuit by Fred Quimby (batari)
 
 SaveGameSignatureString:
+          .enc "Unicode"
           .text SaveGameSignature
 
           i2cClockPort0 = $1ff0
@@ -21,15 +22,16 @@ SaveGameSignatureString:
 
           SaveWritesPerScreen = $20
 ;;; 
+
           EEPROMRead = $a1
           EEPROMWrite = $a0
 ;;; 
 
 i2cStartRead:
-          ;; Read page in A
+          ;; Read page in A (0-7)
           asl a
           ora # EEPROMRead
-          gne i2cSignalStart
+          jmp i2cSignalStart    ; gne
 
 i2cStartWrite:
           asl a
@@ -54,8 +56,9 @@ Loop:
           asl Temp              ; bit into C
           bcc Send0
 
+Send1:
           nop i2cDataPort1
-          gcs SendClock         ; always taken
+          jmp SendClock         ; always taken gcs
 
 Send0:
           nop i2cDataPort0
@@ -74,18 +77,13 @@ GetAck:
           lda i2cReadPort
           lsr a                 ; C = SDA
           nop i2cClockPort0
-          ;; return C = ACK bit
+          ;; return C = ACK bit (0 = ACK)
           rts
 
           .bend
           
 i2cRxByte:          .block
           ldy # 8           ; loop (bit) counter
-
-          nop i2cClockPort0
-          nop i2cDataPort0
-          nop i2cClockPort1
-          nop
           nop i2cDataPort1
 Loop:
           nop i2cClockPort0
@@ -97,9 +95,9 @@ Loop:
           dey
           bne Loop
 
-          ;; send ACK
+          ;; send ACK (zero)
           nop i2cClockPort0
-          nop i2cDataPort1
+          nop i2cDataPort0
           nop i2cClockPort1
           nop
           nop i2cClockPort0
@@ -109,23 +107,26 @@ Loop:
 
           .bend
 
-i2cStopRead:
-          ;; Discard one byte worth of reading
+i2cStopRead: .block
+          ;; Read and discard a byte in order  to get a chance to NAK it
+          ;; to end the talker's string.
           ldy # 8
-          nop i2cClockPort0
--
-          nop i2cClockPort1
-          nop
-          nop i2cClockPort0
-          dey
-          bne -
-
-          ;; send NAK
-          nop i2cClockPort0
           nop i2cDataPort1
+Loop:
+          nop i2cClockPort0
+          nop i2cClockPort1
+          nop
+          dey
+          bne Loop
+
+          nop i2cClockPort0
+
           nop i2cClockPort1
           nop
           nop i2cClockPort0
+
+          ;; fall through to send STOP condition also.
+          .bend
 
 i2cStopWrite:
           ;;  A low-to-high transition on the  SDA line while the SCL is
@@ -137,7 +138,6 @@ i2cStopWrite:
           nop i2cDataPort1
           nop
           nop i2cClockPort0
-          nop i2cDataPort0
 
           rts
 ;;; 

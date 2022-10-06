@@ -34,9 +34,10 @@ plus:	Dist/Grizzards.NTSC.a26 \
 	Dist/Grizzards.NoSave.NTSC.a26 \
 	Dist/Grizzards.NoSave.PAL.a26 \
 	Dist/Grizzards.NoSave.SECAM.a26 \
-	Dist/Grizzards.Manual.txt
+	Dist/Grizzards.Manual.txt \
+	Dist/Grizzards.AA.NTSC.a26
 
-	@echo -e 'put Dist/Grizzards.NTSC.a26 Grizzards.NTSC.EF\nput Dist/Grizzards.PAL.a26 Grizzards.PAL.EF\nput Dist/Grizzards.SECAM.a26 Grizzards.SECAM.EF\nput Dist/Grizzards.Demo.NTSC.a26 Grizzards.Demo.NTSC.F4\nput Dist/Grizzards.Demo.PAL.a26 Grizzards.Demo.PAL.F4\nput Dist/Grizzards.Demo.SECAM.a26 Grizzards.Demo.SECAM.F4\nput Dist/Grizzards.NoSave.NTSC.a26 Grizzards.NoSave.NTSC.F4\nput Dist/Grizzards.NoSave.PAL.a26 Grizzards.NoSave.PAL.F4\nput Dist/Grizzards.NoSave.SECAM.a26 Grizzards.NoSave.SECAM.F4\nput Dist/Grizzards.Manual.txt Grizzards.Manual.txt' | \
+	@echo -e 'put Dist/Grizzards.NTSC.a26 Grizzards.NTSC.EF\nput Dist/Grizzards.PAL.a26 Grizzards.PAL.EF\nput Dist/Grizzards.SECAM.a26 Grizzards.SECAM.EF\nput Dist/Grizzards.Demo.NTSC.a26 Grizzards.Demo.NTSC.F4\nput Dist/Grizzards.Demo.PAL.a26 Grizzards.Demo.PAL.F4\nput Dist/Grizzards.Demo.SECAM.a26 Grizzards.Demo.SECAM.F4\nput Dist/Grizzards.NoSave.NTSC.a26 Grizzards.NoSave.NTSC.F4\nput Dist/Grizzards.NoSave.PAL.a26 Grizzards.NoSave.PAL.F4\nput Dist/Grizzards.NoSave.SECAM.a26 Grizzards.NoSave.SECAM.F4\nput Dist/Grizzards.Manual.txt Grizzards.Manual.txt\nput Dist/Grizzards.AA.NTSC.a26 Grizzards.AA.NTSC.EF' | \
 	cadaver https://plusstore.firmaplus.de/remote.php/dav/files/$(USER)/Grizzards
 
 demo:	Dist/Grizzards.Demo.zip
@@ -47,8 +48,14 @@ Dist/Grizzards.Source.tar.gz:	game
 	find Source Manual -name \*~ -exec rm {} \;
 	tar zcf $@ Makefile README.md Guts.txt Source Manual
 
-cart:	Dist/Grizzards.AA.NTSC.a26
-	minipro -p AT27C512@DIP32 -w $<
+amcart:	Dist/Grizzards.AA.NTSC.a26
+	minipro -p AM27C512@DIP28 -w $<
+
+smjcart:	Dist/Grizzards.AA.NTSC.a26
+	minipro -p SMJ27C512@DIP28 -w $<
+
+mcart:	Dist/Grizzards.AA.NTSC.a26
+	minipro -p M27C512@DIP28 -w $<
 
 
 USBMOUNT=$(shell echo \"$$(mount | grep /run/media/$$USER | grep vfat | head -n 1 | \

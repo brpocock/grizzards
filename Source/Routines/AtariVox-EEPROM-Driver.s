@@ -7,6 +7,7 @@
 ;;; Converted for 64tass by Bruce-Robert Pocock, 2017, 2020-2022
 
 SaveGameSignatureString:
+          .enc "Unicode"
           .text SaveGameSignature
 
           i2cSDAMask = $04

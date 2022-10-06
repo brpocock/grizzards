@@ -7,13 +7,13 @@ CheckSaveSlot: .block
           ;; player name in NameEntryBuffer,
           ;; and sets SaveSlotBusy and SaveSlotErased to
           ;; either $00 for false or non-zero for true
-          jsr SeedRandom
-
           .StartI2C
 
           lda #<SaveGameSlotPrefix
           jsr i2cTxByte
-          jsr i2cStopWrite
+          .if !ATARIAGESAVE
+            jsr i2cStopWrite
+          .fi
           .if ATARIAGESAVE
             lda SaveGameSlot
           .fi
@@ -36,7 +36,9 @@ ReadLoop:
 
           jsr i2cStopRead
 
-          ldy # 1               ; slot busy
+          ldy # 0
+          sty SaveSlotErased
+          dey               ; slot busy, Y ← $ff
           sty SaveSlotBusy
 
           gne ReadSlotName
@@ -69,13 +71,13 @@ ReadLoop0:
           stx SaveSlotErased
           ;; fall through
 ReadSlotName:
-          jsr i2cWaitForAck
-
           .StartI2C
 
           lda #<SaveGameSlotPrefix + $1a ; Name offset
           jsr i2cTxByte
-          jsr i2cStopWrite
+          .if !ATARIAGESAVE
+            jsr i2cStopWrite
+          .fi
           .if ATARIAGESAVE
             lda SaveGameSlot
           .fi
@@ -90,19 +92,17 @@ LoadNameLoop:
           cpx # 6
           bne LoadNameLoop
 
-          lda #$80
-
           jsr i2cStopRead
 
 ReadCrownBit:
-          jsr i2cWaitForAck
-
           .StartI2C
 
           lda #<SaveGameSlotPrefix + 5 + Potions - GlobalGameData
           jsr i2cTxByte
 
-          jsr i2cStopWrite
+          .if !ATARIAGESAVE
+            jsr i2cStopWrite
+          .fi
           .if ATARIAGESAVE
             lda SaveGameSlot
           .fi

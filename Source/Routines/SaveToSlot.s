@@ -15,6 +15,11 @@ WriteMasterBlock:
             .error "Save routines assume that SaveGameSlotPrefix is aligned to $100"
           .fi
 
+          .if GlobalGameDataLength > $10
+            .error format("2kiB EEPROM can't handle more than $10 bytes at a go, GlobalGameDataLength is $%02x", GlobalGameDataLength)
+          .fi
+
+          jsr i2cWaitForAck
           ;; First set the write pointer up  for the first block of this
           ;; save game slot ($1100, $1200,  or $1300 if SaveKey, $00-$07
           ;; for save-to-cart)
@@ -36,36 +41,42 @@ WriteSignatureLoop:
           cpx # 5
           bne WriteSignatureLoop
 
+SwitchFromSignatureToGlobal:
           ;; The GlobalGameData block has all the persistent vars
           ;; that are not ProvinceFlags or Grizzard stats.
+
+          .if GlobalGameDataLength != 14
+            .error format("This was rewritten to only work with GlobalGameDataLength=14, not %d", GlobalGameDataLength)
+          .fi
+          
           ldx # 0
 WriteGlobalLoop:
           lda GlobalGameData, x
           jsr i2cTxByte
           inx
-          cpx # GlobalGameDataLength
+          cpx # 11
           bne WriteGlobalLoop
 
-          .WaitScreenBottom
-          .WaitScreenTop
-
-          ;; Pad out to $20
-          ldx # $20 - 5 - GlobalGameDataLength - 6
-WritePadAfterGlobal:
-          lda #$fe             ; totally arbitrary pad value
+          jsr i2cStopWrite
+          jsr i2cWaitForAck
+          .StartI2C
+          lda #$10
           jsr i2cTxByte
-          dex
-          bne WritePadAfterGlobal
+
+          lda GlobalGameData + 11
+          jsr i2cTxByte
+          lda GlobalGameData + 12
+          jsr i2cTxByte
+          lda GlobalGameData + 13
+          jsr i2cTxByte
 
           jsr i2cStopWrite
-
           jsr i2cWaitForAck
 
           .WaitScreenBottom
 WriteCurrentProvince:
           jsr SaveProvinceData
           .WaitScreenTop
-
           jsr i2cWaitForAck
 
 WriteCurrentGrizzard:

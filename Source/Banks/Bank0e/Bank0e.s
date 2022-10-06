@@ -47,4 +47,3 @@ DoLocal:
 
           .include "EndBank.s"
 
-          

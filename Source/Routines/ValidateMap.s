@@ -9,21 +9,22 @@ CheckForGrizzard:
           bmi DoneCheckingGrizzards ; wrapped below 0
 
           lda SpriteAction, x
-          cmp #SpriteGrizzard
+          cmp # SpriteGrizzard
           bne CheckForGrizzard
 
           lda SpriteParam, x
-          sta Temp
-          txa
-          pha
-          .FarJSR SaveKeyBank, ServicePeekGrizzard
+          sta Temp              ; SpriteParam, x
+          txa                   ; sprite being validated
+          pha                   ; sprite begin validated
+          ;; check for Grizzards currently in the party, or previously metamorphosed.
+          .FarJSR SaveKeyBank, ServicePeekGrizzardXP
 
           bcc DidNotCatchGrizzardYet
 
 AlreadyCaughtGrizzard:
-          pla
-          pha
-          tax
+          pla                   ; sprite being validated
+          pha                   ; sprite being validated
+          tax                   ; sprite being validated
 
 ShiftSpritesDownOne:
           lda SpriteIndex + 1, x
@@ -51,8 +52,8 @@ ShiftSpritesDownOne:
           dec SpriteCount
 
 DidNotCatchGrizzardYet:
-          pla
-          tax
+          pla                   ; sprite being validated
+          tax                   ; sprite being validated
 
           jmp CheckForGrizzard
 ;;; 

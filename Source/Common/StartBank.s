@@ -23,13 +23,13 @@
 
           .if DEMO
             .if NOSAVE
-              ConfigCode = "0.NOSAVE"
+              ConfigCode = "N"
             .else
-              ConfigCode = "0.DEMO"
+              ConfigCode = "1"
             .fi
           .else
             .if ATARIAGESAVE
-              ConfigCode = "1"
+              ConfigCode = "A"
             .else
               ConfigCode = "0"
             .fi

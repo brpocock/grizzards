@@ -53,7 +53,7 @@ AttackHit1:
 	beq ExtraDifficult    ; player always hits hard
 
           lda DebounceSWCHB
-          and #SWCHBP0Advanced
+          and # SWCHBP0Advanced
           bne ExtraDifficult    ; monsters only hit hard in Advanced mode
 
           jsr Random
@@ -62,6 +62,7 @@ AttackHit1:
 
 ExtraDifficult:
           jsr Random
+
           bmi HitMinus
 
 HitPlus:
@@ -101,7 +102,7 @@ KilledDefender:
           geq NoStatusFX
 
 DidNotKill:
-          sec
+          ;; Carry is set (BGE to reach here = BCS)
           sbc MoveHP
           sta DefenderHP
           jsr Random

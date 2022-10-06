@@ -3,8 +3,8 @@
 MovesTable:         .block
           ;; 0
 RunAway:
-          .MiniText " RUN  "
-          .MiniText " AWAY "
+          .MiniText "RUN   "
+          .MiniText "  AWAY"
           ;; 1
 KickDirt:
           .MiniText "KICK  "
@@ -156,7 +156,7 @@ GreatMuddle:
           .MiniText "MUDDLE"
           ;; 38
 HardTackle:
-          .MiniText " HARD "
+          .MiniText "HARD  "
           .MiniText "TACKLE"
           ;; 39
 WetNoodle:
@@ -201,23 +201,23 @@ VampyBite:
           ;; 49
 HeartyThump:
           .MiniText "HEARTY"
-          .MiniText "THUMP "
+          .MiniText " THUMP"
           ;; 50
 HardJab:
-          .MiniText " HARD "
-          .MiniText "  JAB "
+          .MiniText "HARD  "
+          .MiniText "   JAB"
           ;; 51
 ClawBadly:
-          .MiniText " CLAW "
+          .MiniText "CLAW  "
           .MiniText " BADLY"
           ;; 52
 BackKick:
-          .MiniText " BACK "
-          .MiniText " KICK "
+          .MiniText "BACK  "
+          .MiniText "  KICK"
           ;; 53
 HeadButt:
-          .MiniText " HEAD "
-          .MiniText " BUTT "
+          .MiniText "HEAD  "
+          .MiniText "  BUTT"
           ;; 54
 PirateCurse:
           .MiniText "PIRATE"
@@ -241,11 +241,11 @@ DeathGlare:
           ;; 59
 PoundSand:
           .MiniText "POUND "
-          .MiniText " SAND "
+          .MiniText "  SAND"
           ;; 60
 WingsFlap:
           .MiniText "WINGS "
-          .MiniText " FLAP "
+          .MiniText "  FLAP"
           ;; 61
 CursedGlance:
           .MiniText "CURSED"

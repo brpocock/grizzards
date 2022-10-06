@@ -290,7 +290,7 @@ SpriteList:
           .byte $b3, $35
           .byte SpriteGrizzardDepot, 0
 
-          .byte 0, SpriteWander
+          .byte 42, SpriteWander
           .byte $52, $34
           .byte SpritePerson, 26 ; Peter (found now)
 
@@ -535,11 +535,11 @@ SpriteList:
 
           ;;Room 34
           .byte $ff, SpriteWander
-          .byte $20, $20
+          .byte $7c, $25
           .byte SpritePerson, 43 ; how long is it safe?
 
           .byte $ff, SpriteWander
-          .byte $30, $30
+          .byte $50, $36
           .byte SpritePerson, 44 ; Fat Tony is smart
 
           .byte 0
@@ -574,11 +574,11 @@ SpriteList:
 
           ;;Room 39
           .byte $ff, SpriteWander
-          .byte $30, $15
+          .byte $5a, $24
           .byte SpritePerson, 98 ; hungry
 
           .byte $ff, SpriteWander
-          .byte $20, $30
+          .byte $a9, $24
           .byte SpritePerson, 42 ; Treble refugee
           
           .byte 0

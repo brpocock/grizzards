@@ -60,6 +60,7 @@ AfterMetamorphosis:
           .if !DEMO
 
             lda Potions
+            and #$7f            ; mask out Crown bit
             cmp #$7f            ; allow up to 127 potions
             bge AfterPotions
 

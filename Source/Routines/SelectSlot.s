@@ -74,13 +74,15 @@ DestroyNow:
           gne Loop
 
 DoNotDestroy:
-          ;; See if the slot is in use
-          ;; by checking for the signature bytes
+          ;; See if  the slot is  in use  by checking for  the signature
+          ;; bytes
           lda SaveSlotChecked
           cmp SaveGameSlot
           beq MidScreen
 
 NeedToCheck:
+          jsr SeedRandom
+
           jsr CheckSaveSlot
 
 Checked:

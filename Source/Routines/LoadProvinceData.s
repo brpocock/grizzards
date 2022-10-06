@@ -12,7 +12,9 @@ LoadProvinceData:   .block
           asl a                 ; × 8
           ora # $20
           jsr i2cTxByte
-          jsr i2cStopWrite
+          .if !ATARIAGESAVE
+            jsr i2cStopWrite
+          .fi
           .if ATARIAGESAVE
             lda SaveGameSlot
           .fi

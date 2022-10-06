@@ -29,7 +29,7 @@ EndBank:
 BankJump: .macro label, bank
           .block
 BankSwitch:
-            sta BankSwitch0 + \bank
+            nop BankSwitch0 + \bank
 
             .if BANK == \bank
               jmp \label
@@ -60,22 +60,22 @@ GoMap:
 
           .if DEMO
 
-            sta BankSwitch0 + Province0MapBank
+            nop BankSwitch0 + Province0MapBank
             jmp DoLocal
 
           .else
 
             lda CurrentProvince
             bne +
-            sta BankSwitch0 + Province0MapBank
+            nop BankSwitch0 + Province0MapBank
             jmp DoLocal
 +
             cmp # 2
             beq +
-            sta BankSwitch0 + Province1MapBank
+            nop BankSwitch0 + Province1MapBank
             jmp DoLocal
 +
-            sta BankSwitch0 + Province2MapBank
+            nop BankSwitch0 + Province2MapBank
             jmp DoLocal
 
           .fi
@@ -83,7 +83,7 @@ GoMap:
 ;;; Go to the current combat memory bank, and jump to DoCombat.
 GoCombat:
           .mvx s, #$ff              ; smash the stack
-          sta BankSwitch0 + CombatBank0To63
+          nop BankSwitch0 + CombatBank0To63
           jmp DoLocal
 
 GoWarmStart:
@@ -100,7 +100,7 @@ GoWarmStart:
 FarCall:
           lda #BANK
           pha
-          sta BankSwitch0, x
+          nop BankSwitch0, x
           jsr DoLocal
           ;; fall through after rts
 
@@ -109,7 +109,7 @@ FarCall:
 FarReturn:
           pla
           tax
-          sta BankSwitch0, x
+          nop BankSwitch0, x
           rts
 
 ;;; BRK vector jumps to the routine Failure

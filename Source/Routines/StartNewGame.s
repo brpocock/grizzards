@@ -9,6 +9,8 @@ StartNewGame:          .block
 
           .mvx s, #$ff              ; destroy stack. We are here to stay.
 
+          .mvy Potions, # 0     ; clear potions value, can be altered by KINGME cheat
+
           ;; Need to set NameEntryBuffer+0 ← $ff to indicate that
           ;; we're starting a new name entry.
           stx NameEntryBuffer
@@ -58,6 +60,10 @@ InitGameVars:
           sta GrizzardAttack
           sta GrizzardDefense
 
+          lda # 10
+          sta MaxHP
+          sta CurrentHP
+
           sty GrizzardXP
 
           lda #$03
@@ -71,10 +77,6 @@ InitGameVars:
           bne -
 
           .mva ProvinceFlags + 7, #$ff
-
-          lda # 10
-          sta MaxHP
-          sta CurrentHP
 
           .WaitScreenBottom
           .if TV != NTSC
@@ -90,12 +92,15 @@ InitGameVars:
 
           .FarJSR SaveKeyBank, ServiceNewGame2
 
+          ;; If  they   used  the  KINGME   code,  give  them   all  the
+          ;; starter Grizzards.
           lda Potions
           beq SaveName
 
           .mva CurrentGrizzard, # 2
 GetAllStarters:
           .FarJSR SaveKeyBank, ServiceSaveGrizzard
+          jsr i2cWaitForAck
           dec CurrentGrizzard
           bpl GetAllStarters
 
@@ -110,9 +115,7 @@ SaveName:
           .WaitScreenTop
 
           .StartI2C
-          clc
-          lda #<SaveGameSlotPrefix
-          adc #$1a
+          lda #$1a
           jsr i2cTxByte
 
           ldx # 0

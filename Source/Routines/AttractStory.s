@@ -10,9 +10,11 @@ AttractStory:       .block
           sty AttractStoryPanel
           sty AttractStoryProgress
 
+          jsr SeedRandom
+
           jsr Random
 
-          and #$07
+          and #$0f
           tax
           lda MonsterShapes, x
           sta CurrentMonsterArt
@@ -243,27 +245,21 @@ StoryDone:
           blt StillStory
 
           ;; Return to title screen, with a new Grizzard
-          .mva AlarmCountdown, # 30
           ldy # 0               ; necessary? XXX
           sty DeltaY
 
 NextGrizzard:
-          inc CurrentGrizzard
-          lda CurrentGrizzard
-          cmp # 3
-          blt DoneNextGrizzard
+          ldx CurrentGrizzard
+          lda IncMod3, x
+          sta CurrentGrizzard
 
-          ldy # 0               ; XXX necessary?
-          sty CurrentGrizzard
-DoneNextGrizzard:
-
-          .if ATARIAGESAVE
-            .mva GameMode, #ModeAttractHighScore
-          .else
-            .mva AlarmCountdown, # 8
+          .if DEMO
             .mva GameMode, #ModePublisherPresents
+            rts
+          .else
+            .mva GameMode, #ModeAttractBestiary
+            jmp AttractBestiary
           .fi
-          rts
 ;;; 
 StillStory:
           lda NewSWCHB
@@ -288,7 +284,8 @@ LoopMe:
           jmp Loop
 ;;; 
 Monsters:
-          .byte 0, 1, 2, 8, 11, 13, 18, 23
+          .byte 0, 1, 2, 8,   11, 13, 18, 23
+          .byte 3, 5, 9, 14,  19, 6, 42, 10
 MonsterShapes:
           .byte Monster_SlimeSmall
           .byte Monster_SlimeSmall
@@ -299,4 +296,15 @@ MonsterShapes:
           .byte Monster_Bat
           .byte Monster_Bird
 
+          .byte Monster_Rodent
+          .byte Monster_Turtle
+          .byte Monster_Spider
+          .byte Monster_WillOWisp
+          .byte Monster_Sheep
+          .byte Monster_Fox
+          .byte Monster_Radish
+          .byte Monster_Rodent
+
+IncMod3:
+          .byte 1, 2, 0
           .bend

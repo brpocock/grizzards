@@ -9,9 +9,9 @@
 DoLocal:
           .include "Signpost.s"
 
-          .include "WinnerFireworks.s"
-          .align $10
+          .align $20
           .include "ShowPicture.s"
+          .include "WinnerFireworks.s"
 
           .include "CopyPointerText.s"
           .include "ShowPointerText.s"

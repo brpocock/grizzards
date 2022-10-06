@@ -20,6 +20,9 @@
           ModeBRPPreamble = $1e
           ModePublisherPresents = $1e ; same, just a different build
           ModeWinnerFireworks = $15
+          ModeAttractBestiary = $17
+          ModeAttractChallenge = $18
+          ModeWinnerWinning = $19
 
           ModeSelectSlot = $20
           ModeEraseSlot = $21
@@ -138,13 +141,15 @@
           .fi
           
           ;; Must be exactly 5 bytes for the driver routines to work
-          .enc "ascii"
           .if DEMO
-            SaveGameSignature = "griz1"
+            SaveGameSignature = "GRIZ1"
           .else
-            SaveGameSignature = "griz0"
+            .if ATARIAGESAVE
+              SaveGameSignature = "GRIZA"
+            .else
+              SaveGameSignature = "GRIZ0"
+            .fi
           .fi
-          .enc "none"
 ;;; 
 ;;; Special Memory Banks
 
