@@ -5,7 +5,7 @@ NoCookieForYou:
 ♂When you do defeat all the monsters there will be cookies
 
 CookieGiven:
-♂You are the best.I'll tell all my friends about you
+♂You are the best.I'll tell my friends all about you
 
 HadCookie:
 ♂That was the best cookie.I'll name my kid after you for sure
