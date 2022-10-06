@@ -10,20 +10,18 @@ AttractStory:       .block
           sty AttractStoryPanel
           sty AttractStoryProgress
 
-          jsr SeedRandom
-
-          jsr Random
-
+          lda DeltaX            ; XXX used for monster
+          clc
+          adc # 3
           and #$0f
+          sta DeltaX            ; XXX used for monster
           tax
           lda MonsterShapes, x
           sta CurrentMonsterArt
           lda Monsters, x
           sta CurrentMonsterNumber
-          lda # 0
-          sta CombatMajorP
-RandomColor:
-          ;; ldy # 0 ; already zero from above
+
+          sty CombatMajorP      ; Y = 0
           sty DeltaY            ; XXX used for a timer
 
           ldx # 6
