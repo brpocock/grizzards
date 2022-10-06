@@ -84,10 +84,9 @@ GetAck:
           
 i2cRxByte:          .block
           ldy # 8           ; loop (bit) counter
-
+          nop i2cDataPort1
 Loop:
           nop i2cClockPort0
-          nop i2cDataPort1
           nop i2cClockPort1
           nop
           lda i2cReadPort
@@ -108,8 +107,27 @@ Loop:
 
           .bend
 
-i2cStop:
-i2cStopRead:
+i2cStopRead: .block
+          ;; Read and discard a byte in order  to get a chance to NAK it
+          ;; to end the talker's string.
+          ldy # 8
+          nop i2cDataPort1
+Loop:
+          nop i2cClockPort0
+          nop i2cClockPort1
+          nop
+          dey
+          bne Loop
+
+          nop i2cClockPort0
+
+          nop i2cClockPort1
+          nop
+          nop i2cClockPort0
+
+          ;; fall through to send STOP condition also.
+          .bend
+
 i2cStopWrite:
           ;;  A low-to-high transition on the  SDA line while the SCL is
           ;;  high defines a STOP condition
