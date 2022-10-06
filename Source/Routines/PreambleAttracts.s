@@ -32,6 +32,8 @@ BRPPreambleMode:
           bne StillPresenting
 
           lda CurrentGrizzard
+          inc Rand
+          dec Rand + 1
 RandomGrizzard:
           and #$03
           cmp # 3
