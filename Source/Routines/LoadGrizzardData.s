@@ -25,6 +25,30 @@ LoadGrizzardData:   .block
 
           jsr i2cStopRead
 
+          lda GrizzardAttack
+          bne +
+          lda # 1
+          sta GrizzardAttack
++
+
+          lda GrizzardDefense
+          bne +
+          lda # 1
+          sta GrizzardDefense
++
+
+          lda MaxHP
+          bne +
+          lda # 10
+          sta MaxHP
++
+
+          lda MovesKnown
+          bne +
+          lda #$03
+          sta MovesKnown
++
+
           .mva CurrentHP, MaxHP
 
           ;; Make sure debounced switch doesn't return us to the title screen immediately
