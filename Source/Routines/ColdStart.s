@@ -8,7 +8,7 @@
 ;;; It must never be called again, or you'll lose '7800 detection.
 
 ColdStart:         .block
-          sei
+          ;; sei
           cld
           ;; On cold start, on a real 6507, .S = $fd, but 
           ;; on a 7800, or some knockoffs maybe, .S = $ff. By
