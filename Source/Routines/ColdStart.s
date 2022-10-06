@@ -35,13 +35,11 @@ ZeroTIALoop:
           sty SWBCNT
 
           sty SystemFlags
+          sty GameMode
 
           .if ATARIAGESAVE
             .FarJSR MapServicesBank, ServiceWipeHighScore
           .fi
-	
-          inx                   ; X = 0
-          stx GameMode
           
           ;; Fall through to DetectConsole
 	.bend
