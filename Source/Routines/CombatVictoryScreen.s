@@ -26,7 +26,6 @@ DoesMetamorphose:
             sty MaxHP
             .FarJSR SaveKeyBank, ServiceSaveGrizzard
 
-            jsr i2cWaitForAck
             .mva Temp, NextMap
             .FarJSR MapServicesBank, ServiceNewGrizzard
 
