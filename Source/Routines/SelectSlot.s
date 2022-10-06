@@ -9,11 +9,13 @@ SelectSlot:        .block
           jsr Prepare48pxMobBlob
 
           .mva NextSound, #SoundChirp
-          .SetUtterance Phrase_SelectSlot
 
           .mvy SaveSlotChecked, #$ff
           iny                   ; Y = 0
           sty SelectJatibuProgress
+          sty CurrentUtterance + 1
+          ;;  Phrase_SelectSlot MUST be <$100
+          .mva CurrentUtterance, # Phrase_SelectSlot
 ;;; 
 Loop:
           .WaitScreenBottom
