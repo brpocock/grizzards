@@ -151,9 +151,7 @@ Foliage:
           jsr Random            ; not really random, seeded just above
 
           sta PF0
-          .if NTSC == TV
-            jsr Random          ; XXX out of space for non-NTSC
-          .fi
+          jsr Random
           sta PF1
           jsr Random
 
