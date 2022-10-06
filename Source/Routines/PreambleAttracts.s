@@ -35,11 +35,12 @@ BRPPreambleMode:
 RandomGrizzard:
           and #$03
           cmp # 3
-          bne +
+          bne IsValidGrizzard
 
           jsr Random
           bne RandomGrizzard
 
+IsValidGrizzard:
           sta CurrentGrizzard
 
           .mva AlarmCountdown, # 60
