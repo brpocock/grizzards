@@ -62,7 +62,7 @@ HowLong:
 ♀People flee here from other towns.How long is it?safe
 
 FatTony:
-♀Fat Tony was raised here,and knows all about our island
+♀Fat Tony was raised here,and he knows all about our island
 
 WelcomePortLion:
 ♂I'm Fat Tony.Welcome to Port Lion.I'm the best at geography
