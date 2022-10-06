@@ -51,6 +51,9 @@ Dist/Grizzards.Source.tar.gz:	game
 amcart:	Dist/Grizzards.AA.NTSC.a26
 	minipro -p AM27C512@DIP28 -w $<
 
+smjcart:	Dist/Grizzards.AA.NTSC.a26
+	minipro -p SMJ27C512@DIP28 -w $<
+
 mcart:	Dist/Grizzards.AA.NTSC.a26
 	minipro -p M27C512@DIP28 -w $<
 
