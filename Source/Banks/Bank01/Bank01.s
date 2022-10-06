@@ -169,7 +169,7 @@ WipeHighScore:
 
 DoWipeHighScore:
             lda # 0
-            jsr i2cWaitForAck
+            jsr i2cWaitForAck   ; in case the EEPROM needs to wake up?
             lda # 0
             jsr i2cStartWrite
             lda #$fd            ; position of high score
