@@ -37,7 +37,7 @@ ZeroTIALoop:
           sty SystemFlags
 
           .if ATARIAGESAVE
-            ;; Wipe out High Score record when powered on with ALL THE SWITCHES in their least-usual state.
+            ;; Wipe out High Score record when powered on with Select & Reset down.
             lda SWCHB
             and # SWCHBReset | SWCHBSelect
             bne ResetStack
