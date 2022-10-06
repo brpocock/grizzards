@@ -57,6 +57,9 @@ smjcart:	Dist/Grizzards.AA.NTSC.a26
 mcart:	Dist/Grizzards.AA.NTSC.a26
 	minipro -p M27C512@DIP28 -w $<
 
+wcart:	Dist/Grizzards.AA.NTSC.a26
+	minipro -p W27C512@DIP28 -w $<
+
 
 USBMOUNT=$(shell echo \"$$(mount | grep /run/media/$$USER | grep vfat | head -n 1 | \
 		perl -pne 's#^/dev/.+ on (.+) type vfat (.*)#$$1#g')\")
