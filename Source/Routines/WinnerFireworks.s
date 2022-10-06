@@ -122,13 +122,8 @@ Wipe8Bytes:
           ;; Save global data, also save province 0 as zeroes
           .FarJSR SaveKeyBank, ServiceSaveToSlot
 ;;; 
-AnnounceWin: 
-          .mva NextSound, #SoundRoar
-
           .WaitScreenBottom
           .WaitScreenTop
-
-          .mvy NewButtons, # 0
 
           ;; First, save everything, then pull the user's name for the message text
           ;; SaveToSlot starts _and ends_ with WaitScreenBottom calls.
@@ -139,10 +134,6 @@ AnnounceWin:
             stx WSYNC
           .endswitch
           .WaitScreenTopMinus 1, 1
-          ;; Do  this whether  or not  we're checking  for high  scores,
-          ;; because  we need  to populate  the NameEntryBuffer  for the
-          ;; winning screen.
-          .FarJSR SaveKeyBank, ServiceCheckSaveSlot
 
           pla                   ; valid CurrentGrizzard
           sta CurrentGrizzard
@@ -156,6 +147,16 @@ AnnounceWin:
 
           pla                   ; Potions (before New Game Plus)
           sta Potions
+
+AnnounceWin: 
+          .mva NextSound, #SoundRoar
+
+          .mvy NewButtons, # 0
+
+          ;; Do  this whether  or not  we're checking  for high  scores,
+          ;; because  we need  to populate  the NameEntryBuffer  for the
+          ;; winning screen.
+          .FarJSR SaveKeyBank, ServiceCheckSaveSlot
 
           .WaitScreenBottom
           .if ATARIAGESAVE

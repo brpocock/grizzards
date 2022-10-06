@@ -269,11 +269,12 @@ Leave:
             beq Inquire
           .fi
 
-          cmp #ModeWinnerFireworks
           .if BANK == $0c
+            cmp #ModeWinnerFireworks
             beq WinnerFireworks
-          .else
-            beq Break
+
+            cmp #ModeWinnerWinning
+            beq WinnerFireworks.AnnounceWin
           .fi
 
           cmp #ModeSignpostNext

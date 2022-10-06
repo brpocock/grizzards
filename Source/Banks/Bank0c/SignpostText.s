@@ -191,7 +191,7 @@ Sign_NewGamePlus:
           .SignText "TO RESTART  "
           .SignText "WITH YOUR   "
           .SignText "GRIZZARDS.  "
-          .byte ModeWinnerFireworks
+          .byte ModeWinnerWinning
 
 ;;; 115
 Sign_EasterEgg:

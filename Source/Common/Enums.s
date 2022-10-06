@@ -22,6 +22,7 @@
           ModeWinnerFireworks = $15
           ModeAttractBestiary = $17
           ModeAttractChallenge = $18
+          ModeWinnerWinning = $19
 
           ModeSelectSlot = $20
           ModeEraseSlot = $21
