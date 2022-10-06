@@ -412,7 +412,7 @@ FoundSecretRoom:
 
 DoneSecretRoom:
 
-          .fi
+          .fi                   ; if province 2 only
 ;;; 
 ScreenJumpLogic:
           lda PlayerY
