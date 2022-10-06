@@ -96,8 +96,9 @@ Loop:
           dey
           bne Loop
 
-          ;; send ACK
+          ;; send ACK (zero)
           nop i2cClockPort0
+          nop i2cDataPort0
           nop i2cClockPort1
           nop
           nop i2cClockPort0
