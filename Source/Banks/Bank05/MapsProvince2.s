@@ -290,7 +290,7 @@ SpriteList:
           .byte $b3, $35
           .byte SpriteGrizzardDepot, 0
 
-          .byte 0, SpriteWander
+          .byte 42, SpriteWander
           .byte $52, $34
           .byte SpritePerson, 26 ; Peter (found now)
 

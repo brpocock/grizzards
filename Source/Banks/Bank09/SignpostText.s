@@ -36,13 +36,13 @@ NPC_HaveKey:
 NPC_LostChild:
           .colu COLINDIGO, 0
           .colu COLTURQUOISE, $9
-          .byte $ff, 0, 27      ; found Peter already
+          .byte $ff, 42, 27      ; found Peter already
           .SignText "MY SON PETER"
           .SignText "HAS GONE    "
           .SignText "MISSING NEAR"
           .SignText "THE TOP OF  "
           .SignText "THE CLIFFS! "
-          .byte ModeSignpostClearFlag,  63
+          .byte ModeSignpostDone
 
 ;;; 26
 NPC_IAmLost:
@@ -53,7 +53,7 @@ NPC_IAmLost:
           .SignText "WANT TO GO  "
           .SignText "HOME TO PORT"
           .SignText "LION NOW.   "
-          .byte ModeSignpostSet0And63
+          .byte ModeSignpostSetFlag, 42
 
 ;;; 27
 NPC_ReturnChild:
