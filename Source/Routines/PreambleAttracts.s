@@ -31,9 +31,10 @@ BRPPreambleMode:
           lda AlarmCountdown
           bne StillPresenting
 
-          lda CurrentGrizzard
           inc Rand
           dec Rand + 1
+
+          lda CurrentGrizzard
 RandomGrizzard:
           and #$03
           cmp # 3
