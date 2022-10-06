@@ -22,7 +22,6 @@ ZeroRAM:
 WarmStart:
           ldx #$ff
           txs
-          jsr SeedRandom
 
           ldy # 0
           sty CurrentMusic + 1

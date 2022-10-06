@@ -137,6 +137,11 @@ AirexTop:
           .ldacolu COLGREEN, $4
           sta COLUPF
 
+          lda Rand
+          pha
+          lda Rand + 1
+          pha
+
           lda # 43              ; We don't actually want legit random here.
           sta Rand
           sta Rand + 1
@@ -166,6 +171,11 @@ Foliage:
 
           sta COLUP0
           sta COLUP1
+
+          pla
+          sta Rand + 1
+          pla
+          sta Rand
 
           lda ClockFrame
           .BitBit $20

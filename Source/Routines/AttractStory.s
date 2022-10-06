@@ -10,6 +10,8 @@ AttractStory:       .block
           sty AttractStoryPanel
           sty AttractStoryProgress
 
+          jsr SeedRandom
+
           jsr Random
 
           and #$0f
