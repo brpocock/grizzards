@@ -22,7 +22,7 @@ ZeroRAM:
           jsr SeedRandom
 
 WarmStart:
-          ldx #$ff
+          dex                   ; X ← $ff
           txs
 
           ldy # 0
@@ -41,6 +41,9 @@ WarmStart:
 
           .mva DeltaY, # 4            ; what is this being used for??
           .mva AlarmCountdown, # 8
+
+          jsr Random
+          sta CurrentGrizzard   ; will be normalized during Preamble
 ;;; 
 Loop:
           .WaitScreenBottom

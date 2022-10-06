@@ -37,27 +37,9 @@ ZeroTIALoop:
           sty SystemFlags
 
           .if ATARIAGESAVE
-            ;; Wipe out High Score record when powered on with Select & Reset down.
-            lda SWCHB
-            and # SWCHBReset | SWCHBSelect
-            bne ResetStack
-
-WipeHighScore:
-            lda # 0
-            jsr i2cStartWrite
-            lda #$fd            ; position of high score
-            jsr i2cTxByte
-            ldx # 3
--
-            lda # 0
-            jsr i2cTxByte
-            dex
-            bne -
+            .FarJSR MapServicesBank, ServiceWipeHighScore
           .fi
 	
-ResetStack:
-          .mvx s, #$ff
-
           inx                   ; X = 0
           stx GameMode
           

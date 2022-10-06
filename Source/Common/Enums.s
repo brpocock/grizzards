@@ -209,6 +209,7 @@
           ServiceCheckHighScore = $3a
           ServiceSetHighScore = $3b
           ServiceNewGame2 = $3d
+          ServiceWipeHighScore = $3e
 
 ;;; Map services bank
 

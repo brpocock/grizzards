@@ -56,6 +56,9 @@ DoLocal:
 
             cpy #ServiceSetHighScore
             beq SetHighScore
+
+            cpy #ServiceWipeHighScore
+            beq WipeHighScore
           .fi
 
           brk
@@ -154,6 +157,28 @@ JatibuFF: .block
 NotCompleted:
           rts
           .bend
+
+          .if ATARIAGESAVE
+            ;; Wipe out High Score record when powered on with Select & Reset down.
+            lda SWCHB
+            and # SWCHBReset | SWCHBSelect
+            beq WipeHighScore
+
+            rts
+
+WipeHighScore:
+            lda # 0
+            jsr i2cStartWrite
+            lda #$fd            ; position of high score
+            jsr i2cTxByte
+            ldx # 3
+-
+            lda # 0
+            jsr i2cTxByte
+            dex
+            bne -
+            rts
+          .fi
 
           .include "CopyPointerText.s"
           .include "ShowPointerText.s"
