@@ -162,9 +162,6 @@ DoneHitSound:
           lda # SoundVictory
           sta NextSound
 
-          lda # 0
-          sta CurrentMusic
-          sta CurrentMusic + 1
           inc AttractStoryPanel
 
 NotSix:
