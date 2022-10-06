@@ -450,12 +450,12 @@ SpriteList:
 
           ;;Room 23, Tier 0
           .byte $ff, SpriteFixed
-          .byte $70, $10
-          .byte SpritePerson, 46 ; Fat Tony look up @ cliffs
-
-          .byte $ff, SpriteFixed
           .byte 0, 0
           .byte SpriteGrizzard, 4 ; Petty
+
+          .byte $ff, SpriteFixed
+          .byte $70, $10
+          .byte SpritePerson, 46 ; Fat Tony look up @ cliffs
 
           .byte 0
 
