@@ -24,8 +24,6 @@ Silence:
           sta AUDC0  ; zero from KillMusic
           sta AUDF0
           sta AUDV0
-          sta CurrentUtterance
-          sta CurrentUtterance + 1
 
           .mvx s, #$ff
 
