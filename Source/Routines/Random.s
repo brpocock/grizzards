@@ -11,6 +11,7 @@ SeedRandom:         .block
             asl a
             eor INPT3
             sta Rand
+
             lda INPT0
             asl a
             eor INPT2
