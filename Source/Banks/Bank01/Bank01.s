@@ -180,7 +180,7 @@ DoWipeHighScore:
             jsr i2cTxByte
             dex
             bne -
-            rts
+            jmp i2cStopWrite
           .fi
 
           .include "CopyPointerText.s"
