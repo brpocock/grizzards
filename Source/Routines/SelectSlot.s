@@ -255,7 +255,7 @@ ThisIsNotAStickUp:
           bne StillGotTime
 
           .WaitScreenBottom
-          jmp Attract
+          jmp Attract.WarmStart
 
 StillGotTime:
           lda NewButtons

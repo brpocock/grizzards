@@ -17,13 +17,12 @@ ZeroRAM:
           dex
           bne ZeroRAM
 
+WarmStart:
           .SetUtterance Phrase_Reset
 
           jsr SeedRandom
 
-WarmStart:
-          dex                   ; X ← $ff
-          txs
+          .mvx s, #$ff
 
           ldy # 0
           sty CurrentMusic + 1
@@ -91,7 +90,7 @@ GoHighScore:
           cmp #ModeSelectSlot
           beq Leave
 
-          jmp Attract
+          jmp WarmStart
 
           .fi
 ;;; 
