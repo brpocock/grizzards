@@ -39,9 +39,10 @@ ZeroTIALoop:
           .if ATARIAGESAVE
             ;; Wipe out High Score record when powered on with ALL THE SWITCHES in their least-usual state.
             lda SWCHB
-            and # SWCHBReset | SWCHBSelect | SWCHBColor | SWCHBP0Advanced | SWCHBP1Advanced
+            and # SWCHBReset | SWCHBSelect
             bne ResetStack
 
+WipeHighScore:
             lda # 0
             jsr i2cStartWrite
             lda #$fd            ; position of high score
