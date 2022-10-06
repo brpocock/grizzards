@@ -160,13 +160,16 @@ NotCompleted:
 
           .if ATARIAGESAVE
             ;; Wipe out High Score record when powered on with Select & Reset down.
+WipeHighScore:
             lda SWCHB
             and # SWCHBReset | SWCHBSelect
-            beq WipeHighScore
+            beq DoWipeHighScore
 
             rts
 
-WipeHighScore:
+DoWipeHighScore:
+            lda # 0
+            jsr i2cWaitForAck
             lda # 0
             jsr i2cStartWrite
             lda #$fd            ; position of high score
