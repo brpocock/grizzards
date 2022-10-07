@@ -12,6 +12,7 @@ SetGrizzardAddress: .block
 
           tax
           lda GrizAddrTable, x
+          sta Pointer
           .StartI2C
           lda Pointer
           jmp i2cTxByte         ; tail call
