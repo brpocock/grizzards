@@ -3,6 +3,53 @@
 SetGrizzardAddress: .block
           ;; Call with Grizzard ID in .A
 
+          .if ATARIAGESAVE
+
+          ;; Each Grizzard's  data must be aligned to 16-byte boundaries
+          ;; so we must divide into 3 sets The easiest way to do this is
+          ;; to group  by 15 byte  (3×5) groupings, which we'll  use the
+          ;; high bits to select.
+
+          tax
+          lda GrizAddrTable, x
+          .StartI2C
+          lda Pointer
+          jmp i2cTxByte         ; tail call
+
+GrizAddrTable:
+          .byte $40 ; Grizzard #1
+          .byte $45 ; Grizzard #2
+          .byte $4A ; Grizzard #3
+          .byte $50 ; Grizzard #4
+          .byte $55 ; Grizzard #5
+          .byte $5A ; Grizzard #6
+          .byte $60 ; Grizzard #7
+          .byte $65 ; Grizzard #8
+          .byte $6A ; Grizzard #9
+          .byte $70 ; Grizzard #10
+          .byte $75 ; Grizzard #11
+          .byte $7A ; Grizzard #12
+          .byte $80 ; Grizzard #13
+          .byte $85 ; Grizzard #14
+          .byte $8A ; Grizzard #15
+          .byte $90 ; Grizzard #16
+          .byte $95 ; Grizzard #17
+          .byte $9A ; Grizzard #18
+          .byte $A0 ; Grizzard #19
+          .byte $A5 ; Grizzard #20
+          .byte $AA ; Grizzard #21
+          .byte $B0 ; Grizzard #22
+          .byte $B5 ; Grizzard #23
+          .byte $BA ; Grizzard #24
+          .byte $C0 ; Grizzard #25
+          .byte $C5 ; Grizzard #26
+          .byte $CA ; Grizzard #27
+          .byte $D0 ; Grizzard #28
+          .byte $D5 ; Grizzard #29
+          .byte $DA ; Grizzard #30
+
+          .else
+
           ;; Grizzard data is weirder storage layout.
           ;; We save 12 grizzards at 5 bytes each in each of
           ;; the 3 blocks following the master block. That
@@ -58,5 +105,7 @@ ReadyToSendAddress:
           .StartI2C
           lda Pointer
           jmp i2cTxByte         ; tail call
+
+          .fi
 
           .bend
