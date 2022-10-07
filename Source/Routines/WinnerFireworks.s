@@ -156,7 +156,11 @@ AnnounceWin:
           ;; Do  this whether  or not  we're checking  for high  scores,
           ;; because  we need  to populate  the NameEntryBuffer  for the
           ;; winning screen.
+          lda Potions
+          pha
           .FarJSR SaveKeyBank, ServiceCheckSaveSlot
+          pla
+          sta Potions
 
           .WaitScreenBottom
           .if ATARIAGESAVE
