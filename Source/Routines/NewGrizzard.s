@@ -123,7 +123,7 @@ Defaults:
           .fi
           sta GrizzardDefense
 +
-          iny
+          iny                   ; skip over Metamorphosis value
           .mva GrizzardXP, # 0               ; XP always starts at zero
           iny
           lda GrizzardStartingStats, y
