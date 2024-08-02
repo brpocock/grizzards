@@ -30,7 +30,8 @@ its own proprietary AtariAge cartridge with built-in save game support.
 How to Play
 ------------
 
-Check the Manual for full detailed instructions.
+Check the Manual for full detailed instructions. (`make doc` and look in
+the `Dist` folder afterwards)
 
 
 Testing
@@ -123,4 +124,4 @@ If you  have a  Harmony or  Uno cartridge  and mount  the SD  card under
 the  default  mount  points  and   SD  disk  labels  for  those  devices
 respectively  on  Fedora at  least,  you  can  write  to the  top  level
 directory with `make harmony`  or `make uno`. It may be  just as easy to
-`make demo` and copy the `.a26` files over directly.
+`make demo` and copy the `.a26` files over directly (from `Dist`).
