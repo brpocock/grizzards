@@ -49,15 +49,26 @@ ROM banks have enumerated symbolic names:
  * 7 is the  SFXBank, handling sound effects, speech  synthesis, and the
    music for the title/attract sequence.
 
- * Banks 8‐13 are the Signpost banks for the full game. There's a lot of
-   text (and  speech phoneme) data here.  Note that the demo  (32k) uses
-   bank 5 for all its Signpost data.
+ * Banks  8‐12  ($0c)  are  the   Signpost  banks  for  the  full  game.
+   There's a lot  of text (and speech phoneme) data  here. Note that the
+   demo (32k) uses bank 5 for all its Signpost data.
 
- * Bank 14 is  the EndAnimations bank, which are animations  not used in
-   the demo builds.
+* Bank  12 ($0c)  contains  the  end of  game  sequence,  which has  the
+  unfortunate and  misleading name WinnerFireworks (there  are no actual
+  fireworks in the final game).
+
+* Bank 13  ($0d) contains the  graphics for the initial  Grizzards (e.g.
+  title screen) and final boss,  as well as BeginNamePrompt which allows
+  the user to enter their name when they start a new game.
+
+ * Bank 14 ($0e) contains drawing  routines for monsters and bosses, and
+   also the routine for quaffing a potion.
 
  * Bank 15  is the animation  services bank generally (replaced  by bank
-   3 in the demo).
+   3  in  the  demo),   handling  miscellaneous  services  like  writing
+   12-character text,  drawing Grizzards, doing  the "story" bit  of the
+   Attract sequence,  handling user replies to  dialogue, displaying the
+   final score, and Grizzard metamorphoses.
 
 Each  bank includes  Source/Common/StartBank.s  which  includes the  RAM
 layouts and various  constants and macros that will be  useful, but does
@@ -103,13 +114,11 @@ pitch adjustments; however, the music  compiler writes out both NTSC and
 PAL  (shared with  SECAM) versions  of pitches  to ensure  best-possible
 fidelity of music  playback.
 
-Music routines  exist in Bank  7 for  the title song,  and in banks  3 &
-4 for  the map background music  for each region of  the game (currently
-the same  music for both, but  pitch-shifted; I need to  write something
-else). Sounds  and music are in  identical formats, but music  loops and
-sound  effects stop  and play  the  next one  (if any)  from the  queue.
-These functions maybe  could be combined cleverly to scrape  a few bytes
-of ROM.
+Music routines exist in  Bank 7 for the title song, and in  banks 3, 4 &
+5 for the map  background music for each region of  the game. Sounds and
+music are in  identical formats, but music loops and  sound effects stop
+and play  the next one  (if any) from  the queue. These  functions maybe
+could be combined cleverly to scrape a few bytes of ROM.
 
 Speech routines use CurrentUtterance as a  pointer to a phoneme; once it
 is zeroed  out (because the utterance  has been completed), a  caller is
@@ -126,7 +135,8 @@ does not require Y to be loaded with a service routine ID.
 Common code  is used for VSync,  VBlank, and Overscan in  every ROM bank
 that  uses them  — which  is every  bank except  7. Additional  code for
 VBlank can  be added by defining  a label DoVBlank in  the Bank0n.s file
-pointed  to  the additional  routine.
+pointed to the  additional routine. It'll be picked  up automatically at
+compile-time.
 
 Some FarCalled  routines (eg. player  death) may never return,  and they
 reset  the stack  pointer  (to $ff)  and go  about  their own  business.
@@ -135,7 +145,7 @@ The same is true of switching "screens" in general.
 There is  a 6-char StringBuffer  used for composing  text, and a  set of
 6 (word-length)  “pixel pointers”  used for various  graphics functions,
 including text  display. There's  also a one  byte Temp  and word-length
-Pointer temp vars that are used constantly.
+Pointer temp vars that are used all over the place.
 
 Part of zero  page is globally used;  part of that is saved  to the save
 game “file”  on the EEPROM. A  set of game flags  (indicating victory in
@@ -300,20 +310,14 @@ BUILDS AND BUILDING
 
 There are NTSC, PAL, and SECAM versions for each of the following:
 
- * The stand-alone Unerase  utility, which may be folded in  to the code
-   if space can be found. (4k)
-
  * The Demo and NoSave demo builds. (32k each)
 
  * The “public” builds using  SaveKey/MemCard/AtariVox memory. These are
-   the  default builds,  really.  There are  three  for each  territory:
-   Airex, Aquax, and Dirtex. (64k each)
+   the default  builds, really.  There is one  build for  each territory
+   (PAL, SECAM, NTSC) (64k each)
 
  * The AtariAge  builds using on-cartridge  save memory. There  are also
-   three of  these for each  territory: Airex, Aquax, and  Dirtex. (also
-   64k each)
-
-This builds a total of 3 + 3×2 + 3×3 + 3×3 = 27 binary ROM images.
+   three of these, as well. (also 64k each)
 
 The main Makefile contains numerous  targets, but the individual sources
 for   each   bank   are    in   Source/Generated/Makefile   created   by
@@ -333,19 +337,15 @@ use bin/sloc -a.
 For testing, there are convenient  Makefile targets for launching Stella
 with the latest build of various types.
 
- * stella = NTSC Aquax full game (public version)
+ * stella = NTSC full game (public version)
 
  * dstella = NTSC Demo
 
  * nstella = NTSC NoSave demo
 
- * stella-pal = PAL Aquax full game
+ * stella-pal = PAL full game
 
- * stella-secam = SECAM Aquax full game
-
- * stella-airex = NTSC Airex full game
-
- * stella-dirtex = NTSC Dirtex full game
+ * stella-secam = SECAM full game
 
 Since Stella does  not (yet?) support the on-cartridge  save ROM format,
 so the AtariAge versions must be tested  in EPROM form. Since I can only

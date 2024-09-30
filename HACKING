@@ -1,0 +1,299 @@
+CONCEPTS
+
+The game is built  up from three PROVINCES which consist  of a number of
+MAPS and within  which are found GRIZZARDS,  COMBAT SCENARIOS, SIGNPOSTS
+and  NPCs (NPCs  are  just walking  signposts,  internally), and  COMBAT
+SCENARIOS reference MONSTERS.
+
+
+
+
+PROVINCES
+
+Each province has maps, flags, and a theme song.
+
+There are  64 flags (0-63) per  province, these must contain  all of the
+player's  progress  data.  They   can  represent  combat  victories,  or
+completing a task (eg having a particular conversation with a particular
+NPC  or finding  a quest  item). They  can then  alter maps  as well  as
+dialogue (signposts).
+
+Province 0 is  in Bank $04, Province  1 in $05, 2 in  $03. These evolved
+organically and then I never got around to renumbering them sensibly.
+
+The songs are simply named Province0.midi or so forth.
+
+
+
+DIALOGUE — SIGNPOSTS
+
+SignpostText.s in each "signpost" bank contains:
+
+FirstSignpost = nnn
+
+The ID of the first signpost  in this file. Must be calculated correctly
+by hand or the  game may hang while looking for a  message. The first ID
+in bank $08 is 0, then for each bank, sum the count of messages from the
+bank before.  EG, if there  are 16 messages in  Bank $08, then  Bank $09
+should have FirstSignpost = 16 (0 + 16).
+
+Signs = ( Sign_foo, NPC_foo, … )
+
+The Signs table enumerates, in order,  the messages in this memory bank.
+These must be  enumerated in the same order as  their speech equivalents
+in SignpostSpeech.txt.  Each entry on this  list must be a  label of the
+text version  (in this  file) and the  entire list must  be on  one line
+(unless you know how to get fancy with Turbo Assembler syntax).
+
+SignH / SignL are calculated from Signs
+
+Then, individual signposts or NPCs:
+
+I usually  put a  comment with  the message number.  You'll need  it for
+maps, anyway. eg: ;;; 4
+
+The label, I  usually prefix with Sign_ or NPC_  although there are some
+rare exceptions. The label name does not matter at all.
+
+The  next  two  lines  are  the  foreground  and  background  colors  of
+the screen.  The `.colu` macro will  take a color name  like COLGRAY and
+a luminance (even numbers $0 - $e) value.
+
+Next, we MAY  have a choice flag. The  way this works is: we  put a byte
+$ff, along with the flag ID to  test, and the replacement message to use
+if that flag IS SET. Flag IDs are relative to the current Province.
+
+So, for example,  .byte $ff, 1, 95 ;  — this means $ff = "IF",  1 = flag
+$01 is set, then go to message (signpost) 95.
+
+The choice  (IF) section is  OPTIONAL, is  USUALLY ABSENT, and  can only
+occur once.
+
+Following the colors  (and optional choice/if line), we have  the 5 × 12
+characters of  text, which  should be packed  using the  SignText macro.
+Each line must have precisely 12 characters, so pad with spaces manually
+if you need to.
+
+Following the  5 text lines are  the "next steps" to  perform, typically
+a Mode flag from the below:
+
+ModeSignpostDone —  when the player  dismisses the message,  just return
+to the game without doing anything else.
+
+ModeSignpostPoints — gives the player some points, and then continues to
+read  on for  an additional  mode change.  The number  of bytes  must be
+given as a .word. eg.
+
+    .byte ModeSignpostPoints
+    .word $0010
+    .byte ModeSignpostDone
+
+The Points are granted, and then the next instruction (ModeSignpostDone)
+is considered as well.
+
+ModeSignpostSetFlag — sets  a flag to TRUE. The flag  number is given as
+a .byte value and is relative to the current Province.
+
+ModeSignpostClearFlag — sets  a flag to FALSE. Takes the  flag number as
+a .byte value.
+
+ModeSignpostInquire — asks the player a question.
+
+The  next  two bytes  are  the  destination  message  IDs based  on  the
+user's  input, followed  by the  special .Response  macro to  supply two
+six-character response messages.
+
+For example,
+
+          .byte ModeSignpostInquire
+          .byte 88, 89
+          .Response "SOUTH ", "WEST  "
+
+This means: Ask the player to pick  from "SOUTH" or "WEST". If they pick
+"SOUTH", then go to message 88, if "WEST", 89.
+
+ModeSignpostNext —  after the player  acknowledges this sign, go  to and
+display another one. The next sign's ID is given as a .byte.
+
+ModeSignpostPotions — this is a  weird special-case. It gifts the player
+a certain number of potions, given as a byte.
+
+ModeSignpostSet0And63  — this  sets  flags  0 &  63  both, and  requires
+no parameters. It's used in Grizzards for finding Peter.
+
+ModeSignpostSetTimer  — is  not  actually supported,  it  was meant  for
+a Metroid-style escape sequence which was cut.
+
+ModeSignpostWarp — "warps" the player  to another province and location.
+The  next bytes  are the  province  ID and  the room  in that  province.
+The player's position on the screen will not be changed at all.
+
+ModeTrainLastMove   —  trains   the  active   Grizzard  its   last  move
+(sequentially)
+
+
+Also,  SignpostSpeech.txt  contains  all   the  same  messages,  but  in
+a specific text catalogue format.
+
+Each utterance begins with a label  (this generally should be similar to
+the label in SignpostText.s in that bank) and a : (colon)
+
+On the  next line is  the text  itself, written more-or-less  in typical
+sentence form, with a few exceptions. WRITEME
+
+
+
+
+
+
+MAPS
+
+
+Admittedly, this is painful.
+
+
+MapCount = NN
+
+number of maps in this province
+
+MapColors:
+
+The  colors  for  each  room  in order,  as  foreground  and  background
+COL constants. The assembler will remap for e.g. PAL or SECAM colors, if
+possible (always check SECAM). Use the .colors macro to pack them.
+
+MapLinks:
+
+For each map, enumerate the room  found to its north (up), south (down),
+west (left), and  east (right), or $ff  if there is no way  to leave the
+room in that direction.
+
+MapRLE:
+
+Enumerate which RLE-encoded room graphic to use for each map.
+
+MapSides:
+
+Maps are  symmetrical, EXCEPT  we can add  the Ball to  one side  or the
+other (only  one, not both).  For a  ball at the  left, use $80,  on the
+right, use $40, for neither, $00. Enumerate the "Sides" of each map.
+
+SpriteList:
+
+This is where we enumerate the virtual sprites for each room.
+
+For each map, list as many sprites as are needed, followed by .byte 0 to
+end the room. If there are no sprites, just .byte 0
+
+A sprite entry starts with a flag  which, if set, will REMOVE the sprite
+from  the  scene. EG:  if  you've  won a  battle  and  the monster  does
+not  respawn.  If   $ff,  then  the  sprite  is   "permanent"  and  will
+always spawn.
+
+The   next  byte   is   a  constant   like  SpriteFixed,   SpriteWander,
+or SpriteRandomEncounter.  A "fixed" sprite  is nailed down,  a "wander"
+sprite walks around semi-randomly, and a random encounter isn't actually
+a sprite at all (more below).
+
+The next  two bytes  are the x,  y position at  which the  sprite should
+begin;  or .byte  0,  0 to  randomly  place it  anywhere  that there  is
+open floorspace.
+
+Finally, the sprite's action and its parameter:
+
+SpriteCombat   —   fight   with   monsters.  Parameter   is   a   combat
+scenario number.
+
+SpriteGrizzardDepot — save and heal, no  parameter value needed, just pad with
+0
+
+SpriteGrizzard — discover  (catch) a new Grizzard;  Grizzard ID follows.
+Will not appear if the Grizzard has been caught already
+
+SpriteDoor  — travel  to another  room; provide  the room  (map) number.
+If there is a  door in that map, the player  will be positioned directly
+under it.
+
+SpriteSign  — a  signpost. Parameter  is the  message ID  (see SIGNPOSTS
+section above)
+
+SpritePerson — the same as SpriteSign, actually, but displays as a human
+figure.
+
+SpriteMajorCombat — a boss fight.  Same as SpriteCombat, but displays as
+a humanoid monster.
+
+Each map may have up to 4 total sprites.
+
+
+The companion file is Maps0RLE.s or so
+
+Each Map RLE  consists of lines of  a repeat count, then  the values for
+PF0, PF1,  and PF2. Recall that  PF1 is backwards compared  to the other
+two, and all three are reflected symmetrically on the right.
+
+Each stanza should total precisely 74 lines.
+
+For safety, end the file with .byte $7f, 0, 0, 0
+
+
+
+
+
+
+
+COMBAT SCENARIOS
+
+File: Combat6.s
+
+EncounterMonster: ID of the kind of monster in each scenario.
+
+EncounterQuantity: number of monsters in that scenario, 1-6
+
+There are 96 scenarios, 0-95
+
+Note that boss fights  are just a fight with a  single monster which was
+also entered via the MajorCombat action on the map.
+
+
+
+
+
+
+MONSTERS
+
+File: Monsters6.s
+
+For each monster:
+
+The .Text12 of its name, which will be displayed as 2 6-character lines.
+Pad  with  spaces, if  needed;  we  usually pad  the  first  line to  be
+left-justified and  the second  line to be  right-justified, so  all the
+spaces are in the middle.
+
+.byte with monster art (shape data)
+
+.mcolu for the monster color for  the demo version (where monsters don't
+have line-by-line coloring)
+
+Three .bytes for Attack, Defend, and HP
+
+A   .word  for   how  many   points   are  earned   by  murdering   this
+particular monster.
+
+File: MonsterMoves.s
+
+For each monster, list 4 moves that  it knows. there are 46 monster IDs,
+0 - 45.
+
+File (bank $03): MonsterColors.s
+
+For the full game, monsters get line-by-line colors.
+
+Use .mcolu to set the color  and luminance of each, it will auto-correct
+for PAL/SECAM. Each monster has 8 lines.
+
+Note that the final boss has its own graphics and does not use this.
+
+
+
