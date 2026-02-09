@@ -2,6 +2,7 @@ Grizzards
 =====================
 
 TL;DR — A turn-based RPG beta release that requires SaveKey or AtariVox.
+(or EFF cartridge board)
 
 
 Building: `make` at the top level
@@ -12,18 +13,20 @@ Copyright © 2021-2022, Bruce-Robert Pocock
 
 
 
-https://star-hope.org/games/Grizzards/
+https://Grizzards.com/
 
 
 
 You see, what had happened was …
 ------------------
 
-This is a turn-based RPG for the Atari 2600. The demo version (linked below)
-requires only an F4 (32kiB) bank switched cartridge, and a SaveKey device.
+This is  a turn-based RPG for  the Atari 2600. The  demo version (linked
+below)  requires  only  an  F4  (32kiB)  bank  switched  cartridge,  and
+a SaveKey device.
 
-The full build is 64kiB (EF banked) and can be compiled for SaveKey or for
-its own proprietary AtariAge cartridge with built-in save game support.
+The full build is  64kiB (EF banked) and can be  compiled for SaveKey or
+for  its own  proprietary (EFF)  AtariAge cartridge  with built-in  save
+game support.
 
 
 
@@ -53,7 +56,7 @@ Naturally, I'm excited to see any feedback.
 Development
 -----------
 
-Check out Guts.txt for a (usually out-of-date) overview 
+Check out Guts.txt for a (usually out-of-date) overview
 
 
 
@@ -62,7 +65,7 @@ Credits
 
 Program, art, etc. — Bruce-Robert Pocock.
 
-Music, manual cover and additional artwork — Zephyr Salz
+Music, manual cover and additional artwork — Zephyr Pocock
 
 Full credits in the manual
 

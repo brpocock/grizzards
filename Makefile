@@ -1,6 +1,6 @@
 default:	game doc
 
-all:	game demo no-save doc atariage
+all:	game demo no-save doc atariage portbin
 
 atariage:	Dist/Grizzards.AtariAge.zip
 
