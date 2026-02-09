@@ -145,8 +145,8 @@ Credits_3:
           .SignText "MUSIC AND   "
           .SignText "ADDITIONAL  "
           .SignText "ART BY      "
-          .SignText "ZEPHYR SALZ "
-          .SignText "            "
+          .SignText "ZEPHYR      "
+          .SignText "      POCOCK"
           .byte ModeSignpostNext, 111
 
 ;;; 111

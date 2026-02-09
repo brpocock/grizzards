@@ -1,5 +1,6 @@
 ;;; Grizzards Source/Routines/ColdStart.s
-;;; Copyright © 2021-2022 Bruce-Robert Pocock
+;;;; Copyright © 2021-2022 Bruce-Robert Pocock
+;;; Copyright © 2026 Interworldly Adventuring, LLC
 
 ;;; Cold start routines
 ;;;
@@ -18,7 +19,9 @@ ColdStart:         .block
           ;; Note:  we're not  actually  using that  now, the  zero-page
 	;; console detection routine should be more reliable according to
 	;; common wisdom around the AtariAge boards.
-          ;;;; tsx
+
+          ldx #$ff
+          txs
 
           lda # 0
           ldy #$2c              ; reset TIA

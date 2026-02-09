@@ -1,6 +1,7 @@
 ;;; Grizzards Source/Common/EndBank.s
-;;; Copyright © 2021-2022, Bruce-Robert Pocock
-;;; Common logic at the end of every ROM bank.
+;;;; Copyright © 2021-2022, Bruce-Robert Pocock
+;;; Copyright © 2026, Interworldly Adventuring, LLC
+;;;; Common logic at the end of every ROM bank.
 
 EndBank:
 
@@ -21,8 +22,8 @@ EndBank:
 ;;; 
           .proff
           ;; Fill with cute junk
-            .enc "Unicode"
-            .fill BankEndAddress - *, format("%d-%d-%d%chttps://star-hope.org/games/Grizzards%c", YEARNOW, MONTHNOW, DATENOW, 0, 0)
+            .enc "ASCII"
+          .fill BankEndAddress - *, format("%d-%d-%d%chttps://Grizzards.com/%c", YEARNOW, MONTHNOW, DATENOW, 0, 0)
             .enc "none"
           .pron
 ;;; 

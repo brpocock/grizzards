@@ -37,8 +37,8 @@
 
           ConfigPartNumber = format ("Griz%s.%s", ConfigCode, TVTypeName)
 
-          .enc "Unicode"
-          .cdef $00, $1ffff, 0
+          .enc "ASCII"
+          .cdef $00, $7f, 0
 
 	.include "Math.s"
 	.include "VCS.s"

@@ -11,7 +11,7 @@
 ;;; Adapted for AtariAge save circuit by Fred Quimby (batari)
 
 SaveGameSignatureString:
-          .enc "Unicode"
+          .enc "ASCII"
           .text SaveGameSignature
 
           i2cClockPort0 = $1ff0

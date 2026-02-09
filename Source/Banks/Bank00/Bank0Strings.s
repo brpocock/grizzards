@@ -30,7 +30,7 @@ PocockText:
 WithLoveText:
           .SignText "WITH LOVE TO"
 ZephyrText:
-          .SignText "ZEPHYR SALZ "
+          .SignText "ZEPHYR P.   "
 
 DatestampText:
           .SignText format("%04d%02d%02d%02d%02d", YEARNOW, MONTHNOW, DATENOW, HOURNOW, MINUTENOW)
