@@ -242,6 +242,23 @@ MapSides:
 
 ;;; 
 SpriteList:
+;;; The Sprites Lists
+;;;
+;;; Each screen  can have  a list  of sprites here,  ending with  a zero
+;;; byte. Each sprite  is a 6-byte structure, with its  memory ID, type,
+;;; X, Y, action, and action-parameter listed.
+;;;
+;;; The memory ID  is the bit number in the  province's game flags array
+;;; which indicates  whether the encounter  has been completed.  If $ff,
+;;; then  the  sprite  will  always appear  when  entering  the  screen.
+;;; Otherwise, if the  given bit is set, the sprite  will not appear (be
+;;; suppressed).
+;;;
+;;; A fixed sprite appears at the given position and stays there.
+;;; Moving sprites wander the screen, obeying walls.
+;;; Random encounters occupy a sprite data slot but are not actually
+;;; visible on the screen.
+
           ;; Room 0 (unused)
           .byte 0
 
